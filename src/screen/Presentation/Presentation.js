@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
+import vars from '../../vars';
 import i18n from '../../i18n';
 
-export default class PresentationScreen extends Component {
+export default class Presentation extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.logo}source={require('./icons/logo@2x.png')} />
+        <Image style={styles.logo}source={require('./../../components/icons/logo.png')} />
         <Text style={styles.title}>{i18n.presentation.title}</Text>
         <View style={styles.list}>
           <View style={styles.listItem}>
@@ -30,7 +32,7 @@ export default class PresentationScreen extends Component {
         <TouchableHighlight style={styles.continue}>
           <Text style={styles.continueText}>{i18n.continue}</Text>
         </TouchableHighlight>
-        <Text style={styles.auth}>{i18n.authAsMaster}</Text>
+        <Text onPress={Actions.masterAuthorization} style={styles.auth}>{i18n.authAsMaster}</Text>
       </View>
     );
   }
@@ -38,7 +40,7 @@ export default class PresentationScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f65f6e',
+    backgroundColor: vars.bodyColor,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
