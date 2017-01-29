@@ -1,0 +1,3 @@
+rootProject.name = 'pilochka'
+
+include ':app'
