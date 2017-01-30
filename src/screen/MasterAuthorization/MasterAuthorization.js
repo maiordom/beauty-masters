@@ -56,7 +56,12 @@ export default class MasterAuthorization extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.navBar}>
-          <TouchableHighlight style={styles.close} onPress={Actions.presentation}>
+          <TouchableHighlight
+            style={styles.close}
+            onPress={Actions.presentation}
+            activeOpacity={1}
+            underlayColor="transparent"
+          >
             <Image source={require('../../components/icons/close.png')} />
           </TouchableHighlight>
           <Text style={styles.navTitle}>{i18n.masterAuthorization}</Text>

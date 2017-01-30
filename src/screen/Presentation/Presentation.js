@@ -32,7 +32,13 @@ export default class Presentation extends Component {
         <TouchableHighlight style={styles.continue}>
           <Text style={styles.continueText}>{i18n.continue}</Text>
         </TouchableHighlight>
-        <Text onPress={Actions.masterAuthorization} style={styles.auth}>{i18n.authAsMaster}</Text>
+        <TouchableHighlight
+          onPress={Actions.masterAuthorization}
+          activeOpacity={1}
+          underlayColor="transparent"
+        >
+          <Text style={styles.auth}>{i18n.authAsMaster}</Text>
+        </TouchableHighlight>
       </View>
     );
   }
