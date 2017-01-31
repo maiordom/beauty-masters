@@ -10,8 +10,8 @@ export default class NavigationRouter extends Component {
     return (
       <Router sceneStyle={styles.container}>
         <Scene key="root" hideNavBar animationStyle="leftToRight">
-          <Scene key='presentation' component={Presentation} />
-          <Scene initial key="masterAuthorization" component={MasterAuthorization} />
+          <Scene initial key='presentation' component={Presentation} />
+          <Scene key="masterAuthorization" component={MasterAuthorization} />
         </Scene>
       </Router>
     );

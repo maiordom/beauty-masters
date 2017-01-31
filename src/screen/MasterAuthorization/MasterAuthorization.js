@@ -58,7 +58,7 @@ export default class MasterAuthorization extends Component {
         <View style={styles.navBar}>
           <TouchableHighlight
             style={styles.close}
-            onPress={Actions.presentation}
+            onPress={Actions.pop}
             activeOpacity={1}
             underlayColor="transparent"
           >
@@ -89,7 +89,6 @@ export default class MasterAuthorization extends Component {
         </View>
         <View style={styles.tabContent}>
           {TabItem}
-          <Text>I'm</Text>
         </View>
       </View>
     );
@@ -143,7 +142,8 @@ const styles = StyleSheet.create({
   tabContent: {
     alignSelf: 'stretch',
     backgroundColor: vars.color.white,
-    flex: 1
+    flex: 1,
+    paddingTop: 32
   },
   switchArrow: {
     height: 8,
