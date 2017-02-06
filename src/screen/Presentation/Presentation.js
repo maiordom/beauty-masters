@@ -125,9 +125,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  list: {
-    marginBottom: 30
-  },
   continueButton: {
     alignSelf: 'center',
     backgroundColor: vars.color.white,
