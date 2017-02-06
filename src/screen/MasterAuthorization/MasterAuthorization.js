@@ -62,11 +62,11 @@ export default class MasterAuthorization extends Component {
             activeOpacity={1}
             underlayColor="transparent"
           >
-            <Image source={require('../../components/icons/close.png')} />
+            <Image source={require('../../icons/close.png')} />
           </TouchableHighlight>
           <Text style={styles.navTitle}>{i18n.masterAuthorization}</Text>
         </View>
-        <Image style={styles.logo} source={require('../../components/icons/logo.png')} />
+        <Image style={styles.logo} source={require('../../icons/logo.png')} />
         <View style={styles.tabs}>
           {_.map(tabs, (tab, index) => {
             return <TouchableHighlight
@@ -80,7 +80,7 @@ export default class MasterAuthorization extends Component {
                 <Text style={tab.style}>{tab.title}</Text>
                 <View style={styles.switchArrow}>
                   {tab.active && (
-                    <Image source={require('../../components/icons/switch-arrow.png')} />
+                    <Image source={require('../../icons/switch-arrow.png')} />
                   )}
                 </View>
               </View>
