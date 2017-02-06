@@ -16,6 +16,11 @@ const logoIcon = Platform.select({
   android: require('../../icons/logo-large.png')
 })
 
+const switchArrowIcon = Platform.select({
+  ios: require('../../icons/ios/switch-arrow.png'),
+  android: require('../../icons/android/switch-arrow.png')
+});
+
 export default class MasterAuthorization extends Component {
   constructor() {
     super();
@@ -87,7 +92,7 @@ export default class MasterAuthorization extends Component {
                 <Text style={tab.style}>{tab.title}</Text>
                 <View style={styles.switchArrow}>
                   {tab.active && (
-                    <Image source={require('../../icons/switch-arrow.png')} />
+                    <Image source={switchArrowIcon} />
                   )}
                 </View>
               </View>
@@ -191,6 +196,11 @@ const styles = StyleSheet.create({
   },
   switchArrow: {
     height: 8,
-    alignItems: 'center'
+    alignItems: 'center',
+    ...Platform.select({
+      android: {
+        height: 6
+      }
+    })
   }
 });
