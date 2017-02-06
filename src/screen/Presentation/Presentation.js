@@ -112,9 +112,6 @@ const styles = StyleSheet.create({
     color: vars.color.white,
     marginLeft: 15,
     ...Platform.select({
-      ios: {
-        fontSize: 14
-      },
       android: {
         fontSize: 16
       }
@@ -144,7 +141,11 @@ const styles = StyleSheet.create({
   },
   continueText: {
     color: vars.color.red,
-    fontSize: 17
+    ...Platform.select({
+      ios: {
+        fontSize: 17
+      }
+    })
   },
   authButton: {
     alignSelf: 'stretch',
@@ -168,9 +169,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         fontSize: 17
-      },
-      android: {
-        fontSize: 14
       }
     })
   }

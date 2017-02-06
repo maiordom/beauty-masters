@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import Registration from '../../components/Registration';
@@ -8,6 +8,13 @@ import Login from '../../components/Login';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+
+import { hexToRgba } from '../../utils';
+
+const logoIcon = Platform.select({
+  ios: require('../../icons/logo.png'),
+  android: require('../../icons/logo-large.png')
+})
 
 export default class MasterAuthorization extends Component {
   constructor() {
@@ -66,7 +73,7 @@ export default class MasterAuthorization extends Component {
           </TouchableHighlight>
           <Text style={styles.navTitle}>{i18n.masterAuthorization}</Text>
         </View>
-        <Image style={styles.logo} source={require('../../icons/logo.png')} />
+        <Image style={styles.logo} source={logoIcon} />
         <View style={styles.tabs}>
           {_.map(tabs, (tab, index) => {
             return <TouchableHighlight
@@ -102,25 +109,52 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   navBar: {
-    marginTop: 20,
     height: 40,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    ...Platform.select({
+      ios: {
+        marginTop: 20
+      },
+      android: {
+        height: 56
+      }
+    })
   },
   navTitle: {
     color: vars.color.white,
-    fontSize: 17
+    fontSize: 17,
+    ...Platform.select({
+      android: {
+        fontSize: 20
+      }
+    })
   },
   close: {
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
-    left: 15,
-    top: 13
+    left: 0,
+    top: 0,
+    width: 40,
+    height: 40,
+    ...Platform.select({
+      android: {
+        width: 56,
+        height: 56
+      }
+    })
   },
   logo: {
     marginTop: 56,
-    marginBottom: 56
+    marginBottom: 56,
+    ...Platform.select({
+      android: {
+        marginTop: 40
+      }
+    })
   },
   tabs: {
     flex: 0,
@@ -133,11 +167,21 @@ const styles = StyleSheet.create({
   },
   tab: {
     fontSize: 17,
-    color: 'rgba(255, 255, 255, 0.7)'
+    color: hexToRgba(vars.color.white, 70),
+    ...Platform.select({
+      android: {
+        fontSize: 16
+      }
+    })
   },
   tabActive: {
     fontSize: 17,
     color: vars.color.white,
+    ...Platform.select({
+      android: {
+        fontSize: 16
+      }
+    })
   },
   tabContent: {
     alignSelf: 'stretch',
