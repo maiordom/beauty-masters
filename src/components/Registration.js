@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, TouchableHighlight, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableHighlight, Platform } from 'react-native';
+
+import Input from '../components/Input';
 
 import i18n from '../i18n';
 import { hexToRgba } from '../utils';
@@ -12,31 +14,21 @@ const i18nSignUp = Platform.select({
 
 export default class Registration extends Component {
   render() {
+    const { registerUser } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.wrapper}>
-          <View style={styles.inputWrapper}>
-            {Platform.OS === 'android' && (
-              <Image source={require('../icons/mail.png')} />
-            )}
-            <TextInput
-              style={styles.input}
-              placeholder={i18n.yourEmail}
-              placeholderTextColor={hexToRgba('#283741', 50)}
-              underlineColorAndroid="#E4E6E8"
-            />
-          </View>
-          <View style={styles.inputWrapper}>
-            {Platform.OS === 'android' && (
-              <Image source={require('../icons/pwd.png')} />
-            )}
-            <TextInput
-              style={styles.input}
-              placeholder={i18n.passwordTip}
-              placeholderTextColor={hexToRgba('#283741', 50)}
-              underlineColorAndroid="#E4E6E8"
-            />
-          </View>
+          <Input
+            icon={Platform.OS === 'android' && require('../icons/mail.png')}
+            style={styles.input}
+            placeholder={i18n.yourEmail}
+          />
+          <Input
+            icon={Platform.OS === 'android' && require('../icons/pwd.png')}
+            style={styles.input}
+            placeholder={i18n.passwordTip}
+          />
           {Platform.OS === 'android'
           ? <View style={styles.manifest}>
             <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}</Text>
@@ -48,7 +40,7 @@ export default class Registration extends Component {
             <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
           </View>}
         </View>
-        <TouchableHighlight style={styles.registrationButton}>
+        <TouchableHighlight onPress={registerUser} style={styles.registrationButton}>
           <Text style={styles.registrationButtonText}>{i18nSignUp}</Text>
         </TouchableHighlight>
       </View>
@@ -63,24 +55,9 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   input: {
-    flex: 1,
-    alignSelf: 'stretch',
-    height: 44,
     ...Platform.select({
       android: {
-        height: 48,
-        fontSize: 16,
         marginLeft: 16
-      }
-    })
-  },
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#E4E6E8'
       }
     })
   },
@@ -119,7 +96,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         height: 48,
-        width: 240
+        width: 240,
+        borderRadius: 24
       }
     })
   },

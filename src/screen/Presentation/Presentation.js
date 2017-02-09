@@ -135,7 +135,8 @@ const styles = StyleSheet.create({
       },
       android: {
         width: 280,
-        height: 48
+        height: 48,
+        borderRadius: 24
       }
     })
   },

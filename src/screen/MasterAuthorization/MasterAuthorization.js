@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import Registration from '../../components/Registration';
+import Registration from '../../containers/Registration';
 import Login from '../../components/Login';
 
 import i18n from '../../i18n';
@@ -14,7 +14,7 @@ import { hexToRgba } from '../../utils';
 const logoIcon = Platform.select({
   ios: require('../../icons/logo.png'),
   android: require('../../icons/logo-large.png')
-})
+});
 
 const switchArrowIcon = Platform.select({
   ios: require('../../icons/ios/switch-arrow.png'),
