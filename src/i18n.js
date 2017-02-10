@@ -4,6 +4,7 @@ export default {
   firstName: 'Имя',
   lastName: 'Фамилия',
   login: 'Вход',
+  manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
   masterEditor: {
     title: {
@@ -13,6 +14,7 @@ export default {
   },
   next: 'Далее',
   passwordTip: 'Пароль (не менее 6 символов)',
+  pedicure: 'Педикюр',
   phone: 'Телефон (для звонков клиентов)',
   presentation: {
     calendar: 'Запишитесь на прием',

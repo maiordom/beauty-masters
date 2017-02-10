@@ -68,11 +68,11 @@ export default class NavigationRouter extends Component {
     return (
       <Router sceneStyle={styles.container}>
         <Scene key="root" hideNavBar animationStyle="leftToRight">
-          <Scene key="presentation" component={Presentation} />
+          <Scene initial key="presentation" component={Presentation} />
           <Scene key="masterAuthorization" component={MasterAuthorization} />
-          <Scene initial key="masterEditor" {...getMasterStyle()}>
-            <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+          <Scene key="masterEditor" {...getMasterStyle()}>
             <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
+            <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
           </Scene>
         </Scene>
       </Router>

@@ -48,8 +48,8 @@ export default class MasterAuthorization extends Component {
   }
 
   onPress = key => {
-    const {tabs} = this.state;
-    const activeTab = _.find(tabs, {key});
+    const { tabs } = this.state;
+    const activeTab = _.find(tabs, { key });
 
     _.each(tabs, tab => {
       tab.active = false;

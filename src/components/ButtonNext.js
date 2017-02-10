@@ -23,6 +23,7 @@ export default class ButtonNext extends Component {
 
 const styles = StyleSheet.create({
   nextButton: {
+    height: 44,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -31,6 +32,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     ...Platform.select({
+      ios: {
+        fontSize: 17
+      },
       android: {
         height: 48
       }
