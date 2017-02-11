@@ -71,8 +71,8 @@ export default class NavigationRouter extends Component {
           <Scene initial key="presentation" component={Presentation} />
           <Scene key="masterAuthorization" component={MasterAuthorization} />
           <Scene key="masterEditor" {...getMasterStyle()}>
-            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
             <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
           </Scene>
         </Scene>
       </Router>

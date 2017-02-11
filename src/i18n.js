@@ -1,6 +1,17 @@
 export default {
   authAsMaster: 'Авторизоваться как мастер услуг',
   continue: 'Продолжить',
+  filters: {
+    combined: 'Комбинированный',
+    duration: 'Длительность, мин',
+    edging: 'Обрезной/классический',
+    european: 'Европейский/необрезной',
+    express: 'Экспресс',
+    hardware: 'Аппаратный',
+    hot: 'Горячий маникюр',
+    price: 'Стоимость, ₽',
+    spa: 'SPA-маникюр'
+  },
   firstName: 'Имя',
   lastName: 'Фамилия',
   login: 'Вход',
@@ -10,6 +21,9 @@ export default {
     title: {
       stepOne: 'Шаг 1/5: Основная информация',
       stepTwo: 'Шаг 2/5: Услуги'
+    },
+    services: {
+      titleOne: 'Способ обработки ногтей (без покрытия)'
     }
   },
   next: 'Далее',

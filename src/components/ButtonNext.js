@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableHighlight, Platform } from 'react-native';
+import { Text, StyleSheet, TouchableHighlight, Platform, View } from 'react-native';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -14,9 +14,9 @@ export default class ButtonNext extends Component {
     const { onPress } = this.props;
 
     return (
-        <TouchableHighlight onPress={onPress} style={styles.nextButton}>
-          <Text style={styles.nextText}>{i18nNext}</Text>
-        </TouchableHighlight>
+      <TouchableHighlight onPress={onPress} style={styles.nextButton}>
+        <Text style={styles.nextText}>{i18nNext}</Text>
+      </TouchableHighlight>
     );
   }
 }
@@ -24,10 +24,7 @@ export default class ButtonNext extends Component {
 const styles = StyleSheet.create({
   nextButton: {
     height: 44,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    alignSelf: 'stretch',
     backgroundColor: vars.color.red,
     alignItems: 'center',
     justifyContent: 'center',

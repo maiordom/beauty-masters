@@ -8,13 +8,14 @@ export default class Input extends Component {
     const {
       icon,
       style: customInputStyle,
+      inputWrapperStyle,
       placeholder,
       placeholderTextColor,
       underlineColorAndroid
     } = this.props;
 
     return (
-      <View style={inputStyle.inputWrapper}>
+      <View style={[inputStyle.inputWrapper, inputWrapperStyle]}>
         {icon && (
           <Image source={icon} />
         )}
