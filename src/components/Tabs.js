@@ -30,7 +30,7 @@ export default class Tabs extends Component {
     });
 
     this.setState({tabs: [...tabs]});
-    this.props.onPress && this.props(tabActive);
+    this.props.onPress && this.props.onPress(tabActive);
   };
 
   render() {

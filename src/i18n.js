@@ -2,15 +2,39 @@ export default {
   authAsMaster: 'Авторизоваться как мастер услуг',
   continue: 'Продолжить',
   filters: {
+    acrylic: 'Акрилом',
+    anotherNailGel: 'Другого геля-лака',
+    applyingBioGel: 'Нанесение биогеля',
+    applyingNailPolish: 'Нанесение лака',
+    applyingOfAnotherNailGel: 'Нанесение другого геля-лака',
+    applyingShellac: 'Нанесение шеллака',
+    artDesign: 'Хужожественный дизайн',
+    bioGel: 'Биогеля',
     combined: 'Комбинированный',
+    coverage: 'Покрытие',
     duration: 'Длительность, мин',
     edging: 'Обрезной/классический',
     european: 'Европейский/необрезной',
     express: 'Экспресс',
+    form: 'На формы',
+    french: 'Французский',
+    gel: 'Гелем',
+    gradientManicure: 'Градиентный маникюр',
     hardware: 'Аппаратный',
     hot: 'Горячий маникюр',
+    moon: 'Лунный/обратный френч',
+    nailDesign: 'Дизайн ногтей',
+    nailExtension: 'Наращивание ногтей',
+    nailProcessingMethod: 'Способ обработки ногтей (без покрытия)',
+    naroshchennyhNails: 'Нарощенных ногтей',
     price: 'Стоимость, ₽',
-    spa: 'SPA-маникюр'
+    reverseMoon: 'Обратный лунный',
+    shellac: 'Шеллака',
+    spa: 'SPA-маникюр',
+    stencil: 'Трафаретный',
+    tipsy: 'На типсы',
+    varnish: 'Лака',
+    withdrawal: 'Снятие',
   },
   firstName: 'Имя',
   lastName: 'Фамилия',
@@ -20,11 +44,8 @@ export default {
   masterEditor: {
     title: {
       stepOne: 'Шаг 1/5: Основная информация',
-      stepTwo: 'Шаг 2/5: Услуги'
+      stepTwo: 'Шаг 2/5: Услуги',
     },
-    services: {
-      titleOne: 'Способ обработки ногтей (без покрытия)'
-    }
   },
   next: 'Далее',
   passwordTip: 'Пароль (не менее 6 символов)',
@@ -35,7 +56,7 @@ export default {
     list: 'Смотрите список услуг и цен',
     photo: 'Изучите фото мастера и его работ',
     pin: 'Ищите мастеров на карте',
-    title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра'
+    title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра',
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
   registration: 'Регистрация',
