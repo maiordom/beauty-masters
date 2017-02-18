@@ -37,6 +37,14 @@ export default {
     withdrawal: 'Снятие',
   },
   firstName: 'Имя',
+  handlingTool: 'Обработка инструмента',
+  handlingToolMethods: {
+    anotherWay: 'Другой способ',
+    dryHeatMethod: 'Сухожаровой метод',
+    glasperlenovySterilizer: 'Гласперленовый стерилизатор',
+    ultrasound: 'Ультразвук',
+    ultraviolet: 'Ультрафиолет',
+  },
   lastName: 'Фамилия',
   login: 'Вход',
   manicure: 'Маникюр',
@@ -45,6 +53,7 @@ export default {
     title: {
       stepOne: 'Шаг 1/5: Основная информация',
       stepTwo: 'Шаг 2/5: Услуги',
+      stepThree: 'Шаг 3/5: Обработка инструмента'
     },
   },
   next: 'Далее',
@@ -63,6 +72,8 @@ export default {
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
   signUp: 'Зарегистрироваться',
+  specifyHowYouSterilizeTools: 'Укажите, как вы стерилизуете инструменты',
   userAgreement: 'Условия пользовательского соглашения',
-  yourEmail: 'Ваш email'
+  yourEmail: 'Ваш email',
+  yourServices: 'Ваши услуги',
 };

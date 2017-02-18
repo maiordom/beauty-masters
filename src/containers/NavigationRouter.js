@@ -6,6 +6,7 @@ import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
 import MasterEditorGeneral from '../screen/MasterEditor/MasterEditorGeneral';
 import MasterEditorService from '../screen/MasterEditor/MasterEditorService';
+import MasterHandlingTools from '../screen/MasterEditor/MasterHandlingTools';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -71,8 +72,9 @@ export default class NavigationRouter extends Component {
           <Scene key="presentation" component={Presentation} />
           <Scene key="masterAuthorization" component={MasterAuthorization} />
           <Scene initial key="masterEditor" {...getMasterStyle()}>
-            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
             <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
+            <Scene key="masterHandlingTools" title={i18n.masterEditor.title.stepThree} getSceneStyle={getSceneStyle} component={MasterHandlingTools} />
           </Scene>
         </Scene>
       </Router>

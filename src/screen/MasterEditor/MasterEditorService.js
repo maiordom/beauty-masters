@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import Tabs from '../../components/Tabs';
 import ButtonNext from '../../components/ButtonNext';
 import ServicesList from '../../components/ServicesList';
+import Label from '../../components/Label';
 
 import i18n from '../../i18n';
 
@@ -15,12 +17,16 @@ export default class MasterEditorService extends Component {
       tabs: [
         {title: i18n.manicure},
         {title: i18n.pedicure},
-      ]
+      ],
     };
   }
 
   onServicesPress = () => {
 
+  };
+
+  onNextPress = () => {
+    Actions.masterHandlingTools();
   };
 
   render() {
@@ -29,9 +35,10 @@ export default class MasterEditorService extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
+          <Label text={i18n.yourServices} />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
           <ServicesList />
-          <ButtonNext />
+          <ButtonNext onPress={this.onNextPress} />
         </ScrollView>
       </View>
     );
