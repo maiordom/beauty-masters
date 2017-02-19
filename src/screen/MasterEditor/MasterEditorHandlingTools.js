@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import Label from '../../components/Label';
 import Switch from '../../components/Switch';
@@ -9,7 +10,7 @@ import i18n from '../../i18n';
 
 export default class MasterEditorHandlingTools extends Component {
   onPressNext = () => {
-
+    Actions.masterEditorCalendar();
   };
 
   render() {

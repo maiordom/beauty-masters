@@ -73,10 +73,10 @@ export default class NavigationRouter extends Component {
           <Scene initial key="presentation" component={Presentation} />
           <Scene key="masterAuthorization" component={MasterAuthorization} />
           <Scene key="masterEditor" {...getMasterStyle()}>
-            <Scene key="masterEditorCalendar" title={i18n.masterEditor.title.stepFour} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
-            <Scene key="masterEditorHandlingTools" title={i18n.masterEditor.title.stepThree} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
-            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
             <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
+            <Scene key="masterEditorHandlingTools" title={i18n.masterEditor.title.stepThree} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
+            <Scene key="masterEditorCalendar" title={i18n.masterEditor.title.stepFour} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
           </Scene>
         </Scene>
       </Router>

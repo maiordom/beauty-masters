@@ -26,7 +26,7 @@ export default class MasterEditorService extends Component {
   };
 
   onNextPress = () => {
-    Actions.masterHandlingTools();
+    Actions.masterEditorHandlingTools();
   };
 
   render() {
