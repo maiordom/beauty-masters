@@ -36,7 +36,7 @@ const getMasterStyle = () => {
   };
 
   const titleStyle = {
-    width: 250,
+    width: 265,
     fontSize: 20,
     color: vars.color.white
   };
