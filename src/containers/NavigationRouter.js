@@ -6,7 +6,8 @@ import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
 import MasterEditorGeneral from '../screen/MasterEditor/MasterEditorGeneral';
 import MasterEditorService from '../screen/MasterEditor/MasterEditorService';
-import MasterHandlingTools from '../screen/MasterEditor/MasterHandlingTools';
+import MasterEditorHandlingTools from '../screen/MasterEditor/MasterEditorHandlingTools';
+import MasterEditorCalendar from '../screen/MasterEditor/MasterEditorCalendar';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -69,12 +70,13 @@ export default class NavigationRouter extends Component {
     return (
       <Router sceneStyle={styles.container}>
         <Scene key="root" hideNavBar animationStyle="leftToRight">
-          <Scene key="presentation" component={Presentation} />
+          <Scene initial key="presentation" component={Presentation} />
           <Scene key="masterAuthorization" component={MasterAuthorization} />
-          <Scene initial key="masterEditor" {...getMasterStyle()}>
-            <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+          <Scene key="masterEditor" {...getMasterStyle()}>
+            <Scene key="masterEditorCalendar" title={i18n.masterEditor.title.stepFour} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
+            <Scene key="masterEditorHandlingTools" title={i18n.masterEditor.title.stepThree} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
             <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
-            <Scene key="masterHandlingTools" title={i18n.masterEditor.title.stepThree} getSceneStyle={getSceneStyle} component={MasterHandlingTools} />
+            <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
           </Scene>
         </Scene>
       </Router>

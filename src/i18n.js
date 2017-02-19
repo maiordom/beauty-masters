@@ -1,6 +1,9 @@
 export default {
   authAsMaster: 'Авторизоваться как мастер услуг',
   continue: 'Продолжить',
+  configureCalendar: 'Настройте календарь',
+  city: 'Город',
+  district: 'Район',
   filters: {
     acrylic: 'Акрилом',
     anotherNailGel: 'Другого геля-лака',
@@ -45,6 +48,7 @@ export default {
     ultrasound: 'Ультразвук',
     ultraviolet: 'Ультрафиолет',
   },
+  home: 'Дом',
   lastName: 'Фамилия',
   login: 'Вход',
   manicure: 'Маникюр',
@@ -53,9 +57,12 @@ export default {
     title: {
       stepOne: 'Шаг 1/5: Основная информация',
       stepTwo: 'Шаг 2/5: Услуги',
-      stepThree: 'Шаг 3/5: Обработка инструмента'
+      stepThree: 'Шаг 3/5: Обработка инструмента',
+      stepFour: 'Шаг 4/5: Ваше расписание',
     },
   },
+  metro: 'Метро',
+  name: 'Название',
   next: 'Далее',
   passwordTip: 'Пароль (не менее 6 символов)',
   pedicure: 'Педикюр',
@@ -72,8 +79,12 @@ export default {
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
   signUp: 'Зарегистрироваться',
+  specify: 'Указать',
   specifyHowYouSterilizeTools: 'Укажите, как вы стерилизуете инструменты',
+  street: 'Улица',
+  structure: 'Корпус/Строение',
   userAgreement: 'Условия пользовательского соглашения',
+  workAddress: 'Адрес, по которому вы принимаете заказы',
   yourEmail: 'Ваш email',
   yourServices: 'Ваши услуги',
 };

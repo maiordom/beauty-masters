@@ -7,7 +7,7 @@ import ButtonNext from '../../components/ButtonNext';
 
 import i18n from '../../i18n';
 
-export default class MasterHandlingTools extends Component {
+export default class MasterEditorHandlingTools extends Component {
   onPressNext = () => {
 
   };
