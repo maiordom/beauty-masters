@@ -14,7 +14,12 @@ export default class ButtonNext extends Component {
     const { onPress } = this.props;
 
     return (
-      <TouchableHighlight onPress={onPress} style={styles.nextButton}>
+      <TouchableHighlight
+        underlayColor="transparent"
+        activeOpacity={1}
+        onPress={onPress}
+        style={styles.nextButton}
+      >
         <Text style={styles.nextText}>{i18nNext}</Text>
       </TouchableHighlight>
     );

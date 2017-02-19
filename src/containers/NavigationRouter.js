@@ -36,7 +36,7 @@ const getMasterStyle = () => {
   };
 
   const titleStyle = {
-    width: Dimensions.get('window').width - 15 * 2,
+    width: Dimensions.get('window').width - 80,
     fontSize: 20,
     color: vars.color.white
   };
