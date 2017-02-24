@@ -4,14 +4,14 @@ import { Text, StyleSheet, TouchableHighlight, Platform, View } from 'react-nati
 import i18n from '../i18n';
 import vars from '../vars';
 
-const i18nNext = Platform.select({
-  ios: i18n.next,
-  android: i18n.next.toUpperCase()
-});
-
-export default class ButtonNext extends Component {
+export default class ButtonControl extends Component {
   render() {
-    const { onPress } = this.props;
+    const { onPress, label } = this.props;
+
+    const title = Platform.select({
+      ios: label || i18n.next,
+      android: (label && label.toUpperCase()) || i18n.next.toUpperCase()
+    });
 
     return (
       <TouchableHighlight
@@ -20,7 +20,7 @@ export default class ButtonNext extends Component {
         onPress={onPress}
         style={styles.nextButton}
       >
-        <Text style={styles.nextText}>{i18nNext}</Text>
+        <Text style={styles.nextText}>{title}</Text>
       </TouchableHighlight>
     );
   }

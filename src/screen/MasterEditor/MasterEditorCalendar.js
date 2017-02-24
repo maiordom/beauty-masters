@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
-import ButtonNext from '../../components/ButtonNext';
-import Label from '../../components/Label';
-import InputWithLabel from '../../components/InputWithLabel';
+import ButtonControl from '../../components/ButtonControl';
 
 import i18n from '../../i18n';
+import vars from '../../vars';
 
 export default class MasterEditorCalendar extends Component {
+  onCalendarPress = index => {
+    Actions.masterEditorCalendarSetting({index: index});
+  };
+
+  onNextPress = () => {
+    Actions.masterEditorAdditionalInformation();
+  };
+
   render() {
     return (
-      <View>
-        <Label text={i18n.configureCalendar} subText={i18n.workAddress} />
-        <View style={styles.inner}>
-          <InputWithLabel label={i18n.name} placeholder={i18n.specify} />
-          <InputWithLabel label={i18n.city} placeholder={i18n.specify} />
-          <InputWithLabel label={i18n.street} placeholder={i18n.specify} />
-          <View style={styles.row}>
-            <InputWithLabel style={styles.groupInput} label={i18n.home} placeholder={i18n.specify} />
-            <View style={styles.gap} />
-            <InputWithLabel style={styles.groupInput} label={i18n.structure} placeholder={i18n.specify} />
-          </View>
-          <View style={styles.row}>
-            <InputWithLabel style={styles.groupInput} label={i18n.district} placeholder={i18n.specify} />
-            <View style={styles.gap} />
-            <InputWithLabel style={styles.groupInput} label={i18n.metro} placeholder={i18n.specify} />
-          </View>
+      <View style={styles.container}>
+        <View style={styles.selectCalendar}>
+          <TouchableWithoutFeedback onPress={() => this.onCalendarPress(0)}>
+            <View style={styles.openCalendar}>
+              <Text style={styles.openCalendarText}>{i18n.addAddress[0]}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => this.onCalendarPress(1)}>
+            <View style={styles.openCalendar}>
+              <Text style={styles.openCalendarText}>{i18n.addAddress[1]}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => this.onCalendarPress(2)}>
+            <View style={styles.openCalendar}>
+              <Text style={styles.openCalendarText}>{i18n.addAddress[2]}</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
+        <ButtonControl onPress={this.onNextPress} />
       </View>
     );
   }
@@ -34,19 +44,18 @@ export default class MasterEditorCalendar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1,
   },
-  inner: {
-    paddingLeft: 12,
-    paddingRight: 15
+  selectCalendar: {
+    flex: 1,
   },
-  row: {
-    flexDirection: 'row'
+  openCalendar: {
+    height: 48,
+    paddingLeft: 16,
+    justifyContent: 'center',
   },
-  groupInput: {
-    flex: 1
+  openCalendarText: {
+    fontSize: 16,
+    color: vars.color.black,
   },
-  gap: {
-    width: 30
-  }
 });

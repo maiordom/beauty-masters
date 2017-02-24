@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import Tabs from '../../components/Tabs';
-import ButtonNext from '../../components/ButtonNext';
+import ButtonControl from '../../components/ButtonControl';
 import ServicesList from '../../components/ServicesList';
 import Label from '../../components/Label';
 
@@ -38,7 +38,7 @@ export default class MasterEditorService extends Component {
           <Label text={i18n.yourServices} />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
           <ServicesList />
-          <ButtonNext onPress={this.onNextPress} />
+          <ButtonControl onPress={this.onNextPress} />
         </ScrollView>
       </View>
     );

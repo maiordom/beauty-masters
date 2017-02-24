@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 import Label from '../../components/Label';
 import Switch from '../../components/Switch';
-import ButtonNext from '../../components/ButtonNext';
+import ButtonControl from '../../components/ButtonControl';
 
 import i18n from '../../i18n';
 
@@ -24,7 +24,7 @@ export default class MasterEditorHandlingTools extends Component {
           <Switch title={i18n.handlingToolMethods.dryHeatMethod} />
           <Switch title={i18n.handlingToolMethods.anotherWay} />
         </View>
-        <ButtonNext onPress={this.onPressNext} />
+        <ButtonControl onPress={this.onPressNext} />
       </View>
     );
   }

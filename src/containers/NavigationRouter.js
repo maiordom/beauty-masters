@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Modal } from 'react-native-router-flux';
 import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { connect } from 'react-redux';
 
 import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
@@ -8,6 +9,8 @@ import MasterEditorGeneral from '../screen/MasterEditor/MasterEditorGeneral';
 import MasterEditorService from '../screen/MasterEditor/MasterEditorService';
 import MasterEditorHandlingTools from '../screen/MasterEditor/MasterEditorHandlingTools';
 import MasterEditorCalendar from '../screen/MasterEditor/MasterEditorCalendar';
+import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCalendarSettings';
+import MasterEditorAdditionalInformation from '../screen/MasterEditor/MasterEditorAdditionalInformation';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -69,14 +72,16 @@ export default class NavigationRouter extends Component {
   render () {
     return (
       <Router sceneStyle={styles.container}>
-        <Scene key="root" hideNavBar animationStyle="leftToRight">
-          <Scene initial key="presentation" component={Presentation} />
+        <Scene initial key="root" hideNavBar animationStyle="leftToRight">
+          <Scene key="presentation" component={Presentation} />
           <Scene key="masterAuthorization" component={MasterAuthorization} />
           <Scene key="masterEditor" {...getMasterStyle()}>
-            <Scene key="masterEditorGeneral" title={i18n.masterEditor.title.stepOne} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
-            <Scene key="masterEditorService" title={i18n.masterEditor.title.stepTwo} getSceneStyle={getSceneStyle} component={MasterEditorService} />
-            <Scene key="masterEditorHandlingTools" title={i18n.masterEditor.title.stepThree} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
-            <Scene key="masterEditorCalendar" title={i18n.masterEditor.title.stepFour} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
+            <Scene key="masterEditorCalendar" title={i18n.masterEditor.schedule} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
+            <Scene key="masterEditorGeneral" title={i18n.masterEditor.generalInformation} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+            <Scene key="masterEditorService" title={i18n.masterEditor.services} getSceneStyle={getSceneStyle} component={MasterEditorService} />
+            <Scene key="masterEditorHandlingTools" title={i18n.masterEditor.handlingTools} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
+            <Scene key="masterEditorCalendarSetting" title={i18n.masterEditor.calendarSettings} getSceneStyle={getSceneStyle} component={props => <MasterEditorCalendarSettings {...props} />} />
+            <Scene key="masterEditorAdditionalInformation" title={i18n.masterEditor.additionalInformation} getSceneStyle={getSceneStyle} component={MasterEditorAdditionalInformation} />
           </Scene>
         </Scene>
       </Router>

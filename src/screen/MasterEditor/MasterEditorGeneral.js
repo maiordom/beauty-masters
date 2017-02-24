@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 import Input from '../../components/Input';
 import Switch from '../../components/Switch';
-import ButtonNext from '../../components/ButtonNext';
+import ButtonControl from '../../components/ButtonControl';
 
 import i18n from '../../i18n';
 
@@ -23,7 +23,7 @@ export default class MasterEditorGeneral extends Component {
           <Switch title={i18n.salonMaster} />
           <Input placeholder={i18n.salonName} />
         </View>
-        <ButtonNext onPress={this.onNextPress} />
+        <ButtonControl onPress={this.onNextPress} />
       </View>
     );
   }
