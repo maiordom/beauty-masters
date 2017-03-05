@@ -21,12 +21,12 @@ class MasterEditorCalendarSettings extends Component {
   render() {
     return (
       <ScrollView>
-        <Label text={i18n.configureCalendar} subText={i18n.workAddress} />
+        <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
         <MasterEditorAddress />
-        <Label text={i18n.youtSchedule} subText={i18n.selectYoutSchedule} />
+        <Label text={i18n.youtSchedule} subText={i18n.selectYoutSchedule} spacing />
         <SelectSchedule />
         <RangeTime />
-        <SubLabel label={i18n.youCanEditTheDaysApart} />
+        <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
         <Calendar />
         <View style={styles.gap} />
         <ButtonControl label={i18n.ready} onPress={this.onReadyPress} />

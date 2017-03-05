@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TimePickerAndroid,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import i18n from '../i18n';
@@ -70,13 +70,13 @@ export default class RangeTime extends Component {
 
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.onTimeStartPress}>
+        <TouchableHighlight activeOpacity={1} underlayColor='transparent' style={styles.button} onPress={this.onTimeStartPress}>
           <View style={styles.timeWrapper}>
             <Text style={styles.time}>{i18n.from}</Text>
             <Text style={styles.time}>{this.formatTime(timeStartHour, timeStartMinute)}</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this.onTimeEndPress}>
+        <TouchableHighlight activeOpacity={1} underlayColor='transparent' style={styles.button} onPress={this.onTimeEndPress}>
           <View style={styles.timeWrapper}>
             <Text style={styles.time}>{i18n.to}</Text>
             <Text style={styles.time}>{this.formatTime(timeEndHour, timeEndMinute)}</Text>

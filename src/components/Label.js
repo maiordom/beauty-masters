@@ -5,10 +5,10 @@ import vars from '../vars';
 
 export default class Label extends Component {
   render() {
-    const { text, subText } = this.props;
+    const { text, subText, spacing } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, spacing && styles.spacing]}>
         <Text style={styles.text}>{text}</Text>
         {subText && (
           <Text style={styles.subText}>{subText}</Text>
@@ -20,9 +20,11 @@ export default class Label extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 16,
     paddingTop: 16,
     paddingBottom: 16,
+  },
+  spacing: {
+    paddingLeft: 16,
   },
   text: {
     fontSize: 20,
@@ -32,5 +34,6 @@ const styles = StyleSheet.create({
     marginTop: 7,
     fontSize: 14,
     color: vars.color.grey,
+    lineHeight: 20,
   }
 });

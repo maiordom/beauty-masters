@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import vars from '../vars';
 
-export const SubLabel = ({ label }) => (
-  <View style={styles.container}>
+export const SubLabel = ({ label, spacing }) => (
+  <View style={[styles.container, spacing && styles.spacing]}>
     <Text style={styles.text}>{label}</Text>
   </View>
 );
@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
   container: {
     height: 36,
     justifyContent: 'center',
+  },
+  spacing: {
     paddingLeft: 16,
   },
   text: {

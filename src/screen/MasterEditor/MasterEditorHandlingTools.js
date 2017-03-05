@@ -16,8 +16,8 @@ export default class MasterEditorHandlingTools extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Label text={i18n.handlingTool} subText={i18n.specifyHowYouSterilizeTools} />
         <View style={styles.inner}>
+          <Label text={i18n.handlingTool} subText={i18n.specifyHowYouSterilizeTools} />
           <Switch title={i18n.handlingToolMethods.ultrasound} />
           <Switch title={i18n.handlingToolMethods.ultraviolet} />
           <Switch title={i18n.handlingToolMethods.glasperlenovySterilizer} />

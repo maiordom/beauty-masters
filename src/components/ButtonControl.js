@@ -15,7 +15,7 @@ export default class ButtonControl extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor="transparent"
+        underlayColor={vars.color.red}
         activeOpacity={1}
         onPress={onPress}
         style={styles.nextButton}

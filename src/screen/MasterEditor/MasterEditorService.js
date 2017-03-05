@@ -35,7 +35,7 @@ export default class MasterEditorService extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Label text={i18n.yourServices} />
+          <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
           <ServicesList />
           <ButtonControl onPress={this.onNextPress} />

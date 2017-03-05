@@ -13,7 +13,7 @@ export default class MasterEditorCalendar extends Component {
   };
 
   onNextPress = () => {
-    Actions.masterEditorAdditionalInformation();
+    Actions.masterEditorInfo();
   };
 
   render() {
