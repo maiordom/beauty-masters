@@ -1,0 +1,3 @@
+export default {
+  MASTER_SET_PERSONAL_PHOTO: 'MASTER_SET_PERSONAL_PHOTO',
+};

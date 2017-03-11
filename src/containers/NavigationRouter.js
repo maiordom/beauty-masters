@@ -75,8 +75,8 @@ export default class NavigationRouter extends Component {
     return (
       <Router sceneStyle={styles.container}>
         <Scene key="drawer" component={Drawer}>
-          <Scene key="root" hideNavBar animationStyle="leftToRight">
-            <Scene initial key="presentation" component={Presentation} />
+          <Scene initial key="root" hideNavBar animationStyle="leftToRight">
+            <Scene key="presentation" component={Presentation} />
             <Scene key="masterAuthorization" component={MasterAuthorization} />
             <Scene key="masterEditor" {...getMasterStyle()}>
               <Scene key="masterEditorGeneral" leftButtonIconStyle={{width: 0, height: 0}} title={i18n.masterEditor.generalInformation} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />

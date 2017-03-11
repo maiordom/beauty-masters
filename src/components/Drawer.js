@@ -3,7 +3,7 @@ import RNDrawer from 'react-native-drawer';
 import { DefaultRenderer } from 'react-native-router-flux';
 import { Text } from 'react-native';
 
-import PhotoSelect from './PhotoSelect';
+import PhotoMaster from '../containers/PhotoMaster';
 
 import { drawerClose } from '../actions/drawer';
 import { hexToRgba } from '../utils';
@@ -21,7 +21,7 @@ export default class Drawer extends Component {
     let content;
 
     switch(contentKey) {
-      case 'PhotoSelect': content = <PhotoSelect />; break;
+      case 'PhotoMaster': content = <PhotoMaster />; break;
     }
 
     return (

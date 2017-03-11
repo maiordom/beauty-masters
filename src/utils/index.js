@@ -6,3 +6,30 @@ export function hexToRgba(hex, opacity = 100){
 
   return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity / 100 + ')';
 }
+
+/**
+ * @param {Function} handler
+ * @param {Function} [beforeHandler]
+ * @param {Function} [afterHandler]
+ * @returns {Function}
+ *
+ * @example
+ * makeReducer((state, action) => ({
+ *     [SHOW_FAVORITES]: () => changeModel(state, 'favorites', {isShow: true})
+ * }));
+ */
+export function makeReducer(handler, beforeHandler, afterHandler) {
+  return (state, action) => {
+    let items = handler(state, action);
+
+    beforeHandler && beforeHandler(state, action);
+
+    if (items[action.type]) {
+      state = items[action.type]();
+    }
+
+    afterHandler && afterHandler(state, action);
+
+    return state;
+  };
+}

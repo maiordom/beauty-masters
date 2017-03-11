@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, Image, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -10,15 +10,20 @@ const takeIcon = require('../icons/android/photo-take.png');
 const selectIcon = require('../icons/android/photo-select.png');
 
 export default class PhotoSelect extends Component {
+  static propTypes = {
+    onGetPhotoFromCamera: PropTypes.func,
+    onGetPhotoFromGallery: PropTypes.func,
+  };
+
   onPhotoTakePress = () => {
     ImagePicker.launchCamera({}, response => {
-      console.log(response);
+      this.props.onGetPhotoFromCamera(response.data);
     });
   };
 
   onPhotoSelectPress = () => {
     ImagePicker.launchImageLibrary({}, response => {
-      console.log(response);
+      this.props.onGetPhotoFromGallery(response.data);
     });
   };
 
