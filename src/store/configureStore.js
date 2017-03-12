@@ -8,7 +8,13 @@ const initialState = {
   masterSchedule,
   masterEditor: {
     personalPhotosLimit: 5,
-    personalPhotos: []
+    personalPhotos: [],
+    certificatePhotos: [],
+    certificatePhotosLimit: 10,
+    passportPhotos: [],
+    passportPhotosLimit: 1,
+    workPhotos: [],
+    workPhotosLimit: 15,
   }
 };
 

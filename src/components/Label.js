@@ -5,10 +5,10 @@ import vars from '../vars';
 
 export default class Label extends Component {
   render() {
-    const { text, subText, spacing } = this.props;
+    const { text, subText, spacing, customStyle } = this.props;
 
     return (
-      <View style={[styles.container, spacing && styles.spacing]}>
+      <View style={[styles.container, spacing && styles.spacing, customStyle]}>
         <Text style={styles.text}>{text}</Text>
         {subText && (
           <Text style={styles.subText}>{subText}</Text>

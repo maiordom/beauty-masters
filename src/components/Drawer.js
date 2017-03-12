@@ -17,11 +17,11 @@ export default class Drawer extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    const { contentKey } = this.props;
+    const { contentKey, name } = this.props;
     let content;
 
     switch(contentKey) {
-      case 'PhotoMaster': content = <PhotoMaster />; break;
+      case 'PhotoMaster': content = <PhotoMaster name={name} />; break;
     }
 
     return (

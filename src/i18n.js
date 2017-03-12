@@ -64,7 +64,7 @@ export default {
     aboutDescription: 'Чем больше информации вы укажите, тем выше будет уровень доверия клиентов к вам',
     aboutExample: 'Например, маникюр+шеллак = скидка 15%',
     additionalInformation: 'Шаг 5/5: Дополнительная информация',
-    attachPhotosOfYourWork: 'Приложите фотографии ваших работ (максимум 5 фото)',
+    attachPhotosOfYourWork: 'Приложите фотографии ваших работ (максимум 15 фото)',
     attachPhotosToConfirmCertificates: 'Приложите их фотографии для подтверждения',
     calendarSettings: 'Настройки календаря',
     certificates: 'Есть сертификаты/дипломы',

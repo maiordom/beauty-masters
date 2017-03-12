@@ -17,13 +17,13 @@ export default class PhotoSelect extends Component {
 
   onPhotoTakePress = () => {
     ImagePicker.launchCamera({}, response => {
-      this.props.onGetPhotoFromCamera(response.data);
+      this.props.onGetPhotoFromCamera(response.data, this.props.name);
     });
   };
 
   onPhotoSelectPress = () => {
     ImagePicker.launchImageLibrary({}, response => {
-      this.props.onGetPhotoFromGallery(response.data);
+      this.props.onGetPhotoFromGallery(response.data, this.props.name);
     });
   };
 

@@ -5,6 +5,10 @@ import { hexToRgba } from '../utils';
 import SwitchBase from './SwitchBase';
 
 export default class CustomSwitch extends Component {
+  onChangeState = state => {
+    this.props.onChangeState && this.props.onChangeState(state);
+  };
+
   render() {
     const { title } = this.props;
 
@@ -22,6 +26,7 @@ export default class CustomSwitch extends Component {
           activeBackgroundColor={hexToRgba('#F65F6E', 50)}
           inactiveBackgroundColor={hexToRgba('#374650', 40)}
           borderWidth={0}
+          onChangeState={this.onChangeState}
         />
       </View>
     );
