@@ -5,7 +5,7 @@ import Registration from '../components/Registration';
 
 const mapDispatchToProps = () => ({
   registerUser() {
-    Actions.masterEditor();
+    Actions.masterEditorGeneral();
   }
 });
 

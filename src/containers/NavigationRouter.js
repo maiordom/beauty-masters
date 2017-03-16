@@ -78,14 +78,12 @@ export default class NavigationRouter extends Component {
           <Scene initial key="root" hideNavBar animationStyle="leftToRight">
             <Scene key="presentation" component={Presentation} />
             <Scene key="masterAuthorization" component={MasterAuthorization} />
-            <Scene key="masterEditor" {...getMasterStyle()}>
-              <Scene key="masterEditorGeneral" leftButtonIconStyle={{width: 0, height: 0}} title={i18n.masterEditor.generalInformation} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
-              <Scene key="masterEditorService" title={i18n.masterEditor.services} getSceneStyle={getSceneStyle} component={MasterEditorService} />
-              <Scene key="masterEditorHandlingTools" title={i18n.masterEditor.handlingTools} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
-              <Scene key="masterEditorCalendarSetting" title={i18n.masterEditor.calendarSettings} getSceneStyle={getSceneStyle} component={props => <MasterEditorCalendarSettings {...props} />} />
-              <Scene key="masterEditorCalendar" title={i18n.masterEditor.schedule} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
-              <Scene key="masterEditorInfo" title={i18n.masterEditor.additionalInformation} getSceneStyle={getSceneStyle} component={MasterEditorInfo} />
-            </Scene>
+            <Scene key="masterEditorGeneral" {...getMasterStyle()} leftButtonIconStyle={{width: 0, height: 0}} title={i18n.masterEditor.generalInformation} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
+            <Scene key="masterEditorService" {...getMasterStyle()} title={i18n.masterEditor.services} getSceneStyle={getSceneStyle} component={MasterEditorService} />
+            <Scene key="masterEditorHandlingTools" {...getMasterStyle()} title={i18n.masterEditor.handlingTools} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
+            <Scene key="masterEditorCalendarSetting" {...getMasterStyle()} title={i18n.masterEditor.calendarSettings} getSceneStyle={getSceneStyle} component={props => <MasterEditorCalendarSettings {...props} />} />
+            <Scene key="masterEditorCalendar" {...getMasterStyle()} title={i18n.masterEditor.schedule} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
+            <Scene key="masterEditorInfo" {...getMasterStyle()} title={i18n.masterEditor.additionalInformation} getSceneStyle={getSceneStyle} component={MasterEditorInfo} />
           </Scene>
         </Scene>
       </Router>
