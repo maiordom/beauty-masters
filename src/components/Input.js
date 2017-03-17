@@ -4,14 +4,29 @@ import { TextInput, StyleSheet, View, Platform, Image } from 'react-native';
 import vars from '../vars';
 
 export default class Input extends Component {
+  constructor() {
+    super();
+
+    this.state = { text: '' };
+  }
+
+  onChangeText = text => {
+    this.setState({ text });
+  };
+
+  onBlur = () => {
+    this.props.onChange && this.props.onChange(this.props.modelName, this.state.text);
+  };
+
   render() {
     const {
+      editable,
       icon,
-      style: customInputStyle,
       inputWrapperStyle,
       placeholder,
       placeholderTextColor,
-      underlineColorAndroid
+      style: customInputStyle,
+      underlineColorAndroid,
     } = this.props;
 
     return (
@@ -20,6 +35,9 @@ export default class Input extends Component {
           <Image source={icon} />
         )}
         <TextInput
+          editable={editable !== undefined ? editable : true}
+          onBlur={this.onBlur}
+          onChangeText={this.onChangeText}
           style={[customInputStyle, inputStyle.input]}
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor || vars.color.placeholderTextColor}

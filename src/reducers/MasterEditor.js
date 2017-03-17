@@ -31,8 +31,20 @@ export default makeReducer((state, action) => ({
     state.masterEditor = Object.assign({}, state.masterEditor);
     state.masterEditor[action.name] = [...photos];
 
-    console.log(state.masterEditor[action.name]);
+    return state;
+  },
+
+  [actions.MASTER_SET_FIELD_VALUE]: () => {
+    const { sectionName, modelName } = action;
+    const section = state.masterEditor[sectionName];
+    const model = section[modelName];
+
+    model.value = action.value;
+
+    state.masterEditor = Object.assign({}, state.masterEditor);
+    state.masterEditor[sectionName] = {...section};
+    state.masterEditor[sectionName][modelName] = {...model};
 
     return state;
-  }
+  },
 }));

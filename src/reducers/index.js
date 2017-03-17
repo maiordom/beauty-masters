@@ -1,8 +1,8 @@
-import masterEditor from './masterEditor';
+import MasterEditor from './MasterEditor';
 
 export default function rootReducer(state, action) {
   state = Object.assign({}, state);
-  state = masterEditor(state, action);
+  state = MasterEditor(state, action);
 
   return state;
 }

@@ -28,3 +28,10 @@ export const uploadMasterPersonalPhoto = (fileData, name) => dispatch => {
       }
     });
 };
+
+export const setFieldValue = (modelName, value, sectionName) => ({
+  type: actions.MASTER_SET_FIELD_VALUE,
+  modelName,
+  value,
+  sectionName,
+});

@@ -9,8 +9,8 @@ export default class SwitchBase extends Component {
     this.state = {
       width: this.props.switchWidth - this.props.buttonRadius * 2 + this.padding,
       state: this.props.active,
-      position: new Animated.Value(this.props.active ? w : 0),
     };
+    this.state.position = new Animated.Value(this.props.active ? this.state.width : 0);
     this.start = {};
   }
 

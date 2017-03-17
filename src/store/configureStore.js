@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
 
 import masterSchedule from './masterSchedule';
+import MasterEditor from './MasterEditor';
 
 const initialState = {
   masterSchedule,
@@ -15,6 +16,7 @@ const initialState = {
     passportPhotosLimit: 1,
     workPhotos: [],
     workPhotosLimit: 15,
+    ...MasterEditor
   }
 };
 
