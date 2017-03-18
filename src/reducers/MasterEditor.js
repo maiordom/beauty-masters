@@ -13,7 +13,7 @@ export default makeReducer((state, action) => ({
       id: action.id,
     });
 
-    state.masterEditor = Object.assign({}, state.masterEditor);
+    state.masterEditor = {...state.masterEditor};
     state.masterEditor[action.name] = [...photos];
 
     return state;
@@ -28,20 +28,34 @@ export default makeReducer((state, action) => ({
     item.mediaUrl = action.mediaUrl;
     item.fileName = action.fileName;
 
-    state.masterEditor = Object.assign({}, state.masterEditor);
+    state.masterEditor = {...state.masterEditor};
     state.masterEditor[action.name] = [...photos];
 
     return state;
   },
 
   [actions.MASTER_SET_FIELD_VALUE]: () => {
-    const { sectionName, modelName } = action;
+    const { sectionName, modelName, value } = action;
     const section = state.masterEditor[sectionName];
     const model = section[modelName];
 
-    model.value = action.value;
+    model.value = value;
 
-    state.masterEditor = Object.assign({}, state.masterEditor);
+    state.masterEditor = {...state.masterEditor};
+    state.masterEditor[sectionName] = {...section};
+    state.masterEditor[sectionName][modelName] = {...model};
+
+    return state;
+  },
+
+  [actions.MASTER_SET_FIELD_PARAM]: () => {
+    const { sectionName, modelName, paramValue, paramName } = action;
+    const section = state.masterEditor[sectionName];
+    const model = section[modelName];
+
+    model[paramName] = paramValue;
+
+    state.masterEditor = {...state.masterEditor};
     state.masterEditor[sectionName] = {...section};
     state.masterEditor[sectionName][modelName] = {...model};
 

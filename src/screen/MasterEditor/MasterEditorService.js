@@ -1,52 +1,26 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Tabs from '../../components/Tabs';
-import ButtonControl from '../../components/ButtonControl';
-import ServicesList from '../../components/ServicesList';
-import Label from '../../components/Label';
+import { setFieldParam } from '../../actions/master';
 
-import i18n from '../../i18n';
+import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
 
-export default class MasterEditorService extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      tabs: [
-        {title: i18n.manicure},
-        {title: i18n.pedicure},
-      ],
-    };
-  }
-
-  onServicesPress = () => {
-
-  };
-
-  onNextPress = () => {
-    Actions.masterEditorHandlingTools();
-  };
-
-  render() {
-    const { tabs } = this.state;
-
-    return (
-      <View style={styles.container}>
-        <ScrollView>
-          <Label text={i18n.yourServices} spacing />
-          <Tabs tabs={tabs} onPress={this.onServicesPress} />
-          <ServicesList />
-          <ButtonControl onPress={this.onNextPress} />
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
- container: {
-   flex: 1
- }
+const mapStateToProps = state => ({
+  serviceManicure: state.masterEditor.serviceManicure,
+  servicePedicure: state.masterEditor.servicePedicure,
 });
+
+const mapDispatchToProps = dispatch => {
+  const actions = bindActionCreators({ setFieldParam }, dispatch);
+
+  return {
+    actions,
+    onNextPress() {
+      Actions.masterEditorHandlingTools();
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorService);

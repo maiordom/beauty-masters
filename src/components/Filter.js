@@ -7,26 +7,28 @@ import Input from '../components/Input';
 import vars from '../vars';
 import i18n from '../i18n';
 
-export default class Filter extends Component {
-  constructor() {
-    super();
+import { shouldComponentUpdate } from '../utils';
 
-    this.state = {
-      checked: false
-    };
-  }
+export default class Filter extends Component {
+  shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
-    const checked = this.checkboxRef.toggle();
-    this.setState({checked: checked});
+    this.props.onChange(!this.props.active, this.props.modelName);
+  };
+
+  onChangePrice = price => {
+    this.props.onChangePrice(price, this.props.modelName);
+  };
+
+  onChangeDuration = duration => {
+    this.props.onChangeDuration(duration, this.props.modelName);
   };
 
   render() {
-    const { title } = this.props;
-    const { checked } = this.state;
+    const { title, active, price, duration } = this.props;
 
     return (
-      <View style={[styles.container, checked && styles.containerActive]}>
+      <View style={[styles.container, active && styles.containerActive]}>
         <TouchableHighlight
           underlayColor='transparent'
           activeOpacity={1}
@@ -35,13 +37,23 @@ export default class Filter extends Component {
         >
           <View style={styles.buttonContent}>
             <Text style={styles.title}>{title}</Text>
-            <Checkbox ref={ref => { this.checkboxRef = ref; }} />
+            <Checkbox checked={active} ref={ref => { this.checkboxRef = ref; }} />
           </View>
         </TouchableHighlight>
-        {checked && (
+        {active && (
           <View style={styles.fields}>
-            <Input placeholder={i18n.filters.price} inputWrapperStyle={styles.input} />
-            <Input placeholder={i18n.filters.duration} inputWrapperStyle={styles.input} />
+            <Input
+              value={price}
+              placeholder={i18n.filters.price}
+              onChange={this.onChangePrice}
+              inputWrapperStyle={styles.input}
+            />
+            <Input
+              value={duration}
+              placeholder={i18n.filters.duration}
+              onChange={this.onChangeDuration}
+              inputWrapperStyle={styles.input}
+            />
           </View>
         )}
       </View>

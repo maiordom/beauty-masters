@@ -3,19 +3,23 @@ import { TextInput, StyleSheet, View, Platform, Image } from 'react-native';
 
 import vars from '../vars';
 
+import { shouldComponentUpdate } from '../utils';
+
 export default class Input extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
-    this.state = { text: '' };
+    this.state = { text: props.value || ''};
   }
+
+  shouldComponentUpdate = shouldComponentUpdate();
 
   onChangeText = text => {
     this.setState({ text });
   };
 
   onBlur = () => {
-    this.props.onChange && this.props.onChange(this.props.modelName, this.state.text);
+    this.props.onChange && this.props.onChange(this.state.text, this.props.modelName);
   };
 
   render() {
@@ -29,12 +33,15 @@ export default class Input extends Component {
       underlineColorAndroid,
     } = this.props;
 
+    const { text } = this.state;
+
     return (
       <View style={[inputStyle.inputWrapper, inputWrapperStyle]}>
         {icon && (
           <Image source={icon} />
         )}
         <TextInput
+          value={text}
           editable={editable !== undefined ? editable : true}
           onBlur={this.onBlur}
           onChangeText={this.onChangeText}

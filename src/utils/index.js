@@ -33,3 +33,52 @@ export function makeReducer(handler, beforeHandler, afterHandler) {
     return state;
   };
 }
+
+export function shouldComponentUpdate(ignoreProps, ignoreState) {
+  return function (nextProps, nextState) {
+    const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
+    const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);
+
+    return !shallowEqualProps.result || !shallowEqualState.result;
+  };
+}
+
+export function shallowEqual(objA, objB, ignoreKeys) {
+  if (objA === objB) {
+    return {result: true};
+  }
+
+  if (typeof objA !== 'object'
+    || objA === null
+    || typeof objB !== 'object'
+    || objB === null) {
+    return {result: false};
+  }
+
+  let keysA = Object.keys(objA).filter(key => (ignoreKeys || []).indexOf(key) === -1);
+  let keysB = Object.keys(objB).filter(key => (ignoreKeys || []).indexOf(key) === -1);
+
+  if (keysA.length !== keysB.length) {
+    return {result: false};
+  }
+
+  let bHasOwnProperty = hasOwnProperty.bind(objB);
+
+  for (let i = 0; i < keysA.length; i++) {
+    let key = keysA[i];
+    let objAProp = objA[key];
+    let objBProp = objB[key];
+
+    if (!bHasOwnProperty(keysA[i]) || objAProp !== objBProp) {
+      return {
+        result: false,
+        obj: objA,
+        objAProp,
+        objBProp,
+        key
+      };
+    }
+  }
+
+  return {result: true};
+}

@@ -35,3 +35,11 @@ export const setFieldValue = (modelName, value, sectionName) => ({
   value,
   sectionName,
 });
+
+export const setFieldParam = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_SET_FIELD_PARAM,
+  modelName,
+  paramName,
+  paramValue,
+  sectionName,
+});

@@ -6,7 +6,7 @@ import SwitchBase from './SwitchBase';
 
 export default class CustomSwitch extends Component {
   onChange = state => {
-    this.props.onChange && this.props.onChange(this.props.modelName, state);
+    this.props.onChange && this.props.onChange(state, this.props.modelName);
   };
 
   render() {

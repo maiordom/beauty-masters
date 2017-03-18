@@ -12,29 +12,12 @@ const checkboxCheckedIcon = Platform.select({
 });
 
 export default class Checkbox extends Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      checked: Boolean(props.checked)
-    };
-  }
-
-  toggle() {
-    const checked = !this.state.checked;
-
-    this.setState({checked: checked});
-
-    return checked;
-  }
-
   onPress = () => {
-    this.toggle();
-    this.props.onPress && this.props.onPress(this.state.checked);
+    this.props.onPress && this.props.onPress(!this.props.checked);
   };
 
   render() {
-    const { checked } = this.state;
+    const { checked } = this.props;
 
     return (
       <TouchableHighlight
@@ -54,6 +37,6 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 });
