@@ -1,42 +1,27 @@
-import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import Label from '../../components/Label';
-import Switch from '../../components/Switch';
-import ButtonControl from '../../components/ButtonControl';
+import MasterEditorHandlingTools from '../../components/MasterEditor/MasterEditorHandlingTools';
 
-import i18n from '../../i18n';
+import { setFieldParam } from '../../actions/master';
 
-export default class MasterEditorHandlingTools extends Component {
-  onPressNext = () => {
-    Actions.masterEditorCalendar();
+const mapStateToProps = state => {
+  return {
+    ...state.masterEditor.handlingTools,
+    sectionName: 'handlingTools',
+    fieldActive: 'active',
+    fieldValue: 'value',
   };
+};
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.inner}>
-          <Label text={i18n.handlingTool} subText={i18n.specifyHowYouSterilizeTools} />
-          <Switch title={i18n.handlingToolMethods.ultrasound} />
-          <Switch title={i18n.handlingToolMethods.ultraviolet} />
-          <Switch title={i18n.handlingToolMethods.glasperlenovySterilizer} />
-          <Switch title={i18n.handlingToolMethods.dryHeatMethod} />
-          <Switch title={i18n.handlingToolMethods.anotherWay} />
-        </View>
-        <ButtonControl onPress={this.onPressNext} />
-      </View>
-    );
-  }
-}
+const mapDispatchToProps = dispatch => {
+  const actions = bindActionCreators({ setFieldParam }, dispatch);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  inner: {
-    flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15
+  return {
+    onNextPress: Actions.masterEditorCalendar,
+    actions,
   }
-});
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorHandlingTools);

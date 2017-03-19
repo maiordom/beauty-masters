@@ -74,7 +74,11 @@ export default class Input extends Component {
     const value = this.getValue();
 
     return (
-      <View style={[inputStyle.inputWrapper, inputWrapperStyle]}>
+      <View style={[
+        inputStyle.inputWrapper,
+        inputWrapperStyle,
+        editable === false && inputStyle.inputDisabled
+      ]}>
         {icon && (
           <Image source={icon} />
         )}
@@ -96,16 +100,8 @@ export default class Input extends Component {
 }
 
 const inputStyle = StyleSheet.create({
-  input: {
-    flex: 1,
-    alignSelf: 'stretch',
-    height: 44,
-    ...Platform.select({
-      android: {
-        height: 48,
-        fontSize: 16
-      }
-    })
+  inputDisabled: {
+    opacity: 0.4,
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -114,6 +110,17 @@ const inputStyle = StyleSheet.create({
       ios: {
         borderBottomWidth: 1,
         borderBottomColor: '#E4E6E8'
+      }
+    })
+  },
+  input: {
+    flex: 1,
+    alignSelf: 'stretch',
+    height: 44,
+    ...Platform.select({
+      android: {
+        height: 48,
+        fontSize: 16
       }
     })
   }

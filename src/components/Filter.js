@@ -51,7 +51,7 @@ export default class Filter extends Component {
               onChange={this.onChangePrice}
               placeholder={i18n.filters.price}
               replaceReg={/[^0-9.]/g}
-              sign=' ₽'
+              sign={` ${i18n.currency.roubleSign}`}
               value={price}
             />
             <Input
@@ -61,7 +61,7 @@ export default class Filter extends Component {
               onChange={this.onChangeDuration}
               placeholder={i18n.filters.duration}
               replaceReg={/[^0-9.]/g}
-              sign=' мин'
+              sign={` ${i18n.time.minuteShort}`}
               value={duration}
             />
           </View>

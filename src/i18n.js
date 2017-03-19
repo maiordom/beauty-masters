@@ -8,6 +8,9 @@ export default {
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
+  currency: {
+    roubleSign: '₽',
+  },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   district: 'Район',
   filters: {
@@ -57,6 +60,7 @@ export default {
   handlingToolMethods: {
     anotherWay: 'Другой способ',
     dryHeatMethod: 'Сухожаровой метод',
+    enterNameMethod: 'Введите название метода',
     glasperlenovySterilizer: 'Гласперленовый стерилизатор',
     ultrasound: 'Ультразвук',
     ultraviolet: 'Ультрафиолет',
@@ -118,6 +122,9 @@ export default {
   specifyHowYouSterilizeTools: 'Укажите, как вы стерилизуете инструменты',
   street: 'Улица',
   structure: 'Корпус/Строение',
+  time: {
+    minuteShort: 'мин',
+  },
   to: 'До',
   userAgreement: 'Условия пользовательского соглашения',
   workAddress: 'Адрес, по которому вы принимаете заказы',
