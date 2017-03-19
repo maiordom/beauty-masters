@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 
+import { formatNumber } from '../utils';
+
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
 
@@ -28,7 +30,7 @@ export default class Filter extends Component {
     const { title, active, price, duration } = this.props;
 
     return (
-      <View style={[styles.container, active && styles.containerActive]}>
+      <View style={styles.container}>
         <TouchableHighlight
           underlayColor='transparent'
           activeOpacity={1}
@@ -43,16 +45,24 @@ export default class Filter extends Component {
         {active && (
           <View style={styles.fields}>
             <Input
-              value={price}
-              placeholder={i18n.filters.price}
-              onChange={this.onChangePrice}
+              formatValue={formatNumber}
               inputWrapperStyle={styles.input}
+              keyboardType='numeric'
+              onChange={this.onChangePrice}
+              placeholder={i18n.filters.price}
+              replaceReg={/[^0-9.]/g}
+              sign=' ₽'
+              value={price}
             />
             <Input
-              value={duration}
-              placeholder={i18n.filters.duration}
-              onChange={this.onChangeDuration}
+              formatValue={formatNumber}
               inputWrapperStyle={styles.input}
+              keyboardType='numeric'
+              onChange={this.onChangeDuration}
+              placeholder={i18n.filters.duration}
+              replaceReg={/[^0-9.]/g}
+              sign=' мин'
+              value={duration}
             />
           </View>
         )}
@@ -63,9 +73,6 @@ export default class Filter extends Component {
 
 const styles = StyleSheet.create({
   container: {},
-  containerActive: {
-    marginBottom: 24
-  },
   button: {
     paddingLeft: 15,
     paddingRight: 15

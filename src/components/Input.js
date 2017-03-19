@@ -9,31 +9,69 @@ export default class Input extends Component {
   constructor(props) {
     super();
 
-    this.state = { text: props.value || ''};
+    this.state = {
+      value: props.value || '',
+      isFocused: false,
+    };
   }
 
   shouldComponentUpdate = shouldComponentUpdate();
 
-  onChangeText = text => {
-    this.setState({ text });
+  onChangeText = value => {
+    const { formatValue, replaceReg } = this.props;
+
+    if (replaceReg) {
+      value = value.replace(replaceReg, '');
+    }
+
+    if (formatValue) {
+      this.setState({ value: formatValue(value) });
+    } else {
+      this.setState({ value });
+    }
+  };
+
+  onFocus = () => {
+    this.setState({ isFocused: true });
   };
 
   onBlur = () => {
-    this.props.onChange && this.props.onChange(this.state.text, this.props.modelName);
+    const { replaceReg } = this.props;
+    let value = this.state.value;
+
+    if (replaceReg) {
+      value = value.replace(replaceReg, '');
+    }
+
+    this.setState({ isFocused: false });
+    this.props.onChange && this.props.onChange(value, this.props.modelName);
   };
+
+  getValue() {
+    const { sign } = this.props;
+
+    let value = this.state.value;
+
+    if (value && sign && !this.state.isFocused) {
+      value += sign;
+    }
+
+    return value || '';
+  }
 
   render() {
     const {
       editable,
       icon,
       inputWrapperStyle,
+      keyboardType,
       placeholder,
       placeholderTextColor,
       style: customInputStyle,
       underlineColorAndroid,
     } = this.props;
 
-    const { text } = this.state;
+    const value = this.getValue();
 
     return (
       <View style={[inputStyle.inputWrapper, inputWrapperStyle]}>
@@ -41,14 +79,16 @@ export default class Input extends Component {
           <Image source={icon} />
         )}
         <TextInput
-          value={text}
           editable={editable !== undefined ? editable : true}
+          keyboardType={keyboardType}
           onBlur={this.onBlur}
           onChangeText={this.onChangeText}
-          style={[customInputStyle, inputStyle.input]}
+          onFocus={this.onFocus}
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor || vars.color.placeholderTextColor}
+          style={[customInputStyle, inputStyle.input]}
           underlineColorAndroid={underlineColorAndroid || vars.color.underlineColorAndroid}
+          value={value}
         />
       </View>
     );

@@ -34,6 +34,10 @@ export function makeReducer(handler, beforeHandler, afterHandler) {
   };
 }
 
+export function formatNumber(number) {
+  return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+}
+
 export function shouldComponentUpdate(ignoreProps, ignoreState) {
   return function (nextProps, nextState) {
     const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
