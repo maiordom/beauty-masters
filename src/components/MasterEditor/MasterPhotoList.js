@@ -6,7 +6,7 @@ import { View, StyleSheet, Image, Dimensions } from 'react-native';
 
 import { MasterPhotoUpload } from './MasterPhotoUpload';
 
-import vars from '../vars';
+import vars from '../../vars';
 
 export default class MasterPhotoList extends Component {
   onPhotoSelectPress = () => {

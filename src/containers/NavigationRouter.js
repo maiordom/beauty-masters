@@ -81,8 +81,8 @@ export default class NavigationRouter extends Component {
             <Scene key="masterEditorGeneral" {...getMasterStyle()} leftButtonIconStyle={{width: 0, height: 0}} title={i18n.masterEditor.generalInformation} getSceneStyle={getSceneStyle} component={MasterEditorGeneral} />
             <Scene key="masterEditorService" {...getMasterStyle()} title={i18n.masterEditor.services} getSceneStyle={getSceneStyle} component={MasterEditorService} />
             <Scene key="masterEditorHandlingTools" {...getMasterStyle()} title={i18n.masterEditor.handlingTools} getSceneStyle={getSceneStyle} component={MasterEditorHandlingTools} />
-            <Scene key="masterEditorCalendarSetting" {...getMasterStyle()} title={i18n.masterEditor.calendarSettings} getSceneStyle={getSceneStyle} component={props => <MasterEditorCalendarSettings {...props} />} />
             <Scene key="masterEditorCalendar" {...getMasterStyle()} title={i18n.masterEditor.schedule} getSceneStyle={getSceneStyle} component={MasterEditorCalendar} />
+            <Scene key="masterEditorCalendarSetting" {...getMasterStyle()} title={i18n.masterEditor.calendarSettings} getSceneStyle={getSceneStyle} component={props => <MasterEditorCalendarSettings {...props} />} />
             <Scene key="masterEditorInfo" {...getMasterStyle()} title={i18n.masterEditor.additionalInformation} getSceneStyle={getSceneStyle} component={MasterEditorInfo} />
           </Scene>
         </Scene>

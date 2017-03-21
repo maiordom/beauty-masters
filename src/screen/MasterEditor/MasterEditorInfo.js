@@ -10,7 +10,7 @@ import Input from '../../components/Input';
 import Label from '../../components/Label';
 import Switch from '../../components/Switch';
 import { SubLabel } from '../../components/SubLabel';
-import MasterPhotoList from '../../components/MasterPhotoList';
+import MasterPhotoList from '../../components/MasterEditor/MasterPhotoList';
 
 import i18n from '../../i18n';
 

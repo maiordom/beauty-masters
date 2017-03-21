@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, TouchableWithoutFeedback } from 'react-native';
 
-const uploadIcon = require('../icons/android/photo-upload@2x.png');
+const uploadIcon = require('../../icons/android/photo-upload@2x.png');
 
 const OVER_SIZE = 8;
 

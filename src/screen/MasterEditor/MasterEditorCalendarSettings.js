@@ -1,44 +1,24 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import ButtonControl from '../../components/ButtonControl';
-import Label from '../../components/Label';
-import SelectSchedule from '../../containers/SelectSchedule';
-import RangeTime from '../../components/RangeTime';
-import MasterEditorAddress from '../../components/MasterEditorAddress';
-import { SubLabel } from '../../components/SubLabel';
-import Calendar from '../../components/Calendar';
+import { setFieldParam } from '../../actions/master';
 
-import i18n from '../../i18n';
+import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
 
-class MasterEditorCalendarSettings extends Component {
-  onReadyPress = () => {
-    Actions.masterEditorCalendar();
-  };
-
-  render() {
-    return (
-      <ScrollView>
-        <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
-        <MasterEditorAddress />
-        <Label text={i18n.youtSchedule} subText={i18n.selectYoutSchedule} spacing />
-        <SelectSchedule />
-        <RangeTime />
-        <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
-        <Calendar />
-        <View style={styles.gap} />
-        <ButtonControl label={i18n.ready} onPress={this.onReadyPress} />
-      </ScrollView>
-    )
-  }
-}
-
-const styles = StyleSheet.create({
-  gap: {
-    height: 36
-  }
+const mapStateToProps = (state, ownProps) => ({
+  masterSchedule: state.masterSchedule,
+  calendarSettings: state.masterEditor[ownProps.modelName],
+  sectionName: ownProps.modelName,
 });
 
-export default connect(null)(MasterEditorCalendarSettings);
+const mapDispatchToProps = dispatch => {
+  const actions = bindActionCreators({ setFieldParam }, dispatch);
+
+  return {
+    onReadyPress: Actions.masterEditorCalendar,
+    actions,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorCalendarSettings);

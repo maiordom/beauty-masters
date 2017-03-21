@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { TextInput, StyleSheet, View, Platform, Image } from 'react-native';
+import { Text, TextInput, StyleSheet, View, Platform, Image } from 'react-native';
 
 import vars from '../vars';
 
 import { shouldComponentUpdate } from '../utils';
 
-export default class Input extends Component {
+class InputBase extends Component {
   constructor(props) {
     super();
 
@@ -18,37 +18,37 @@ export default class Input extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onChangeText = value => {
-    const { formatValue, replaceReg } = this.props;
+    const {formatValue, replaceReg} = this.props;
 
     if (replaceReg) {
       value = value.replace(replaceReg, '');
     }
 
     if (formatValue) {
-      this.setState({ value: formatValue(value) });
+      this.setState({value: formatValue(value)});
     } else {
-      this.setState({ value });
+      this.setState({value});
     }
   };
 
   onFocus = () => {
-    this.setState({ isFocused: true });
+    this.setState({isFocused: true});
   };
 
   onBlur = () => {
-    const { replaceReg } = this.props;
+    const {replaceReg} = this.props;
     let value = this.state.value;
 
     if (replaceReg) {
       value = value.replace(replaceReg, '');
     }
 
-    this.setState({ isFocused: false });
+    this.setState({isFocused: false});
     this.props.onChange && this.props.onChange(value, this.props.modelName);
   };
 
   getValue() {
-    const { sign } = this.props;
+    const {sign} = this.props;
 
     let value = this.state.value;
 
@@ -58,7 +58,43 @@ export default class Input extends Component {
 
     return value || '';
   }
+}
 
+export class InputWithLabel extends InputBase {
+  render() {
+    const {
+      editable,
+      keyboardType,
+      label,
+      placeholder,
+      placeholderTextColor,
+      style: customInputStyle,
+      underlineColorAndroid,
+    } = this.props;
+
+    const value = this.getValue();
+
+    return (
+      <View style={[inputWithLabelStyle.container, customInputStyle]}>
+        <Text style={inputWithLabelStyle.label}>{label}</Text>
+        <TextInput
+          editable={editable !== undefined ? editable : true}
+          keyboardType={keyboardType}
+          onBlur={this.onBlur}
+          onChangeText={this.onChangeText}
+          onFocus={this.onFocus}
+          placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor || vars.color.placeholderTextColor}
+          style={inputWithLabelStyle.input}
+          underlineColorAndroid={underlineColorAndroid || vars.color.underlineColorAndroid}
+          value={value}
+        />
+      </View>
+    );
+  }
+}
+
+export default class Input extends InputBase {
   render() {
     const {
       editable,
@@ -123,5 +159,31 @@ const inputStyle = StyleSheet.create({
         fontSize: 16
       }
     })
+  }
+});
+
+const inputWithLabelStyle = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    ...Platform.select({
+      android: {
+        height: 72
+      }
+    })
+  },
+  label: {
+    fontSize: 12,
+    paddingLeft: 4,
+    color: vars.color.grey,
+  },
+  input: {
+    alignSelf: 'stretch',
+    ...Platform.select({
+      android: {
+        height: 40,
+        fontSize: 16
+      }
+    }),
   }
 });
