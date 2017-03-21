@@ -43,9 +43,19 @@ const buildingField = building => ({
 });
 
 const recipientsField = (recipients = {}) => ({
-    intervalId: recipients.interval_id || null,
-    startDate: recipients.start_date || null,
-    timeStart: recipients.time_start || null,
+  startDate: recipients.start_date || null,
+  timeStart: recipients.time_start || null,
+  timeEnd: recipients.time_end || null,
+});
+
+const intervalGroup = () => ({
+  queryParam: 'intervalId',
+  items: [
+    { label: i18n.schedule.wholeWeek, id: '1' },
+    { label: i18n.schedule.twoAfterTwo, id: '4' },
+    { label: i18n.schedule.onWeekdays, id: '2' },
+    { label: i18n.schedule.onWeekends, id: '3' },
+  ]
 });
 
 export default {
@@ -57,4 +67,5 @@ export default {
   houseField,
   buildingField,
   recipientsField,
+  intervalGroup,
 };

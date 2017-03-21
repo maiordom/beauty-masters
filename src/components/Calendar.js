@@ -4,7 +4,11 @@ import NativeCalendar from './CalendarBase';
 
 import i18n from '../i18n';
 
+import { shouldComponentUpdate } from '../utils';
+
 export default class Calendar extends Component {
+  shouldComponentUpdate = shouldComponentUpdate();
+
   render() {
     return (
       <View style={styles.container}>

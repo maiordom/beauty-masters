@@ -1,4 +1,5 @@
 import find from 'lodash/find';
+import each from 'lodash/each';
 
 import { makeReducer } from '../utils';
 
@@ -61,4 +62,23 @@ export default makeReducer((state, action) => ({
 
     return state;
   },
+
+  [actions.MASTER_SET_ITEM_BY_ID]: () => {
+    const { modelName, id, sectionName } = action;
+    const section = state.masterEditor[sectionName];
+    const model = section[modelName];
+
+    console.log(action);
+
+    each(model.items, item => {
+      item.active = item.id === id;
+    });
+
+    state.masterEditor = {...state.masterEditor};
+    state.masterEditor[sectionName] = {...section};
+    state.masterEditor[sectionName][modelName] = {...model};
+    state.masterEditor[sectionName][modelName].items = [...model.items];
+
+    return state;
+  }
 }));

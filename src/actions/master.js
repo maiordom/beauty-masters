@@ -43,3 +43,10 @@ export const setFieldParam = (modelName, paramName, paramValue, sectionName) => 
   paramValue,
   sectionName,
 });
+
+export const setItemById = (modelName, id, sectionName) => ({
+  type: actions.MASTER_SET_ITEM_BY_ID,
+  modelName,
+  id,
+  sectionName,
+});

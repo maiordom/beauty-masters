@@ -2,11 +2,9 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
 
-import masterSchedule from './masterSchedule';
 import MasterEditor from './MasterEditor';
 
 const initialState = {
-  masterSchedule,
   masterEditor: {
     personalPhotosLimit: 5,
     personalPhotos: [],

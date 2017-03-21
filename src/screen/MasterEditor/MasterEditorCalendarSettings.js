@@ -2,7 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setFieldParam } from '../../actions/master';
+import { setFieldParam, setItemById } from '../../actions/master';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
 
@@ -13,7 +13,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators({ setFieldParam }, dispatch);
+  const actions = bindActionCreators({
+    setFieldParam,
+    setItemById,
+  }, dispatch);
 
   return {
     onReadyPress: Actions.masterEditorCalendar,

@@ -4,7 +4,11 @@ import { Text, StyleSheet, TouchableHighlight, Platform, View } from 'react-nati
 import i18n from '../i18n';
 import vars from '../vars';
 
+import { shouldComponentUpdate } from '../utils';
+
 export default class ButtonControl extends Component {
+  shouldComponentUpdate = shouldComponentUpdate();
+
   render() {
     const { onPress, label } = this.props;
 

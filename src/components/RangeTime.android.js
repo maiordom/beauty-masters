@@ -7,10 +7,14 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import { shouldComponentUpdate } from '../utils';
+
 import i18n from '../i18n';
 import vars from '../vars';
 
 export default class RangeTime extends Component {
+  shouldComponentUpdate = shouldComponentUpdate();
+
   constructor() {
     super();
 

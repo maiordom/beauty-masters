@@ -6,31 +6,21 @@ const iconChecked = require('../icons/radio-checked.png');
 
 import vars from '../vars';
 
+import { shouldComponentUpdate } from '../utils';
+
 export default class Radio extends Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      checked: Boolean(props.checked),
-    };
-  }
-
-  toggle() {
-    const checked = !this.state.checked;
-
-    this.setState({checked: checked});
-
-    return checked;
-  }
+  shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
-    this.toggle();
-    this.props.onPress && this.props.onPress(this.state.checked);
+    if (this.props.checked) {
+      return;
+    }
+
+    this.props.onChange && this.props.onChange(!this.props.checked, this.props.id);
   };
 
   render() {
-    const { checked } = this.state;
-    const { label } = this.props;
+    const { label, checked } = this.props;
 
     return (
       <TouchableHighlight

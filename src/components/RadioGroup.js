@@ -3,16 +3,28 @@ import { View, StyleSheet } from 'react-native';
 
 import Radio from './Radio';
 
-import i18n from '../i18n';
+import { shouldComponentUpdate } from '../utils';
 
 export default class RadioGroup extends Component {
+  shouldComponentUpdate = shouldComponentUpdate();
+
+  onRadioChange = (value, id) => {
+    this.props.onChange(value, id, this.props.modelName);
+  };
+
   render() {
     const { items } = this.props;
 
     return (
       <View style={styles.container}>
         {items.map((item, key) => (
-          <Radio key={key} label={item.label} checked={item.checked} />
+          <Radio
+            key={key}
+            label={item.label}
+            id={item.id}
+            checked={item.active}
+            onChange={this.onRadioChange}
+          />
         ))}
       </View>
     );
