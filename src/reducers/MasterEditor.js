@@ -68,8 +68,6 @@ export default makeReducer((state, action) => ({
     const section = state.masterEditor[sectionName];
     const model = section[modelName];
 
-    console.log(action);
-
     each(model.items, item => {
       item.active = item.id === id;
     });
