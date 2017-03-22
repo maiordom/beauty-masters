@@ -15,14 +15,20 @@ import vars from '../vars';
 export default class RangeTime extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
-  constructor() {
+  constructor(props) {
     super();
 
+    const { timeStart, timeEnd } = props;
+    const [ timeStartHour, timeStartMinute ] = timeStart.split(':');
+    const [ timeEndHour, timeEndMinute ] = timeEnd.split(':');
+
     this.state = {
-      timeStartHour: 10,
-      timeStartMinute: 0,
-      timeEndHour: 20,
-      timeEndMinute: 0,
+      timeStart,
+      timeEnd,
+      timeStartHour: Number(timeStartHour),
+      timeStartMinute: Number(timeStartMinute),
+      timeEndHour: Number(timeEndHour),
+      timeEndMinute: Number(timeEndMinute),
     };
   }
 
@@ -34,15 +40,20 @@ export default class RangeTime extends Component {
     const { timeStartHour, timeStartMinute } = this.state;
 
     TimePickerAndroid.open({
-      hout: timeStartHour,
+      hour: timeStartHour,
       minute: timeStartMinute,
       is24Hour: true,
     }).then(({action, minute, hour}) => {
       if (action === TimePickerAndroid.timeSetAction) {
+        const timeStart = this.formatTime(hour, minute);
+
         this.setState({
           timeStartHour: hour,
           timeStartMinute: minute,
+          timeStart,
         });
+
+        this.props.onChangeTimeStart(timeStart, this.props.modelName);
       }
     });
   };
@@ -51,39 +62,52 @@ export default class RangeTime extends Component {
     const { timeEndHour, timeEndMinute } = this.state;
 
     TimePickerAndroid.open({
-      hout: timeEndHour,
+      hour: timeEndHour,
       minute: timeEndMinute,
       is24Hour: true,
     }).then(({action, minute, hour}) => {
       if (action === TimePickerAndroid.timeSetAction) {
+        const timeEnd = this.formatTime(hour, minute);
+
         this.setState({
           timeEndHour: hour,
           timeEndMinute: minute,
+          timeEnd: timeEnd,
         });
+
+        this.props.onChangeTimeEnd(timeEnd, this.props.modelName);
       }
     });
   };
 
   render() {
     const {
-      timeStartHour,
-      timeStartMinute,
-      timeEndHour,
-      timeEndMinute,
+      timeStart,
+      timeEnd
     } = this.state;
 
     return (
       <View style={styles.container}>
-        <TouchableHighlight activeOpacity={1} underlayColor='transparent' style={styles.button} onPress={this.onTimeStartPress}>
+        <TouchableHighlight
+          activeOpacity={1}
+          underlayColor='transparent'
+          style={styles.button}
+          onPress={this.onTimeStartPress}
+        >
           <View style={styles.timeWrapper}>
             <Text style={styles.time}>{i18n.from}</Text>
-            <Text style={styles.time}>{this.formatTime(timeStartHour, timeStartMinute)}</Text>
+            <Text style={styles.time}>{timeStart}</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight activeOpacity={1} underlayColor='transparent' style={styles.button} onPress={this.onTimeEndPress}>
+        <TouchableHighlight
+          activeOpacity={1}
+          underlayColor='transparent'
+          style={styles.button}
+          onPress={this.onTimeEndPress}
+        >
           <View style={styles.timeWrapper}>
             <Text style={styles.time}>{i18n.to}</Text>
-            <Text style={styles.time}>{this.formatTime(timeEndHour, timeEndMinute)}</Text>
+            <Text style={styles.time}>{timeEnd}</Text>
           </View>
         </TouchableHighlight>
       </View>

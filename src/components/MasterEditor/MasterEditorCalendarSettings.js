@@ -20,6 +20,14 @@ export default class MasterEditorCalendarSettings extends Component {
     this.props.actions.setItemById(modelName, id, this.props.sectionName);
   };
 
+  onChangeTimeEnd = (timeEnd, modelName) => {
+    this.props.actions.setFieldParam(modelName, 'timeEnd', timeEnd, this.props.sectionName);
+  };
+
+  onChangeTimeStart = (timeStart, modelName) => {
+    this.props.actions.setFieldParam(modelName, 'timeStart', timeStart, this.props.sectionName);
+  };
+
   render() {
     const {
       calendarSettings,
@@ -28,6 +36,7 @@ export default class MasterEditorCalendarSettings extends Component {
 
     const {
       intervalGroup,
+      recipientsField,
     } = calendarSettings;
 
     const addressModels = {
@@ -46,7 +55,13 @@ export default class MasterEditorCalendarSettings extends Component {
         <MasterEditorAddress {...addressModels} onChange={this.onChange} />
         <Label text={i18n.yourSchedule} subText={i18n.selectYoutSchedule} spacing />
         <RadioGroup {...intervalGroup} onChange={this.onIntervalChange} />
-        <RangeTime />
+        <RangeTime
+          onChangeTimeStart={this.onChangeTimeStart}
+          onChangeTimeEnd={this.onChangeTimeEnd}
+          timeStart={recipientsField.timeStart}
+          timeEnd={recipientsField.timeEnd}
+          modelName={recipientsField.modelName}
+        />
         <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
         <Calendar />
         <View style={styles.gap} />

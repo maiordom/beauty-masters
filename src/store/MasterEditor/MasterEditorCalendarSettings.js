@@ -44,8 +44,8 @@ const buildingField = building => ({
 
 const recipientsField = (recipients = {}) => ({
   startDate: recipients.start_date || null,
-  timeStart: recipients.time_start || null,
-  timeEnd: recipients.time_end || null,
+  timeStart: recipients.time_start || '10:00',
+  timeEnd: recipients.time_end || '20:00',
 });
 
 const intervalGroup = () => ({
