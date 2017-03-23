@@ -51,10 +51,10 @@ const recipientsField = (recipients = {}) => ({
 const intervalGroup = () => ({
   queryParam: 'intervalId',
   items: [
-    { label: i18n.schedule.wholeWeek, id: '1' },
-    { label: i18n.schedule.twoAfterTwo, id: '4' },
-    { label: i18n.schedule.onWeekdays, id: '2' },
-    { label: i18n.schedule.onWeekends, id: '3' },
+    { label: i18n.schedule.wholeWeek, id: '1', key: 'wholeWeek' },
+    { label: i18n.schedule.twoAfterTwo, id: '4', key: 'twoAfterTwo' },
+    { label: i18n.schedule.onWeekdays, id: '2', key: 'onWeekdays' },
+    { label: i18n.schedule.onWeekends, id: '3', key: 'onWeekends' },
   ]
 });
 

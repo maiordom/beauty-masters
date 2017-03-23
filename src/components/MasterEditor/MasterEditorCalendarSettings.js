@@ -63,7 +63,7 @@ export default class MasterEditorCalendarSettings extends Component {
           modelName={recipientsField.modelName}
         />
         <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
-        <Calendar />
+        <Calendar interval={intervalGroup.selected} />
         <View style={styles.gap} />
         <ButtonControl label={i18n.ready} onPress={onReadyPress} />
       </ScrollView>

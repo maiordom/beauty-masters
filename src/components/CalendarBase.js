@@ -473,14 +473,13 @@ const styles = StyleSheet.create({
     color: vars.color.black,
   },
   eventIndicatorFiller: {
-    marginTop: 3,
     borderColor: 'transparent',
     width: 4,
     height: 4,
     borderRadius: 2,
   },
   eventIndicator: {
-    backgroundColor: '#cccccc',
+    backgroundColor: '#000',
   },
   dayCircleFiller: {
     justifyContent: 'center',

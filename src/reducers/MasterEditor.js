@@ -70,6 +70,10 @@ export default makeReducer((state, action) => ({
 
     each(model.items, item => {
       item.active = item.id === id;
+
+      if (item.active) {
+        model.selected = item;
+      }
     });
 
     state.masterEditor = {...state.masterEditor};
