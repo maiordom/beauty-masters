@@ -8,6 +8,7 @@ export default {
     lightGrey: '#F3F5F7',
     red: '#F65F6E',
     black: '#283741',
+    blue: '#14AAF0',
 
     borderColorAndroid: '#E4E6E8',
     placeholderColor: '#283741',

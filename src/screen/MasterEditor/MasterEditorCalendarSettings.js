@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { setFieldParam, setItemById } from '../../actions/master';
+import { drawerOpen } from '../../actions/drawer';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
 
-const mapStateToProps = (state, {modelName = 'calendarSettingsOne'}) => ({
+const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
   masterSchedule: state.masterSchedule,
   calendarSettings: state.masterEditor[modelName],
   sectionName: modelName,
@@ -20,6 +21,7 @@ const mapDispatchToProps = dispatch => {
 
   return {
     onReadyPress: Actions.masterEditorCalendar,
+    drawerOpen,
     actions,
   };
 };

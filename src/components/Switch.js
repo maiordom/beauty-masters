@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { hexToRgba } from '../utils';
+
+import { hexToRgba, shouldComponentUpdate } from '../utils';
 
 import SwitchBase from './SwitchBase';
 
 export default class CustomSwitch extends Component {
+  shouldComponentUpdate = shouldComponentUpdate();
+
   onChange = state => {
     this.props.onChange && this.props.onChange(state, this.props.modelName);
   };
 
+  setRef = ref => {
+    this.ref = ref;
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.ref && this.ref.changeState(nextProps.value);
+  }
+
   render() {
-    const { title, value } = this.props;
+    const { title, value, customStyles } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, customStyles]}>
         <Text style={styles.title}>{title}</Text>
         <SwitchBase
+          ref={this.setRef}
           active={value}
           buttonRadius={11}
           switchWidth={38}

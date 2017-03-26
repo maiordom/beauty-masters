@@ -18,11 +18,15 @@ export default class RangeTime extends Component {
   constructor(props) {
     super();
 
+    this.state = this.getStorage(props);
+  }
+
+  getStorage = (props) => {
     const { timeStart, timeEnd } = props;
     const [ timeStartHour, timeStartMinute ] = timeStart.split(':');
     const [ timeEndHour, timeEndMinute ] = timeEnd.split(':');
 
-    this.state = {
+    return {
       timeStart,
       timeEnd,
       timeStartHour: Number(timeStartHour),
@@ -30,6 +34,10 @@ export default class RangeTime extends Component {
       timeEndHour: Number(timeEndHour),
       timeEndMinute: Number(timeEndMinute),
     };
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.state = this.getStorage(nextProps);
   }
 
   formatTime = (hour, minute) => {
@@ -53,7 +61,7 @@ export default class RangeTime extends Component {
           timeStart,
         });
 
-        this.props.onChangeTimeStart(timeStart, this.props.modelName);
+        this.props.onTimeStartChange(timeStart, this.props.modelName);
       }
     });
   };
@@ -75,7 +83,7 @@ export default class RangeTime extends Component {
           timeEnd: timeEnd,
         });
 
-        this.props.onChangeTimeEnd(timeEnd, this.props.modelName);
+        this.props.onTimeEndChange(timeEnd, this.props.modelName);
       }
     });
   };

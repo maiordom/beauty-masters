@@ -20,12 +20,20 @@ export default class MasterEditorCalendarSettings extends Component {
     this.props.actions.setItemById(modelName, id, this.props.sectionName);
   };
 
-  onChangeTimeEnd = (timeEnd, modelName) => {
+  onTimeEndChange = (timeEnd, modelName) => {
     this.props.actions.setFieldParam(modelName, 'timeEnd', timeEnd, this.props.sectionName);
   };
 
-  onChangeTimeStart = (timeStart, modelName) => {
+  onTimeStartChange = (timeStart, modelName) => {
     this.props.actions.setFieldParam(modelName, 'timeStart', timeStart, this.props.sectionName);
+  };
+
+  onDateSelect = date => {
+    this.props.drawerOpen({
+      date: date,
+      contentKey: 'WorkTimeSpecification',
+      sectionName: this.props.sectionName,
+    });
   };
 
   render() {
@@ -37,6 +45,7 @@ export default class MasterEditorCalendarSettings extends Component {
     const {
       intervalGroup,
       recipientsField,
+      customDates,
     } = calendarSettings;
 
     const addressModels = {
@@ -56,14 +65,18 @@ export default class MasterEditorCalendarSettings extends Component {
         <Label text={i18n.yourSchedule} subText={i18n.selectYoutSchedule} spacing />
         <RadioGroup {...intervalGroup} onChange={this.onIntervalChange} />
         <RangeTime
-          onChangeTimeStart={this.onChangeTimeStart}
-          onChangeTimeEnd={this.onChangeTimeEnd}
+          onTimeStartChange={this.onTimeStartChange}
+          onTimeEndChange={this.onTimeEndChange}
           timeStart={recipientsField.timeStart}
           timeEnd={recipientsField.timeEnd}
           modelName={recipientsField.modelName}
         />
         <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
-        <Calendar interval={intervalGroup.selected} />
+        <Calendar
+          events={customDates.items}
+          onDateSelect={this.onDateSelect}
+          interval={intervalGroup.selected}
+        />
         <View style={styles.gap} />
         <ButtonControl label={i18n.ready} onPress={onReadyPress} />
       </ScrollView>

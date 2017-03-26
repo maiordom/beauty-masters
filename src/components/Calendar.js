@@ -7,39 +7,65 @@ import NativeCalendar from './CalendarBase';
 import i18n from '../i18n';
 
 import { shouldComponentUpdate } from '../utils';
+import vars from '../vars';
 
 export default class Calendar extends Component {
+  static defaultProps = {
+    format: 'YYYY-MM-DD',
+  };
+
+  constructor() {
+    super();
+
+    this.state = {
+      startDate: moment(),
+    };
+  }
+
   shouldComponentUpdate = shouldComponentUpdate();
 
-  prepareEventsByInterval(interval) {
-    let todayMoment = moment();
+  onDateSelect = date => {
+    this.props.onDateSelect(moment(date).format(this.props.format));
+  };
+
+  onMonthChange = date => {
+    const startDate = moment(date.format());
+
+    if (startDate.get('month') !== moment().get('month')) {
+      this.setState({ startDate: startDate.set('date', 1) });
+    } else {
+      this.setState({ startDate: moment() });
+    }
+  };
+
+  prepareEventDates(interval, startDate) {
     let twoAfterTwo = 0;
 
-    const todayDate = todayMoment.date();
-    const dayInMonth = todayMoment.daysInMonth();
+    const todayDate = startDate.date();
+    const dayInMonth = startDate.daysInMonth();
     const events = [];
     const formatDate = 'YYYY-MM-DD';
 
     for (let i = todayDate; i <= dayInMonth; i++) {
-      let isoWeekday = todayMoment.isoWeekday();
+      let isoWeekday = startDate.isoWeekday();
 
       switch (interval) {
         case 'onWeekdays': {
           if ([6, 7].indexOf(isoWeekday) === -1) {
-            events.push(todayMoment.format(formatDate));
+            events.push(startDate.format(formatDate));
           }
         } break;
         case 'onWeekends': {
           if ([6, 7].indexOf(isoWeekday) !== -1) {
-            events.push(todayMoment.format(formatDate))
+            events.push(startDate.format(formatDate))
           }
         } break;
         case 'wholeWeek': {
-          events.push(todayMoment.format(formatDate));
+          events.push(startDate.format(formatDate));
         } break;
         case 'twoAfterTwo': {
           if (twoAfterTwo < 2) {
-            events.push(todayMoment.format(formatDate));
+            events.push(startDate.format(formatDate));
           }
           if (twoAfterTwo === 3) {
             twoAfterTwo = -1;
@@ -48,24 +74,36 @@ export default class Calendar extends Component {
         } break;
       }
 
-      todayMoment = todayMoment.add(1, 'day');
+      startDate = startDate.add(1, 'day');
     }
 
     return events;
   }
 
   render() {
-    const {interval} = this.props;
-    let events = [];
+    const { interval, events } = this.props;
+    const { startDate } = this.state;
+    let eventDates = [];
+
+    const eventsCalendar = events.map(event => ({
+      date: event.date,
+      eventIndicator: {
+        backgroundColor: vars.color.blue,
+      },
+    }));
 
     if (interval) {
-      events = this.prepareEventsByInterval(interval.key)
+      eventDates = this.prepareEventDates(interval.key, startDate);
     }
 
     return (
       <View style={styles.container}>
         <NativeCalendar
-          eventDates={events}
+          onTouchNext={this.onMonthChange}
+          onTouchPrev={this.onMonthChange}
+          events={eventsCalendar}
+          onDateSelect={this.onDateSelect}
+          eventDates={eventDates}
           showEventIndicators={true}
           dayHeadings={i18n.dayHeadings}
           showControls={true}

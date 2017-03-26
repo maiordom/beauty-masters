@@ -48,6 +48,12 @@ const recipientsField = (recipients = {}) => ({
   timeEnd: recipients.time_end || '20:00',
 });
 
+const customDates = () => ({
+  timeStartDefault: '10:00',
+  timeEndDefault: '20:00',
+  items: []
+});
+
 const intervalGroup = () => ({
   queryParam: 'intervalId',
   items: [
@@ -68,4 +74,5 @@ export default {
   buildingField,
   recipientsField,
   intervalGroup,
+  customDates,
 };

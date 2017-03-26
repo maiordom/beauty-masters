@@ -4,6 +4,7 @@ import { DefaultRenderer } from 'react-native-router-flux';
 import { Text } from 'react-native';
 
 import PhotoMaster from '../containers/PhotoMaster';
+import WorkTimeSpecification from '../containers/WorkTimeSpecification';
 
 import { drawerClose } from '../actions/drawer';
 import { hexToRgba } from '../utils';
@@ -17,11 +18,12 @@ export default class Drawer extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    const { contentKey, name } = this.props;
+    const { contentKey } = this.props;
     let content;
 
     switch(contentKey) {
-      case 'PhotoMaster': content = <PhotoMaster name={name} />; break;
+      case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
+      case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
     }
 
     return (
@@ -31,9 +33,9 @@ export default class Drawer extends Component {
         styles={{drawer: {
           backgroundColor: hexToRgba(vars.color.black, 40),
         }}}
+        captureGestures='closed'
         open={state.open}
         content={content}
-        tapToClose={true}
         openDrawerOffset={0}
         panCloseMask={0.7}
         negotiatePan={true}

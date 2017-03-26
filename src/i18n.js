@@ -120,6 +120,7 @@ export default {
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
   specifyHowYouSterilizeTools: 'Укажите, как вы стерилизуете инструменты',
+  startWorkOnThisSchedule: 'С какого числа начнете работать по этому графику',
   street: 'Улица',
   subwayStation: 'Метро',
   time: {
@@ -128,6 +129,7 @@ export default {
   to: 'До',
   userAgreement: 'Условия пользовательского соглашения',
   workAddress: 'Адрес, по которому вы принимаете заказы',
+  workInThisDay: 'Работаю в этот день',
   youCanEditTheDaysApart: 'Можете отредактировать дни отдельно',
   yourEmail: 'Ваш email',
   yourServices: 'Ваши услуги',

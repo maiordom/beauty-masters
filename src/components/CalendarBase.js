@@ -79,7 +79,7 @@ export default class Calendar extends Component {
 
   componentWillReceiveProps(props) {
     if (props.selectedDate) {
-      this.setState({selectedMoment: props.selectedDate});
+      this.setState({ selectedMoment: props.selectedDate });
     }
   }
 
@@ -477,6 +477,7 @@ const styles = StyleSheet.create({
     width: 4,
     height: 4,
     borderRadius: 2,
+    top: -4
   },
   eventIndicator: {
     backgroundColor: '#000',
@@ -491,10 +492,8 @@ const styles = StyleSheet.create({
   currentDayCircle: {
   },
   currentDayText: {
-    color: 'red',
   },
   selectedDayCircle: {
-    backgroundColor: 'black',
   },
   hasEventCircle: {
   },

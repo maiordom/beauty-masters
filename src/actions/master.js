@@ -50,3 +50,9 @@ export const setItemById = (modelName, id, sectionName) => ({
   id,
   sectionName,
 });
+
+export const setCustomDate = (changes, sectionName) => ({
+  type: actions.MASTER_SET_CUSTOM_DATE,
+  changes,
+  sectionName,
+});

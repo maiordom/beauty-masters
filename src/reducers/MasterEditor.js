@@ -82,5 +82,33 @@ export default makeReducer((state, action) => ({
     state.masterEditor[sectionName][modelName].items = [...model.items];
 
     return state;
+  },
+
+  [actions.MASTER_SET_CUSTOM_DATE]: () => {
+    const { sectionName, changes } = action;
+    const { timeStart, timeEnd, date, workInThisDay } = changes;
+    const section = state.masterEditor[sectionName];
+    const model = section.customDates;
+
+    const dateObject = {
+      date: date,
+      status: workInThisDay,
+      timeEnd: timeEnd,
+      timeStart: timeStart,
+    };
+    const dateCurrent = find(model.items, { date });
+
+    if (dateCurrent) {
+      Object.assign(dateCurrent, dateObject);
+    } else {
+      model.items.push(dateObject);
+    }
+
+    state.masterEditor = {...state.masterEditor};
+    state.masterEditor[sectionName] = {...section};
+    state.masterEditor[sectionName].customDates = {...model};
+    state.masterEditor[sectionName].customDates.items = [...model.items];
+
+    return state;
   }
 }));
