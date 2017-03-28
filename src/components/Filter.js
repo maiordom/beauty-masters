@@ -18,16 +18,21 @@ export default class Filter extends Component {
     this.props.onChange(!this.props.active, this.props.modelName);
   };
 
-  onChangePrice = price => {
-    this.props.onChangePrice(price, this.props.modelName);
-  };
+  getButtonContentHeight = () => {
+    const { subtitle: hasSubtitle } = this.props;
 
-  onChangeDuration = duration => {
-    this.props.onChangeDuration(duration, this.props.modelName);
+    return {
+        height: hasSubtitle ? 64 : 44,
+        ...Platform.select({
+            android: {
+                height: hasSubtitle ? 72 : 48
+            }
+        }),
+    }
   };
 
   render() {
-    const { title, active, price, duration } = this.props;
+    const { title, subtitle } = this.props;
 
     return (
       <View style={styles.container}>
@@ -37,35 +42,13 @@ export default class Filter extends Component {
           onPress={this.onPress}
           style={styles.button}
         >
-          <View style={styles.buttonContent}>
+          <View style={[styles.buttonContent, this.getButtonContentHeight()]}>
             <Text style={styles.title}>{title}</Text>
-            <Checkbox checked={active} ref={ref => { this.checkboxRef = ref; }} />
+              {subtitle && (
+                  <Text style={styles.subtitle}>{subtitle}</Text>
+              )}
           </View>
         </TouchableHighlight>
-        {active && (
-          <View style={styles.fields}>
-            <Input
-              formatValue={formatNumber}
-              inputWrapperStyle={styles.input}
-              keyboardType='numeric'
-              onChange={this.onChangePrice}
-              placeholder={i18n.filters.price}
-              replaceReg={/[^0-9.]/g}
-              sign={` ${i18n.currency.roubleSign}`}
-              value={price}
-            />
-            <Input
-              formatValue={formatNumber}
-              inputWrapperStyle={styles.input}
-              keyboardType='numeric'
-              onChange={this.onChangeDuration}
-              placeholder={i18n.filters.duration}
-              replaceReg={/[^0-9.]/g}
-              sign={` ${i18n.time.minuteShort}`}
-              value={duration}
-            />
-          </View>
-        )}
       </View>
     );
   }
@@ -78,15 +61,9 @@ const styles = StyleSheet.create({
     paddingRight: 15
   },
   buttonContent: {
-    height: 44,
-    ...Platform.select({
-      android: {
-        height: 48
-      }
-    }),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   title: {
     color: vars.color.black,
@@ -96,12 +73,16 @@ const styles = StyleSheet.create({
       }
     })
   },
+  subtitle: {
+      marginTop: 5,
+      color: vars.color.grey,
+      ...Platform.select({
+          android: {
+              fontSize: 14
+          }
+      })
+  },
   fields: {
     flexDirection: 'row'
-  },
-  input: {
-    flex: 1,
-    paddingLeft: 11,
-    paddingRight: 11
   }
 });

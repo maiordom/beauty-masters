@@ -59,7 +59,10 @@ export default class Presentation extends Component {
           </View>
         </View>
         <View style={styles.bottomContainer}>
-          <TouchableHighlight style={styles.continueButton}>
+          <TouchableHighlight
+              style={styles.continueButton}
+              onPress={Actions.searchFormShort}
+          >
             <Text style={styles.continueText}>{i18nContinue}</Text>
           </TouchableHighlight>
           <TouchableHighlight

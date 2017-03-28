@@ -10,7 +10,7 @@ export default class ButtonControl extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   render() {
-    const { onPress, label } = this.props;
+    const { onPress, label, customStyles = {}} = this.props;
 
     const title = Platform.select({
       ios: label || i18n.next,
@@ -22,9 +22,9 @@ export default class ButtonControl extends Component {
         underlayColor={vars.color.red}
         activeOpacity={1}
         onPress={onPress}
-        style={styles.nextButton}
+        style={[styles.nextButton, customStyles.touchable]}
       >
-        <Text style={styles.nextText}>{title}</Text>
+        <Text style={[styles.nextText, customStyles.text]}>{title}</Text>
       </TouchableHighlight>
     );
   }

@@ -40,6 +40,7 @@ export default {
     moon: 'Лунный/обратный френч',
     nailDesign: 'Дизайн ногтей',
     nailExtension: 'Наращивание ногтей',
+    nailExtensionShort: 'Наращивание',
     nailProcessingMethod: 'Способ обработки ногтей (без покрытия)',
     naroshchennyhNails: 'Нарощенных ногтей',
     price: 'Стоимость, ₽',
@@ -116,6 +117,12 @@ export default {
     onWeekdays: 'По будням',
     onWeekends: 'По выходным',
   },
+  search: {
+    searchParams: 'Параметры поиска',
+    vacantDays: 'Дни, когда возможен прием',
+    masterPlace: 'Где принимает мастер',
+    masterToHome: 'Мастер выезжает на дом'
+  },
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
@@ -127,6 +134,7 @@ export default {
     minuteShort: 'мин',
   },
   to: 'До',
+  tomorrow: 'Завтра',
   userAgreement: 'Условия пользовательского соглашения',
   workAddress: 'Адрес, по которому вы принимаете заказы',
   workInThisDay: 'Работаю в этот день',

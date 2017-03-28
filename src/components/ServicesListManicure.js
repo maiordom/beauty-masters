@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
-import Filter from './Filter';
+import Filter from './FilterCheckBox';
 
 import i18n from '../i18n';
 
