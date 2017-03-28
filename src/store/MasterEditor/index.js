@@ -1,9 +1,9 @@
 import each from 'lodash/each';
 
 import GeneralFields from './MasterEditorGeneral';
-import ServiceManicure from './MasterEditorServiceManicure';
-import ServicePedicure from './MasterEditorServicePedicure';
-import HandlingTools from './MasterEditorHandlingTools';
+import ServiceManicure from '../Filters/ServiceManicure';
+import ServicePedicure from '../Filters/ServicePedicure';
+import HandlingTools from '../Filters/HandlingTools';
 import CalendarSettings from './MasterEditorCalendarSettings';
 
 const params = {};
