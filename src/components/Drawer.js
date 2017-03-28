@@ -5,6 +5,7 @@ import { Text } from 'react-native';
 
 import PhotoMaster from '../containers/PhotoMaster';
 import WorkTimeSpecification from '../containers/WorkTimeSpecification';
+import IntervalStartDate from '../containers/IntervalStartDate';
 
 import { drawerClose } from '../actions/drawer';
 import { hexToRgba } from '../utils';
@@ -24,6 +25,7 @@ export default class Drawer extends Component {
     switch(contentKey) {
       case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
       case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
+      case 'IntervalStartDate': content = <IntervalStartDate {...this.props} />; break;
     }
 
     return (

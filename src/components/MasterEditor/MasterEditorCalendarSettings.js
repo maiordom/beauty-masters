@@ -18,6 +18,10 @@ export default class MasterEditorCalendarSettings extends Component {
 
   onIntervalChange = (value, id, modelName) => {
     this.props.actions.setItemById(modelName, id, this.props.sectionName);
+    this.props.drawerOpen({
+      contentKey: 'IntervalStartDate',
+      sectionName: this.props.sectionName,
+    });
   };
 
   onTimeEndChange = (timeEnd, modelName) => {
@@ -76,6 +80,7 @@ export default class MasterEditorCalendarSettings extends Component {
           events={customDates.items}
           onDateSelect={this.onDateSelect}
           interval={intervalGroup.selected}
+          startDate={recipientsField.startDate}
         />
         <View style={styles.gap} />
         <ButtonControl label={i18n.ready} onPress={onReadyPress} />

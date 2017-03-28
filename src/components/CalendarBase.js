@@ -18,6 +18,29 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const VIEW_INDEX = 2;
 
 export default class Calendar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.styles = {};
+
+    if (props.width) {
+      this.styles = StyleSheet.create({
+        monthContainer: {
+          width: props.width,
+        },
+        dayButton: {
+          width: props.width / 7,
+          alignItems: 'center',
+          padding: 5,
+        },
+        dayButtonFiller: {
+          width: props.width / 7,
+          padding: 5,
+        }
+      });
+    }
+  }
+
   state = {
     currentMonthMoment: moment(this.props.startDate),
     selectedMoment: moment(this.props.selectedDate),
@@ -190,6 +213,7 @@ export default class Calendar extends Component {
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
         days.push((
           <Day
+            styles={this.styles}
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
@@ -204,7 +228,7 @@ export default class Calendar extends Component {
           />
         ));
       } else {
-        days.push(<Day key={`${renderIndex}`} filler />);
+        days.push(<Day styles={this.styles} key={`${renderIndex}`} filler />);
       }
       if (renderIndex % 7 === 6) {
         weekRows.push(
@@ -222,9 +246,12 @@ export default class Calendar extends Component {
       renderIndex += 1;
     } while (true);
 
-    const containerStyle = styles.monthContainer;
-
-    return <View key={argMoment.month()} style={containerStyle}>{weekRows}</View>;
+    return <View
+      key={argMoment.month()}
+      style={
+        this.styles.monthContainer ||
+        styles.monthContainer
+      }>{weekRows}</View>;
   }
 
   renderHeading() {
@@ -361,10 +388,12 @@ class Day extends Component {
   dayTextStyle = (isWeekend, isSelected, isToday, event) => {
     const dayTextStyle = [styles.day];
 
-    if (isToday && !isSelected) {
-      dayTextStyle.push(styles.currentDayText);
-    } else if (isToday || isSelected) {
-      dayTextStyle.push(styles.selectedDayText);
+    if (isSelected) {
+      if (isToday) {
+        dayTextStyle.push(styles.currentDayText);
+      } else {
+        dayTextStyle.push(styles.selectedDayText);
+      }
     } else if (isWeekend) {
       dayTextStyle.push(styles.weekendDayText);
     }
@@ -389,14 +418,14 @@ class Day extends Component {
     return filler
       ? (
         <TouchableWithoutFeedback>
-          <View style={styles.dayButtonFiller}>
+          <View style={this.props.styles.dayButtonFiller || styles.dayButtonFiller}>
             <Text style={styles.day} />
           </View>
         </TouchableWithoutFeedback>
       )
       : (
         <TouchableOpacity onPress={this.props.onPress}>
-          <View style={styles.dayButton}>
+          <View style={this.props.styles.dayButton || styles.dayButton}>
             <View style={this.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
               <Text style={this.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
             </View>
@@ -485,15 +514,16 @@ const styles = StyleSheet.create({
   dayCircleFiller: {
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 40,
+    height: 40,
+    borderRadius: 30,
   },
   currentDayCircle: {
   },
   currentDayText: {
   },
   selectedDayCircle: {
+    backgroundColor: vars.color.red,
   },
   hasEventCircle: {
   },
@@ -502,6 +532,7 @@ const styles = StyleSheet.create({
   hasEventText: {
   },
   selectedDayText: {
+    color: vars.color.white,
   },
   weekendDayText: {
   },

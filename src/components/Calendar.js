@@ -14,12 +14,14 @@ export default class Calendar extends Component {
     format: 'YYYY-MM-DD',
   };
 
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
-      startDate: moment(),
+      startDate: props.startDate && moment(props.startDate) || null,
     };
+
+    this.state.originStartDate = this.state.startDate;
   }
 
   shouldComponentUpdate = shouldComponentUpdate();
@@ -34,7 +36,7 @@ export default class Calendar extends Component {
     if (startDate.get('month') !== moment().get('month')) {
       this.setState({ startDate: startDate.set('date', 1) });
     } else {
-      this.setState({ startDate: moment() });
+      this.setState({ startDate: moment(this.state.originStartDate) });
     }
   };
 
@@ -80,8 +82,17 @@ export default class Calendar extends Component {
     return events;
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.startDate && this.props.startDate !== nextProps.startDate) {
+      this.setState({
+        startDate: moment(nextProps.startDate),
+        originStartDate: moment(nextProps.startDate),
+      });
+    }
+  }
+
   render() {
-    const { interval, events } = this.props;
+    const { interval, events = [], containerWidth, selectedDate } = this.props;
     const { startDate } = this.state;
     let eventDates = [];
 
@@ -92,24 +103,26 @@ export default class Calendar extends Component {
       },
     }));
 
-    if (interval) {
+    if (interval && startDate) {
       eventDates = this.prepareEventDates(interval.key, startDate);
     }
 
     return (
       <View style={styles.container}>
         <NativeCalendar
+          dayHeadings={i18n.dayHeadings}
+          eventDates={eventDates}
+          events={eventsCalendar}
+          monthNames={i18n.monthNames}
+          nextButtonImage={require('../icons/android/arrow-right-red.png')}
+          onDateSelect={this.onDateSelect}
           onTouchNext={this.onMonthChange}
           onTouchPrev={this.onMonthChange}
-          events={eventsCalendar}
-          onDateSelect={this.onDateSelect}
-          eventDates={eventDates}
-          showEventIndicators={true}
-          dayHeadings={i18n.dayHeadings}
-          showControls={true}
-          monthNames={i18n.monthNames}
           prevButtonImage={require('../icons/android/arrow-left-red.png')}
-          nextButtonImage={require('../icons/android/arrow-right-red.png')}
+          selectedDate={selectedDate}
+          showControls={true}
+          showEventIndicators={true}
+          width={containerWidth}
         />
       </View>
     );
