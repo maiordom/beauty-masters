@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 
-import { formatNumber } from '../utils';
-
-import Checkbox from '../components/Checkbox';
-import Input from '../components/Input';
-
 import vars from '../vars';
-import i18n from '../i18n';
 
 import { shouldComponentUpdate } from '../utils';
 
@@ -35,7 +29,7 @@ export default class Filter extends Component {
     const { title, subtitle } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View>
         <TouchableHighlight
           underlayColor='transparent'
           activeOpacity={1}
@@ -55,7 +49,6 @@ export default class Filter extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {},
   button: {
     paddingLeft: 15,
     paddingRight: 15
@@ -81,8 +74,5 @@ const styles = StyleSheet.create({
               fontSize: 14
           }
       })
-  },
-  fields: {
-    flexDirection: 'row'
   }
 });

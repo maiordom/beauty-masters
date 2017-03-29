@@ -1,12 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import logger from 'redux-logger';
 import rootReducer from '../reducers';
 
 import MasterEditor from './MasterEditor';
+import SearchForm from './SearchForm';
 
 const initialState = {
   masterEditor: {
-    ...MasterEditor,
+    ...MasterEditor
+  },
+  searchForm: {
+    ...SearchForm
   }
 };
 
@@ -14,6 +19,6 @@ export default function configureStore() {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunkMiddleware),
+    applyMiddleware(thunkMiddleware, logger),
   );
 };

@@ -2,6 +2,14 @@ import i18n from '../../i18n';
 
 const parentServiceId = '1';
 
+const manicure = isActive => ({
+    active: isActive,
+    dictionaryKey: 'Manicure',
+    id: '1',
+    parentServiceId: '0',
+    title: i18n.manicure,
+});
+
 const classicManicure = isActive => ({
   active: isActive,
   dictionaryKey: 'ClassicManicure',
@@ -211,6 +219,7 @@ const removingNailsManicure = isActive => ({
 });
 
 export default {
+  manicure,
   classicManicure,
   hardwareManicure,
   europeanManicure,

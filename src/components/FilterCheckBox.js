@@ -27,7 +27,7 @@ export default class FilterCheckBox extends Component {
   };
 
   render() {
-    const { title, active, price, duration } = this.props;
+    const { title, active, price, duration, withInput = true } = this.props;
 
     return (
       <View style={styles.container}>
@@ -39,10 +39,10 @@ export default class FilterCheckBox extends Component {
         >
           <View style={styles.buttonContent}>
             <Text style={styles.title}>{title}</Text>
-            <Checkbox checked={active} ref={ref => { this.checkboxRef = ref; }} />
+            <Checkbox onPress={this.onPress} checked={active} ref={ref => { this.checkboxRef = ref; }} />
           </View>
         </TouchableHighlight>
-        {active && (
+        {active && withInput && (
           <View style={styles.fields}>
             <Input
               formatValue={formatNumber}

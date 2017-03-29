@@ -12,7 +12,7 @@ import MasterEditorCalendar from '../screen/MasterEditor/MasterEditorCalendar';
 import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCalendarSettings';
 import MasterEditorInfo from '../screen/MasterEditor/MasterEditorInfo';
 
-import SearchFormShort from '../screen/SearchForm/SearchFormShort';
+import SearchForm from '../screen/SearchForm/SearchForm';
 
 import Drawer from '../components/Drawer';
 
@@ -88,7 +88,7 @@ export default class NavigationRouter extends Component {
             />
             <Scene
                 key="searchFormShort"
-                component={SearchFormShort}
+                component={SearchForm}
             />
             <Scene
               key="masterAuthorization"
