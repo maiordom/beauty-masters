@@ -27,7 +27,7 @@ export default class FilterCheckBox extends Component {
   };
 
   render() {
-    const { title, active, price, duration } = this.props;
+    const { title, active, price, duration, withInput = true } = this.props;
 
     return (
       <View style={styles.container}>
