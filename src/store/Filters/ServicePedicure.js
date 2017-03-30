@@ -2,6 +2,14 @@ import i18n from '../../i18n';
 
 const parentServiceId = '33';
 
+const pedicure = isActive => ({
+    active: isActive,
+    dictionaryKey: 'Pedicure',
+    id: '33',
+    parentServiceId: '0',
+    title: i18n.pedicure,
+});
+
 const classicPedicure = isActive => ({
   active: isActive,
   dictionaryKey: 'ClassicPedicure',
@@ -191,7 +199,7 @@ const removingBioGelPedicure = isActive => ({
   dictionatyKey: 'PedicureRemovingBioGel',
   id: '62',
   parentServiceId,
-  title: i18n.filters.removingBioGel,
+  title: i18n.filters.bioGel.gen,
 });
 
 const removingGePedicure = isActive => ({
@@ -207,10 +215,11 @@ const removingNailsPedicure = isActive => ({
   dictionatyKey: 'PedicureRemovingNails',
   id: '64',
   parentServiceId,
-  title: i18n.filters.removingNails,
+  title: i18n.filters.removingNails.gen,
 });
 
 export default {
+  pedicure,
   classicPedicure,
   hardwarePedicure,
   europeanPedicure,

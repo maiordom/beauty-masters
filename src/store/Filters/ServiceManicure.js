@@ -199,7 +199,7 @@ const removingBioGelManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingBioGel',
   id: '30',
   parentServiceId,
-  title: i18n.filters.removingBioGel,
+  title: i18n.filters.bioGel.gen,
 });
 
 const removingGeManicure = isActive => ({
@@ -215,7 +215,7 @@ const removingNailsManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingNails',
   id: '32',
   parentServiceId,
-  title: i18n.filters.removingNails,
+  title: i18n.filters.removingNails.gen,
 });
 
 export default {

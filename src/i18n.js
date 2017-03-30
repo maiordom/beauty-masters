@@ -15,13 +15,22 @@ export default {
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   district: 'Район',
   filters: {
-    anotherNailGel: 'Другого геля-лака',
+    anotherNailGel: {
+      nom: 'Другой гель-лак',
+      gen: 'Другого геля-лака'
+    },
+    anyNailGel: {
+      nom: 'Любой гель-лак'
+    },
     applyingBioGel: 'Нанесение биогеля',
     applyingNailPolish: 'Нанесение лака',
     applyingOfAnotherNailGel: 'Нанесение другого геля-лака',
     applyingShellac: 'Нанесение шеллака',
     artDesign: 'Хужожественный дизайн',
-    bioGel: 'Биогеля',
+    bioGel: {
+      nom: 'Биогель',
+      gen: 'Биогеля'
+    },
     classic: 'Обрезной/классический',
     combined: 'Комбинированный',
     coverage: 'Покрытие',
@@ -43,17 +52,26 @@ export default {
     nailExtensionShort: 'Наращивание',
     nailProcessingMethod: 'Способ обработки ногтей (без покрытия)',
     naroshchennyhNails: 'Нарощенных ногтей',
+    otherServices: 'Другие услуги',
     price: 'Стоимость, ₽',
-    removingBioGel: 'Биогеля',
     removingGe: 'Другого геля-лака',
     removingNailPolish: 'Лака',
-    removingNails: 'Нарощенных ногтей',
+    removingNails: {
+      nom: 'Нарощенные ногти',
+      gen: 'Нарощенных ногтей'
+    },
     removingShellac: 'Шеллака',
     reverseMoon: 'Обратный лунный',
-    shellac: 'Шеллака',
+    shellac: {
+        nom: 'Шеллак',
+        gen: 'Шеллака'
+    },
     spa: 'SPA-маникюр',
     stencil: 'Трафаретный',
-    varnish: 'Лака',
+    varnish: {
+      nom: 'Лак',
+      gen: 'Лака'
+    },
     withdrawal: 'Снятие',
   },
   firstName: 'Имя',
@@ -118,6 +136,7 @@ export default {
     onWeekends: 'По выходным',
   },
   search: {
+    generalInfo: 'Основные параметры',
     searchParams: 'Параметры поиска',
     vacantDays: 'Дни, когда возможен прием',
     masterPlace: 'Где принимает мастер',

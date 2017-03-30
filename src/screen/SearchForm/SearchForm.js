@@ -7,9 +7,9 @@ import { setFieldParam } from '../../actions/search';
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         serviceManicure: state.searchForm.serviceManicure,
+        servicePedicure: state.searchForm.servicePedicure,
     }
 };
 
