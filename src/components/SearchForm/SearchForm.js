@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import SearchFormBlock from './SearchFormBlock';
+
 import { FilterLabel } from '../../components/FilterLabel';
 import FilterTab from '../../components/Filter';
 import FilterCheckBox from '../../components/FilterCheckBox';
@@ -11,14 +13,23 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 
 export default class SearchFormShort extends Component {
-    onChange = (value, modelName) => {
-        console.log(value)
-        console.log(modelName)
-        this.props.actions.setFieldParam(modelName, 'active', value, 'serviceManicure');
+    constructor(props) {
+        super(props);
+
+        this.state = { showShortForm: true };
+    }
+
+    toggleForm = () => {
+        this.setState({ showShortForm: !this.state.showShortForm });
+    };
+
+    onChange = sectionName => (value, modelName) => {
+        this.props.actions.setFieldParam(modelName, 'active', value, sectionName);
     };
 
     render() {
-        const {serviceManicure} = this.props;
+        const { serviceManicure, servicePedicure } = this.props;
+        const { showShortForm } = this.state;
 
         return (
             <View style={styles.container}>
@@ -37,29 +48,42 @@ export default class SearchFormShort extends Component {
                     <FilterLabel text={i18n.search.vacantDays} />
                     <FilterTab title={i18n.tomorrow} />
 
+                    {/*Где принимает мастер*/}
                     <FilterLabel text={i18n.search.masterPlace} />
                     <FilterTab title="Город" subtitle="Москва" />
                     <FilterTab title="Искать рядом с" subtitle="Мое текущее месторасположение" />
                     <FilterCheckBox title={i18n.search.masterToHome} />
 
-                    <FilterLabel text={i18n.search.masterPlace} />
+                    <FilterLabel text={i18n.search.generalInfo} />
                     <FilterTab title="Тип мастера" subtitle="Все" />
-                    <FilterCheckBox
-                        {...serviceManicure.manicure}
-                        onChange={this.onChange}
-                        withInput={false}
-                    />
-                    <FilterCheckBox title={i18n.pedicure} />
-                    <FilterCheckBox title={i18n.filters.nailExtensionShort} />
-                    <FilterCheckBox title={i18n.filters.withdrawal} />
+
+                    {showShortForm && (
+                        <View>
+                            <FilterCheckBox
+                                {...serviceManicure.manicure}
+                                onChange={this.onChange('serviceManicure')}
+                                withInput={false}
+                            />
+                            <FilterCheckBox
+                                {...servicePedicure.pedicure}
+                                onChange={this.onChange('servicePedicure')}
+                                withInput={false}
+                            />
+                            <FilterCheckBox title={i18n.filters.nailExtensionShort} />
+                            <FilterCheckBox title={i18n.filters.withdrawal} />
+                        </View>
+                    )}
+
+                    {!showShortForm && <SearchFormBlock type="manicure" />}
+                    {!showShortForm && <SearchFormBlock type="pedicure"/>}
 
                     <ButtonControl
-                        label="Расширенный поиск"
+                        label={showShortForm ? 'Расширенный поиск' : 'Быстрый поиск'}
                         customStyles={{
                             touchable: {backgroundColor: vars.color.lightGrey},
                             text: {color: vars.color.red}
                         }}
-                        onPress={() => {}}
+                        onPress={this.toggleForm}
                     />
                     <ButtonControl label="Найти мастера" onPress={() => {}} />
                 </ScrollView>
