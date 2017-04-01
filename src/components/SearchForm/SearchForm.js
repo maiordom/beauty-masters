@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import SearchFormBlock from './SearchFormBlock';
+import SearchFormBlockManicure from './SearchFormBlockManicure';
+import SearchFormBlockPedicure from "./SearchFormBlockPedicure";
 
 import { FilterLabel } from '../../components/FilterLabel';
 import FilterTab from '../../components/Filter';
@@ -74,8 +75,13 @@ export default class SearchFormShort extends Component {
                         </View>
                     )}
 
-                    {!showShortForm && <SearchFormBlock type="manicure" />}
-                    {!showShortForm && <SearchFormBlock type="pedicure"/>}
+                    {!showShortForm && (
+                        <SearchFormBlockManicure service={serviceManicure} onChange={this.onChange('serviceManicure')} />
+                    )}
+
+                    {!showShortForm && (
+                        <SearchFormBlockPedicure service={servicePedicure} onChange={this.onChange('servicePedicure')} />
+                    )}
 
                     <ButtonControl
                         label={showShortForm ? 'Расширенный поиск' : 'Быстрый поиск'}
