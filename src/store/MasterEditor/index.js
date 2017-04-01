@@ -21,11 +21,11 @@ each({
 }, (fields, sectionName) => {
   params[sectionName] = {};
 
-  each(fields, fieldBuilder => {
+  each(fields, (fieldBuilder, fieldBuilderName) => {
     const fieldObject = fieldBuilder();
 
     fieldObject.sectionName = sectionName;
-    fieldObject.modelName = fieldBuilder.name;
+    fieldObject.modelName = fieldBuilderName;
     params[sectionName][fieldObject.modelName] = fieldObject;
   });
 });
