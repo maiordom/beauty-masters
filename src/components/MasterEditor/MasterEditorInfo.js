@@ -10,24 +10,34 @@ import MasterPhotoList from '../../components/MasterEditor/MasterPhotoList';
 import i18n from '../../i18n';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
-const PHOTO_SIZE = (DEVICE_WIDTH - 16 * 2 - 14 * 2) / 3;
+const PAGE_SPACE = 16;
+const PHOTO_SPACE = 8;
+const PHOTO_INNER_SPACE = 6;
+const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3;
+const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
 export default class MasterEditorInfo extends Component {
   state = {certificatesShow: false};
 
   static propTypes = {
+    actions: PropTypes.object,
     certificatePhotos: PropTypes.object,
+    drawerOpen: PropTypes.func,
     passportPhotos: PropTypes.object,
     personalPhotos: PropTypes.object,
     workPhotos: PropTypes.object,
   };
 
-  onPhotoSelectPress = props => {
-    this.props.drawerOpen({contentKey: 'PhotoMaster', ...props});
+  onPhotoSelectPress = modelName => {
+    this.props.drawerOpen({contentKey: 'PhotoMaster', ...{name: modelName}});
   };
 
   onCertificatesChange = state => {
     this.setState({certificatesShow: Boolean(state)});
+  };
+
+  onPhotoRemovePress = (itemId, modelName) => {
+    this.props.actions.removePhoto(itemId, modelName);
   };
 
   render() {
@@ -48,13 +58,15 @@ export default class MasterEditorInfo extends Component {
             subText={i18n.masterEditor.aboutDescription}
           />
           <MasterPhotoList
+            onPhotoRemovePress={this.onPhotoRemovePress}
+            onPhotoSelectPress={this.onPhotoSelectPress}
             photoSize={PHOTO_SIZE}
+            wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
             {...personalPhotos}
-            onPhotoSelectPress={() => this.onPhotoSelectPress({name: 'personalPhotos'})}
           />
           <Label text={i18n.masterEditor.fewWordsAboutYouToClients} customStyle={{paddingBottom: 0}} />
           <Input placeholder={i18n.masterEditor.aboutExample} />
-          <Switch title={i18n.masterEditor.certificates} onChangeState={this.onCertificatesChange} />
+          <Switch title={i18n.masterEditor.certificates} onChange={this.onCertificatesChange} />
           {certificatesShow && (
             <View style={styles.photosWrapper}>
               <SubLabel
@@ -62,9 +74,11 @@ export default class MasterEditorInfo extends Component {
                 label={i18n.masterEditor.attachPhotosToConfirmCertificates}
               />
               <MasterPhotoList
+                onPhotoRemovePress={this.onPhotoRemovePress}
+                onPhotoSelectPress={this.onPhotoSelectPress}
                 photoSize={PHOTO_SIZE}
+                wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
                 {...certificatePhotos}
-                onPhotoSelectPress={() => this.onPhotoSelectPress({name: 'certificatePhotos'})}
               />
             </View>
           )}
@@ -74,9 +88,11 @@ export default class MasterEditorInfo extends Component {
               label={i18n.masterEditor.needFirstPhotoOfYourPassport}
             />
             <MasterPhotoList
+              onPhotoRemovePress={this.onPhotoRemovePress}
+              onPhotoSelectPress={this.onPhotoSelectPress}
               photoSize={PHOTO_SIZE}
+              wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
               {...passportPhotos}
-              onPhotoSelectPress={() => this.onPhotoSelectPress({name: 'passportPhotos'})}
             />
           </View>
           <View style={styles.photosWrapper}>
@@ -85,9 +101,11 @@ export default class MasterEditorInfo extends Component {
               label={i18n.masterEditor.attachPhotosOfYourWork}
             />
             <MasterPhotoList
+              onPhotoRemovePress={this.onPhotoRemovePress}
+              onPhotoSelectPress={this.onPhotoSelectPress}
               photoSize={PHOTO_SIZE}
+              wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
               {...workPhotos}
-              onPhotoSelectPress={() => this.onPhotoSelectPress({name: 'workPhotos'})}
             />
           </View>
         </ScrollView>

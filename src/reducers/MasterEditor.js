@@ -1,6 +1,7 @@
 import find from 'lodash/find';
 import each from 'lodash/each';
 import assign from 'lodash/assign';
+import reject from 'lodash/reject';
 
 import { makeReducer } from '../utils';
 
@@ -11,9 +12,9 @@ export default makeReducer((state, action) => ({
     const { modelName, id } = action;
     const section = state.masterEditor.info;
     const model = section[modelName];
-    const photos = model.items;
+    const { items } = model;
 
-    photos.push({
+    items.push({
       id,
       type: 'mock',
       status: 'upload',
@@ -22,7 +23,7 @@ export default makeReducer((state, action) => ({
     state.masterEditor = {...state.masterEditor};
     state.masterEditor.info = {...section}
     state.masterEditor.info[modelName] = {...model};
-    state.masterEditor.info[modelName].items = [...photos];
+    state.masterEditor.info[modelName].items = [...items];
 
     return state;
   },
@@ -31,8 +32,8 @@ export default makeReducer((state, action) => ({
     const { modelName, id, sizes, mediaUrl, fileName } = action;
     const section = state.masterEditor.info;
     const model = section[modelName];
-    const photos = model.items;
-    const item = find(photos, { id });
+    const { items } = model;
+    const item = find(items, { id });
 
     assign(item, {
       fileName,
@@ -45,7 +46,21 @@ export default makeReducer((state, action) => ({
     state.masterEditor = {...state.masterEditor};
     state.masterEditor.info = {...section}
     state.masterEditor.info[modelName] = {...model};
-    state.masterEditor.info[modelName].items = [...photos];
+    state.masterEditor.info[modelName].items = [...items];
+
+    return state;
+  },
+
+  [actions.MASTER_PHOTO_REMOVE]: () => {
+    const { itemId, modelName } = action;
+    const section = state.masterEditor.info;
+    const model = section[modelName];
+    const items = reject(model.items, { id: itemId });
+
+    state.masterEditor = {...state.masterEditor};
+    state.masterEditor.info = {...section}
+    state.masterEditor.info[modelName] = {...model};
+    state.masterEditor.info[modelName].items = items;
 
     return state;
   },
