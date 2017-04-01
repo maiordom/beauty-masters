@@ -1,3 +1,3 @@
 export default {
-  host: 'https://still-cliffs-49666.herokuapp.com'
+  host: 'http://80.93.190.2'
 };

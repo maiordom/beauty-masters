@@ -1,21 +1,23 @@
 import each from 'lodash/each';
 
+import CalendarSettings from './MasterEditorCalendarSettings';
 import GeneralFields from './MasterEditorGeneral';
+import HandlingTools from '../Filters/HandlingTools';
+import Info from './MasterEditorInfo';
 import ServiceManicure from '../Filters/ServiceManicure';
 import ServicePedicure from '../Filters/ServicePedicure';
-import HandlingTools from '../Filters/HandlingTools';
-import CalendarSettings from './MasterEditorCalendarSettings';
 
 const params = {};
 
 each({
+  calendarSettingsOne: CalendarSettings,
+  calendarSettingsThree: CalendarSettings,
+  calendarSettingsTwo: CalendarSettings,
   generalSection: GeneralFields,
+  handlingTools: HandlingTools,
+  info: Info,
   serviceManicure: ServiceManicure,
   servicePedicure: ServicePedicure,
-  handlingTools: HandlingTools,
-  calendarSettingsOne: CalendarSettings,
-  calendarSettingsTwo: CalendarSettings,
-  calendarSettingsThree: CalendarSettings,
 }, (fields, sectionName) => {
   params[sectionName] = {};
 

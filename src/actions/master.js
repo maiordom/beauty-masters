@@ -2,42 +2,52 @@ import { uploadFile } from '../services/upload';
 
 import actions from '../constants/master';
 
-let id = 0;
+let index = 0;
 
-export const uploadMasterPersonalPhoto = (fileData, name) => dispatch => {
-  const photoId = id++;
+export const uploadMasterPhoto = (fileData, modelName) => dispatch => {
+  const photoId = index++;
 
   dispatch({
-    type: actions.MASTER_SET_PHOTO_MOCK,
+    type: actions.MASTER_PHOTO_SET_MOCK,
     id: photoId,
-    name,
+    modelName,
   });
 
   return uploadFile(fileData)
     .then(response => response.json())
     .then(({result, file_name, sizes, media_url}) => {
-      if (result) {
-        dispatch({
-          type: actions.MASTER_SET_PHOTO,
-          fileName: file_name,
-          sizes,
-          mediaUrl: media_url,
-          id: photoId,
-          name,
-        });
+      if (!result) {
+        return;
       }
+
+      dispatch({
+        type: actions.MASTER_PHOTO_SET,
+        fileName: file_name,
+        id: photoId,
+        mediaUrl: media_url,
+        modelName,
+        sizes,
+      });
+    }).catch(err => {
+      console.log(err);
     });
 };
 
-export const setFieldValue = (modelName, value, sectionName) => ({
-  type: actions.MASTER_SET_FIELD_VALUE,
+export const removeMasterPhoto = (index, modelName) => ({
+  type: actions.MASTER_PHOTO_REMOVE,
+  index,
   modelName,
-  value,
+});
+
+export const setFieldValue = (modelName, value, sectionName) => ({
+  type: actions.MASTER_FIELD_SET_VALUE,
+  modelName,
   sectionName,
+  value,
 });
 
 export const setFieldParam = (modelName, paramName, paramValue, sectionName) => ({
-  type: actions.MASTER_SET_FIELD_PARAM,
+  type: actions.MASTER_FIELD_SET_PARAM,
   modelName,
   paramName,
   paramValue,
@@ -45,14 +55,14 @@ export const setFieldParam = (modelName, paramName, paramValue, sectionName) => 
 });
 
 export const setItemById = (modelName, id, sectionName) => ({
-  type: actions.MASTER_SET_ITEM_BY_ID,
+  type: actions.MASTER_ITEM_SET_ACTIVE,
   modelName,
   id,
   sectionName,
 });
 
 export const setCustomDate = (changes, sectionName) => ({
-  type: actions.MASTER_SET_CUSTOM_DATE,
+  type: actions.MASTER_CUSTOM_DATE_PUSH,
   changes,
   sectionName,
 });

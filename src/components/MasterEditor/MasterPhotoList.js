@@ -3,6 +3,7 @@ import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import * as Progress from 'react-native-progress';
 
 import { MasterPhotoUpload } from './MasterPhotoUpload';
 
@@ -29,10 +30,22 @@ export default class MasterPhotoList extends Component {
               }
 
               if (photo.type === 'mock') {
-                return <View key={index} style={[styles.mock, styles.photo, {width: photoSize, height: photoSize}]}></View>;
+                return <View
+                  key={index}
+                  style={[styles.mock, styles.photo, {width: photoSize, height: photoSize}]}>
+                  <Progress.Circle
+                    thickness={6}
+                    size={30}
+                    indeterminate={true}
+                  />
+                </View>;
               }
 
-              return <Image key={index} style={[styles.photo, {width: photoSize, height: photoSize}]} source={{uri: photo.mediaUrl + photo.sizes.s}} />
+              return <Image
+                key={index}
+                style={[styles.photo, {width: photoSize, height: photoSize}]}
+                source={{uri: photo.mediaUrl + photo.sizes.s}}
+              />
             })}
           </View>
         ))}
@@ -44,6 +57,8 @@ export default class MasterPhotoList extends Component {
 const styles = StyleSheet.create({
   mock: {
     backgroundColor: vars.color.grey,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   photos: {
     flexDirection: 'row',

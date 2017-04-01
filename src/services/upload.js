@@ -2,6 +2,7 @@ import routes from '../routes';
 
 export function uploadFile(fileData) {
   const data = new FormData();
+
   data.append('base_string', fileData);
 
   return fetch(routes.upload, {

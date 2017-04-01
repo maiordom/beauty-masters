@@ -6,15 +6,7 @@ import MasterEditor from './MasterEditor';
 
 const initialState = {
   masterEditor: {
-    personalPhotosLimit: 5,
-    personalPhotos: [],
-    certificatePhotos: [],
-    certificatePhotosLimit: 10,
-    passportPhotos: [],
-    passportPhotosLimit: 1,
-    workPhotos: [],
-    workPhotosLimit: 15,
-    ...MasterEditor
+    ...MasterEditor,
   }
 };
 
