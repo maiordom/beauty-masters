@@ -80,7 +80,7 @@ export default class WorkTimeSpecification extends Component {
           <Switch
             title={i18n.workInThisDay}
             value={workInThisDay}
-            customStyles={styles.switch}
+            customStyles={{view: styles.switch}}
             onChange={this.onStatusChange}
           />
           <RangeTime

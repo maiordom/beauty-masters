@@ -146,6 +146,14 @@ const gradientPedicure = isActive => ({
   title: i18n.filters.gradientPedicure,
 });
 
+const extensionPedicure = isActive => ({
+    active: isActive,
+    dictionatyKey: 'PedicureExtension',
+    id: '54',
+    parentServiceId,
+    title: i18n.filters.nailExtension,
+});
+
 const extensionTipsAcrilycPedicure = isActive => ({
   active: isActive,
   dictionatyKey: 'PedicureExtensionTipsAcrilyc',
@@ -237,6 +245,7 @@ export default {
   stencilPedicure,
   artDesignPedicure,
   gradientPedicure,
+  extensionPedicure,
   extensionTipsAcrilycPedicure,
   extensionFormsAcrilycPedicure,
   extensionTipsGelPedicure,

@@ -24,8 +24,8 @@ export default class CustomSwitch extends Component {
     const { title, value, customStyles } = this.props;
 
     return (
-      <View style={[styles.container, customStyles]}>
-        <Text style={styles.title}>{title}</Text>
+      <View style={[styles.container, customStyles.view]}>
+        <Text style={[styles.title, customStyles.title]}>{title}</Text>
         <SwitchBase
           ref={this.setRef}
           active={value}
