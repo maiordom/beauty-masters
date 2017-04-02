@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView } from 'react-native';
+import React, {Component, PropTypes} from 'react';
+import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView, Modal } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import SearchFormBlockManicure from './SearchFormBlockManicure';
@@ -10,14 +10,27 @@ import FilterTab from '../../components/Filter';
 import FilterCheckBox from '../../components/FilterCheckBox';
 import ButtonControl from '../../components/ButtonControl';
 
+import RadioGroup from '../RadioGroup';
+
 import vars from '../../vars';
 import i18n from '../../i18n';
+import { hexToRgba } from '../../utils';
 
 export default class SearchFormShort extends Component {
+    static propTypes = {
+        actions: PropTypes.object.isRequired,
+        serviceManicure: PropTypes.object.isRequired,
+        servicePedicure: PropTypes.object.isRequired,
+        general: PropTypes.object.isRequired
+    };
+
     constructor(props) {
         super(props);
 
-        this.state = { showShortForm: true };
+        this.state = {
+            showShortForm: true,
+            showMasterTypePopup: false
+        };
     }
 
     toggleForm = () => {
@@ -28,9 +41,17 @@ export default class SearchFormShort extends Component {
         this.props.actions.setFieldParam(modelName, 'active', value, sectionName);
     };
 
+    toggleMasterTypePopup = (value, id, modelName) => {
+        this.setState({ showMasterTypePopup: !this.state.showMasterTypePopup });
+
+        if (value) {
+            this.props.actions.setItemById(modelName, id, this.props.sectionName);
+        }
+    };
+
     render() {
         const { serviceManicure, servicePedicure } = this.props;
-        const { showShortForm } = this.state;
+        const { showShortForm, showMasterTypePopup } = this.state;
 
         return (
             <View style={styles.container}>
@@ -56,7 +77,7 @@ export default class SearchFormShort extends Component {
                     <FilterCheckBox title={i18n.search.masterToHome} />
 
                     <FilterLabel text={i18n.search.generalInfo} />
-                    <FilterTab title="Тип мастера" subtitle="Все" />
+                    <FilterTab onChange={this.toggleMasterTypePopup} title="Тип мастера" subtitle="Все" />
 
                     {showShortForm && (
                         <View>
@@ -93,6 +114,28 @@ export default class SearchFormShort extends Component {
                     />
                     <ButtonControl label="Найти мастера" onPress={() => {}} />
                 </ScrollView>
+
+                <Modal
+                    animationType={"fade"}
+                    transparent
+                    visible={showMasterTypePopup}
+                    onRequestClose={() => {}}
+                >
+                    <View style={modalStyles.container}>
+                        <View style={modalStyles.modalContainer}>
+                            <Text style={modalStyles.title}>Тип мастера</Text>
+
+                            <RadioGroup
+                                {...general.masterType}
+                                onChange={this.toggleMasterTypePopup}
+                            />
+
+                            <TouchableHighlight onPress={this.toggleMasterTypePopup}>
+                                <Text>Hide Modal</Text>
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         );
     }
@@ -132,4 +175,28 @@ const styles = StyleSheet.create({
             }
         })
     },
+});
+
+const modalStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: hexToRgba(vars.color.black, 40)
+    },
+    modalContainer: {
+        height: 208,
+        width: 280,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        backgroundColor: vars.color.white,
+        borderRadius: 2,
+    },
+    title: {
+        paddingTop: 24,
+        paddingLeft: 24,
+        paddingBottom: 14,
+        fontSize: 20,
+        color: vars.color.black
+    }
 });

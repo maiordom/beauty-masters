@@ -46,6 +46,11 @@ export default {
     gradient: 'Градиентный маникюр',
     hardware: 'Аппаратный',
     hot: 'Горячий маникюр',
+    masterType: {
+      all: 'Все',
+      privateOnly: 'Только частные',
+      salonOnly: 'Только салны'
+    },
     moon: 'Лунный/обратный френч',
     nailDesign: 'Дизайн ногтей',
     nailExtension: 'Наращивание ногтей',
