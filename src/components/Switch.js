@@ -5,10 +5,19 @@ import { hexToRgba, shouldComponentUpdate } from '../utils';
 import SwitchBase from './SwitchBase';
 
 export default class CustomSwitch extends Component {
+  constructor(props) {
+    super();
+
+    this.value = props.value;
+  }
+
   shouldComponentUpdate = shouldComponentUpdate();
 
   onChange = state => {
-    this.props.onChange && this.props.onChange(state, this.props.modelName);
+    if (state !== this.value) {
+      this.props.onChange && this.props.onChange(state, this.props.modelName);
+    }
+    this.value = state;
   };
 
   setRef = ref => {
@@ -16,7 +25,7 @@ export default class CustomSwitch extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.value !== undefined) {
+    if (nextProps && nextProps.value !== undefined && this.value !== nextProps.value) {
       this.ref && this.ref.changeState(nextProps.value);
     }
   }
