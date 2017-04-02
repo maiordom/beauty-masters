@@ -16,7 +16,9 @@ export default class CustomSwitch extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.ref && this.ref.changeStateImmediately(nextProps.value);
+    if (typeof nextProps.value === 'boolean') {
+      this.ref && this.ref.changeStateImmediately(nextProps.value);
+    }
   }
 
   render() {
