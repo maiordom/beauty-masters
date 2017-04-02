@@ -77,9 +77,10 @@ export default class MasterEditorCalendarSettings extends Component {
         />
         <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
         <Calendar
+          disableSelectDate={true}
           events={customDates.items}
-          onDateSelect={this.onDateSelect}
           interval={intervalGroup.selected}
+          onDateSelect={this.onDateSelect}
           startDate={recipientsField.startDate}
         />
         <View style={styles.gap} />

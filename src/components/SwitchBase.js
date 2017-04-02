@@ -125,6 +125,28 @@ export default class SwitchBase extends Component {
     this.changeState(false);
   };
 
+  activeImmediately = () => {
+    this.setState({
+      position: this.state.width,
+      state: true,
+    });
+  };
+
+  deactivateImmediately = () => {
+    this.setState({
+      position: 0,
+      state: false,
+    });
+  };
+
+  changeStateImmediately = state => {
+    if (state) {
+      this.activeImmediately();
+    } else {
+      this.deactivateImmediately();
+    }
+  };
+
   changeState = (state) => {
     let callHandlers = this.start.state != state;
     setTimeout(() => {

@@ -49,6 +49,7 @@ export default class Calendar extends Component {
   static propTypes = {
     customStyle: PropTypes.object,
     dayHeadings: PropTypes.array,
+    disableSelectDate: PropTypes.bool,
     eventDates: PropTypes.array,
     monthNames: PropTypes.array,
     nextButtonText: PropTypes.oneOfType([
@@ -76,8 +77,8 @@ export default class Calendar extends Component {
 
   static defaultProps = {
     customStyle: {},
-    width: DEVICE_WIDTH,
     dayHeadings: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    disableSelectDate: false,
     eventDates: [],
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     nextButtonText: 'Next',
@@ -89,6 +90,7 @@ export default class Calendar extends Component {
     titleFormat: 'MMMM YYYY',
     today: moment(),
     weekStart: 1,
+    width: DEVICE_WIDTH,
   };
 
   componentDidMount() {
@@ -146,7 +148,10 @@ export default class Calendar extends Component {
   }
 
   selectDate(date) {
-    this.setState({ selectedMoment: date });
+    if (!this.props.disableSelectDate) {
+      this.setState({ selectedMoment: date });
+    }
+
     this.props.onDateSelect && this.props.onDateSelect(date ? date.format(): null );
   }
 
