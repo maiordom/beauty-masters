@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView, Modal } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import find from 'lodash/find';
 
+import SearchFormMasterType from './SearchFormMasterType';
 import SearchFormBlockManicure from './SearchFormBlockManicure';
 import SearchFormBlockPedicure from "./SearchFormBlockPedicure";
 
@@ -10,11 +12,8 @@ import FilterTab from '../../components/Filter';
 import FilterCheckBox from '../../components/FilterCheckBox';
 import ButtonControl from '../../components/ButtonControl';
 
-import RadioGroup from '../RadioGroup';
-
 import vars from '../../vars';
 import i18n from '../../i18n';
-import { hexToRgba } from '../../utils';
 
 export default class SearchFormShort extends Component {
     static propTypes = {
@@ -41,16 +40,17 @@ export default class SearchFormShort extends Component {
         this.props.actions.setFieldParam(modelName, 'active', value, sectionName);
     };
 
-    toggleMasterTypePopup = (value, id, modelName) => {
+    toggleMasterTypePopup = () => {
         this.setState({ showMasterTypePopup: !this.state.showMasterTypePopup });
+    };
 
-        if (value) {
-            this.props.actions.setItemById(modelName, id, this.props.sectionName);
-        }
+    selectMasterType = (value, id, modelName) => {
+        this.props.actions.setItemById(modelName, id, 'general');
+        this.toggleMasterTypePopup();
     };
 
     render() {
-        const { serviceManicure, servicePedicure } = this.props;
+        const { serviceManicure, servicePedicure, general } = this.props;
         const { showShortForm, showMasterTypePopup } = this.state;
 
         return (
@@ -77,7 +77,17 @@ export default class SearchFormShort extends Component {
                     <FilterCheckBox title={i18n.search.masterToHome} />
 
                     <FilterLabel text={i18n.search.generalInfo} />
-                    <FilterTab onChange={this.toggleMasterTypePopup} title="Тип мастера" subtitle="Все" />
+                    <FilterTab
+                        title={i18n.filters.masterType.title}
+                        subtitle={find(general.masterType.items, {active: true}).label}
+                        onChange={this.toggleMasterTypePopup}
+                    />
+                    <SearchFormMasterType
+                        showMasterTypePopup={showMasterTypePopup}
+                        toggleMasterTypePopup={this.toggleMasterTypePopup}
+                        masterType={general.masterType}
+                        selectMasterType={this.selectMasterType}
+                    />
 
                     {showShortForm && (
                         <View>
@@ -114,28 +124,6 @@ export default class SearchFormShort extends Component {
                     />
                     <ButtonControl label="Найти мастера" onPress={() => {}} />
                 </ScrollView>
-
-                <Modal
-                    animationType={"fade"}
-                    transparent
-                    visible={showMasterTypePopup}
-                    onRequestClose={() => {}}
-                >
-                    <View style={modalStyles.container}>
-                        <View style={modalStyles.modalContainer}>
-                            <Text style={modalStyles.title}>Тип мастера</Text>
-
-                            <RadioGroup
-                                {...general.masterType}
-                                onChange={this.toggleMasterTypePopup}
-                            />
-
-                            <TouchableHighlight onPress={this.toggleMasterTypePopup}>
-                                <Text>Hide Modal</Text>
-                            </TouchableHighlight>
-                        </View>
-                    </View>
-                </Modal>
             </View>
         );
     }
@@ -175,28 +163,4 @@ const styles = StyleSheet.create({
             }
         })
     },
-});
-
-const modalStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: hexToRgba(vars.color.black, 40)
-    },
-    modalContainer: {
-        height: 208,
-        width: 280,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        backgroundColor: vars.color.white,
-        borderRadius: 2,
-    },
-    title: {
-        paddingTop: 24,
-        paddingLeft: 24,
-        paddingBottom: 14,
-        fontSize: 20,
-        color: vars.color.black
-    }
 });

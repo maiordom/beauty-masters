@@ -49,7 +49,8 @@ export default {
     masterType: {
       all: 'Все',
       privateOnly: 'Только частные',
-      salonOnly: 'Только салны'
+      title: 'Тип мастера',
+      salonOnly: 'Только салоны'
     },
     moon: 'Лунный/обратный френч',
     nailDesign: 'Дизайн ногтей',
