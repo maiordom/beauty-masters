@@ -1,36 +1,40 @@
 import React from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
 
-import RadioGroup from '../RadioGroup';
+import Calendar from '../Calendar';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-const SearchFormMasterType = ({
-    showMasterTypeModal,
-    toggleMasterTypeModal,
-    masterType,
-    onSelectMasterType
+const SearchFormCalendar = ({
+    showCalendar,
+    selectedDate,
+    onDateSelect,
+    toggleCalendarModal
 }) => (
     <Modal
         animationType={"fade"}
         transparent
-        visible={showMasterTypeModal}
-        onRequestClose={toggleMasterTypeModal}
+        visible={showCalendar}
+        onRequestClose={toggleCalendarModal}
     >
         <View style={styles.container}>
             <View style={styles.modalContainer}>
                 <Text style={styles.title}>
-                    {i18n.filters.masterType.title}
+                    {i18n.filters.availableDays}
                 </Text>
-                <RadioGroup {...masterType} onChange={onSelectMasterType}/>
+                <Calendar
+                    selectedDate={selectedDate}
+                    onDateSelect={onDateSelect}
+                    containerWidth={328}
+                />
             </View>
         </View>
     </Modal>
 );
 
-export default SearchFormMasterType;
+export default SearchFormCalendar;
 
 const styles = StyleSheet.create({
     container: {
@@ -40,8 +44,8 @@ const styles = StyleSheet.create({
         backgroundColor: hexToRgba(vars.color.black, 40)
     },
     modalContainer: {
-        height: 208,
-        width: 280,
+        height: 413,
+        width: 328,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         backgroundColor: vars.color.white,

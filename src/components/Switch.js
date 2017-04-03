@@ -21,7 +21,7 @@ export default class CustomSwitch extends Component {
   }
 
   render() {
-    const { title, value, customStyles } = this.props;
+    const { title, value, customStyles = {} } = this.props;
 
     return (
       <View style={[styles.container, customStyles.view]}>

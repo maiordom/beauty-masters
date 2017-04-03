@@ -2,7 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
+import moment from 'moment';
 
+import 'moment/locale/ru';
+
+import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
 import SearchFormBlockManicure from './SearchFormBlockManicure';
 import SearchFormBlockPedicure from "./SearchFormBlockPedicure";
@@ -14,6 +18,7 @@ import ButtonControl from '../../components/ButtonControl';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
+import {capitalizeFirstLetter} from '../../utils';
 
 export default class SearchFormShort extends Component {
     static propTypes = {
@@ -26,9 +31,13 @@ export default class SearchFormShort extends Component {
     constructor(props) {
         super(props);
 
+        this.tomorrow = moment().add(1, 'd');
+
         this.state = {
+            selectedDate: this.tomorrow,
             showShortForm: true,
-            showMasterTypePopup: false
+            showMasterCalendarModal: false,
+            showMasterTypeModal: false
         };
     }
 
@@ -40,18 +49,39 @@ export default class SearchFormShort extends Component {
         this.props.actions.setFieldParam(modelName, 'active', value, sectionName);
     };
 
-    toggleMasterTypePopup = () => {
-        this.setState({ showMasterTypePopup: !this.state.showMasterTypePopup });
+    toggleMasterTypeModal = () => this.setState({ showMasterTypeModal: !this.state.showMasterTypeModal });
+
+    toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
+
+    onSelectMasterType = (value, id, modelName) => {
+        this.props.actions.setItemById(modelName, id, 'general');
+        this.toggleMasterTypeModal();
     };
 
-    selectMasterType = (value, id, modelName) => {
-        this.props.actions.setItemById(modelName, id, 'general');
-        this.toggleMasterTypePopup();
+    onSelectCalendarDate = selectedDate => {
+        this.setState({ selectedDate });
+        this.toggleCalendarModal();
+    };
+
+    getSelectedDateTitle = () => {
+        return capitalizeFirstLetter(moment(this.state.selectedDate).calendar(null, {
+            lastDay : '[Вчера]',
+            sameDay : '[Сегодня]',
+            nextDay : '[Завтра]',
+            lastWeek : '[last] dddd',
+            nextWeek : 'dddd',
+            sameElse : 'L'
+        }))
     };
 
     render() {
         const { serviceManicure, servicePedicure, general } = this.props;
-        const { showShortForm, showMasterTypePopup } = this.state;
+        const {
+            showShortForm,
+            showMasterTypeModal,
+            showMasterCalendarModal,
+            selectedDate
+        } = this.state;
 
         return (
             <View style={styles.container}>
@@ -68,7 +98,16 @@ export default class SearchFormShort extends Component {
                 </View>
                 <ScrollView style={styles.content}>
                     <FilterLabel text={i18n.search.vacantDays} />
-                    <FilterTab title={i18n.tomorrow} />
+                    <FilterTab
+                        title={this.getSelectedDateTitle()}
+                        onChange={this.toggleCalendarModal}
+                    />
+                    <SearchFormCalendar
+                        showCalendar={showMasterCalendarModal}
+                        selectedDate={selectedDate}
+                        onDateSelect={this.onSelectCalendarDate}
+                        containerWidth={170}
+                    />
 
                     {/*Где принимает мастер*/}
                     <FilterLabel text={i18n.search.masterPlace} />
@@ -80,13 +119,13 @@ export default class SearchFormShort extends Component {
                     <FilterTab
                         title={i18n.filters.masterType.title}
                         subtitle={find(general.masterType.items, {active: true}).label}
-                        onChange={this.toggleMasterTypePopup}
+                        onChange={this.toggleMasterTypeModal}
                     />
                     <SearchFormMasterType
-                        showMasterTypePopup={showMasterTypePopup}
-                        toggleMasterTypePopup={this.toggleMasterTypePopup}
+                        showMasterTypeModal={showMasterTypeModal}
+                        toggleMasterTypeModal={this.toggleMasterTypeModal}
                         masterType={general.masterType}
-                        selectMasterType={this.selectMasterType}
+                        onSelectMasterType={this.onSelectMasterType}
                     />
 
                     {showShortForm && (
