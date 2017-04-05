@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 
@@ -12,6 +12,10 @@ import vars from '../vars';
 export default class Calendar extends Component {
   static defaultProps = {
     format: 'YYYY-MM-DD',
+  };
+
+  static propTypes = {
+    activeFrom: PropTypes.instanceOf(moment)
   };
 
   constructor(props) {
@@ -92,7 +96,7 @@ export default class Calendar extends Component {
   }
 
   render() {
-    const { interval, events = [], containerWidth, selectedDate } = this.props;
+    const { interval, events = [], containerWidth, selectedDate, activeFrom } = this.props;
     const { startDate } = this.state;
     let eventDates = [];
 
@@ -110,6 +114,7 @@ export default class Calendar extends Component {
     return (
       <View style={styles.container}>
         <NativeCalendar
+          activeFrom={activeFrom}
           dayHeadings={i18n.dayHeadings}
           eventDates={eventDates}
           events={eventsCalendar}

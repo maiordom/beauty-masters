@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
-
+import moment from 'moment';
 import Calendar from '../Calendar';
 
 import vars from '../../vars';
@@ -25,6 +25,7 @@ const SearchFormCalendar = ({
                     {i18n.filters.availableDays}
                 </Text>
                 <Calendar
+                    activeFrom={moment()}
                     selectedDate={selectedDate}
                     onDateSelect={onDateSelect}
                     containerWidth={328}

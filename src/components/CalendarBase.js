@@ -69,6 +69,7 @@ export default class Calendar extends Component {
     showControls: PropTypes.bool,
     showEventIndicators: PropTypes.bool,
     startDate: PropTypes.any,
+    activeFrom: PropTypes.instanceOf(moment),
     titleFormat: PropTypes.string,
     today: PropTypes.any,
     weekStart: PropTypes.number,
@@ -187,6 +188,7 @@ export default class Calendar extends Component {
   }
 
   renderMonthView(argMoment, eventsMap) {
+    let { activeFrom } = this.props;
     let renderIndex = 0;
     let weekRows = [];
     let days = [];
@@ -209,17 +211,23 @@ export default class Calendar extends Component {
     do {
       const dayIndex = renderIndex - offset;
       const isoWeekday = renderIndex % 7;
+      const date = moment(startOfArgMonthMoment).set('date', dayIndex + 1);
+
+      let isDisable;
+
+      if (activeFrom) {
+          isDisable = moment(date).isBefore(activeFrom, 'day');
+      }
 
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
         days.push((
           <Day
+            isDisable={isDisable}
             styles={this.styles}
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
-            onPress={() => {
-              this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1));
-            }}
+            onPress={() => !isDisable && this.selectDate(date)}
             caption={`${dayIndex + 1}`}
             isToday={argMonthIsToday && (dayIndex === todayIndex)}
             isSelected={selectedMonthIsArg && (dayIndex === selectedIndex)}
@@ -385,7 +393,7 @@ class Day extends Component {
     return dayCircleStyle;
   };
 
-  dayTextStyle = (isWeekend, isSelected, isToday, event) => {
+  dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
     const dayTextStyle = [styles.day];
 
     if (isSelected) {
@@ -401,6 +409,10 @@ class Day extends Component {
     if (event) {
       dayTextStyle.push(styles.hasEventText, event.hasEventText)
     }
+
+    if (isDisable) {
+        dayTextStyle.push(styles.isDisable)
+    }
     return dayTextStyle;
   };
 
@@ -412,6 +424,7 @@ class Day extends Component {
       isWeekend,
       isSelected,
       isToday,
+      isDisable,
       showEventIndicators,
     } = this.props;
 
@@ -427,7 +440,7 @@ class Day extends Component {
         <TouchableOpacity onPress={this.props.onPress}>
           <View style={this.props.styles.dayButton || styles.dayButton}>
             <View style={this.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
-              <Text style={this.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
+              <Text style={this.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
             </View>
             {showEventIndicators &&
             <View style={[
@@ -530,6 +543,9 @@ const styles = StyleSheet.create({
   hasEventDaySelectedCircle: {
   },
   hasEventText: {
+  },
+  isDisable: {
+    color: vars.color.grey,
   },
   selectedDayText: {
     color: vars.color.white,
