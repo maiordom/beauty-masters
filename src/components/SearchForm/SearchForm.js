@@ -112,7 +112,11 @@ export default class SearchFormShort extends Component {
                     {/*Где принимает мастер*/}
                     <FilterLabel text={i18n.search.masterPlace} />
                     <FilterTab title="Город" subtitle="Москва" />
-                    <FilterTab title="Искать рядом с" subtitle="Мое текущее месторасположение" />
+                    <FilterTab
+                        onChange={Actions.masterLocation}
+                        title="Искать рядом с"
+                        subtitle="Мое текущее месторасположение"
+                    />
                     <FilterCheckBox title={i18n.search.masterToHome} />
 
                     <FilterLabel text={i18n.search.generalInfo} />

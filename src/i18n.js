@@ -95,6 +95,10 @@ export default {
   house: 'Дом',
   lastName: 'Фамилия',
   login: 'Вход',
+  location: {
+    here: 'Мое текущее месторасположение',
+    meters: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
+  },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
   masterEditor: {

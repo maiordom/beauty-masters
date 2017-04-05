@@ -13,6 +13,7 @@ import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCal
 import MasterEditorInfo from '../screen/MasterEditor/MasterEditorInfo';
 
 import SearchForm from '../screen/SearchForm/SearchForm';
+import MasterLocation from '../screen/SearchForm/MasterLocation';
 
 import Drawer from '../components/Drawer';
 
@@ -86,9 +87,13 @@ export default class NavigationRouter extends Component {
               key="presentation"
               component={Presentation}
             />
+            <Scene key="searchFormShort" component={SearchForm} />
             <Scene
-                key="searchFormShort"
-                component={SearchForm}
+              key="masterLocation"
+              {...getMasterStyle()}
+              title={i18n.search.masterPlace}
+              getSceneStyle={getSceneStyle}
+              component={MasterLocation}
             />
             <Scene
               key="masterAuthorization"

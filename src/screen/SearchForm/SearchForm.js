@@ -16,10 +16,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onNextPress: Actions.masterEditorService,
         actions: bindActionCreators({
             setFieldParam,
-            setItemById
+            setItemById,
+            onSearchLocation: Actions.masterLocation
         }, dispatch)
     };
 };
