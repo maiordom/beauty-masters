@@ -1,3 +1,7 @@
+/*
+ * @flow
+ */
+
 import each from 'lodash/each';
 
 import CalendarSettings from './MasterEditorCalendarSettings';
@@ -30,6 +34,30 @@ each({
   });
 });
 
+type ServiceType = {
+  duration: number,
+  price: number,
+  service_id: string,
+};
+
+type CreateMasterType = {
+  address: Array<any>,
+  custom_services: Array<any>,
+  first_name?: string,
+  is_salon?: boolean,
+  last_name?: string,
+  phone?: string,
+  salon_name?: string,
+  services: Array<ServiceType>,
+};
+
+const createMasterQuery: CreateMasterType = {
+  address: [],
+  custom_services: [],
+  services: [],
+};
+
 export default {
-  ...params
+  ...params,
+  createMasterQuery,
 };
