@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
-import { Image, TouchableWithoutFeedback } from 'react-native';
+import { Image, TouchableWithoutFeedback, StyleSheet, Platform, View } from 'react-native';
 
 const uploadIcon = require('../../icons/android/photo-upload@2x.png');
+const addIcon = Platform.select({
+  android: require('../../icons/android/add.png')
+});
 
-export const MasterPhotoUpload = ({ onPress, size }) => {
+export const MasterPhotoUpload = ({ onPress, photoSize, wrapperPhotoSize }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <Image source={uploadIcon} style={{width: size, height: size}} />
+      <View style={{ width: wrapperPhotoSize, height: wrapperPhotoSize }}>
+        <Image source={uploadIcon} style={{width: photoSize, height: photoSize}} />
+        <Image source={addIcon} style={styles.icon} />
+      </View>
     </TouchableWithoutFeedback>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  icon: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  }
+});
+
+export default MasterPhotoUpload;

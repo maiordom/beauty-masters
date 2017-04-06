@@ -49,6 +49,7 @@ export default class Calendar extends Component {
   static propTypes = {
     customStyle: PropTypes.object,
     dayHeadings: PropTypes.array,
+    disableSelectDate: PropTypes.bool,
     eventDates: PropTypes.array,
     monthNames: PropTypes.array,
     nextButtonText: PropTypes.oneOfType([
@@ -77,8 +78,8 @@ export default class Calendar extends Component {
 
   static defaultProps = {
     customStyle: {},
-    width: DEVICE_WIDTH,
     dayHeadings: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    disableSelectDate: false,
     eventDates: [],
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     nextButtonText: 'Next',
@@ -90,6 +91,7 @@ export default class Calendar extends Component {
     titleFormat: 'MMMM YYYY',
     today: moment(),
     weekStart: 1,
+    width: DEVICE_WIDTH,
   };
 
   componentDidMount() {
@@ -147,7 +149,10 @@ export default class Calendar extends Component {
   }
 
   selectDate(date) {
-    this.setState({ selectedMoment: date });
+    if (!this.props.disableSelectDate) {
+      this.setState({ selectedMoment: date });
+    }
+
     this.props.onDateSelect && this.props.onDateSelect(date ? date.format(): null );
   }
 
@@ -222,6 +227,7 @@ export default class Calendar extends Component {
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
         days.push((
           <Day
+            dayStyles={this.styles}
             isDisable={isDisable}
             styles={this.styles}
             startOfMonth={startOfArgMonthMoment}
@@ -236,7 +242,7 @@ export default class Calendar extends Component {
           />
         ));
       } else {
-        days.push(<Day styles={this.styles} key={`${renderIndex}`} filler />);
+        days.push(<Day dayStyles={this.styles} key={`${renderIndex}`} filler />);
       }
       if (renderIndex % 7 === 6) {
         weekRows.push(
@@ -360,100 +366,97 @@ export default class Calendar extends Component {
   }
 }
 
-class Day extends Component {
-  static propTypes = {
-    caption: PropTypes.any,
-    filler: PropTypes.bool,
-    event: PropTypes.object,
-    isSelected: PropTypes.bool,
-    isToday: PropTypes.bool,
-    isWeekend: PropTypes.bool,
-    onPress: PropTypes.func,
-    showEventIndicators: PropTypes.bool,
-  };
-
-  dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
-    const dayCircleStyle = [styles.dayCircleFiller];
-
-    if (isSelected) {
-      if (isToday) {
-        dayCircleStyle.push(styles.currentDayCircle);
-      } else {
-        dayCircleStyle.push(styles.selectedDayCircle);
-      }
-    }
-
-    if (event) {
-      if (isSelected) {
-        dayCircleStyle.push(styles.hasEventDaySelectedCircle, event.hasEventDaySelectedCircle);
-      } else {
-        dayCircleStyle.push(styles.hasEventCircle, event.hasEventCircle);
-      }
-    }
-    return dayCircleStyle;
-  };
-
-  dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
-    const dayTextStyle = [styles.day];
-
-    if (isSelected) {
-      if (isToday) {
-        dayTextStyle.push(styles.currentDayText);
-      } else {
-        dayTextStyle.push(styles.selectedDayText);
-      }
-    } else if (isWeekend) {
-      dayTextStyle.push(styles.weekendDayText);
-    }
-
-    if (event) {
-      dayTextStyle.push(styles.hasEventText, event.hasEventText)
-    }
-
-    if (isDisable) {
-        dayTextStyle.push(styles.isDisable)
-    }
-    return dayTextStyle;
-  };
-
-  render() {
-    const {
-      caption,
-      filler,
-      event,
-      isWeekend,
-      isSelected,
-      isToday,
-      isDisable,
-      showEventIndicators,
-    } = this.props;
-
-    return filler
-      ? (
-        <TouchableWithoutFeedback>
-          <View style={this.props.styles.dayButtonFiller || styles.dayButtonFiller}>
-            <Text style={styles.day} />
+const Day = ({
+  caption,
+  dayStyles,
+  event,
+  filler,
+  isSelected,
+  isToday,
+  isWeekend,
+  onPress,
+  showEventIndicators,
+}) => {
+  return filler
+    ? (
+      <TouchableWithoutFeedback>
+        <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
+          <Text style={styles.day} />
+        </View>
+      </TouchableWithoutFeedback>
+    )
+    : (
+      <TouchableOpacity onPress={onPress}>
+        <View style={dayStyles.dayButton || styles.dayButton}>
+          <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
+            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
           </View>
-        </TouchableWithoutFeedback>
-      )
-      : (
-        <TouchableOpacity onPress={this.props.onPress}>
-          <View style={this.props.styles.dayButton || styles.dayButton}>
-            <View style={this.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
-              <Text style={this.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
-            </View>
-            {showEventIndicators &&
+          {showEventIndicators && (
             <View style={[
               styles.eventIndicatorFiller,
               event && styles.eventIndicator,
               event && event.eventIndicator]}
             />
-            }
-          </View>
-        </TouchableOpacity>
-      );
+          )}
+        </View>
+      </TouchableOpacity>
+    );
+};
+
+Day.dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
+  const dayCircleStyle = [styles.dayCircleFiller];
+
+  if (isSelected) {
+    if (isToday) {
+      dayCircleStyle.push(styles.currentDayCircle);
+    } else {
+      dayCircleStyle.push(styles.selectedDayCircle);
+    }
   }
-}
+
+  if (event) {
+    if (isSelected) {
+      dayCircleStyle.push(styles.hasEventDaySelectedCircle, event.hasEventDaySelectedCircle);
+    } else {
+      dayCircleStyle.push(styles.hasEventCircle, event.hasEventCircle);
+    }
+  }
+
+  return dayCircleStyle;
+};
+
+Day.dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
+  const dayTextStyle = [styles.day];
+
+  if (isSelected) {
+    if (isToday) {
+      dayTextStyle.push(styles.currentDayText);
+    } else {
+      dayTextStyle.push(styles.selectedDayText);
+    }
+  } else if (isWeekend) {
+    dayTextStyle.push(styles.weekendDayText);
+  }
+
+    if (event) {
+      dayTextStyle.push(styles.hasEventText, event.hasEventText)
+    }
+  if (isDisable) {
+        dayTextStyle.push(styles.isDisable)
+    }  return dayTextStyle;
+  };
+
+Day.propTypes = {
+  caption: PropTypes.any,
+  dayStyles: PropTypes.object,
+  event: PropTypes.object,
+  filler: PropTypes.bool,
+  isSelected: PropTypes.bool,
+  isToday: PropTypes.bool,
+  isWeekend: PropTypes.bool,
+  onPress: PropTypes.func,
+  showEventIndicators: PropTypes.bool,
+};
 
 const styles = StyleSheet.create({
   calendarContainer: {

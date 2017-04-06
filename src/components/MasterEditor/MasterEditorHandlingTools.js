@@ -12,7 +12,7 @@ export default class MasterEditorHandlingTools extends Component {
   onChange = (state, modelName) => {
     this.props.actions.setFieldParam(
       modelName,
-      this.props.fieldActive,
+      this.props.fieldValue,
       state,
       this.props.sectionName,
     );

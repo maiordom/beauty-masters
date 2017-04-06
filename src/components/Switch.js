@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 
 import { hexToRgba, shouldComponentUpdate } from '../utils';
-
 import SwitchBase from './SwitchBase';
 
 export default class CustomSwitch extends Component {
@@ -17,7 +16,9 @@ export default class CustomSwitch extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.ref && this.ref.changeState(nextProps.value);
+    if (typeof nextProps.value === 'boolean') {
+      this.ref && this.ref.changeStateImmediately(nextProps.value);
+    }
   }
 
   render() {

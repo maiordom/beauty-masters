@@ -26,7 +26,7 @@ const isSalonField = isSalon => ({
 
 const salonNameField = salonName => ({
   queryParam: 'salon_name',
-  value: salonName || null,
+  value: Boolean(salonName),
   placeholder: i18n.salonName,
 });
 

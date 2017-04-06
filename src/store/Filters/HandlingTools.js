@@ -3,7 +3,7 @@ import i18n from '../../i18n';
 const parentServiceId = 65;
 
 const ultraSoundMethod = isActive => ({
-  active: Boolean(isActive),
+  value: Boolean(isActive),
   dictionaryKey: 'UltraSound',
   id: '66',
   parentServiceId,
@@ -11,7 +11,7 @@ const ultraSoundMethod = isActive => ({
 });
 
 const ultraVioletMethod = isActive => ({
-  active: Boolean(isActive),
+  value: Boolean(isActive),
   dictionaryKey: 'UltraViolet',
   id: '67',
   parentServiceId,
@@ -19,7 +19,7 @@ const ultraVioletMethod = isActive => ({
 });
 
 const glasperlenovySterilizerMethod = isActive => ({
-  active: Boolean(isActive),
+  value: Boolean(isActive),
   dictionaryKey: 'Glasperlen',
   id: '68',
   parentServiceId,
@@ -27,7 +27,7 @@ const glasperlenovySterilizerMethod = isActive => ({
 });
 
 const dryHotMethod = isActive => ({
-  active: Boolean(isActive),
+  value: Boolean(isActive),
   dictionaryKey: 'DryHot',
   id: '69',
   parentServiceId,
@@ -35,7 +35,7 @@ const dryHotMethod = isActive => ({
 });
 
 const sterileOtherMethod = isActive => ({
-  active: Boolean(isActive),
+  value: Boolean(isActive),
   dictionaryKey: 'SterileOther',
   id: '70',
   parentServiceId,

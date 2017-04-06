@@ -10,7 +10,6 @@ const mapStateToProps = state => {
   return {
     ...state.masterEditor.handlingTools,
     sectionName: 'handlingTools',
-    fieldActive: 'active',
     fieldValue: 'value',
   };
 };
