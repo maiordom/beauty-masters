@@ -1,56 +1,35 @@
-import each from 'lodash/each';
+import reject from 'lodash/reject';
 
 import { makeReducer } from '../utils';
 
 import actions from '../constants/search';
 
+const setParam = (action, state) => {
+  const {sectionName, modelName, paramValue, paramName} = action;
+  const section = state.searchForm[sectionName];
+  const model = section[modelName];
+
+  model[paramName] = paramValue;
+
+  state.searchForm = {...state.searchForm};
+  state.searchForm[sectionName] = {...section};
+  state.searchForm[sectionName][modelName] = {...model};
+};
+
 export default makeReducer((state, action) => ({
-    [actions.SEARCH_SET_FIELD_VALUE]: () => {
-        const { sectionName, modelName, value } = action;
-        const section = state.searchForm[sectionName];
-        const model = section[modelName];
+  [actions.SEARCH_PARAM_TOOGLE]: () => {
+    setParam(action, state);
 
-        model.value = value;
+    const searchQuery = state.searchForm.searchQuery;
+    const model = state.masterEditor[action.sectionName][action.modelName];
 
-        state.searchForm = {...state.searchForm};
-        state.searchForm[sectionName] = {...section};
-        state.searchForm[sectionName][modelName] = {...model};
-
-        return state;
-    },
-
-    [actions.SEARCH_SET_FIELD_PARAM]: () => {
-        const { sectionName, modelName, paramValue, paramName } = action;
-        const section = state.searchForm[sectionName];
-        const model = section[modelName];
-
-        model[paramName] = paramValue;
-
-        state.searchForm = {...state.searchForm};
-        state.searchForm[sectionName] = {...section};
-        state.searchForm[sectionName][modelName] = {...model};
-
-        return state;
-    },
-
-    [actions.SEARCH_SET_ITEM_BY_ID]: () => {
-        const { modelName, id, sectionName } = action;
-        const section = state.searchForm[sectionName];
-        const model = section[modelName];
-
-        each(model.items, item => {
-            item.active = item.id === id;
-
-            if (item.active) {
-                model.selected = item;
-            }
-        });
-
-        state.searchForm = {...state.searchForm};
-        state.searchForm[sectionName] = {...section};
-        state.searchForm[sectionName][modelName] = {...model};
-        state.searchForm[sectionName][modelName].items = [...model.items];
-
-        return state;
+    if (action.paramValue) {
+      const service = { service_id: model.id };
+      searchQuery.services.push(service);
+    } else {
+      searchQuery.services = reject(searchQuery.services, { service_id: model.id });
     }
+
+    return state;
+  },
 }));

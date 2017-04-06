@@ -46,7 +46,7 @@ export default class SearchFormShort extends Component {
     };
 
     onChange = sectionName => (value, modelName) => {
-        this.props.actions.setFieldParam(modelName, 'active', value, sectionName);
+        this.props.actions.toogleService(modelName, 'active', value, sectionName);
     };
 
     toggleMasterTypeModal = () => this.setState({ showMasterTypeModal: !this.state.showMasterTypeModal });

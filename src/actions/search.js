@@ -23,3 +23,11 @@ export const setItemById = (modelName, id, sectionName) => ({
     id,
     sectionName,
 });
+
+export const toogleService = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.SEARCH_PARAM_TOOGLE,
+  modelName,
+  paramName,
+  paramValue,
+  sectionName,
+});

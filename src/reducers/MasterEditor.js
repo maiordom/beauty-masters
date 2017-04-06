@@ -17,7 +17,7 @@ const setParam = (action, state) => {
   state.masterEditor = {...state.masterEditor};
   state.masterEditor[sectionName] = {...section};
   state.masterEditor[sectionName][modelName] = {...model};
-}
+};
 
 export default makeReducer((state, action) => ({
   [actions.MASTER_PHOTO_SET_MOCK]: () => {

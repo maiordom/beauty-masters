@@ -2,7 +2,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import { setFieldParam, setItemById } from '../../actions/search';
+import {
+  toogleService,
+  setItemById,
+} from '../../actions/search';
 
 import SearchForm from '../../components/SearchForm/SearchForm';
 
@@ -17,7 +20,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         actions: bindActionCreators({
-            setFieldParam,
+          toogleService,
             setItemById,
             onSearchLocation: Actions.masterLocation
         }, dispatch)
