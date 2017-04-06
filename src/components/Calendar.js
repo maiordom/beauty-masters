@@ -108,6 +108,7 @@ export default class Calendar extends Component {
       events = [],
       interval,
       selectedDate,
+      activeFrom
     } = this.props;
 
     const { startDate } = this.state;

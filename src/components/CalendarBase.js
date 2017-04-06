@@ -216,12 +216,11 @@ export default class Calendar extends Component {
     do {
       const dayIndex = renderIndex - offset;
       const isoWeekday = renderIndex % 7;
-      const date = moment(startOfArgMonthMoment).set('date', dayIndex + 1);
 
       let isDisable;
 
       if (activeFrom) {
-          isDisable = moment(date).isBefore(activeFrom, 'day');
+        isDisable = moment(moment(startOfArgMonthMoment).set('date', dayIndex)).isBefore(activeFrom, 'day');
       }
 
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
@@ -233,7 +232,7 @@ export default class Calendar extends Component {
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
-            onPress={() => !isDisable && this.selectDate(date)}
+            onPress={() => !isDisable && this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
             caption={`${dayIndex + 1}`}
             isToday={argMonthIsToday && (dayIndex === todayIndex)}
             isSelected={selectedMonthIsArg && (dayIndex === selectedIndex)}
@@ -376,6 +375,7 @@ const Day = ({
   isWeekend,
   onPress,
   showEventIndicators,
+  isDisable
 }) => {
   return filler
     ? (
@@ -389,7 +389,7 @@ const Day = ({
       <TouchableOpacity onPress={onPress}>
         <View style={dayStyles.dayButton || styles.dayButton}>
           <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
-            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
+            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
           </View>
           {showEventIndicators && (
             <View style={[
@@ -438,13 +438,15 @@ Day.dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
     dayTextStyle.push(styles.weekendDayText);
   }
 
-    if (event) {
-      dayTextStyle.push(styles.hasEventText, event.hasEventText)
-    }
+  if (event) {
+    dayTextStyle.push(styles.hasEventText, event.hasEventText)
+  }
+
   if (isDisable) {
-        dayTextStyle.push(styles.isDisable)
-    }  return dayTextStyle;
-  };
+    dayTextStyle.push(styles.isDisable)
+  }
+  return dayTextStyle;
+};
 
 Day.propTypes = {
   caption: PropTypes.any,
