@@ -9,6 +9,12 @@ const masterType = () => ({
     ]
 });
 
+const masterSchedule = building => ({
+  queryParam: 'schedule',
+  value: [],
+});
+
 export default {
-    masterType
+  masterType,
+  masterSchedule
 };
