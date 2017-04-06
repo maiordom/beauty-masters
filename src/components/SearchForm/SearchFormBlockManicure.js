@@ -30,7 +30,6 @@ export default class SearchFormBlockManicure extends Component {
         const { onChange, service } = this.props;
         const { showBlock } = this.state;
 
-        console.log('new state block')
         return (
             <View>
                 <Switch
@@ -60,7 +59,7 @@ export default class SearchFormBlockManicure extends Component {
                         <FilterCheckBox {...service.removingNailsManicure} onChange={onChange} withInput={false} />
 
                         <FilterSubLabel title={i18n.filters.otherServices} />
-                        <FilterCheckBox {...service.artDesignManicure} title="Дизайн ногтей" onChange={onChange} withInput={false} />
+                        <FilterCheckBox {...service.artDesignManicure} title={i18n.filters.nailDesign} onChange={onChange} withInput={false} />
                         <FilterCheckBox {...service.extensionManicure} onChange={onChange} withInput={false} />
                     </View>
                 )}
