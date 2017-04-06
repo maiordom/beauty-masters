@@ -2,7 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setFieldParam } from '../../actions/master';
+import { setServiceParam, toogleService } from '../../actions/master';
 
 import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
 
@@ -12,7 +12,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators({ setFieldParam }, dispatch);
+  const actions = bindActionCreators({
+    setServiceParam,
+    toogleService,
+  }, dispatch);
 
   return {
     actions,

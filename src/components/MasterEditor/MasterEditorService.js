@@ -27,15 +27,15 @@ export default class MasterEditorService extends Component {
   };
 
   onChange = (active, modelName) => {
-    this.props.actions.setFieldParam(modelName, 'active', active, this.state.tabActiveKey);
+    this.props.actions.toogleService(modelName, 'active', active, this.state.tabActiveKey);
   };
 
   onChangePrice = (price, modelName) => {
-    this.props.actions.setFieldParam(modelName, 'price', price, this.state.tabActiveKey);
+    this.props.actions.setServiceParam(modelName, 'price', price, this.state.tabActiveKey);
   };
 
   onChangeDuration = (duration, modelName) => {
-    this.props.actions.setFieldParam(modelName, 'duration', duration, this.state.tabActiveKey);
+    this.props.actions.setServiceParam(modelName, 'duration', duration, this.state.tabActiveKey);
   };
 
   render() {

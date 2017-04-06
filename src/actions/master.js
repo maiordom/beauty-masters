@@ -62,6 +62,22 @@ export const setFieldParam = (modelName, paramName, paramValue, sectionName) => 
   sectionName,
 });
 
+export const setServiceParam = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_SERVICE_SET_PARAM,
+  modelName,
+  paramName,
+  paramValue,
+  sectionName,
+});
+
+export const toogleService = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_SERVICE_TOOGLE,
+  modelName,
+  paramName,
+  paramValue,
+  sectionName,
+});
+
 export const setItemById = (modelName, id, sectionName) => ({
   type: actions.MASTER_ITEM_SET_ACTIVE,
   modelName,

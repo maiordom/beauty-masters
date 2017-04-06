@@ -7,6 +7,18 @@ import { makeReducer } from '../utils';
 
 import actions from '../constants/master';
 
+const setParam = (action, state) => {
+  const {sectionName, modelName, paramValue, paramName} = action;
+  const section = state.masterEditor[sectionName];
+  const model = section[modelName];
+
+  model[paramName] = paramValue;
+
+  state.masterEditor = {...state.masterEditor};
+  state.masterEditor[sectionName] = {...section};
+  state.masterEditor[sectionName][modelName] = {...model};
+}
+
 export default makeReducer((state, action) => ({
   [actions.MASTER_PHOTO_SET_MOCK]: () => {
     const { modelName, id } = action;
@@ -76,19 +88,43 @@ export default makeReducer((state, action) => ({
     state.masterEditor[sectionName] = {...section};
     state.masterEditor[sectionName][modelName] = {...model};
 
+    if (model.queryParam) {
+      state.masterEditor.createMasterQuery[model.queryParam] = value;
+    }
+
     return state;
   },
 
   [actions.MASTER_FIELD_SET_PARAM]: () => {
-    const { sectionName, modelName, paramValue, paramName } = action;
-    const section = state.masterEditor[sectionName];
-    const model = section[modelName];
+    setParam(action, state);
 
-    model[paramName] = paramValue;
+    return state;
+  },
 
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor[sectionName] = {...section};
-    state.masterEditor[sectionName][modelName] = {...model};
+  [actions.MASTER_SERVICE_TOOGLE]: () => {
+    setParam(action, state);
+
+    const createMasterQuery = state.masterEditor.createMasterQuery;
+    const model = state.masterEditor[action.sectionName][action.modelName];
+
+    if (action.paramValue) {
+      const service = { service_id: model.id };
+      createMasterQuery.services.push(service);
+    } else {
+      createMasterQuery.services = reject(createMasterQuery.services, { service_id: model.id });
+    }
+
+    return state;
+  },
+
+  [actions.MASTER_SERVICE_SET_PARAM]: () => {
+    setParam(action, state);
+
+    const createMasterQuery = state.masterEditor.createMasterQuery;
+    const model = state.masterEditor[action.sectionName][action.modelName];
+    const service = find(createMasterQuery.services, {service_id: model.id});
+
+    service[action.paramName] = action.paramValue;
 
     return state;
   },
@@ -141,4 +177,6 @@ export default makeReducer((state, action) => ({
 
     return state;
   }
-}));
+}), null, state => {
+  console.log(state.masterEditor.createMasterQuery);
+});
