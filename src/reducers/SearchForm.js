@@ -1,4 +1,5 @@
 import reject from 'lodash/reject';
+import each from 'lodash/each';
 
 import { makeReducer } from '../utils';
 
@@ -17,11 +18,11 @@ const setParam = (action, state) => {
 };
 
 export default makeReducer((state, action) => ({
-  [actions.SEARCH_PARAM_TOOGLE]: () => {
+  [actions.SEARCH_TOOGLE_SERVICE]: () => {
     setParam(action, state);
 
-    const searchQuery = state.searchForm.searchQuery;
-    const model = state.masterEditor[action.sectionName][action.modelName];
+    const {searchQuery} = state.searchForm;
+    const model = state.searchForm[action.sectionName][action.modelName];
 
     if (action.paramValue) {
       const service = { service_id: model.id };
@@ -33,7 +34,50 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_PARAM_MASTER_TYPE]: () => {
+  [actions.SEARCH_SET_DAY]: () => {
+    state.searchForm.searchQuery.schedule = [action.day];
 
+    return state;
+  },
+
+  [actions.SEARCH_SET_MASTER_TYPE]: () => {
+    const { modelName, id, sectionName } = action;
+    const section = state.searchForm[sectionName];
+    const model = section[modelName];
+
+    each(model.items, item => {
+      item.active = item.id === id;
+
+      if (item.active) {
+        model.selected = item;
+      }
+    });
+
+    state.searchForm = {...state.searchForm};
+    state.searchForm[sectionName] = {...section};
+    state.searchForm[sectionName][modelName] = {...model};
+    state.searchForm[sectionName][modelName].items = [...model.items];
+
+    state.searchForm.searchQuery['master_type'] = model.selected.id;
+
+    return state;
+  },
+
+  [actions.SEARCH_SET_ADDRESSES]: () => {
+    // state.searchForm.general.addresses.items = action.items;
+
+    return {
+      ...state,
+      searchForm: {
+        ...state.searchForm,
+        general: {
+          ...state.searchForm.general,
+          addresses: {
+            ...state.searchForm.general.addresses,
+            items: action.items
+          }
+        }
+      }
+    };
   }
 }));

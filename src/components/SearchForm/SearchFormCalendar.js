@@ -11,13 +11,13 @@ const SearchFormCalendar = ({
     showCalendar,
     selectedDate,
     onDateSelect,
-    toggleCalendarModal
+    // toggleCalendarModal
 }) => (
     <Modal
         animationType={"fade"}
         transparent
         visible={showCalendar}
-        onRequestClose={toggleCalendarModal}
+        onRequestClose={() => {}}
     >
         <View style={styles.container}>
             <View style={styles.modalContainer}>

@@ -25,16 +25,15 @@ export default class SearchFormShort extends Component {
         actions: PropTypes.object.isRequired,
         serviceManicure: PropTypes.object.isRequired,
         servicePedicure: PropTypes.object.isRequired,
-        general: PropTypes.object.isRequired
+        general: PropTypes.object.isRequired,
+        searchQuery: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
 
-        this.tomorrow = moment().add(1, 'd');
-
         this.state = {
-            selectedDate: this.tomorrow,
+            selectedDate: props.searchQuery.schedule[0],
             showShortForm: true,
             showMasterCalendarModal: false,
             showMasterTypeModal: false
@@ -60,6 +59,7 @@ export default class SearchFormShort extends Component {
 
     onSelectCalendarDate = selectedDate => {
         this.setState({ selectedDate });
+        this.props.actions.setDay(selectedDate);
         this.toggleCalendarModal();
     };
 
@@ -111,10 +111,10 @@ export default class SearchFormShort extends Component {
 
                     {/*Где принимает мастер*/}
                     <FilterLabel text={i18n.search.masterPlace} />
-                    <FilterTab title="Город" subtitle="Москва" />
+                    <FilterTab title="Город" subtitle="Москва" onChange={() => {}} />
                     <FilterTab
                         onChange={Actions.masterLocation}
-                        title="Искать рядом с"
+                        title={i18n.search.nearWith}
                         subtitle="Мое текущее месторасположение"
                     />
                     <FilterCheckBox title={i18n.search.masterToHome} />

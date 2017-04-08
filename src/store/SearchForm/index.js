@@ -1,5 +1,6 @@
 // @flow
 import each from 'lodash/each';
+import moment from 'moment';
 
 import ServiceManicure from '../Filters/ServiceManicure';
 import ServicePedicure from '../Filters/ServicePedicure';
@@ -24,21 +25,23 @@ each({
 });
 
 type SearchQueryType = {
+  cityId: string,
   services: Array<any>,
+  master_type: number,
   coordinates?: {
     longitude: string,
     latitude: string
   },
-  radius?: number,
-  schedule?: Array<string>,
-  cityId: string,
-  master_type: Array<number>
+  radius: number,
+  schedule: Array<string>
 };
 
 const searchQuery: SearchQueryType = {
   cityId: '175849',
   services: [],
-  master_type: [1]
+  master_type: 1,
+  radius: 400,
+  schedule: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')]
 };
 
 export default {

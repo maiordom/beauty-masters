@@ -1,33 +1,68 @@
-import { uploadFile } from '../services/upload';
-
+// @flow
 import actions from '../constants/search';
 
-export const setFieldValue = (modelName, value, sectionName) => ({
-    type: actions.SEARCH_SET_FIELD_VALUE,
-    modelName,
-    value,
-    sectionName,
+export const setDay = (day: string) => ({
+  type: actions.SEARCH_SET_DAY,
+  day
 });
 
-export const setFieldParam = (modelName, paramName, paramValue, sectionName) => ({
-    type: actions.SEARCH_SET_FIELD_PARAM,
-    modelName,
-    paramName,
-    paramValue,
-    sectionName,
-});
-
-export const setItemById = (modelName, id, sectionName) => ({
-    type: actions.SEARCH_SET_ITEM_BY_ID,
+export const setItemById = (
+  modelName: string,
+  id: number,
+  sectionName: string
+) => ({
+    type: actions.SEARCH_SET_MASTER_TYPE,
     modelName,
     id,
     sectionName,
 });
 
-export const toogleService = (modelName, paramName, paramValue, sectionName) => ({
-  type: actions.SEARCH_PARAM_TOOGLE,
+export const toogleService = (
+  modelName: string,
+  paramName: string,
+  paramValue: boolean,
+  sectionName: string
+)  => ({
+  type: actions.SEARCH_TOOGLE_SERVICE,
   modelName,
   paramName,
   paramValue,
   sectionName,
 });
+
+type setAddressesType = {
+  type: string,
+  items: Array<Object>,
+};
+
+// mock addresses
+const addresses = [
+  {label: 'Московская', id: 1},
+  {label: 'Петровская', id: 2},
+  {label: 'Васильевская', id: 3},
+  {label: 'Крутовская', id: 4},
+  {label: 'Змеевская', id: 5},
+  {label: 'Путевская', id: 6},
+  {label: 'Бульонская', id: 7},
+  {label: 'Макаронская', id: 8},
+  {label: 'Крашовская', id: 9},
+  {label: 'Питерская', id: 10},
+  {label: 'Ростовская', id: 11},
+  {label: 'Бельгийская', id: 12},
+  {label: 'Парийская', id: 13},
+  {label: 'Американская', id: 14},
+  {label: 'Бразильская', id: 15},
+  {label: 'Курская', id: 16},
+  {label: 'Буржская', id: 17},
+  {label: 'Кружская', id: 18},
+];
+
+export const searchAddress = (address: string) => (dispatch: (setAddressesType) => null) => {
+  // send request to backend
+  // after send request to get address info
+
+  dispatch({
+    type: actions.SEARCH_SET_ADDRESSES,
+    items: addresses.slice(0, address.length)
+  });
+};

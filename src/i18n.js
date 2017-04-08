@@ -97,7 +97,7 @@ export default {
   login: 'Вход',
   location: {
     here: 'Мое текущее месторасположение',
-    meters: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
+    distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
   },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
@@ -148,6 +148,7 @@ export default {
   },
   search: {
     generalInfo: 'Основные параметры',
+    nearWith: 'Искать рядом с',
     searchParams: 'Параметры поиска',
     vacantDays: 'Дни, когда возможен прием',
     masterPlace: 'Где принимает мастер',

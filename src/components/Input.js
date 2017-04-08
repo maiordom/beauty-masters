@@ -25,9 +25,13 @@ class InputBase extends Component {
     }
 
     if (formatValue) {
-      this.setState({value: formatValue(value)});
+      this.setState({value: formatValue(value)}, () => {
+        this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
+      });
     } else {
-      this.setState({value});
+      this.setState({value}, () => {
+          this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
+      });
     }
   };
 
@@ -36,15 +40,7 @@ class InputBase extends Component {
   };
 
   onBlur = () => {
-    const {replaceReg} = this.props;
-    let value = this.state.value;
-
-    if (replaceReg) {
-      value = value.replace(replaceReg, '');
-    }
-
     this.setState({isFocused: false});
-    this.props.onChange && this.props.onChange(value, this.props.modelName);
   };
 
   getValue() {
