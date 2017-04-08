@@ -127,14 +127,14 @@ export default class SwitchBase extends Component {
 
   activeImmediately = () => {
     this.setState({
-      position: this.state.width,
+      position: new Animated.Value(this.state.width),
       state: true,
     });
   };
 
   deactivateImmediately = () => {
     this.setState({
-      position: 0,
+      position: new Animated.Value(0),
       state: false,
     });
   };

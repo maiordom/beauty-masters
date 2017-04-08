@@ -4,18 +4,19 @@ import { Actions } from 'react-native-router-flux';
 
 import MasterEditorHandlingTools from '../../components/MasterEditor/MasterEditorHandlingTools';
 
-import { setFieldParam } from '../../actions/master';
+import { toogleService, setServiceParam } from '../../actions/master';
 
 const mapStateToProps = state => {
   return {
     ...state.masterEditor.handlingTools,
-    sectionName: 'handlingTools',
+    fieldDescription: 'description',
     fieldValue: 'value',
+    sectionName: 'handlingTools',
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators({ setFieldParam }, dispatch);
+  const actions = bindActionCreators({ toogleService, setServiceParam }, dispatch);
 
   return {
     onNextPress: Actions.masterEditorCalendar,

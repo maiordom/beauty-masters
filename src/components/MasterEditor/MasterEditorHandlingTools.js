@@ -10,31 +10,35 @@ import i18n from '../../i18n';
 
 export default class MasterEditorHandlingTools extends Component {
   onChange = (state, modelName) => {
-    this.props.actions.setFieldParam(
+    const {fieldValue, sectionName} = this.props;
+
+    this.props.actions.toogleService(
       modelName,
-      this.props.fieldValue,
+      fieldValue,
       state,
-      this.props.sectionName,
+      sectionName,
     );
   };
 
   onChangeOtherMethod = (value, modelName) => {
-    this.props.actions.setFieldParam(
+    const {fieldDescription, sectionName} = this.props;
+
+    this.props.actions.setServiceParam(
       modelName,
-      this.props.fieldValue,
+      fieldDescription,
       value,
-      this.props.sectionName,
+      sectionName,
     );
   };
 
   render() {
     const {
+      dryHotMethod,
+      glasperlenovySterilizerMethod,
+      onNextPress,
+      sterileOtherMethod,
       ultraSoundMethod,
       ultraVioletMethod,
-      glasperlenovySterilizerMethod,
-      dryHotMethod,
-      sterileOtherMethod,
-      onNextPress,
     } = this.props;
 
     return (
@@ -47,10 +51,10 @@ export default class MasterEditorHandlingTools extends Component {
           <Switch {...dryHotMethod} onChange={this.onChange} />
           <Switch {...sterileOtherMethod} onChange={this.onChange} />
           <Input
-            value={sterileOtherMethod.value}
+            value={sterileOtherMethod.description}
             placeholder={sterileOtherMethod.placeholder}
             modelName={sterileOtherMethod.modelName}
-            editable={sterileOtherMethod.active}
+            editable={sterileOtherMethod.value}
             onChange={this.onChangeOtherMethod}
           />
         </View>
