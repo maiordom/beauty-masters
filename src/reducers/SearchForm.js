@@ -32,4 +32,8 @@ export default makeReducer((state, action) => ({
 
     return state;
   },
+
+  [actions.SEARCH_PARAM_MASTER_TYPE]: () => {
+
+  }
 }));
