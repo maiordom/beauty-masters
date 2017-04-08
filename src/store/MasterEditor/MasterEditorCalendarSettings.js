@@ -42,20 +42,41 @@ const buildingField = building => ({
   label: i18n.building,
 });
 
-const recipientsField = (recipients = {}) => ({
-  startDate: recipients.start_date || null,
-  timeStart: recipients.time_start || '10:00',
-  timeEnd: recipients.time_end || '20:00',
+const timeStartField = (recipients = {}) => ({
+  value: recipients.time_start || '10:00',
+  queryParam: 'time_start',
+  parentQueryParam: 'recipients',
+});
+
+const timeEndField = (recipients = {}) => ({
+  value: recipients.time_end || '20:00',
+  queryParam: 'time_end',
+  parentQueryParam: 'recipients',
+});
+
+const startDateField = (recipients = {}) => ({
+  value: recipients.start_date || null,
+  queryParam: 'start_date',
+  parentQueryParam: 'recipients',
 });
 
 const customDates = () => ({
   timeStartDefault: '10:00',
   timeEndDefault: '20:00',
-  items: []
+  items: [],
+  parentQueryParam: 'recipients',
+  queryParam: 'custom_recipients',
+  queryParamMapping: {
+    status: 'active',
+    date: 'date',
+    timeEnd: 'end_time',
+    timeStart: 'start_time',
+  }
 });
 
 const intervalGroup = () => ({
-  queryParam: 'intervalId',
+  queryParam: 'interval_id',
+  parentQueryParam: 'recipients',
   items: [
     { label: i18n.schedule.wholeWeek, id: '1', key: 'wholeWeek' },
     { label: i18n.schedule.twoAfterTwo, id: '4', key: 'twoAfterTwo' },
@@ -72,7 +93,9 @@ export default {
   subwayStationField,
   houseField,
   buildingField,
-  recipientsField,
+  timeStartField,
+  timeEndField,
+  startDateField,
   intervalGroup,
   customDates,
 };

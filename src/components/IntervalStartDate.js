@@ -30,7 +30,11 @@ export default class IntervalStartDate extends Component {
             onDateSelect={this.onDateSelect}
             containerWidth={containerWidth}
           />
-          <TouchableHighlight onPress={this.onApplyPress} style={styles.button}>
+          <TouchableHighlight
+            onPress={this.onApplyPress}
+            style={styles.button}
+            underlayColor="transparent"
+          >
             <Text style={styles.buttonText}>OK</Text>
           </TouchableHighlight>
         </View>

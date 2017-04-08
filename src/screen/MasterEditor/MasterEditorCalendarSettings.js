@@ -2,7 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setFieldParam, setItemById } from '../../actions/master';
+import { setCalendarField, setCalendarInterval } from '../../actions/master';
 import { drawerOpen } from '../../actions/drawer';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
@@ -15,8 +15,8 @@ const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
 
 const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators({
-    setFieldParam,
-    setItemById,
+    setCalendarField,
+    setCalendarInterval,
   }, dispatch);
 
   return {

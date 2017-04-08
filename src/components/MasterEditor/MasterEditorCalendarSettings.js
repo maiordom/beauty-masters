@@ -13,11 +13,11 @@ import i18n from '../../i18n';
 
 export default class MasterEditorCalendarSettings extends Component {
   onChange = (value, modelName) => {
-    this.props.actions.setFieldParam(modelName, 'value', value, this.props.sectionName);
+    this.props.actions.setCalendarField(modelName, 'value', value, this.props.sectionName);
   };
 
   onIntervalChange = (value, id, modelName) => {
-    this.props.actions.setItemById(modelName, id, this.props.sectionName);
+    this.props.actions.setCalendarInterval(modelName, id, this.props.sectionName);
     this.props.drawerOpen({
       contentKey: 'IntervalStartDate',
       sectionName: this.props.sectionName,
@@ -25,11 +25,11 @@ export default class MasterEditorCalendarSettings extends Component {
   };
 
   onTimeEndChange = (timeEnd, modelName) => {
-    this.props.actions.setFieldParam(modelName, 'timeEnd', timeEnd, this.props.sectionName);
+    this.props.actions.setCalendarField(modelName, 'value', timeEnd, this.props.sectionName);
   };
 
   onTimeStartChange = (timeStart, modelName) => {
-    this.props.actions.setFieldParam(modelName, 'timeStart', timeStart, this.props.sectionName);
+    this.props.actions.setCalendarField(modelName, 'value', timeStart, this.props.sectionName);
   };
 
   onDateSelect = date => {
@@ -48,7 +48,9 @@ export default class MasterEditorCalendarSettings extends Component {
 
     const {
       intervalGroup,
-      recipientsField,
+      timeStartField,
+      timeEndField,
+      startDateField,
       customDates,
     } = calendarSettings;
 
@@ -71,9 +73,10 @@ export default class MasterEditorCalendarSettings extends Component {
         <RangeTime
           onTimeStartChange={this.onTimeStartChange}
           onTimeEndChange={this.onTimeEndChange}
-          timeStart={recipientsField.timeStart}
-          timeEnd={recipientsField.timeEnd}
-          modelName={recipientsField.modelName}
+          timeStart={timeStartField.value}
+          timeEnd={timeEndField.value}
+          timeStartModelName={timeStartField.modelName}
+          timeEndModelName={timeEndField.modelName}
         />
         <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
         <Calendar
@@ -81,7 +84,7 @@ export default class MasterEditorCalendarSettings extends Component {
           events={customDates.items}
           interval={intervalGroup.selected}
           onDateSelect={this.onDateSelect}
-          startDate={recipientsField.startDate}
+          startDate={startDateField.value}
         />
         <View style={styles.gap} />
         <ButtonControl label={i18n.ready} onPress={onReadyPress} />

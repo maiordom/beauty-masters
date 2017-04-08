@@ -34,6 +34,10 @@ each({
   });
 });
 
+params.calendarSettingsOne.index = 0;
+params.calendarSettingsTwo.index = 1;
+params.calendarSettingsThree.index = 2;
+
 type Service = {
   duration: number,
   price: number,
@@ -47,8 +51,34 @@ type CustomService = {
   price?: number,
 };
 
+type CustomRecipientDate = {
+  active: boolean,
+  date: string,
+  end_time: string,
+  start_time: string,
+};
+
+type Recipient = {
+  custom_recipients: Array<CustomRecipientDate>,
+  interval_id: number,
+  start_date: string,
+  time_end: string,
+  time_start: string,
+};
+
+type Address = {
+  city: string,
+  district: string,
+  street: string,
+  house: string,
+  building: string,
+  subway_station: string,
+  salon_title: string,
+  recipients: Array<Recipient>,
+};
+
 type CreateMaster = {
-  address: Array<any>,
+  address: Array<Address>,
   custom_services: Array<CustomService>,
   first_name?: string,
   is_salon?: boolean,

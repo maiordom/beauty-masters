@@ -54,12 +54,14 @@ export default class WorkTimeSpecification extends Component {
       return;
     }
 
-    this.props.applyChanges({
+    const changes = {
       date,
       timeStart,
       timeEnd,
       workInThisDay,
-    }, this.props.sectionName);
+    };
+
+    this.props.applyChanges(this.props.modelName, changes, this.props.sectionName);
   };
 
   onStatusChange = workInThisDay => {

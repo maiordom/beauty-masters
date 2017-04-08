@@ -19,6 +19,72 @@ const setParam = (action, state) => {
   state.masterEditor[sectionName][modelName] = {...model};
 }
 
+const setItemById = (action, state) => {
+  const { modelName, id, sectionName } = action;
+  const section = state.masterEditor[sectionName];
+  const model = section[modelName];
+
+  each(model.items, item => {
+    item.active = item.id === id;
+
+    if (item.active) {
+      model.selected = item;
+    }
+  });
+
+  state.masterEditor = {...state.masterEditor};
+  state.masterEditor[sectionName] = {...section};
+  state.masterEditor[sectionName][modelName] = {...model};
+  state.masterEditor[sectionName][modelName].items = [...model.items];
+};
+
+const setCalendarParam = (action, state) => {
+  const createMasterQuery = state.masterEditor.createMasterQuery;
+  const section = state.masterEditor[action.sectionName];
+  const model = section[action.modelName];
+  let calendarSettingsObject = createMasterQuery.address[section.index];
+
+  if (!calendarSettingsObject) {
+    calendarSettingsObject = {
+      recipients: {
+        custom_recipients: [],
+      },
+    };
+    createMasterQuery.address[section.index] = calendarSettingsObject;
+  }
+
+  if (model.parentQueryParam) {
+    calendarSettingsObject[model.parentQueryParam][model.queryParam] = action.paramValue;
+  } else {
+    calendarSettingsObject[model.queryParam] = action.paramValue;
+  }
+}
+
+const setCalendarRecipientDate = (action, state) => {
+  const createMasterQuery = state.masterEditor.createMasterQuery;
+  const section = state.masterEditor[action.sectionName];
+  const model = section[action.modelName];
+  let calendarSettingsObject = createMasterQuery.address[section.index];
+
+  if (!calendarSettingsObject) {
+    calendarSettingsObject = {
+      recipients: {
+        custom_recipients: [],
+      },
+    };
+    createMasterQuery.address[section.index] = calendarSettingsObject;
+  }
+
+  const dates = calendarSettingsObject[model.parentQueryParam][model.queryParam];
+  const date = find(dates, action.date);
+
+  if (date) {
+    assign(date, action.date);
+  } else {
+    dates.push(action.date);
+  }
+};
+
 export default makeReducer((state, action) => ({
   [actions.MASTER_PHOTO_SET_MOCK]: () => {
     const { modelName, id } = action;
@@ -129,32 +195,18 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_ITEM_SET_ACTIVE]: () => {
-    const { modelName, id, sectionName } = action;
-    const section = state.masterEditor[sectionName];
-    const model = section[modelName];
-
-    each(model.items, item => {
-      item.active = item.id === id;
-
-      if (item.active) {
-        model.selected = item;
-      }
-    });
-
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor[sectionName] = {...section};
-    state.masterEditor[sectionName][modelName] = {...model};
-    state.masterEditor[sectionName][modelName].items = [...model.items];
+  [actions.MASTER_CALENDAR_SET_INTERVAL]: () => {
+    setItemById(action, state);
+    setCalendarParam(action, state);
 
     return state;
   },
 
-  [actions.MASTER_CUSTOM_DATE_PUSH]: () => {
-    const { sectionName, changes } = action;
+  [actions.MASTER_CALENDAR_SET_RECIPIENT_DATE]: () => {
+    const { sectionName, changes, modelName } = action;
     const { timeStart, timeEnd, date, workInThisDay } = changes;
     const section = state.masterEditor[sectionName];
-    const model = section.customDates;
+    const model = section[modelName];
 
     const dateObject = {
       date: date,
@@ -172,8 +224,26 @@ export default makeReducer((state, action) => ({
 
     state.masterEditor = {...state.masterEditor};
     state.masterEditor[sectionName] = {...section};
-    state.masterEditor[sectionName].customDates = {...model};
-    state.masterEditor[sectionName].customDates.items = [...model.items];
+    state.masterEditor[sectionName][modelName] = {...model};
+    state.masterEditor[sectionName][modelName].items = [...model.items];
+
+    const recipientDate = {};
+
+    each(dateObject, (value, key) => {
+      recipientDate[model.queryParamMapping[key]] = value;
+    });
+
+    setCalendarRecipientDate({
+      date: recipientDate,
+      ...action,
+    }, state);
+
+    return state;
+  },
+
+  [actions.MASTER_CALENDAR_SET_PARAM]: () => {
+    setParam(action, state);
+    setCalendarParam(action, state);
 
     return state;
   }
