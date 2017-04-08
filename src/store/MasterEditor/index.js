@@ -34,24 +34,31 @@ each({
   });
 });
 
-type ServiceType = {
+type Service = {
   duration: number,
   price: number,
   service_id: string,
 };
 
-type CreateMasterType = {
+type CustomService = {
+  description: string,
+  duration?: number,
+  parent_service_id: string,
+  price?: number,
+};
+
+type CreateMaster = {
   address: Array<any>,
-  custom_services: Array<any>,
+  custom_services: Array<CustomService>,
   first_name?: string,
   is_salon?: boolean,
   last_name?: string,
   phone?: string,
   salon_name?: string,
-  services: Array<ServiceType>,
+  services: Array<Service>,
 };
 
-const createMasterQuery: CreateMasterType = {
+const createMasterQuery: CreateMaster = {
   address: [],
   custom_services: [],
   services: [],
