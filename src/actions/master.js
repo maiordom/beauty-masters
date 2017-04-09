@@ -4,7 +4,7 @@ import actions from '../constants/master';
 
 let index = 0;
 
-export const uploadMasterPhoto = (fileData, modelName) => dispatch => {
+export const uploadMasterPhoto = (data, modelName) => dispatch => {
   const photoId = index++;
 
   dispatch({
@@ -13,10 +13,10 @@ export const uploadMasterPhoto = (fileData, modelName) => dispatch => {
     modelName,
   });
 
-  return uploadFile(fileData)
+  return uploadFile(data)
     .then(response => {
       try {
-        return response.json();
+        return JSON.parse(response.data);
       } catch(exx) {
         console.log(exx);
       }
