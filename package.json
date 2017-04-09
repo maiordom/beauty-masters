@@ -7,7 +7,15 @@
     "test": "jest",
     "flow": "node_modules/.bin/flow",
     "flow:start": "node_modules/.bin/flow start",
-    "flow:stop": "node_modules/.bin/flow stop"
+    "flow:stop": "node_modules/.bin/flow stop",
+    "lint": "node_modules/.bin/eslint src",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --printWidth 120 --single-quote --parser flow",
+      "git add"
+    ]
   },
   "dependencies": {
     "lodash": "~4.17.x",
@@ -25,10 +33,19 @@
     "stacktrace-js": "1.3.1"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
     "babel-jest": "18.0.0",
     "babel-preset-react-native": "1.9.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "flow-bin": "0.36.0",
+    "husky": "^0.13.3",
     "jest": "18.1.0",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0",
     "react-test-renderer": "15.4.2"
   },
   "jest": {
