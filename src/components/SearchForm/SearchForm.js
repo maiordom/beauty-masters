@@ -83,19 +83,19 @@ export default class SearchFormShort extends Component {
             selectedDate
         } = this.state;
 
+        // {/*<View style={styles.navBar}>*/}
+        //     {/*<TouchableHighlight*/}
+        //       {/*style={styles.close}*/}
+        //       {/*onPress={Actions.pop}*/}
+        //       {/*activeOpacity={1}*/}
+        //       {/*underlayColor="transparent"*/}
+        //     {/*>*/}
+        //         {/*<Image style={styles.menu} source={require('../../icons/menu.png')} />*/}
+        //     {/*</TouchableHighlight>*/}
+        //     {/*<Text style={styles.navTitle}>{i18n.search.searchParams}</Text>*/}
+        // {/*</View>*/}
         return (
             <View style={styles.container}>
-                <View style={styles.navBar}>
-                    <TouchableHighlight
-                        style={styles.close}
-                        onPress={Actions.pop}
-                        activeOpacity={1}
-                        underlayColor="transparent"
-                    >
-                        <Image source={require('../../icons/menu.png')} />
-                    </TouchableHighlight>
-                    <Text style={styles.navTitle}>{i18n.search.searchParams}</Text>
-                </View>
                 <ScrollView style={styles.content}>
                     <FilterLabel text={i18n.search.vacantDays} />
                     <FilterTab
@@ -206,4 +206,9 @@ const styles = StyleSheet.create({
             }
         })
     },
+    menu: {
+        padding: 0,
+        alignItems: 'center',
+        left: 16
+    }
 });

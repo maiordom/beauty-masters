@@ -31,7 +31,7 @@ const getSceneStyle = () => ({
   })
 });
 
-function getMasterStyle() {
+function getMasterStyle(options) {
   const leftButtonIconStyle = {
     width: 24,
     height: 24
@@ -60,7 +60,12 @@ function getMasterStyle() {
 
   const hideNavBar = false;
 
-  const backButtonImage = require('../icons/android/back-arrow.png');
+  let backButtonImage;
+
+  switch (options.navButtonType) {
+    case 'menu': backButtonImage = require('../../icons/menu.png'); break;
+    default: backButtonImage = require('../icons/android/back-arrow.png');
+  }
 
   return {
     leftButtonIconStyle,
@@ -87,7 +92,13 @@ export default class NavigationRouter extends Component {
               key="presentation"
               component={Presentation}
             />
-            <Scene key="searchFormShort" component={SearchForm} />
+            <Scene
+              key="searchForm"
+              {...getMasterStyle({navButtonType: 'menu'})}
+              title={i18n.search.searchParams}
+              getSceneStyle={getSceneStyle}
+              component={SearchForm}
+            />
             <Scene
               key="masterLocation"
               {...getMasterStyle()}
