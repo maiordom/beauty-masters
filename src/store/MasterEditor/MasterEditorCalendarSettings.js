@@ -76,19 +76,19 @@ const buildingField = (building: string) => ({
   value: building || null,
 }: CalendarFieldModel);
 
-const timeStartField = ({ time_start }: { time_start: string }) => ({
+const timeStartField = ({ time_start }: { time_start: string } = {}) => ({
   parentQueryParam: 'recipients',
   queryParam: 'time_start',
   value: time_start || '10:00',
 }: RecipientFieldModel);
 
-const timeEndField = ({ time_end }: { time_end: string }) => ({
+const timeEndField = ({ time_end }: { time_end: string } = {}) => ({
   parentQueryParam: 'recipients',
   queryParam: 'time_end',
   value: time_end || '20:00',
 }: RecipientFieldModel);
 
-const startDateField = ({ start_date }: { start_date: string }) => ({
+const startDateField = ({ start_date }: { start_date: string } = {}) => ({
   parentQueryParam: 'recipients',
   queryParam: 'start_date',
   value: start_date || null,
