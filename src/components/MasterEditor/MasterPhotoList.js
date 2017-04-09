@@ -7,6 +7,7 @@ import * as Progress from 'react-native-progress';
 import MasterPhotoUpload from './MasterPhotoUpload';
 
 import vars from '../../vars';
+import constants from '../../constants/master';
 
 const icons = {
   remove: Platform.select({
@@ -54,11 +55,13 @@ export default class MasterPhotoList extends Component {
                     index === CHUNK_SIZE - 1 && styles.photoLast,
                     {width: photoSize, height: photoSize}
                   ]}>
-                  <Progress.Circle
-                    indeterminate={true}
-                    size={30}
-                    thickness={6}
-                  />
+                  {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
+                    <Progress.Circle
+                      indeterminate={true}
+                      size={30}
+                      thickness={6}
+                    />
+                  )}
                 </View>;
               }
 

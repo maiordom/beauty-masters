@@ -1,17 +1,12 @@
 import { uploadFile } from '../services/upload';
 
 import actions from '../constants/master';
+import constants from '../constants/master';
 
 let index = 0;
 
-export const uploadMasterPhoto = (fileData, modelName) => dispatch => {
-  const photoId = index++;
-
-  dispatch({
-    type: actions.MASTER_PHOTO_SET_MOCK,
-    id: photoId,
-    modelName,
-  });
+function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
+  getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.IN_PROCESS;
 
   return uploadFile(fileData)
     .then(response => {
@@ -36,9 +31,62 @@ export const uploadMasterPhoto = (fileData, modelName) => dispatch => {
         modelName,
         sizes,
       });
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log(err);
+      // dispatch({
+      //   type: actions.MASTER_PHOTO_REMOVE_QUEUE,
+      //   id: photoId,
+      // });
     });
+    // .then(() => {
+    //   const queue = getState().masterEditor.info.photosQueue.items;
+    //   const queueEntity = queue[0];
+    //
+    //   if (queue.length) {
+    //     dispatch({
+    //       type: actions.MASTER_PHOTO_REMOVE_QUEUE,
+    //       id: queueEntity.id,
+    //     });
+    //     dispatch({
+    //       type: actions.MASTER_PHOTO_SET_MOCK,
+    //       id: queueEntity.id,
+    //       modelName: queueEntity.modelName,
+    //       status: constants.UPLOAD_STATUS.IN_PROCESS,
+    //     });
+    //
+    //     uploadFileAction(queueEntity.fileData, queueEntity.modelName, queueEntity.id, dispatch, getState);
+    //   } else {
+    //     getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
+    //   }
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
+}
+
+export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) => {
+  const photoId = index++;
+
+  dispatch({
+    type: actions.MASTER_PHOTO_SET_MOCK,
+    id: photoId,
+    modelName,
+    status: getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS
+      ? constants.UPLOAD_STATUS.IN_QUEUE
+      : constants.UPLOAD_STATUS.IN_PROCESS
+  });
+
+  if (getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS) {
+    return dispatch({
+      type: actions.MASTER_PHOTO_SET_QUEUE,
+      fileData,
+      id: photoId,
+      modelName,
+    });
+  }
+
+  return uploadFileAction(fileData, modelName, photoId, dispatch, getState);
 };
 
 export const removePhoto = (itemId, modelName) => ({

@@ -87,21 +87,41 @@ const setCalendarRecipientDate = (action, state) => {
 
 export default makeReducer((state, action) => ({
   [actions.MASTER_PHOTO_SET_MOCK]: () => {
-    const { modelName, id } = action;
+    const { modelName, id, status } = action;
     const section = state.masterEditor.info;
     const model = section[modelName];
     const { items } = model;
+    const item = find(items, { id });
 
-    items.push({
-      id,
-      type: 'mock',
-      status: 'upload',
-    });
+    if (item) {
+      assign(item, { status });
+    } else {
+      items.push({id, status, type: 'mock'});
+    }
 
     state.masterEditor = {...state.masterEditor};
     state.masterEditor.info = {...section}
     state.masterEditor.info[modelName] = {...model};
     state.masterEditor.info[modelName].items = [...items];
+
+    return state;
+  },
+
+  [actions.MASTER_PHOTO_SET_QUEUE]: () => {
+    const { modelName, id, fileData } = action;
+    const queue = state.masterEditor.info.photosQueue.items;
+
+    queue.push({modelName, id, fileData});
+
+    return state;
+  },
+
+  [actions.MASTER_PHOTO_REMOVE_QUEUE]: () => {
+    const { id } = action;
+    const queueModel = state.masterEditor.info.photosQueue;
+    const queue = queueModel.items;
+
+    queueModel.items = reject(queue, { id });
 
     return state;
   },

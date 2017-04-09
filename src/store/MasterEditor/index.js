@@ -11,6 +11,8 @@ import Info from './MasterEditorInfo';
 import ServiceManicure from '../Filters/ServiceManicure';
 import ServicePedicure from '../Filters/ServicePedicure';
 
+import constants from '../../constants/master';
+
 const params = {};
 
 each({
@@ -37,6 +39,8 @@ each({
 params.calendarSettingsOne.index = 0;
 params.calendarSettingsTwo.index = 1;
 params.calendarSettingsThree.index = 2;
+
+params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 
 type Service = {
   duration: number,
@@ -79,19 +83,26 @@ type Address = {
 
 type CreateMaster = {
   address: Array<Address>,
+  certificates: Array<string>,
   custom_services: Array<CustomService>,
   first_name?: string,
   is_salon?: boolean,
   last_name?: string,
+  master_photos: Array<string>,
+  passport?: string,
   phone?: string,
   salon_name?: string,
   services: Array<Service>,
+  work_photos: Array<string>
 };
 
 const createMasterQuery: CreateMaster = {
   address: [],
+  certificates: [],
   custom_services: [],
+  master_photos: [],
   services: [],
+  work_photos: [],
 };
 
 export default {

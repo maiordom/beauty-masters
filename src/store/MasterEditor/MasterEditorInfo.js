@@ -7,6 +7,10 @@ type PhotosModel = {
   queryType: string,
 };
 
+const photosQueue = () => ({
+  items: [],
+});
+
 const workPhotos = () => ({
   items: [],
   limit: 15,
@@ -36,6 +40,7 @@ const personalPhotos = () => ({
 }: PhotosModel);
 
 export default {
+  photosQueue,
   certificatePhotos,
   passportPhotos,
   personalPhotos,
