@@ -61,7 +61,7 @@ export default class RangeTime extends Component {
           timeStart,
         });
 
-        this.props.onTimeStartChange(timeStart, this.props.modelName);
+        this.props.onTimeStartChange(timeStart, this.props.timeStartModelName);
       }
     });
   };
@@ -83,7 +83,7 @@ export default class RangeTime extends Component {
           timeEnd: timeEnd,
         });
 
-        this.props.onTimeEndChange(timeEnd, this.props.modelName);
+        this.props.onTimeEndChange(timeEnd, this.props.timeEndModelName);
       }
     });
   };

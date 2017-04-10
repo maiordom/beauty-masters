@@ -54,14 +54,6 @@ export const setFieldValue = (modelName, value, sectionName) => ({
   value,
 });
 
-export const setFieldParam = (modelName, paramName, paramValue, sectionName) => ({
-  type: actions.MASTER_FIELD_SET_PARAM,
-  modelName,
-  paramName,
-  paramValue,
-  sectionName,
-});
-
 export const setServiceParam = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_SERVICE_SET_PARAM,
   modelName,
@@ -78,15 +70,25 @@ export const toogleService = (modelName, paramName, paramValue, sectionName) => 
   sectionName,
 });
 
-export const setItemById = (modelName, id, sectionName) => ({
-  type: actions.MASTER_ITEM_SET_ACTIVE,
+export const setCalendarInterval = (modelName, id, sectionName) => ({
+  type: actions.MASTER_CALENDAR_SET_INTERVAL,
   modelName,
   id,
   sectionName,
+  paramValue: id,
 });
 
-export const setCustomDate = (changes, sectionName) => ({
-  type: actions.MASTER_CUSTOM_DATE_PUSH,
+export const setCalendarRecipientDate = (modelName, changes, sectionName) => ({
+  type: actions.MASTER_CALENDAR_SET_RECIPIENT_DATE,
+  modelName,
   changes,
+  sectionName,
+});
+
+export const setCalendarField = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_CALENDAR_SET_PARAM,
+  modelName,
+  paramName,
+  paramValue,
   sectionName,
 });
