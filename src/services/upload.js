@@ -1,16 +1,21 @@
+import RNFetchBlob from 'react-native-fetch-blob';
+
 import routes from '../routes';
 
-export function uploadFile(fileData) {
-  const data = new FormData();
-
-  data.append('base_string', fileData);
-
-  return fetch(routes.upload, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data',
+export function uploadFile({ uri, type }) {
+  return RNFetchBlob.fetch(
+    'POST',
+    routes.upload,
+    {
+      'Content-Type': 'multipart/form-data'
     },
-    body: data,
-  });
+    [
+      {
+        data: RNFetchBlob.wrap(uri),
+        filename: 'filename',
+        name: 'file',
+        type: type
+      }
+    ]
+  );
 }

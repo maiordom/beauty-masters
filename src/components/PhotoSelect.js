@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Image, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback
+} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import i18n from '../i18n';
@@ -12,18 +18,18 @@ const selectIcon = require('../icons/android/photo-select.png');
 export default class PhotoSelect extends Component {
   static propTypes = {
     onGetPhotoFromCamera: PropTypes.func,
-    onGetPhotoFromGallery: PropTypes.func,
+    onGetPhotoFromGallery: PropTypes.func
   };
 
   onPhotoTakePress = () => {
-    ImagePicker.launchCamera({}, response => {
-      this.props.onGetPhotoFromCamera(response.data, this.props.name);
+    ImagePicker.launchCamera({}, ({ uri, type }) => {
+      this.props.onGetPhotoFromCamera({ uri, type }, this.props.name);
     });
   };
 
   onPhotoSelectPress = () => {
-    ImagePicker.launchImageLibrary({}, response => {
-      this.props.onGetPhotoFromGallery(response.data, this.props.name);
+    ImagePicker.launchImageLibrary({}, ({ uri, type }) => {
+      this.props.onGetPhotoFromGallery({ uri, type }, this.props.name);
     });
   };
 
@@ -52,22 +58,22 @@ export default class PhotoSelect extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   inner: {
-    backgroundColor: vars.color.white,
+    backgroundColor: vars.color.white
   },
   image: {
     marginLeft: 16,
-    marginRight: 32,
+    marginRight: 32
   },
   button: {
     height: 56,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: 16,
-    color: hexToRgba(vars.color.black, 54),
-  },
+    color: hexToRgba(vars.color.black, 54)
+  }
 });
