@@ -6,22 +6,22 @@ import { makeReducer } from '../utils';
 import actions from '../constants/search';
 
 const setParam = (action, state) => {
-  const {sectionName, modelName, paramValue, paramName} = action;
+  const { sectionName, modelName, paramValue, paramName } = action;
   const section = state.searchForm[sectionName];
   const model = section[modelName];
 
   model[paramName] = paramValue;
 
-  state.searchForm = {...state.searchForm};
-  state.searchForm[sectionName] = {...section};
-  state.searchForm[sectionName][modelName] = {...model};
+  state.searchForm = { ...state.searchForm };
+  state.searchForm[sectionName] = { ...section };
+  state.searchForm[sectionName][modelName] = { ...model };
 };
 
 export default makeReducer((state, action) => ({
   [actions.SEARCH_TOOGLE_SERVICE]: () => {
     setParam(action, state);
 
-    const {searchQuery} = state.searchForm;
+    const { searchQuery } = state.searchForm;
     const model = state.searchForm[action.sectionName][action.modelName];
 
     if (action.paramValue) {
@@ -53,12 +53,12 @@ export default makeReducer((state, action) => ({
       }
     });
 
-    state.searchForm = {...state.searchForm};
-    state.searchForm[sectionName] = {...section};
-    state.searchForm[sectionName][modelName] = {...model};
+    state.searchForm = { ...state.searchForm };
+    state.searchForm[sectionName] = { ...section };
+    state.searchForm[sectionName][modelName] = { ...model };
     state.searchForm[sectionName][modelName].items = [...model.items];
 
-    state.searchForm.searchQuery['master_type'] = model.selected.id;
+    state.searchForm.searchQuery.master_type = model.selected.id;
 
     return state;
   },

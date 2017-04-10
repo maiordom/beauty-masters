@@ -30,7 +30,7 @@ const getSceneStyle = () => ({
   })
 });
 
-function getMasterStyle(options) {
+function getMasterStyle(options = {}) {
   const leftButtonIconStyle = {
     width: 24,
     height: 24
@@ -63,7 +63,7 @@ function getMasterStyle(options) {
 
   switch (options.navButtonType) {
     case 'menu':
-      backButtonImage = require('../../icons/menu.png');
+      backButtonImage = require('../icons/menu.png');
       break;
     default:
       backButtonImage = require('../icons/android/back-arrow.png');
@@ -80,7 +80,7 @@ function getMasterStyle(options) {
   };
 }
 
-const NavigationRouter = () => (
+export default () => (
   <Router sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene initial key="root" hideNavBar animationStyle="leftToRight">

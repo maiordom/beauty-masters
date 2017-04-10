@@ -1,7 +1,8 @@
 {
   "parser": "babel-eslint",
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true
   },
   "plugins": [
     "react"
@@ -20,6 +21,7 @@
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/sort-comp": 0,
     "max-len": ["error", 120],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "global-require": 0
   }
 }
