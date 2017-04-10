@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import NavigationRouter from './NavigationRouter';
 
-class RootContainer extends Component {
-  render () {
-    return (
-      <NavigationRouter />
-    );
-  }
-}
+const RootContainer = () => <NavigationRouter />;
 
 export default connect(null, null)(RootContainer);

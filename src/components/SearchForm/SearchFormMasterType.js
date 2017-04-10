@@ -27,8 +27,6 @@ export default class SearchFormMasterType extends Component {
       onMasterTypeSelect
     } = this.props;
 
-    onMasterTypeSelect(12, 12, '123');
-
     return (
       <Modal animationType={'fade'} transparent visible={showMasterTypeModal} onRequestClose={toggleMasterTypeModal}>
         <View style={styles.container}>

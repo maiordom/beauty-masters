@@ -7,8 +7,8 @@ import MasterEditor from './MasterEditor';
 import SearchForm from './SearchForm';
 
 const initialState = {
-  masterEditor: MasterEditor,
-  searchForm: SearchForm
+  masterEditor: { ...MasterEditor },
+  searchForm: { ...SearchForm }
 };
 
 export default function configureStore() {

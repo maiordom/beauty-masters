@@ -22,6 +22,8 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
 
+moment.locale('ru');
+
 export default class SearchFormShort extends Component {
   props: {
     actions: Object,
@@ -82,17 +84,6 @@ export default class SearchFormShort extends Component {
       selectedDate
     } = this.state;
 
-    // {/*<View style={styles.navBar}>*/}
-    //     {/*<TouchableHighlight*/}
-    //       {/*style={styles.close}*/}
-    //       {/*onPress={Actions.pop}*/}
-    //       {/*activeOpacity={1}*/}
-    //       {/*underlayColor="transparent"*/}
-    //     {/*>*/}
-    //         {/*<Image style={styles.menu} source={require('../../icons/menu.png')} />*/}
-    //     {/*</TouchableHighlight>*/}
-    //     {/*<Text style={styles.navTitle}>{i18n.search.searchParams}</Text>*/}
-    // {/*</View>*/}
     return (
       <View style={styles.container}>
         <ScrollView style={styles.content}>

@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: hexToRgba(vars.color.black, 40)
   },
   modalContainer: {
-    height: 413,
-    width: 328,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: vars.color.white,

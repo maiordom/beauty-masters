@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import vars from '../vars';
@@ -26,16 +26,16 @@ export default class Calendar extends Component {
     if (props.width) {
       this.styles = StyleSheet.create({
         monthContainer: {
-          width: props.width,
+          width: props.width
         },
         dayButton: {
           width: props.width / 7,
           alignItems: 'center',
-          padding: 5,
+          padding: 5
         },
         dayButtonFiller: {
           width: props.width / 7,
-          padding: 5,
+          padding: 5
         }
       });
     }
@@ -43,7 +43,7 @@ export default class Calendar extends Component {
 
   state = {
     currentMonthMoment: moment(this.props.startDate),
-    selectedMoment: moment(this.props.selectedDate),
+    selectedMoment: moment(this.props.selectedDate)
   };
 
   static propTypes = {
@@ -52,19 +52,13 @@ export default class Calendar extends Component {
     disableSelectDate: PropTypes.bool,
     eventDates: PropTypes.array,
     monthNames: PropTypes.array,
-    nextButtonText: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    nextButtonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onDateSelect: PropTypes.func,
     onSwipeNext: PropTypes.func,
     onSwipePrev: PropTypes.func,
     onTouchNext: PropTypes.func,
     onTouchPrev: PropTypes.func,
-    prevButtonText: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    prevButtonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     scrollEnabled: PropTypes.bool,
     selectedDate: PropTypes.any,
     showControls: PropTypes.bool,
@@ -73,7 +67,7 @@ export default class Calendar extends Component {
     activeFrom: PropTypes.instanceOf(moment),
     titleFormat: PropTypes.string,
     today: PropTypes.any,
-    weekStart: PropTypes.number,
+    weekStart: PropTypes.number
   };
 
   static defaultProps = {
@@ -91,12 +85,12 @@ export default class Calendar extends Component {
     titleFormat: 'MMMM YYYY',
     today: moment(),
     weekStart: 1,
-    width: DEVICE_WIDTH,
+    width: DEVICE_WIDTH
   };
 
   componentDidMount() {
     // fixes initial scrolling bug on Android
-    setTimeout(() => this.scrollToItem(VIEW_INDEX), 0)
+    setTimeout(() => this.scrollToItem(VIEW_INDEX), 0);
   }
 
   componentDidUpdate() {
@@ -153,7 +147,7 @@ export default class Calendar extends Component {
       this.setState({ selectedMoment: date });
     }
 
-    this.props.onDateSelect && this.props.onDateSelect(date ? date.format(): null );
+    this.props.onDateSelect && this.props.onDateSelect(date ? date.format() : null);
   }
 
   onPrev = () => {
@@ -209,9 +203,7 @@ export default class Calendar extends Component {
     const selectedIndex = moment(selectedMoment).date() - 1;
     const selectedMonthIsArg = selectedMoment.isSame(argMoment, 'month');
 
-    const events = (eventsMap !== null)
-      ? eventsMap[argMoment.startOf('month').format()]
-      : null;
+    const events = eventsMap !== null ? eventsMap[argMoment.startOf('month').format()] : null;
 
     do {
       const dayIndex = renderIndex - offset;
@@ -224,7 +216,7 @@ export default class Calendar extends Component {
       }
 
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
-        days.push((
+        days.push(
           <Day
             dayStyles={this.styles}
             isDisable={isDisable}
@@ -232,25 +224,23 @@ export default class Calendar extends Component {
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
-            onPress={() => !isDisable && this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
+            onPress={isDisable ? null : this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
             caption={`${dayIndex + 1}`}
-            isToday={argMonthIsToday && (dayIndex === todayIndex)}
-            isSelected={selectedMonthIsArg && (dayIndex === selectedIndex)}
+            isToday={argMonthIsToday && dayIndex === todayIndex}
+            isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
             event={events && events[dayIndex]}
             showEventIndicators={this.props.showEventIndicators}
           />
-        ));
+        );
       } else {
         days.push(<Day dayStyles={this.styles} key={`${renderIndex}`} filler />);
       }
       if (renderIndex % 7 === 6) {
         weekRows.push(
-          <View
-            key={weekRows.length}
-            style={styles.weekRow}
-          >
+          <View key={weekRows.length} style={styles.weekRow}>
             {days}
-          </View>);
+          </View>
+        );
         days = [];
         if (dayIndex + 1 >= argMonthDaysCount) {
           break;
@@ -259,12 +249,7 @@ export default class Calendar extends Component {
       renderIndex += 1;
     } while (true);
 
-    return <View
-      key={argMoment.month()}
-      style={
-        this.styles.monthContainer ||
-        styles.monthContainer
-      }>{weekRows}</View>;
+    return <View key={argMoment.month()} style={this.styles.monthContainer || styles.monthContainer}>{weekRows}</View>;
   }
 
   renderHeading() {
@@ -272,12 +257,7 @@ export default class Calendar extends Component {
 
     for (let i = 0; i < 7; i++) {
       headings.push(
-        <Text
-          key={i}
-          style={i === 5 || i === 6 ?
-            styles.weekendHeading :
-            styles.dayHeading}
-        >
+        <Text key={i} style={i === 5 || i === 6 ? styles.weekendHeading : styles.dayHeading}>
           {this.props.dayHeadings[i]}
         </Text>
       );
@@ -295,42 +275,30 @@ export default class Calendar extends Component {
     const { prevButtonImage, nextButtonImage } = this.props;
 
     return this.props.showControls
-      ? (
-        <View style={styles.calendarControls}>
-          <TouchableOpacity
-            style={styles.controlButton}
-            onPress={this.onPrev}
-          >
+      ? <View style={styles.calendarControls}>
+          <TouchableOpacity style={styles.controlButton} onPress={this.onPrev}>
             {prevButtonImage
-              ? <Image source={prevButtonImage}/>
+              ? <Image source={prevButtonImage} />
               : <Text style={styles.controlButtonText}>
-                {this.props.prevButtonText}
-              </Text>
-            }
+                  {this.props.prevButtonText}
+                </Text>}
           </TouchableOpacity>
           <Text style={styles.title}>
             {localizedMonth} {this.state.currentMonthMoment.year()}
           </Text>
-          <TouchableOpacity
-            style={styles.controlButton}
-            onPress={this.onNext}
-          >
+          <TouchableOpacity style={styles.controlButton} onPress={this.onNext}>
             {nextButtonImage
               ? <Image source={nextButtonImage} />
               : <Text style={styles.controlButtonText}>
-                {this.props.nextButtonText}
-              </Text>
-            }
+                  {this.props.nextButtonText}
+                </Text>}
           </TouchableOpacity>
         </View>
-      )
-      : (
-        <View style={styles.calendarControls}>
+      : <View style={styles.calendarControls}>
           <Text style={styles.title}>
             {this.state.currentMonthMoment.format(this.props.titleFormat)}
           </Text>
-        </View>
-      );
+        </View>;
   }
 
   render() {
@@ -341,66 +309,59 @@ export default class Calendar extends Component {
       <View style={styles.calendarContainer}>
         {this.renderTopBar()}
         {this.renderHeading(this.props.titleFormat)}
-        {this.props.scrollEnabled ?
-          <ScrollView
-            ref={calendar => this._calendar = calendar}
-            horizontal
-            scrollEnabled
-            pagingEnabled
-            removeClippedSubviews
-            scrollEventThrottle={1000}
-            showsHorizontalScrollIndicator={false}
-            automaticallyAdjustContentInsets
-            onMomentumScrollEnd={(event) => this.scrollEnded(event)}
-          >
-            {calendarDates.map((date) => this.renderMonthView(moment(date), eventDatesMap))}
-          </ScrollView>
-          :
-          <View ref={calendar => this._calendar = calendar}>
-            {calendarDates.map((date) => this.renderMonthView(moment(date), eventDatesMap))}
-          </View>
-        }
+        {this.props.scrollEnabled
+          ? <ScrollView
+              ref={calendar => this._calendar = calendar}
+              horizontal
+              scrollEnabled
+              pagingEnabled
+              removeClippedSubviews
+              scrollEventThrottle={1000}
+              showsHorizontalScrollIndicator={false}
+              automaticallyAdjustContentInsets
+              onMomentumScrollEnd={event => this.scrollEnded(event)}
+            >
+              {calendarDates.map(date => this.renderMonthView(moment(date), eventDatesMap))}
+            </ScrollView>
+          : <View ref={calendar => this._calendar = calendar}>
+              {calendarDates.map(date => this.renderMonthView(moment(date), eventDatesMap))}
+            </View>}
       </View>
     );
   }
 }
 
-const Day = ({
-  caption,
-  dayStyles,
-  event,
-  filler,
-  isSelected,
-  isToday,
-  isWeekend,
-  onPress,
-  showEventIndicators,
-  isDisable
-}) => {
+const Day = (
+  {
+    caption,
+    dayStyles,
+    event,
+    filler,
+    isSelected,
+    isToday,
+    isWeekend,
+    onPress,
+    showEventIndicators,
+    isDisable
+  }
+) => {
   return filler
-    ? (
-      <TouchableWithoutFeedback>
+    ? <TouchableWithoutFeedback>
         <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
           <Text style={styles.day} />
         </View>
       </TouchableWithoutFeedback>
-    )
-    : (
-      <TouchableOpacity onPress={onPress}>
+    : <TouchableOpacity onPress={onPress}>
         <View style={dayStyles.dayButton || styles.dayButton}>
           <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
             <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
           </View>
-          {showEventIndicators && (
-            <View style={[
-              styles.eventIndicatorFiller,
-              event && styles.eventIndicator,
-              event && event.eventIndicator]}
-            />
-          )}
+          {showEventIndicators &&
+            <View
+              style={[styles.eventIndicatorFiller, event && styles.eventIndicator, event && event.eventIndicator]}
+            />}
         </View>
-      </TouchableOpacity>
-    );
+      </TouchableOpacity>;
 };
 
 Day.dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
@@ -439,11 +400,11 @@ Day.dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
   }
 
   if (event) {
-    dayTextStyle.push(styles.hasEventText, event.hasEventText)
+    dayTextStyle.push(styles.hasEventText, event.hasEventText);
   }
 
   if (isDisable) {
-    dayTextStyle.push(styles.isDisable)
+    dayTextStyle.push(styles.isDisable);
   }
   return dayTextStyle;
 };
@@ -457,67 +418,66 @@ Day.propTypes = {
   isToday: PropTypes.bool,
   isWeekend: PropTypes.bool,
   onPress: PropTypes.func,
-  showEventIndicators: PropTypes.bool,
+  showEventIndicators: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
-  calendarContainer: {
-  },
+  calendarContainer: {},
   monthContainer: {
-    width: DEVICE_WIDTH,
+    width: DEVICE_WIDTH
   },
   calendarControls: {
     flexDirection: 'row',
     height: 48,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   controlButton: {
     justifyContent: 'center',
     paddingLeft: 16,
     paddingRight: 16,
-    height: 48,
+    height: 48
   },
   controlButtonText: {
-    fontSize: 15,
+    fontSize: 15
   },
   title: {
     flex: 1,
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 14
   },
   calendarHeading: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   dayHeading: {
     flex: 1,
     fontSize: 12,
     textAlign: 'center',
     marginVertical: 5,
-    color: vars.color.grey,
+    color: vars.color.grey
   },
   weekendHeading: {
     flex: 1,
     fontSize: 12,
     textAlign: 'center',
     marginVertical: 5,
-    color: vars.color.grey,
+    color: vars.color.grey
   },
   weekRow: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   dayButton: {
     alignItems: 'center',
     padding: 5,
-    width: DEVICE_WIDTH / 7,
+    width: DEVICE_WIDTH / 7
   },
   dayButtonFiller: {
     padding: 5,
-    width: DEVICE_WIDTH / 7,
+    width: DEVICE_WIDTH / 7
   },
   day: {
     fontSize: 16,
     alignSelf: 'center',
-    color: vars.color.black,
+    color: vars.color.black
   },
   eventIndicatorFiller: {
     borderColor: 'transparent',
@@ -527,34 +487,28 @@ const styles = StyleSheet.create({
     top: -4
   },
   eventIndicator: {
-    backgroundColor: '#000',
+    backgroundColor: '#000'
   },
   dayCircleFiller: {
     justifyContent: 'center',
     backgroundColor: 'transparent',
     width: 40,
     height: 40,
-    borderRadius: 30,
+    borderRadius: 30
   },
-  currentDayCircle: {
-  },
-  currentDayText: {
-  },
+  currentDayCircle: {},
+  currentDayText: {},
   selectedDayCircle: {
-    backgroundColor: vars.color.red,
+    backgroundColor: vars.color.red
   },
-  hasEventCircle: {
-  },
-  hasEventDaySelectedCircle: {
-  },
-  hasEventText: {
-  },
+  hasEventCircle: {},
+  hasEventDaySelectedCircle: {},
+  hasEventText: {},
   isDisable: {
-    color: vars.color.grey,
+    color: vars.color.grey
   },
   selectedDayText: {
-    color: vars.color.white,
+    color: vars.color.white
   },
-  weekendDayText: {
-  },
+  weekendDayText: {}
 });

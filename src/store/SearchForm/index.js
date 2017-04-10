@@ -10,8 +10,8 @@ const params = {};
 
 each(
   {
-    serviceManicure: { ...ServiceManicure },
-    servicePedicure: { ...ServicePedicure },
+    serviceManicure: ServiceManicure,
+    servicePedicure: ServicePedicure,
     general: General
   },
   (fields, sectionName) => {
