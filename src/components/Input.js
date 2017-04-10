@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TextInput, StyleSheet, View, Platform, Image } from 'react-native';
+import debounce from 'lodash/debounce';
 
 import vars from '../vars';
 
@@ -11,40 +12,44 @@ class InputBase extends Component {
 
     this.state = {
       value: props.value || '',
-      isFocused: false,
+      isFocused: false
     };
   }
 
   shouldComponentUpdate = shouldComponentUpdate();
 
+  debounceOnChange = () =>
+    debounce(
+      () => {
+        this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
+      },
+      this.props.debounce || 1000
+    )();
+
   onChangeText = value => {
-    const {formatValue, replaceReg} = this.props;
+    const { formatValue, replaceReg } = this.props;
 
     if (replaceReg) {
       value = value.replace(replaceReg, '');
     }
 
     if (formatValue) {
-      this.setState({value: formatValue(value)}, () => {
-        this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
-      });
+      this.setState({ value: formatValue(value) }, this.debounceOnChange);
     } else {
-      this.setState({value}, () => {
-          this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
-      });
+      this.setState({ value }, this.debounceOnChange);
     }
   };
 
   onFocus = () => {
-    this.setState({isFocused: true});
+    this.setState({ isFocused: true });
   };
 
   onBlur = () => {
-    this.setState({isFocused: false});
+    this.setState({ isFocused: false });
   };
 
   getValue() {
-    const {sign} = this.props;
+    const { sign } = this.props;
 
     let value = this.state.value;
 
@@ -65,7 +70,7 @@ export class InputWithLabel extends InputBase {
       placeholder,
       placeholderTextColor,
       style: customInputStyle,
-      underlineColorAndroid,
+      underlineColorAndroid
     } = this.props;
 
     const value = this.getValue();
@@ -100,20 +105,14 @@ export default class Input extends InputBase {
       placeholder,
       placeholderTextColor,
       style: customInputStyle,
-      underlineColorAndroid,
+      underlineColorAndroid
     } = this.props;
 
     const value = this.getValue();
 
     return (
-      <View style={[
-        inputStyle.inputWrapper,
-        inputWrapperStyle,
-        editable === false && inputStyle.inputDisabled
-      ]}>
-        {icon && (
-          <Image source={icon} />
-        )}
+      <View style={[inputStyle.inputWrapper, inputWrapperStyle, editable === false && inputStyle.inputDisabled]}>
+        {icon && <Image source={icon} />}
         <TextInput
           editable={editable !== undefined ? editable : true}
           keyboardType={keyboardType}
@@ -133,7 +132,7 @@ export default class Input extends InputBase {
 
 const inputStyle = StyleSheet.create({
   inputDisabled: {
-    opacity: 0.4,
+    opacity: 0.4
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -171,7 +170,7 @@ const inputWithLabelStyle = StyleSheet.create({
   label: {
     fontSize: 12,
     paddingLeft: 4,
-    color: vars.color.grey,
+    color: vars.color.grey
   },
   input: {
     alignSelf: 'stretch',
@@ -180,6 +179,6 @@ const inputWithLabelStyle = StyleSheet.create({
         height: 40,
         fontSize: 16
       }
-    }),
+    })
   }
 });

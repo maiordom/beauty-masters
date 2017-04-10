@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import MasterLocation from '../../components/SearchForm/SearchFormLocation';
 
 const mapStateToProps = state => ({
-    ...state.masterEditor.generalSection,
+  ...state.masterEditor.generalSection
 });
 
 const mapDispatchToProps = dispatch => {
-    const actions = bindActionCreators({  }, dispatch);
-
-    return {
-    };
+  const actions = bindActionCreators({}, dispatch);
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MasterLocation);

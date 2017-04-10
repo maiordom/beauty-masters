@@ -35,7 +35,7 @@ class SearchFormLocation extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inner}>
-          <Input placeholder={i18n.enterAddress} onChange={this.onChange} />
+          <Input debounce={300} placeholder={i18n.enterAddress} onChange={this.onChange} />
           {addresses.items.length === 0 &&
             distances.items.map(location => (
               <TouchableWithoutFeedback onPress={() => {}} key={location.label}>
