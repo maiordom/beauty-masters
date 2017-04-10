@@ -8,21 +8,24 @@ import General from './General';
 
 const params = {};
 
-each({
+each(
+  {
     serviceManicure: ServiceManicure,
     servicePedicure: ServicePedicure,
     general: General
-}, (fields, sectionName) => {
+  },
+  (fields, sectionName) => {
     params[sectionName] = {};
 
     each(fields, fieldBuilder => {
-        const fieldObject = fieldBuilder();
+      const fieldObject = fieldBuilder();
 
-        fieldObject.sectionName = sectionName;
-        fieldObject.modelName = fieldBuilder.name;
-        params[sectionName][fieldObject.modelName] = fieldObject;
+      fieldObject.sectionName = sectionName;
+      fieldObject.modelName = fieldBuilder.name;
+      params[sectionName][fieldObject.modelName] = fieldObject;
     });
-});
+  }
+);
 
 type SearchQueryType = {
   cityId: string,
@@ -46,5 +49,5 @@ const searchQuery: SearchQueryType = {
 
 export default {
   ...params,
-  searchQuery,
+  searchQuery
 };

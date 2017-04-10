@@ -9,12 +9,13 @@
     "flow:start": "node_modules/.bin/flow start",
     "flow:stop": "node_modules/.bin/flow stop",
     "lint": "node_modules/.bin/eslint src",
+    "prettier": "prettier --write --print-width 120 --single-quote --parser flow",
     "precommit": "lint-staged",
     "android": "react-native run-android"
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write --printWidth 120 --single-quote --parser flow",
+      "prettier --write --print-width 120 --single-quote --parser flow",
       "git add"
     ]
   },

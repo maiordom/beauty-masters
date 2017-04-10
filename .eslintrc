@@ -16,6 +16,10 @@
     "arrow-parens": "off",
     "no-use-before-define": 0,
     "no-plusplus": 0,
-    "no-unused-expressions": 0
+    "no-unused-expressions": 0,
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/sort-comp": 0,
+    "max-len": ["error", 120],
+    "react/prop-types": 0
   }
 }

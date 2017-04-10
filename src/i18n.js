@@ -1,23 +1,20 @@
 export default {
-  addAddress: [
-    'Добавить адрес 1',
-    'Добавить адрес 2',
-    'Добавить адрес 3',
-  ],
+  addAddress: ['Добавить адрес 1', 'Добавить адрес 2', 'Добавить адрес 3'],
   authAsMaster: 'Авторизоваться как мастер услуг',
   building: 'Корпус/Строение',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
   currency: {
-    roubleSign: '₽',
+    roubleSign: '₽'
   },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   days: {
     nextDay: 'Завтра',
-    sameDay: 'Сегодня',
+    sameDay: 'Сегодня'
   },
   district: 'Район',
+  enterAddress: 'Введите адрес',
   findMaster: 'Найти мастера',
   filters: {
     anotherNailGel: {
@@ -75,8 +72,8 @@ export default {
     removingShellac: 'Шеллака',
     reverseMoon: 'Обратный лунный',
     shellac: {
-        nom: 'Шеллак',
-        gen: 'Шеллака'
+      nom: 'Шеллак',
+      gen: 'Шеллака'
     },
     spa: 'SPA-маникюр',
     stencil: 'Трафаретный',
@@ -84,7 +81,7 @@ export default {
       nom: 'Лак',
       gen: 'Лака'
     },
-    withdrawal: 'Снятие',
+    withdrawal: 'Снятие'
   },
   firstName: 'Имя',
   from: 'С',
@@ -95,14 +92,14 @@ export default {
     enterNameMethod: 'Введите название метода',
     glasperlenovySterilizer: 'Гласперленовый стерилизатор',
     ultrasound: 'Ультразвук',
-    ultraviolet: 'Ультрафиолет',
+    ultraviolet: 'Ультрафиолет'
   },
   house: 'Дом',
   lastName: 'Фамилия',
   login: 'Вход',
   location: {
-    here: 'Мое текущее месторасположение',
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
+    here: 'Мое текущее месторасположение'
   },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
@@ -121,9 +118,22 @@ export default {
     needFirstPhotoOfYourPassport: 'Также нам нужно фото первой страницы вашего паспорта для проверки модераторами',
     provideALinkToYourSocialProfile: 'Укажите ссылку на ваш профиль хотя бы в одной соц. сети - часто клиенты выбирают мастера по описанию и фото из соц. сетей',
     schedule: 'Шаг 4/5: Ваше расписание',
-    services: 'Шаг 2/5: Услуги',
+    services: 'Шаг 2/5: Услуги'
   },
-  monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентярь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+  monthNames: [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентярь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь'
+  ],
   name: 'Название',
   next: 'Далее',
   passwordTip: 'Пароль (не менее 6 символов)',
@@ -131,14 +141,14 @@ export default {
   phone: 'Телефон (для звонков клиентов)',
   photo: {
     select: 'Выбрать фото',
-    take: 'Сделать снимок',
+    take: 'Сделать снимок'
   },
   presentation: {
     calendar: 'Запишитесь на прием',
     list: 'Смотрите список услуг и цен',
     photo: 'Изучите фото мастера и его работ',
     pin: 'Ищите мастеров на карте',
-    title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра',
+    title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра'
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
   ready: 'Готово',
@@ -149,7 +159,7 @@ export default {
     wholeWeek: '7 дней в неделю',
     twoAfterTwo: '2 через 2',
     onWeekdays: 'По будням',
-    onWeekends: 'По выходным',
+    onWeekends: 'По выходным'
   },
   search: {
     full: 'Расширенный поиск',
@@ -168,9 +178,7 @@ export default {
   startWorkOnThisSchedule: 'С какого числа начнете работать по этому графику',
   street: 'Улица',
   subwayStation: 'Метро',
-  time: {
-    minuteShort: 'мин',
-  },
+  time: { minuteShort: 'мин' },
   to: 'До',
   tomorrow: 'Завтра',
   userAgreement: 'Условия пользовательского соглашения',
@@ -179,5 +187,5 @@ export default {
   youCanEditTheDaysApart: 'Можете отредактировать дни отдельно',
   yourEmail: 'Ваш email',
   yourServices: 'Ваши услуги',
-  yourSchedule: 'Ваше расписание',
+  yourSchedule: 'Ваше расписание'
 };

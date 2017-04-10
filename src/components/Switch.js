@@ -25,7 +25,7 @@ export default class CustomSwitch extends Component {
     const { title, value, customStyles = {} } = this.props;
 
     return (
-      <View style={[styles.container, customStyles.view]}>
+      <View style={[styles.container, customStyles.container]}>
         <Text style={[styles.title, customStyles.title]}>{title}</Text>
         <SwitchBase
           ref={this.setRef}
@@ -45,7 +45,7 @@ export default class CustomSwitch extends Component {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
