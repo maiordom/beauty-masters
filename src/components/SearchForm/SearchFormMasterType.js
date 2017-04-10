@@ -1,5 +1,9 @@
-import React from 'react';
+// @flow
+
+import React, {Component} from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
+
+import type {MasterTypeSelect} from './SearchFormTypes';
 
 import RadioGroup from '../RadioGroup';
 
@@ -7,30 +11,43 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-const SearchFormMasterType = ({
-    showMasterTypeModal,
-    toggleMasterTypeModal,
-    masterType,
-    onSelectMasterType
-}) => (
-    <Modal
-        animationType={"fade"}
-        transparent
-        visible={showMasterTypeModal}
-        onRequestClose={toggleMasterTypeModal}
-    >
-        <View style={styles.container}>
-            <View style={styles.modalContainer}>
-                <Text style={styles.title}>
-                    {i18n.filters.masterType.title}
-                </Text>
-                <RadioGroup {...masterType} onChange={onSelectMasterType}/>
-            </View>
-        </View>
-    </Modal>
-);
+export default class SearchFormMasterType extends Component {
+    props: {
+      showMasterTypeModal: boolean,
+      toggleMasterTypeModal: () => void,
+      masterType: Object,
+      onMasterTypeSelect: MasterTypeSelect
+    };
 
-export default SearchFormMasterType;
+    render() {
+      const {
+        showMasterTypeModal,
+        toggleMasterTypeModal,
+        masterType,
+        onMasterTypeSelect
+      } = this.props;
+
+      onMasterTypeSelect(12, 12, '123');
+
+      return (
+        <Modal
+          animationType={"fade"}
+          transparent
+          visible={showMasterTypeModal}
+          onRequestClose={toggleMasterTypeModal}
+        >
+            <View style={styles.container}>
+                <View style={styles.modalContainer}>
+                    <Text style={styles.title}>
+                      {i18n.filters.masterType.title}
+                    </Text>
+                    <RadioGroup {...masterType} onChange={onMasterTypeSelect}/>
+                </View>
+            </View>
+        </Modal>
+      );
+    }
+}
 
 const styles = StyleSheet.create({
     container: {

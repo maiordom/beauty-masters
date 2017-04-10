@@ -13,7 +13,12 @@ export default {
     roubleSign: '₽',
   },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
+  days: {
+    nextDay: 'Завтра',
+    sameDay: 'Сегодня',
+  },
   district: 'Район',
+  findMaster: 'Найти мастера',
   filters: {
     anotherNailGel: {
       nom: 'Другой гель-лак',
@@ -147,9 +152,11 @@ export default {
     onWeekends: 'По выходным',
   },
   search: {
+    full: 'Расширенный поиск',
     generalInfo: 'Основные параметры',
     nearWith: 'Искать рядом с',
     searchParams: 'Параметры поиска',
+    short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',
     masterPlace: 'Где принимает мастер',
     masterToHome: 'Мастер выезжает на дом'

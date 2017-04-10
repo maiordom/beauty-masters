@@ -22,9 +22,9 @@ export default class ButtonControl extends Component {
         underlayColor={vars.color.red}
         activeOpacity={1}
         onPress={onPress}
-        style={[styles.nextButton, customStyles.touchable]}
+        style={[styles.nextButton, customStyles.nextButton]}
       >
-        <Text style={[styles.nextText, customStyles.text]}>{title}</Text>
+        <Text style={[styles.nextText, customStyles.nextText]}>{title}</Text>
       </TouchableHighlight>
     );
   }

@@ -1,8 +1,15 @@
+// @flow
+
 import React, {Component, PropTypes} from 'react';
 import { Text, View, StyleSheet, Image, TouchableHighlight, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
 import moment from 'moment';
+
+import type {
+    ServiceToggle,
+    MasterTypeSelect,
+} from './SearchFormTypes';
 
 import 'moment/locale/ru';
 
@@ -44,7 +51,7 @@ export default class SearchFormShort extends Component {
         this.setState({ showShortForm: !this.state.showShortForm });
     };
 
-    onChange = sectionName => (value, modelName) => {
+    onServiceToggle: ServiceToggle = sectionName => (value, modelName) => {
         this.props.actions.toogleService(modelName, 'active', value, sectionName);
     };
 
@@ -52,7 +59,7 @@ export default class SearchFormShort extends Component {
 
     toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
-    onSelectMasterType = (value, id, modelName) => {
+    onMasterTypeSelect: MasterTypeSelect = (value, id, modelName) => {
         this.props.actions.setItemById(modelName, id, 'general');
         this.toggleMasterTypeModal();
     };
@@ -65,9 +72,8 @@ export default class SearchFormShort extends Component {
 
     getSelectedDateTitle = () => {
         return capitalizeFirstLetter(moment(this.state.selectedDate).calendar(null, {
-            lastDay : '[Вчера]',
-            sameDay : '[Сегодня]',
-            nextDay : '[Завтра]',
+            sameDay : `[${i18n.days.sameDay}]`,
+            nextDay : `[${i18n.days.nextDay}]`,
             lastWeek : '[last] dddd',
             nextWeek : 'dddd',
             sameElse : 'L'
@@ -129,19 +135,19 @@ export default class SearchFormShort extends Component {
                         showMasterTypeModal={showMasterTypeModal}
                         toggleMasterTypeModal={this.toggleMasterTypeModal}
                         masterType={general.masterType}
-                        onSelectMasterType={this.onSelectMasterType}
+                        onMasterTypeSelect={this.onMasterTypeSelect}
                     />
 
                     {showShortForm && (
                         <View>
                             <FilterCheckBox
                                 {...serviceManicure.manicure}
-                                onChange={this.onChange('serviceManicure')}
+                                onChange={this.onServiceToggle('serviceManicure')}
                                 withInput={false}
                             />
                             <FilterCheckBox
                                 {...servicePedicure.pedicure}
-                                onChange={this.onChange('servicePedicure')}
+                                onChange={this.onServiceToggle('servicePedicure')}
                                 withInput={false}
                             />
                             <FilterCheckBox title={i18n.filters.nailExtensionShort} />
@@ -150,22 +156,22 @@ export default class SearchFormShort extends Component {
                     )}
 
                     {!showShortForm && (
-                        <SearchFormBlockManicure service={serviceManicure} onChange={this.onChange('serviceManicure')} />
+                        <SearchFormBlockManicure service={serviceManicure} onChange={this.onServiceToggle('serviceManicure')} />
                     )}
 
                     {!showShortForm && (
-                        <SearchFormBlockPedicure service={servicePedicure} onChange={this.onChange('servicePedicure')} />
+                        <SearchFormBlockPedicure service={servicePedicure} onChange={this.onServiceToggle('servicePedicure')} />
                     )}
 
                     <ButtonControl
-                        label={showShortForm ? 'Расширенный поиск' : 'Быстрый поиск'}
+                        label={showShortForm ? i18n.search.full : i18n.search.short}
                         customStyles={{
-                            touchable: {backgroundColor: vars.color.lightGrey},
-                            text: {color: vars.color.red}
+                            nextButton: {backgroundColor: vars.color.lightGrey},
+                            nextText: {color: vars.color.red}
                         }}
                         onPress={this.toggleForm}
                     />
-                    <ButtonControl label="Найти мастера" onPress={() => {}} />
+                    <ButtonControl label={i18n.findMaster} onPress={() => {}} />
                 </ScrollView>
             </View>
         );

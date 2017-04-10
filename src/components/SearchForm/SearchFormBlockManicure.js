@@ -1,3 +1,5 @@
+// @flow
+
 import React, {Component, PropTypes} from 'react';
 import { View, Platform, StyleSheet } from 'react-native';
 
@@ -9,18 +11,14 @@ import switchStyles from './SearchFormSwitchStyles';
 import i18n from '../../i18n';
 
 export default class SearchFormBlockManicure extends Component {
-    static propTypses = {
-        service: PropTypes.object,
-        onChange: PropTypes.func
+    propTypes = {
+        service: Object,
+        onChange: Function
     };
 
-    constructor(props) {
-        super(props);
+    state = { showBlock: true };
 
-        this.state = { showBlock: true };
-    }
-
-    toggleBlock = nextState => {
+    toggleBlock = (nextState: boolean) : void => {
         if (nextState !== this.state.showBlock) {
             this.setState({ showBlock: !this.state.showBlock });
         }

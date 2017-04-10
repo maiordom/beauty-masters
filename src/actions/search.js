@@ -30,9 +30,12 @@ export const toogleService = (
   sectionName,
 });
 
-type setAddressesType = {
+type SetAddressesAction = {
   type: string,
-  items: Array<Object>,
+  items: Array<{
+    label: string,
+    id: number
+  }>
 };
 
 // mock addresses
@@ -57,7 +60,7 @@ const addresses = [
   {label: 'Кружская', id: 18},
 ];
 
-export const searchAddress = (address: string) => (dispatch: (setAddressesType) => null) => {
+export const searchAddress = (address: string) => (dispatch: (SetAddressesAction) => null) => {
   // send request to backend
   // after send request to get address info
 
