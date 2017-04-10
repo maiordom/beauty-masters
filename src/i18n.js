@@ -165,11 +165,11 @@ export default {
     full: 'Расширенный поиск',
     generalInfo: 'Основные параметры',
     nearWith: 'Искать рядом с',
+    masterPlace: 'Где принимает мастер',
+    masterToHome: 'Мастер выезжает на дом',
     searchParams: 'Параметры поиска',
     short: 'Быстрый поиск',
-    vacantDays: 'Дни, когда возможен прием',
-    masterPlace: 'Где принимает мастер',
-    masterToHome: 'Мастер выезжает на дом'
+    vacantDays: 'Дни, когда возможен прием'
   },
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',
