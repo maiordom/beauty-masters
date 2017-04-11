@@ -5,10 +5,10 @@ import constants from '../constants/master';
 
 let index = 0;
 
-function uploadFileAction(data, modelName, photoId, dispatch, getState) {
+function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
   getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.IN_PROCESS;
 
-  return uploadFile(data)
+  return uploadFile(fileData)
     .then(response => {
       try {
         return JSON.parse(response.data);
@@ -34,35 +34,34 @@ function uploadFileAction(data, modelName, photoId, dispatch, getState) {
     })
     .catch(err => {
       console.log(err);
-      // dispatch({
-      //   type: actions.MASTER_PHOTO_REMOVE_QUEUE,
-      //   id: photoId,
-      // });
+       dispatch({
+         type: actions.MASTER_PHOTO_REMOVE_QUEUE,
+         id: photoId,
+       });
+    })
+    .then(() => {
+      const queue = getState().masterEditor.info.photosQueue.items;
+
+      if (queue.length) {
+        const { id, modelName, fileData } = queue[0];
+
+        dispatch({
+          type: actions.MASTER_PHOTO_REMOVE_QUEUE,
+          id,
+        });
+
+        dispatch({
+          type: actions.MASTER_PHOTO_SET_MOCK,
+          id,
+          modelName,
+          status: constants.UPLOAD_STATUS.IN_PROCESS,
+        });
+
+        uploadFileAction(fileData, modelName, id, dispatch, getState);
+      } else {
+        getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
+      }
     });
-    // .then(() => {
-    //   const queue = getState().masterEditor.info.photosQueue.items;
-    //   const queueEntity = queue[0];
-    //
-    //   if (queue.length) {
-    //     dispatch({
-    //       type: actions.MASTER_PHOTO_REMOVE_QUEUE,
-    //       id: queueEntity.id,
-    //     });
-    //     dispatch({
-    //       type: actions.MASTER_PHOTO_SET_MOCK,
-    //       id: queueEntity.id,
-    //       modelName: queueEntity.modelName,
-    //       status: constants.UPLOAD_STATUS.IN_PROCESS,
-    //     });
-    //
-    //     uploadFileAction(queueEntity.fileData, queueEntity.modelName, queueEntity.id, dispatch, getState);
-    //   } else {
-    //     getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
-    //   }
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // });
 }
 
 export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) => {

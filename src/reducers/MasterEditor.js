@@ -85,6 +85,28 @@ const setCalendarRecipientDate = (action, state) => {
   }
 };
 
+const setPhotoParam = (state, model, fileName) => {
+  const createMasterQuery = state.masterEditor.createMasterQuery;
+  const { queryType, queryParam } = model;
+
+  if (queryType === 'array') {
+    createMasterQuery[queryParam].push(fileName);
+  } else {
+    createMasterQuery[queryParam] = fileName;
+  }
+};
+
+const removePhotoParam = (state, model, fileName) => {
+  const createMasterQuery = state.masterEditor.createMasterQuery;
+  const { queryType, queryParam } = model;
+
+  if (queryType === 'array') {
+    createMasterQuery[queryParam] = reject(createMasterQuery[queryParam], value => (value === fileName));
+  } else {
+    createMasterQuery[queryParam] = fileName;
+  }
+};
+
 export default makeReducer((state, action) => ({
   [actions.MASTER_PHOTO_SET_MOCK]: () => {
     const { modelName, id, status } = action;
@@ -96,7 +118,7 @@ export default makeReducer((state, action) => ({
     if (item) {
       assign(item, { status });
     } else {
-      items.push({id, status, type: 'mock'});
+      items.push({ id, status, type: 'mock' });
     }
 
     state.masterEditor = {...state.masterEditor};
@@ -146,6 +168,8 @@ export default makeReducer((state, action) => ({
     state.masterEditor.info[modelName] = {...model};
     state.masterEditor.info[modelName].items = [...items];
 
+    setPhotoParam(state, model, fileName);
+
     return state;
   },
 
@@ -153,12 +177,17 @@ export default makeReducer((state, action) => ({
     const { itemId, modelName } = action;
     const section = state.masterEditor.info;
     const model = section[modelName];
-    const items = reject(model.items, { id: itemId });
+    let { items } = model;
+    const { fileName } = find(items, { id: itemId });
+
+    items = reject(items, { id: itemId });
 
     state.masterEditor = {...state.masterEditor};
     state.masterEditor.info = {...section}
     state.masterEditor.info[modelName] = {...model};
     state.masterEditor.info[modelName].items = items;
+
+    removePhotoParam(state, model, fileName);
 
     return state;
   },

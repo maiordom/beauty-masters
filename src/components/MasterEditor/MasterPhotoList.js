@@ -57,6 +57,9 @@ export default class MasterPhotoList extends Component {
                   {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
                     <Text>In progress</Text>
                   )}
+                  {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
+                    <Text>In queue</Text>
+                  )}
                 </View>;
               }
 
