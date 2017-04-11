@@ -76,6 +76,7 @@ export default class NavigationRouter extends Component {
       <Router sceneStyle={styles.container}>
         <Scene key="drawer" component={Drawer}>
           <Scene
+            initial
             key="root"
             hideNavBar
             animationStyle="leftToRight">
@@ -124,7 +125,6 @@ export default class NavigationRouter extends Component {
               component={props => <MasterEditorCalendarSettings {...props} />}
             />
             <Scene
-              initial
               key="masterEditorInfo"
               {...getMasterStyle()}
               title={i18n.masterEditor.additionalInformation}
