@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "airbnb"
+  ],
+  "rules": {
+    "no-param-reassign": "off",
+    "comma-dangle": "off",
+    "object-curly-spacing": ["error", "always"],
+    "arrow-parens": "off",
+    "no-use-before-define": 0,
+    "no-plusplus": 0,
+    "no-unused-expressions": 0
+  }
+}

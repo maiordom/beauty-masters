@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
-import { View, StyleSheet, Image, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
-import * as Progress from 'react-native-progress';
+import { View, StyleSheet, Image, Dimensions, Platform, TouchableWithoutFeedback, Text } from 'react-native';
 
 import MasterPhotoUpload from './MasterPhotoUpload';
 
@@ -56,11 +55,7 @@ export default class MasterPhotoList extends Component {
                     {width: photoSize, height: photoSize}
                   ]}>
                   {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                    <Progress.Circle
-                      indeterminate={true}
-                      size={30}
-                      thickness={6}
-                    />
+                    <Text>In progress</Text>
                   )}
                 </View>;
               }

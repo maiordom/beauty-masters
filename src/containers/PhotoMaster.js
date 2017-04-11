@@ -6,12 +6,12 @@ import PhotoSelect from '../components/PhotoSelect';
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetPhotoFromCamera(photoData, modelName) {
-      dispatch(uploadMasterPhoto(photoData, modelName));
+    onGetPhotoFromCamera(data, modelName) {
+      dispatch(uploadMasterPhoto(data, modelName));
     },
 
-    onGetPhotoFromGallery(photoData, modelName) {
-      dispatch(uploadMasterPhoto(photoData, modelName));
+    onGetPhotoFromGallery(data, modelName) {
+      dispatch(uploadMasterPhoto(data, modelName));
     },
   }
 };

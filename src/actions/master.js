@@ -5,13 +5,13 @@ import constants from '../constants/master';
 
 let index = 0;
 
-function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
+function uploadFileAction(data, modelName, photoId, dispatch, getState) {
   getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.IN_PROCESS;
 
-  return uploadFile(fileData)
+  return uploadFile(data)
     .then(response => {
       try {
-        return response.json();
+        return JSON.parse(response.data);
       } catch(exx) {
         console.log(exx);
       }
