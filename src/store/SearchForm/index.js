@@ -36,7 +36,8 @@ type SearchQueryType = {
     latitude: string
   },
   radius: number,
-  schedule: Array<string>
+  schedule: Array<string>,
+  isDeparture: boolean
 };
 
 const searchQuery: SearchQueryType = {
@@ -44,7 +45,8 @@ const searchQuery: SearchQueryType = {
   services: [],
   master_type: 1,
   radius: 400,
-  schedule: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')]
+  schedule: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')],
+  isDeparture: false
 };
 
 export default {

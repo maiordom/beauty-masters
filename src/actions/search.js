@@ -87,8 +87,14 @@ const addresses = [
     label: 'Американская',
     id: 14
   },
-  { label: 'Бразильская', id: 15 },
-  { label: 'Курская', id: 16 },
+  {
+    label: 'Бразильская',
+    id: 15
+  },
+  {
+    label: 'Курская',
+    id: 16
+  },
   {
     label: 'Буржская',
     id: 17
@@ -102,5 +108,7 @@ export const searchAddress = (address: string) =>
   (dispatch: (ActionSetAddresses) => null) => {
     // send request to backend
     // after send request to get address info
-    dispatch({ type: actions.SEARCH_SET_ADDRESSES, items: addresses.slice(0, address.length) });
+    dispatch({ type: actions.SEARCH_ADDRESSES_SET, items: addresses.slice(0, address.length) });
   };
+export const addressesReset = () => ({ type: actions.SEARCH_ADDRESSES_RESET });
+export const toggleDeparture = () => ({ type: actions.SEARCH_DEPARTURE_TOGGLE });

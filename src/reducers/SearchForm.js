@@ -77,12 +77,20 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_SET_ADDRESSES]: () =>
+  [actions.SEARCH_ADDRESSES_SET]: () =>
     update(state, {
       searchForm: {
         general: {
           addresses: { items: { $set: action.items } }
         }
       }
-    })
+    }),
+
+  [actions.SEARCH_ADDRESSES_RESET]: () =>
+    update(state, {
+      searchForm: { general: { addresses: { items: { $set: [] } } } }
+    }),
+
+  [actions.SEARCH_DEPARTURE_TOGGLE]: () =>
+    update(state, { searchForm: { searchQuery: { isDeparture: { $set: !state.searchForm.searchQuery.isDeparture } } } })
 }));

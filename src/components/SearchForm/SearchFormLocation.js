@@ -6,7 +6,7 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback, ListView } from 'reac
 
 import Input from '../Input';
 
-import { searchAddress } from '../../actions/search';
+import { searchAddress, addressesReset } from '../../actions/search';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
@@ -16,7 +16,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ searchAddress }, dispatch)
+  actions: bindActionCreators(
+    {
+      searchAddress,
+      addressesReset
+    },
+    dispatch
+  )
 });
 
 class SearchFormLocation extends Component {
@@ -40,6 +46,10 @@ class SearchFormLocation extends Component {
         dataSource: this.ds.cloneWithRows(nextProps.addresses.items)
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.actions.addressesReset();
   }
 
   render() {

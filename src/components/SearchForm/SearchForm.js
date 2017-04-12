@@ -28,7 +28,12 @@ moment.locale('ru');
 
 export default class SearchFormShort extends Component {
   props: {
-    actions: Object,
+    actions: {
+      toogleService: Function,
+      toggleDeparture: Function,
+      setItemById: Function,
+      setDay: Function
+    },
     serviceManicure: Object,
     servicePedicure: Object,
     general: Object,
@@ -50,6 +55,8 @@ export default class SearchFormShort extends Component {
     (value, modelName) => {
       this.props.actions.toogleService(modelName, 'active', value, sectionName);
     };
+
+  onDepartureToggle = () => this.props.actions.toggleDeparture();
 
   toggleMasterTypeModal = () => this.setState({ showMasterTypeModal: !this.state.showMasterTypeModal });
 
@@ -78,7 +85,7 @@ export default class SearchFormShort extends Component {
     );
 
   render() {
-    const { serviceManicure, servicePedicure, general } = this.props;
+    const { serviceManicure, servicePedicure, general, searchQuery } = this.props;
     const {
       showShortForm,
       showMasterTypeModal,
@@ -106,7 +113,12 @@ export default class SearchFormShort extends Component {
             title={i18n.search.nearWith}
             subtitle="Мое текущее месторасположение"
           />
-          <FilterCheckBox title={i18n.search.masterToHome} />
+          <FilterCheckBox
+            title={i18n.search.masterToHome}
+            active={searchQuery.isDeparture}
+            onChange={this.onDepartureToggle}
+            withInput={false}
+          />
 
           <FilterLabel text={i18n.search.generalInfo} />
           <FilterTab
