@@ -1,5 +1,6 @@
 import reject from 'lodash/reject';
 import each from 'lodash/each';
+import update from 'immutability-helper';
 
 import { makeReducer } from '../utils';
 
@@ -17,9 +18,22 @@ const setParam = (action, state) => {
   state.searchForm[sectionName][modelName] = { ...model };
 };
 
+const updateSections = (action, state) => {
+  const { sectionName, modelName } = action;
+  const section = state.searchForm[sectionName];
+  const model = section[modelName];
+
+  each(state.searchForm[action.sectionName], sectionModel => {
+    if (sectionModel.parentServiceId === model.id) {
+      sectionModel.active = action.paramValue;
+    }
+  });
+};
+
 export default makeReducer((state, action) => ({
   [actions.SEARCH_TOOGLE_SERVICE]: () => {
     setParam(action, state);
+    updateSections(action, state);
 
     const { searchQuery } = state.searchForm;
     const model = state.searchForm[action.sectionName][action.modelName];
@@ -63,21 +77,12 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_SET_ADDRESSES]: () => {
-    // state.searchForm.general.addresses.items = action.items;
-
-    return {
-      ...state,
+  [actions.SEARCH_SET_ADDRESSES]: () =>
+    update(state, {
       searchForm: {
-        ...state.searchForm,
         general: {
-          ...state.searchForm.general,
-          addresses: {
-            ...state.searchForm.general.addresses,
-            items: action.items
-          }
+          addresses: { items: { $set: action.items } }
         }
       }
-    };
-  }
+    })
 }));

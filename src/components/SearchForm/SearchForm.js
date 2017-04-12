@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
+import filter from 'lodash/filter';
+import every from 'lodash/every';
 import moment from 'moment';
 
 import type { ServiceToggleType, MasterTypeSelectType, SelectCalendarDateType } from './SearchFormTypes';
@@ -123,11 +125,13 @@ export default class SearchFormShort extends Component {
             <View>
               <FilterCheckBox
                 {...serviceManicure.manicure}
+                active={every(filter(serviceManicure, service => service.parentServiceId === '1'), { active: true })}
                 onChange={this.onServiceToggle('serviceManicure')}
                 withInput={false}
               />
               <FilterCheckBox
                 {...servicePedicure.pedicure}
+                active={every(filter(servicePedicure, service => service.parentServiceId === '33'), { active: true })}
                 onChange={this.onServiceToggle('servicePedicure')}
                 withInput={false}
               />

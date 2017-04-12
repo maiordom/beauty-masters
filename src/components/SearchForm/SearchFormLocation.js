@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -26,6 +24,24 @@ class SearchFormLocation extends Component {
 
   searchAddress = debounce(value => this.props.actions.searchAddress(value), 300);
 
+  constructor(props) {
+    super(props);
+
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+
+    this.state = {
+      dataSource: this.ds.cloneWithRows(props.addresses.items)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.addresses.items !== nextProps.addresses.items) {
+      this.setState({
+        dataSource: this.ds.cloneWithRows(nextProps.addresses.items)
+      });
+    }
+  }
+
   render() {
     const {
       distances,
@@ -46,7 +62,7 @@ class SearchFormLocation extends Component {
             ))}
           {addresses.items.length > 0 &&
             <ListView
-              dataSource={addresses.items}
+              dataSource={this.state.dataSource}
               renderRow={address => (
                 <TouchableWithoutFeedback onPress={() => {}} key={address.label}>
                   <View style={styles.tab}>
