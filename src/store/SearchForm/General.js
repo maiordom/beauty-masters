@@ -23,8 +23,14 @@ const addresses = () => ({
   items: []
 });
 
+const cities = () => ({
+  selected: {},
+  items: []
+});
+
 export default {
   masterType,
   distances,
-  addresses
+  addresses,
+  cities
 };

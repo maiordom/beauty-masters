@@ -12,7 +12,8 @@ import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCal
 import MasterEditorInfo from '../screen/MasterEditor/MasterEditorInfo';
 
 import SearchForm from '../screen/SearchForm/SearchForm';
-import MasterLocation from '../screen/SearchForm/MasterLocation';
+import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
+import SearchCity from '../screen/SearchForm/SearchFormCity';
 
 import Drawer from '../components/Drawer';
 
@@ -93,11 +94,18 @@ export default () => (
           component={SearchForm}
         />
         <Scene
-          key="masterLocation"
+          key="searchCity"
+          {...getMasterStyle()}
+          title={'Город'}
+          getSceneStyle={getSceneStyle}
+          component={SearchCity}
+        />
+        <Scene
+          key="searchAddress"
           {...getMasterStyle()}
           title={i18n.search.masterPlace}
           getSceneStyle={getSceneStyle}
-          component={MasterLocation}
+          component={SearchFormAddress}
         />
         <Scene key="masterAuthorization" component={MasterAuthorization} />
         <Scene

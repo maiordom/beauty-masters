@@ -77,13 +77,21 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_ADDRESSES_SET]: () => deepUpdate(state, 'searchForm.general.addresses.items', action.items),
+  [actions.SEARCH_ITEMS_SET]: () => deepUpdate(
+    state,
+    `searchForm.${action.sectionName}.${action.modelName}.items`,
+    action.items
+  ),
 
-  [actions.SEARCH_ADDRESSES_RESET]: () =>
-    update(state, {
-      searchForm: { general: { addresses: { items: { $set: [] } } } }
-    }),
+  [actions.SEARCH_ITEMS_RESET]: () => deepUpdate(
+    state,
+    `searchForm.${action.sectionName}.${action.modelName}.items`,
+    []
+  ),
 
-  [actions.SEARCH_DEPARTURE_TOGGLE]: () =>
-    update(state, { searchForm: { searchQuery: { isDeparture: { $set: !state.searchForm.searchQuery.isDeparture } } } })
+  [actions.SEARCH_DEPARTURE_TOGGLE]: () => deepUpdate(
+    state,
+    'searchForm.searchQuery.isDeparture',
+    !state.searchForm.searchQuery.isDeparture
+  )
 }));

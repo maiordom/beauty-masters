@@ -1,31 +1,13 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
 import { View, Text, StyleSheet, TouchableWithoutFeedback, ListView } from 'react-native';
 
 import Input from '../Input';
 
-import { searchAddress, addressesReset } from '../../actions/search';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-const mapStateToProps = state => ({
-  distances: state.searchForm.general.distances,
-  addresses: state.searchForm.general.addresses
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      searchAddress,
-      addressesReset
-    },
-    dispatch
-  )
-});
-
-class SearchFormLocation extends Component {
+export default class SearchFormLocation extends Component {
   onChange = value => this.searchAddress(value);
 
   searchAddress = debounce(value => this.props.actions.searchAddress(value), 300);
@@ -107,5 +89,3 @@ const styles = StyleSheet.create({
     color: vars.color.black
   }
 });
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchFormLocation);
