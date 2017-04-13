@@ -1,3 +1,6 @@
+import assign from 'lodash/assign';
+import set from 'lodash/set';
+
 export function hexToRgba(hex, opacity = 100){
   const hexValue = hex.replace('#', '');
   const r = parseInt(hexValue.substring(0, 2), 16);
@@ -84,7 +87,19 @@ export function shallowEqual(objA, objB, ignoreKeys) {
     }
   }
 
-  return {result: true};
+  return { result: true };
 }
 
 export const capitalizeFirstLetter = word => `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+
+/**
+ * deepUpdate object byt path
+ * @param {Object} obj - state for example
+ * @param {string} path - dot like path to property
+ * @param {any} value - new proprety
+ * @returns {Object}
+ */
+export function deepUpdate(obj, path, value) {
+  const result = JSON.parse(JSON.stringify(obj));
+  return set(result, path, value);
+}

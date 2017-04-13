@@ -2,7 +2,7 @@ import reject from 'lodash/reject';
 import each from 'lodash/each';
 import update from 'immutability-helper';
 
-import { makeReducer } from '../utils';
+import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/search';
 
@@ -77,14 +77,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_ADDRESSES_SET]: () =>
-    update(state, {
-      searchForm: {
-        general: {
-          addresses: { items: { $set: action.items } }
-        }
-      }
-    }),
+  [actions.SEARCH_ADDRESSES_SET]: () => deepUpdate(state, 'searchForm.general.addresses.items', action.items),
 
   [actions.SEARCH_ADDRESSES_RESET]: () =>
     update(state, {
