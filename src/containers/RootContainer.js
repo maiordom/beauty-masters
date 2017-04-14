@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import NavigationRouter from './NavigationRouter';
 
 class RootContainer extends Component {
-  render () {
+  render() {
     return (
       <NavigationRouter />
     );

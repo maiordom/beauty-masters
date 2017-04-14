@@ -67,7 +67,7 @@ export default class WorkTimeSpecification extends Component {
   onStatusChange = workInThisDay => {
     this.state.workInThisDay = workInThisDay;
   };
-  
+
   componentWillReceiveProps(nextProps) {
     this.state = this.getStorage(nextProps);
   }
@@ -93,16 +93,17 @@ export default class WorkTimeSpecification extends Component {
           />
           <TouchableHighlight
             activeOpacity={1}
-            underlayColor='transparent'
+            underlayColor="transparent"
             style={styles.button}
-            onPress={this.onApplyPress}>
+            onPress={this.onApplyPress}
+          >
             <Text style={styles.buttonText}>OK</Text>
           </TouchableHighlight>
         </View>
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   wrapper: {

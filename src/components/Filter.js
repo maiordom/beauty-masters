@@ -32,7 +32,7 @@ export default class Filter extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight
-          underlayColor='transparent'
+          underlayColor="transparent"
           activeOpacity={1}
           onPress={this.onPress}
           style={styles.button}
@@ -47,7 +47,7 @@ export default class Filter extends Component {
             <Input
               formatValue={formatNumber}
               inputWrapperStyle={styles.input}
-              keyboardType='numeric'
+              keyboardType="numeric"
               onChange={this.onChangePrice}
               placeholder={i18n.filters.price}
               replaceReg={/[^0-9.]/g}
@@ -57,7 +57,7 @@ export default class Filter extends Component {
             <Input
               formatValue={formatNumber}
               inputWrapperStyle={styles.input}
-              keyboardType='numeric'
+              keyboardType="numeric"
               onChange={this.onChangeDuration}
               placeholder={i18n.filters.duration}
               replaceReg={/[^0-9.]/g}

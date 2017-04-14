@@ -68,10 +68,10 @@ function getMasterStyle() {
     hideNavBar,
     backButtonImage,
   };
-};
+}
 
 export default class NavigationRouter extends Component {
-  render () {
+  render() {
     return (
       <Router sceneStyle={styles.container}>
         <Scene key="drawer" component={Drawer}>
@@ -79,7 +79,8 @@ export default class NavigationRouter extends Component {
             initial
             key="root"
             hideNavBar
-            animationStyle="leftToRight">
+            animationStyle="leftToRight"
+          >
             <Scene
               key="presentation"
               component={Presentation}
@@ -91,7 +92,7 @@ export default class NavigationRouter extends Component {
             <Scene
               key="masterEditorGeneral"
               {...getMasterStyle()}
-              leftButtonIconStyle={{width: 0, height: 0}}
+              leftButtonIconStyle={{ width: 0, height: 0 }}
               title={i18n.masterEditor.generalInformation}
               getSceneStyle={getSceneStyle}
               component={MasterEditorGeneral}

@@ -17,7 +17,7 @@ const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3
 const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
 export default class MasterEditorInfo extends Component {
-  state = {certificatesShow: false};
+  state = { certificatesShow: false };
 
   static propTypes = {
     actions: PropTypes.object,
@@ -29,11 +29,11 @@ export default class MasterEditorInfo extends Component {
   };
 
   onPhotoSelectPress = modelName => {
-    this.props.drawerOpen({contentKey: 'PhotoMaster', ...{name: modelName}});
+    this.props.drawerOpen({ contentKey: 'PhotoMaster', ...{ name: modelName } });
   };
 
   onCertificatesChange = state => {
-    this.setState({certificatesShow: Boolean(state)});
+    this.setState({ certificatesShow: Boolean(state) });
   };
 
   onPhotoRemovePress = (itemId, modelName) => {
@@ -64,7 +64,7 @@ export default class MasterEditorInfo extends Component {
             wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
             {...personalPhotos}
           />
-          <Label text={i18n.masterEditor.fewWordsAboutYouToClients} customStyle={{paddingBottom: 0}} />
+          <Label text={i18n.masterEditor.fewWordsAboutYouToClients} customStyle={{ paddingBottom: 0 }} />
           <Input placeholder={i18n.masterEditor.aboutExample} />
           <Switch title={i18n.masterEditor.certificates} onChange={this.onCertificatesChange} />
           {certificatesShow && (

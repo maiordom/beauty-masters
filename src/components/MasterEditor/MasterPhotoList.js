@@ -26,7 +26,7 @@ export default class MasterPhotoList extends Component {
 
   render() {
     const { items, limit, photoSize, wrapperPhotoSize } = this.props;
-    const photoUploadSelect = items.length < limit ? {type: 'select'} : null;
+    const photoUploadSelect = items.length < limit ? { type: 'select' } : null;
     const photosArray = compact([...items, photoUploadSelect]);
     const photosChunks = chunk(photosArray, CHUNK_SIZE);
 
@@ -36,41 +36,42 @@ export default class MasterPhotoList extends Component {
           <View key={index} style={styles.photos}>
             {chunk.map((item, index) => {
               if (item.type === 'select') {
-                return <MasterPhotoUpload
+                return (<MasterPhotoUpload
                   key={index}
                   onPress={this.onPhotoSelectPress}
                   photoSize={photoSize}
                   wrapperPhotoSize={wrapperPhotoSize}
-                />;
+                />);
               }
 
               if (item.type === 'mock') {
-                return <View
+                return (<View
                   key={index}
                   style={[
                     styles.mock,
                     styles.photo,
                     index === CHUNK_SIZE - 1 && styles.photoLast,
-                    {width: photoSize, height: photoSize}
-                  ]}>
-                </View>;
+                    { width: photoSize, height: photoSize }
+                  ]}
+                />);
               }
 
-              return <View
+              return (<View
                 key={index}
                 style={[
                   styles.photo,
                   index === CHUNK_SIZE - 1 && styles.photoLast,
-                  {width: wrapperPhotoSize, height: wrapperPhotoSize}
-                ]}>
+                  { width: wrapperPhotoSize, height: wrapperPhotoSize }
+                ]}
+              >
                 <Image
-                  source={{uri: item.mediaUrl + item.sizes.s}}
-                  style={{width: photoSize, height: photoSize}}
+                  source={{ uri: item.mediaUrl + item.sizes.s }}
+                  style={{ width: photoSize, height: photoSize }}
                 />
                 <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id)}>
                   <Image source={icons.remove} style={styles.icon} />
                 </TouchableWithoutFeedback>
-              </View>
+              </View>);
             })}
           </View>
         ))}

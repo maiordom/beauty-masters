@@ -6,7 +6,7 @@ import RootContainer from './RootContainer';
 const store = configureStore();
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <RootContainer />

@@ -1,10 +1,10 @@
-export function hexToRgba(hex, opacity = 100){
+export function hexToRgba(hex, opacity = 100) {
   const hexValue = hex.replace('#', '');
   const r = parseInt(hexValue.substring(0, 2), 16);
   const g = parseInt(hexValue.substring(2, 4), 16);
   const b = parseInt(hexValue.substring(4, 6), 16);
 
-  return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity / 100 + ')';
+  return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
 }
 
 /**
@@ -20,7 +20,7 @@ export function hexToRgba(hex, opacity = 100){
  */
 export function makeReducer(handler, beforeHandler, afterHandler) {
   return (state, action) => {
-    let items = handler(state, action);
+    const items = handler(state, action);
 
     beforeHandler && beforeHandler(state, action);
 
@@ -49,29 +49,29 @@ export function shouldComponentUpdate(ignoreProps, ignoreState) {
 
 export function shallowEqual(objA, objB, ignoreKeys) {
   if (objA === objB) {
-    return {result: true};
+    return { result: true };
   }
 
   if (typeof objA !== 'object'
     || objA === null
     || typeof objB !== 'object'
     || objB === null) {
-    return {result: false};
+    return { result: false };
   }
 
-  let keysA = Object.keys(objA).filter(key => (ignoreKeys || []).indexOf(key) === -1);
-  let keysB = Object.keys(objB).filter(key => (ignoreKeys || []).indexOf(key) === -1);
+  const keysA = Object.keys(objA).filter(key => (ignoreKeys || []).indexOf(key) === -1);
+  const keysB = Object.keys(objB).filter(key => (ignoreKeys || []).indexOf(key) === -1);
 
   if (keysA.length !== keysB.length) {
-    return {result: false};
+    return { result: false };
   }
 
-  let bHasOwnProperty = hasOwnProperty.bind(objB);
+  const bHasOwnProperty = hasOwnProperty.bind(objB);
 
   for (let i = 0; i < keysA.length; i++) {
-    let key = keysA[i];
-    let objAProp = objA[key];
-    let objBProp = objB[key];
+    const key = keysA[i];
+    const objAProp = objA[key];
+    const objBProp = objB[key];
 
     if (!bHasOwnProperty(keysA[i]) || objAProp !== objBProp) {
       return {
@@ -84,5 +84,5 @@ export function shallowEqual(objA, objB, ignoreKeys) {
     }
   }
 
-  return {result: true};
+  return { result: true };
 }

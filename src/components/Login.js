@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export default class Login extends Component {
   render() {
     return (
-      <View></View>
+      <View />
     );
   }
 }

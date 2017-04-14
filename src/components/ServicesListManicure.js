@@ -48,13 +48,13 @@ export default class ServicesListManicure extends Component {
       removingGeManicure,
       removingNailsManicure,
     } = this.props;
-    
+
     const {
       onChange,
       onChangePrice,
       onChangeDuration,
     } = this;
-    
+
     const handlers = {
       onChange,
       onChangePrice,
@@ -72,7 +72,7 @@ export default class ServicesListManicure extends Component {
         <Filter {...hotManicure} {...handlers} />
         <Filter {...spaManicure} {...handlers} />
 
-        <FilterLabel text={i18n.filters.coverage}/>
+        <FilterLabel text={i18n.filters.coverage} />
         <Filter {...applyingShellacManicure} {...handlers} />
         <Filter {...applyingBioGelManicure} {...handlers} />
         <Filter {...applyingNailPolishManicure} {...handlers} />

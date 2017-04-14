@@ -9,15 +9,13 @@ const mapStateToProps = (state, ownProps) => ({
   sectionName: ownProps.sectionName,
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: {
-      applyDate(date, sectionName) {
-        dispatch(setCalendarField('startDateField', 'value', date, sectionName));
-        drawerClose();
-      },
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    applyDate(date, sectionName) {
+      dispatch(setCalendarField('startDateField', 'value', date, sectionName));
+      drawerClose();
     },
-  };
-};
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(IntervalStartDate);

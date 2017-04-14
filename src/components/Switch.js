@@ -45,7 +45,7 @@ export default class CustomSwitch extends Component {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {

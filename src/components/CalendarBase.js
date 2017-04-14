@@ -95,7 +95,7 @@ export default class Calendar extends Component {
 
   componentDidMount() {
     // fixes initial scrolling bug on Android
-    setTimeout(() => this.scrollToItem(VIEW_INDEX), 0)
+    setTimeout(() => this.scrollToItem(VIEW_INDEX), 0);
   }
 
   componentDidUpdate() {
@@ -152,7 +152,7 @@ export default class Calendar extends Component {
       this.setState({ selectedMoment: date });
     }
 
-    this.props.onDateSelect && this.props.onDateSelect(date ? date.format(): null );
+    this.props.onDateSelect && this.props.onDateSelect(date ? date.format() : null);
   }
 
   onPrev = () => {
@@ -193,9 +193,9 @@ export default class Calendar extends Component {
 
   renderMonthView(argMoment, eventsMap) {
     let renderIndex = 0;
-    let weekRows = [];
+    const weekRows = [];
     let days = [];
-    let startOfArgMonthMoment = argMoment.startOf('month');
+    const startOfArgMonthMoment = argMoment.startOf('month');
 
     const selectedMoment = moment(this.state.selectedMoment);
     const weekStart = this.props.weekStart;
@@ -251,12 +251,13 @@ export default class Calendar extends Component {
       renderIndex += 1;
     } while (true);
 
-    return <View
+    return (<View
       key={argMoment.month()}
       style={
         this.styles.monthContainer ||
         styles.monthContainer
-      }>{weekRows}</View>;
+      }
+    >{weekRows}</View>);
   }
 
   renderHeading() {
@@ -294,7 +295,7 @@ export default class Calendar extends Component {
             onPress={this.onPrev}
           >
             {prevButtonImage
-              ? <Image source={prevButtonImage}/>
+              ? <Image source={prevButtonImage} />
               : <Text style={styles.controlButtonText}>
                 {this.props.prevButtonText}
               </Text>
@@ -367,8 +368,7 @@ const Day = ({
   isWeekend,
   onPress,
   showEventIndicators,
-}) => {
-  return filler
+}) => filler
     ? (
       <TouchableWithoutFeedback>
         <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
@@ -383,16 +383,16 @@ const Day = ({
             <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
           </View>
           {showEventIndicators && (
-            <View style={[
-              styles.eventIndicatorFiller,
-              event && styles.eventIndicator,
-              event && event.eventIndicator]}
+            <View
+              style={[
+                styles.eventIndicatorFiller,
+                event && styles.eventIndicator,
+                event && event.eventIndicator]}
             />
           )}
         </View>
       </TouchableOpacity>
     );
-};
 
 Day.dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
   const dayCircleStyle = [styles.dayCircleFiller];
@@ -430,7 +430,7 @@ Day.dayTextStyle = (isWeekend, isSelected, isToday, event) => {
   }
 
   if (event) {
-    dayTextStyle.push(styles.hasEventText, event.hasEventText)
+    dayTextStyle.push(styles.hasEventText, event.hasEventText);
   }
 
   return dayTextStyle;

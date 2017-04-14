@@ -17,11 +17,11 @@ export const uploadMasterPhoto = (data, modelName) => dispatch => {
     .then(response => {
       try {
         return JSON.parse(response.data);
-      } catch(exx) {
+      } catch (exx) {
         console.log(exx);
       }
     })
-    .then(({result, file_name, sizes, media_url}) => {
+    .then(({ result, file_name, sizes, media_url }) => {
       if (!result) {
         return;
       }
