@@ -12,7 +12,6 @@
   ],
   "rules": {
     "no-param-reassign": "off",
-    "comma-dangle": "off",
     "object-curly-spacing": ["error", "always"],
     "arrow-parens": "off",
     "no-use-before-define": 0,
@@ -22,6 +21,10 @@
     "react/sort-comp": 0,
     "max-len": ["error", 120],
     "react/prop-types": 0,
-    "global-require": 0
+    "global-require": 0,
+    "consistent-return": 0,
+    "react/require-default-props": 1,
+    "react/forbid-prop-types": 1,
+    "import/prefer-default-export": 1
   }
 }

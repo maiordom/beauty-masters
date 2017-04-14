@@ -12,19 +12,15 @@ class InputBase extends Component {
 
     this.state = {
       value: props.value || '',
-      isFocused: false
+      isFocused: false,
     };
   }
 
   shouldComponentUpdate = shouldComponentUpdate();
 
-  debounceOnChange = () =>
-    debounce(
-      () => {
-        this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
-      },
-      this.props.debounce || 1000
-    )();
+  debounceOnChange = () => debounce(() => {
+    this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
+  }, this.props.debounce || 1000)();
 
   onChangeText = value => {
     const { formatValue, replaceReg } = this.props;
@@ -70,7 +66,7 @@ export class InputWithLabel extends InputBase {
       placeholder,
       placeholderTextColor,
       style: customInputStyle,
-      underlineColorAndroid
+      underlineColorAndroid,
     } = this.props;
 
     const value = this.getValue();
@@ -105,7 +101,7 @@ export default class Input extends InputBase {
       placeholder,
       placeholderTextColor,
       style: customInputStyle,
-      underlineColorAndroid
+      underlineColorAndroid,
     } = this.props;
 
     const value = this.getValue();
@@ -132,7 +128,7 @@ export default class Input extends InputBase {
 
 const inputStyle = StyleSheet.create({
   inputDisabled: {
-    opacity: 0.4
+    opacity: 0.4,
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -140,9 +136,9 @@ const inputStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderBottomWidth: 1,
-        borderBottomColor: '#E4E6E8'
-      }
-    })
+        borderBottomColor: '#E4E6E8',
+      },
+    }),
   },
   input: {
     flex: 1,
@@ -151,10 +147,10 @@ const inputStyle = StyleSheet.create({
     ...Platform.select({
       android: {
         height: 48,
-        fontSize: 16
-      }
-    })
-  }
+        fontSize: 16,
+      },
+    }),
+  },
 });
 
 const inputWithLabelStyle = StyleSheet.create({
@@ -163,22 +159,22 @@ const inputWithLabelStyle = StyleSheet.create({
     justifyContent: 'center',
     ...Platform.select({
       android: {
-        height: 72
-      }
-    })
+        height: 72,
+      },
+    }),
   },
   label: {
     fontSize: 12,
     paddingLeft: 4,
-    color: vars.color.grey
+    color: vars.color.grey,
   },
   input: {
     alignSelf: 'stretch',
     ...Platform.select({
       android: {
         height: 40,
-        fontSize: 16
-      }
-    })
-  }
+        fontSize: 16,
+      },
+    }),
+  },
 });

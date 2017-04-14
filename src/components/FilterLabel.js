@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
         borderBottomColor: vars.color.borderColorAndroid,
         borderBottomWidth: 1,
         borderTopColor: vars.color.borderColorAndroid,
-        borderTopWidth: 1
-      }
-    })
+        borderTopWidth: 1,
+      },
+    }),
   },
   text: {
-    color: vars.color.grey
-  }
+    color: vars.color.grey,
+  },
 });

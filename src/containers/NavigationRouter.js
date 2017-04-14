@@ -23,39 +23,39 @@ import vars from '../vars';
 const getSceneStyle = () => ({
   ...Platform.select({
     ios: {
-      paddingTop: 64
+      paddingTop: 64,
     },
     android: {
-      paddingTop: 54
-    }
-  })
+      paddingTop: 54,
+    },
+  }),
 });
 
 function getMasterStyle(options = {}) {
   const leftButtonIconStyle = {
     width: 24,
-    height: 24
+    height: 24,
   };
 
   const leftButtonStyle = {
     padding: 0,
     alignItems: 'center',
-    left: 16
+    left: 16,
   };
 
   const titleStyle = {
     width: 265,
     fontSize: 20,
-    color: vars.color.white
+    color: vars.color.white,
   };
 
   const navigationBarStyle = {
     backgroundColor: vars.color.red,
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
   };
 
   const titleWrapperStyle = {
-    marginTop: 8
+    marginTop: 8,
   };
 
   const hideNavBar = false;
@@ -77,7 +77,7 @@ function getMasterStyle(options = {}) {
     navigationBarStyle,
     titleWrapperStyle,
     hideNavBar,
-    backButtonImage
+    backButtonImage,
   };
 }
 
@@ -158,6 +158,6 @@ export default () => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

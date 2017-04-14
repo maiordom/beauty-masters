@@ -10,7 +10,7 @@ import i18n from '../../i18n';
 
 export default class MasterEditorHandlingTools extends Component {
   onChange = (state, modelName) => {
-    const {fieldValue, sectionName} = this.props;
+    const { fieldValue, sectionName } = this.props;
 
     this.props.actions.toogleService(
       modelName,
@@ -21,7 +21,7 @@ export default class MasterEditorHandlingTools extends Component {
   };
 
   onChangeOtherMethod = (value, modelName) => {
-    const {fieldDescription, sectionName} = this.props;
+    const { fieldDescription, sectionName } = this.props;
 
     this.props.actions.setServiceParam(
       modelName,
@@ -66,11 +66,11 @@ export default class MasterEditorHandlingTools extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   inner: {
     flex: 1,
     paddingLeft: 15,
-    paddingRight: 15
-  }
+    paddingRight: 15,
+  },
 });

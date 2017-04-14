@@ -24,7 +24,7 @@ export default class SearchFormMasterType extends Component {
       showMasterTypeModal,
       toggleMasterTypeModal,
       masterType,
-      onMasterTypeSelect
+      onMasterTypeSelect,
     } = this.props;
 
     return (
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: hexToRgba(vars.color.black, 40)
+    backgroundColor: hexToRgba(vars.color.black, 40),
   },
   modalContainer: {
     height: 208,
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: vars.color.white,
-    borderRadius: 2
+    borderRadius: 2,
   },
   title: {
     paddingTop: 24,
     paddingLeft: 24,
     paddingBottom: 14,
     fontSize: 20,
-    color: vars.color.black
-  }
+    color: vars.color.black,
+  },
 });

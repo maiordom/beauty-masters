@@ -12,25 +12,25 @@ const icons = Platform.select({
     pin: require('./icons/ios/pin.png'),
     list: require('./icons/ios/list.png'),
     photo: require('./icons/ios/photo.png'),
-    calendar: require('./icons/ios/calendar.png')
+    calendar: require('./icons/ios/calendar.png'),
   },
   android: {
     pin: require('./icons/android/pin.png'),
     list: require('./icons/android/list.png'),
     photo: require('./icons/android/photo.png'),
-    calendar: require('./icons/android/calendar.png')
-  }
+    calendar: require('./icons/android/calendar.png'),
+  },
 });
 
 const i18nContinue = Platform.select({
   ios: i18n.continue,
-  android: i18n.continue.toUpperCase()
+  android: i18n.continue.toUpperCase(),
 });
 
 const i18nAuthAsMaster = Platform.select({
   ios: i18n.authAsMaster,
-  android: i18n.authAsMaster.toUpperCase()
-})
+  android: i18n.authAsMaster.toUpperCase(),
+});
 
 export default class Presentation extends Component {
   render() {
@@ -60,8 +60,8 @@ export default class Presentation extends Component {
         </View>
         <View style={styles.bottomContainer}>
           <TouchableHighlight
-              style={styles.continueButton}
-              onPress={Actions.searchForm}
+            style={styles.continueButton}
+            onPress={Actions.searchForm}
           >
             <Text style={styles.continueText}>{i18nContinue}</Text>
           </TouchableHighlight>
@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
   },
   bottomContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   logo: {
-    marginBottom: 15
+    marginBottom: 15,
   },
   title: {
     width: 290,
@@ -104,26 +104,26 @@ const styles = StyleSheet.create({
     color: vars.color.white,
     ...Platform.select({
       ios: {
-        fontSize: 17
+        fontSize: 17,
       },
       android: {
-        fontSize: 18
-      }
-    })
+        fontSize: 18,
+      },
+    }),
   },
   text: {
     color: vars.color.white,
     marginLeft: 15,
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
+        fontSize: 16,
+      },
+    }),
   },
   listItem: {
     marginTop: 15,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   continueButton: {
     alignSelf: 'center',
@@ -134,22 +134,22 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         width: 290,
-        height: 44
+        height: 44,
       },
       android: {
         width: 280,
         height: 48,
-        borderRadius: 24
-      }
-    })
+        borderRadius: 24,
+      },
+    }),
   },
   continueText: {
     color: vars.color.red,
     ...Platform.select({
       ios: {
-        fontSize: 17
-      }
-    })
+        fontSize: 17,
+      },
+    }),
   },
   authButton: {
     alignSelf: 'stretch',
@@ -157,23 +157,23 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: 56,
-        justifyContent: 'center'
+        justifyContent: 'center',
       },
       android: {
         marginTop: 20,
         height: 48,
         justifyContent: 'center',
         borderTopWidth: 1,
-        borderTopColor: hexToRgba(vars.color.white, 30)
-      }
-    })
+        borderTopColor: hexToRgba(vars.color.white, 30),
+      },
+    }),
   },
   authText: {
     color: vars.color.white,
     ...Platform.select({
       ios: {
-        fontSize: 17
-      }
-    })
-  }
+        fontSize: 17,
+      },
+    }),
+  },
 });

@@ -7,7 +7,7 @@ const manicure = isActive => ({
   dictionaryKey: 'Manicure',
   id: '1',
   parentServiceId: '0',
-  title: i18n.manicure
+  title: i18n.manicure,
 });
 
 const classicManicure = isActive => ({
@@ -15,7 +15,7 @@ const classicManicure = isActive => ({
   dictionaryKey: 'ClassicManicure',
   id: '3',
   parentServiceId,
-  title: i18n.filters.classic
+  title: i18n.filters.classic,
 });
 
 const hardwareManicure = isActive => ({
@@ -23,7 +23,7 @@ const hardwareManicure = isActive => ({
   dictionatyKey: 'HardwareManicure',
   id: '4',
   parentServiceId,
-  title: i18n.filters.hardware
+  title: i18n.filters.hardware,
 });
 
 const europeanManicure = isActive => ({
@@ -31,7 +31,7 @@ const europeanManicure = isActive => ({
   dictionatyKey: 'EuropeanManicure',
   id: '5',
   parentServiceId,
-  title: i18n.filters.european
+  title: i18n.filters.european,
 });
 
 const combinedManicure = isActive => ({
@@ -39,7 +39,7 @@ const combinedManicure = isActive => ({
   dictionatyKey: 'CombinedManicure',
   id: '6',
   parentServiceId,
-  title: i18n.filters.combined
+  title: i18n.filters.combined,
 });
 
 const expressManicure = isActive => ({
@@ -47,7 +47,7 @@ const expressManicure = isActive => ({
   dictionatyKey: 'ExpressManicure',
   id: '7',
   parentServiceId,
-  title: i18n.filters.express
+  title: i18n.filters.express,
 });
 
 const hotManicure = isActive => ({
@@ -55,7 +55,7 @@ const hotManicure = isActive => ({
   dictionatyKey: 'HotManicure',
   id: '8',
   parentServiceId,
-  title: i18n.filters.hot
+  title: i18n.filters.hot,
 });
 
 const spaManicure = isActive => ({
@@ -63,7 +63,7 @@ const spaManicure = isActive => ({
   dictionatyKey: 'SPAManicure',
   id: '9',
   parentServiceId,
-  title: i18n.filters.spa
+  title: i18n.filters.spa,
 });
 
 const applyingShellacManicure = isActive => ({
@@ -71,7 +71,7 @@ const applyingShellacManicure = isActive => ({
   dictionatyKey: 'ManicureShellac',
   id: '12',
   parentServiceId,
-  title: i18n.filters.applyingShellac
+  title: i18n.filters.applyingShellac,
 });
 
 const applyingBioGelManicure = isActive => ({
@@ -79,7 +79,7 @@ const applyingBioGelManicure = isActive => ({
   dictionatyKey: 'ManicureBiogel',
   id: '13',
   parentServiceId,
-  title: i18n.filters.applyingBioGel
+  title: i18n.filters.applyingBioGel,
 });
 
 const applyingNailPolishManicure = isActive => ({
@@ -87,7 +87,7 @@ const applyingNailPolishManicure = isActive => ({
   dictionatyKey: 'ManicureNailPolish',
   id: '11',
   parentServiceId,
-  title: i18n.filters.applyingNailPolish
+  title: i18n.filters.applyingNailPolish,
 });
 
 const applyingOfAnotherNailGelManicure = isActive => ({
@@ -95,7 +95,7 @@ const applyingOfAnotherNailGelManicure = isActive => ({
   dictionatyKey: 'ManicureOtherGel',
   id: '14',
   parentServiceId,
-  title: i18n.filters.applyingOfAnotherNailGel
+  title: i18n.filters.applyingOfAnotherNailGel,
 });
 
 const frenchManicure = isActive => ({
@@ -103,7 +103,7 @@ const frenchManicure = isActive => ({
   dictionatyKey: 'ManicureFrench',
   id: '16',
   parentServiceId,
-  title: i18n.filters.french
+  title: i18n.filters.french,
 });
 
 const moonManicure = isActive => ({
@@ -111,7 +111,7 @@ const moonManicure = isActive => ({
   dictionatyKey: 'ManicureReverseFrench',
   id: '17',
   parentServiceId,
-  title: i18n.filters.moon
+  title: i18n.filters.moon,
 });
 
 const reverseMoonManicure = isActive => ({
@@ -119,7 +119,7 @@ const reverseMoonManicure = isActive => ({
   dictionatyKey: 'ManicureReverseMoon',
   id: '18',
   parentServiceId,
-  title: i18n.filters.reverseMoon
+  title: i18n.filters.reverseMoon,
 });
 
 const stencilManicure = isActive => ({
@@ -127,7 +127,7 @@ const stencilManicure = isActive => ({
   dictionatyKey: 'ManicureStencil',
   id: '19',
   parentServiceId,
-  title: i18n.filters.stencil
+  title: i18n.filters.stencil,
 });
 
 const artDesignManicure = isActive => ({
@@ -135,7 +135,7 @@ const artDesignManicure = isActive => ({
   dictionatyKey: 'ManicureArtDesign',
   id: '20',
   parentServiceId,
-  title: i18n.filters.artDesign
+  title: i18n.filters.artDesign,
 });
 
 const gradientManicure = isActive => ({
@@ -143,7 +143,7 @@ const gradientManicure = isActive => ({
   dictionatyKey: 'ManicureGradient',
   id: '21',
   parentServiceId,
-  title: i18n.filters.gradientManicure
+  title: i18n.filters.gradientManicure,
 });
 
 const extensionManicure = isActive => ({
@@ -151,7 +151,7 @@ const extensionManicure = isActive => ({
   dictionatyKey: 'ManicureExtension',
   id: '22',
   parentServiceId,
-  title: i18n.filters.nailExtension
+  title: i18n.filters.nailExtension,
 });
 
 const extensionTipsAcrilycManicure = isActive => ({
@@ -159,7 +159,7 @@ const extensionTipsAcrilycManicure = isActive => ({
   dictionatyKey: 'ManicureExtensionTipsAcrilyc',
   id: '23',
   parentServiceId,
-  title: i18n.filters.extensionTipsAcrilyc
+  title: i18n.filters.extensionTipsAcrilyc,
 });
 
 const extensionFormsAcrilycManicure = isActive => ({
@@ -167,7 +167,7 @@ const extensionFormsAcrilycManicure = isActive => ({
   dictionatyKey: 'ManicureExtensionFormsAcrilyc',
   id: '24',
   parentServiceId,
-  title: i18n.filters.extensionFormsAcrilyc
+  title: i18n.filters.extensionFormsAcrilyc,
 });
 
 const extensionTipsGelManicure = isActive => ({
@@ -175,7 +175,7 @@ const extensionTipsGelManicure = isActive => ({
   dictionatyKey: 'ManicureExtensionTipsGel',
   id: '25',
   parentServiceId,
-  title: i18n.filters.extensionTipsGel
+  title: i18n.filters.extensionTipsGel,
 });
 
 const extensionAcrilycGelManicure = isActive => ({
@@ -183,7 +183,7 @@ const extensionAcrilycGelManicure = isActive => ({
   dictionatyKey: 'ManicureExtensionAcrilycGel',
   id: '26',
   parentServiceId,
-  title: i18n.filters.extensionAcrilycGel
+  title: i18n.filters.extensionAcrilycGel,
 });
 
 const removingNailPolishManicure = isActive => ({
@@ -191,7 +191,7 @@ const removingNailPolishManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingNailPolish',
   id: '28',
   parentServiceId,
-  title: i18n.filters.removingNailPolish
+  title: i18n.filters.removingNailPolish,
 });
 
 const removingShellacManicure = isActive => ({
@@ -199,7 +199,7 @@ const removingShellacManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingShellac',
   id: '29',
   parentServiceId,
-  title: i18n.filters.removingShellac
+  title: i18n.filters.removingShellac,
 });
 
 const removingBioGelManicure = isActive => ({
@@ -207,7 +207,7 @@ const removingBioGelManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingBioGel',
   id: '30',
   parentServiceId,
-  title: i18n.filters.bioGel.gen
+  title: i18n.filters.bioGel.gen,
 });
 
 const removingGeManicure = isActive => ({
@@ -215,7 +215,7 @@ const removingGeManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingGe',
   id: '31',
   parentServiceId,
-  title: i18n.filters.removingGe
+  title: i18n.filters.removingGe,
 });
 
 const removingNailsManicure = isActive => ({
@@ -223,7 +223,7 @@ const removingNailsManicure = isActive => ({
   dictionatyKey: 'ManicureRemovingNails',
   id: '32',
   parentServiceId,
-  title: i18n.filters.removingNails.gen
+  title: i18n.filters.removingNails.gen,
 });
 
 export default {
@@ -254,5 +254,5 @@ export default {
   removingShellacManicure,
   removingBioGelManicure,
   removingGeManicure,
-  removingNailsManicure
+  removingNailsManicure,
 };

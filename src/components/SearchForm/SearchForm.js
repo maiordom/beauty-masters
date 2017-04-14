@@ -44,7 +44,7 @@ export default class SearchFormShort extends Component {
     selectedDate: this.props.searchQuery.schedule[0],
     showShortForm: true,
     showMasterCalendarModal: false,
-    showMasterTypeModal: false
+    showMasterTypeModal: false,
   };
 
   toggleForm = () => {
@@ -73,24 +73,29 @@ export default class SearchFormShort extends Component {
     this.toggleCalendarModal();
   };
 
-  getSelectedDateTitle = () =>
-    capitalizeFirstLetter(
-      moment(this.state.selectedDate).calendar(null, {
-        sameDay: `[${i18n.days.sameDay}]`,
-        nextDay: `[${i18n.days.nextDay}]`,
-        lastWeek: '[last] dddd',
-        nextWeek: 'dddd',
-        sameElse: 'L'
-      })
-    );
+  getSelectedDateTitle = () => capitalizeFirstLetter(
+    moment(this.state.selectedDate).calendar(null, {
+      sameDay: `[${i18n.days.sameDay}]`,
+      nextDay: `[${i18n.days.nextDay}]`,
+      lastWeek: '[last] dddd',
+      nextWeek: 'dddd',
+      sameElse: 'L',
+    }),
+  );
 
   render() {
-    const { serviceManicure, servicePedicure, general, searchQuery } = this.props;
+    const {
+      serviceManicure,
+      servicePedicure,
+      general,
+      searchQuery,
+    } = this.props;
+
     const {
       showShortForm,
       showMasterTypeModal,
       showMasterCalendarModal,
-      selectedDate
+      selectedDate,
     } = this.state;
 
     return (
@@ -164,12 +169,8 @@ export default class SearchFormShort extends Component {
           <ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
             customStyles={{
-              nextButton: {
-                backgroundColor: vars.color.lightGrey
-              },
-              nextText: {
-                color: vars.color.red
-              }
+              nextButton: { backgroundColor: vars.color.lightGrey },
+              nextText: { color: vars.color.red },
             }}
             onPress={this.toggleForm}
           />
@@ -183,11 +184,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: vars.bodyColor,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   content: {
     alignSelf: 'stretch',
-    backgroundColor: vars.color.white
+    backgroundColor: vars.color.white,
   },
   navBar: {
     height: 40,
@@ -197,25 +198,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     ...Platform.select({
       ios: {
-        marginTop: 20
+        marginTop: 20,
       },
       android: {
-        height: 56
-      }
-    })
+        height: 56,
+      },
+    }),
   },
   navTitle: {
     color: vars.color.white,
     fontSize: 17,
     ...Platform.select({
       android: {
-        fontSize: 20
-      }
-    })
+        fontSize: 20,
+      },
+    }),
   },
   menu: {
     padding: 0,
     alignItems: 'center',
-    left: 16
-  }
+    left: 16,
+  },
 });

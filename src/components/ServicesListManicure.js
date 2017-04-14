@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
@@ -48,13 +48,13 @@ export default class ServicesListManicure extends Component {
       removingGeManicure,
       removingNailsManicure,
     } = this.props;
-    
+
     const {
       onChange,
       onChangePrice,
       onChangeDuration,
     } = this;
-    
+
     const handlers = {
       onChange,
       onChangePrice,
@@ -72,7 +72,7 @@ export default class ServicesListManicure extends Component {
         <FilterCheckBox {...hotManicure} {...handlers} />
         <FilterCheckBox {...spaManicure} {...handlers} />
 
-        <FilterLabel text={i18n.filters.coverage}/>
+        <FilterLabel text={i18n.filters.coverage} />
         <FilterCheckBox {...applyingShellacManicure} {...handlers} />
         <FilterCheckBox {...applyingBioGelManicure} {...handlers} />
         <FilterCheckBox {...applyingNailPolishManicure} {...handlers} />

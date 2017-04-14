@@ -32,7 +32,7 @@ export default class FilterCheckBox extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight
-          underlayColor='transparent'
+          underlayColor="transparent"
           activeOpacity={1}
           onPress={this.onPress}
           style={styles.button}
@@ -47,7 +47,7 @@ export default class FilterCheckBox extends Component {
             <Input
               formatValue={formatNumber}
               inputWrapperStyle={styles.input}
-              keyboardType='numeric'
+              keyboardType="numeric"
               onChange={this.onChangePrice}
               placeholder={i18n.filters.price}
               replaceReg={/[^0-9.]/g}
@@ -57,7 +57,7 @@ export default class FilterCheckBox extends Component {
             <Input
               formatValue={formatNumber}
               inputWrapperStyle={styles.input}
-              keyboardType='numeric'
+              keyboardType="numeric"
               onChange={this.onChangeDuration}
               placeholder={i18n.filters.duration}
               replaceReg={/[^0-9.]/g}
@@ -75,33 +75,33 @@ const styles = StyleSheet.create({
   container: {},
   button: {
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
   },
   buttonContent: {
     height: 44,
     ...Platform.select({
       android: {
-        height: 48
-      }
+        height: 48,
+      },
     }),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     color: vars.color.black,
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
+        fontSize: 16,
+      },
+    }),
   },
   fields: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   input: {
     flex: 1,
     paddingLeft: 11,
-    paddingRight: 11
-  }
+    paddingRight: 11,
+  },
 });

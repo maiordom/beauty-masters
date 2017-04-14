@@ -25,7 +25,7 @@ export default class WorkTimeSpecification extends Component {
     timeEnd: props.timeEnd || props.timeEndDefault,
     date: props.date,
     dateFormatted: moment(props.date).format('DD MMMM YYYY, dd'),
-    workInThisDay: props.workInThisDay === undefined ? true : props.workInThisDay
+    workInThisDay: props.workInThisDay === undefined ? true : props.workInThisDay,
   });
 
   onTimeStartChange = timeStart => {
@@ -42,7 +42,7 @@ export default class WorkTimeSpecification extends Component {
 
     const diff = difference(
       [timeStart, timeEnd, workInThisDay],
-      [timeStartDefault, timeEndDefault, workInThisDayDefault === undefined ? true : workInThisDayDefault]
+      [timeStartDefault, timeEndDefault, workInThisDayDefault === undefined ? true : workInThisDayDefault],
     );
 
     if (!diff.length) {
@@ -54,7 +54,7 @@ export default class WorkTimeSpecification extends Component {
       date,
       timeStart,
       timeEnd,
-      workInThisDay
+      workInThisDay,
     };
 
     this.props.applyChanges(this.props.modelName, changes, this.props.sectionName);
@@ -104,31 +104,31 @@ export default class WorkTimeSpecification extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   switch: {
     paddingLeft: 16,
-    paddingRight: 14
+    paddingRight: 14,
   },
   title: {
     paddingLeft: 16,
     fontSize: 20,
-    color: vars.color.black
+    color: vars.color.black,
   },
   container: {
     paddingTop: 25,
     backgroundColor: vars.color.white,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     marginTop: 12,
     height: 52,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    paddingRight: 16
+    paddingRight: 16,
   },
   buttonText: {
-    color: vars.color.red
-  }
+    color: vars.color.red,
+  },
 });

@@ -18,14 +18,14 @@ export default class SearchFormLocation extends Component {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: this.ds.cloneWithRows(props.addresses.items)
+      dataSource: this.ds.cloneWithRows(props.addresses.items),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.addresses.items !== nextProps.addresses.items) {
       this.setState({
-        dataSource: this.ds.cloneWithRows(nextProps.addresses.items)
+        dataSource: this.ds.cloneWithRows(nextProps.addresses.items),
       });
     }
   }
@@ -37,7 +37,7 @@ export default class SearchFormLocation extends Component {
   render() {
     const {
       distances,
-      addresses
+      addresses,
     } = this.props;
 
     return (
@@ -71,21 +71,21 @@ export default class SearchFormLocation extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   inner: {
     flex: 1,
     paddingTop: 8,
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   },
   tab: {
     height: 48,
     paddingLeft: 5,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   tabText: {
     fontSize: 16,
-    color: vars.color.black
-  }
+    color: vars.color.black,
+  },
 });

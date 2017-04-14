@@ -3,14 +3,14 @@ import actions from '../constants/search';
 
 export const setDay = (day: string) => ({
   type: actions.SEARCH_SET_DAY,
-  day
+  day,
 });
 
 export const setItemById = (modelName: string, id: number, sectionName: string) => ({
   type: actions.SEARCH_SET_MASTER_TYPE,
   modelName,
   id,
-  sectionName
+  sectionName,
 });
 
 export const toogleService = (modelName: string, paramName: string, paramValue: boolean, sectionName: string) => ({
@@ -18,7 +18,7 @@ export const toogleService = (modelName: string, paramName: string, paramValue: 
   modelName,
   paramName,
   paramValue,
-  sectionName
+  sectionName,
 });
 
 export const toggleDeparture = () => ({ type: actions.SEARCH_DEPARTURE_TOGGLE });
@@ -50,7 +50,7 @@ const addresses = [
   { label: 'Бразильская', id: 15 },
   { label: 'Курская', id: 16 },
   { label: 'Буржская', id: 17 },
-  { label: 'Кружская', id: 18 }
+  { label: 'Кружская', id: 18 },
 ];
 
 export const searchAddress = (address: string) =>
@@ -61,14 +61,14 @@ export const searchAddress = (address: string) =>
       type: actions.SEARCH_ITEMS_SET,
       items: addresses.slice(0, address.length),
       modelName: 'addresses',
-      sectionName: 'general'
+      sectionName: 'general',
     });
   };
 
 export const addressesReset = () => ({
   type: actions.SEARCH_ITEMS_RESET,
   modelName: 'addresses',
-  sectionName: 'general'
+  sectionName: 'general',
 });
 
 const kladdrs = [
@@ -101,7 +101,7 @@ const kladdrs = [
   { label: 'Железнодорожный', id: 2275 },
   { label: 'Троицк', id: 2289 },
   { label: 'Московский', id: 75260 },
-  { label: 'Щербинка', id: 2291 }
+  { label: 'Щербинка', id: 2291 },
 ];
 
 export const searchCities = (city: string) => (dispatch: (ActionSetItems) => null) => {
@@ -109,7 +109,7 @@ export const searchCities = (city: string) => (dispatch: (ActionSetItems) => nul
     type: actions.SEARCH_ITEMS_SET,
     items: kladdrs.slice(0, city.length),
     modelName: 'cities',
-    sectionName: 'general'
+    sectionName: 'general',
   });
 };
 

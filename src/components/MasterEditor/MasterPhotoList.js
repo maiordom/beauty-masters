@@ -7,7 +7,7 @@ import {
   Image,
   Dimensions,
   Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import MasterPhotoUpload from './MasterPhotoUpload';
@@ -16,8 +16,8 @@ import vars from '../../vars';
 
 const icons = {
   remove: Platform.select({
-    android: require('../../icons/android/remove.png')
-  })
+    android: require('../../icons/android/remove.png'),
+  }),
 };
 
 const CHUNK_SIZE = 3;
@@ -61,7 +61,7 @@ export default class MasterPhotoList extends Component {
                       styles.mock,
                       styles.photo,
                       index === CHUNK_SIZE - 1 && styles.photoLast,
-                      { width: photoSize, height: photoSize }
+                      { width: photoSize, height: photoSize },
                     ]}
                   />
                 );
@@ -73,7 +73,7 @@ export default class MasterPhotoList extends Component {
                   style={[
                     styles.photo,
                     index === CHUNK_SIZE - 1 && styles.photoLast,
-                    { width: wrapperPhotoSize, height: wrapperPhotoSize }
+                    { width: wrapperPhotoSize, height: wrapperPhotoSize },
                   ]}
                 >
                   <Image
@@ -99,21 +99,21 @@ const styles = StyleSheet.create({
   mock: {
     backgroundColor: vars.color.grey,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   photos: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   photo: {
     marginRight: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   photoLast: {
-    marginRight: 0
+    marginRight: 0,
   },
   icon: {
     position: 'absolute',
     bottom: 0,
-    right: 0
-  }
+    right: 0,
+  },
 });

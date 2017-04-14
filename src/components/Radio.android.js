@@ -24,7 +24,7 @@ export default class Radio extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor='transparent'
+        underlayColor="transparent"
         activeOpacity={1}
         onPress={this.onPress}
         style={styles.container}
@@ -51,5 +51,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: vars.color.black,
     marginLeft: 16,
-  }
+  },
 });

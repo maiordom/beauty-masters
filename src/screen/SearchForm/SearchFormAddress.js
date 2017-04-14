@@ -7,14 +7,14 @@ import { searchAddress, addressesReset } from '../../actions/search';
 
 const mapStateToProps = state => ({
   distances: state.searchForm.general.distances,
-  addresses: state.searchForm.general.addresses
+  addresses: state.searchForm.general.addresses,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     searchAddress,
-    addressesReset
-  }, dispatch)
+    addressesReset,
+  }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFormAddress);

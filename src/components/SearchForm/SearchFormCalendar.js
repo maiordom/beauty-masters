@@ -12,17 +12,15 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-const SearchFormCalendar = (
-  {
-    showCalendar,
-    selectedDate,
-    onDateSelect
-  }: {
-    showCalendar: boolean,
-    selectedDate: string,
-    onDateSelect: SelectCalendarDateType
-  }
-) => (
+const SearchFormCalendar = ({
+  showCalendar,
+  selectedDate,
+  onDateSelect,
+}: {
+  showCalendar: boolean,
+  selectedDate: string,
+  onDateSelect: SelectCalendarDateType,
+}) => (
   <Modal animationType="fade" transparent visible={showCalendar} onRequestClose={() => {}}>
     <View style={styles.container}>
       <View style={styles.modalContainer}>
@@ -42,19 +40,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: hexToRgba(vars.color.black, 40)
+    backgroundColor: hexToRgba(vars.color.black, 40),
   },
   modalContainer: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: vars.color.white,
-    borderRadius: 2
+    borderRadius: 2,
   },
   title: {
     paddingTop: 24,
     paddingLeft: 24,
     paddingBottom: 14,
     fontSize: 20,
-    color: vars.color.black
-  }
+    color: vars.color.black,
+  },
 });

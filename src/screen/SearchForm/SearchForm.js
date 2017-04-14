@@ -6,23 +6,17 @@ import { setDay, toogleService, setItemById, toggleDeparture } from '../../actio
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 const mapStateToProps = state => ({
-  serviceManicure: state.searchForm.serviceManicure,
-  servicePedicure: state.searchForm.servicePedicure,
-  general: state.searchForm.general,
-  searchQuery: state.searchForm.searchQuery
+  ...state.searchForm,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      setDay,
-      toogleService,
-      setItemById,
-      toggleDeparture,
-      onSearchLocation: Actions.masterLocation
-    },
-    dispatch
-  )
+  actions: bindActionCreators({
+    setDay,
+    toogleService,
+    setItemById,
+    toggleDeparture,
+    onSearchLocation: Actions.masterLocation,
+  }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

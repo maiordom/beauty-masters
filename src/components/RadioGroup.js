@@ -32,5 +32,5 @@ export default class RadioGroup extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {}
+  container: {},
 });

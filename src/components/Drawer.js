@@ -22,7 +22,7 @@ export default class Drawer extends Component {
     const { contentKey } = this.props;
     let content;
 
-    switch(contentKey) {
+    switch (contentKey) {
       case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
       case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
       case 'IntervalStartDate': content = <IntervalStartDate {...this.props} />; break;
@@ -32,22 +32,23 @@ export default class Drawer extends Component {
       <RNDrawer
         ref="navigation"
         type="overlay"
-        styles={{drawer: {
+        styles={{ drawer: {
           backgroundColor: hexToRgba(vars.color.black, 40),
-        }}}
-        captureGestures='closed'
+        } }}
+        captureGestures="closed"
         open={state.open}
         content={content}
         openDrawerOffset={0}
         panCloseMask={0.7}
-        negotiatePan={true}
+        negotiatePan
         tweenDuration={100}
         onClose={this.onClose}
         tweenHandler={ratio => ({
           main: {
             opacity: Math.max(0.54, 1 - ratio),
           },
-        })}>
+        })}
+      >
         <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
       </RNDrawer>
     );

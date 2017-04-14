@@ -35,5 +35,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: vars.color.grey,
     lineHeight: 20,
-  }
+  },
 });

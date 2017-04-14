@@ -4,7 +4,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -18,7 +18,7 @@ const selectIcon = require('../icons/android/photo-select.png');
 export default class PhotoSelect extends Component {
   static propTypes = {
     onGetPhotoFromCamera: PropTypes.func,
-    onGetPhotoFromGallery: PropTypes.func
+    onGetPhotoFromGallery: PropTypes.func,
   };
 
   onPhotoTakePress = () => {
@@ -58,22 +58,22 @@ export default class PhotoSelect extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   inner: {
-    backgroundColor: vars.color.white
+    backgroundColor: vars.color.white,
   },
   image: {
     marginLeft: 16,
-    marginRight: 32
+    marginRight: 32,
   },
   button: {
     height: 56,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 16,
-    color: hexToRgba(vars.color.black, 54)
-  }
+    color: hexToRgba(vars.color.black, 54),
+  },
 });

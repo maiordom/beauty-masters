@@ -16,7 +16,7 @@ export default class Tabs extends Component {
       _.each(tabs, tab => (tab.title = tab.title.toUpperCase()));
     }
 
-    if (!_.find(tabs, {active: true})) {
+    if (!_.find(tabs, { active: true })) {
       tabs[0].active = true;
     }
   }
@@ -29,7 +29,7 @@ export default class Tabs extends Component {
       tab.active = index === activeIndex;
     });
 
-    this.setState({tabs: [...tabs]});
+    this.setState({ tabs: [...tabs] });
     this.props.onPress && this.props.onPress(tabActive);
   };
 
@@ -39,48 +39,46 @@ export default class Tabs extends Component {
 
     return (
       <View style={styles.tabs}>
-        {_.map(tabs, (tab, index) => {
-          return <TouchableHighlight
-            key={index}
-            style={[styles.tab, tab.active && styles.tabActive]}
-            onPress={() => onPress(index)}
-            activeOpacity={1}
-            underlayColor="transparent"
-          >
-            <View style={styles.tabContainer}>
-              <Text style={[styles.tabText, tab.active && styles.tabTextActive]}>{tab.title}</Text>
-              <View style={tab.active && styles.border}></View>
-            </View>
-          </TouchableHighlight>;
-        })}
+        {_.map(tabs, (tab, index) => <TouchableHighlight
+          key={index}
+          style={[styles.tab, tab.active && styles.tabActive]}
+          onPress={() => onPress(index)}
+          activeOpacity={1}
+          underlayColor="transparent"
+        >
+          <View style={styles.tabContainer}>
+            <Text style={[styles.tabText, tab.active && styles.tabTextActive]}>{tab.title}</Text>
+            <View style={tab.active && styles.border} />
+          </View>
+        </TouchableHighlight>)}
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   tabs: {
     flexDirection: 'row',
     ...Platform.select({
       android: {
-        height: 48
-      }
-    })
+        height: 48,
+      },
+    }),
   },
   tab: {
-    flex: 1
+    flex: 1,
   },
   tabContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   tabText: {
     textAlign: 'center',
-    color: vars.color.black
+    color: vars.color.black,
   },
   tabTextActive: {
-    color: vars.color.red
+    color: vars.color.red,
   },
   border: {
     position: 'absolute',
@@ -88,6 +86,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: vars.color.red
-  }
+    backgroundColor: vars.color.red,
+  },
 });

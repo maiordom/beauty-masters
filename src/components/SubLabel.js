@@ -21,5 +21,5 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontSize: 14,
     color: vars.color.grey,
-  }
+  },
 });

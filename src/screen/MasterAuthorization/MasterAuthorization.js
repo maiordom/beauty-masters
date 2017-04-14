@@ -13,12 +13,12 @@ import { hexToRgba } from '../../utils';
 
 const logoIcon = Platform.select({
   ios: require('../../icons/logo.png'),
-  android: require('../../icons/logo-large.png')
+  android: require('../../icons/logo-large.png'),
 });
 
 const switchArrowIcon = Platform.select({
   ios: require('../../icons/ios/switch-arrow.png'),
-  android: require('../../icons/android/switch-arrow.png')
+  android: require('../../icons/android/switch-arrow.png'),
 });
 
 export default class MasterAuthorization extends Component {
@@ -33,7 +33,7 @@ export default class MasterAuthorization extends Component {
           active: true,
           style: styles.tabActive,
           title: i18n.registration,
-          action: () => this.onPress('registration')
+          action: () => this.onPress('registration'),
         },
         {
           key: 'login',
@@ -41,9 +41,9 @@ export default class MasterAuthorization extends Component {
           active: false,
           style: styles.tab,
           title: i18n.login,
-          action: () => this.onPress('login')
-        }
-      ]
+          action: () => this.onPress('login'),
+        },
+      ],
     };
   }
 
@@ -58,12 +58,12 @@ export default class MasterAuthorization extends Component {
     activeTab.active = true;
     activeTab.style = styles.tabActive;
 
-    this.setState({tabs: [...tabs]});
+    this.setState({ tabs: [...tabs] });
   };
 
   render() {
-    const {tabs} = this.state;
-    const TabItem = _.find(tabs, {active: true}).component;
+    const { tabs } = this.state;
+    const TabItem = _.find(tabs, { active: true }).component;
 
     return (
       <View style={styles.container}>
@@ -80,24 +80,22 @@ export default class MasterAuthorization extends Component {
         </View>
         <Image style={styles.logo} source={logoIcon} />
         <View style={styles.tabs}>
-          {_.map(tabs, (tab, index) => {
-            return <TouchableHighlight
-              key={index}
-              style={styles.tabItem}
-              onPress={tab.action}
-              activeOpacity={1}
-              underlayColor="transparent"
-            >
-              <View>
-                <Text style={tab.style}>{tab.title}</Text>
-                <View style={styles.switchArrow}>
-                  {tab.active && (
-                    <Image source={switchArrowIcon} />
+          {_.map(tabs, (tab, index) => <TouchableHighlight
+            key={index}
+            style={styles.tabItem}
+            onPress={tab.action}
+            activeOpacity={1}
+            underlayColor="transparent"
+          >
+            <View>
+              <Text style={tab.style}>{tab.title}</Text>
+              <View style={styles.switchArrow}>
+                {tab.active && (
+                <Image source={switchArrowIcon} />
                   )}
-                </View>
               </View>
-            </TouchableHighlight>;
-          })}
+            </View>
+          </TouchableHighlight>)}
         </View>
         <View style={styles.tabContent}>
           {TabItem}
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: vars.bodyColor,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   navBar: {
     height: 40,
@@ -121,21 +119,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     ...Platform.select({
       ios: {
-        marginTop: 20
+        marginTop: 20,
       },
       android: {
-        height: 56
-      }
-    })
+        height: 56,
+      },
+    }),
   },
   navTitle: {
     color: vars.color.white,
     fontSize: 17,
     ...Platform.select({
       android: {
-        fontSize: 20
-      }
-    })
+        fontSize: 20,
+      },
+    }),
   },
   close: {
     justifyContent: 'center',
@@ -148,59 +146,59 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         width: 56,
-        height: 56
-      }
-    })
+        height: 56,
+      },
+    }),
   },
   logo: {
     marginTop: 56,
     marginBottom: 56,
     ...Platform.select({
       android: {
-        marginTop: 40
-      }
-    })
+        marginTop: 40,
+      },
+    }),
   },
   tabs: {
     flex: 0,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   tabItem: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   tab: {
     fontSize: 17,
     color: hexToRgba(vars.color.white, 70),
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
+        fontSize: 16,
+      },
+    }),
   },
   tabActive: {
     fontSize: 17,
     color: vars.color.white,
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
+        fontSize: 16,
+      },
+    }),
   },
   tabContent: {
     alignSelf: 'stretch',
     backgroundColor: vars.color.white,
     flex: 1,
-    paddingTop: 32
+    paddingTop: 32,
   },
   switchArrow: {
     height: 8,
     alignItems: 'center',
     ...Platform.select({
       android: {
-        height: 6
-      }
-    })
-  }
+        height: 6,
+      },
+    }),
+  },
 });

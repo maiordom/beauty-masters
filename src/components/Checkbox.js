@@ -3,12 +3,12 @@ import { TouchableHighlight, Image, Platform, StyleSheet } from 'react-native';
 
 const checkboxIcon = Platform.select({
   ios: require('../icons/ios/checkbox.png'),
-  android: require('../icons/android/checkbox.png')
+  android: require('../icons/android/checkbox.png'),
 });
 
 const checkboxCheckedIcon = Platform.select({
   ios: require('../icons/ios/checkbox-checked.png'),
-  android: require('../icons/android/checkbox-checked.png')
+  android: require('../icons/android/checkbox-checked.png'),
 });
 
 export default class Checkbox extends Component {
@@ -21,7 +21,7 @@ export default class Checkbox extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor='transparent'
+        underlayColor="transparent"
         activeOpacity={1}
         onPress={this.onPress}
         style={styles.container}
@@ -38,5 +38,5 @@ const styles = StyleSheet.create({
     height: 24,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });

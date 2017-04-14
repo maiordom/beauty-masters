@@ -56,16 +56,16 @@ const styles = StyleSheet.create({
     height: 44,
     ...Platform.select({
       android: {
-        height: 48
-      }
-    })
+        height: 48,
+      },
+    }),
   },
   title: {
     color: '#283741',
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
-  }
+        fontSize: 16,
+      },
+    }),
+  },
 });

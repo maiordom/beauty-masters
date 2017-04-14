@@ -4,16 +4,14 @@ import { uploadMasterPhoto } from '../actions/master';
 
 import PhotoSelect from '../components/PhotoSelect';
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onGetPhotoFromCamera(data, modelName) {
-      dispatch(uploadMasterPhoto(data, modelName));
-    },
+const mapDispatchToProps = dispatch => ({
+  onGetPhotoFromCamera(data, modelName) {
+    dispatch(uploadMasterPhoto(data, modelName));
+  },
 
-    onGetPhotoFromGallery(data, modelName) {
-      dispatch(uploadMasterPhoto(data, modelName));
-    }
-  };
-};
+  onGetPhotoFromGallery(data, modelName) {
+    dispatch(uploadMasterPhoto(data, modelName));
+  },
+});
 
 export default connect(null, mapDispatchToProps)(PhotoSelect);

@@ -8,7 +8,7 @@ import SearchForm from './SearchForm';
 
 const initialState = {
   masterEditor: MasterEditor,
-  searchForm: SearchForm
+  searchForm: SearchForm,
 };
 
 export default function configureStore() {

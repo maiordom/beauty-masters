@@ -25,19 +25,17 @@ const mapStateToProps = (state, ownProps) => {
     timeStart: dateCurrent.timeStart,
     timeStartDefault,
     workInThisDay: dateCurrent.status,
-  }
+  };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    applyChanges: (modelName, changes, sectionName) => {
-      drawerClose();
+const mapDispatchToProps = dispatch => ({
+  applyChanges: (modelName, changes, sectionName) => {
+    drawerClose();
 
-      if (changes) {
-        dispatch(setCalendarRecipientDate(modelName, changes, sectionName));
-      }
+    if (changes) {
+      dispatch(setCalendarRecipientDate(modelName, changes, sectionName));
     }
-  }
-};
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkTimeSpecification);

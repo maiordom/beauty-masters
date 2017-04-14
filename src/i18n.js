@@ -6,12 +6,12 @@ export default {
   configureCalendar: 'Настройте календарь',
   city: 'Город',
   currency: {
-    roubleSign: '₽'
+    roubleSign: '₽',
   },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   days: {
     nextDay: 'Завтра',
-    sameDay: 'Сегодня'
+    sameDay: 'Сегодня',
   },
   district: 'Район',
   enterAddress: 'Введите адрес',
@@ -19,10 +19,10 @@ export default {
   filters: {
     anotherNailGel: {
       nom: 'Другой гель-лак',
-      gen: 'Другого геля-лака'
+      gen: 'Другого геля-лака',
     },
     anyNailGel: {
-      nom: 'Любой гель-лак'
+      nom: 'Любой гель-лак',
     },
     applyingBioGel: 'Нанесение биогеля',
     applyingNailPolish: 'Нанесение лака',
@@ -32,7 +32,7 @@ export default {
     availableDays: 'Дни приема',
     bioGel: {
       nom: 'Биогель',
-      gen: 'Биогеля'
+      gen: 'Биогеля',
     },
     classic: 'Обрезной/классический',
     combined: 'Комбинированный',
@@ -53,7 +53,7 @@ export default {
       all: 'Все',
       privateOnly: 'Только частные',
       title: 'Тип мастера',
-      salonOnly: 'Только салоны'
+      salonOnly: 'Только салоны',
     },
     moon: 'Лунный/обратный френч',
     nailDesign: 'Дизайн ногтей',
@@ -67,21 +67,21 @@ export default {
     removingNailPolish: 'Лака',
     removingNails: {
       nom: 'Нарощенные ногти',
-      gen: 'Нарощенных ногтей'
+      gen: 'Нарощенных ногтей',
     },
     removingShellac: 'Шеллака',
     reverseMoon: 'Обратный лунный',
     shellac: {
       nom: 'Шеллак',
-      gen: 'Шеллака'
+      gen: 'Шеллака',
     },
     spa: 'SPA-маникюр',
     stencil: 'Трафаретный',
     varnish: {
       nom: 'Лак',
-      gen: 'Лака'
+      gen: 'Лака',
     },
-    withdrawal: 'Снятие'
+    withdrawal: 'Снятие',
   },
   firstName: 'Имя',
   from: 'С',
@@ -92,14 +92,14 @@ export default {
     enterNameMethod: 'Введите название метода',
     glasperlenovySterilizer: 'Гласперленовый стерилизатор',
     ultrasound: 'Ультразвук',
-    ultraviolet: 'Ультрафиолет'
+    ultraviolet: 'Ультрафиолет',
   },
   house: 'Дом',
   lastName: 'Фамилия',
   login: 'Вход',
   location: {
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
-    here: 'Мое текущее месторасположение'
+    here: 'Мое текущее месторасположение',
   },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
@@ -118,7 +118,7 @@ export default {
     needFirstPhotoOfYourPassport: 'Также нам нужно фото первой страницы вашего паспорта для проверки модераторами',
     provideALinkToYourSocialProfile: 'Укажите ссылку на ваш профиль хотя бы в одной соц. сети - часто клиенты выбирают мастера по описанию и фото из соц. сетей',
     schedule: 'Шаг 4/5: Ваше расписание',
-    services: 'Шаг 2/5: Услуги'
+    services: 'Шаг 2/5: Услуги',
   },
   monthNames: [
     'Январь',
@@ -132,7 +132,7 @@ export default {
     'Сентярь',
     'Октябрь',
     'Ноябрь',
-    'Декабрь'
+    'Декабрь',
   ],
   name: 'Название',
   next: 'Далее',
@@ -141,14 +141,14 @@ export default {
   phone: 'Телефон (для звонков клиентов)',
   photo: {
     select: 'Выбрать фото',
-    take: 'Сделать снимок'
+    take: 'Сделать снимок',
   },
   presentation: {
     calendar: 'Запишитесь на прием',
     list: 'Смотрите список услуг и цен',
     photo: 'Изучите фото мастера и его работ',
     pin: 'Ищите мастеров на карте',
-    title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра'
+    title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра',
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
   ready: 'Готово',
@@ -159,7 +159,7 @@ export default {
     wholeWeek: '7 дней в неделю',
     twoAfterTwo: '2 через 2',
     onWeekdays: 'По будням',
-    onWeekends: 'По выходным'
+    onWeekends: 'По выходным',
   },
   search: {
     full: 'Расширенный поиск',
@@ -169,7 +169,7 @@ export default {
     masterToHome: 'Мастер выезжает на дом',
     searchParams: 'Параметры поиска',
     short: 'Быстрый поиск',
-    vacantDays: 'Дни, когда возможен прием'
+    vacantDays: 'Дни, когда возможен прием',
   },
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',
@@ -187,5 +187,5 @@ export default {
   youCanEditTheDaysApart: 'Можете отредактировать дни отдельно',
   yourEmail: 'Ваш email',
   yourServices: 'Ваши услуги',
-  yourSchedule: 'Ваше расписание'
+  yourSchedule: 'Ваше расписание',
 };

@@ -31,25 +31,25 @@ const styles = StyleSheet.create({
   container: {},
   button: {
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
   },
   buttonContent: {
     height: 44,
     ...Platform.select({
       android: {
-        height: 48
-      }
+        height: 48,
+      },
     }),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     color: vars.color.grey,
     ...Platform.select({
       android: {
-        fontSize: 14
-      }
-    })
-  }
+        fontSize: 14,
+      },
+    }),
+  },
 });

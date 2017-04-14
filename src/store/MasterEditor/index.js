@@ -13,29 +13,26 @@ import ServicePedicure from '../Filters/ServicePedicure';
 
 const params = {};
 
-each(
-  {
-    calendarSettingsOne: CalendarSettings,
-    calendarSettingsThree: CalendarSettings,
-    calendarSettingsTwo: CalendarSettings,
-    generalSection: GeneralFields,
-    handlingTools: HandlingTools,
-    info: Info,
-    serviceManicure: ServiceManicure,
-    servicePedicure: ServicePedicure
-  },
-  (fields, sectionName) => {
-    params[sectionName] = {};
+each({
+  calendarSettingsOne: CalendarSettings,
+  calendarSettingsThree: CalendarSettings,
+  calendarSettingsTwo: CalendarSettings,
+  generalSection: GeneralFields,
+  handlingTools: HandlingTools,
+  info: Info,
+  serviceManicure: ServiceManicure,
+  servicePedicure: ServicePedicure,
+}, (fields, sectionName) => {
+  params[sectionName] = {};
 
-    each(fields, (fieldBuilder, fieldBuilderName) => {
-      const fieldObject = fieldBuilder();
+  each(fields, (fieldBuilder, fieldBuilderName) => {
+    const fieldObject = fieldBuilder();
 
-      fieldObject.sectionName = sectionName;
-      fieldObject.modelName = fieldBuilderName;
-      params[sectionName][fieldObject.modelName] = fieldObject;
-    });
-  }
-);
+    fieldObject.sectionName = sectionName;
+    fieldObject.modelName = fieldBuilderName;
+    params[sectionName][fieldObject.modelName] = fieldObject;
+  });
+});
 
 params.calendarSettingsOne.index = 0;
 params.calendarSettingsTwo.index = 1;
@@ -94,10 +91,10 @@ type CreateMaster = {
 const createMasterQuery: CreateMaster = {
   address: [],
   custom_services: [],
-  services: []
+  services: [],
 };
 
 export default {
   ...params,
-  createMasterQuery
+  createMasterQuery,
 };

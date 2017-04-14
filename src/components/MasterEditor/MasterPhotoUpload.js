@@ -3,26 +3,24 @@ import { Image, TouchableWithoutFeedback, StyleSheet, Platform, View } from 'rea
 
 const uploadIcon = require('../../icons/android/photo-upload@2x.png');
 const addIcon = Platform.select({
-  android: require('../../icons/android/add.png')
+  android: require('../../icons/android/add.png'),
 });
 
-export const MasterPhotoUpload = ({ onPress, photoSize, wrapperPhotoSize }) => {
-  return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={{ width: wrapperPhotoSize, height: wrapperPhotoSize }}>
-        <Image source={uploadIcon} style={{width: photoSize, height: photoSize}} />
-        <Image source={addIcon} style={styles.icon} />
-      </View>
-    </TouchableWithoutFeedback>
+export const MasterPhotoUpload = ({ onPress, photoSize, wrapperPhotoSize }) => (
+  <TouchableWithoutFeedback onPress={onPress}>
+    <View style={{ width: wrapperPhotoSize, height: wrapperPhotoSize }}>
+      <Image source={uploadIcon} style={{ width: photoSize, height: photoSize }} />
+      <Image source={addIcon} style={styles.icon} />
+    </View>
+  </TouchableWithoutFeedback>
   );
-};
 
 const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     right: 0,
     bottom: 0,
-  }
+  },
 });
 
 export default MasterPhotoUpload;

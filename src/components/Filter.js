@@ -16,13 +16,13 @@ export default class Filter extends Component {
     const { subtitle: hasSubtitle } = this.props;
 
     return {
-        height: hasSubtitle ? 64 : 44,
-        ...Platform.select({
-            android: {
-                height: hasSubtitle ? 72 : 48
-            }
-        }),
-    }
+      height: hasSubtitle ? 64 : 44,
+      ...Platform.select({
+        android: {
+          height: hasSubtitle ? 72 : 48,
+        },
+      }),
+    };
   };
 
   render() {
@@ -31,15 +31,15 @@ export default class Filter extends Component {
     return (
       <View>
         <TouchableHighlight
-          underlayColor='transparent'
+          underlayColor="transparent"
           activeOpacity={1}
           onPress={this.onPress}
           style={styles.button}
         >
           <View style={[styles.buttonContent, this.getButtonContentHeight()]}>
             <Text style={styles.title}>{title}</Text>
-              {subtitle && (
-                  <Text style={styles.subtitle}>{subtitle}</Text>
+            {subtitle && (
+              <Text style={styles.subtitle}>{subtitle}</Text>
               )}
           </View>
         </TouchableHighlight>
@@ -51,28 +51,28 @@ export default class Filter extends Component {
 const styles = StyleSheet.create({
   button: {
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
   },
   buttonContent: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     color: vars.color.black,
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
+        fontSize: 16,
+      },
+    }),
   },
   subtitle: {
-      marginTop: 5,
-      color: vars.color.grey,
-      ...Platform.select({
-          android: {
-              fontSize: 14
-          }
-      })
-  }
+    marginTop: 5,
+    color: vars.color.grey,
+    ...Platform.select({
+      android: {
+        fontSize: 14,
+      },
+    }),
+  },
 });

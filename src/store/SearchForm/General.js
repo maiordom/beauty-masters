@@ -5,8 +5,8 @@ const masterType = () => ({
   items: [
     { label: i18n.filters.masterType.all, id: 1, active: true },
     { label: i18n.filters.masterType.privateOnly, id: 2 },
-    { label: i18n.filters.masterType.salonOnly, id: 3 }
-  ]
+    { label: i18n.filters.masterType.salonOnly, id: 3 },
+  ],
 });
 
 const distances = () => ({
@@ -14,23 +14,23 @@ const distances = () => ({
     { label: i18n.location.here, meters: 400 },
     { label: i18n.location.distance(500, true), meters: 500 },
     { label: i18n.location.distance(1), meters: 1000 },
-    { label: i18n.location.distance(2), meters: 2000 }
-  ]
+    { label: i18n.location.distance(2), meters: 2000 },
+  ],
 });
 
 const addresses = () => ({
   selected: {},
-  items: []
+  items: [],
 });
 
 const cities = () => ({
   selected: {},
-  items: []
+  items: [],
 });
 
 export default {
   masterType,
   distances,
   addresses,
-  cities
+  cities,
 };
