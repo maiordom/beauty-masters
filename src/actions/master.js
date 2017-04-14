@@ -1,19 +1,14 @@
 import { uploadFile } from '../services/upload';
 
 import actions from '../constants/master';
+import constants from '../constants/master';
 
 let index = 0;
 
-export const uploadMasterPhoto = (data, modelName) => dispatch => {
-  const photoId = index++;
+function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
+  getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.IN_PROCESS;
 
-  dispatch({
-    type: actions.MASTER_PHOTO_SET_MOCK,
-    id: photoId,
-    modelName,
-  });
-
-  return uploadFile(data)
+  return uploadFile(fileData)
     .then(response => {
       try {
         return JSON.parse(response.data);
@@ -39,7 +34,58 @@ export const uploadMasterPhoto = (data, modelName) => dispatch => {
     })
     .catch(err => {
       console.log(err);
+       dispatch({
+         type: actions.MASTER_PHOTO_REMOVE_QUEUE,
+         id: photoId,
+       });
+    })
+    .then(() => {
+      const queue = getState().masterEditor.info.photosQueue.items;
+
+      if (queue.length) {
+        const { id, modelName, fileData } = queue[0];
+
+        dispatch({
+          type: actions.MASTER_PHOTO_REMOVE_QUEUE,
+          id,
+        });
+
+        dispatch({
+          type: actions.MASTER_PHOTO_SET_MOCK,
+          id,
+          modelName,
+          status: constants.UPLOAD_STATUS.IN_PROCESS,
+        });
+
+        uploadFileAction(fileData, modelName, id, dispatch, getState);
+      } else {
+        getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
+      }
     });
+}
+
+export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) => {
+  const photoId = index++;
+
+  dispatch({
+    type: actions.MASTER_PHOTO_SET_MOCK,
+    id: photoId,
+    modelName,
+    status: getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS
+      ? constants.UPLOAD_STATUS.IN_QUEUE
+      : constants.UPLOAD_STATUS.IN_PROCESS
+  });
+
+  if (getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS) {
+    return dispatch({
+      type: actions.MASTER_PHOTO_SET_QUEUE,
+      fileData,
+      id: photoId,
+      modelName,
+    });
+  }
+
+  return uploadFileAction(fileData, modelName, photoId, dispatch, getState);
 };
 
 export const removePhoto = (itemId, modelName) => ({
