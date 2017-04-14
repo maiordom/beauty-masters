@@ -1,5 +1,6 @@
-import assign from 'lodash/assign';
-import set from 'lodash/set';
+import isArray from 'lodash/isArray';
+import isObject from 'lodash/isObject';
+import isNumber from 'lodash/isNumber';
 
 export function hexToRgba(hex, opacity = 100) {
   const hexValue = hex.replace('#', '');
@@ -99,7 +100,19 @@ export const capitalizeFirstLetter = word => `${word.charAt(0).toUpperCase()}${w
  * @param {any} value - new proprety
  * @returns {Object}
  */
-export function deepUpdate(obj, path, value) {
-  const result = JSON.parse(JSON.stringify(obj));
-  return set(result, path, value);
+
+export function deepUpdate(obj, path, changes) {
+  const paths = path.split('.');
+  let parentLink = obj;
+
+  paths.forEach(pathItem => {
+    parentLink[pathItem] = { ...parentLink[pathItem] };
+    parentLink = parentLink[pathItem];
+  });
+
+  console.log(parentLink)
+
+  Object.assign(parentLink, changes);
+
+  return obj;
 }

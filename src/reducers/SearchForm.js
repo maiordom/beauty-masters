@@ -79,19 +79,19 @@ export default makeReducer((state, action) => ({
 
   [actions.SEARCH_ITEMS_SET]: () => deepUpdate(
     state,
-    `searchForm.${action.sectionName}.${action.modelName}.items`,
-    action.items,
+    `searchForm.${action.sectionName}.${action.modelName}`,
+    { items: action.items },
   ),
 
   [actions.SEARCH_ITEMS_RESET]: () => deepUpdate(
     state,
-    `searchForm.${action.sectionName}.${action.modelName}.items`,
-    [],
+    `searchForm.${action.sectionName}.${action.modelName}`,
+    { items: [] },
   ),
 
   [actions.SEARCH_DEPARTURE_TOGGLE]: () => deepUpdate(
     state,
-    'searchForm.searchQuery.isDeparture',
-    !state.searchForm.searchQuery.isDeparture,
+    'searchForm.searchQuery',
+    { isDeparture: !state.searchForm.searchQuery.isDeparture },
   ),
 }));
