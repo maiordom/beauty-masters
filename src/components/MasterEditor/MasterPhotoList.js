@@ -48,21 +48,22 @@ export default class MasterPhotoList extends Component {
               }
 
               if (item.type === 'mock') {
-                return <View
+                return (<View
                   key={index}
                   style={[
                     styles.mock,
                     styles.photo,
                     index === CHUNK_SIZE - 1 && styles.photoLast,
-                    {width: photoSize, height: photoSize}
-                  ]}>
+                    { width: photoSize, height: photoSize },
+                  ]}
+                >
                   {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
                     <Text>In progress</Text>
                   )}
                   {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
                     <Text>In queue</Text>
                   )}
-                </View>;
+                </View>);
               }
 
               return (

@@ -133,7 +133,7 @@ export default makeReducer((state, action) => ({
     const { modelName, id, fileData } = action;
     const queue = state.masterEditor.info.photosQueue.items;
 
-    queue.push({modelName, id, fileData});
+    queue.push({ modelName, id, fileData });
 
     return state;
   },
