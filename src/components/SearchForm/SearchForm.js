@@ -7,6 +7,7 @@ import find from 'lodash/find';
 import filter from 'lodash/filter';
 import every from 'lodash/every';
 import moment from 'moment';
+import 'moment/locale/ru';
 
 import type { ServiceToggleType, MasterTypeSelectType, SelectCalendarDateType } from './SearchFormTypes';
 
@@ -23,8 +24,6 @@ import ButtonControl from '../../components/ButtonControl';
 import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
-
-moment.locale('ru');
 
 export default class SearchFormShort extends Component {
   props: {

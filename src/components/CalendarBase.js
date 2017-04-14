@@ -224,7 +224,7 @@ export default class Calendar extends Component {
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
-            onPress={isDisable ? null : this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
+            onPress={isDisable ? null : () => this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
             caption={`${dayIndex + 1}`}
             isToday={argMonthIsToday && dayIndex === todayIndex}
             isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
