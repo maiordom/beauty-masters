@@ -2,7 +2,7 @@
 
 import moment from 'moment';
 
-import type { CreateMasterQuery } from '../../../types/CreateMasterQuery';
+import type { CreateMasterQuery } from '../types';
 
 const createMasterQuery: CreateMasterQuery = {
   address: [
@@ -31,8 +31,8 @@ const createMasterQuery: CreateMasterQuery = {
         ],
         interval_id: '4',
         start_date: moment().format('YYYY-MM-DD'),
-        time_end: '13:30',
-        time_start: '21:20',
+        time_end: '21:20',
+        time_start: '13:30',
       },
     }
   ],

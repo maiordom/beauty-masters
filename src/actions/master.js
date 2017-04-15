@@ -88,6 +88,11 @@ export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) =
   return uploadFileAction(fileData, modelName, photoId, dispatch, getState);
 };
 
+export const setData = data => ({
+  type: actions.MASTER_DATA_SET,
+  data,
+});
+
 export const removePhoto = (itemId, modelName) => ({
   type: actions.MASTER_PHOTO_REMOVE,
   itemId,

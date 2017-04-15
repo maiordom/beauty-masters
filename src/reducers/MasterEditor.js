@@ -108,6 +108,106 @@ const removePhotoParam = (state, model, fileName) => {
 };
 
 export default makeReducer((state, action) => ({
+  [actions.MASTER_DATA_SET]: () => {
+    const { data } = action;
+    const { services, address } = data;
+    const {
+      calendarSettingsOne,
+      calendarSettingsThree,
+      calendarSettingsTwo,
+      generalSection,
+      handlingTools,
+      info,
+      serviceManicure,
+      servicePedicure,
+    } = state.masterEditor;
+
+    const calendarsMapping = [
+      calendarSettingsOne,
+      calendarSettingsTwo,
+      calendarSettingsThree,
+    ];
+
+    each(address, (addressItem, index) => {
+      const calendarObject = calendarsMapping[index];
+
+      each(calendarObject, calendarModel => {
+        const {
+          parentQueryParam,
+          queryAction,
+          queryParam,
+          queryType,
+        } = calendarModel;
+
+        if (queryType === 'value') {
+          if (parentQueryParam) {
+            calendarModel.value = addressItem[parentQueryParam][queryParam];
+          } else {
+            calendarModel.value = addressItem[queryParam];
+          }
+        }
+
+        if (queryType === 'items' && queryAction === 'fill') {
+          const items = addressItem[parentQueryParam][queryParam];
+
+          each(items, item => {
+            const object = {};
+
+            Object.keys(item).forEach(key => {
+              object[calendarModel.fromQueryParamMapping[key]] = item[key];
+            });
+
+            calendarModel.items.push(object);
+          });
+        }
+
+        if (queryType === 'items' && queryAction === 'select') {
+          calendarModel.items.forEach(item => {
+            item.active = item.id === addressItem[parentQueryParam][queryParam];
+
+            if (item.active) {
+              calendarModel.selected = item;
+            }
+          });
+        }
+      });
+    });
+
+    each(generalSection, model => {
+      if (model.queryParam in data) {
+        model.value = data[model.queryParam];
+      }
+    });
+
+    each(services, service => {
+      each(serviceManicure, model => {
+        if (model.id === service.service_id) {
+          model.active = true;
+          model.price = service.price;
+          model.duration = service.duration;
+        }
+      });
+
+      each(servicePedicure, model => {
+        if (model.id === service.service_id) {
+          model.active = true;
+          model.price = service.price;
+          model.duration = service.duration;
+        }
+      });
+
+      each(handlingTools, model => {
+        if (model.id === service.service_id) {
+          model.value = true;
+        }
+      });
+    });
+
+    state.masterEditor.createMasterQuery = data;
+
+    return state;
+  },
+
   [actions.MASTER_PHOTO_SET_MOCK]: () => {
     const { modelName, id, status } = action;
     const section = state.masterEditor.info;
@@ -298,4 +398,5 @@ export default makeReducer((state, action) => ({
   }
 }), null, state => {
   console.log(state.masterEditor.createMasterQuery);
+  console.log(state.masterEditor.calendarSettingsOne);
 });
