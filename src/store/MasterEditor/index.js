@@ -45,7 +45,7 @@ params.calendarSettingsThree.index = 2;
 params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 
 const createMasterQuery: CreateMasterQuery = {
-  address: [],
+  master_addresses: [],
   certificates: [],
   custom_services: [],
   master_photos: [],

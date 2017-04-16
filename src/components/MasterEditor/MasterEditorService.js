@@ -31,7 +31,7 @@ export default class MasterEditorService extends Component {
   };
 
   onChangePrice = (price, modelName) => {
-    this.props.actions.setServiceParam(modelName, 'price', price, this.state.tabActiveKey);
+    this.props.actions.setServiceParam(modelName, 'price', Number(price), this.state.tabActiveKey);
   };
 
   onChangeDuration = (duration, modelName) => {

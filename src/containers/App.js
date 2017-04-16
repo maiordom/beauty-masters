@@ -18,6 +18,9 @@ export default class App extends Component {
     registerUser('maiordom@yandex.ru', 'qwerty')();
   }
 
+  componentDidMount() {
+  }
+
   render () {
     return (
       <Provider store={store}>
