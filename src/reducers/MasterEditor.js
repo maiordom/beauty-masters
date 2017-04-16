@@ -8,16 +8,16 @@ import { makeReducer } from '../utils';
 import actions from '../constants/master';
 
 const setParam = (action, state) => {
-  const {sectionName, modelName, paramValue, paramName} = action;
+  const { sectionName, modelName, paramValue, paramName } = action;
   const section = state.masterEditor[sectionName];
   const model = section[modelName];
 
   model[paramName] = paramValue;
 
-  state.masterEditor = {...state.masterEditor};
-  state.masterEditor[sectionName] = {...section};
-  state.masterEditor[sectionName][modelName] = {...model};
-}
+  state.masterEditor = { ...state.masterEditor };
+  state.masterEditor[sectionName] = { ...section };
+  state.masterEditor[sectionName][modelName] = { ...model };
+};
 
 const setItemById = (action, state) => {
   const { modelName, id, sectionName } = action;
@@ -32,9 +32,9 @@ const setItemById = (action, state) => {
     }
   });
 
-  state.masterEditor = {...state.masterEditor};
-  state.masterEditor[sectionName] = {...section};
-  state.masterEditor[sectionName][modelName] = {...model};
+  state.masterEditor = { ...state.masterEditor };
+  state.masterEditor[sectionName] = { ...section };
+  state.masterEditor[sectionName][modelName] = { ...model };
   state.masterEditor[sectionName][modelName].items = [...model.items];
 };
 
@@ -208,9 +208,9 @@ export default makeReducer((state, action) => ({
       items.push({ id, status, type: 'mock' });
     }
 
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor.info = {...section}
-    state.masterEditor.info[modelName] = {...model};
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor.info = { ...section };
+    state.masterEditor.info[modelName] = { ...model };
     state.masterEditor.info[modelName].items = [...items];
 
     return state;
@@ -220,7 +220,7 @@ export default makeReducer((state, action) => ({
     const { modelName, id, fileData } = action;
     const queue = state.masterEditor.info.photosQueue.items;
 
-    queue.push({modelName, id, fileData});
+    queue.push({ modelName, id, fileData });
 
     return state;
   },
@@ -250,9 +250,9 @@ export default makeReducer((state, action) => ({
       status: 'uploaded'
     });
 
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor.info = {...section}
-    state.masterEditor.info[modelName] = {...model};
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor.info = { ...section };
+    state.masterEditor.info[modelName] = { ...model };
     state.masterEditor.info[modelName].items = [...items];
 
     setPhotoParam(state, model, fileName);
@@ -269,9 +269,9 @@ export default makeReducer((state, action) => ({
 
     items = reject(items, { id: itemId });
 
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor.info = {...section}
-    state.masterEditor.info[modelName] = {...model};
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor.info = { ...section };
+    state.masterEditor.info[modelName] = { ...model };
     state.masterEditor.info[modelName].items = items;
 
     removePhotoParam(state, model, fileName);
@@ -286,9 +286,9 @@ export default makeReducer((state, action) => ({
 
     model.value = value;
 
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor[sectionName] = {...section};
-    state.masterEditor[sectionName][modelName] = {...model};
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor[sectionName] = { ...section };
+    state.masterEditor[sectionName][modelName] = { ...model };
 
     if (model.queryParam) {
       state.masterEditor.createMasterQuery[model.queryParam] = value;
@@ -324,7 +324,7 @@ export default makeReducer((state, action) => ({
 
     const createMasterQuery = state.masterEditor.createMasterQuery;
     const model = state.masterEditor[action.sectionName][action.modelName];
-    const service = find(createMasterQuery.services, {service_id: model.id});
+    const service = find(createMasterQuery.services, { service_id: model.id });
 
     service[action.paramName] = action.paramValue;
 
@@ -345,10 +345,10 @@ export default makeReducer((state, action) => ({
     const model = section[modelName];
 
     const dateObject = {
-      date: date,
+      date,
       status: workInThisDay,
-      timeEnd: timeEnd,
-      timeStart: timeStart,
+      timeEnd,
+      timeStart,
     };
     const dateCurrent = find(model.items, { date });
 
@@ -358,9 +358,9 @@ export default makeReducer((state, action) => ({
       model.items.push(dateObject);
     }
 
-    state.masterEditor = {...state.masterEditor};
-    state.masterEditor[sectionName] = {...section};
-    state.masterEditor[sectionName][modelName] = {...model};
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor[sectionName] = { ...section };
+    state.masterEditor[sectionName][modelName] = { ...model };
     state.masterEditor[sectionName][modelName].items = [...model.items];
 
     const recipientDate = {};

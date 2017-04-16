@@ -3,11 +3,11 @@ import { Provider } from 'react-redux';
 import configureStore from '../store/configureStore';
 import RootContainer from './RootContainer';
 
-const store = configureStore();
-
 import masterData from '../test/MasterData';
 import { setData } from '../actions/master';
 import { registerUser } from '../actions/auth';
+
+const store = configureStore();
 
 export default class App extends Component {
   setMasterData() {

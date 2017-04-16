@@ -30,7 +30,7 @@ const i18nContinue = Platform.select({
 const i18nAuthAsMaster = Platform.select({
   ios: i18n.authAsMaster,
   android: i18n.authAsMaster.toUpperCase()
-})
+});
 
 export default class Presentation extends Component {
   render() {

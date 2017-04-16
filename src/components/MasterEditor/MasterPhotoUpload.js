@@ -6,16 +6,14 @@ const addIcon = Platform.select({
   android: require('../../icons/android/add.png')
 });
 
-export const MasterPhotoUpload = ({ onPress, photoSize, wrapperPhotoSize }) => {
-  return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={{ width: wrapperPhotoSize, height: wrapperPhotoSize }}>
-        <Image source={uploadIcon} style={{width: photoSize, height: photoSize}} />
-        <Image source={addIcon} style={styles.icon} />
-      </View>
-    </TouchableWithoutFeedback>
+export const MasterPhotoUpload = ({ onPress, photoSize, wrapperPhotoSize }) => (
+  <TouchableWithoutFeedback onPress={onPress}>
+    <View style={{ width: wrapperPhotoSize, height: wrapperPhotoSize }}>
+      <Image source={uploadIcon} style={{ width: photoSize, height: photoSize }} />
+      <Image source={addIcon} style={styles.icon} />
+    </View>
+  </TouchableWithoutFeedback>
   );
-};
 
 const styles = StyleSheet.create({
   icon: {

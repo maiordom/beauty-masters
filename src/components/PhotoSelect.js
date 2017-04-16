@@ -22,7 +22,7 @@ export default class PhotoSelect extends Component {
   };
 
   onPhotoSelectPress = () => {
-    ImagePicker.launchImageLibrary({}, ({ uri, type })  => {
+    ImagePicker.launchImageLibrary({}, ({ uri, type }) => {
       this.props.onGetPhotoFromGallery({ uri, type }, this.props.name);
     });
   };

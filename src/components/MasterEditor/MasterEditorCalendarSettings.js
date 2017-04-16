@@ -34,7 +34,7 @@ export default class MasterEditorCalendarSettings extends Component {
 
   onDateSelect = date => {
     this.props.drawerOpen({
-      date: date,
+      date,
       contentKey: 'WorkTimeSpecification',
       sectionName: this.props.sectionName,
     });
@@ -80,7 +80,7 @@ export default class MasterEditorCalendarSettings extends Component {
         />
         <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
         <Calendar
-          disableSelectDate={true}
+          disableSelectDate
           events={customDates.items}
           interval={intervalGroup.selected}
           onDateSelect={this.onDateSelect}
@@ -89,7 +89,7 @@ export default class MasterEditorCalendarSettings extends Component {
         <View style={styles.gap} />
         <ButtonControl label={i18n.ready} onPress={onReadyPress} />
       </ScrollView>
-    )
+    );
   }
 }
 

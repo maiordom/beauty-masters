@@ -24,7 +24,7 @@ export default class SwitchBase extends Component {
       onPanResponderGrant: (evt, gestureState) => {
         if (!this.props.enableSlide) return;
 
-        this.setState({pressed: true});
+        this.setState({ pressed: true });
         this.start.x0 = gestureState.x0;
         this.start.pos = this.state.position._value;
         this.start.moved = false;
@@ -57,21 +57,21 @@ export default class SwitchBase extends Component {
             this.state.position.setValue(0);
           }
         }
-        let currentPos = this.state.position._value;
+        const currentPos = this.state.position._value;
         this.onSwipe(currentPos, this.start.pos,
           () => {
             if (!this.start.state) this.start.stateChanged = true;
-            this.setState({state: true})
+            this.setState({ state: true });
           },
           () => {
             if (this.start.state) this.start.stateChanged = true;
-            this.setState({state: false})
+            this.setState({ state: false });
           });
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
-        this.setState({pressed: false});
-        let currentPos = this.state.position._value;
+        this.setState({ pressed: false });
+        const currentPos = this.state.position._value;
         if (!this.start.moved || (Math.abs(currentPos - this.start.pos) < 5 && !this.start.stateChanged)) {
           this.toggle();
           return;
@@ -79,8 +79,8 @@ export default class SwitchBase extends Component {
         this.onSwipe(currentPos, this.start.pos, this.activate, this.deactivate);
       },
       onPanResponderTerminate: (evt, gestureState) => {
-        let currentPos = this.state.position._value;
-        this.setState({pressed: false});
+        const currentPos = this.state.position._value;
+        this.setState({ pressed: false });
         this.onSwipe(currentPos, this.start.pos, this.activate, this.deactivate);
       },
       onShouldBlockNativeResponder: (evt, gestureState) => true,
@@ -94,12 +94,10 @@ export default class SwitchBase extends Component {
       } else {
         onTerminate();
       }
+    } else if (currentPosition - startingPosition < -this.state.width / 2) {
+      onTerminate();
     } else {
-      if (currentPosition - startingPosition < -this.state.width / 2) {
-        onTerminate();
-      } else {
-        onChange();
-      }
+      onChange();
     }
   };
 
@@ -148,9 +146,9 @@ export default class SwitchBase extends Component {
   };
 
   changeState = (state) => {
-    let callHandlers = this.start.state != state;
+    const callHandlers = this.start.state != state;
     setTimeout(() => {
-      this.setState({state: state});
+      this.setState({ state });
       if (callHandlers) {
         this.callback();
       }
@@ -158,7 +156,7 @@ export default class SwitchBase extends Component {
   };
 
   callback = () => {
-    let state = this.state.state;
+    const state = this.state.state;
     if (state) {
       this.props.onActivate();
     } else {
@@ -178,12 +176,13 @@ export default class SwitchBase extends Component {
   };
 
   render() {
-    let padding = this.padding;
+    const padding = this.padding;
 
     return (
       <View
         {...this._panResponder.panHandlers}
-        style={{padding: this.padding, position: 'relative'}}>
+        style={{ padding: this.padding, position: 'relative' }}
+      >
         <View
           style={{
             backgroundColor: this.state.state ? this.props.activeBackgroundColor : this.props.inactiveBackgroundColor,
@@ -193,26 +192,32 @@ export default class SwitchBase extends Component {
             borderWidth: this.props.borderWidth,
             borderColor: this.props.borderColor,
             marginTop: (this.props.buttonRadius * 2 - this.props.switchHeight) / 2 - padding,
-          }}/>
-        <TouchableHighlight underlayColor='transparent' activeOpacity={1} style={{
-          height: Math.max(this.props.buttonRadius * 2 + padding, this.props.switchHeight + padding),
-          width: this.props.switchWidth + padding,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-        }}>
-          <Animated.View style={{
-            backgroundColor: this.state.state
-              ? (this.state.pressed ? this.props.activeButtonPressedColor : this.props.activeButtonColor)
-              : (this.state.pressed ? this.props.inactiveButtonPressedColor : this.props.inactiveButtonColor),
-            height: this.props.buttonRadius * 2,
-            width: this.props.buttonRadius * 2,
-            borderRadius: this.props.buttonRadius,
+          }}
+        />
+        <TouchableHighlight
+          underlayColor="transparent"
+          activeOpacity={1}
+          style={{
+            height: Math.max(this.props.buttonRadius * 2 + padding, this.props.switchHeight + padding),
+            width: this.props.switchWidth + padding,
             position: 'absolute',
             top: 0,
             left: 0,
-            transform: [{translateX: this.state.position}]
           }}
+        >
+          <Animated.View
+            style={{
+              backgroundColor: this.state.state
+              ? (this.state.pressed ? this.props.activeButtonPressedColor : this.props.activeButtonColor)
+              : (this.state.pressed ? this.props.inactiveButtonPressedColor : this.props.inactiveButtonColor),
+              height: this.props.buttonRadius * 2,
+              width: this.props.buttonRadius * 2,
+              borderRadius: this.props.buttonRadius,
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              transform: [{ translateX: this.state.position }]
+            }}
           >
             {this.props.buttonContent}
           </Animated.View>

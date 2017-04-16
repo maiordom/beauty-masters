@@ -58,12 +58,12 @@ export default class MasterAuthorization extends Component {
     activeTab.active = true;
     activeTab.style = styles.tabActive;
 
-    this.setState({tabs: [...tabs]});
+    this.setState({ tabs: [...tabs] });
   };
 
   render() {
-    const {tabs} = this.state;
-    const TabItem = _.find(tabs, {active: true}).component;
+    const { tabs } = this.state;
+    const TabItem = _.find(tabs, { active: true }).component;
 
     return (
       <View style={styles.container}>
@@ -80,24 +80,22 @@ export default class MasterAuthorization extends Component {
         </View>
         <Image style={styles.logo} source={logoIcon} />
         <View style={styles.tabs}>
-          {_.map(tabs, (tab, index) => {
-            return <TouchableHighlight
-              key={index}
-              style={styles.tabItem}
-              onPress={tab.action}
-              activeOpacity={1}
-              underlayColor="transparent"
-            >
-              <View>
-                <Text style={tab.style}>{tab.title}</Text>
-                <View style={styles.switchArrow}>
-                  {tab.active && (
-                    <Image source={switchArrowIcon} />
-                  )}
-                </View>
+          {_.map(tabs, (tab, index) => <TouchableHighlight
+            key={index}
+            style={styles.tabItem}
+            onPress={tab.action}
+            activeOpacity={1}
+            underlayColor="transparent"
+          >
+            <View>
+              <Text style={tab.style}>{tab.title}</Text>
+              <View style={styles.switchArrow}>
+                {tab.active && (
+                  <Image source={switchArrowIcon} />
+                )}
               </View>
-            </TouchableHighlight>;
-          })}
+            </View>
+          </TouchableHighlight>)}
         </View>
         <View style={styles.tabContent}>
           {TabItem}

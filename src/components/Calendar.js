@@ -55,7 +55,7 @@ export default class Calendar extends Component {
     const formatDate = 'YYYY-MM-DD';
 
     for (let i = todayDate; i <= dayInMonth; i++) {
-      let isoWeekday = momentStartDate.isoWeekday();
+      const isoWeekday = momentStartDate.isoWeekday();
 
       switch (interval) {
         case 'onWeekdays': {
@@ -65,7 +65,7 @@ export default class Calendar extends Component {
         } break;
         case 'onWeekends': {
           if ([6, 7].indexOf(isoWeekday) !== -1) {
-            events.push(momentStartDate.format(formatDate))
+            events.push(momentStartDate.format(formatDate));
           }
         } break;
         case 'wholeWeek': {
@@ -135,8 +135,8 @@ export default class Calendar extends Component {
           onTouchPrev={this.onMonthChange}
           prevButtonImage={icons.arrowLeft}
           selectedDate={selectedDate}
-          showControls={true}
-          showEventIndicators={true}
+          showControls
+          showEventIndicators
           width={containerWidth}
         />
       </View>

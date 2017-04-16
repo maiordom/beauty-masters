@@ -18,37 +18,37 @@ class InputBase extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onChangeText = value => {
-    const {formatValue, replaceReg} = this.props;
+    const { formatValue, replaceReg } = this.props;
 
     if (replaceReg) {
       value = value.replace(replaceReg, '');
     }
 
     if (formatValue) {
-      this.setState({value: formatValue(value)});
+      this.setState({ value: formatValue(value) });
     } else {
-      this.setState({value});
+      this.setState({ value });
     }
   };
 
   onFocus = () => {
-    this.setState({isFocused: true});
+    this.setState({ isFocused: true });
   };
 
   onBlur = () => {
-    const {replaceReg} = this.props;
+    const { replaceReg } = this.props;
     let value = this.state.value;
 
     if (replaceReg) {
       value = value.replace(replaceReg, '');
     }
 
-    this.setState({isFocused: false});
+    this.setState({ isFocused: false });
     this.props.onChange && this.props.onChange(value, this.props.modelName);
   };
 
   getValue() {
-    const {sign} = this.props;
+    const { sign } = this.props;
 
     let value = this.state.value;
 

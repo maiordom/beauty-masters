@@ -24,7 +24,7 @@ export default class Radio extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor='transparent'
+        underlayColor="transparent"
         activeOpacity={1}
         onPress={this.onPress}
         style={styles.container}

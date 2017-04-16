@@ -16,7 +16,7 @@ export default class Tabs extends Component {
       _.each(tabs, tab => (tab.title = tab.title.toUpperCase()));
     }
 
-    if (!_.find(tabs, {active: true})) {
+    if (!_.find(tabs, { active: true })) {
       tabs[0].active = true;
     }
   }
@@ -29,7 +29,7 @@ export default class Tabs extends Component {
       tab.active = index === activeIndex;
     });
 
-    this.setState({tabs: [...tabs]});
+    this.setState({ tabs: [...tabs] });
     this.props.onPress && this.props.onPress(tabActive);
   };
 
@@ -39,24 +39,22 @@ export default class Tabs extends Component {
 
     return (
       <View style={styles.tabs}>
-        {_.map(tabs, (tab, index) => {
-          return <TouchableHighlight
-            key={index}
-            style={[styles.tab, tab.active && styles.tabActive]}
-            onPress={() => onPress(index)}
-            activeOpacity={1}
-            underlayColor="transparent"
-          >
-            <View style={styles.tabContainer}>
-              <Text style={[styles.tabText, tab.active && styles.tabTextActive]}>{tab.title}</Text>
-              <View style={tab.active && styles.border}></View>
-            </View>
-          </TouchableHighlight>;
-        })}
+        {_.map(tabs, (tab, index) => <TouchableHighlight
+          key={index}
+          style={[styles.tab, tab.active && styles.tabActive]}
+          onPress={() => onPress(index)}
+          activeOpacity={1}
+          underlayColor="transparent"
+        >
+          <View style={styles.tabContainer}>
+            <Text style={[styles.tabText, tab.active && styles.tabTextActive]}>{tab.title}</Text>
+            <View style={tab.active && styles.border} />
+          </View>
+        </TouchableHighlight>)}
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   tabs: {

@@ -5,7 +5,7 @@ import MasterEditorCalendar from '../../components/MasterEditor/MasterEditorCale
 
 const mapDispatchToProps = dispatch => ({
   onCalendarPress(modelName) {
-    Actions.masterEditorCalendarSetting({modelName: modelName});
+    Actions.masterEditorCalendarSetting({ modelName });
   },
 
   onNextPress() {

@@ -23,8 +23,8 @@ export default class RangeTime extends Component {
 
   getStorage = (props) => {
     const { timeStart, timeEnd } = props;
-    const [ timeStartHour, timeStartMinute ] = timeStart.split(':');
-    const [ timeEndHour, timeEndMinute ] = timeEnd.split(':');
+    const [timeStartHour, timeStartMinute] = timeStart.split(':');
+    const [timeEndHour, timeEndMinute] = timeEnd.split(':');
 
     return {
       timeStart,
@@ -40,9 +40,7 @@ export default class RangeTime extends Component {
     this.state = this.getStorage(nextProps);
   }
 
-  formatTime = (hour, minute) => {
-    return hour + ':' + (minute < 10 ? '0' + minute : minute);
-  };
+  formatTime = (hour, minute) => `${hour}:${minute < 10 ? `0${minute}` : minute}`;
 
   onTimeStartPress = () => {
     const { timeStartHour, timeStartMinute } = this.state;
@@ -51,7 +49,7 @@ export default class RangeTime extends Component {
       hour: timeStartHour,
       minute: timeStartMinute,
       is24Hour: true,
-    }).then(({action, minute, hour}) => {
+    }).then(({ action, minute, hour }) => {
       if (action === TimePickerAndroid.timeSetAction) {
         const timeStart = this.formatTime(hour, minute);
 
@@ -73,14 +71,14 @@ export default class RangeTime extends Component {
       hour: timeEndHour,
       minute: timeEndMinute,
       is24Hour: true,
-    }).then(({action, minute, hour}) => {
+    }).then(({ action, minute, hour }) => {
       if (action === TimePickerAndroid.timeSetAction) {
         const timeEnd = this.formatTime(hour, minute);
 
         this.setState({
           timeEndHour: hour,
           timeEndMinute: minute,
-          timeEnd: timeEnd,
+          timeEnd,
         });
 
         this.props.onTimeEndChange(timeEnd, this.props.timeEndModelName);
@@ -98,7 +96,7 @@ export default class RangeTime extends Component {
       <View style={styles.container}>
         <TouchableHighlight
           activeOpacity={1}
-          underlayColor='transparent'
+          underlayColor="transparent"
           style={styles.button}
           onPress={this.onTimeStartPress}
         >
@@ -109,7 +107,7 @@ export default class RangeTime extends Component {
         </TouchableHighlight>
         <TouchableHighlight
           activeOpacity={1}
-          underlayColor='transparent'
+          underlayColor="transparent"
           style={styles.button}
           onPress={this.onTimeEndPress}
         >
