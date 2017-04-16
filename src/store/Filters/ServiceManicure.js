@@ -1,214 +1,217 @@
+/* @flow */
+
 import i18n from '../../i18n';
+import type { ServiceManicure } from '../../types';
 
 const parentServiceId = '1';
 
-const classicManicure = isActive => ({
+const classicManicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'ClassicManicure',
   id: '3',
   parentServiceId,
   title: i18n.filters.classic,
-});
+}: ServiceManicure);
 
-const hardwareManicure = isActive => ({
+const hardwareManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'HardwareManicure',
+  dictionaryKey: 'HardwareManicure',
   id: '4',
   parentServiceId,
   title: i18n.filters.hardware,
-});
+}: ServiceManicure);
 
-const europeanManicure = isActive => ({
+const europeanManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'EuropeanManicure',
+  dictionaryKey: 'EuropeanManicure',
   id: '5',
   parentServiceId,
   title: i18n.filters.european,
-});
+}: ServiceManicure);
 
-const combinedManicure = isActive => ({
+const combinedManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'CombinedManicure',
+  dictionaryKey: 'CombinedManicure',
   id: '6',
   parentServiceId,
   title: i18n.filters.combined,
-});
+}: ServiceManicure);
 
-const expressManicure = isActive => ({
+const expressManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ExpressManicure',
+  dictionaryKey: 'ExpressManicure',
   id: '7',
   parentServiceId,
   title: i18n.filters.express,
-});
+}: ServiceManicure);
 
-const hotManicure = isActive => ({
+const hotManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'HotManicure',
+  dictionaryKey: 'HotManicure',
   id: '8',
   parentServiceId,
   title: i18n.filters.hot,
-});
+}: ServiceManicure);
 
-const spaManicure = isActive => ({
+const spaManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'SPAManicure',
+  dictionaryKey: 'SPAManicure',
   id: '9',
   parentServiceId,
   title: i18n.filters.spa,
-});
+}: ServiceManicure);
 
-const applyingShellacManicure = isActive => ({
+const applyingShellacManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureShellac',
+  dictionaryKey: 'ManicureShellac',
   id: '12',
   parentServiceId,
   title: i18n.filters.applyingShellac,
-});
+}: ServiceManicure);
 
-const applyingBioGelManicure = isActive => ({
+const applyingBioGelManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureBiogel',
+  dictionaryKey: 'ManicureBiogel',
   id: '13',
   parentServiceId,
   title: i18n.filters.applyingBioGel,
-});
+}: ServiceManicure);
 
-const applyingNailPolishManicure = isActive => ({
+const applyingNailPolishManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureNailPolish',
+  dictionaryKey: 'ManicureNailPolish',
   id: '11',
   parentServiceId,
   title: i18n.filters.applyingNailPolish,
-});
+}: ServiceManicure);
 
-const applyingOfAnotherNailGelManicure = isActive => ({
+const applyingOfAnotherNailGelManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureOtherGel',
+  dictionaryKey: 'ManicureOtherGel',
   id: '14',
   parentServiceId,
   title: i18n.filters.applyingOfAnotherNailGel,
-});
+}: ServiceManicure);
 
-const frenchManicure = isActive => ({
+const frenchManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureFrench',
+  dictionaryKey: 'ManicureFrench',
   id: '16',
   parentServiceId,
   title: i18n.filters.french,
-});
+}: ServiceManicure);
 
-const moonManicure = isActive => ({
+const moonManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureReverseFrench',
+  dictionaryKey: 'ManicureReverseFrench',
   id: '17',
   parentServiceId,
   title: i18n.filters.moon,
-});
+}: ServiceManicure);
 
-const reverseMoonManicure = isActive => ({
+const reverseMoonManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureReverseMoon',
+  dictionaryKey: 'ManicureReverseMoon',
   id: '18',
   parentServiceId,
   title: i18n.filters.reverseMoon,
-});
+}: ServiceManicure);
 
-const stencilManicure = isActive => ({
+const stencilManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureStencil',
+  dictionaryKey: 'ManicureStencil',
   id: '19',
   parentServiceId,
   title: i18n.filters.stencil,
-});
+}: ServiceManicure);
 
-const artDesignManicure = isActive => ({
+const artDesignManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureArtDesign',
+  dictionaryKey: 'ManicureArtDesign',
   id: '20',
   parentServiceId,
   title: i18n.filters.artDesign,
-});
+}: ServiceManicure);
 
-const gradientManicure = isActive => ({
+const gradientManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureGradient',
+  dictionaryKey: 'ManicureGradient',
   id: '21',
   parentServiceId,
   title: i18n.filters.gradientManicure,
-});
+}: ServiceManicure);
 
-const extensionTipsAcrilycManicure = isActive => ({
+const extensionTipsAcrilycManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureExtensionTipsAcrilyc',
+  dictionaryKey: 'ManicureExtensionTipsAcrilyc',
   id: '23',
   parentServiceId,
   title: i18n.filters.extensionTipsAcrilyc,
-});
+}: ServiceManicure);
 
-const extensionFormsAcrilycManicure = isActive => ({
+const extensionFormsAcrilycManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureExtensionFormsAcrilyc',
+  dictionaryKey: 'ManicureExtensionFormsAcrilyc',
   id: '24',
   parentServiceId,
   title: i18n.filters.extensionFormsAcrilyc,
-});
+}: ServiceManicure);
 
-const extensionTipsGelManicure = isActive => ({
+const extensionTipsGelManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureExtensionTipsGel',
+  dictionaryKey: 'ManicureExtensionTipsGel',
   id: '25',
   parentServiceId,
   title: i18n.filters.extensionTipsGel,
-});
+}: ServiceManicure);
 
-const extensionAcrilycGelManicure = isActive => ({
+const extensionAcrilycGelManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureExtensionAcrilycGel',
+  dictionaryKey: 'ManicureExtensionAcrilycGel',
   id: '26',
   parentServiceId,
   title: i18n.filters.extensionAcrilycGel,
-});
+}: ServiceManicure);
 
-const removingNailPolishManicure = isActive => ({
+const removingNailPolishManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureRemovingNailPolish',
+  dictionaryKey: 'ManicureRemovingNailPolish',
   id: '28',
   parentServiceId,
   title: i18n.filters.removingNailPolish,
-});
+}: ServiceManicure);
 
-const removingShellacManicure = isActive => ({
+const removingShellacManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureRemovingShellac',
+  dictionaryKey: 'ManicureRemovingShellac',
   id: '29',
   parentServiceId,
   title: i18n.filters.removingShellac,
-});
+}: ServiceManicure);
 
-const removingBioGelManicure = isActive => ({
+const removingBioGelManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureRemovingBioGel',
+  dictionaryKey: 'ManicureRemovingBioGel',
   id: '30',
   parentServiceId,
   title: i18n.filters.removingBioGel,
-});
+}: ServiceManicure);
 
-const removingGeManicure = isActive => ({
+const removingGeManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureRemovingGe',
+  dictionaryKey: 'ManicureRemovingGe',
   id: '31',
   parentServiceId,
   title: i18n.filters.removingGe,
-});
+}: ServiceManicure);
 
-const removingNailsManicure = isActive => ({
+const removingNailsManicure = (isActive: boolean) => ({
   active: isActive,
-  dictionatyKey: 'ManicureRemovingNails',
+  dictionaryKey: 'ManicureRemovingNails',
   id: '32',
   parentServiceId,
   title: i18n.filters.removingNails,
-});
+}: ServiceManicure);
 
 export default {
   classicManicure,

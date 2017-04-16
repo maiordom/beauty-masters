@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
-import { View, StyleSheet, Image, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, Platform, TouchableWithoutFeedback, Text } from 'react-native';
 
 import MasterPhotoUpload from './MasterPhotoUpload';
 
 import vars from '../../vars';
+import constants from '../../constants/master';
 
 const icons = {
   remove: Platform.select({
@@ -51,9 +52,15 @@ export default class MasterPhotoList extends Component {
                     styles.mock,
                     styles.photo,
                     index === CHUNK_SIZE - 1 && styles.photoLast,
-                    { width: photoSize, height: photoSize }
-                  ]}
-                />);
+                    {width: photoSize, height: photoSize}
+                  ]}>
+                  {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
+                    <Text>In progress</Text>
+                  )}
+                  {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
+                    <Text>In queue</Text>
+                  )}
+                </View>;
               }
 
               return (<View
