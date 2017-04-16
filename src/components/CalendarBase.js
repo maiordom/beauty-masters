@@ -383,12 +383,11 @@ const Day = ({
             <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
           </View>
           {showEventIndicators && (
-            <View
-              style={[
-                styles.eventIndicatorFiller,
-                event && styles.eventIndicator,
-                event && event.eventIndicator]}
-            />
+            <View style={[
+              styles.eventIndicatorFiller,
+              event && styles.eventIndicator,
+              event && event.eventIndicator
+            ]}/>
           )}
         </View>
       </TouchableOpacity>

@@ -110,13 +110,11 @@ export default class Input extends InputBase {
     const value = this.getValue();
 
     return (
-      <View
-        style={[
-          inputStyle.inputWrapper,
-          inputWrapperStyle,
-          editable === false && inputStyle.inputDisabled
-        ]}
-      >
+      <View style={[
+        inputStyle.inputWrapper,
+        inputWrapperStyle,
+        editable === false && inputStyle.inputDisabled
+      ]}>
         {icon && (
           <Image source={icon} />
         )}
