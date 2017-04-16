@@ -1,5 +1,6 @@
 import reject from 'lodash/reject';
 import each from 'lodash/each';
+import map from 'lodash/map';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -18,7 +19,12 @@ const setParam = (action, state) => {
 };
 
 const updateSections = (action, parentServiceId, state) => {
-  each(state.searchForm[action.sectionName], sectionModel => {
+  const section = state.searchForm[action.sectionName];
+
+  state.searchForm = { ...state.searchForm };
+  state.searchForm[action.sectionName] = { ...section };
+
+  map(state.searchForm[action.sectionName], sectionModel => {
     if (sectionModel.parentServiceId === parentServiceId) {
       sectionModel.active = action.paramValue;
     }
