@@ -195,7 +195,9 @@ export default class SwitchBase extends Component {
           }}
         />
         <TouchableHighlight
-          underlayColor="transparent" activeOpacity={1} style={{
+          underlayColor="transparent"
+          activeOpacity={1}
+          style={{
             height: Math.max(this.props.buttonRadius * 2 + padding, this.props.switchHeight + padding),
             width: this.props.switchWidth + padding,
             position: 'absolute',
