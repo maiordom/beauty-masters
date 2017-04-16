@@ -5,7 +5,8 @@ const routes = {
 };
 
 const methods = [
-  {registerUser: 'user.registerUser'},
+  { registerUser: 'user.registerUser' },
+  { geoAutoComplete: 'geo.autocomplete' },
 ];
 
 methods.forEach((method, index) => {
@@ -14,7 +15,7 @@ methods.forEach((method, index) => {
   routes[routeName] = {
     id: index,
     method: method[routeName],
-  }
+  };
 });
 
 export default routes;

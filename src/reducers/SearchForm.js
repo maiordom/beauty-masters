@@ -1,6 +1,5 @@
 import reject from 'lodash/reject';
 import each from 'lodash/each';
-import update from 'immutability-helper';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -18,13 +17,9 @@ const setParam = (action, state) => {
   state.searchForm[sectionName][modelName] = { ...model };
 };
 
-const updateSections = (action, state) => {
-  const { sectionName, modelName } = action;
-  const section = state.searchForm[sectionName];
-  const model = section[modelName];
-
+const updateSections = (action, parentServiceId, state) => {
   each(state.searchForm[action.sectionName], sectionModel => {
-    if (sectionModel.parentServiceId === model.id) {
+    if (sectionModel.parentServiceId === parentServiceId) {
       sectionModel.active = action.paramValue;
     }
   });
@@ -32,11 +27,12 @@ const updateSections = (action, state) => {
 
 export default makeReducer((state, action) => ({
   [actions.SEARCH_TOOGLE_SERVICE]: () => {
+    const model = state.searchForm[action.sectionName][action.modelName];
+
     setParam(action, state);
-    updateSections(action, state);
+    updateSections(action, model.id, state);
 
     const { searchQuery } = state.searchForm;
-    const model = state.searchForm[action.sectionName][action.modelName];
 
     if (action.paramValue) {
       const service = { service_id: model.id };
@@ -44,6 +40,15 @@ export default makeReducer((state, action) => ({
     } else {
       searchQuery.services = reject(searchQuery.services, { service_id: model.id });
     }
+
+    return state;
+  },
+
+  [actions.SEARCH_TOOGLE_EXTENSION]: () => {
+    const parentServiceId = '1001';
+
+    updateSections({ sectionName: 'servicePedicure', paramValue: action.paramValue }, parentServiceId, state);
+    updateSections({ sectionName: 'serviceManicure', paramValue: action.paramValue }, parentServiceId, state);
 
     return state;
   },
@@ -94,4 +99,11 @@ export default makeReducer((state, action) => ({
     'searchForm.searchQuery',
     { isDeparture: !state.searchForm.searchQuery.isDeparture },
   ),
+
+  [actions.SEARCH_CITY_ADD]: () => {
+    const selected = state.searchForm.general.cities.items.find(city => city.id === action.id);
+
+    deepUpdate(state, 'searchForm.searchQuery', { cityId: action.id });
+    return deepUpdate(state, 'searchForm.general.cities', { selected });
+  },
 }));

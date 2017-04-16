@@ -31,7 +31,8 @@ export default class SearchFormShort extends Component {
       toogleService: Function,
       toggleDeparture: Function,
       setItemById: Function,
-      setDay: Function
+      setDay: Function,
+      toggleExtension: Function
     },
     serviceManicure: Object,
     servicePedicure: Object,
@@ -54,6 +55,10 @@ export default class SearchFormShort extends Component {
     (value, modelName) => {
       this.props.actions.toogleService(modelName, 'active', value, sectionName);
     };
+
+  onExtensionToggle = (value: boolean) => {
+    this.props.actions.toggleExtension(value);
+  };
 
   onDepartureToggle = () => this.props.actions.toggleDeparture();
 
@@ -114,7 +119,7 @@ export default class SearchFormShort extends Component {
           <FilterTab
             onChange={Actions.searchCity}
             title="Город"
-            subtitle="Москва"
+            subtitle={general.cities.selected.label}
           />
           <FilterTab
             onChange={Actions.searchAddress}
@@ -155,8 +160,25 @@ export default class SearchFormShort extends Component {
                 onChange={this.onServiceToggle('servicePedicure')}
                 withInput={false}
               />
-              <FilterCheckBox title={i18n.filters.nailExtensionShort} />
-              <FilterCheckBox title={i18n.filters.withdrawal} />
+              <FilterCheckBox
+                title={i18n.filters.nailExtensionShort}
+                active={every(filter(
+                  { ...servicePedicure, ...serviceManicure },
+                  service => service.parentServiceId === '1001' && ['22', '54'].includes(service.id),
+                ), { active: true })}
+                modelName="extensionShort"
+                onChange={this.onExtensionToggle}
+                withInput={false}
+              />
+              <FilterCheckBox
+                title={i18n.filters.withdrawal}
+                active={every(filter(
+                  servicePedicure,
+                  service => service.parentServiceId === '1002' && ['28', '60'].includes(service.id),
+                ), { active: true })}
+                onChange={() => {}}
+                withInput={false}
+              />
             </View>}
 
           {!showShortForm &&

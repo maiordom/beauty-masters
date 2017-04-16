@@ -4,8 +4,10 @@ import i18n from '../../i18n';
 import type { ServicePedicure } from '../../types';
 
 const parentServiceId = '33';
+const parentServiceIdExtension = '1001';
+const parentServiceIdRemoving = '1002';
 
-const pedicure = isActive => ({
+const pedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'Pedicure',
   id: '33',
@@ -149,11 +151,11 @@ const gradientPedicure = (isActive: boolean) => ({
   title: i18n.filters.gradientPedicure,
 }: ServicePedicure);
 
-const extensionPedicure = isActive => ({
+const extensionPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionatyKey: 'PedicureExtension',
   id: '54',
-  parentServiceId,
+  parentServiceId: parentServiceIdExtension,
   title: i18n.filters.nailExtension,
 });
 
@@ -161,7 +163,7 @@ const extensionTipsAcrilycPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureExtensionTipsAcrilyc',
   id: '55',
-  parentServiceId,
+  parentServiceId: parentServiceIdExtension,
   title: i18n.filters.extensionTipsAcrilyc,
 }: ServicePedicure);
 
@@ -169,7 +171,7 @@ const extensionFormsAcrilycPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureExtensionFormsAcrilyc',
   id: '56',
-  parentServiceId,
+  parentServiceId: parentServiceIdExtension,
   title: i18n.filters.extensionFormsAcrilyc,
 }: ServicePedicure);
 
@@ -177,7 +179,7 @@ const extensionTipsGelPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureExtensionTipsGel',
   id: '57',
-  parentServiceId,
+  parentServiceId: parentServiceIdExtension,
   title: i18n.filters.extensionTipsGel,
 }: ServicePedicure);
 
@@ -185,7 +187,7 @@ const extensionAcrilycGelPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureExtensionAcrilycGel',
   id: '58',
-  parentServiceId,
+  parentServiceId: parentServiceIdExtension,
   title: i18n.filters.extensionAcrilycGel,
 }: ServicePedicure);
 
@@ -193,7 +195,7 @@ const removingNailPolishPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureRemovingNailPolish',
   id: '60',
-  parentServiceId,
+  parentServiceId: parentServiceIdRemoving,
   title: i18n.filters.removingNailPolish,
 }: ServicePedicure);
 
@@ -201,7 +203,7 @@ const removingShellacPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureRemovingShellac',
   id: '61',
-  parentServiceId,
+  parentServiceId: parentServiceIdRemoving,
   title: i18n.filters.removingShellac,
 }: ServicePedicure);
 
@@ -209,7 +211,7 @@ const removingBioGelPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureRemovingBioGel',
   id: '62',
-  parentServiceId,
+  parentServiceId: parentServiceIdRemoving,
   title: i18n.filters.bioGel.gen,
 }: ServicePedicure);
 
@@ -217,7 +219,7 @@ const removingGePedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureRemovingGe',
   id: '63',
-  parentServiceId,
+  parentServiceId: parentServiceIdRemoving,
   title: i18n.filters.removingGe,
 }: ServicePedicure);
 
@@ -225,7 +227,7 @@ const removingNailsPedicure = (isActive: boolean) => ({
   active: isActive,
   dictionaryKey: 'PedicureRemovingNails',
   id: '64',
-  parentServiceId,
+  parentServiceId: parentServiceIdRemoving,
   title: i18n.filters.removingNails.gen,
 }: ServicePedicure);
 

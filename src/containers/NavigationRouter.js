@@ -32,10 +32,14 @@ const getSceneStyle = () => ({
 });
 
 function getMasterStyle(options = {}) {
-  const leftButtonIconStyle = {
-    width: 24,
-    height: 24,
-  };
+  let leftButtonIconStyle;
+
+  switch (options.navButtonType) {
+    case 'menu':
+      leftButtonIconStyle = { width: 20, height: 18 }; break;
+    default:
+      leftButtonIconStyle = { width: 24, height: 24 };
+  }
 
   const leftButtonStyle = {
     padding: 0,

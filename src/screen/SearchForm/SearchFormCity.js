@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import SearchFormCity from '../../components/SearchForm/SearchFormCity';
 
-import { searchCities, citiesReset } from '../../actions/search';
+import { searchCities, citiesReset, citiesAdd } from '../../actions/search';
 
 const mapStateToProps = state => ({
   cities: state.searchForm.general.cities,
@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    citiesAdd,
     searchCities,
     citiesReset,
   }, dispatch),
