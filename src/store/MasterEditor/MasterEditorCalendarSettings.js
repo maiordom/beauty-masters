@@ -3,18 +3,25 @@
 type CalendarFieldModel = {
   label: string,
   queryParam: string,
+  queryType: string,
   value: string | null,
 };
 
 type RecipientFieldModel = {
-  parentQueryParam: string,
   queryParam: string,
+  queryType: string,
   value: string | null,
 };
 
 type CustomDatesModel = {
+  fromQueryParamMapping: {
+    date: string,
+    active: string,
+    end_time: string,
+    start_time: string,
+  },
   items: Array<any>,
-  parentQueryParam: string,
+  queryAction: string,
   queryParam: string,
   queryParamMapping: {
     date: string,
@@ -28,8 +35,9 @@ type CustomDatesModel = {
 
 type IntervalGroupModel = {
   items: Array<any>,
-  parentQueryParam: string,
+  queryAction: string,
   queryParam: string,
+  queryType: string,
 };
 
 import i18n from '../../i18n';
@@ -58,6 +66,7 @@ const streetField = (street: string) => ({
 const districtField = (district: string) => ({
   label: i18n.district,
   queryParam: 'district',
+  queryType: 'value',
   value: district || null,
 }: CalendarFieldModel);
 
@@ -83,29 +92,31 @@ const buildingField = (building: string) => ({
 }: CalendarFieldModel);
 
 const timeStartField = ({ time_start }: { time_start: string } = {}) => ({
-  parentQueryParam: 'recipients',
   queryParam: 'time_start',
   queryType: 'value',
   value: time_start || '10:00',
 }: RecipientFieldModel);
 
 const timeEndField = ({ time_end }: { time_end: string } = {}) => ({
-  parentQueryParam: 'recipients',
   queryParam: 'time_end',
   queryType: 'value',
   value: time_end || '20:00',
 }: RecipientFieldModel);
 
 const startDateField = ({ start_date }: { start_date: string } = {}) => ({
-  parentQueryParam: 'recipients',
   queryParam: 'start_date',
   queryType: 'value',
   value: start_date || null,
 }: RecipientFieldModel);
 
 const customDates = () => ({
+  fromQueryParamMapping: {
+    date: 'date',
+    active: 'status',
+    end_time: 'timeEnd',
+    start_time: 'timeStart',
+  },
   items: [],
-  parentQueryParam: 'recipients',
   queryAction: 'fill',
   queryParam: 'custom_recipients',
   queryParamMapping: {
@@ -114,12 +125,6 @@ const customDates = () => ({
     timeEnd: 'end_time',
     timeStart: 'start_time',
   },
-  fromQueryParamMapping: {
-    date: 'date',
-    active: 'status',
-    end_time: 'timeEnd',
-    start_time: 'timeStart',
-  },
   queryType: 'items',
   timeEndDefault: '20:00',
   timeStartDefault: '10:00',
@@ -127,12 +132,11 @@ const customDates = () => ({
 
 const intervalGroup = () => ({
   items: [
-    { label: i18n.schedule.wholeWeek, id: '1', key: 'wholeWeek' },
-    { label: i18n.schedule.twoAfterTwo, id: '4', key: 'twoAfterTwo' },
-    { label: i18n.schedule.onWeekdays, id: '2', key: 'onWeekdays' },
-    { label: i18n.schedule.onWeekends, id: '3', key: 'onWeekends' },
+    { label: i18n.schedule.wholeWeek, id: 1, key: 'wholeWeek' },
+    { label: i18n.schedule.twoAfterTwo, id: 4, key: 'twoAfterTwo' },
+    { label: i18n.schedule.onWeekdays, id: 2, key: 'onWeekdays' },
+    { label: i18n.schedule.onWeekends, id: 3, key: 'onWeekends' },
   ],
-  parentQueryParam: 'recipients',
   queryAction: 'select',
   queryParam: 'interval_id',
   queryType: 'items',

@@ -42,40 +42,32 @@ const setCalendarParam = (action, state) => {
   const createMasterQuery = state.masterEditor.createMasterQuery;
   const section = state.masterEditor[action.sectionName];
   const model = section[action.modelName];
-  let calendarSettingsObject = createMasterQuery.address[section.index];
+  let calendarSettingsObject = createMasterQuery.master_addresses[section.index];
 
   if (!calendarSettingsObject) {
     calendarSettingsObject = {
-      recipients: {
-        custom_recipients: [],
-      },
+      custom_recipients: [],
     };
-    createMasterQuery.address[section.index] = calendarSettingsObject;
+    createMasterQuery.master_addresses[section.index] = calendarSettingsObject;
   }
 
-  if (model.parentQueryParam) {
-    calendarSettingsObject[model.parentQueryParam][model.queryParam] = action.paramValue;
-  } else {
-    calendarSettingsObject[model.queryParam] = action.paramValue;
-  }
-};
+  calendarSettingsObject[model.queryParam] = action.paramValue;
+}
 
 const setCalendarRecipientDate = (action, state) => {
   const createMasterQuery = state.masterEditor.createMasterQuery;
   const section = state.masterEditor[action.sectionName];
   const model = section[action.modelName];
-  let calendarSettingsObject = createMasterQuery.address[section.index];
+  let calendarSettingsObject = createMasterQuery.master_addresses[section.index];
 
   if (!calendarSettingsObject) {
     calendarSettingsObject = {
-      recipients: {
-        custom_recipients: [],
-      },
+      custom_recipients: [],
     };
-    createMasterQuery.address[section.index] = calendarSettingsObject;
+    createMasterQuery.master_addresses[section.index] = calendarSettingsObject;
   }
 
-  const dates = calendarSettingsObject[model.parentQueryParam][model.queryParam];
+  const dates = calendarSettingsObject[model.queryParam];
   const date = find(dates, action.date);
 
   if (date) {
@@ -110,7 +102,7 @@ const removePhotoParam = (state, model, fileName) => {
 export default makeReducer((state, action) => ({
   [actions.MASTER_DATA_SET]: () => {
     const { data } = action;
-    const { services, address } = data;
+    const { services, master_addresses } = data;
     const {
       calendarSettingsOne,
       calendarSettingsThree,
@@ -128,27 +120,22 @@ export default makeReducer((state, action) => ({
       calendarSettingsThree,
     ];
 
-    each(address, (addressItem, index) => {
+    each(master_addresses, (addressItem, index) => {
       const calendarObject = calendarsMapping[index];
 
       each(calendarObject, calendarModel => {
         const {
-          parentQueryParam,
           queryAction,
           queryParam,
           queryType,
         } = calendarModel;
 
         if (queryType === 'value') {
-          if (parentQueryParam) {
-            calendarModel.value = addressItem[parentQueryParam][queryParam];
-          } else {
-            calendarModel.value = addressItem[queryParam];
-          }
+          calendarModel.value = addressItem[queryParam];
         }
 
         if (queryType === 'items' && queryAction === 'fill') {
-          const items = addressItem[parentQueryParam][queryParam];
+          const items = addressItem[queryParam];
 
           each(items, item => {
             const object = {};
@@ -163,7 +150,7 @@ export default makeReducer((state, action) => ({
 
         if (queryType === 'items' && queryAction === 'select') {
           calendarModel.items.forEach(item => {
-            item.active = item.id === addressItem[parentQueryParam][queryParam];
+            item.active = item.id === addressItem[queryParam];
 
             if (item.active) {
               calendarModel.selected = item;
@@ -398,5 +385,4 @@ export default makeReducer((state, action) => ({
   }
 }), null, state => {
   console.log(state.masterEditor.createMasterQuery);
-  console.log(state.masterEditor.calendarSettingsOne);
 });

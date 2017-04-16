@@ -18,7 +18,10 @@ export default class App extends Component {
     registerUser('maiordom@yandex.ru', 'qwerty')();
   }
 
-  render() {
+  componentDidMount() {
+  }
+
+  render () {
     return (
       <Provider store={store}>
         <RootContainer />
