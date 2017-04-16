@@ -6,7 +6,7 @@ export default {
   configureCalendar: 'Настройте календарь',
   city: 'Город',
   currency: {
-    roubleSign: '₽',
+    roubleSign: 'р',
   },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   days: {

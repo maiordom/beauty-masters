@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 
 import Tabs from '../Tabs';
 import ButtonControl from '../ButtonControl';
-import ServicesListManicure from '../ServicesListManicure';
+import  ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
 import Label from '../Label';
 
