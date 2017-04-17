@@ -14,7 +14,12 @@ export const setItemById = (modelName: string, id: number, sectionName: string) 
   sectionName,
 });
 
-export const toogleService = (modelName: string, paramName: string, paramValue: boolean, sectionName: string) => ({
+export const toogleService = (
+  modelName: string,
+  paramName: string,
+  paramValue: boolean,
+  sectionName: string
+) => ({
   type: actions.SEARCH_TOOGLE_SERVICE,
   modelName,
   paramName,
@@ -67,8 +72,6 @@ const addresses = [
 export const searchAddress = (address: string) => (dispatch: (ActionSetItems) => null) => {
   SearchService.geoAutoComplete({ query: address })
     .then(response => {
-      console.log(response);
-
       dispatch({
         type: actions.SEARCH_ITEMS_SET,
         items: addresses.slice(0, address.length),
@@ -86,4 +89,8 @@ export const addressesReset = () => ({
 
 export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });
 
-export const citiesReset = () => ({ type: actions.SEARCH_ITEMS_RESET, modelName: 'cities', sectionName: 'general' });
+export const citiesReset = () => ({
+  type: actions.SEARCH_ITEMS_RESET,
+  modelName: 'cities',
+  sectionName: 'general'
+});
