@@ -12,9 +12,7 @@ import {
 
 import SearchForm from '../../components/SearchForm/SearchForm';
 
-const mapStateToProps = state => ({
-  ...state.searchForm,
-});
+const mapStateToProps = state => state.searchForm;
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
