@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  View,
   Image,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
