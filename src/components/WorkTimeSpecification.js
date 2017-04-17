@@ -42,7 +42,11 @@ export default class WorkTimeSpecification extends Component {
 
     const diff = difference(
       [timeStart, timeEnd, workInThisDay],
-      [timeStartDefault, timeEndDefault, workInThisDayDefault === undefined ? true : workInThisDayDefault],
+      [
+        timeStartDefault,
+        timeEndDefault,
+        workInThisDayDefault === undefined ? true : workInThisDayDefault,
+      ],
     );
 
     if (!diff.length) {
