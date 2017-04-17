@@ -52,8 +52,7 @@ export default class SearchFormShort extends Component {
     this.setState({ showShortForm: !this.state.showShortForm });
   };
 
-  onServiceToggle: ServiceToggleType = sectionName =>
-    (value, modelName) => {
+  onServiceToggle: ServiceToggleType = sectionName => (value, modelName) => {
       this.props.actions.toogleService(modelName, 'active', value, sectionName);
     };
 
