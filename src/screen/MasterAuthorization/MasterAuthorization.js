@@ -90,9 +90,7 @@ export default class MasterAuthorization extends Component {
             <View>
               <Text style={tab.style}>{tab.title}</Text>
               <View style={styles.switchArrow}>
-                {tab.active && (
-                <Image source={switchArrowIcon} />
-                  )}
+                {tab.active && (<Image source={switchArrowIcon} />)}
               </View>
             </View>
           </TouchableHighlight>)}
