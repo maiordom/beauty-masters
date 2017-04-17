@@ -13,9 +13,7 @@ const setParam = (action, state) => {
 
   model[paramName] = paramValue;
 
-  state.searchForm = { ...state.searchForm };
-  state.searchForm[sectionName] = { ...section };
-  state.searchForm[sectionName][modelName] = { ...model };
+  deepUpdate(state, `searchForm.${sectionName}`, { [`${modelName}`]: model });
 };
 
 const updateSections = (action, parentServiceId, state) => {
