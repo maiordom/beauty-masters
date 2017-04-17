@@ -66,7 +66,8 @@ export default class SearchFormBlockManicure extends Component {
               withInput={false}
             />
             <FilterCheckBox {...service.extensionManicure} onChange={onChange} withInput={false} />
-          </View>}
+          </View>
+        }
       </View>
     );
   }

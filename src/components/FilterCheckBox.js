@@ -37,7 +37,7 @@ export default class FilterCheckBox extends Component {
         >
           <View style={styles.buttonContent}>
             <Text style={styles.title}>{title}</Text>
-            <Checkbox onPress={this.onPress} checked={active} ref={ref => { this.checkboxRef = ref; }} />
+            <Checkbox onPress={this.onPress} checked={active} ref={ref => { this.f = ref; }} />
           </View>
         </TouchableHighlight>
         {active && withInput && (

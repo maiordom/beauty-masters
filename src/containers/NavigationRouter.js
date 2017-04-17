@@ -88,8 +88,15 @@ function getMasterStyle(options = {}) {
 export default () => (
   <Router sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
-      <Scene initial key="root" hideNavBar animationStyle="leftToRight">
-        <Scene key="presentation" component={Presentation} />
+      <Scene
+        initial
+        key="root"
+        hideNavBar
+        animationStyle="leftToRight"
+      ><Scene
+        key="presentation"
+        component={Presentation}
+      />
         <Scene
           key="searchForm"
           {...getMasterStyle({ navButtonType: 'menu' })}
@@ -112,8 +119,7 @@ export default () => (
           component={SearchFormAddress}
         />
         <Scene key="masterAuthorization" component={MasterAuthorization} />
-        <Scene
-          key="masterEditorGeneral"
+        <Scene key="masterEditorGeneral"
           {...getMasterStyle()}
           leftButtonIconStyle={{ width: 0, height: 0 }}
           title={i18n.masterEditor.generalInformation}
@@ -158,7 +164,8 @@ export default () => (
       </Scene>
     </Scene>
   </Router>
-);
+    );
+
 
 const styles = StyleSheet.create({
   container: {

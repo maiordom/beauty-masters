@@ -3,9 +3,9 @@
 export type ServiceManicure = {
   active: boolean,
   dictionaryKey: string,
-  duration?: number,
-  id: string,
-  parentServiceId: string,
+  duration?: string,
+  id: number,
+  parentServiceId: number,
   price?: number,
   title: string,
 };

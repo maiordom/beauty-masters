@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 
 import vars from '../vars';
-
 import { shouldComponentUpdate } from '../utils';
 
 export default class Filter extends Component {

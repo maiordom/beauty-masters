@@ -249,7 +249,7 @@ export default class Calendar extends Component {
       renderIndex += 1;
     } while (true);
 
-    return <View key={argMoment.month()} style={this.styles.monthContainer || styles.monthContainer}>{weekRows}</View>;
+    return (<View key={argMoment.month()} style={this.styles.monthContainer || styles.monthContainer}>{weekRows}</View>);
   }
 
   renderHeading() {
@@ -342,25 +342,31 @@ const Day = ({
   onPress,
   showEventIndicators,
   isDisable,
-}) => (
-  filler
-    ? <TouchableWithoutFeedback>
-      <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
-        <Text style={styles.day} />
-      </View>
-    </TouchableWithoutFeedback>
-    : <TouchableOpacity onPress={onPress}>
-      <View style={dayStyles.dayButton || styles.dayButton}>
-        <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
-          <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
+}) => filler
+    ? (
+      <TouchableWithoutFeedback>
+        <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
+          <Text style={styles.day} />
         </View>
-        {showEventIndicators &&
-        <View
-          style={[styles.eventIndicatorFiller, event && styles.eventIndicator, event && event.eventIndicator]}
-        />}
-      </View>
-    </TouchableOpacity>
-);
+      </TouchableWithoutFeedback>
+    )
+    : (
+      <TouchableOpacity onPress={onPress}>
+        <View style={dayStyles.dayButton || styles.dayButton}>
+          <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
+            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
+          </View>
+          {showEventIndicators && (
+            <View style={[
+              styles.eventIndicatorFiller,
+              event && styles.eventIndicator,
+              event && event.eventIndicator,
+            ]}
+            />
+          )}
+        </View>
+      </TouchableOpacity>
+    );
 
 Day.dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
   const dayCircleStyle = [styles.dayCircleFiller];

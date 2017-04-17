@@ -155,13 +155,13 @@ export default class SearchFormShort extends Component {
             <View>
               <FilterCheckBox
                 {...serviceManicure.manicure}
-                active={every(filter(serviceManicure, service => service.parentServiceId === '1'), { active: true })}
+                active={every(filter(serviceManicure, service => service.parentServiceId === 1), { active: true })}
                 onChange={this.onServiceToggle('serviceManicure')}
                 withInput={false}
               />
               <FilterCheckBox
                 {...servicePedicure.pedicure}
-                active={every(filter(servicePedicure, service => service.parentServiceId === '33'), { active: true })}
+                active={every(filter(servicePedicure, service => service.parentServiceId === 33), { active: true })}
                 onChange={this.onServiceToggle('servicePedicure')}
                 withInput={false}
               />
@@ -169,7 +169,7 @@ export default class SearchFormShort extends Component {
                 title={i18n.filters.nailExtensionShort}
                 active={every(filter(
                   { ...servicePedicure, ...serviceManicure },
-                  service => service.parentServiceId === '1001' && ['22', '54'].includes(service.id),
+                  service => service.parentServiceId === 1001 && [22, 54].includes(service.id),
                 ), { active: true })}
                 modelName="extensionShort"
                 onChange={this.onExtensionToggle}
@@ -179,12 +179,13 @@ export default class SearchFormShort extends Component {
                 title={i18n.filters.withdrawal}
                 active={every(filter(
                   { ...servicePedicure, ...serviceManicure },
-                  service => service.parentServiceId === '1002',
+                  service => service.parentServiceId === 1002,
                 ), { active: true })}
                 onChange={this.onWithdrawalToggle}
                 withInput={false}
               />
-            </View>}
+            </View>
+          }
 
           {!showShortForm &&
             <SearchFormBlockManicure service={serviceManicure} onChange={this.onServiceToggle('serviceManicure')} />}

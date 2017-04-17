@@ -37,14 +37,12 @@ export default class MasterPhotoList extends Component {
           <View key={index} style={styles.photos}>
             {chunk.map((item, index) => {
               if (item.type === 'select') {
-                return (
-                  <MasterPhotoUpload
-                    key={index}
-                    onPress={this.onPhotoSelectPress}
-                    photoSize={photoSize}
-                    wrapperPhotoSize={wrapperPhotoSize}
-                  />
-                );
+                return (<MasterPhotoUpload
+                  key={index}
+                  onPress={this.onPhotoSelectPress}
+                  photoSize={photoSize}
+                  wrapperPhotoSize={wrapperPhotoSize}
+                />);
               }
 
               if (item.type === 'mock') {
@@ -56,9 +54,8 @@ export default class MasterPhotoList extends Component {
                     index === CHUNK_SIZE - 1 && styles.photoLast,
                     { width: photoSize, height: photoSize },
                   ]}
-                >
-                  {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                    <Text>In progress</Text>
+                >                                {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
+                <Text>In progress</Text>
                   )}
                   {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
                     <Text>In queue</Text>
@@ -66,26 +63,20 @@ export default class MasterPhotoList extends Component {
                 </View>);
               }
 
-              return (
-                <View
-                  key={index}
-                  style={[
-                    styles.photo,
-                    index === CHUNK_SIZE - 1 && styles.photoLast,
-                    { width: wrapperPhotoSize, height: wrapperPhotoSize },
-                  ]}
-                >
-                  <Image
-                    source={{ uri: item.mediaUrl + item.sizes.s }}
-                    style={{ width: photoSize, height: photoSize }}
-                  />
-                  <TouchableWithoutFeedback
-                    onPress={() => this.onPhotoRemovePress(item.id)}
-                  >
-                    <Image source={icons.remove} style={styles.icon} />
-                  </TouchableWithoutFeedback>
-                </View>
-              );
+              return (<View
+                key={index}
+                style={[
+                  styles.photo,
+                  index === CHUNK_SIZE - 1 && styles.photoLast,
+                  { width: wrapperPhotoSize, height: wrapperPhotoSize },
+                ]}
+              >                                <Image
+                source={{ uri: item.mediaUrl + item.sizes.s }}
+                style={{ width: photoSize, height: photoSize }}
+              />
+                <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id)}><Image source={icons.remove} style={styles.icon} />
+                </TouchableWithoutFeedback>
+              </View>);
             })}
           </View>
         ))}

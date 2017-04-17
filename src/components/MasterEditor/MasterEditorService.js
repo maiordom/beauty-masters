@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 
 import Tabs from '../Tabs';
 import ButtonControl from '../ButtonControl';
-import  ServicesListManicure from '../ServicesListManicure';
+import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
 import Label from '../Label';
 
@@ -31,7 +31,7 @@ export default class MasterEditorService extends Component {
   };
 
   onChangePrice = (price, modelName) => {
-    this.props.actions.setServiceParam(modelName, 'price', price, this.state.tabActiveKey);
+    this.props.actions.setServiceParam(modelName, 'price', Number(price), this.state.tabActiveKey);
   };
 
   onChangeDuration = (duration, modelName) => {

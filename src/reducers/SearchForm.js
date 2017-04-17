@@ -51,7 +51,7 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.SEARCH_TOOGLE_EXTENSION]: () => {
-    const parentServiceId = '1001';
+    const parentServiceId = 1001;
 
     updateSections({ sectionName: 'servicePedicure', paramValue: action.paramValue }, parentServiceId, state);
     updateSections({ sectionName: 'serviceManicure', paramValue: action.paramValue }, parentServiceId, state);
@@ -60,7 +60,7 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.SEARCH_TOOGLE_WITHDRAWAL]: () => {
-    const parentServiceId = '1002';
+    const parentServiceId = 1002;
 
     updateSections({ sectionName: 'servicePedicure', paramValue: action.paramValue }, parentServiceId, state);
     updateSections({ sectionName: 'serviceManicure', paramValue: action.paramValue }, parentServiceId, state);

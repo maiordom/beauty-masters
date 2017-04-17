@@ -195,7 +195,9 @@ export default class SwitchBase extends Component {
           }}
         />
         <TouchableHighlight
-          underlayColor="transparent" activeOpacity={1} style={{
+          underlayColor="transparent"
+          activeOpacity={1}
+          style={{
             height: Math.max(this.props.buttonRadius * 2 + padding, this.props.switchHeight + padding),
             width: this.props.switchWidth + padding,
             position: 'absolute',
@@ -206,8 +208,8 @@ export default class SwitchBase extends Component {
           <Animated.View
             style={{
               backgroundColor: this.state.state
-              ? (this.state.pressed ? this.props.activeButtonPressedColor : this.props.activeButtonColor)
-              : (this.state.pressed ? this.props.inactiveButtonPressedColor : this.props.inactiveButtonColor),
+                  ? (this.state.pressed ? this.props.activeButtonPressedColor : this.props.activeButtonColor)
+                  : (this.state.pressed ? this.props.inactiveButtonPressedColor : this.props.inactiveButtonColor),
               height: this.props.buttonRadius * 2,
               width: this.props.buttonRadius * 2,
               borderRadius: this.props.buttonRadius,
