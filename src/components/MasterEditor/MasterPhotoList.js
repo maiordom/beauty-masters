@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
-import { View, StyleSheet, Image, Dimensions, Platform, TouchableWithoutFeedback, Text } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import MasterPhotoUpload from './MasterPhotoUpload';
 
@@ -54,8 +62,9 @@ export default class MasterPhotoList extends Component {
                     index === CHUNK_SIZE - 1 && styles.photoLast,
                     { width: photoSize, height: photoSize },
                   ]}
-                >                                {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                <Text>In progress</Text>
+                >
+                  {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
+                    <Text>In progress</Text>
                   )}
                   {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
                     <Text>In queue</Text>
@@ -70,11 +79,13 @@ export default class MasterPhotoList extends Component {
                   index === CHUNK_SIZE - 1 && styles.photoLast,
                   { width: wrapperPhotoSize, height: wrapperPhotoSize },
                 ]}
-              >                                <Image
-                source={{ uri: item.mediaUrl + item.sizes.s }}
-                style={{ width: photoSize, height: photoSize }}
-              />
-                <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id)}><Image source={icons.remove} style={styles.icon} />
+              >
+                <Image
+                  source={{ uri: item.mediaUrl + item.sizes.s }}
+                  style={{ width: photoSize, height: photoSize }}
+                />
+                <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id)}>
+                  <Image source={icons.remove} style={styles.icon} />
                 </TouchableWithoutFeedback>
               </View>);
             })}
