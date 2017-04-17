@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
 import {
-  Image,
   Dimensions,
+  Image,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-  StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 
 import vars from '../vars';
@@ -249,7 +249,11 @@ export default class Calendar extends Component {
       renderIndex += 1;
     } while (true);
 
-    return (<View key={argMoment.month()} style={this.styles.monthContainer || styles.monthContainer}>{weekRows}</View>);
+    return (<View
+      key={argMoment.month()}
+      style={this.styles.monthContainer || styles.monthContainer}>
+      {weekRows}
+    </View>);
   }
 
   renderHeading() {
@@ -281,7 +285,8 @@ export default class Calendar extends Component {
               ? <Image source={prevButtonImage} />
               : <Text style={styles.controlButtonText}>
                 {this.props.prevButtonText}
-              </Text>}
+              </Text>
+          }
         </TouchableOpacity>
         <Text style={styles.title}>
           {localizedMonth} {this.state.currentMonthMoment.year()}
@@ -291,7 +296,8 @@ export default class Calendar extends Component {
               ? <Image source={nextButtonImage} />
               : <Text style={styles.controlButtonText}>
                 {this.props.nextButtonText}
-              </Text>}
+              </Text>
+          }
         </TouchableOpacity>
       </View>
       : <View style={styles.calendarControls}>
