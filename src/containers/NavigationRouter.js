@@ -93,10 +93,11 @@ export default () => (
         key="root"
         hideNavBar
         animationStyle="leftToRight"
-      ><Scene
-        key="presentation"
-        component={Presentation}
-      />
+      >
+        <Scene
+          key="presentation"
+          component={Presentation}
+        />
         <Scene
           key="searchForm"
           {...getMasterStyle({ navButtonType: 'menu' })}
@@ -164,8 +165,7 @@ export default () => (
       </Scene>
     </Scene>
   </Router>
-    );
-
+);
 
 const styles = StyleSheet.create({
   container: {
