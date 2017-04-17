@@ -27,6 +27,11 @@ export const toggleExtension = (paramValue: boolean) => ({
   paramValue,
 });
 
+export const toggleWithdrawal = (paramValue: boolean) => ({
+  type: actions.SEARCH_TOOGLE_WITHDRAWAL,
+  paramValue,
+});
+
 export const toggleDeparture = () => ({ type: actions.SEARCH_DEPARTURE_TOGGLE });
 
 type ActionSetItems = {

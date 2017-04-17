@@ -59,6 +59,15 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.SEARCH_TOOGLE_WITHDRAWAL]: () => {
+    const parentServiceId = '1002';
+
+    updateSections({ sectionName: 'servicePedicure', paramValue: action.paramValue }, parentServiceId, state);
+    updateSections({ sectionName: 'serviceManicure', paramValue: action.paramValue }, parentServiceId, state);
+
+    return state;
+  },
+
   [actions.SEARCH_SET_DAY]: () => {
     state.searchForm.searchQuery.schedule = [action.day];
 

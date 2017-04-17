@@ -32,7 +32,8 @@ export default class SearchFormShort extends Component {
       toggleDeparture: Function,
       setItemById: Function,
       setDay: Function,
-      toggleExtension: Function
+      toggleExtension: Function,
+      toggleWithdrawal: Function
     },
     serviceManicure: Object,
     servicePedicure: Object,
@@ -58,6 +59,10 @@ export default class SearchFormShort extends Component {
 
   onExtensionToggle = (value: boolean) => {
     this.props.actions.toggleExtension(value);
+  };
+
+  onWithdrawalToggle = (value: boolean) => {
+    this.props.actions.toggleWithdrawal(value);
   };
 
   onDepartureToggle = () => this.props.actions.toggleDeparture();
@@ -173,10 +178,10 @@ export default class SearchFormShort extends Component {
               <FilterCheckBox
                 title={i18n.filters.withdrawal}
                 active={every(filter(
-                  servicePedicure,
-                  service => service.parentServiceId === '1002' && ['28', '60'].includes(service.id),
+                  { ...servicePedicure, ...serviceManicure },
+                  service => service.parentServiceId === '1002',
                 ), { active: true })}
-                onChange={() => {}}
+                onChange={this.onWithdrawalToggle}
                 withInput={false}
               />
             </View>}
