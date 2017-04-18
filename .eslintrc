@@ -26,6 +26,7 @@
     "consistent-return": 0,
     "react/require-default-props": 1,
     "react/forbid-prop-types": 1,
-    "import/prefer-default-export": 1
+    "import/prefer-default-export": 1,
+    "react/prefer-stateless-function": 0
   }
 }
