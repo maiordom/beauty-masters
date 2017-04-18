@@ -85,12 +85,8 @@ export default makeReducer((state, action) => ({
       }
     });
 
-    state.searchForm = { ...state.searchForm };
-    state.searchForm[sectionName] = { ...section };
-    state.searchForm[sectionName][modelName] = { ...model };
-    state.searchForm[sectionName][modelName].items = [...model.items];
-
-    state.searchForm.searchQuery.master_type = model.selected.id;
+    deepUpdate(state, `searchForm.${sectionName}.${modelName}`, { items: [...model.items] });
+    deepUpdate(state, 'searchForm.searchQuery', { master_type: model.selected.id });
 
     return state;
   },
