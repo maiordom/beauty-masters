@@ -2,6 +2,8 @@
 import each from 'lodash/each';
 import moment from 'moment';
 
+import type { SearchQueryType } from '../../types';
+
 import ServiceManicure from '../Filters/ServiceManicure';
 import ServicePedicure from '../Filters/ServicePedicure';
 import General from './General';
@@ -23,19 +25,6 @@ each({
     params[sectionName][fieldObject.modelName] = fieldObject;
   });
 });
-
-type SearchQueryType = {
-  cityId: string,
-  services: Array<any>,
-  master_type: number,
-  coordinates?: {
-    longitude: string,
-    latitude: string
-  },
-  radius: number,
-  schedule: Array<string>,
-  isDeparture: boolean
-};
 
 const searchQuery: SearchQueryType = {
   cityId: '175849',

@@ -9,7 +9,7 @@ import every from 'lodash/every';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-import type { ServiceToggleType, MasterTypeSelectType, SelectCalendarDateType } from './SearchFormTypes';
+import type { ServiceToggleType, MasterTypeSelectType, SelectCalendarDateType } from '../../types/SearchFormTypes';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
@@ -53,8 +53,8 @@ export default class SearchFormShort extends Component {
   };
 
   onServiceToggle: ServiceToggleType = sectionName => (value, modelName) => {
-      this.props.actions.toogleService(modelName, 'active', value, sectionName);
-    };
+    this.props.actions.toogleService(modelName, 'active', value, sectionName);
+  };
 
   onExtensionToggle = (value: boolean) => {
     this.props.actions.toggleExtension(value);
@@ -106,6 +106,26 @@ export default class SearchFormShort extends Component {
       selectedDate,
     } = this.state;
 
+    const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
+
+    const isManicureActive = every(filter(
+      serviceManicure, service => service.parentServiceId === 1,
+    ), { active: true });
+
+    const isPedicureActive = every(filter(
+      servicePedicure, service => service.parentServiceId === 33,
+    ), { active: true });
+
+    const isExtensionActive = every(filter(
+      { ...servicePedicure, ...serviceManicure },
+      service => service.parentServiceId === 1001 && [22, 54].includes(service.id),
+    ), { active: true });
+
+    const isWithdrawalActive = every(filter(
+      { ...servicePedicure, ...serviceManicure },
+      service => service.parentServiceId === 1002,
+    ), { active: true });
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.content}>
@@ -122,13 +142,13 @@ export default class SearchFormShort extends Component {
           <FilterLabel text={i18n.search.masterPlace} />
           <FilterTab
             onChange={Actions.searchCity}
-            title="Город"
+            title={i18n.city}
             subtitle={general.cities.selected.label}
           />
           <FilterTab
             onChange={Actions.searchAddress}
             title={i18n.search.nearWith}
-            subtitle="Мое текущее месторасположение"
+            subtitle={i18n.location.here}
           />
           <FilterCheckBox
             title={i18n.search.masterToHome}
@@ -140,7 +160,7 @@ export default class SearchFormShort extends Component {
           <FilterLabel text={i18n.search.generalInfo} />
           <FilterTab
             title={i18n.filters.masterType.title}
-            subtitle={find(general.masterType.items, { active: true }).label}
+            subtitle={masterTypeSubtitle}
             onChange={this.toggleMasterTypeModal}
           />
           <SearchFormMasterType
@@ -154,32 +174,26 @@ export default class SearchFormShort extends Component {
             <View>
               <FilterCheckBox
                 {...serviceManicure.manicure}
-                active={every(filter(serviceManicure, service => service.parentServiceId === 1), { active: true })}
+                active={isManicureActive}
                 onChange={this.onServiceToggle('serviceManicure')}
                 withInput={false}
               />
               <FilterCheckBox
                 {...servicePedicure.pedicure}
-                active={every(filter(servicePedicure, service => service.parentServiceId === 33), { active: true })}
+                active={isPedicureActive}
                 onChange={this.onServiceToggle('servicePedicure')}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
-                active={every(filter(
-                  { ...servicePedicure, ...serviceManicure },
-                  service => service.parentServiceId === 1001 && [22, 54].includes(service.id),
-                ), { active: true })}
+                active={isExtensionActive}
                 modelName="extensionShort"
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.withdrawal}
-                active={every(filter(
-                  { ...servicePedicure, ...serviceManicure },
-                  service => service.parentServiceId === 1002,
-                ), { active: true })}
+                active={isWithdrawalActive}
                 onChange={this.onWithdrawalToggle}
                 withInput={false}
               />
@@ -194,10 +208,7 @@ export default class SearchFormShort extends Component {
 
           <ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
-            customStyles={{
-              nextButton: { backgroundColor: vars.color.lightGrey },
-              nextText: { color: vars.color.red },
-            }}
+            customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
             onPress={this.toggleForm}
           />
           <ButtonControl label={i18n.findMaster} onPress={() => {}} />
@@ -244,5 +255,11 @@ const styles = StyleSheet.create({
     padding: 0,
     alignItems: 'center',
     left: 16,
+  },
+  nextButton: {
+    backgroundColor: vars.color.lightGrey,
+  },
+  nextText: {
+    color: vars.color.red,
   },
 });

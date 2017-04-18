@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
 import moment from 'moment';
 
-import type { SelectCalendarDateType } from './SearchFormTypes';
+import type { SelectCalendarDateType } from '../../types/SearchFormTypes';
 
 import Calendar from '../Calendar';
 

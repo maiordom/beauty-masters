@@ -7,7 +7,7 @@ import Input from '../Input';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-export default class SearchFormLocation extends Component {
+export default class SearchFormAddress extends Component {
   onChange = value => this.searchAddress(value);
 
   searchAddress = debounce(value => this.props.actions.searchAddress(value), 300);

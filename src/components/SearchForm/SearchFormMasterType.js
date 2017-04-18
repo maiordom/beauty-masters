@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
 
-import type { MasterTypeSelectType } from './SearchFormTypes';
+import type { MasterTypeSelectType } from '../../types/SearchFormTypes';
 
 import RadioGroup from '../RadioGroup';
 

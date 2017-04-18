@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-import type { ServiceToggleType } from './SearchFormTypes';
+import type { ServiceToggleType } from '../../types/SearchFormTypes';
 
 import FilterSubLabel from '../../components/FilterSubLabel';
 import FilterCheckBox from '../../components/FilterCheckBox';

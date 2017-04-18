@@ -1,7 +1,3 @@
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
-import isNumber from 'lodash/isNumber';
-
 export function hexToRgba(hex, opacity = 100) {
   const hexValue = hex.replace('#', '');
   const r = parseInt(hexValue.substring(0, 2), 16);
@@ -96,8 +92,8 @@ export const capitalizeFirstLetter = word => `${word.charAt(0).toUpperCase()}${w
 /**
  * deepUpdate object byt path
  * @param {Object} obj - state for example
- * @param {string} path - dot like path to property
- * @param {any} value - new proprety
+ * @param {String} path - dot like path to property
+ * @param {Object} changes - new proprety
  * @returns {Object}
  */
 
@@ -109,8 +105,6 @@ export function deepUpdate(obj, path, changes) {
     parentLink[pathItem] = { ...parentLink[pathItem] };
     parentLink = parentLink[pathItem];
   });
-
-  console.log(parentLink)
 
   Object.assign(parentLink, changes);
 
