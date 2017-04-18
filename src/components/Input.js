@@ -20,7 +20,7 @@ class InputBase extends Component {
 
   debounceOnChange = () => debounce(() => {
     this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
-  }, this.props.debounce || 1000)();
+  }, this.props.debounceTimer || 1000)();
 
   onChangeText = value => {
     const { formatValue, replaceReg } = this.props;
@@ -29,11 +29,10 @@ class InputBase extends Component {
       value = value.replace(replaceReg, '');
     }
 
-    if (formatValue) {
-      this.setState({ value: formatValue(value) }, this.debounceOnChange);
-    } else {
-      this.setState({ value }, this.debounceOnChange);
-    }
+    this.setState(
+      { value: formatValue ? formatValue(value) : value },
+      () => this.props.debounce && this.debounceOnChange(),
+    );
   };
 
   onFocus = () => {
@@ -41,7 +40,15 @@ class InputBase extends Component {
   };
 
   onBlur = () => {
+    const { replaceReg } = this.props;
+    let value = this.state.value;
+
+    if (replaceReg) {
+      value = value.replace(replaceReg, '');
+    }
+
     this.setState({ isFocused: false });
+    this.props.onChange && this.props.onChange(value, this.props.modelName);
   };
 
   getValue() {
