@@ -69,9 +69,17 @@ const addresses = [
   { label: 'Кружская', id: 18 },
 ];
 
-export const searchAddress = (address: string) => (dispatch: (ActionSetItems) => null) => {
-  SearchService.geoAutoComplete({ query: address })
+export const searchAddress = (address: string) => (dispatch: (ActionSetItems) => null, getState: () => Object) => {
+  const state = getState();
+
+  const query = `${state.searchForm.general.cities.selected.label} ${address}`;
+
+  console.log(query);
+
+  SearchService.geoAutoComplete({ query })
     .then(response => {
+      console.log(response);
+      console.log(response.json());
       dispatch({
         type: actions.SEARCH_ITEMS_SET,
         items: addresses.slice(0, address.length),

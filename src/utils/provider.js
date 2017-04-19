@@ -10,4 +10,5 @@ export const post = (method, params) => (
     jsonrpc: '2.0',
     params,
   }))
+  .then(response => response.json())
 );

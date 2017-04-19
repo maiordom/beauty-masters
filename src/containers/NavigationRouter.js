@@ -10,6 +10,7 @@ import MasterEditorHandlingTools from '../screen/MasterEditor/MasterEditorHandli
 import MasterEditorCalendar from '../screen/MasterEditor/MasterEditorCalendar';
 import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCalendarSettings';
 import MasterEditorInfo from '../screen/MasterEditor/MasterEditorInfo';
+import MasterEditorCreateSuccess from '../screen/MasterEditor/MasterEditorCreateSuccess';
 
 import SearchForm from '../screen/SearchForm/SearchForm';
 import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
@@ -96,7 +97,7 @@ export default () => (
       >
         <Scene
           key="presentation"
-          component={Presentation}
+          hideNavBarcomponent={Presentation}
         />
         <Scene
           key="searchForm"
@@ -162,10 +163,19 @@ export default () => (
           getSceneStyle={getSceneStyle}
           component={MasterEditorInfo}
         />
+        <Scene
+          key="createMasterSuccess"
+          {...getMasterStyle()}
+          title={i18n.registrationComplete.sceneTitle}
+          getSceneStyle={getSceneStyle}
+          leftButtonIconStyle={{ width: 0, height: 0 }}
+          component={MasterEditorCreateSuccess}
+        />
       </Scene>
     </Scene>
   </Router>
-);
+    );
+
 
 const styles = StyleSheet.create({
   container: {
