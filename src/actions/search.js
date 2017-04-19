@@ -18,7 +18,7 @@ export const toogleService = (
   modelName: string,
   paramName: string,
   paramValue: boolean,
-  sectionName: string
+  sectionName: string,
 ) => ({
   type: actions.SEARCH_TOOGLE_SERVICE,
   modelName,
@@ -87,7 +87,7 @@ export const searchAddress = (address: string) => (dispatch: (ActionSetItems) =>
         sectionName: 'general',
       });
     });
-}
+};
 
 export const addressesReset = () => ({
   type: actions.SEARCH_ITEMS_RESET,
@@ -100,5 +100,5 @@ export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id })
 export const citiesReset = () => ({
   type: actions.SEARCH_ITEMS_RESET,
   modelName: 'cities',
-  sectionName: 'general'
+  sectionName: 'general',
 });
