@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
 import {
-  Image,
   Dimensions,
+  Image,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-  StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 
 import vars from '../vars';
@@ -36,7 +36,7 @@ export default class Calendar extends Component {
         dayButtonFiller: {
           width: props.width / 7,
           padding: 5,
-        }
+        },
       });
     }
   }
@@ -52,24 +52,19 @@ export default class Calendar extends Component {
     disableSelectDate: PropTypes.bool,
     eventDates: PropTypes.array,
     monthNames: PropTypes.array,
-    nextButtonText: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    nextButtonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onDateSelect: PropTypes.func,
     onSwipeNext: PropTypes.func,
     onSwipePrev: PropTypes.func,
     onTouchNext: PropTypes.func,
     onTouchPrev: PropTypes.func,
-    prevButtonText: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    prevButtonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     scrollEnabled: PropTypes.bool,
     selectedDate: PropTypes.any,
     showControls: PropTypes.bool,
     showEventIndicators: PropTypes.bool,
     startDate: PropTypes.any,
+    activeFrom: PropTypes.instanceOf(moment),
     titleFormat: PropTypes.string,
     today: PropTypes.any,
     weekStart: PropTypes.number,
@@ -192,6 +187,7 @@ export default class Calendar extends Component {
   }
 
   renderMonthView(argMoment, eventsMap) {
+    const { activeFrom } = this.props;
     let renderIndex = 0;
     const weekRows = [];
     let days = [];
@@ -207,42 +203,44 @@ export default class Calendar extends Component {
     const selectedIndex = moment(selectedMoment).date() - 1;
     const selectedMonthIsArg = selectedMoment.isSame(argMoment, 'month');
 
-    const events = (eventsMap !== null)
-      ? eventsMap[argMoment.startOf('month').format()]
-      : null;
+    const events = eventsMap !== null ? eventsMap[argMoment.startOf('month').format()] : null;
 
     do {
       const dayIndex = renderIndex - offset;
       const isoWeekday = renderIndex % 7;
 
+      let isDisable;
+
+      if (activeFrom) {
+        isDisable = moment(moment(startOfArgMonthMoment).set('date', dayIndex)).isBefore(activeFrom, 'day');
+      }
+
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
-        days.push((
+        days.push(
           <Day
             dayStyles={this.styles}
+            isDisable={isDisable}
+            styles={this.styles}
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
-            onPress={() => {
-              this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1));
-            }}
+            onPress={isDisable ? null : () => this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
             caption={`${dayIndex + 1}`}
-            isToday={argMonthIsToday && (dayIndex === todayIndex)}
-            isSelected={selectedMonthIsArg && (dayIndex === selectedIndex)}
+            isToday={argMonthIsToday && dayIndex === todayIndex}
+            isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
             event={events && events[dayIndex]}
             showEventIndicators={this.props.showEventIndicators}
-          />
-        ));
+          />,
+        );
       } else {
         days.push(<Day dayStyles={this.styles} key={`${renderIndex}`} filler />);
       }
       if (renderIndex % 7 === 6) {
         weekRows.push(
-          <View
-            key={weekRows.length}
-            style={styles.weekRow}
-          >
+          <View key={weekRows.length} style={styles.weekRow}>
             {days}
-          </View>);
+          </View>,
+        );
         days = [];
         if (dayIndex + 1 >= argMonthDaysCount) {
           break;
@@ -253,11 +251,9 @@ export default class Calendar extends Component {
 
     return (<View
       key={argMoment.month()}
-      style={
-        this.styles.monthContainer ||
-        styles.monthContainer
-      }
-    >{weekRows}</View>);
+      style={this.styles.monthContainer || styles.monthContainer}>
+      {weekRows}
+    </View>);
   }
 
   renderHeading() {
@@ -265,14 +261,9 @@ export default class Calendar extends Component {
 
     for (let i = 0; i < 7; i++) {
       headings.push(
-        <Text
-          key={i}
-          style={i === 5 || i === 6 ?
-            styles.weekendHeading :
-            styles.dayHeading}
-        >
+        <Text key={i} style={i === 5 || i === 6 ? styles.weekendHeading : styles.dayHeading}>
           {this.props.dayHeadings[i]}
-        </Text>
+        </Text>,
       );
     }
 
@@ -288,42 +279,32 @@ export default class Calendar extends Component {
     const { prevButtonImage, nextButtonImage } = this.props;
 
     return this.props.showControls
-      ? (
-        <View style={styles.calendarControls}>
-          <TouchableOpacity
-            style={styles.controlButton}
-            onPress={this.onPrev}
-          >
-            {prevButtonImage
+      ? <View style={styles.calendarControls}>
+        <TouchableOpacity style={styles.controlButton} onPress={this.onPrev}>
+          {prevButtonImage
               ? <Image source={prevButtonImage} />
               : <Text style={styles.controlButtonText}>
                 {this.props.prevButtonText}
               </Text>
-            }
-          </TouchableOpacity>
-          <Text style={styles.title}>
-            {localizedMonth} {this.state.currentMonthMoment.year()}
-          </Text>
-          <TouchableOpacity
-            style={styles.controlButton}
-            onPress={this.onNext}
-          >
-            {nextButtonImage
+          }
+        </TouchableOpacity>
+        <Text style={styles.title}>
+          {localizedMonth} {this.state.currentMonthMoment.year()}
+        </Text>
+        <TouchableOpacity style={styles.controlButton} onPress={this.onNext}>
+          {nextButtonImage
               ? <Image source={nextButtonImage} />
               : <Text style={styles.controlButtonText}>
                 {this.props.nextButtonText}
               </Text>
-            }
-          </TouchableOpacity>
-        </View>
-      )
-      : (
-        <View style={styles.calendarControls}>
-          <Text style={styles.title}>
-            {this.state.currentMonthMoment.format(this.props.titleFormat)}
-          </Text>
-        </View>
-      );
+          }
+        </TouchableOpacity>
+      </View>
+      : <View style={styles.calendarControls}>
+        <Text style={styles.title}>
+          {this.state.currentMonthMoment.format(this.props.titleFormat)}
+        </Text>
+      </View>;
   }
 
   render() {
@@ -334,8 +315,8 @@ export default class Calendar extends Component {
       <View style={styles.calendarContainer}>
         {this.renderTopBar()}
         {this.renderHeading(this.props.titleFormat)}
-        {this.props.scrollEnabled ?
-          <ScrollView
+        {this.props.scrollEnabled
+          ? <ScrollView
             ref={calendar => this._calendar = calendar}
             horizontal
             scrollEnabled
@@ -344,15 +325,13 @@ export default class Calendar extends Component {
             scrollEventThrottle={1000}
             showsHorizontalScrollIndicator={false}
             automaticallyAdjustContentInsets
-            onMomentumScrollEnd={(event) => this.scrollEnded(event)}
+            onMomentumScrollEnd={event => this.scrollEnded(event)}
           >
-            {calendarDates.map((date) => this.renderMonthView(moment(date), eventDatesMap))}
+            {calendarDates.map(date => this.renderMonthView(moment(date), eventDatesMap))}
           </ScrollView>
-          :
-          <View ref={calendar => this._calendar = calendar}>
-            {calendarDates.map((date) => this.renderMonthView(moment(date), eventDatesMap))}
-          </View>
-        }
+          : <View ref={calendar => this._calendar = calendar}>
+            {calendarDates.map(date => this.renderMonthView(moment(date), eventDatesMap))}
+          </View>}
       </View>
     );
   }
@@ -368,6 +347,7 @@ const Day = ({
   isWeekend,
   onPress,
   showEventIndicators,
+  isDisable,
 }) => filler
     ? (
       <TouchableWithoutFeedback>
@@ -380,14 +360,15 @@ const Day = ({
       <TouchableOpacity onPress={onPress}>
         <View style={dayStyles.dayButton || styles.dayButton}>
           <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
-            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event)}>{caption}</Text>
+            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
           </View>
           {showEventIndicators && (
             <View style={[
               styles.eventIndicatorFiller,
               event && styles.eventIndicator,
-              event && event.eventIndicator
-            ]}/>
+              event && event.eventIndicator,
+            ]}
+            />
           )}
         </View>
       </TouchableOpacity>
@@ -415,7 +396,7 @@ Day.dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
   return dayCircleStyle;
 };
 
-Day.dayTextStyle = (isWeekend, isSelected, isToday, event) => {
+Day.dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
   const dayTextStyle = [styles.day];
 
   if (isSelected) {
@@ -432,6 +413,9 @@ Day.dayTextStyle = (isWeekend, isSelected, isToday, event) => {
     dayTextStyle.push(styles.hasEventText, event.hasEventText);
   }
 
+  if (isDisable) {
+    dayTextStyle.push(styles.isDisable);
+  }
   return dayTextStyle;
 };
 
@@ -448,8 +432,7 @@ Day.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  calendarContainer: {
-  },
+  calendarContainer: {},
   monthContainer: {
     width: DEVICE_WIDTH,
   },
@@ -511,7 +494,7 @@ const styles = StyleSheet.create({
     width: 4,
     height: 4,
     borderRadius: 2,
-    top: -4
+    top: -4,
   },
   eventIndicator: {
     backgroundColor: '#000',
@@ -523,22 +506,19 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 30,
   },
-  currentDayCircle: {
-  },
-  currentDayText: {
-  },
+  currentDayCircle: {},
+  currentDayText: {},
   selectedDayCircle: {
     backgroundColor: vars.color.red,
   },
-  hasEventCircle: {
-  },
-  hasEventDaySelectedCircle: {
-  },
-  hasEventText: {
+  hasEventCircle: {},
+  hasEventDaySelectedCircle: {},
+  hasEventText: {},
+  isDisable: {
+    color: vars.color.grey,
   },
   selectedDayText: {
     color: vars.color.white,
   },
-  weekendDayText: {
-  },
+  weekendDayText: {},
 });

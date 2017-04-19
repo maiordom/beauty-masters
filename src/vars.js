@@ -12,6 +12,6 @@ export default {
 
     borderColorAndroid: '#E4E6E8',
     placeholderColor: '#283741',
-    underlineColorAndroid: '#E4E6E8'
-  }
+    underlineColorAndroid: '#E4E6E8',
+  },
 };

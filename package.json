@@ -9,7 +9,8 @@
     "flow:start": "node_modules/.bin/flow start",
     "flow:stop": "node_modules/.bin/flow stop",
     "lint": "node_modules/.bin/eslint src",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "android": "react-native run-android"
   },
   "lint-staged": {
     "*.js": [
@@ -18,6 +19,7 @@
     ]
   },
   "dependencies": {
+    "immutability-helper": "^2.1.2",
     "lodash": "~4.17.x",
     "moment": "2.17.1",
     "react": "15.4.2",
@@ -42,10 +44,11 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "flow-bin": "0.36.0",
-    "husky": "^0.13.3",
+    "invariant": "2.2.2",
     "jest": "18.1.0",
     "lint-staged": "^3.4.0",
-    "react-test-renderer": "15.4.2"
+    "react-test-renderer": "15.4.2",
+    "redux-logger": "^3.0.0"
   },
   "jest": {
     "preset": "react-native"

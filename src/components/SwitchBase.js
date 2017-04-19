@@ -107,7 +107,7 @@ export default class SwitchBase extends Component {
       {
         toValue: this.state.width,
         duration: this.props.switchAnimationTime,
-      }
+      },
     ).start();
     this.changeState(true);
   };
@@ -118,7 +118,7 @@ export default class SwitchBase extends Component {
       {
         toValue: 0,
         duration: this.props.switchAnimationTime,
-      }
+      },
     ).start();
     this.changeState(false);
   };
@@ -208,15 +208,15 @@ export default class SwitchBase extends Component {
           <Animated.View
             style={{
               backgroundColor: this.state.state
-              ? (this.state.pressed ? this.props.activeButtonPressedColor : this.props.activeButtonColor)
-              : (this.state.pressed ? this.props.inactiveButtonPressedColor : this.props.inactiveButtonColor),
+                ? (this.state.pressed ? this.props.activeButtonPressedColor : this.props.activeButtonColor)
+                : (this.state.pressed ? this.props.inactiveButtonPressedColor : this.props.inactiveButtonColor),
               height: this.props.buttonRadius * 2,
               width: this.props.buttonRadius * 2,
               borderRadius: this.props.buttonRadius,
               position: 'absolute',
               top: 0,
               left: 0,
-              transform: [{ translateX: this.state.position }]
+              transform: [{ translateX: this.state.position }],
             }}
           >
             {this.props.buttonContent}
@@ -246,5 +246,5 @@ SwitchBase.defaultProps = {
   borderColor: '#ddd',
   onActivate: () => {},
   onDeactivate: () => {},
-  onChangeState: () => {}
+  onChangeState: () => {},
 };

@@ -3,7 +3,7 @@ import { Image, TouchableWithoutFeedback, StyleSheet, Platform, View } from 'rea
 
 const uploadIcon = require('../../icons/android/photo-upload@2x.png');
 const addIcon = Platform.select({
-  android: require('../../icons/android/add.png')
+  android: require('../../icons/android/add.png'),
 });
 
 export const MasterPhotoUpload = ({ onPress, photoSize, wrapperPhotoSize }) => (
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     bottom: 0,
-  }
+  },
 });
 
 export default MasterPhotoUpload;

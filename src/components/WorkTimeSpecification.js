@@ -45,8 +45,8 @@ export default class WorkTimeSpecification extends Component {
       [
         timeStartDefault,
         timeEndDefault,
-        workInThisDayDefault === undefined ? true : workInThisDayDefault
-      ]
+        workInThisDayDefault === undefined ? true : workInThisDayDefault,
+      ],
     );
 
     if (!diff.length) {
@@ -82,7 +82,7 @@ export default class WorkTimeSpecification extends Component {
           <Switch
             title={i18n.workInThisDay}
             value={workInThisDay}
-            customStyles={styles.switch}
+            customStyles={{ container: styles.switch }}
             onChange={this.onStatusChange}
           />
           <RangeTime
@@ -134,5 +134,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: vars.color.red,
-  }
+  },
 });

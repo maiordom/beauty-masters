@@ -9,7 +9,7 @@ import vars from '../vars';
 
 const i18nSignUp = Platform.select({
   ios: i18n.signUp,
-  android: i18n.signUp.toUpperCase()
+  android: i18n.signUp.toUpperCase(),
 });
 
 export default class Registration extends Component {
@@ -52,38 +52,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 15,
-    marginRight: 15
+    marginRight: 15,
   },
   input: {
     ...Platform.select({
       android: {
-        marginLeft: 16
-      }
-    })
+        marginLeft: 16,
+      },
+    }),
   },
   manifest: {
     marginTop: 15,
     ...Platform.select({
       ios: {
-        alignItems: 'center'
-      }
-    })
+        alignItems: 'center',
+      },
+    }),
   },
   registrationText: {
-    color: vars.color.grey
+    color: vars.color.grey,
   },
   agreementText: {
-    color: vars.color.red
+    color: vars.color.red,
   },
   manifestText: {
     ...Platform.select({
       ios: {
-        width: 290
-      }
-    })
+        width: 290,
+      },
+    }),
   },
   wrapper: {
-    flex: 1
+    flex: 1,
   },
   registrationButton: {
     marginBottom: 15,
@@ -97,16 +97,16 @@ const styles = StyleSheet.create({
       android: {
         height: 48,
         width: 240,
-        borderRadius: 24
-      }
-    })
+        borderRadius: 24,
+      },
+    }),
   },
   registrationButtonText: {
     color: vars.color.white,
     ...Platform.select({
       ios: {
-        fontSize: 17
-      }
-    })
-  }
+        fontSize: 17,
+      },
+    }),
+  },
 });

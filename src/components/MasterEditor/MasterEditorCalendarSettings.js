@@ -95,6 +95,6 @@ export default class MasterEditorCalendarSettings extends Component {
 
 const styles = StyleSheet.create({
   gap: {
-    height: 36
-  }
+    height: 36,
+  },
 });

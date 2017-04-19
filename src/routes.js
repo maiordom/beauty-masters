@@ -7,6 +7,7 @@ const routes = {
 const methods = [
   { registerUser: 'user.registerUser' },
   { createMaster: 'master.createMaster' },
+  { geoAutoComplete: 'geo.autocomplete' },
 ];
 
 methods.forEach((method, index) => {

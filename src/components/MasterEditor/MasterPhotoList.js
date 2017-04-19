@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
-import { View, StyleSheet, Image, Dimensions, Platform, TouchableWithoutFeedback, Text } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import MasterPhotoUpload from './MasterPhotoUpload';
 
@@ -10,7 +18,7 @@ import constants from '../../constants/master';
 
 const icons = {
   remove: Platform.select({
-    android: require('../../icons/android/remove.png')
+    android: require('../../icons/android/remove.png'),
   }),
 };
 
@@ -46,23 +54,22 @@ export default class MasterPhotoList extends Component {
               }
 
               if (item.type === 'mock') {
-                return (
-                  <View
-                    key={index}
-                    style={[
-                      styles.mock,
-                      styles.photo,
-                      index === CHUNK_SIZE - 1 && styles.photoLast,
-                      {width: photoSize, height: photoSize}
-                    ]}>
-                    {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                      <Text>In progress</Text>
-                    )}
-                    {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
-                      <Text>In queue</Text>
-                    )}
-                  </View>
-                );
+                return (<View
+                  key={index}
+                  style={[
+                    styles.mock,
+                    styles.photo,
+                    index === CHUNK_SIZE - 1 && styles.photoLast,
+                    { width: photoSize, height: photoSize },
+                  ]}
+                >
+                  {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
+                    <Text>In progress</Text>
+                  )}
+                  {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
+                    <Text>In queue</Text>
+                  )}
+                </View>);
               }
 
               return (<View
@@ -70,7 +77,7 @@ export default class MasterPhotoList extends Component {
                 style={[
                   styles.photo,
                   index === CHUNK_SIZE - 1 && styles.photoLast,
-                  { width: wrapperPhotoSize, height: wrapperPhotoSize }
+                  { width: wrapperPhotoSize, height: wrapperPhotoSize },
                 ]}
               >
                 <Image
@@ -109,5 +116,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-  }
+  },
 });

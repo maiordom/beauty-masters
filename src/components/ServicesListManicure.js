@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import Filter from './Filter';

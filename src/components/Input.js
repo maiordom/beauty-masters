@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TextInput, StyleSheet, View, Platform, Image } from 'react-native';
+import debounce from 'lodash/debounce';
 
 import vars from '../vars';
 
@@ -17,6 +18,10 @@ class InputBase extends Component {
 
   shouldComponentUpdate = shouldComponentUpdate();
 
+  debounceOnChange = () => debounce(() => {
+    this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
+  }, this.props.debounceTimer || 1000)();
+
   onChangeText = value => {
     const { formatValue, replaceReg } = this.props;
 
@@ -24,11 +29,10 @@ class InputBase extends Component {
       value = value.replace(replaceReg, '');
     }
 
-    if (formatValue) {
-      this.setState({ value: formatValue(value) });
-    } else {
-      this.setState({ value });
-    }
+    this.setState(
+      { value: formatValue ? formatValue(value) : value },
+      () => this.props.debounce && this.debounceOnChange(),
+    );
   };
 
   onFocus = () => {
@@ -110,14 +114,8 @@ export default class Input extends InputBase {
     const value = this.getValue();
 
     return (
-      <View style={[
-        inputStyle.inputWrapper,
-        inputWrapperStyle,
-        editable === false && inputStyle.inputDisabled
-      ]}>
-        {icon && (
-          <Image source={icon} />
-        )}
+      <View style={[inputStyle.inputWrapper, inputWrapperStyle, editable === false && inputStyle.inputDisabled]}>
+        {icon && <Image source={icon} />}
         <TextInput
           editable={editable !== undefined ? editable : true}
           keyboardType={keyboardType}
@@ -145,9 +143,9 @@ const inputStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderBottomWidth: 1,
-        borderBottomColor: '#E4E6E8'
-      }
-    })
+        borderBottomColor: '#E4E6E8',
+      },
+    }),
   },
   input: {
     flex: 1,
@@ -156,10 +154,10 @@ const inputStyle = StyleSheet.create({
     ...Platform.select({
       android: {
         height: 48,
-        fontSize: 16
-      }
-    })
-  }
+        fontSize: 16,
+      },
+    }),
+  },
 });
 
 const inputWithLabelStyle = StyleSheet.create({
@@ -168,9 +166,9 @@ const inputWithLabelStyle = StyleSheet.create({
     justifyContent: 'center',
     ...Platform.select({
       android: {
-        height: 72
-      }
-    })
+        height: 72,
+      },
+    }),
   },
   label: {
     fontSize: 12,
@@ -182,8 +180,8 @@ const inputWithLabelStyle = StyleSheet.create({
     ...Platform.select({
       android: {
         height: 40,
-        fontSize: 16
-      }
+        fontSize: 16,
+      },
     }),
-  }
+  },
 });

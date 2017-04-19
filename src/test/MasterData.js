@@ -37,7 +37,7 @@ const createMasterQuery: CreateMasterQuery = {
       subway_station: 'Водный стадион',
       time_end: '21:20',
       time_start: '13:30',
-    }
+    },
   ],
   master_photos: [],
   passport: '',
@@ -59,7 +59,7 @@ const createMasterQuery: CreateMasterQuery = {
       duration: '56',
       price: 700,
       service_id: 35, // ClassicPedicure
-    }
+    },
   ],
   work_photos: [],
 };

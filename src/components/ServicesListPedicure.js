@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
-import Filter from './Filter';
+import FilterCheckBox from './FilterCheckBox';
 
 import i18n from '../i18n';
 
@@ -44,40 +44,40 @@ export default class ServicesListPedicure extends Component {
     return (
       <View>
         <FilterLabel text={i18n.filters.nailProcessingMethod} />
-        <Filter {...classicPedicure} onChange={this.onChange} />
-        <Filter {...hardwarePedicure} onChange={this.onChange} />
-        <Filter {...europeanPedicure} onChange={this.onChange} />
-        <Filter {...combinedPedicure} onChange={this.onChange} />
-        <Filter {...expressPedicure} onChange={this.onChange} />
-        <Filter {...hotPedicure} onChange={this.onChange} />
-        <Filter {...spaPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...classicPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...hardwarePedicure} onChange={this.onChange} />
+        <FilterCheckBox {...europeanPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...combinedPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...expressPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...hotPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...spaPedicure} onChange={this.onChange} />
 
         <FilterLabel text={i18n.filters.coverage} onChange={this.onChange} />
-        <Filter {...applyingShellacPedicure} onChange={this.onChange} />
-        <Filter {...applyingBioGelPedicure} onChange={this.onChange} />
-        <Filter {...applyingNailPolishPedicure} onChange={this.onChange} />
-        <Filter {...applyingOfAnotherNailGelPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...applyingShellacPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...applyingBioGelPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...applyingNailPolishPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...applyingOfAnotherNailGelPedicure} onChange={this.onChange} />
 
         <FilterLabel text={i18n.filters.nailDesign} />
-        <Filter {...frenchPedicure} onChange={this.onChange} />
-        <Filter {...moonPedicure} onChange={this.onChange} />
-        <Filter {...reverseMoonPedicure} onChange={this.onChange} />
-        <Filter {...stencilPedicure} onChange={this.onChange} />
-        <Filter {...artDesignPedicure} onChange={this.onChange} />
-        <Filter {...gradientPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...frenchPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...moonPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...reverseMoonPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...stencilPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...artDesignPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...gradientPedicure} onChange={this.onChange} />
 
         <FilterLabel text={i18n.filters.nailExtension} />
-        <Filter {...extensionTipsAcrilycPedicure} onChange={this.onChange} />
-        <Filter {...extensionFormsAcrilycPedicure} onChange={this.onChange} />
-        <Filter {...extensionTipsGelPedicure} onChange={this.onChange} />
-        <Filter {...extensionAcrilycGelPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...extensionTipsAcrilycPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...extensionFormsAcrilycPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...extensionTipsGelPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...extensionAcrilycGelPedicure} onChange={this.onChange} />
 
         <FilterLabel text={i18n.filters.withdrawal} />
-        <Filter {...removingNailPolishPedicure} onChange={this.onChange} />
-        <Filter {...removingShellacPedicure} onChange={this.onChange} />
-        <Filter {...removingBioGelPedicure} onChange={this.onChange} />
-        <Filter {...removingGePedicure} onChange={this.onChange} />
-        <Filter {...removingNailsPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...removingNailPolishPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...removingShellacPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...removingBioGelPedicure} onChange={this.onChange} />
+        <FilterCheckBox {...removingGePedicure} onChange={this.onChange} />
+        <FilterCheckBox {...removingNailsPedicure} onChange={this.onChange} />
       </View>
     );
   }

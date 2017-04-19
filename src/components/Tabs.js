@@ -61,24 +61,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     ...Platform.select({
       android: {
-        height: 48
-      }
-    })
+        height: 48,
+      },
+    }),
   },
   tab: {
-    flex: 1
+    flex: 1,
   },
   tabContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   tabText: {
     textAlign: 'center',
-    color: vars.color.black
+    color: vars.color.black,
   },
   tabTextActive: {
-    color: vars.color.red
+    color: vars.color.red,
   },
   border: {
     position: 'absolute',
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: vars.color.red
-  }
+    backgroundColor: vars.color.red,
+  },
 });

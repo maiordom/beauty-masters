@@ -89,7 +89,7 @@ export default class RangeTime extends Component {
   render() {
     const {
       timeStart,
-      timeEnd
+      timeEnd,
     } = this.state;
 
     return (
@@ -139,5 +139,5 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     flex: 1,
     justifyContent: 'center',
-  }
+  },
 });

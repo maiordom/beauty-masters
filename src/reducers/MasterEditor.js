@@ -52,7 +52,7 @@ const setCalendarParam = (action, state) => {
   }
 
   calendarSettingsObject[model.queryParam] = action.paramValue;
-}
+};
 
 const setCalendarRecipientDate = (action, state) => {
   const createMasterQuery = state.masterEditor.createMasterQuery;
@@ -247,7 +247,7 @@ export default makeReducer((state, action) => ({
       mediaUrl,
       sizes,
       type: 'photo',
-      status: 'uploaded'
+      status: 'uploaded',
     });
 
     state.masterEditor = { ...state.masterEditor };
@@ -382,7 +382,7 @@ export default makeReducer((state, action) => ({
     setCalendarParam(action, state);
 
     return state;
-  }
+  },
 }), null, state => {
   console.log(state.masterEditor.createMasterQuery);
 });

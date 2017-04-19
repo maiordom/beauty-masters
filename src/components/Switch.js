@@ -22,11 +22,11 @@ export default class CustomSwitch extends Component {
   }
 
   render() {
-    const { title, value, customStyles } = this.props;
+    const { title, value, customStyles = {} } = this.props;
 
     return (
-      <View style={[styles.container, customStyles]}>
-        <Text style={styles.title}>{title}</Text>
+      <View style={[styles.container, customStyles.container]}>
+        <Text style={[styles.title, customStyles.title]}>{title}</Text>
         <SwitchBase
           ref={this.setRef}
           active={value}
@@ -56,16 +56,16 @@ const styles = StyleSheet.create({
     height: 44,
     ...Platform.select({
       android: {
-        height: 48
-      }
-    })
+        height: 48,
+      },
+    }),
   },
   title: {
     color: '#283741',
     ...Platform.select({
       android: {
-        fontSize: 16
-      }
-    })
-  }
+        fontSize: 16,
+      },
+    }),
+  },
 });

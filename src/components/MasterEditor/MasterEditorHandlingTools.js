@@ -66,11 +66,11 @@ export default class MasterEditorHandlingTools extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   inner: {
     flex: 1,
     paddingLeft: 15,
-    paddingRight: 15
-  }
+    paddingRight: 15,
+  },
 });

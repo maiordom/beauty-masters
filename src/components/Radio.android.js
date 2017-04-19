@@ -51,5 +51,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: vars.color.black,
     marginLeft: 16,
-  }
+  },
 });

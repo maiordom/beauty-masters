@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import { StyleSheet, Dimensions, Platform, Text } from 'react-native';
-import { connect } from 'react-redux';
+import { StyleSheet, Platform } from 'react-native';
 
 import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
@@ -13,6 +12,10 @@ import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCal
 import MasterEditorInfo from '../screen/MasterEditor/MasterEditorInfo';
 import MasterEditorCreateSuccess from '../screen/MasterEditor/MasterEditorCreateSuccess';
 
+import SearchForm from '../screen/SearchForm/SearchForm';
+import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
+import SearchCity from '../screen/SearchForm/SearchFormCity';
+
 import Drawer from '../components/Drawer';
 
 import i18n from '../i18n';
@@ -21,44 +24,56 @@ import vars from '../vars';
 const getSceneStyle = () => ({
   ...Platform.select({
     ios: {
-      paddingTop: 64
+      paddingTop: 64,
     },
     android: {
-      paddingTop: 54
-    }
-  })
+      paddingTop: 54,
+    },
+  }),
 });
 
-function getMasterStyle() {
-  const leftButtonIconStyle = {
-    width: 24,
-    height: 24
-  };
+function getMasterStyle(options = {}) {
+  let leftButtonIconStyle;
+
+  switch (options.navButtonType) {
+    case 'menu':
+      leftButtonIconStyle = { width: 20, height: 18 }; break;
+    default:
+      leftButtonIconStyle = { width: 24, height: 24 };
+  }
 
   const leftButtonStyle = {
     padding: 0,
     alignItems: 'center',
-    left: 16
+    left: 16,
   };
 
   const titleStyle = {
     width: 265,
     fontSize: 20,
-    color: vars.color.white
+    color: vars.color.white,
   };
 
   const navigationBarStyle = {
     backgroundColor: vars.color.red,
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
   };
 
   const titleWrapperStyle = {
-    marginTop: 8
+    marginTop: 8,
   };
 
   const hideNavBar = false;
 
-  const backButtonImage = require('../icons/android/back-arrow.png');
+  let backButtonImage;
+
+  switch (options.navButtonType) {
+    case 'menu':
+      backButtonImage = require('../icons/menu.png');
+      break;
+    default:
+      backButtonImage = require('../icons/android/back-arrow.png');
+  }
 
   return {
     leftButtonIconStyle,
@@ -71,86 +86,99 @@ function getMasterStyle() {
   };
 }
 
-export default class NavigationRouter extends Component {
-  render() {
-    return (
-      <Router sceneStyle={styles.container}>
-        <Scene key="drawer" component={Drawer}>
-          <Scene
-            initial
-            key="root"
-            hideNavBar
-            animationStyle="leftToRight"
-          >
-            <Scene
-              key="presentation"
-              hideNavBar
-              component={Presentation}
-            />
-            <Scene
-              key="masterAuthorization"
-              component={MasterAuthorization}
-            />
-            <Scene
-              key="masterEditorGeneral"
-              {...getMasterStyle()}
-              leftButtonIconStyle={{ width: 0, height: 0 }}
-              title={i18n.masterEditor.generalInformation}
-              getSceneStyle={getSceneStyle}
-              component={MasterEditorGeneral}
-            />
-            <Scene
-              key="masterEditorService"
-              {...getMasterStyle()}
-              title={i18n.masterEditor.services}
-              getSceneStyle={getSceneStyle}
-              component={MasterEditorService}
-            />
-            <Scene
-              key="masterEditorHandlingTools"
-              {...getMasterStyle()}
-              title={i18n.masterEditor.handlingTools}
-              getSceneStyle={getSceneStyle}
-              component={MasterEditorHandlingTools}
-            />
-            <Scene
-              key="masterEditorCalendar"
-              {...getMasterStyle()}
-              title={i18n.masterEditor.schedule}
-              getSceneStyle={getSceneStyle}
-              component={MasterEditorCalendar}
-            />
-            <Scene
-              key="masterEditorCalendarSetting"
-              {...getMasterStyle()}
-              title={i18n.masterEditor.calendarSettings}
-              getSceneStyle={getSceneStyle}
-              component={props => <MasterEditorCalendarSettings {...props} />}
-            />
-            <Scene
-              key="masterEditorInfo"
-              {...getMasterStyle()}
-              title={i18n.masterEditor.additionalInformation}
-              getSceneStyle={getSceneStyle}
-              component={MasterEditorInfo}
-            />
-            <Scene
-              key="createMasterSuccess"
-              {...getMasterStyle()}
-              title={i18n.registrationComplete.sceneTitle}
-              getSceneStyle={getSceneStyle}
-              leftButtonIconStyle={{ width: 0, height: 0 }}
-              component={MasterEditorCreateSuccess}
-            />
-          </Scene>
-        </Scene>
-      </Router>
+export default () => (
+  <Router sceneStyle={styles.container}>
+    <Scene key="drawer" component={Drawer}>
+      <Scene
+        initial
+        key="root"
+        hideNavBar
+        animationStyle="leftToRight"
+      >
+        <Scene
+          key="presentation"
+          hideNavBarcomponent={Presentation}
+        />
+        <Scene
+          key="searchForm"
+          {...getMasterStyle({ navButtonType: 'menu' })}
+          title={i18n.search.searchParams}
+          getSceneStyle={getSceneStyle}
+          component={SearchForm}
+        />
+        <Scene
+          key="searchCity"
+          {...getMasterStyle()}
+          title={'Город'}
+          getSceneStyle={getSceneStyle}
+          component={SearchCity}
+        />
+        <Scene
+          key="searchAddress"
+          {...getMasterStyle()}
+          title={i18n.search.masterPlace}
+          getSceneStyle={getSceneStyle}
+          component={SearchFormAddress}
+        />
+        <Scene key="masterAuthorization" component={MasterAuthorization} />
+        <Scene key="masterEditorGeneral"
+          {...getMasterStyle()}
+          leftButtonIconStyle={{ width: 0, height: 0 }}
+          title={i18n.masterEditor.generalInformation}
+          getSceneStyle={getSceneStyle}
+          component={MasterEditorGeneral}
+        />
+        <Scene
+          key="masterEditorService"
+          {...getMasterStyle()}
+          title={i18n.masterEditor.services}
+          getSceneStyle={getSceneStyle}
+          component={MasterEditorService}
+        />
+        <Scene
+          key="masterEditorHandlingTools"
+          {...getMasterStyle()}
+          title={i18n.masterEditor.handlingTools}
+          getSceneStyle={getSceneStyle}
+          component={MasterEditorHandlingTools}
+        />
+        <Scene
+          key="masterEditorCalendar"
+          {...getMasterStyle()}
+          title={i18n.masterEditor.schedule}
+          getSceneStyle={getSceneStyle}
+          component={MasterEditorCalendar}
+        />
+        <Scene
+          key="masterEditorCalendarSetting"
+          {...getMasterStyle()}
+          title={i18n.masterEditor.calendarSettings}
+          getSceneStyle={getSceneStyle}
+          component={props => <MasterEditorCalendarSettings {...props} />}
+        />
+        <Scene
+          key="masterEditorInfo"
+          {...getMasterStyle()}
+          title={i18n.masterEditor.additionalInformation}
+          getSceneStyle={getSceneStyle}
+          component={MasterEditorInfo}
+        />
+        <Scene
+          key="createMasterSuccess"
+          {...getMasterStyle()}
+          title={i18n.registrationComplete.sceneTitle}
+          getSceneStyle={getSceneStyle}
+          leftButtonIconStyle={{ width: 0, height: 0 }}
+          component={MasterEditorCreateSuccess}
+        />
+      </Scene>
+    </Scene>
+  </Router>
     );
-  }
-}
+
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

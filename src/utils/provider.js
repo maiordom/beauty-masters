@@ -4,7 +4,7 @@ import config from '../config';
 
 export const post = (method, params) => (
   RNFetchBlob.fetch('POST', `${config.host}/${config.rpc}`, {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }, JSON.stringify({
     ...method,
     jsonrpc: '2.0',

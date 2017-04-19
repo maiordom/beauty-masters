@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
     if (changes) {
       dispatch(setCalendarRecipientDate(modelName, changes, sectionName));
     }
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkTimeSpecification);

@@ -10,7 +10,7 @@ import { shouldComponentUpdate } from '../../utils';
 
 const icons = {
   success: Platform.select({
-    android: require('../../icons/android/success.png')
+    android: require('../../icons/android/success.png'),
   }),
 };
 
@@ -57,5 +57,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: vars.color.grey,
     lineHeight: 20,
-  }
+  },
 });

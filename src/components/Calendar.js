@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 import NativeCalendar from './CalendarBase';
@@ -17,6 +17,10 @@ const icons = {
 export default class Calendar extends Component {
   static defaultProps = {
     format: 'YYYY-MM-DD',
+  };
+
+  static propTypes = {
+    activeFrom: PropTypes.instanceOf(moment),
   };
 
   constructor(props) {
@@ -104,6 +108,7 @@ export default class Calendar extends Component {
       events = [],
       interval,
       selectedDate,
+      activeFrom,
     } = this.props;
 
     const { startDate } = this.state;
@@ -125,6 +130,7 @@ export default class Calendar extends Component {
       <View style={styles.container}>
         <NativeCalendar
           disableSelectDate={disableSelectDate}
+          activeFrom={activeFrom}
           dayHeadings={i18n.dayHeadings}
           eventDates={eventDates}
           events={eventsCalendar}
@@ -145,5 +151,5 @@ export default class Calendar extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {}
+  container: {},
 });

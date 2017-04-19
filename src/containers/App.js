@@ -21,7 +21,7 @@ export default class App extends Component {
   componentDidMount() {
   }
 
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <RootContainer />

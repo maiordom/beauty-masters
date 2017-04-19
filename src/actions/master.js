@@ -87,7 +87,7 @@ export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) =
     modelName,
     status: getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS
       ? constants.UPLOAD_STATUS.IN_QUEUE
-      : constants.UPLOAD_STATUS.IN_PROCESS
+      : constants.UPLOAD_STATUS.IN_PROCESS,
   });
 
   if (getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS) {
