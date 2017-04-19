@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
-import Input from '../../components/Input';
-import Label from '../../components/Label';
-import Switch from '../../components/Switch';
-import { SubLabel } from '../../components/SubLabel';
-import MasterPhotoList from '../../components/MasterEditor/MasterPhotoList';
+import Input from '../Input';
+import Label from '../Label';
+import Switch from '../Switch';
+import { SubLabel } from '../SubLabel';
+import MasterPhotoList from '../MasterEditor/MasterPhotoList';
+import ButtonControl from '../ButtonControl';
 
 import i18n from '../../i18n';
 
@@ -40,6 +41,10 @@ export default class MasterEditorInfo extends Component {
     this.props.actions.removePhoto(itemId, modelName);
   };
 
+  onNextPress = () => {
+    this.props.actions.createMaster();
+  };
+
   render() {
     const {
       certificatePhotos,
@@ -52,62 +57,65 @@ export default class MasterEditorInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <Label
-            text={i18n.masterEditor.informationAboutYou}
-            subText={i18n.masterEditor.aboutDescription}
-          />
-          <MasterPhotoList
-            onPhotoRemovePress={this.onPhotoRemovePress}
-            onPhotoSelectPress={this.onPhotoSelectPress}
-            photoSize={PHOTO_SIZE}
-            wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-            {...personalPhotos}
-          />
-          <Label text={i18n.masterEditor.fewWordsAboutYouToClients} customStyle={{ paddingBottom: 0 }} />
-          <Input placeholder={i18n.masterEditor.aboutExample} />
-          <Switch title={i18n.masterEditor.certificates} onChange={this.onCertificatesChange} />
-          {certificatesShow && (
+        <ScrollView>
+          <View style={styles.scrollViewInner}>
+            <Label
+              text={i18n.masterEditor.informationAboutYou}
+              subText={i18n.masterEditor.aboutDescription}
+            />
+            <MasterPhotoList
+              onPhotoRemovePress={this.onPhotoRemovePress}
+              onPhotoSelectPress={this.onPhotoSelectPress}
+              photoSize={PHOTO_SIZE}
+              wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+              {...personalPhotos}
+            />
+            <Label text={i18n.masterEditor.fewWordsAboutYouToClients} customStyle={{ paddingBottom: 0 }} />
+            <Input placeholder={i18n.masterEditor.aboutExample} />
+            <Switch title={i18n.masterEditor.certificates} onChange={this.onCertificatesChange} />
+            {certificatesShow && (
+              <View style={styles.photosWrapper}>
+                <SubLabel
+                  customStyle={styles.photosLabel}
+                  label={i18n.masterEditor.attachPhotosToConfirmCertificates}
+                />
+                <MasterPhotoList
+                  onPhotoRemovePress={this.onPhotoRemovePress}
+                  onPhotoSelectPress={this.onPhotoSelectPress}
+                  photoSize={PHOTO_SIZE}
+                  wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+                  {...certificatePhotos}
+                />
+              </View>
+            )}
             <View style={styles.photosWrapper}>
               <SubLabel
                 customStyle={styles.photosLabel}
-                label={i18n.masterEditor.attachPhotosToConfirmCertificates}
+                label={i18n.masterEditor.needFirstPhotoOfYourPassport}
               />
               <MasterPhotoList
                 onPhotoRemovePress={this.onPhotoRemovePress}
                 onPhotoSelectPress={this.onPhotoSelectPress}
                 photoSize={PHOTO_SIZE}
                 wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-                {...certificatePhotos}
+                {...passportPhotos}
               />
             </View>
-          )}
-          <View style={styles.photosWrapper}>
-            <SubLabel
-              customStyle={styles.photosLabel}
-              label={i18n.masterEditor.needFirstPhotoOfYourPassport}
-            />
-            <MasterPhotoList
-              onPhotoRemovePress={this.onPhotoRemovePress}
-              onPhotoSelectPress={this.onPhotoSelectPress}
-              photoSize={PHOTO_SIZE}
-              wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-              {...passportPhotos}
-            />
+            <View style={styles.photosWrapper}>
+              <SubLabel
+                customStyle={styles.photosLabel}
+                label={i18n.masterEditor.attachPhotosOfYourWork}
+              />
+              <MasterPhotoList
+                onPhotoRemovePress={this.onPhotoRemovePress}
+                onPhotoSelectPress={this.onPhotoSelectPress}
+                photoSize={PHOTO_SIZE}
+                wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+                {...workPhotos}
+              />
+            </View>
           </View>
-          <View style={styles.photosWrapper}>
-            <SubLabel
-              customStyle={styles.photosLabel}
-              label={i18n.masterEditor.attachPhotosOfYourWork}
-            />
-            <MasterPhotoList
-              onPhotoRemovePress={this.onPhotoRemovePress}
-              onPhotoSelectPress={this.onPhotoSelectPress}
-              photoSize={PHOTO_SIZE}
-              wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-              {...workPhotos}
-            />
-          </View>
+          <ButtonControl onPress={this.onNextPress} />
         </ScrollView>
       </View>
     );
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
   photosWrapper: {
     marginBottom: 26,
   },
-  scrollView: {
+  scrollViewInner: {
     paddingLeft: 16,
     paddingRight: 16,
   },

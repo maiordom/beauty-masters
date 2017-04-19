@@ -1,4 +1,7 @@
-import { uploadFile } from '../services/upload';
+import { Actions } from 'react-native-router-flux';
+
+import * as UploadService from '../services/upload';
+import * as MasterService from '../services/master';
 
 import actions from '../constants/master';
 import constants from '../constants/master';
@@ -8,12 +11,12 @@ let index = 0;
 function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
   getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.IN_PROCESS;
 
-  return uploadFile(fileData)
+  return UploadService.uploadFile(fileData)
     .then(response => {
       try {
         return JSON.parse(response.data);
       } catch (exx) {
-        console.log(exx);
+        console.log('[UploadFile]::exception', exx);
       }
     })
     .then(({ result, file_name, sizes, media_url }) => {
@@ -21,7 +24,7 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
         return;
       }
 
-      console.log(file_name);
+      console.log('[UploadFile]::fileName', file_name);
 
       dispatch({
         type: actions.MASTER_PHOTO_SET,
@@ -33,7 +36,7 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
       });
     })
     .catch(err => {
-      console.log(err);
+      console.log('[UploadFile]::errorUpload', err);
       dispatch({
         type: actions.MASTER_PHOTO_REMOVE_QUEUE,
         id: photoId,
@@ -63,6 +66,17 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
       }
     });
 }
+
+export const createMaster = () => (dispatch, getState) => {
+  const createMasterQuery = getState().masterEditor.createMasterQuery;
+
+  return MasterService.createMaster({ master: createMasterQuery })
+    .then(response => {
+      if (response.result) {
+        Actions.createMasterSuccess();
+      }
+    });
+};
 
 export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) => {
   const photoId = index++;

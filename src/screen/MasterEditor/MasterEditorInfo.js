@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { drawerOpen } from '../../actions/drawer';
-import { removePhoto } from '../../actions/master';
+import { removePhoto, createMaster } from '../../actions/master';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
 
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ removePhoto }, dispatch),
+  actions: bindActionCreators({ removePhoto, createMaster }, dispatch),
   drawerOpen,
 });
 
