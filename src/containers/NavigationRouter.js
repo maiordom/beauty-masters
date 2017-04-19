@@ -97,7 +97,7 @@ export default () => (
       >
         <Scene
           key="presentation"
-          hideNavBarcomponent={Presentation}
+          component={Presentation}
         />
         <Scene
           key="searchForm"
@@ -174,8 +174,7 @@ export default () => (
       </Scene>
     </Scene>
   </Router>
-    );
-
+);
 
 const styles = StyleSheet.create({
   container: {
