@@ -60,15 +60,17 @@ export default class Presentation extends Component {
         </View>
         <View style={styles.bottomContainer}>
           <TouchableHighlight
-            style={styles.continueButton}
+            activeOpacity={1}
             onPress={Actions.searchForm}
+            style={styles.continueButton}
+            underlayColor="transparent"
           >
             <Text style={styles.continueText}>{i18nContinue}</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            style={styles.authButton}
-            onPress={Actions.masterAuthorization}
             activeOpacity={1}
+            onPress={Actions.masterAuthorization}
+            style={styles.authButton}
             underlayColor="transparent"
           >
             <Text style={styles.authText}>{i18nAuthAsMaster}</Text>
