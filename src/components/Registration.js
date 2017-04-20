@@ -40,7 +40,12 @@ export default class Registration extends Component {
             <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
           </View>}
         </View>
-        <TouchableHighlight onPress={registerUser} style={styles.registrationButton}>
+        <TouchableHighlight
+          activeOpacity={1}
+          onPress={registerUser}
+          style={styles.registrationButton}
+          underlayColor={vars.color.red}
+        >
           <Text style={styles.registrationButtonText}>{i18nSignUp}</Text>
         </TouchableHighlight>
       </View>

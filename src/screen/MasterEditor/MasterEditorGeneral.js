@@ -1,6 +1,3 @@
-import React from 'react';
-import { View } from 'react-native';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -23,11 +20,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const Scene = props => (
-  <View style={{flex: 1}}>
-    <NavBar {...props} />
-    <MasterEditorGeneral {...props} />
-  </View>
-);
+const SceneWrapper = props => NavBar(props, MasterEditorGeneral);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Scene);
+export default connect(mapStateToProps, mapDispatchToProps)(SceneWrapper);

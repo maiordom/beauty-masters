@@ -25,8 +25,30 @@ const NavBar = ({ title, leftButtonIconStyle, backButtonImage }) => (
   </View>
 );
 
+const Scene = (props, component) => (
+  <View style={styles.scene}>
+    <NavBar {...props} />
+    {React.createElement(component, props)}
+  </View>
+);
+
 const styles = StyleSheet.create({
+  scene: {
+    flex: 1,
+    ...Platform.select({
+      ios: {
+        paddingTop: 64,
+      },
+      android: {
+        paddingTop: 54,
+      },
+    })
+  },
   container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     backgroundColor: vars.color.red,
     ...Platform.select({
@@ -50,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NavBar;
+export default Scene;
