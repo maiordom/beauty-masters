@@ -51,12 +51,12 @@ export default () => (
   <Router sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
+        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
       >
         <Scene
-          initial
           key="presentation"
           component={Presentation}
         />
@@ -119,6 +119,7 @@ export default () => (
           {...getMasterStyle()}
           title={i18n.registrationComplete.sceneTitle}
           component={MasterEditorCreateSuccess}
+          leftButtonHidden
         />
       </Scene>
     </Scene>

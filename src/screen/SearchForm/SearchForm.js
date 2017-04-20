@@ -11,6 +11,7 @@ import {
 } from '../../actions/search';
 
 import SearchForm from '../../components/SearchForm/SearchForm';
+import NavBar from '../../components/NavBar';
 
 const mapStateToProps = state => state.searchForm;
 
@@ -26,4 +27,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(SearchForm));

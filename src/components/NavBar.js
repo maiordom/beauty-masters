@@ -9,16 +9,25 @@ import vars from '../vars';
 const onPress = Actions.pop;
 const navBackButtonImage = require('../icons/android/back-arrow.png');
 
-const NavBar = ({ title, leftButtonIconStyle, backButtonImage }) => (
+const NavBar = ({
+  backButtonImage,
+  leftButtonHidden,
+  leftButtonIconStyle,
+  leftButtonStyle,
+  title,
+}) => (
   <View style={styles.container}>
-    <TouchableOpacity
-      style={styles.leftButton}
+    {!leftButtonHidden && (<TouchableOpacity
+      style={[styles.leftButton, leftButtonStyle]}
       onPress={onPress}
     >
       <Image style={leftButtonIconStyle} source={backButtonImage || navBackButtonImage} />
-    </TouchableOpacity>
+    </TouchableOpacity>)}
     <Text
-      style={[styles.title, { width: DEVICE_WIDTH - 20 - 16 * 2 - 16 }]}
+      style={[styles.title, leftButtonHidden
+        ? { width: DEVICE_WIDTH - 16 * 2, marginLeft: 16 }
+        : { width: DEVICE_WIDTH - 20 - 16 * 2 - 16 }
+      ]}
       lineBreakMode="tail"
       numberOfLines={1}
     >{title}</Text>
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
   leftButton: {
     paddingLeft: 16,
     paddingRight: 16,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 });
 

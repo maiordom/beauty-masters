@@ -6,6 +6,7 @@ import { setCalendarField, setCalendarInterval } from '../../actions/master';
 import { drawerOpen } from '../../actions/drawer';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
+import NavBar from '../../components/NavBar';
 
 const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
   masterSchedule: state.masterSchedule,
@@ -26,4 +27,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorCalendarSettings);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorCalendarSettings));
