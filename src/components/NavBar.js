@@ -25,7 +25,7 @@ const NavBar = ({ title, leftButtonIconStyle, backButtonImage }) => (
   </View>
 );
 
-const Scene = (props, component) => (
+const Scene = component => props => (
   <View style={styles.scene}>
     <NavBar {...props} />
     {React.createElement(component, props)}

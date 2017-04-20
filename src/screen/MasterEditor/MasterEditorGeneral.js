@@ -20,6 +20,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const SceneWrapper = props => NavBar(props, MasterEditorGeneral);
-
-export default connect(mapStateToProps, mapDispatchToProps)(SceneWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorGeneral));
