@@ -5,6 +5,7 @@ import { drawerOpen } from '../../actions/drawer';
 import { removePhoto, createMaster } from '../../actions/master';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
+import NavBar from '../../components/NavBar';
 
 const mapStateToProps = state => ({
   ...state.masterEditor.info,
@@ -15,4 +16,4 @@ const mapDispatchToProps = dispatch => ({
   drawerOpen,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorInfo));

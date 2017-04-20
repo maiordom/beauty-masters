@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import SearchFormCity from '../../components/SearchForm/SearchFormCity';
+import NavBar from '../../components/NavBar';
 
 import { searchCities, citiesReset, citiesAdd } from '../../actions/search';
 
@@ -17,4 +18,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchFormCity);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(SearchFormCity));

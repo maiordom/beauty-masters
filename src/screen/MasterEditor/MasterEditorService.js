@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { setServiceParam, toogleService } from '../../actions/master';
 
 import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
+import NavBar from '../../components/NavBar';
 
 const mapStateToProps = state => ({
   serviceManicure: state.masterEditor.serviceManicure,
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorService);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorService));

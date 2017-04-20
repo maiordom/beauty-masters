@@ -2,6 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import MasterEditorCalendar from '../../components/MasterEditor/MasterEditorCalendar';
+import NavBar from '../../components/NavBar';
 
 const mapDispatchToProps = dispatch => ({
   onCalendarPress(modelName) {
@@ -13,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(MasterEditorCalendar);
+export default connect(null, mapDispatchToProps)(NavBar(MasterEditorCalendar));
