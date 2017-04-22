@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
@@ -21,7 +21,6 @@ import Serp from '../screen/Serp/Serp';
 import Drawer from '../components/Drawer';
 
 import i18n from '../i18n';
-import vars from '../vars';
 
 function getMasterStyle(options = {}) {
   let leftButtonIconStyle;
@@ -84,7 +83,6 @@ export default () => (
           key="Serp"
           {...getMasterStyle()}
           title={'Поиск'}
-          getSceneStyle={getSceneStyle}
           component={Serp}
         />
         <Scene key="masterAuthorization" component={MasterAuthorization} />

@@ -1,8 +1,18 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Animated,
+  StyleSheet,
+  Dimensions,
+  PanResponder,
+  TouchableOpacity,
+} from 'react-native';
 import MapView from 'react-native-maps';
+import { Actions } from 'react-native-router-flux';
 
 import MapMarker from './MapMarker';
 import SerpSnippet from './SerpSnippet';
@@ -37,28 +47,12 @@ const markers : Array<MarkerType> = [
 type State = {
   showSnippet: boolean,
   region: RegionType,
+  snippetTranslateY: Animated.Value
 }
 
+const SNIPPET_HEIGHT = 204;
+
 export default class Map extends Component<void, void, State> {
-  map: MapView;
-
-  setMapRef = (ref: MapView) => {
-    this.map = ref;
-  };
-
-  onMarkerPress = (event : any) => {
-    console.log(event.nativeEvent);
-    this.setState({ showSnippet: true });
-  };
-
-  onMapPress = () => {
-    this.setState({ showSnippet: false });
-  };
-
-  onLocationPress = () => {
-    this.map.animateToRegion(this.state.region, 300);
-  };
-
   state = {
     showSnippet: false,
     region: {
@@ -67,10 +61,57 @@ export default class Map extends Component<void, void, State> {
       latitudeDelta: 0.015,
       longitudeDelta: 0.0121,
     },
+    snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
+  };
+
+  map: MapView;
+
+  snippetPanResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onMoveShouldSetPanResponderCapture: () => true,
+    onPanResponderMove: (evt, gestureState) => {
+      if (gestureState.dy < 0) { // user swipes up
+        return;
+      }
+      return gestureState.dy > 0 && Animated.event([null, { dy: this.state.snippetTranslateY }])(evt, gestureState);
+    },
+    onPanResponderRelease: (evt, gestureState) => {
+      if (gestureState.dy > 70) {
+        Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+      } else {
+        Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 500 }).start();
+      }
+    },
+  });
+
+  setMapRef = (ref: MapView) => {
+    this.map = ref;
+  };
+
+  onMapLayout = () => {
+    this.map.fitToCoordinates(
+      markers.map(marker => marker.latlng),
+      {
+        edgePadding: { top: 20, right: 20, bottom: 20, left: 20 },
+        animated: true,
+      },
+    );
+  };
+
+  onMarkerPress = () => {
+    Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
+  };
+
+  onMapPress = () => {
+    Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+  };
+
+  onLocationPress = () => {
+    this.map.animateToRegion(this.state.region, 300);
   };
 
   render() {
-    const { region, showSnippet } = this.state;
+    const { region } = this.state;
 
     return (
       <View style={styles.container}>
@@ -80,6 +121,7 @@ export default class Map extends Component<void, void, State> {
           region={region}
           showsCompass={false}
           ref={this.setMapRef}
+          onLayout={this.onMapLayout}
         >
           {markers.map(marker => (
             <MapView.Marker
@@ -91,29 +133,43 @@ export default class Map extends Component<void, void, State> {
             </MapView.Marker>
           ))}
         </MapView>
-        <View style={styles.filterButtonWrapper}>
+        <TouchableOpacity
+          style={styles.filterButtonWrapper}
+          onPress={Actions.searchForm}
+        >
           <View style={styles.filterButton}>
             <Image source={require('../../icons/filter.png')} />
             <Text style={styles.filterText}>
               {i18n.filter}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.locationButtonWrapper} onPress={this.onLocationPress}>
           <View style={styles.locationButton}>
             <Image source={require('../../icons/location.png')} />
           </View>
         </TouchableOpacity>
-        {showSnippet && <SerpSnippet />}
+        <Animated.View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            transform: [{ translateY: this.state.snippetTranslateY }],
+          }}
+          {...this.snippetPanResponder.panHandlers}
+        >
+          <SerpSnippet />
+        </Animated.View>
       </View>
     );
   }
 }
 
+const NAV_BAR_WIDTH = 78;
+
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 78,
+    height: Dimensions.get('window').height - NAV_BAR_WIDTH,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

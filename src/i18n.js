@@ -98,6 +98,7 @@ export default {
   },
   house: 'Дом',
   lastName: 'Фамилия',
+  list: 'Список',
   login: 'Вход',
   location: {
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
@@ -178,6 +179,9 @@ export default {
     searchParams: 'Параметры поиска',
     short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',
+  },
+  serp: {
+    onMap: 'На карте',
   },
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',
