@@ -156,7 +156,6 @@ export default class SearchFormShort extends Component {
             onChange={this.onDepartureToggle}
             withInput={false}
           />
-
           <FilterLabel text={i18n.search.generalInfo} />
           <FilterTab
             title={i18n.filters.masterType.title}

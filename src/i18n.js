@@ -62,7 +62,7 @@ export default {
     nailProcessingMethod: 'Способ обработки ногтей (без покрытия)',
     naroshchennyhNails: 'Нарощенных ногтей',
     otherServices: 'Другие услуги',
-    price: 'Стоимость, ₽',
+    price: 'Стоимость, р',
     removingGe: 'Другого геля-лака',
     removingNailPolish: 'Лака',
     removingNails: {
