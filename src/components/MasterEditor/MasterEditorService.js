@@ -6,6 +6,8 @@ import ButtonControl from '../ButtonControl';
 import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
 import Label from '../Label';
+import Input from '../Input';
+import { FilterLabel } from '../FilterLabel';
 
 import i18n from '../../i18n';
 
@@ -40,7 +42,7 @@ export default class MasterEditorService extends Component {
 
   render() {
     const { tabs, tabActiveKey } = this.state;
-    const { serviceManicure, servicePedicure } = this.props;
+    const { serviceManicure, servicePedicure, homeAllowanceField } = this.props;
     const { onChange, onChangePrice, onChangeDuration } = this;
     const handlers = {
       onChange,
@@ -61,6 +63,8 @@ export default class MasterEditorService extends Component {
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
           {ServicesList}
+          <Input {...homeAllowanceField} inputWrapperStyle={styles.homeAllowance} />
+          <FilterLabel text={i18n.filters.otherServices} />
           <ButtonControl onPress={this.props.onNextPress} />
         </ScrollView>
       </View>
@@ -71,5 +75,8 @@ export default class MasterEditorService extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  homeAllowance: {
+    marginBottom: 4,
   },
 });

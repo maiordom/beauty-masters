@@ -8,6 +8,7 @@ import MasterEditorService from '../../components/MasterEditor/MasterEditorServi
 import NavBar from '../../components/NavBar';
 
 const mapStateToProps = state => ({
+  ...state.masterEditor.services,
   serviceManicure: state.masterEditor.serviceManicure,
   servicePedicure: state.masterEditor.servicePedicure,
 });

@@ -51,7 +51,6 @@ export default () => (
   <Router sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
-        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -78,13 +77,18 @@ export default () => (
           title={i18n.search.masterPlace}
           component={SearchFormAddress}
         />
-        <Scene key="masterAuthorization" component={MasterAuthorization} />
-        <Scene key="masterEditorGeneral"
+        <Scene
+          key="masterAuthorization"
+          component={MasterAuthorization}
+        />
+        <Scene
+          key="masterEditorGeneral"
           {...getMasterStyle()}
           title={i18n.masterEditor.generalInformation}
           component={MasterEditorGeneral}
         />
         <Scene
+          initial
           key="masterEditorService"
           {...getMasterStyle()}
           title={i18n.masterEditor.services}

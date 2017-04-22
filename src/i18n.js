@@ -8,6 +8,11 @@ export default {
   currency: {
     roubleSign: 'р',
   },
+  customService: {
+    duration: 'Длительность, мин',
+    name: 'Введите название услуги',
+    price: 'Стоимость, р',
+  },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   days: {
     nextDay: 'Завтра',
@@ -17,6 +22,7 @@ export default {
   enterAddress: 'Введите адрес',
   findMaster: 'Найти мастера',
   filters: {
+    addService: 'Добавить услугу',
     anotherNailGel: {
       nom: 'Другой гель-лак',
       gen: 'Другого геля-лака',
@@ -48,6 +54,7 @@ export default {
     french: 'Французский',
     gradient: 'Градиентный маникюр',
     hardware: 'Аппаратный',
+    homeAllowance: 'Надбавка за выезд на дом, р',
     hot: 'Горячий маникюр',
     masterType: {
       all: 'Все',
