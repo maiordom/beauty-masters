@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 import MasterEditorHandlingTools from '../../components/MasterEditor/MasterEditorHandlingTools';
+import NavBar from '../../components/NavBar';
 
 import { toogleService, setServiceParam } from '../../actions/master';
 
@@ -22,4 +23,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorHandlingTools);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorHandlingTools));

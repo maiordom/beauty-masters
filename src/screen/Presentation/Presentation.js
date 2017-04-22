@@ -63,7 +63,7 @@ export default class Presentation extends Component {
             activeOpacity={1}
             onPress={Actions.searchForm}
             style={styles.continueButton}
-            underlayColor="transparent"
+            underlayColor={vars.color.white}
           >
             <Text style={styles.continueText}>{i18nContinue}</Text>
           </TouchableHighlight>

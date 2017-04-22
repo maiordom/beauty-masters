@@ -23,17 +23,6 @@ import Drawer from '../components/Drawer';
 import i18n from '../i18n';
 import vars from '../vars';
 
-const getSceneStyle = () => ({
-  ...Platform.select({
-    ios: {
-      paddingTop: 64,
-    },
-    android: {
-      paddingTop: 54,
-    },
-  }),
-});
-
 function getMasterStyle(options = {}) {
   let leftButtonIconStyle;
 
@@ -43,29 +32,6 @@ function getMasterStyle(options = {}) {
     default:
       leftButtonIconStyle = { width: 24, height: 24 };
   }
-
-  const leftButtonStyle = {
-    padding: 0,
-    alignItems: 'center',
-    left: 16,
-  };
-
-  const titleStyle = {
-    width: 265,
-    fontSize: 20,
-    color: vars.color.white,
-  };
-
-  const navigationBarStyle = {
-    backgroundColor: vars.color.red,
-    borderBottomWidth: 0,
-  };
-
-  const titleWrapperStyle = {
-    marginTop: 8,
-  };
-
-  const hideNavBar = false;
 
   let backButtonImage;
 
@@ -79,11 +45,6 @@ function getMasterStyle(options = {}) {
 
   return {
     leftButtonIconStyle,
-    leftButtonStyle,
-    titleStyle,
-    navigationBarStyle,
-    titleWrapperStyle,
-    hideNavBar,
     backButtonImage,
   };
 }
@@ -105,21 +66,18 @@ export default () => (
           key="searchForm"
           {...getMasterStyle({ navButtonType: 'menu' })}
           title={i18n.search.searchParams}
-          getSceneStyle={getSceneStyle}
           component={SearchForm}
         />
         <Scene
           key="searchCity"
           {...getMasterStyle()}
           title={'Город'}
-          getSceneStyle={getSceneStyle}
           component={SearchCity}
         />
         <Scene
           key="searchAddress"
           {...getMasterStyle()}
           title={i18n.search.masterPlace}
-          getSceneStyle={getSceneStyle}
           component={SearchFormAddress}
         />
         <Scene
@@ -132,53 +90,45 @@ export default () => (
         <Scene key="masterAuthorization" component={MasterAuthorization} />
         <Scene key="masterEditorGeneral"
           {...getMasterStyle()}
-          leftButtonIconStyle={{ width: 0, height: 0 }}
           title={i18n.masterEditor.generalInformation}
-          getSceneStyle={getSceneStyle}
           component={MasterEditorGeneral}
         />
         <Scene
           key="masterEditorService"
           {...getMasterStyle()}
           title={i18n.masterEditor.services}
-          getSceneStyle={getSceneStyle}
           component={MasterEditorService}
         />
         <Scene
           key="masterEditorHandlingTools"
           {...getMasterStyle()}
           title={i18n.masterEditor.handlingTools}
-          getSceneStyle={getSceneStyle}
           component={MasterEditorHandlingTools}
         />
         <Scene
           key="masterEditorCalendar"
           {...getMasterStyle()}
           title={i18n.masterEditor.schedule}
-          getSceneStyle={getSceneStyle}
           component={MasterEditorCalendar}
         />
         <Scene
           key="masterEditorCalendarSetting"
           {...getMasterStyle()}
           title={i18n.masterEditor.calendarSettings}
-          getSceneStyle={getSceneStyle}
           component={props => <MasterEditorCalendarSettings {...props} />}
         />
         <Scene
           key="masterEditorInfo"
           {...getMasterStyle()}
           title={i18n.masterEditor.additionalInformation}
-          getSceneStyle={getSceneStyle}
           component={MasterEditorInfo}
         />
         <Scene
           key="createMasterSuccess"
           {...getMasterStyle()}
           title={i18n.registrationComplete.sceneTitle}
-          getSceneStyle={getSceneStyle}
-          leftButtonIconStyle={{ width: 0, height: 0 }}
           component={MasterEditorCreateSuccess}
+          leftButtonHidden
         />
       </Scene>
     </Scene>
