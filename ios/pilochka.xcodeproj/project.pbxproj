@@ -26,6 +26,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		78A9D173AC3B43EEBE9E8D25 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B2EEC575BF45F19F44B608 /* libSMXCrashlytics.a */; };
 		7501F4D680254A199953407D /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9AD7F4830B43649876A428 /* libRNFetchBlob.a */; };
+		A7721D4AD8344AC69E8A89D5 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8700B33099B540EE8ACAD952 /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +250,8 @@
 		43B2EEC575BF45F19F44B608 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; name = "libSMXCrashlytics.a"; path = "libSMXCrashlytics.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		4771BD92EE50438CA2D9E8E3 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		EB9AD7F4830B43649876A428 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5BFC41CCACED49FD8946AEF6 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		8700B33099B540EE8ACAD952 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +281,7 @@
 				2FCA001514D748B49441109D /* libRNImagePicker.a in Frameworks */,
 				78A9D173AC3B43EEBE9E8D25 /* libSMXCrashlytics.a in Frameworks */,
 				7501F4D680254A199953407D /* libRNFetchBlob.a in Frameworks */,
+				A7721D4AD8344AC69E8A89D5 /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +429,7 @@
 				95B87B19E9A04447A0725545 /* RNImagePicker.xcodeproj */,
 				92B23A877FB14D858CC2654E /* SMXCrashlytics.xcodeproj */,
 				4771BD92EE50438CA2D9E8E3 /* RNFetchBlob.xcodeproj */,
+				5BFC41CCACED49FD8946AEF6 /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -868,6 +873,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pilochka.app/pilochka";
@@ -884,6 +890,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

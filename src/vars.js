@@ -1,4 +1,4 @@
-import { hexToRgba } from './utils';
+// @flow
 
 export default {
   bodyColor: '#F65F6E',

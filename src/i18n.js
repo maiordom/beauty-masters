@@ -1,3 +1,4 @@
+/* eslint ignore */
 export default {
   addAddress: ['Добавить адрес 1', 'Добавить адрес 2', 'Добавить адрес 3'],
   authAsMaster: 'Авторизоваться как мастер услуг',
@@ -16,6 +17,7 @@ export default {
   district: 'Район',
   enterAddress: 'Введите адрес',
   findMaster: 'Найти мастера',
+  filter: 'Фильтр',
   filters: {
     anotherNailGel: {
       nom: 'Другой гель-лак',

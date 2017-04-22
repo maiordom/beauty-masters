@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import { StyleSheet, Platform } from 'react-native';
 
@@ -15,6 +15,8 @@ import MasterEditorCreateSuccess from '../screen/MasterEditor/MasterEditorCreate
 import SearchForm from '../screen/SearchForm/SearchForm';
 import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
 import SearchCity from '../screen/SearchForm/SearchFormCity';
+
+import Serp from '../screen/Serp/Serp';
 
 import Drawer from '../components/Drawer';
 
@@ -119,6 +121,13 @@ export default () => (
           title={i18n.search.masterPlace}
           getSceneStyle={getSceneStyle}
           component={SearchFormAddress}
+        />
+        <Scene
+          key="Serp"
+          {...getMasterStyle()}
+          title={'Поиск'}
+          getSceneStyle={getSceneStyle}
+          component={Serp}
         />
         <Scene key="masterAuthorization" component={MasterAuthorization} />
         <Scene key="masterEditorGeneral"
