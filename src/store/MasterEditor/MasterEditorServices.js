@@ -2,15 +2,28 @@
 
 import i18n from '../../i18n';
 
-const customServices = (customServices: Array<any> = []) => ({
+const manicureParentServiceId = 1;
+const pedicureParentServiceId = 33;
+
+const customServiceQueryMapping = {
+  description: 'description',
+  duration: 'duration',
+  parentServiceId: 'parent_service_id',
+  price: 'price',
+};
+
+const manicureCustomServices = (customServices: Array<any> = []) => ({
   items: customServices,
+  parentServiceId: manicureParentServiceId,
   queryParam: 'custom_services',
-  queryMapping: {
-    description: 'description',
-    duration: 'duration',
-    parentServiceId: 'parent_service_id',
-    price: 'price',
-  },
+  queryMapping: customServiceQueryMapping,
+});
+
+const pedicureCustomServices = (customServices: Array<any> = []) => ({
+  items: customServices,
+  parentServiceId: pedicureParentServiceId,
+  queryParam: 'custom_services',
+  queryMapping: customServiceQueryMapping,
 });
 
 const homeAllowanceField = (homeAllowance: number) => ({
@@ -20,6 +33,7 @@ const homeAllowanceField = (homeAllowance: number) => ({
 });
 
 export default {
-  customServices,
+  manicureCustomServices,
+  pedicureCustomServices,
   homeAllowanceField,
 };

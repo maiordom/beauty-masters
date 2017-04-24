@@ -9,6 +9,8 @@ import Label from '../Label';
 import Input from '../Input';
 import { FilterLabel } from '../FilterLabel';
 
+import CustomServices from '../../containers/CustomServices';
+
 import i18n from '../../i18n';
 
 export default class MasterEditorService extends Component {
@@ -42,19 +44,26 @@ export default class MasterEditorService extends Component {
 
   render() {
     const { tabs, tabActiveKey } = this.state;
-    const { serviceManicure, servicePedicure, homeAllowanceField } = this.props;
+    const {
+      serviceManicure,
+      servicePedicure,
+      homeAllowanceField,
+    } = this.props;
     const { onChange, onChangePrice, onChangeDuration } = this;
-    const handlers = {
+    const filterHandlers = {
       onChange,
       onChangePrice,
       onChangeDuration,
     };
-    let ServicesList = null;
+    let servicesList = null;
+    let customServices = null;
 
     if (tabActiveKey === 'servicePedicure') {
-      ServicesList = <ServicesListPedicure {...servicePedicure} {...handlers} />;
+      servicesList = <ServicesListPedicure {...servicePedicure} {...filterHandlers} />;
+      customServices = <CustomServices type="pedicure" />;
     } else {
-      ServicesList = <ServicesListManicure {...serviceManicure} {...handlers} />;
+      servicesList = <ServicesListManicure {...serviceManicure} {...filterHandlers} />;
+      customServices = <CustomServices type="manicure" />;
     }
 
     return (
@@ -62,9 +71,10 @@ export default class MasterEditorService extends Component {
         <ScrollView>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
-          {ServicesList}
+          {servicesList}
           <Input {...homeAllowanceField} inputWrapperStyle={styles.homeAllowance} />
           <FilterLabel text={i18n.filters.otherServices} />
+          {customServices}
           <ButtonControl onPress={this.props.onNextPress} />
         </ScrollView>
       </View>
