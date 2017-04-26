@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
+import isEqual from 'lodash/isEqual';
 
 import MapMarker from './MapMarker';
 import SerpSnippet from './SerpSnippet';
@@ -47,7 +48,8 @@ const markers : Array<MarkerType> = [
 type State = {
   showSnippet: boolean,
   region: RegionType,
-  snippetTranslateY: Animated.Value
+  snippetTranslateY: Animated.Value,
+  activePin: ?LatLngType
 }
 
 const SNIPPET_HEIGHT = 204;
@@ -58,10 +60,11 @@ export default class Map extends Component<void, void, State> {
     region: {
       latitude: 60.000316,
       longitude: 30.256373,
-      latitudeDelta: 0.015,
-      longitudeDelta: 0.0121,
+      latitudeDelta: 0.04, // 1 delata degree = 111 km, 0.04 = 5km
+      longitudeDelta: 0.04,
     },
     snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
+    activePin: null,
   };
 
   map: MapView;
@@ -88,17 +91,14 @@ export default class Map extends Component<void, void, State> {
     this.map = ref;
   };
 
-  onMapLayout = () => {
-    this.map.fitToCoordinates(
-      markers.map(marker => marker.latlng),
-      {
-        edgePadding: { top: 20, right: 20, bottom: 20, left: 20 },
-        animated: true,
-      },
-    );
-  };
+  onMarkerPress = (event: any) => {
+    const { coordinate } = event.nativeEvent;
 
-  onMarkerPress = () => {
+    this.setState({ activePin: coordinate });
+
+    const region = { ...coordinate, latitudeDelta: 0.01, longitudeDelta: 0.01 };
+
+    this.map.animateToRegion(region, 600);
     Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
   };
 
@@ -111,17 +111,17 @@ export default class Map extends Component<void, void, State> {
   };
 
   render() {
-    const { region } = this.state;
+    const { region, activePin } = this.state;
 
+    console.log('render map');
+    console.log(activePin);
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           onPress={this.onMapPress}
           region={region}
-          showsCompass={false}
           ref={this.setMapRef}
-          onLayout={this.onMapLayout}
         >
           {markers.map(marker => (
             <MapView.Marker
@@ -129,7 +129,10 @@ export default class Map extends Component<void, void, State> {
               key={marker.latlng.latitude + marker.latlng.longitude}
               onPress={this.onMarkerPress}
             >
-              <MapMarker />
+              <MapMarker
+                isActive={isEqual(marker.latlng, activePin)}
+                locations={null}
+              />
             </MapView.Marker>
           ))}
         </MapView>

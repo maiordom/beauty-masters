@@ -1,16 +1,32 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 import vars from '../../vars';
 
-export default () => (
-  <View style={styles.container}>
-    <Image source={require('../../icons/pin.png')} />
-    <Text style={styles.text}>1</Text>
-  </View>
-);
+export default class MapMarker extends Component {
+  props: {
+    isActive: boolean,
+    locations: ?number,
+  };
+
+  render() {
+    const { isActive, locations } = this.props;
+
+    console.log('marker render, isActive', isActive);
+
+    return (
+      <View style={styles.container}>
+        {isActive
+          ? <Image source={require('../../icons/pin-green.png')} />
+          : <Image source={require('../../icons/pin-red.png')} />
+        }
+        {locations && <Text style={styles.text}>1</Text>}
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
