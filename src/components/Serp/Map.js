@@ -10,12 +10,12 @@ import {
   Dimensions,
   PanResponder,
   TouchableOpacity,
+  InteractionManager,
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 
-import MapMarker from './MapMarker';
 import SerpSnippet from './SerpSnippet';
 
 import vars from '../../vars';
@@ -48,6 +48,7 @@ const markers : Array<MarkerType> = [
 type State = {
   showSnippet: boolean,
   region: RegionType,
+  initialRegion: RegionType,
   snippetTranslateY: Animated.Value,
   activePin: ?LatLngType
 }
@@ -57,6 +58,12 @@ const SNIPPET_HEIGHT = 204;
 export default class Map extends Component<void, void, State> {
   state = {
     showSnippet: false,
+    initialRegion: {
+      latitude: 60.000316,
+      longitude: 30.256373,
+      latitudeDelta: 0.04, // 1 delata degree = 111 km, 0.04 = 5km
+      longitudeDelta: 0.04,
+    },
     region: {
       latitude: 60.000316,
       longitude: 30.256373,
@@ -94,27 +101,30 @@ export default class Map extends Component<void, void, State> {
   onMarkerPress = (event: any) => {
     const { coordinate } = event.nativeEvent;
 
-    this.setState({ activePin: coordinate });
+    const region = { ...coordinate, latitudeDelta: 0.005, longitudeDelta: 0.005 };
 
-    const region = { ...coordinate, latitudeDelta: 0.01, longitudeDelta: 0.01 };
+    this.setState({ activePin: coordinate, region }, () => {
+      InteractionManager.runAfterInteractions(() => {
+        Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
 
-    this.map.animateToRegion(region, 600);
-    Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
+        this.map.animateToRegion(region, 600);
+      });
+    });
   };
 
   onMapPress = () => {
-    Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+    this.setState({ activePin: null }, () => {
+      Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+    });
   };
 
   onLocationPress = () => {
-    this.map.animateToRegion(this.state.region, 300);
+    this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
   render() {
     const { region, activePin } = this.state;
 
-    console.log('render map');
-    console.log(activePin);
     return (
       <View style={styles.container}>
         <MapView
@@ -128,17 +138,16 @@ export default class Map extends Component<void, void, State> {
               coordinate={marker.latlng}
               key={marker.latlng.latitude + marker.latlng.longitude}
               onPress={this.onMarkerPress}
-            >
-              <MapMarker
-                isActive={isEqual(marker.latlng, activePin)}
-                locations={null}
-              />
-            </MapView.Marker>
+              image={isEqual(marker.latlng, activePin)
+                ? require('../../icons/pin-green.png')
+                : require('../../icons/pin-red.png')
+              }
+            />
           ))}
         </MapView>
         <TouchableOpacity
           style={styles.filterButtonWrapper}
-          onPress={Actions.searchForm}
+          onPress={Actions.pop}
         >
           <View style={styles.filterButton}>
             <Image source={require('../../icons/filter.png')} />
