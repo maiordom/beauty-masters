@@ -46,6 +46,7 @@ const markers : Array<MarkerType> = [
 ];
 
 type State = {
+  renderLoader: boolean,
   showSnippet: boolean,
   region: RegionType,
   initialRegion: RegionType,
@@ -57,6 +58,7 @@ const SNIPPET_HEIGHT = 204;
 
 export default class Map extends Component<void, void, State> {
   state = {
+    renderLoader: true,
     showSnippet: false,
     initialRegion: {
       latitude: 60.000316,
@@ -94,28 +96,30 @@ export default class Map extends Component<void, void, State> {
     },
   });
 
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderLoader: false });
+    });
+  }
+
   setMapRef = (ref: MapView) => {
     this.map = ref;
   };
 
   onMarkerPress = (event: any) => {
     const { coordinate } = event.nativeEvent;
-
     const region = { ...coordinate, latitudeDelta: 0.005, longitudeDelta: 0.005 };
 
-    this.setState({ activePin: coordinate, region }, () => {
-      InteractionManager.runAfterInteractions(() => {
-        Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
+    this.map.animateToRegion(region, 600);
+    this.setState({ activePin: coordinate, region });
 
-        this.map.animateToRegion(region, 600);
-      });
-    });
+    Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
   };
 
   onMapPress = () => {
-    this.setState({ activePin: null }, () => {
-      Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
-    });
+    this.setState({ activePin: null, region: this.state.initialRegion });
+
+    Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
   };
 
   onLocationPress = () => {
@@ -123,14 +127,18 @@ export default class Map extends Component<void, void, State> {
   };
 
   render() {
-    const { region, activePin } = this.state;
+    const { region, activePin, renderLoader } = this.state;
+
+    if (renderLoader) {
+      return null;
+    }
 
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           onPress={this.onMapPress}
-          region={region}
+          initialRegion={region}
           ref={this.setMapRef}
         >
           {markers.map(marker => (
