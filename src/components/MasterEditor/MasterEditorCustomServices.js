@@ -12,17 +12,63 @@ const i18nAddService = Platform.select({
 });
 
 export default class MasterEditorCustomServices extends Component {
-  addService = () => {
-    this.props.addService(this.props.modelName);
+  addCustomService = () => {
+    this.props.actions.toogleCustomService(
+      this.props.modelName,
+      this.props.sectionName,
+      true,
+    );
+  };
+
+  onChangeTitle = (title, modelName, index) => {
+    this.props.actions.setCustomServiceParam(
+      this.props.modelName,
+      { title },
+      index,
+      this.props.sectionName
+    );
+  };
+
+  onChangePrice = (price, modelName, index) => {
+    this.props.actions.setCustomServiceParam(
+      this.props.modelName,
+      { price },
+      index,
+      this.props.sectionName,
+    );
+  };
+
+  onChangeDuration = (duration, modelName, index) => {
+    this.props.actions.setCustomServiceParam(
+      this.props.modelName,
+      { duration },
+      index,
+      this.props.sectionName,
+    );
   };
 
   render() {
     const { items } = this.props;
+    const { onChangePrice, onChangeDuration, onChangeTitle } = this;
+    const handlers = {
+      onChangeDuration,
+      onChangePrice,
+      onChangeTitle,
+    };
+
+    console.log(items);
 
     return (
       <View style={styles.container}>
-        {items.map(item => <FilterCheckBox {...item} />)}
-        <TouchableHighlight style={styles.addService} onPress={this.addService}>
+        {items.map((item, index) => <FilterCheckBox
+          index={index}
+          key={index}
+          titlePlaceholder={i18n.customService.name}
+          titleType="input"
+          {...handlers}
+          {...item}
+        />)}
+        <TouchableHighlight style={styles.addService} onPress={this.addCustomService}>
           <Text style={styles.addServiceText}>{i18nAddService}</Text>
         </TouchableHighlight>
       </View>

@@ -3,7 +3,7 @@ import each from 'lodash/each';
 import assign from 'lodash/assign';
 import reject from 'lodash/reject';
 
-import { makeReducer } from '../utils';
+import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/master';
 
@@ -382,6 +382,43 @@ export default makeReducer((state, action) => ({
     setCalendarParam(action, state);
 
     return state;
+  },
+
+  MASTER_CUSTOM_SERVICE_TOOGLE: () => {
+    const { sectionName, modelName, active, index } = action;
+    const section = state.masterEditor[sectionName];
+    const model = section[modelName];
+    let customService = state.masterEditor.createMasterQuery[model.queryParam];
+    let items = model.items;
+
+    if (active) {
+      items.push({ active });
+      customService.push({
+        [model.queryMapping['parentServiceId']]: model.parentServiceId,
+      });
+    } else {
+      items = items.splice(index, 1);
+      customService = customService.splice(index, 1);
+    }
+
+    return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
+  },
+
+  MASTER_CUSTOM_SERVICE_SET_PARAM: () => {
+    const { sectionName, modelName, changes, index } = action;
+    const section = state.masterEditor[sectionName];
+    const model = section[modelName];
+    const items = model.items;
+    const item = items[index];
+    let customService = state.masterEditor.createMasterQuery[model.queryParam][index];
+
+    assign(item, changes);
+
+    Object.keys(changes).forEach(key => {
+      customService[model.queryMapping[key]] = changes[key];
+    });
+
+    return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
   },
 }), null, state => {
   console.log(state.masterEditor.createMasterQuery);

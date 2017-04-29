@@ -60,10 +60,10 @@ export default class MasterEditorService extends Component {
 
     if (tabActiveKey === 'servicePedicure') {
       servicesList = <ServicesListPedicure {...servicePedicure} {...filterHandlers} />;
-      customServices = <CustomServices type="pedicure" />;
+      customServices = <CustomServices key="pedicure" type="pedicure" />;
     } else {
       servicesList = <ServicesListManicure {...serviceManicure} {...filterHandlers} />;
-      customServices = <CustomServices type="manicure" />;
+      customServices = <CustomServices key="manicure" type="manicure" />;
     }
 
     return (
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   homeAllowance: {
+    paddingLeft: 11,
     marginBottom: 4,
   },
 });

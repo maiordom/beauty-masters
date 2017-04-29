@@ -6,7 +6,7 @@ const manicureParentServiceId = 1;
 const pedicureParentServiceId = 33;
 
 const customServiceQueryMapping = {
-  description: 'description',
+  title: 'description',
   duration: 'duration',
   parentServiceId: 'parent_service_id',
   price: 'price',
@@ -15,14 +15,14 @@ const customServiceQueryMapping = {
 const manicureCustomServices = (customServices: Array<any> = []) => ({
   items: customServices,
   parentServiceId: manicureParentServiceId,
-  queryParam: 'custom_services',
+  queryParam: 'manicure_custom_services',
   queryMapping: customServiceQueryMapping,
 });
 
 const pedicureCustomServices = (customServices: Array<any> = []) => ({
   items: customServices,
   parentServiceId: pedicureParentServiceId,
-  queryParam: 'custom_services',
+  queryParam: 'pedicure_custom_services',
   queryMapping: customServiceQueryMapping,
 });
 

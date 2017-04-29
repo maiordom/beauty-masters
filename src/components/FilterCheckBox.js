@@ -13,19 +13,31 @@ export default class FilterCheckBox extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
-    this.props.onChange(!this.props.active, this.props.modelName);
+    this.props.onChange(!this.props.active, this.props.modelName, this.props.index);
   };
 
   onChangePrice = price => {
-    this.props.onChangePrice(price, this.props.modelName);
+    this.props.onChangePrice(price, this.props.modelName, this.props.index);
   };
 
   onChangeDuration = duration => {
-    this.props.onChangeDuration(duration, this.props.modelName);
+    this.props.onChangeDuration(duration, this.props.modelName, this.props.index);
+  };
+
+  onChangeTitle = title => {
+    this.props.onChangeTitle(title, this.props.modelName, this.props.index);
   };
 
   render() {
-    const { title, active, price, duration, withInput = true } = this.props;
+    const {
+      active,
+      duration,
+      price,
+      title,
+      titlePlaceholder,
+      titleType = 'text',
+      withInput = true,
+    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -33,10 +45,20 @@ export default class FilterCheckBox extends Component {
           underlayColor="transparent"
           activeOpacity={1}
           onPress={this.onPress}
-          style={styles.button}
+          style={[styles.button, titleType === 'input' && styles.buttonWithInput]}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.title}>{title}</Text>
+            {titleType === 'text' && (
+              <Text style={styles.title}>{title}</Text>
+            )}
+            {titleType === 'input' && (
+              <Input
+                inputWrapperStyle={styles.titleInput}
+                onChange={this.onChangeTitle}
+                placeholder={titlePlaceholder}
+                value={title}
+              />
+            )}
             <Checkbox onPress={this.onPress} checked={active} />
           </View>
         </TouchableHighlight>
@@ -75,6 +97,9 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
   },
+  buttonWithInput: {
+    paddingLeft: 11,
+  },
   buttonContent: {
     height: 44,
     ...Platform.select({
@@ -96,6 +121,9 @@ const styles = StyleSheet.create({
   },
   fields: {
     flexDirection: 'row',
+  },
+  titleInput: {
+    flex: 1,
   },
   input: {
     flex: 1,

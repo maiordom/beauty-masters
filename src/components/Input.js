@@ -152,6 +152,7 @@ const inputStyle = StyleSheet.create({
     }),
   },
   input: {
+    paddingLeft: 4,
     flex: 1,
     alignSelf: 'stretch',
     height: 44,

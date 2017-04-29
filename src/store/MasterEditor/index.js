@@ -49,7 +49,8 @@ params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 const createMasterQuery: CreateMasterQuery = {
   master_addresses: [],
   certificates: [],
-  custom_services: [],
+  manicure_custom_services: [],
+  pedicure_custom_services: [],
   master_photos: [],
   services: [],
   work_photos: [],

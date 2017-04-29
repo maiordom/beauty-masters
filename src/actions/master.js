@@ -158,3 +158,18 @@ export const setCalendarField = (modelName, paramName, paramValue, sectionName) 
   paramValue,
   sectionName,
 });
+
+export const toogleCustomService = (modelName, sectionName, active) => ({
+  type: actions.MASTER_CUSTOM_SERVICE_TOOGLE,
+  modelName,
+  sectionName,
+  active,
+});
+
+export const setCustomServiceParam = (modelName, changes, index, sectionName) => ({
+  type: actions.MASTER_CUSTOM_SERVICE_SET_PARAM,
+  modelName,
+  changes,
+  index,
+  sectionName,
+});
