@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 import FilterCheckBox from '../FilterCheckBox';
 
@@ -12,11 +12,15 @@ const i18nAddService = Platform.select({
 });
 
 export default class MasterEditorCustomServices extends Component {
-  addCustomService = () => {
+  addCustomService = () => this.toogleCustomService(true);
+
+  onChange = active => this.toogleCustomService(active);
+
+  toogleCustomService = active => {
     this.props.actions.toogleCustomService(
       this.props.modelName,
       this.props.sectionName,
-      true,
+      active,
     );
   };
 
@@ -49,14 +53,13 @@ export default class MasterEditorCustomServices extends Component {
 
   render() {
     const { items } = this.props;
-    const { onChangePrice, onChangeDuration, onChangeTitle } = this;
+    const { onChange, onChangePrice, onChangeDuration, onChangeTitle } = this;
     const handlers = {
+      onChange,
       onChangeDuration,
       onChangePrice,
       onChangeTitle,
     };
-
-    console.log(items);
 
     return (
       <View style={styles.container}>
@@ -68,9 +71,11 @@ export default class MasterEditorCustomServices extends Component {
           {...handlers}
           {...item}
         />)}
-        <TouchableHighlight style={styles.addService} onPress={this.addCustomService}>
-          <Text style={styles.addServiceText}>{i18nAddService}</Text>
-        </TouchableHighlight>
+        <TouchableWithoutFeedback onPress={this.addCustomService}>
+          <View style={styles.addService}>
+            <Text style={styles.addServiceText}>{i18nAddService}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     );
   }

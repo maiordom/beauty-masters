@@ -395,8 +395,8 @@ export default makeReducer((state, action) => ({
       items.push({ active });
       customService.push({});
     } else {
-      items = items.splice(index, 1);
-      customService = customService.splice(index, 1);
+      items.splice(index, 1);
+      customService.splice(index, 1);
     }
 
     return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
