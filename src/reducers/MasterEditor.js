@@ -393,9 +393,7 @@ export default makeReducer((state, action) => ({
 
     if (active) {
       items.push({ active });
-      customService.push({
-        [model.queryMapping['parentServiceId']]: model.parentServiceId,
-      });
+      customService.push({});
     } else {
       items = items.splice(index, 1);
       customService = customService.splice(index, 1);

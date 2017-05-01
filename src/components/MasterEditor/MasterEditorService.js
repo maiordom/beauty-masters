@@ -44,17 +44,25 @@ export default class MasterEditorService extends Component {
 
   render() {
     const { tabs, tabActiveKey } = this.state;
+
     const {
       serviceManicure,
       servicePedicure,
       homeAllowanceField,
     } = this.props;
-    const { onChange, onChangePrice, onChangeDuration } = this;
+
+    const {
+      onChange,
+      onChangeDuration,
+      onChangePrice,
+    } = this;
+
     const filterHandlers = {
       onChange,
-      onChangePrice,
       onChangeDuration,
+      onChangePrice,
     };
+
     let servicesList = null;
     let customServices = null;
 
