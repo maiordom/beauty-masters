@@ -16,7 +16,7 @@ import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 
-import SerpSnippet from './SerpSnippet';
+import SerpSnippet from '../../containers/SerpSnippet';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -43,6 +43,8 @@ const markers : Array<MarkerType> = [
   { latlng: { latitude: 60.000316, longitude: 30.256373 } },
   { latlng: { latitude: 60.001496, longitude: 30.250600 } },
   { latlng: { latitude: 60.002007, longitude: 30.254395 } },
+  { latlng: { latitude: 60.001707, longitude: 30.300028 } },
+  { latlng: { latitude: 59.982072, longitude: 30.254690 } },
 ];
 
 type State = {

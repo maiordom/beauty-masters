@@ -6,6 +6,7 @@ export default {
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
+  closestDate: 'Ближайшая дата приема',
   currency: {
     roubleSign: 'р',
   },
@@ -87,6 +88,8 @@ export default {
   },
   firstName: 'Имя',
   from: 'С',
+  fromYou: 'От вас',
+  km: 'км',
   handlingTool: 'Обработка инструмента',
   handlingToolMethods: {
     anotherWay: 'Другой способ',
