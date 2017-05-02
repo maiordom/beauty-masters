@@ -30,7 +30,7 @@ export default class SerpSnippet extends Component {
       lastWeek: '[last] dddd',
       nextWeek: 'dddd',
       sameElse: 'L',
-    });
+    }).toLowerCase();
   };
 
   render() {
