@@ -62,15 +62,17 @@ export default class MasterEditorCustomServices extends Component {
     };
 
     return (
-      <View style={styles.container}>
-        {items.map((item, index) => <FilterCheckBox
-          index={index}
-          key={index}
-          titlePlaceholder={i18n.customService.name}
-          titleType="input"
-          {...handlers}
-          {...item}
-        />)}
+      <View>
+        {items.map((item, index) =>
+          <FilterCheckBox
+            index={index}
+            key={index}
+            titlePlaceholder={i18n.customService.name}
+            titleType="input"
+            {...handlers}
+            {...item}
+          />
+        )}
         <TouchableWithoutFeedback onPress={this.addCustomService}>
           <View style={styles.addService}>
             <Text style={styles.addServiceText}>{i18nAddService}</Text>
@@ -82,7 +84,6 @@ export default class MasterEditorCustomServices extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {},
   addService: {
     alignItems: 'center',
     height: 50,

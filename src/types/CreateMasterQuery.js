@@ -1,15 +1,15 @@
 /* @flow */
 
 type Service = {
-  duration?: number,
+  duration?: string,
   price?: number,
-  service_id: string,
+  service_id: number,
 };
 
 type CustomService = {
   description: string,
-  duration?: number,
-  parent_service_id: string,
+  duration?: string,
+  parent_service_id: number,
   price?: number,
 };
 
@@ -26,7 +26,7 @@ type MasterAddress = {
   custom_recipients: Array<CustomRecipientDate>,
   district: string,
   house: string,
-  interval_id: string,
+  interval_id: number,
   salon_title: string,
   start_date: string,
   street: string,

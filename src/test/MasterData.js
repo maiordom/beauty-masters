@@ -2,7 +2,7 @@
 
 import moment from 'moment';
 
-import type { CreateMasterQuery } from '../types';
+import type { CreateMasterQuery } from '../types/CreateMasterQuery';
 
 const createMasterQuery: CreateMasterQuery = {
   certificates: [],

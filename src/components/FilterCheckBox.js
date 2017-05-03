@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 
@@ -9,23 +11,69 @@ import Input from '../components/Input';
 import vars from '../vars';
 import i18n from '../i18n';
 
+type onChange = (active: boolean, modelName: ?string, index?: number) => void;
+type onChangeDuration = (duration: string, modelName?: string, index?: number) => void;
+type onChangePrice = (price: number, modelName?: string, index?: number) => void;
+type onChangeTitle = (title: string, modelName?: string, index?: number) => void;
+
+type Props = {
+  active: boolean,
+  duration?: string,
+  index?: number,
+  modelName?: string,
+  onChange: onChange,
+  onChangeDuration: onChangeDuration,
+  onChangePrice: onChangePrice,
+  onChangeTitle: onChangeTitle,
+  price?: number,
+  title: string,
+  titlePlaceholder?: string,
+  titleType?: string,
+  withInput: boolean,
+};
+
 export default class FilterCheckBox extends Component {
+  static defaultProps = {
+    onChange: (active: boolean) => {},
+    onChangeDuration: (duration: string) => {},
+    onChangePrice: (price: number) => {},
+    onChangeTitle: (title: string) => {},
+  };
+
+  props: Props;
+
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
-    this.props.onChange(!this.props.active, this.props.modelName, this.props.index);
+    this.props.onChange && this.props.onChange(
+      !this.props.active,
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
-  onChangePrice = price => {
-    this.props.onChangePrice(price, this.props.modelName, this.props.index);
+  onChangePrice = (price: string) => {
+    this.props.onChangePrice && this.props.onChangePrice(
+      Number(price),
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
-  onChangeDuration = duration => {
-    this.props.onChangeDuration(duration, this.props.modelName, this.props.index);
+  onChangeDuration = (duration: string) => {
+    this.props.onChangeDuration && this.props.onChangeDuration(
+      duration,
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
-  onChangeTitle = title => {
-    this.props.onChangeTitle(title, this.props.modelName, this.props.index);
+  onChangeTitle = (title: string) => {
+    this.props.onChangeTitle(
+      title,
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
   render() {

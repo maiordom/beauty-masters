@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { HandlingTools } from '../../types';
+import type { HandlingTools } from '../../types/MasterEditor';
 import i18n from '../../i18n';
 
 const parentServiceId = 65;
