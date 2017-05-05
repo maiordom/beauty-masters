@@ -1,7 +1,6 @@
 // @flow
 
 import moment from 'moment';
-// import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import SerpSnippet from '../components/Serp/SerpSnippet';

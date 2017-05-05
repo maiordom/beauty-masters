@@ -1,7 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
 import vars from '../../vars';
@@ -44,42 +45,44 @@ export default class SerpSnippet extends Component {
     } = this.props;
 
     return (
-      <View elevation={5} style={styles.container}>
-        <View style={styles.header}>
-          <Image style={styles.photo} source={{ uri }} />
-          <View>
-            <Text style={styles.title}>{title}</Text>
-            <Text>{type}</Text>
+      <TouchableOpacity onPress={Actions.Card}>
+        <View elevation={5} style={styles.container}>
+          <View style={styles.header}>
+            <Image style={styles.photo} source={{ uri }} />
+            <View>
+              <Text style={styles.title}>{title}</Text>
+              <Text>{type}</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.row}>
-          <Image
-            style={styles.icon}
-            source={require('../../icons/android/pin-small.png')}
-          />
-          <Text style={styles.text}>м. {metroStation}</Text>
-          <View style={styles.distanceView}>
-            <Text style={styles.distanceText}>
-              {i18n.fromYou.toLowerCase()} {distance} {i18n.km}
-            </Text>
+          <View style={styles.row}>
+            <Image
+              style={styles.icon}
+              source={require('../../icons/android/pin-small.png')}
+            />
+            <Text style={styles.text}>м. {metroStation}</Text>
+            <View style={styles.distanceView}>
+              <Text style={styles.distanceText}>
+                {i18n.fromYou.toLowerCase()} {distance} {i18n.km}
+              </Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.row}>
-          <Image
-            style={styles.icon}
-            source={require('../../icons/android/calendar.png')}
-          />
-          <Text style={styles.text}>{i18n.closestDate}: {this.getDate()}</Text>
-        </View>
-        <View style={[styles.row, styles.servicesRow]}>
-          <Image style={styles.icon} source={require('../../icons/android/ticket.png')} />
-          <View style={styles.services}>
-            {services.map(service => (
-              <Text key={service.id} style={styles.text}>{service.id} – {service.price} ₽</Text>
+          <View style={styles.row}>
+            <Image
+              style={styles.icon}
+              source={require('../../icons/android/calendar.png')}
+            />
+            <Text style={styles.text}>{i18n.closestDate}: {this.getDate()}</Text>
+          </View>
+          <View style={[styles.row, styles.servicesRow]}>
+            <Image style={styles.icon} source={require('../../icons/android/ticket.png')} />
+            <View style={styles.services}>
+              {services.map(service => (
+                <Text key={service.id} style={styles.text}>{service.id} – {service.price} ₽</Text>
             ))}
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
