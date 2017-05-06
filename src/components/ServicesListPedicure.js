@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
@@ -6,16 +8,29 @@ import FilterCheckBox from './FilterCheckBox';
 
 import i18n from '../i18n';
 
+type onChange = (active: boolean, modelName: string) => void;
+type onChangeDuration = (duration: string, modelName: string) => void;
+type onChangePrice = (price: number, modelName: string) => void;
+
+type Props = {
+  models: Object,
+  onChange: onChange,
+  onChangeDuration: onChangeDuration,
+  onChangePrice: onChangePrice,
+};
+
 export default class ServicesListPedicure extends Component {
-  onChange = (active, modelName) => {
+  props: Props;
+
+  onChange = (active: boolean, modelName: string) => {
     this.props.onChange(active, modelName);
   };
 
-  onChangePrice = (price, modelName) => {
-    this.props.onChangePrice(price, modelName);
+  onChangePrice = (price: string, modelName: string) => {
+    this.props.onChangePrice(Number(price), modelName);
   };
 
-  onChangeDuration = (duration, modelName) => {
+  onChangeDuration = (duration: string, modelName: string) => {
     this.props.onChangeDuration(duration, modelName);
   };
 
@@ -47,7 +62,7 @@ export default class ServicesListPedicure extends Component {
       removingBioGelPedicure,
       removingGePedicure,
       removingNailsPedicure,
-    } = this.props;
+    } = this.props.models;
 
     const {
       onChange,
@@ -55,49 +70,50 @@ export default class ServicesListPedicure extends Component {
       onChangeDuration,
     } = this;
 
-    const handlers = {
-      onChange,
-      onChangePrice,
-      onChangeDuration,
-    };
+    const Filter = ({ model }) => <FilterCheckBox
+      {...model}
+      onChange={onChange}
+      onChangePrice={onChangePrice}
+      onChangeDuration={onChangeDuration}
+    />;
 
     return (
       <View>
         <FilterLabel text={i18n.filters.nailProcessingMethod} />
-        <FilterCheckBox {...classicPedicure} {...handlers} />
-        <FilterCheckBox {...hardwarePedicure} {...handlers} />
-        <FilterCheckBox {...europeanPedicure} {...handlers} />
-        <FilterCheckBox {...combinedPedicure} {...handlers} />
-        <FilterCheckBox {...expressPedicure} {...handlers} />
-        <FilterCheckBox {...hotPedicure} {...handlers} />
-        <FilterCheckBox {...spaPedicure} {...handlers} />
+        <Filter model={classicPedicure} />
+        <Filter model={hardwarePedicure} />
+        <Filter model={europeanPedicure} />
+        <Filter model={combinedPedicure} />
+        <Filter model={expressPedicure} />
+        <Filter model={hotPedicure} />
+        <Filter model={spaPedicure} />
 
         <FilterLabel text={i18n.filters.coverage} />
-        <FilterCheckBox {...applyingShellacPedicure} {...handlers} />
-        <FilterCheckBox {...applyingBioGelPedicure} {...handlers} />
-        <FilterCheckBox {...applyingNailPolishPedicure} {...handlers} />
-        <FilterCheckBox {...applyingOfAnotherNailGelPedicure} {...handlers} />
+        <Filter model={applyingShellacPedicure} />
+        <Filter model={applyingBioGelPedicure} />
+        <Filter model={applyingNailPolishPedicure} />
+        <Filter model={applyingOfAnotherNailGelPedicure} />
 
         <FilterLabel text={i18n.filters.nailDesign} />
-        <FilterCheckBox {...frenchPedicure} {...handlers} />
-        <FilterCheckBox {...moonPedicure} {...handlers} />
-        <FilterCheckBox {...reverseMoonPedicure} {...handlers} />
-        <FilterCheckBox {...stencilPedicure} {...handlers} />
-        <FilterCheckBox {...artDesignPedicure} {...handlers} />
-        <FilterCheckBox {...gradientPedicure} {...handlers} />
+        <Filter model={frenchPedicure} />
+        <Filter model={moonPedicure} />
+        <Filter model={reverseMoonPedicure} />
+        <Filter model={stencilPedicure} />
+        <Filter model={artDesignPedicure} />
+        <Filter model={gradientPedicure} />
 
         <FilterLabel text={i18n.filters.nailExtension} />
-        <FilterCheckBox {...extensionTipsAcrilycPedicure} {...handlers} />
-        <FilterCheckBox {...extensionFormsAcrilycPedicure} {...handlers} />
-        <FilterCheckBox {...extensionTipsGelPedicure} {...handlers} />
-        <FilterCheckBox {...extensionAcrilycGelPedicure} {...handlers} />
+        <Filter model={extensionTipsAcrilycPedicure} />
+        <Filter model={extensionFormsAcrilycPedicure} />
+        <Filter model={extensionTipsGelPedicure} />
+        <Filter model={extensionAcrilycGelPedicure} />
 
         <FilterLabel text={i18n.filters.withdrawal} />
-        <FilterCheckBox {...removingNailPolishPedicure} {...handlers} />
-        <FilterCheckBox {...removingShellacPedicure} {...handlers} />
-        <FilterCheckBox {...removingBioGelPedicure} {...handlers} />
-        <FilterCheckBox {...removingGePedicure} {...handlers} />
-        <FilterCheckBox {...removingNailsPedicure} {...handlers} />
+        <Filter model={removingNailPolishPedicure} />
+        <Filter model={removingShellacPedicure} />
+        <Filter model={removingBioGelPedicure} />
+        <Filter model={removingGePedicure} />
+        <Filter model={removingNailsPedicure} />
       </View>
     );
   }

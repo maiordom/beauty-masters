@@ -17,7 +17,7 @@ type onChangePrice = (price: number, modelName?: string, index?: number) => void
 type onChangeTitle = (title: string, modelName?: string, index?: number) => void;
 
 type Props = {
-  active: boolean,
+  active?: boolean,
   duration?: string,
   index?: number,
   modelName?: string,
@@ -26,18 +26,18 @@ type Props = {
   onChangePrice: onChangePrice,
   onChangeTitle: onChangeTitle,
   price?: number,
-  title: string,
+  title?: string,
   titlePlaceholder?: string,
   titleType?: string,
-  withInput: boolean,
+  withInput?: boolean,
 };
 
 export default class FilterCheckBox extends Component {
   static defaultProps = {
-    onChange: (active: boolean) => {},
-    onChangeDuration: (duration: string) => {},
-    onChangePrice: (price: number) => {},
-    onChangeTitle: (title: string) => {},
+    onChange: (active: boolean, modelName: ?string, index?: number) => {},
+    onChangeDuration: (duration: string, modelName?: string, index?: number) => {},
+    onChangePrice: (price: number, modelName?: string, index?: number) => {},
+    onChangeTitle: (title: string, modelName?: string, index?: number) => {},
   };
 
   props: Props;

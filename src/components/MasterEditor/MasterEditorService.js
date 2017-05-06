@@ -67,10 +67,10 @@ export default class MasterEditorService extends Component {
     let customServices = null;
 
     if (tabActiveKey === 'servicePedicure') {
-      servicesList = <ServicesListPedicure {...servicePedicure} {...filterHandlers} />;
+      servicesList = <ServicesListPedicure models={servicePedicure} {...filterHandlers} />;
       customServices = <CustomServices key="pedicure" type="pedicure" />;
     } else {
-      servicesList = <ServicesListManicure {...serviceManicure} {...filterHandlers} />;
+      servicesList = <ServicesListManicure models={serviceManicure} {...filterHandlers} />;
       customServices = <CustomServices key="manicure" type="manicure" />;
     }
 
