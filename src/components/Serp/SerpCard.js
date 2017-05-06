@@ -2,11 +2,19 @@
 
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, Platform } from 'react-native';
 import moment from 'moment';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
+
+const icons = Platform.select({
+  android: {
+    pin: require('../../icons/android/pin-small.png'),
+    calendar: require('../../icons/android/calendar.png'),
+    ticket: require('../../icons/android/ticket.png'),
+  },
+});
 
 export default class SerpCard extends Component {
   props: {
@@ -45,7 +53,7 @@ export default class SerpCard extends Component {
     } = this.props;
 
     return (
-      <TouchableOpacity onPress={Actions.Card}>
+      <TouchableOpacity onPress={Actions.Card} activeOpacity={1} underlayColor>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
             <Image style={styles.photo} source={{ uri }} />
@@ -55,10 +63,7 @@ export default class SerpCard extends Component {
             </View>
           </View>
           <View style={styles.row}>
-            <Image
-              style={styles.icon}
-              source={require('../../icons/android/pin-small.png')}
-            />
+            <Image style={styles.icon} source={icons.pin} />
             <Text style={styles.text}>м. {metroStation}</Text>
             <View style={styles.distanceView}>
               <Text style={styles.distanceText}>
@@ -67,14 +72,11 @@ export default class SerpCard extends Component {
             </View>
           </View>
           <View style={styles.row}>
-            <Image
-              style={styles.icon}
-              source={require('../../icons/android/calendar.png')}
-            />
+            <Image style={styles.icon} source={icons.calendar} />
             <Text style={styles.text}>{i18n.closestDate}: {this.getDate()}</Text>
           </View>
           <View style={[styles.row, styles.servicesRow]}>
-            <Image style={styles.icon} source={require('../../icons/android/ticket.png')} />
+            <Image style={styles.icon} source={icons.ticket} />
             <View style={styles.services}>
               {services.map(service => (
                 <Text key={service.id} style={styles.text}>{service.id} – {service.price} ₽</Text>

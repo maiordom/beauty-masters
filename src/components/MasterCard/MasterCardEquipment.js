@@ -15,6 +15,11 @@ import ModalComponent from '../Modal';
 import vars from '../../vars';
 import { hexToRgba } from '../../utils';
 
+const icons = {
+  info: require('../../icons/info.png'),
+  check: require('../../icons/check.png'),
+};
+
 export default class MasterCardEquipment extends Component {
   state = {
     showInfo: false,
@@ -30,19 +35,16 @@ export default class MasterCardEquipment extends Component {
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>Обработка инструмента</Text>
           <TouchableOpacity onPress={this.onInfoToggle}>
-            <Image
-              source={require('../../icons/info.png')}
-              style={styles.info}
-            />
+            <Image source={icons.info} style={styles.info} />
           </TouchableOpacity>
         </View>
         <View style={styles.equipment}><Text>Дезинфекция</Text></View>
         <View style={styles.equipment}>
-          <Image source={require('../../icons/check.png')} style={styles.check} />
+          <Image source={icons.check} style={styles.check} />
           <Text style={styles.name}>Ультразвук</Text>
         </View>
         <View style={styles.equipment}>
-          <Image source={require('../../icons/check.png')} style={styles.check} />
+          <Image source={icons.check} style={styles.check} />
           <Text style={styles.name}>Ультрафиолет</Text>
         </View>
         <ModalComponent
