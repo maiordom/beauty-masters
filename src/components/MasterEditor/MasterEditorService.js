@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
@@ -13,32 +15,35 @@ import CustomServices from '../../containers/CustomServices';
 
 import i18n from '../../i18n';
 
+type Props = {
+  actions: Object,
+  homeAllowanceField: Object,
+  serviceManicure: Object,
+  servicePedicure: Object,
+};
+
 export default class MasterEditorService extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    tabActiveKey: 'serviceManicure',
+    tabs: [
+      { title: i18n.manicure, key: 'serviceManicure' },
+      { title: i18n.pedicure, key: 'servicePedicure' },
+    ],
+  };
 
-    this.state = {
-      tabActiveKey: 'serviceManicure',
-      tabs: [
-        { title: i18n.manicure, key: 'serviceManicure' },
-        { title: i18n.pedicure, key: 'servicePedicure' },
-      ],
-    };
-  }
-
-  onServicesPress = item => {
+  onServicesPress = (item: Object) => {
     this.setState({ tabActiveKey: item.key });
   };
 
-  onChange = (active, modelName) => {
+  onChange = (active: boolean, modelName: string) => {
     this.props.actions.toogleService(modelName, 'active', active, this.state.tabActiveKey);
   };
 
-  onChangePrice = (price, modelName) => {
+  onChangePrice = (price: number, modelName: string) => {
     this.props.actions.setServiceParam(modelName, 'price', Number(price), this.state.tabActiveKey);
   };
 
-  onChangeDuration = (duration, modelName) => {
+  onChangeDuration = (duration: string, modelName: string) => {
     this.props.actions.setServiceParam(modelName, 'duration', duration, this.state.tabActiveKey);
   };
 
