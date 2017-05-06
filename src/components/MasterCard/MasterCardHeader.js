@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   verified: {
     height: 16,
     width: 16,
-    marginLeft: 6
+    marginLeft: 6,
   },
   subtitle: {
     fontSize: 16,
