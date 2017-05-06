@@ -127,6 +127,7 @@ export default {
     schedule: 'Шаг 4/5: Ваше расписание',
     services: 'Шаг 2/5: Услуги',
   },
+  masterWorks: 'Работы мастера',
   monthNames: [
     'Январь',
     'Февраль',
@@ -147,6 +148,7 @@ export default {
   pedicure: 'Педикюр',
   phone: 'Телефон (для звонков клиентов)',
   photo: {
+    photo: 'Фото',
     select: 'Выбрать фото',
     take: 'Сделать снимок',
   },
@@ -199,6 +201,7 @@ export default {
   tomorrow: 'Завтра',
   userAgreement: 'Условия пользовательского соглашения',
   workAddress: 'Адрес, по которому вы принимаете заказы',
+  workExamples: 'Примеры работ',
   workInThisDay: 'Работаю в этот день',
   youCanEditTheDaysApart: 'Можете отредактировать дни отдельно',
   yourEmail: 'Ваш email',

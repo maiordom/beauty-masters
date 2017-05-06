@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image, ListView } from 'react-native';
+import { View, StyleSheet, Text, Image, ListView, TouchableOpacity } from 'react-native';
 
 import vars from '../../vars';
+import i18n from '../../i18n';
 
 export default class MasterCardWorks extends Component {
+  state = { showGallery: false };
+
   constructor(props) {
     super(props);
 
@@ -16,6 +19,10 @@ export default class MasterCardWorks extends Component {
     };
   }
 
+  onWorkPress = index => () => {
+    this.props.onWorksShow(index);
+  };
+
   render() {
     const { workPhoto } = this.props;
     const { dataSource } = this.state;
@@ -27,14 +34,18 @@ export default class MasterCardWorks extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Примеры работ {workPhoto.length} фото</Text>
+          <Text style={styles.title}>{i18n.workExamples} {workPhoto.length} {i18n.photo.photo.toLowerCase()}</Text>
         </View>
         <ListView
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.photos}
           dataSource={dataSource}
-          renderRow={image => image}
+          renderRow={(image, sectionID, rowID) => (
+            <TouchableOpacity onPress={this.onWorkPress(rowID)} activeOpacity={1} underlayColor>
+              {image}
+            </TouchableOpacity>
+          )}
         />
       </View>
     );
