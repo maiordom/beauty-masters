@@ -5,29 +5,52 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 
 import vars from '../../vars';
 
+const icons = {
+  verified: require('../../icons/verified.png'),
+  vk: require('../../icons/social/vk.png'),
+  inst: require('../../icons/social/inst.png'),
+};
+
 export default class MasterCardHeader extends Component {
+  props: {
+    firstName: string,
+    lastName: string,
+    isSalon: boolean,
+    salonName: ?string,
+    vkProfile: ?string,
+    inProfile: ?string,
+  };
+
   render() {
+    const {
+      firstName,
+      lastName,
+      isSalon,
+      salonName,
+      vkProfile,
+      inProfile,
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <View>
           <View style={styles.titleWrapper}>
-            <Text style={styles.title}>Елена Трепышина</Text>
-            <Image
-              source={require('../../icons/verified.png')}
-              style={{ height: 16, width: 16, marginLeft: 6 }}
-            />
+            <Text style={styles.title}>
+              {firstName} {lastName}
+            </Text>
+            <Image source={icons.verified} style={styles.verified} />
           </View>
-          <Text style={styles.subtitle}>Салон «Пилки»</Text>
+          {isSalon && (
+            <Text style={styles.subtitle}>Салон «{salonName}»</Text>
+          )}
         </View>
         <View style={styles.socials}>
-          <Image
-            source={require('../../icons/social/vk.png')}
-            style={{ height: 28, width: 28, marginRight: 16 }}
-          />
-          <Image
-            source={require('../../icons/social/inst.png')}
-            style={{ height: 28, width: 28 }}
-          />
+          {vkProfile && (
+            <Image source={icons.vk} style={[styles.socialIcon, { marginRight: 16 }]} />
+          )}
+          {inProfile && (
+            <Image source={icons.inst} style={styles.socialIcon} />
+          )}
         </View>
       </View>
     );
@@ -56,10 +79,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: vars.color.black,
   },
+  verified: {
+    height: 16,
+    width: 16,
+    marginLeft: 6
+  },
   subtitle: {
     fontSize: 16,
   },
   socials: {
     flexDirection: 'row',
+  },
+  socialIcon: {
+    height: 28,
+    width: 28,
   },
 });

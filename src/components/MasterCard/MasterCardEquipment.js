@@ -12,8 +12,11 @@ import {
 
 import ModalComponent from '../Modal';
 
+import i18n from '../../i18n';
 import vars from '../../vars';
 import { hexToRgba } from '../../utils';
+
+import { equipmentInfo } from '../../test/MasterCardData';
 
 const icons = {
   info: require('../../icons/info.png'),
@@ -33,32 +36,29 @@ export default class MasterCardEquipment extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleWrapper}>
-          <Text style={styles.title}>Обработка инструмента</Text>
+          <Text style={styles.title}>
+            {i18n.handlingTool}
+          </Text>
           <TouchableOpacity onPress={this.onInfoToggle}>
             <Image source={icons.info} style={styles.info} />
           </TouchableOpacity>
         </View>
-        <View style={styles.equipment}><Text>Дезинфекция</Text></View>
         <View style={styles.equipment}>
-          <Image source={icons.check} style={styles.check} />
-          <Text style={styles.name}>Ультразвук</Text>
+          <Text>{i18n.disinfection}</Text>
         </View>
         <View style={styles.equipment}>
           <Image source={icons.check} style={styles.check} />
-          <Text style={styles.name}>Ультрафиолет</Text>
+          <Text style={styles.name}>{i18n.handlingToolMethods.ultrasound}</Text>
         </View>
-        <ModalComponent
-          isVisible={showInfo}
-          onRequestClose={this.onInfoToggle}
-        >
-          <Text style={styles.modalTitle}>Обработка инструмента</Text>
-          <Text>
-            Ультразвук, Ультрафиолет, Дезинфекция раствором спиртом
-            Устраняет грибковую и бактериальную флору
-
-            Гласперленовый стерилизатор
-            Стерилизация в специальном аппарате под воздействием высокой температуры
-          </Text>
+        <View style={styles.equipment}>
+          <Image source={icons.check} style={styles.check} />
+          <Text style={styles.name}>{i18n.handlingToolMethods.ultraviolet}</Text>
+        </View>
+        <ModalComponent isVisible={showInfo} onRequestClose={this.onInfoToggle}>
+          <Text style={styles.modalTitle}>{i18n.handlingTool}</Text>
+          <Text style={styles.modalText}>{equipmentInfo[0]}</Text>
+          <Text style={styles.modalText}>{equipmentInfo[1]}</Text>
+          <Text style={styles.modalText}>{equipmentInfo[2]}</Text>
         </ModalComponent>
       </View>
     );
@@ -121,5 +121,9 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     color: vars.color.black,
+    marginBottom: 13,
+  },
+  modalText: {
+    fontSize: 16,
   },
 });

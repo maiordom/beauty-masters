@@ -4,44 +4,30 @@ import { View, StyleSheet, Text, Image, ListView } from 'react-native';
 import vars from '../../vars';
 
 export default class MasterCardWorks extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: ds.cloneWithRows([
-        <Image
-          source={require('../../icons/work.png')}
-          style={{ height: 100, width: 100, marginRight: 8 }}
-        />,
-        <Image
-          source={require('../../icons/work.png')}
-          style={{ height: 100, width: 100, marginRight: 8 }}
-        />,
-        <Image
-          source={require('../../icons/work.png')}
-          style={{ height: 100, width: 100, marginRight: 8 }}
-        />,
-        <Image
-          source={require('../../icons/work.png')}
-          style={{ height: 100, width: 100, marginRight: 8 }}
-        />,
-        <Image
-          source={require('../../icons/work.png')}
-          style={{ height: 100, width: 100, marginRight: 8 }}
-        />,
-      ]),
+      dataSource: ds.cloneWithRows(props.workPhoto.map(uri => (
+        <Image source={{ uri }} style={styles.workPhoto} />
+      ))),
     };
   }
 
   render() {
+    const { workPhoto } = this.props;
     const { dataSource } = this.state;
+
+    if (workPhoto.length === 0) {
+      return null;
+    }
 
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Примеры работ  5 фото</Text>
+          <Text style={styles.title}>Примеры работ {workPhoto.length} фото</Text>
         </View>
         <ListView
           horizontal
@@ -74,5 +60,10 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 16,
     flexDirection: 'row',
+  },
+  workPhoto: {
+    height: 100,
+    width: 100,
+    marginRight: 8,
   },
 });

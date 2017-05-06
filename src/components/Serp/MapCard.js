@@ -8,6 +8,8 @@ import moment from 'moment';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
+import type { MapCardType } from '../../types/MasterTypes';
+
 const icons = Platform.select({
   android: {
     pin: require('../../icons/android/pin-small.png'),
@@ -16,19 +18,8 @@ const icons = Platform.select({
   },
 });
 
-export default class SerpCard extends Component {
-  props: {
-    photo: ?string,
-    title: string,
-    type: string|number,
-    metroStation: ?string,
-    distance: ?number,
-    closestDate: string,
-    services: Array<{
-      id: number, // или тайтл
-      price: number,
-    }>
-  };
+export default class MapCard extends Component {
+  props: MapCardType;
 
   getDate = () => {
     const { closestDate } = this.props;
@@ -53,7 +44,7 @@ export default class SerpCard extends Component {
     } = this.props;
 
     return (
-      <TouchableOpacity onPress={Actions.Card} activeOpacity={1} underlayColor>
+      <TouchableOpacity onPress={Actions.card} activeOpacity={1} underlayColor>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
             <Image style={styles.photo} source={{ uri }} />

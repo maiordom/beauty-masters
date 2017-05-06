@@ -3,9 +3,11 @@
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import SerpCard from '../components/Serp/SerpCard';
+import MapCard from '../components/Serp/MapCard';
 
-const mockSnippet = {
+import type { MapCardType } from '../types/MasterTypes';
+
+const mockSnippet : MapCardType = {
   title: 'Марина Ф',
   photo: 'https://unsplash.it/48',
   type: 'Частный мастер',
@@ -26,4 +28,4 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = () => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SerpCard);
+export default connect(mapStateToProps, mapDispatchToProps)(MapCard);

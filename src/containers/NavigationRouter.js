@@ -17,7 +17,7 @@ import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
 import SearchCity from '../screen/SearchForm/SearchFormCity';
 
 import Serp from '../screen/Serp/Serp';
-import Card from '../screen/Card/Card';
+import MasterCard from '../screen/MasterCard/MasterCard';
 
 import Drawer from '../components/Drawer';
 
@@ -86,7 +86,7 @@ export default () => (
           title={'Поиск'}
           component={Serp}
         />
-        <Scene key="Card" component={Card} />
+        <Scene key="card" component={MasterCard} />
         <Scene key="masterAuthorization" component={MasterAuthorization} />
         <Scene key="masterEditorGeneral"
           {...getMasterStyle()}

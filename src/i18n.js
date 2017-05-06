@@ -16,6 +16,7 @@ export default {
     sameDay: 'Сегодня',
   },
   district: 'Район',
+  disinfection: 'Дезинфекция',
   enterAddress: 'Введите адрес',
   findMaster: 'Найти мастера',
   filter: 'Фильтр',

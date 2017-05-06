@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
 
+import MasterCardNavBar from './MasterCardNavBar';
 import MasterCardHeader from './MasterCardHeader';
 import MasterCardWorks from './MasterCardWorks';
 import MasterCardServices from './MasterCardServices';
@@ -10,7 +11,11 @@ import MasterCardEquipment from './MasterCardEquipment';
 
 import vars from '../../vars';
 
+import type { MasterCardType } from '../../types/MasterTypes';
+
 export default class MasterCard extends Component {
+  props: MasterCardType;
+
   render() {
     return (
       <View style={styles.container}>
@@ -21,11 +26,12 @@ export default class MasterCard extends Component {
               resizeMode="cover"
               style={{ height: 260, width: null }}
             />
+            <MasterCardNavBar />
           </View>
-          <MasterCardHeader />
-          <MasterCardWorks />
-          <MasterCardServices />
-          <MasterCardEquipment />
+          <MasterCardHeader {...this.props} />
+          <MasterCardWorks {...this.props} />
+          <MasterCardServices {...this.props} />
+          <MasterCardEquipment {...this.props} />
         </ScrollView>
       </View>
     );
