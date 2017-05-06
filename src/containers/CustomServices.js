@@ -5,7 +5,7 @@ import { toogleCustomService, setCustomServiceParam } from '../actions/master';
 
 import MasterEditorCustomServices from '../components/MasterEditor/MasterEditorCustomServices';
 
-const mapStateToProps = (state, { type} ) => {
+const mapStateToProps = (state, { type } ) => {
   const servicesModel = type === 'manicure'
     ? state.masterEditor.services.manicureCustomServices
     : state.masterEditor.services.pedicureCustomServices;
