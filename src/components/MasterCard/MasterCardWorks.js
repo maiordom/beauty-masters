@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ListView,
-} from 'react-native';
+import { View, StyleSheet, Text, Image, ListView } from 'react-native';
 
 import vars from '../../vars';
 
-export default class CardWorks extends Component {
-  props: {
-  };
-
+export default class MasterCardWorks extends Component {
   constructor() {
     super();
 

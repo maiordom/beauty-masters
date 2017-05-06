@@ -5,13 +5,7 @@ import { View, StyleSheet, Text } from 'react-native';
 
 import vars from '../../vars';
 
-export default class CardHeader extends Component {
-  props: {
-  };
-
-  state = {
-  };
-
+export default class MasterCardServices extends Component {
   render() {
     return (
       <View style={styles.container}>

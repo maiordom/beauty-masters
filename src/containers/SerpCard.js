@@ -3,7 +3,7 @@
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import SerpSnippet from '../components/Serp/SerpSnippet';
+import SerpCard from '../components/Serp/SerpCard';
 
 const mockSnippet = {
   title: 'Марина Ф',
@@ -26,4 +26,4 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = () => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SerpSnippet);
+export default connect(mapStateToProps, mapDispatchToProps)(SerpCard);

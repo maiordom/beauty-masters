@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Card from '../../components/Card/Card';
+import Card from '../../components/MasterCard/MasterCard';
 
 const mapStateToProps = () => ({
 

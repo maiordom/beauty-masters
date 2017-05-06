@@ -1,29 +1,16 @@
 // @flow
 
 import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Image,
-} from 'react-native';
-// import { Actions } from 'react-native-router-flux';
+import { View, StyleSheet, ScrollView, Image } from 'react-native';
 
-import CardHeader from './CardHeader';
-import CardWorks from './CardWorks';
-import CardServices from './CardServices';
-import CardEquipment from './CardEquipment';
+import MasterCardHeader from './MasterCardHeader';
+import MasterCardWorks from './MasterCardWorks';
+import MasterCardServices from './MasterCardServices';
+import MasterCardEquipment from './MasterCardEquipment';
 
 import vars from '../../vars';
-// import i18n from '../../i18n';
 
-export default class Card extends Component {
-  props: {
-  };
-
-  state = {
-  };
-
+export default class MasterCard extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -35,10 +22,10 @@ export default class Card extends Component {
               style={{ height: 260, width: null }}
             />
           </View>
-          <CardHeader />
-          <CardWorks />
-          <CardServices />
-          <CardEquipment />
+          <MasterCardHeader />
+          <MasterCardWorks />
+          <MasterCardServices />
+          <MasterCardEquipment />
         </ScrollView>
       </View>
     );

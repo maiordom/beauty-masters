@@ -15,10 +15,7 @@ import ModalComponent from '../Modal';
 import vars from '../../vars';
 import { hexToRgba } from '../../utils';
 
-export default class CardEquipment extends Component {
-  props: {
-  };
-
+export default class MasterCardEquipment extends Component {
   state = {
     showInfo: false,
   };

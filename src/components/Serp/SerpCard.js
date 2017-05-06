@@ -8,7 +8,7 @@ import moment from 'moment';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-export default class SerpSnippet extends Component {
+export default class SerpCard extends Component {
   props: {
     photo: ?string,
     title: string,

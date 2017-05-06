@@ -16,7 +16,7 @@ import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 
-import SerpSnippet from '../../containers/SerpSnippet';
+import SerpCard from '../../containers/SerpCard';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -179,7 +179,7 @@ export default class Map extends Component<void, void, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          <SerpSnippet />
+          <SerpCard />
         </Animated.View>
       </View>
     );
