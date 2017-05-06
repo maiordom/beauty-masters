@@ -10,6 +10,7 @@ import HandlingTools from '../Filters/HandlingTools';
 import Info from './MasterEditorInfo';
 import ServiceManicure from '../Filters/ServiceManicure';
 import ServicePedicure from '../Filters/ServicePedicure';
+import Services from './MasterEditorServices';
 
 import constants from '../../constants/master';
 
@@ -26,6 +27,7 @@ each({
   info: Info,
   serviceManicure: ServiceManicure,
   servicePedicure: ServicePedicure,
+  services: Services,
 }, (fields, sectionName) => {
   params[sectionName] = {};
 
@@ -47,7 +49,8 @@ params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 const createMasterQuery: CreateMasterQuery = {
   master_addresses: [],
   certificates: [],
-  custom_services: [],
+  manicure_custom_services: [],
+  pedicure_custom_services: [],
   master_photos: [],
   services: [],
   work_photos: [],

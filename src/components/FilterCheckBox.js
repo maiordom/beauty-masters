@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 
@@ -9,23 +11,81 @@ import Input from '../components/Input';
 import vars from '../vars';
 import i18n from '../i18n';
 
+type onChange = (active: boolean, modelName: ?string, index?: number) => void;
+type onChangeDuration = (duration: string, modelName?: string, index?: number) => void;
+type onChangePrice = (price: number, modelName?: string, index?: number) => void;
+type onChangeTitle = (title: string, modelName?: string, index?: number) => void;
+
+type Props = {
+  active?: boolean,
+  duration?: string,
+  index?: number,
+  modelName?: string,
+  onChange: onChange,
+  onChangeDuration: onChangeDuration,
+  onChangePrice: onChangePrice,
+  onChangeTitle: onChangeTitle,
+  price?: number,
+  title?: string,
+  titlePlaceholder?: string,
+  titleType?: string,
+  withInput?: boolean,
+};
+
 export default class FilterCheckBox extends Component {
+  static defaultProps = {
+    onChange: (active: boolean, modelName: ?string, index?: number) => {},
+    onChangeDuration: (duration: string, modelName?: string, index?: number) => {},
+    onChangePrice: (price: number, modelName?: string, index?: number) => {},
+    onChangeTitle: (title: string, modelName?: string, index?: number) => {},
+  };
+
+  props: Props;
+
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
-    this.props.onChange(!this.props.active, this.props.modelName);
+    this.props.onChange && this.props.onChange(
+      !this.props.active,
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
-  onChangePrice = price => {
-    this.props.onChangePrice(price, this.props.modelName);
+  onChangePrice = (price: string) => {
+    this.props.onChangePrice && this.props.onChangePrice(
+      Number(price),
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
-  onChangeDuration = duration => {
-    this.props.onChangeDuration(duration, this.props.modelName);
+  onChangeDuration = (duration: string) => {
+    this.props.onChangeDuration && this.props.onChangeDuration(
+      duration,
+      this.props.modelName,
+      this.props.index,
+    );
+  };
+
+  onChangeTitle = (title: string) => {
+    this.props.onChangeTitle(
+      title,
+      this.props.modelName,
+      this.props.index,
+    );
   };
 
   render() {
-    const { title, active, price, duration, withInput = true } = this.props;
+    const {
+      active,
+      duration,
+      price,
+      title,
+      titlePlaceholder,
+      titleType = 'text',
+      withInput = true,
+    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -33,10 +93,20 @@ export default class FilterCheckBox extends Component {
           underlayColor="transparent"
           activeOpacity={1}
           onPress={this.onPress}
-          style={styles.button}
+          style={[styles.button, titleType === 'input' && styles.buttonWithInput]}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.title}>{title}</Text>
+            {titleType === 'text' && (
+              <Text style={styles.title}>{title}</Text>
+            )}
+            {titleType === 'input' && (
+              <Input
+                inputWrapperStyle={styles.titleInput}
+                onChange={this.onChangeTitle}
+                placeholder={titlePlaceholder}
+                value={title}
+              />
+            )}
             <Checkbox onPress={this.onPress} checked={active} />
           </View>
         </TouchableHighlight>
@@ -75,6 +145,9 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
   },
+  buttonWithInput: {
+    paddingLeft: 11,
+  },
   buttonContent: {
     height: 44,
     ...Platform.select({
@@ -96,6 +169,9 @@ const styles = StyleSheet.create({
   },
   fields: {
     flexDirection: 'row',
+  },
+  titleInput: {
+    flex: 1,
   },
   input: {
     flex: 1,

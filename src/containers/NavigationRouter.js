@@ -78,8 +78,12 @@ export default () => (
           title={i18n.search.masterPlace}
           component={SearchFormAddress}
         />
-        <Scene key="masterAuthorization" component={MasterAuthorization} />
-        <Scene key="masterEditorGeneral"
+        <Scene
+          key="masterAuthorization"
+          component={MasterAuthorization}
+        />
+        <Scene
+          key="masterEditorGeneral"
           {...getMasterStyle()}
           title={i18n.masterEditor.generalInformation}
           component={MasterEditorGeneral}
