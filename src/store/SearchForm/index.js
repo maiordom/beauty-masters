@@ -2,7 +2,7 @@
 import each from 'lodash/each';
 import moment from 'moment';
 
-import type { SearchQueryType } from '../../types';
+import type { SearchQueryType } from '../../types/CreateSearchQuery';
 
 import ServiceManicure from '../Filters/ServiceManicure';
 import ServicePedicure from '../Filters/ServicePedicure';
