@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
@@ -6,53 +8,75 @@ import ButtonControl from '../ButtonControl';
 import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
 import Label from '../Label';
+import Input from '../Input';
+import { FilterLabel } from '../FilterLabel';
+
+import CustomServices from '../../containers/CustomServices';
 
 import i18n from '../../i18n';
 
+type Props = {
+  actions: Object,
+  homeAllowanceField: Object,
+  serviceManicure: Object,
+  servicePedicure: Object,
+};
+
 export default class MasterEditorService extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    tabActiveKey: 'serviceManicure',
+    tabs: [
+      { title: i18n.manicure, key: 'serviceManicure' },
+      { title: i18n.pedicure, key: 'servicePedicure' },
+    ],
+  };
 
-    this.state = {
-      tabActiveKey: 'serviceManicure',
-      tabs: [
-        { title: i18n.manicure, key: 'serviceManicure' },
-        { title: i18n.pedicure, key: 'servicePedicure' },
-      ],
-    };
-  }
-
-  onServicesPress = item => {
+  onServicesPress = (item: Object) => {
     this.setState({ tabActiveKey: item.key });
   };
 
-  onChange = (active, modelName) => {
+  onChange = (active: boolean, modelName: string) => {
     this.props.actions.toogleService(modelName, 'active', active, this.state.tabActiveKey);
   };
 
-  onChangePrice = (price, modelName) => {
+  onChangePrice = (price: number, modelName: string) => {
     this.props.actions.setServiceParam(modelName, 'price', Number(price), this.state.tabActiveKey);
   };
 
-  onChangeDuration = (duration, modelName) => {
+  onChangeDuration = (duration: string, modelName: string) => {
     this.props.actions.setServiceParam(modelName, 'duration', duration, this.state.tabActiveKey);
   };
 
   render() {
     const { tabs, tabActiveKey } = this.state;
-    const { serviceManicure, servicePedicure } = this.props;
-    const { onChange, onChangePrice, onChangeDuration } = this;
-    const handlers = {
+
+    const {
+      serviceManicure,
+      servicePedicure,
+      homeAllowanceField,
+    } = this.props;
+
+    const {
       onChange,
-      onChangePrice,
       onChangeDuration,
+      onChangePrice,
+    } = this;
+
+    const filterHandlers = {
+      onChange,
+      onChangeDuration,
+      onChangePrice,
     };
-    let ServicesList = null;
+
+    let servicesList = null;
+    let customServices = null;
 
     if (tabActiveKey === 'servicePedicure') {
-      ServicesList = <ServicesListPedicure {...servicePedicure} {...handlers} />;
+      servicesList = <ServicesListPedicure models={servicePedicure} {...filterHandlers} />;
+      customServices = <CustomServices key="pedicure" type="pedicure" />;
     } else {
-      ServicesList = <ServicesListManicure {...serviceManicure} {...handlers} />;
+      servicesList = <ServicesListManicure models={serviceManicure} {...filterHandlers} />;
+      customServices = <CustomServices key="manicure" type="manicure" />;
     }
 
     return (
@@ -60,7 +84,10 @@ export default class MasterEditorService extends Component {
         <ScrollView>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
-          {ServicesList}
+          {servicesList}
+          <Input {...homeAllowanceField} inputWrapperStyle={styles.homeAllowance} />
+          <FilterLabel text={i18n.filters.otherServices} />
+          {customServices}
           <ButtonControl onPress={this.props.onNextPress} />
         </ScrollView>
       </View>
@@ -71,5 +98,9 @@ export default class MasterEditorService extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  homeAllowance: {
+    paddingLeft: 11,
+    marginBottom: 4,
   },
 });

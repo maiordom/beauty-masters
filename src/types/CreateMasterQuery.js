@@ -1,15 +1,15 @@
 /* @flow */
 
 type Service = {
-  duration?: number,
+  duration?: string,
   price?: number,
-  service_id: string,
+  service_id: number,
 };
 
 type CustomService = {
   description: string,
-  duration?: number,
-  parent_service_id: string,
+  duration?: string,
+  parent_service_id: number,
   price?: number,
 };
 
@@ -26,7 +26,7 @@ type MasterAddress = {
   custom_recipients: Array<CustomRecipientDate>,
   district: string,
   house: string,
-  interval_id: string,
+  interval_id: number,
   salon_title: string,
   start_date: string,
   street: string,
@@ -37,13 +37,14 @@ type MasterAddress = {
 
 export type CreateMasterQuery = {
   certificates: Array<string>,
-  custom_services: Array<CustomService>,
   first_name?: string,
   is_salon?: boolean,
   last_name?: string,
+  manicure_custom_services: Array<CustomService>,
   master_addresses: Array<MasterAddress>,
   master_photos: Array<string>,
   passport?: string,
+  pedicure_custom_services: Array<CustomService>,
   phone?: string,
   salon_name?: string,
   services: Array<Service>,

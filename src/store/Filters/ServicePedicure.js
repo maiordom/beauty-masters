@@ -1,7 +1,7 @@
 /* @flow */
 
 import i18n from '../../i18n';
-import type { ServicePedicure } from '../../types';
+import type { ServicePedicure } from '../../types/MasterEditor';
 
 const parentServiceId = 33;
 const parentServiceIdExtension = 1001;
