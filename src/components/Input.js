@@ -118,7 +118,8 @@ export default class Input extends InputBase {
         inputStyle.inputWrapper,
         inputWrapperStyle,
         editable === false && inputStyle.inputDisabled,
-      ]}>
+      ]}
+      >
         {icon && <Image source={icon} />}
         <TextInput
           editable={editable !== undefined ? editable : true}

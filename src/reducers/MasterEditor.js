@@ -388,8 +388,8 @@ export default makeReducer((state, action) => ({
     const { sectionName, modelName, active, index } = action;
     const section = state.masterEditor[sectionName];
     const model = section[modelName];
-    let customService = state.masterEditor.createMasterQuery[model.queryParam];
-    let items = model.items;
+    const customService = state.masterEditor.createMasterQuery[model.queryParam];
+    const items = model.items;
 
     if (active) {
       items.push({ active });
@@ -408,7 +408,7 @@ export default makeReducer((state, action) => ({
     const model = section[modelName];
     const items = model.items;
     const item = items[index];
-    let customService = state.masterEditor.createMasterQuery[model.queryParam][index];
+    const customService = state.masterEditor.createMasterQuery[model.queryParam][index];
 
     assign(item, changes);
 

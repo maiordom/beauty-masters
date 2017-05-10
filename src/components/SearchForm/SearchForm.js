@@ -210,7 +210,7 @@ export default class SearchFormShort extends Component {
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
             onPress={this.toggleForm}
           />
-          <ButtonControl label={i18n.findMaster} onPress={() => {}} />
+          <ButtonControl label={i18n.findMaster} onPress={Actions.Serp} />
         </ScrollView>
       </View>
     );
