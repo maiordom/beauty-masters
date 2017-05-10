@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
@@ -16,10 +16,11 @@ import SearchForm from '../screen/SearchForm/SearchForm';
 import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
 import SearchCity from '../screen/SearchForm/SearchFormCity';
 
+import Serp from '../screen/Serp/Serp';
+
 import Drawer from '../components/Drawer';
 
 import i18n from '../i18n';
-import vars from '../vars';
 
 function getMasterStyle(options = {}) {
   let leftButtonIconStyle;
@@ -77,6 +78,12 @@ export default () => (
           {...getMasterStyle()}
           title={i18n.search.masterPlace}
           component={SearchFormAddress}
+        />
+        <Scene
+          key="Serp"
+          {...getMasterStyle()}
+          title={i18n.search.search}
+          component={Serp}
         />
         <Scene
           key="masterAuthorization"

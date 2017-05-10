@@ -29,7 +29,7 @@ export default class MasterEditorCustomServices extends Component {
       this.props.modelName,
       { title },
       index,
-      this.props.sectionName
+      this.props.sectionName,
     );
   };
 
@@ -71,7 +71,7 @@ export default class MasterEditorCustomServices extends Component {
             titleType="input"
             {...handlers}
             {...item}
-          />
+          />,
         )}
         <TouchableWithoutFeedback onPress={this.addCustomService}>
           <View style={styles.addService}>
@@ -92,5 +92,5 @@ const styles = StyleSheet.create({
   addServiceText: {
     color: vars.color.red,
     fontSize: 14,
-  }
+  },
 });

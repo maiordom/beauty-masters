@@ -1,3 +1,4 @@
+/* eslint ignore */
 export default {
   addAddress: ['Добавить адрес 1', 'Добавить адрес 2', 'Добавить адрес 3'],
   authAsMaster: 'Авторизоваться как мастер услуг',
@@ -5,6 +6,7 @@ export default {
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
+  closestDate: 'Ближайшая дата приема',
   currency: {
     roubleSign: 'р',
   },
@@ -21,6 +23,7 @@ export default {
   district: 'Район',
   enterAddress: 'Введите адрес',
   findMaster: 'Найти мастера',
+  filter: 'Фильтр',
   filters: {
     addService: 'Добавить услугу',
     anotherNailGel: {
@@ -92,6 +95,8 @@ export default {
   },
   firstName: 'Имя',
   from: 'С',
+  fromYou: 'От вас',
+  km: 'км',
   handlingTool: 'Обработка инструмента',
   handlingToolMethods: {
     anotherWay: 'Другой способ',
@@ -103,6 +108,7 @@ export default {
   },
   house: 'Дом',
   lastName: 'Фамилия',
+  list: 'Список',
   login: 'Вход',
   location: {
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
@@ -180,9 +186,13 @@ export default {
     nearWith: 'Искать рядом с',
     masterPlace: 'Где принимает мастер',
     masterToHome: 'Мастер выезжает на дом',
+    search: 'Поиск',
     searchParams: 'Параметры поиска',
     short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',
+  },
+  serp: {
+    onMap: 'На карте',
   },
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',

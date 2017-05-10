@@ -3,6 +3,7 @@ package com.pilochka;
 import android.app.Application;
 import android.util.Log;
 
+import com.airbnb.android.react.maps.MapsPackage;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.react.ReactApplication;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNFetchBlobPackage(),
           new FabricPackage(),
-          new ImagePickerPackage()
+          new ImagePickerPackage(),
+          new MapsPackage()
       );
     }
   };
