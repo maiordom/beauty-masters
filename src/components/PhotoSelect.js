@@ -22,13 +22,43 @@ export default class PhotoSelect extends Component {
   };
 
   onPhotoTakePress = () => {
-    ImagePicker.launchCamera({}, ({ uri, type }) => {
+    ImagePicker.launchCamera({
+      noData: true,
+      storageOptions: {
+        waitUntilSaved: true,
+      },
+    }, ({ uri, type, didCancel, error }) => {
+      if (didCancel) {
+        console.log('ImagePicker::launchCamera cancel');
+        return;
+      }
+
+      if (error) {
+        console.log('ImagePicker::launchCamera::error', error);
+        return;
+      }
+
       this.props.onGetPhotoFromCamera({ uri, type }, this.props.name);
     });
   };
 
   onPhotoSelectPress = () => {
-    ImagePicker.launchImageLibrary({}, ({ uri, type }) => {
+    ImagePicker.launchImageLibrary({
+      noData: true,
+      storageOptions: {
+        waitUntilSaved: true,
+      },
+    }, ({ uri, type, didCancel, error }) => {
+      if (didCancel) {
+        console.log('ImagePicker::launchImageLibrary cancel');
+        return;
+      }
+
+      if (error) {
+        console.log('ImagePicker::launchImageLibrary::error', error);
+        return;
+      }
+
       this.props.onGetPhotoFromGallery({ uri, type }, this.props.name);
     });
   };
