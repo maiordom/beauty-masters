@@ -69,12 +69,12 @@ const styles = StyleSheet.create({
     borderColor: vars.color.lightGrey,
   },
   addressWrapper: {
+    marginRight: 16,
+    marginLeft: 16,
     borderBottomWidth: 1,
     borderColor: vars.color.lightGrey,
   },
   address: {
-    marginRight: 16,
-    marginLeft: 16,
     marginTop: 16,
     paddingBottom: 16,
     flexDirection: 'row',
