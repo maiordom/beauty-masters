@@ -3,6 +3,7 @@ export default {
   addAddress: ['Добавить адрес 1', 'Добавить адрес 2', 'Добавить адрес 3'],
   authAsMaster: 'Авторизоваться как мастер услуг',
   building: 'Корпус/Строение',
+  call: 'Позвонить',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
@@ -178,6 +179,7 @@ export default {
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
   schedule: {
+    schedule: 'Расписание',
     wholeWeek: '7 дней в неделю',
     twoAfterTwo: '2 через 2',
     onWeekdays: 'По будням',

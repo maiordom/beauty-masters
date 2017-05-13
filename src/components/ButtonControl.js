@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableHighlight, Platform, View } from 'react-native';
+import { Text, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -19,7 +19,7 @@ export default class ButtonControl extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor={vars.color.red}
+        underlayColor={customStyles.underlayColor ? customStyles.underlayColor : vars.color.red}
         activeOpacity={1}
         onPress={onPress}
         style={[styles.nextButton, customStyles.nextButton]}

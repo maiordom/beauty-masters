@@ -9,7 +9,7 @@ export default {
     red: '#F65F6E',
     black: '#283741',
     blue: '#14AAF0',
-
+    green: '#69B92D',
     borderColorAndroid: '#E4E6E8',
     placeholderColor: '#283741',
     underlineColorAndroid: '#E4E6E8',

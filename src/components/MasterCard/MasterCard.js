@@ -9,6 +9,9 @@ import MasterCardHeader from './MasterCardHeader';
 import MasterCardWorks from './MasterCardWorks';
 import MasterCardServices from './MasterCardServices';
 import MasterCardEquipment from './MasterCardEquipment';
+import MasterCardSchedule from './MasterCardSchedule';
+
+import ButtonControl from '../ButtonControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -50,7 +53,15 @@ export default class MasterCard extends Component {
           <MasterCardWorks onWorksShow={this.onWorksShow} {...this.props} />
           <MasterCardServices {...this.props} />
           <MasterCardEquipment {...this.props} />
+          <MasterCardSchedule {...this.props} />
         </ScrollView>
+        <TouchableOpacity style={styles.call} activeOpacity={1}>
+          <ButtonControl
+            label={i18n.call}
+            customStyles={{ nextButton: styles.callButton, underlayColor: vars.color.green }}
+            onPress={() => {}}
+          />
+        </TouchableOpacity>
         {showWorks && (
           <View
             style={styles.gallery}
@@ -74,7 +85,6 @@ export default class MasterCard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: vars.bodyColor,
     alignItems: 'center',
   },
   content: {
@@ -105,5 +115,11 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     fontSize: 20,
     color: vars.color.white,
+  },
+  call: {
+    alignSelf: 'stretch',
+  },
+  callButton: {
+    backgroundColor: vars.color.green,
   },
 });
