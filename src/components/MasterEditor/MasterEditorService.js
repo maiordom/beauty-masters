@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, InteractionManager } from 'react-native';
 
 import Tabs from '../Tabs';
 import ButtonControl from '../ButtonControl';
@@ -29,7 +29,14 @@ export default class MasterEditorService extends Component {
       { title: i18n.manicure, key: 'serviceManicure' },
       { title: i18n.pedicure, key: 'servicePedicure' },
     ],
+    renderLoader: true,
   };
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderLoader: false });
+    });
+  }
 
   onServicesPress = (item: Object) => {
     this.setState({ tabActiveKey: item.key });
@@ -48,7 +55,11 @@ export default class MasterEditorService extends Component {
   };
 
   render() {
-    const { tabs, tabActiveKey } = this.state;
+    const { tabs, tabActiveKey, renderLoader } = this.state;
+
+    if (renderLoader) {
+      return null;
+    }
 
     const {
       serviceManicure,

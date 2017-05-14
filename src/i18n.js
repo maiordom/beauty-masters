@@ -22,6 +22,9 @@ export default {
   },
   district: 'Район',
   enterAddress: 'Введите адрес',
+  errors: {
+    allFieldsRequired: 'Необходимо заполнить все поля',
+  },
   findMaster: 'Найти мастера',
   filter: 'Фильтр',
   filters: {

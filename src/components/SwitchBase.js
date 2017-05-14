@@ -89,7 +89,9 @@ export default class SwitchBase extends Component {
 
   onSwipe = (currentPosition, startingPosition, onChange, onTerminate) => {
     if (currentPosition - startingPosition >= 0) {
-      if (currentPosition - startingPosition > this.state.width / 2 || startingPosition == this.state.width) {
+      if (currentPosition - startingPosition > this.state.width / 2
+        || startingPosition == this.state.width
+      ) {
         onChange();
       } else {
         onTerminate();

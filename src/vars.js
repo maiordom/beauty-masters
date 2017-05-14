@@ -10,6 +10,7 @@ export default {
     black: '#283741',
     blue: '#14AAF0',
 
+    buttonDisabled: '#8CA5AF',
     borderColorAndroid: '#E4E6E8',
     placeholderColor: '#283741',
     underlineColorAndroid: '#E4E6E8',
