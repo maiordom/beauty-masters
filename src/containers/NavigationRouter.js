@@ -83,7 +83,7 @@ export default () => (
         <Scene
           key="Serp"
           {...getMasterStyle()}
-          title={'Поиск'}
+          title={i18n.search.search}
           component={Serp}
         />
         <Scene key="card" component={MasterCard} />

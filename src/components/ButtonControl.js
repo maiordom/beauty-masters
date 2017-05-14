@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableHighlight, Platform } from 'react-native';
+import { Text, StyleSheet, TouchableWithoutFeedback, Platform, View } from 'react-native';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -10,7 +10,7 @@ export default class ButtonControl extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   render() {
-    const { onPress, label, customStyles = {} } = this.props;
+    const { onPress, label, customStyles = {}, type } = this.props;
 
     const title = Platform.select({
       ios: label || i18n.next,
@@ -18,14 +18,16 @@ export default class ButtonControl extends Component {
     });
 
     return (
-      <TouchableHighlight
-        underlayColor={customStyles.underlayColor ? customStyles.underlayColor : vars.color.red}
-        activeOpacity={1}
-        onPress={onPress}
-        style={[styles.nextButton, customStyles.nextButton]}
-      >
-        <Text style={[styles.nextText, customStyles.nextText]}>{title}</Text>
-      </TouchableHighlight>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={[
+          styles.nextButton,
+          customStyles.nextButton,
+          styles[type],
+        ]}
+        >
+          <Text style={[styles.nextText, customStyles.nextText]}>{title}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -45,6 +47,9 @@ const styles = StyleSheet.create({
         height: 48,
       },
     }),
+  },
+  disabled: {
+    backgroundColor: vars.color.buttonDisabled,
   },
   nextText: {
     color: vars.color.white,

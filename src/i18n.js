@@ -24,6 +24,9 @@ export default {
   district: 'Район',
   disinfection: 'Дезинфекция',
   enterAddress: 'Введите адрес',
+  errors: {
+    allFieldsRequired: 'Необходимо заполнить все поля',
+  },
   findMaster: 'Найти мастера',
   filter: 'Фильтр',
   filters: {
@@ -191,6 +194,7 @@ export default {
     nearWith: 'Искать рядом с',
     masterPlace: 'Где принимает мастер',
     masterToHome: 'Мастер выезжает на дом',
+    search: 'Поиск',
     searchParams: 'Параметры поиска',
     short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',

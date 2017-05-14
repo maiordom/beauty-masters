@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback } from 'react-native';
 
 import { hexToRgba, shouldComponentUpdate } from '../utils';
 import SwitchBase from './SwitchBase';
@@ -15,6 +15,10 @@ export default class CustomSwitch extends Component {
     this.ref = ref;
   };
 
+  onPress = () => {
+    this.ref.toggle();
+  };
+
   componentWillReceiveProps(nextProps) {
     if (typeof nextProps.value === 'boolean') {
       this.ref && this.ref.changeStateImmediately(nextProps.value);
@@ -25,24 +29,26 @@ export default class CustomSwitch extends Component {
     const { title, value, customStyles = {} } = this.props;
 
     return (
-      <View style={[styles.container, customStyles.container]}>
-        <Text style={[styles.title, customStyles.title]}>{title}</Text>
-        <SwitchBase
-          ref={this.setRef}
-          active={value}
-          buttonRadius={11}
-          switchWidth={38}
-          switchHeight={14}
-          inactiveButtonColor={'#E8E8E8'}
-          inactiveButtonPressedColor={'#E8E8E8'}
-          activeButtonColor={'#F65F6E'}
-          activeButtonPressedColor={'#F65F6E'}
-          activeBackgroundColor={hexToRgba('#F65F6E', 50)}
-          inactiveBackgroundColor={hexToRgba('#374650', 40)}
-          borderWidth={0}
-          onChangeState={this.onChange}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={this.onPress}>
+        <View style={[styles.container, customStyles.container]}>
+          <Text style={[styles.title, customStyles.title]}>{title}</Text>
+          <SwitchBase
+            ref={this.setRef}
+            active={value}
+            buttonRadius={11}
+            switchWidth={38}
+            switchHeight={14}
+            inactiveButtonColor={'#E8E8E8'}
+            inactiveButtonPressedColor={'#E8E8E8'}
+            activeButtonColor={'#F65F6E'}
+            activeButtonPressedColor={'#F65F6E'}
+            activeBackgroundColor={hexToRgba('#F65F6E', 50)}
+            inactiveBackgroundColor={hexToRgba('#374650', 40)}
+            borderWidth={0}
+            onChangeState={this.onChange}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

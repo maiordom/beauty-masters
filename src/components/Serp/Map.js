@@ -2,24 +2,35 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  Image,
   Animated,
-  StyleSheet,
   Dimensions,
-  PanResponder,
-  TouchableOpacity,
+  Image,
   InteractionManager,
+  PanResponder,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 
-import MapCard from '../../containers/MapCard';
+import SerpSnippet from '../../containers/SerpSnippet';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
+
+const icons = Platform.select({
+  android: {
+    filter: require('../../icons/filter.png'),
+    location: require('../../icons/location.png'),
+    pinGreen: require('../../icons/pin-green.png'),
+    pinRed: require('../../icons/pin-red.png'),
+  },
+  ios: {},
+});
 
 type LatLngType = {
   latitude: number,
@@ -87,7 +98,10 @@ export default class Map extends Component<void, void, State> {
       if (gestureState.dy < 0) { // user swipes up
         return;
       }
-      return gestureState.dy > 0 && Animated.event([null, { dy: this.state.snippetTranslateY }])(evt, gestureState);
+      return gestureState.dy > 0 && Animated.event([
+        null,
+        { dy: this.state.snippetTranslateY },
+      ])(evt, gestureState);
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (gestureState.dy > 70) {
@@ -149,8 +163,8 @@ export default class Map extends Component<void, void, State> {
               key={marker.latlng.latitude + marker.latlng.longitude}
               onPress={this.onMarkerPress}
               image={isEqual(marker.latlng, activePin)
-                ? require('../../icons/pin-green.png')
-                : require('../../icons/pin-red.png')
+                ? icons.pinGreen
+                : icons.pinRed
               }
             />
           ))}
@@ -160,7 +174,7 @@ export default class Map extends Component<void, void, State> {
           onPress={Actions.pop}
         >
           <View style={styles.filterButton}>
-            <Image source={require('../../icons/filter.png')} />
+            <Image source={icons.filter} />
             <Text style={styles.filterText}>
               {i18n.filter}
             </Text>
@@ -168,7 +182,7 @@ export default class Map extends Component<void, void, State> {
         </TouchableOpacity>
         <TouchableOpacity style={styles.locationButtonWrapper} onPress={this.onLocationPress}>
           <View style={styles.locationButton}>
-            <Image source={require('../../icons/location.png')} />
+            <Image source={icons.location} />
           </View>
         </TouchableOpacity>
         <Animated.View
@@ -179,7 +193,7 @@ export default class Map extends Component<void, void, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          <MapCard />
+          <SerpSnippet />
         </Animated.View>
       </View>
     );
