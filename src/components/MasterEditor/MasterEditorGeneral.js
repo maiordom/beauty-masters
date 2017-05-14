@@ -84,7 +84,7 @@ export default class MasterEditorGeneral extends Component {
           )}
         </View>
         <ButtonControl
-          disabled={hasError}
+          type={hasError && 'disabled'}
           onPress={this.onNextPress}
         />
       </View>
