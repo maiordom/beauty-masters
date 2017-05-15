@@ -1,14 +1,17 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import {
   View,
   StyleSheet,
   Text,
   Image,
-  TouchableOpacity,
+  ListView,
+  Platform,
+  Dimensions,
 } from 'react-native';
+import moment from 'moment';
+import debounce from 'lodash/debounce';
 
 import Calendar from '../Calendar';
 
@@ -18,44 +21,140 @@ import vars from '../../vars';
 const icons = {
   location: require('../../icons/location-small.png'),
   map: require('../../icons/map.png'),
+  ...Platform.select({
+    android: {
+      calendar: require('../../icons/android/calendar.png'),
+    },
+  }),
 };
 
 export default class MasterCardShedule extends Component {
-  render() {
+  addressesListView = null;
+
+  constructor(props) {
+    super(props);
+
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+
+    this.onAddressesSwipe = debounce(this.onAddressesSwipe, 1000);
+
+    this.state = {
+      selectedAddress: 0,
+      selectedDate: moment().format('YYYY-MM-DD'),
+      addresses: ds.cloneWithRows(props.addresses),
+    };
+  }
+
+  onDateSelect = (date: string) => this.setState({ selectedDate: date });
+
+  getSelectedAddress = (index: ?number) => {
+    const { selectedAddress } = this.state;
+    const { addresses } = this.props;
+
+    return addresses[index || selectedAddress];
+  };
+
+  onAddressesSwipe(event) {
+    event.persist();
+    console.log(event.nativeEvent);
+  }
+
+  renderAddress = (index: number) => {
+    const {
+      street,
+      house,
+      building,
+      subwayStation,
+    } = this.getSelectedAddress(index);
+
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => {}} activeOpacity={1} underlayColor>
-          <View style={styles.addressWrapper}>
-            <View style={styles.address}>
+      <View style={styles.address}>
+        <View>
+          <Text style={styles.addressTitle}>
+            {street}, д. {house}, стр. {building}
+          </Text>
+          <View style={styles.metro}>
+            <Image source={icons.location} style={styles.location} />
+            <Text>500 м, м. {subwayStation}</Text>
+          </View>
+        </View>
+        <Image source={icons.map} style={styles.map} />
+      </View>
+    );
+  };
+
+  renderAddresses = () => (
+    <View style={styles.addressWrapper}>
+      <ListView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={this.onAddressesSwipe}
+        ref={component => (this.addressesListView = component)}
+        dataSource={this.state.addresses}
+        renderRow={(rowData, _, index) => this.renderAddress(index)}
+      />
+      <View style={styles.dots}>
+        <View style={[styles.dot, styles.dotActive]} />
+        <View style={styles.dot} />
+      </View>
+    </View>
+  );
+
+  renderCalendar = () => (
+    <View style={styles.calendar}>
+      <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
+      <Calendar
+        selectedDate={this.state.selectedDate}
+        onDateSelect={this.onDateSelect}
+      />
+    </View>
+  );
+
+  renderSchedule = () => {
+    const { selectedDate } = this.state;
+
+    const {
+      masterSchedules,
+      salonTitle,
+      street,
+      house,
+      building,
+    } = this.getSelectedAddress();
+
+    const schedule = masterSchedules.find(day => day.date === selectedDate);
+
+    return (
+      <View style={styles.scheduleWrapper}>
+        {schedule
+          ? (
+            <View style={styles.schedule}>
               <View>
-                <Text style={styles.addressTitle}>
-                  Трамвайный пр., д. 28
-                </Text>
-                <View style={styles.metro}>
-                  <Image source={icons.location} style={styles.location} />
-                  <Text>500 м, м. Ленинский проспект</Text>
-                </View>
+                <Text style={styles.scheduleText}>Принимает с {schedule.timeStart} до {schedule.timeEnd}</Text>
+                <Text style={styles.scheduleText}>Салон «{salonTitle}»</Text>
+                <Text style={styles.scheduleText}>По адресу {street}, д. {house}, стр. {building}</Text>
               </View>
               <Image source={icons.map} style={styles.map} />
             </View>
-            <View style={styles.dots}>
-              <View style={[styles.dot, styles.dotActive]} />
-              <View style={styles.dot} />
+          )
+          : (
+            <View style={styles.scheduleEmpty}>
+              <Image source={icons.calendar} style={styles.calendarIcon} />
+              <Text style={styles.scheduleText}>В этот день мастер не принимает</Text>
             </View>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.calendar}>
-          <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
-          <Calendar />
-        </View>
-        <View style={styles.schedule}>
-          <View>
-            <Text style={styles.scheduleText}>Принимает с 10:00 до 14:00</Text>
-            <Text style={styles.scheduleText}>Салон «Пилки»</Text>
-            <Text style={styles.scheduleText}>По адресу Ленинский пр., д. 127</Text>
-          </View>
-          <Image source={icons.map} style={styles.map} />
-        </View>
+          )
+        }
+      </View>
+    );
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.renderAddresses()}
+        <View style={styles.addressBottomBorder} />
+        {this.renderCalendar()}
+        {this.renderSchedule()}
       </View>
     );
   }
@@ -68,14 +167,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: vars.color.lightGrey,
   },
-  addressWrapper: {
-    marginRight: 16,
-    marginLeft: 16,
+  addressBottomBorder: {
     borderBottomWidth: 1,
     borderColor: vars.color.lightGrey,
+    marginRight: 16,
+    marginLeft: 16,
   },
   address: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: Dimensions.get('window').width - 32,
     marginTop: 16,
+    marginRight: 16,
+    marginLeft: 16,
     paddingBottom: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -93,7 +197,6 @@ const styles = StyleSheet.create({
   metro: {
     flexDirection: 'row',
     alignItems: 'center',
-    color: vars.color.grey,
   },
   map: {
     width: 40,
@@ -124,11 +227,21 @@ const styles = StyleSheet.create({
     color: vars.color.black,
     marginBottom: 6,
   },
-  schedule: {
+  scheduleWrapper: {
     padding: 16,
+    backgroundColor: vars.color.lightGrey,
+  },
+  schedule: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: vars.color.lightGrey,
+  },
+  calendarIcon: {
+    marginRight: 16,
+  },
+  scheduleEmpty: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   scheduleText: {
     color: vars.color.black,

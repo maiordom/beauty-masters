@@ -8,6 +8,29 @@ type Service = {
   duration: ?string,
 };
 
+type Schedule = {
+  id: number,
+  masterId: number,
+  masterAddressId: number,
+  date: string,
+  timeStart: string,
+  timeEnd: string,
+};
+
+type Address = {
+  id: number,
+  masterId: number,
+  city: string,
+  district: string,
+  street: string,
+  house: string,
+  building: string,
+  subwayStation: string,
+  salonTitle: string,
+  dopInfo: string,
+  masterSchedules: Array<Schedule>
+};
+
 export type MasterCardType = {
   id: number,
   userId: number,
@@ -31,6 +54,7 @@ export type MasterCardType = {
   site_url: ?string,
   rating: ?string,
   services: Array<Service>,
+  addresses: Array<Address>
 };
 
 export type MapCardType = {

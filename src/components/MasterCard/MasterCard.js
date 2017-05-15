@@ -35,7 +35,7 @@ export default class MasterCard extends Component {
   onWorksHide = () => this.setState({ showWorks: false });
 
   render() {
-    const { workPhoto } = this.props;
+    const { workPhoto, addresses } = this.props;
     const { showWorks, showWorksIndex } = this.state;
 
     return (
@@ -53,7 +53,7 @@ export default class MasterCard extends Component {
           <MasterCardWorks onWorksShow={this.onWorksShow} {...this.props} />
           <MasterCardServices {...this.props} />
           <MasterCardEquipment {...this.props} />
-          <MasterCardSchedule {...this.props} />
+          <MasterCardSchedule addresses={addresses} />
         </ScrollView>
         <TouchableOpacity style={styles.call} activeOpacity={1}>
           <ButtonControl
