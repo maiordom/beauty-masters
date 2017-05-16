@@ -1,7 +1,16 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Text, Platform } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Text,
+  Platform,
+  InteractionManager,
+} from 'react-native';
 import Gallery from 'react-native-gallery';
 
 import MasterCardNavBar from './MasterCardNavBar';
@@ -28,19 +37,40 @@ const icons = Platform.select({
 export default class MasterCard extends Component {
   props: MasterCardType;
 
-  state = { showWorks: false, showWorksIndex: 0 };
+  scrollViewRef: ScrollView;
+
+  state = {
+    showWorks: false,
+    showWorksIndex: 0,
+    scrollViewHeight: 0,
+    listHeight: 0,
+  };
 
   onWorksShow = (index: string) => this.setState({ showWorks: true, showWorksIndex: Number(index) });
 
   onWorksHide = () => this.setState({ showWorks: false });
 
+  scrollToEnd = () => {
+    InteractionManager.runAfterInteractions(() => {
+      const bottomOfList = this.state.listHeight - this.state.scrollViewHeight;
+
+      this.scrollViewRef.scrollTo({ y: bottomOfList, animated: true });
+    });
+  };
+
   render() {
-    const { workPhoto, addresses } = this.props;
+    const { workPhoto, addresses, scene } = this.props;
     const { showWorks, showWorksIndex } = this.state;
 
+    console.log(scene);
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.content}>
+        <ScrollView
+          ref={component => (this.scrollViewRef = component)}
+          style={styles.content}
+          onContentSizeChange={(_, contentHeight) => this.setState({ listHeight: contentHeight })}
+          onLayout={e => this.setState({ scrollViewHeight: e.nativeEvent.layout.height })}
+        >
           <View>
             <Image
               source={require('../../icons/android/photo-master.png')}
@@ -53,7 +83,7 @@ export default class MasterCard extends Component {
           <MasterCardWorks onWorksShow={this.onWorksShow} {...this.props} />
           <MasterCardServices {...this.props} />
           <MasterCardEquipment {...this.props} />
-          <MasterCardSchedule addresses={addresses} />
+          <MasterCardSchedule addresses={addresses} scrollToEnd={this.scrollToEnd.bind(this)} />
         </ScrollView>
         <TouchableOpacity style={styles.call} activeOpacity={1}>
           <ButtonControl

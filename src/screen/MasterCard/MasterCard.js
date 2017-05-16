@@ -7,7 +7,8 @@ import type { MasterCardType } from '../../types/MasterTypes';
 
 import masterCardData from '../../test/MasterCardData';
 
-const mapStateToProps = () => ({
+const mapStateToProps = (state) => ({
+  scene: state.scene,
   ...masterCardData,
 } : MasterCardType);
 

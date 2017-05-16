@@ -9,9 +9,11 @@ import {
   ListView,
   Platform,
   Dimensions,
+  InteractionManager,
+  TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
-import debounce from 'lodash/debounce';
+import { Actions } from 'react-native-router-flux';
 
 import Calendar from '../Calendar';
 
@@ -29,23 +31,30 @@ const icons = {
 };
 
 export default class MasterCardShedule extends Component {
-  addressesListView = null;
-
   constructor(props) {
     super(props);
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-    this.onAddressesSwipe = debounce(this.onAddressesSwipe, 1000);
-
     this.state = {
       selectedAddress: 0,
-      selectedDate: moment().format('YYYY-MM-DD'),
+      selectedDate: moment().add(1, 'day').format('YYYY-MM-DD'),
       addresses: ds.cloneWithRows(props.addresses),
     };
   }
 
-  onDateSelect = (date: string) => this.setState({ selectedDate: date });
+  onDateSelect = (date: string) => {
+    this.setState({ selectedDate: date });
+    InteractionManager.runAfterInteractions(() => {
+      this.props.scrollToEnd();
+    });
+  };
+
+  onMapPress = () => {
+    const { latlng } = this.getSelectedAddress();
+
+    Actions.masterLocation(latlng);
+  };
 
   getSelectedAddress = (index: ?number) => {
     const { selectedAddress } = this.state;
@@ -54,10 +63,17 @@ export default class MasterCardShedule extends Component {
     return addresses[index || selectedAddress];
   };
 
-  onAddressesSwipe(event) {
-    event.persist();
-    console.log(event.nativeEvent);
-  }
+  onAddressesSwipe = (event: any) => {
+    const clientWidth = Dimensions.get('window').width;
+    const xOffset = event.nativeEvent.contentOffset.x;
+    const selectedAddress = Math.round(xOffset / clientWidth);
+
+    if (this.state.selectedAddress !== selectedAddress) {
+      InteractionManager.runAfterInteractions(() => {
+        this.setState({ selectedAddress });
+      });
+    }
+  };
 
   renderAddress = (index: number) => {
     const {
@@ -78,7 +94,9 @@ export default class MasterCardShedule extends Component {
             <Text>500 м, м. {subwayStation}</Text>
           </View>
         </View>
-        <Image source={icons.map} style={styles.map} />
+        <TouchableOpacity onPress={this.onMapPress}>
+          <Image source={icons.map} style={styles.map} />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -90,13 +108,17 @@ export default class MasterCardShedule extends Component {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onScroll={this.onAddressesSwipe}
-        ref={component => (this.addressesListView = component)}
+        scrollEventThrottle={200}
         dataSource={this.state.addresses}
         renderRow={(rowData, _, index) => this.renderAddress(index)}
       />
       <View style={styles.dots}>
-        <View style={[styles.dot, styles.dotActive]} />
-        <View style={styles.dot} />
+        {this.props.addresses.map((_, index) => (
+          <View
+            key={index}
+            style={[styles.dot, this.state.selectedAddress === index ? styles.dotActive : {}]}
+          />
+        ))}
       </View>
     </View>
   );
@@ -105,6 +127,7 @@ export default class MasterCardShedule extends Component {
     <View style={styles.calendar}>
       <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
       <Calendar
+        activeFrom={moment()}
         selectedDate={this.state.selectedDate}
         onDateSelect={this.onDateSelect}
       />
@@ -134,7 +157,9 @@ export default class MasterCardShedule extends Component {
                 <Text style={styles.scheduleText}>Салон «{salonTitle}»</Text>
                 <Text style={styles.scheduleText}>По адресу {street}, д. {house}, стр. {building}</Text>
               </View>
-              <Image source={icons.map} style={styles.map} />
+              <TouchableOpacity onPress={this.onMapPress}>
+                <Image source={icons.map} style={styles.map} />
+              </TouchableOpacity>
             </View>
           )
           : (

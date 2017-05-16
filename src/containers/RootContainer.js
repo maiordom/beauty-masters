@@ -5,4 +5,4 @@ import NavigationRouter from './NavigationRouter';
 
 const RootContainer = () => <NavigationRouter />;
 
-export default connect(null, null)(RootContainer);
+export default connect()(RootContainer);
