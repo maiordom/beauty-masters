@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 
 import vars from '../../vars';
+import i18n from '../../i18n';
 
 const icons = {
   verified: require('../../icons/verified.png'),
@@ -41,12 +42,12 @@ export default class MasterCardHeader extends Component {
             <Image source={icons.verified} style={styles.verified} />
           </View>
           {isSalon && (
-            <Text style={styles.subtitle}>Салон «{salonName}»</Text>
+            <Text style={styles.subtitle}>{i18n.salon} «{salonName}»</Text>
           )}
         </View>
         <View style={styles.socials}>
           {vkProfile && (
-            <Image source={icons.vk} style={[styles.socialIcon, { marginRight: 16 }]} />
+            <Image source={icons.vk} style={[styles.socialIcon, styles.socialIconMargin]} />
           )}
           {inProfile && (
             <Image source={icons.inst} style={styles.socialIcon} />
@@ -93,5 +94,8 @@ const styles = StyleSheet.create({
   socialIcon: {
     height: 28,
     width: 28,
+  },
+  socialIconMargin: {
+    marginRight: 16,
   },
 });
