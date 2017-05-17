@@ -87,11 +87,11 @@ export default class MasterCardShedule extends Component {
       <View style={styles.address}>
         <View>
           <Text style={styles.addressTitle}>
-            {street}, д. {house}, стр. {building}
+            {street}, {i18n.houseShort}. {house}, {i18n.buildingShort}. {building}
           </Text>
           <View style={styles.metro}>
             <Image source={icons.location} style={styles.location} />
-            <Text>500 м, м. {subwayStation}</Text>
+            <Text>{i18n.metroShort}. {subwayStation}</Text>
           </View>
         </View>
         <TouchableOpacity onPress={this.onMapPress}>
@@ -113,9 +113,9 @@ export default class MasterCardShedule extends Component {
         renderRow={(rowData, _, index) => this.renderAddress(index)}
       />
       <View style={styles.dots}>
-        {this.props.addresses.map((_, index) => (
+        {this.props.addresses.map((address, index) => (
           <View
-            key={index}
+            key={address.id}
             style={[styles.dot, this.state.selectedAddress === index ? styles.dotActive : {}]}
           />
         ))}
@@ -153,9 +153,13 @@ export default class MasterCardShedule extends Component {
           ? (
             <View style={styles.schedule}>
               <View>
-                <Text style={styles.scheduleText}>Принимает с {schedule.timeStart} до {schedule.timeEnd}</Text>
-                <Text style={styles.scheduleText}>Салон «{salonTitle}»</Text>
-                <Text style={styles.scheduleText}>По адресу {street}, д. {house}, стр. {building}</Text>
+                <Text style={styles.scheduleText}>
+                  {i18n.accept} {i18n.from.toLowerCase()} {schedule.timeStart}
+                  {' '}{i18n.to.toLowerCase()} {schedule.timeEnd}
+                </Text>
+                <Text style={styles.scheduleText}>{i18n.salon} «{salonTitle}»</Text>
+                <Text style={styles.scheduleText}>
+                  {i18n.onAddress} {street}, {i18n.houseShort}. {house}, {i18n.buildingShort}. {building}</Text>
               </View>
               <TouchableOpacity onPress={this.onMapPress}>
                 <Image source={icons.map} style={styles.map} />
@@ -165,7 +169,7 @@ export default class MasterCardShedule extends Component {
           : (
             <View style={styles.scheduleEmpty}>
               <Image source={icons.calendar} style={styles.calendarIcon} />
-              <Text style={styles.scheduleText}>В этот день мастер не принимает</Text>
+              <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
             </View>
           )
         }

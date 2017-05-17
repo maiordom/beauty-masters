@@ -1,8 +1,11 @@
 /* eslint ignore */
 export default {
+  accept: 'Принимает',
+  acceptNot: 'В этот день мастер не принимает',
   addAddress: ['Добавить адрес 1', 'Добавить адрес 2', 'Добавить адрес 3'],
   authAsMaster: 'Авторизоваться как мастер услуг',
   building: 'Корпус/Строение',
+  buildingShort: 'стр',
   call: 'Позвонить',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
@@ -112,6 +115,7 @@ export default {
     ultraviolet: 'Ультрафиолет',
   },
   house: 'Дом',
+  houseShort: 'д',
   lastName: 'Фамилия',
   list: 'Список',
   login: 'Вход',
@@ -139,6 +143,7 @@ export default {
     services: 'Шаг 2/5: Услуги',
   },
   masterWorks: 'Работы мастера',
+  metroShort: 'м',
   monthNames: [
     'Январь',
     'Февраль',
@@ -171,6 +176,7 @@ export default {
     title: 'Пилочка - приложение по поиску мастеров маникюра и педикюра',
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
+  onAddress: 'По адресу',
   ready: 'Готово',
   registration: 'Регистрация',
   registrationComplete: {
@@ -179,6 +185,7 @@ export default {
     sceneTitle: 'Регистрация завершена!',
     title: 'Вы зарегистрированы как мастер услуг',
   },
+  salon: 'Салон',
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
   schedule: {

@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
   disabled: {
     backgroundColor: vars.color.buttonDisabled,
   },
+  green: {
+    backgroundColor: vars.color.green,
+  },
   nextText: {
     color: vars.color.white,
   },

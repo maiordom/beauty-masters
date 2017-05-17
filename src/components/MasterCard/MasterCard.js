@@ -86,7 +86,8 @@ export default class MasterCard extends Component {
         </ScrollView>
         <ButtonControl
           label={i18n.call}
-          customStyles={{ nextButton: styles.callButton, underlayColor: vars.color.green }}
+          type="green"
+          customStyles={{ nextButton: styles.callButton }}
           onPress={() => {}}
         />
         {showWorks && (
