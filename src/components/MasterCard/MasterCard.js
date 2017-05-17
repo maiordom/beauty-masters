@@ -59,10 +59,9 @@ export default class MasterCard extends Component {
   };
 
   render() {
-    const { workPhoto, addresses, scene } = this.props;
+    const { workPhoto, addresses } = this.props;
     const { showWorks, showWorksIndex } = this.state;
 
-    console.log(scene);
     return (
       <View style={styles.container}>
         <ScrollView
@@ -83,15 +82,13 @@ export default class MasterCard extends Component {
           <MasterCardWorks onWorksShow={this.onWorksShow} {...this.props} />
           <MasterCardServices {...this.props} />
           <MasterCardEquipment {...this.props} />
-          <MasterCardSchedule addresses={addresses} scrollToEnd={this.scrollToEnd.bind(this)} />
+          <MasterCardSchedule addresses={addresses} scrollToEnd={this.scrollToEnd} />
         </ScrollView>
-        <TouchableOpacity style={styles.call} activeOpacity={1}>
-          <ButtonControl
-            label={i18n.call}
-            customStyles={{ nextButton: styles.callButton, underlayColor: vars.color.green }}
-            onPress={() => {}}
-          />
-        </TouchableOpacity>
+        <ButtonControl
+          label={i18n.call}
+          customStyles={{ nextButton: styles.callButton, underlayColor: vars.color.green }}
+          onPress={() => {}}
+        />
         {showWorks && (
           <View
             style={styles.gallery}
