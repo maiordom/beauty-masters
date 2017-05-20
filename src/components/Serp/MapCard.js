@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, Platform } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 import moment from 'moment';
 
 import vars from '../../vars';
@@ -44,7 +44,7 @@ export default class MapCard extends Component {
     } = this.props;
 
     return (
-      <TouchableOpacity onPress={Actions.card} activeOpacity={1} underlayColor>
+      <TouchableWithoutFeedback onPress={Actions.card}>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
             <Image style={styles.photo} source={{ uri }} />
@@ -75,7 +75,7 @@ export default class MapCard extends Component {
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     );
   }
 }

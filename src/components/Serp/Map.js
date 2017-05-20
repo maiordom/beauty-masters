@@ -95,13 +95,9 @@ export default class Map extends Component<void, void, State> {
     onMoveShouldSetPanResponder: () => true,
     onMoveShouldSetPanResponderCapture: () => true,
     onPanResponderMove: (evt, gestureState) => {
-      if (gestureState.dy < 0) { // user swipes up
-        return;
+      if (gestureState.dy > 0) {
+        this.state.snippetTranslateY.setValue(gestureState.dy);
       }
-      return gestureState.dy > 0 && Animated.event([
-        null,
-        { dy: this.state.snippetTranslateY },
-      ])(evt, gestureState);
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (gestureState.dy > 70) {
