@@ -100,9 +100,9 @@ export default class Map extends Component<void, void, State> {
       }
     },
     onPanResponderRelease: (evt, gestureState) => {
-      if (gestureState.dy > 70) {
+      if (gestureState.dy > 35) {
         Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
-      } else {
+      } else if (gestureState.dy < 35) {
         Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 500 }).start();
       }
     },
