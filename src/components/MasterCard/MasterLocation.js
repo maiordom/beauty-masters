@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 
-// import i18n from '../../i18n';
 import vars from '../../vars';
 import MapCard from '../Serp/MapCard';
 

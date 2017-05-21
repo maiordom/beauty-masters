@@ -40,11 +40,18 @@ export default class MasterCard extends Component {
   scrollViewRef: ScrollView;
 
   state = {
+    renderLoader: true,
     showWorks: false,
     showWorksIndex: 0,
     scrollViewHeight: 0,
     listHeight: 0,
   };
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderLoader: false });
+    });
+  }
 
   onWorksShow = (index: string) => this.setState({ showWorks: true, showWorksIndex: Number(index) });
 
@@ -58,6 +65,7 @@ export default class MasterCard extends Component {
 
   render() {
     const {
+      renderLoader,
       firstName,
       lastName,
       isSalon,
@@ -67,6 +75,10 @@ export default class MasterCard extends Component {
       workPhoto,
       addresses,
     } = this.props;
+
+    if (renderLoader) {
+      return null;
+    }
 
     const { showWorks, showWorksIndex } = this.state;
 

@@ -32,6 +32,7 @@ type Address = {
 };
 
 export type MasterCardType = {
+  renderLoader: boolean,
   id: number,
   userId: number,
   firstName: string,
