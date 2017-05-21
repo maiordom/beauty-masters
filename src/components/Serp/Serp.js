@@ -9,7 +9,7 @@ export default class Serp extends Component {
   render() {
     return (
       <View>
-        <Map />
+        <Map sceneKey={this.props.sceneKey} />
       </View>
     );
   }

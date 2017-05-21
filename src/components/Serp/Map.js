@@ -92,8 +92,8 @@ export default class Map extends Component<void, void, State> {
   map: MapView;
 
   snippetPanResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onMoveShouldSetPanResponderCapture: () => true,
+    onMoveShouldSetPanResponder: () => false,
+    onMoveShouldSetPanResponderCapture: () => false,
     onPanResponderMove: (evt, gestureState) => {
       if (gestureState.dy > 0) {
         this.state.snippetTranslateY.setValue(gestureState.dy);
@@ -139,6 +139,7 @@ export default class Map extends Component<void, void, State> {
   };
 
   render() {
+    const { sceneKey } = this.props;
     const { region, activePin, renderLoader } = this.state;
 
     if (renderLoader) {
@@ -147,24 +148,26 @@ export default class Map extends Component<void, void, State> {
 
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          onPress={this.onMapPress}
-          initialRegion={region}
-          ref={this.setMapRef}
-        >
-          {markers.map(marker => (
-            <MapView.Marker
-              coordinate={marker.latlng}
-              key={marker.latlng.latitude + marker.latlng.longitude}
-              onPress={this.onMarkerPress}
-              image={isEqual(marker.latlng, activePin)
-                ? icons.pinGreen
-                : icons.pinRed
-              }
-            />
-          ))}
-        </MapView>
+        {sceneKey === 'Serp' && (
+          <MapView
+            style={styles.map}
+            onPress={this.onMapPress}
+            initialRegion={region}
+            ref={this.setMapRef}
+          >
+            {markers.map(marker => (
+              <MapView.Marker
+                coordinate={marker.latlng}
+                key={marker.latlng.latitude + marker.latlng.longitude}
+                onPress={this.onMarkerPress}
+                image={isEqual(marker.latlng, activePin)
+                  ? icons.pinGreen
+                  : icons.pinRed
+                }
+              />
+            ))}
+          </MapView>
+        )}
         <TouchableOpacity
           style={styles.filterButtonWrapper}
           onPress={Actions.pop}
@@ -196,7 +199,7 @@ export default class Map extends Component<void, void, State> {
   }
 }
 
-const NAV_BAR_WIDTH = 78;
+const NAV_BAR_WIDTH = 70;
 
 const styles = StyleSheet.create({
   container: {

@@ -12,5 +12,5 @@ const initialState = {
 };
 
 export default function configureStore() {
-  return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware, logger));
+  return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));
 }

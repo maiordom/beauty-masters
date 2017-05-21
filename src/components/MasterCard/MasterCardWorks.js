@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image, ListView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, ListView, TouchableWithoutFeedback } from 'react-native';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -42,9 +42,9 @@ export default class MasterCardWorks extends Component {
           style={styles.photos}
           dataSource={dataSource}
           renderRow={(image, sectionID, rowID) => (
-            <TouchableOpacity onPress={this.onWorkPress(rowID)} activeOpacity={1} underlayColor>
+            <TouchableWithoutFeedback onPress={this.onWorkPress(rowID)} activeOpacity={1} underlayColor>
               {image}
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           )}
         />
       </View>

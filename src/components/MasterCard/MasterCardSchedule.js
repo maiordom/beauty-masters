@@ -51,9 +51,21 @@ export default class MasterCardShedule extends Component {
   };
 
   onMapPress = () => {
-    const { latlng } = this.getSelectedAddress();
+    const {
+      latlng,
+      salonTitle,
+      street,
+      house,
+      building,
+    } = this.getSelectedAddress();
 
-    Actions.masterLocation(latlng);
+    Actions.masterLocation({
+      latlng,
+      title: 'Марина Ф',
+      subtitle: salonTitle,
+      address: `${street}, ${i18n.houseShort} ${house} ${building}`,
+      isVerified: true,
+    });
   };
 
   getSelectedAddress = (index: ?number) => {
@@ -69,9 +81,7 @@ export default class MasterCardShedule extends Component {
     const selectedAddress = Math.round(xOffset / clientWidth);
 
     if (this.state.selectedAddress !== selectedAddress) {
-      InteractionManager.runAfterInteractions(() => {
-        this.setState({ selectedAddress });
-      });
+      this.setState({ selectedAddress });
     }
   };
 

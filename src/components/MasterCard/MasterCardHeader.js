@@ -17,9 +17,10 @@ export default class MasterCardHeader extends Component {
     firstName: string,
     lastName: string,
     isSalon: boolean,
-    salonName: ?string,
-    vkProfile: ?string,
-    inProfile: ?string,
+    salonName?: string,
+    vkProfile?: string,
+    inProfile?: string,
+    isVerified?: boolean
   };
 
   render() {
@@ -30,6 +31,7 @@ export default class MasterCardHeader extends Component {
       salonName,
       vkProfile,
       inProfile,
+      isVerified,
     } = this.props;
 
     return (
@@ -39,7 +41,9 @@ export default class MasterCardHeader extends Component {
             <Text style={styles.title}>
               {firstName} {lastName}
             </Text>
-            <Image source={icons.verified} style={styles.verified} />
+            {isVerified && (
+              <Image source={icons.verified} style={styles.verified} />
+            )}
           </View>
           {isSalon && (
             <Text style={styles.subtitle}>{i18n.salon} «{salonName}»</Text>

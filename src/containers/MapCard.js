@@ -8,10 +8,10 @@ import MapCard from '../components/Serp/MapCard';
 import type { MapCardType } from '../types/MasterTypes';
 
 const mockSnippet : MapCardType = {
-  title: 'Марина Ф',
   photo: 'https://unsplash.it/48',
-  type: 'Частный мастер',
-  metroStation: 'Площадь Восстания',
+  title: 'Марина Ф',
+  subtitle: 'Частный мастер',
+  address: 'Площадь Восстания',
   distance: '2,2',
   closestDate: moment(new Date()).add(1, 'd').format('YYYY-MM-DD'),
   services: [

@@ -32,6 +32,7 @@ type Address = {
 };
 
 export type MasterCardType = {
+  renderLoader: boolean,
   id: number,
   userId: number,
   firstName: string,
@@ -58,11 +59,12 @@ export type MasterCardType = {
 };
 
 export type MapCardType = {
-  title: string,
   photo: string,
-  type: string,
-  metroStation: string,
+  isVerified: boolean,
+  title: string,
+  subtitle: string,
+  address: string,
   distance: string,
-  closestDate: string,
-  services: Array<Service>,
+  closestDate?: string,
+  services?: Array<Service>,
 }

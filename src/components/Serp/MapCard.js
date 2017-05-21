@@ -10,13 +10,16 @@ import i18n from '../../i18n';
 
 import type { MapCardType } from '../../types/MasterTypes';
 
-const icons = Platform.select({
-  android: {
-    pin: require('../../icons/android/pin-small.png'),
-    calendar: require('../../icons/android/calendar.png'),
-    ticket: require('../../icons/android/ticket.png'),
-  },
-});
+const icons = {
+  verified: require('../../icons/verified.png'),
+  ...Platform.select({
+    android: {
+      pin: require('../../icons/android/pin-small.png'),
+      calendar: require('../../icons/android/calendar.png'),
+      ticket: require('../../icons/android/ticket.png'),
+    },
+  }),
+};
 
 export default class MapCard extends Component {
   props: MapCardType;
@@ -35,45 +38,56 @@ export default class MapCard extends Component {
 
   render() {
     const {
-      title,
       photo: uri,
-      type,
-      metroStation,
+      isVerified,
+      title,
+      subtitle,
+      address,
       distance,
       services,
+      closestDate,
     } = this.props;
 
     return (
       <TouchableWithoutFeedback onPress={Actions.card}>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
-            <Image style={styles.photo} source={{ uri }} />
+            <View style={styles.photoWrapper}>
+              <Image style={styles.photo} source={{ uri }} />
+              {isVerified && (
+                <Image source={icons.verified} style={styles.verified} />
+              )}
+            </View>
             <View>
               <Text style={styles.title}>{title}</Text>
-              <Text>{type}</Text>
+              <Text>{subtitle}</Text>
             </View>
           </View>
           <View style={styles.row}>
             <Image style={styles.icon} source={icons.pin} />
-            <Text style={styles.text}>м. {metroStation}</Text>
+            <Text style={styles.text}>{address}</Text>
             <View style={styles.distanceView}>
               <Text style={styles.distanceText}>
                 {i18n.fromYou.toLowerCase()} {distance} {i18n.km}
               </Text>
             </View>
           </View>
-          <View style={styles.row}>
-            <Image style={styles.icon} source={icons.calendar} />
-            <Text style={styles.text}>{i18n.closestDate}: {this.getDate()}</Text>
-          </View>
-          <View style={[styles.row, styles.servicesRow]}>
-            <Image style={styles.icon} source={icons.ticket} />
-            <View style={styles.services}>
-              {services.map(service => (
-                <Text key={service.id} style={styles.text}>{service.id} – {service.price} ₽</Text>
-            ))}
+          {closestDate && (
+            <View style={styles.row}>
+              <Image style={styles.icon} source={icons.calendar} />
+              <Text style={styles.text}>{i18n.closestDate}: {this.getDate()}</Text>
             </View>
-          </View>
+          )}
+          {services && (
+            <View style={[styles.row, styles.servicesRow]}>
+              <Image style={styles.icon} source={icons.ticket} />
+              <View style={styles.services}>
+                {services.map(service => (
+                  <Text key={service.id} style={styles.text}>{service.id} – {service.price} ₽</Text>
+                ))}
+              </View>
+            </View>
+          )}
         </View>
       </TouchableWithoutFeedback>
     );
@@ -83,7 +97,6 @@ export default class MapCard extends Component {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    height: 204,
     backgroundColor: vars.color.white,
     shadowColor: '#000000',
     shadowOffset: {
@@ -103,11 +116,20 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     flexDirection: 'row',
   },
+  photoWrapper: {
+    marginRight: 15,
+  },
   photo: {
     width: 48,
     height: 48,
     borderRadius: 50,
-    marginRight: 8,
+  },
+  verified: {
+    position: 'absolute',
+    height: 16,
+    width: 16,
+    right: 0,
+    bottom: 0,
   },
   title: {
     fontSize: 16,
