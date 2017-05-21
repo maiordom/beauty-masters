@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @flow
 
 const masterData = {
@@ -11,6 +12,7 @@ const masterData = {
   isSalon: true,
   salonName: 'Пилки',
   status: 1,
+  isVerified: true, // TODO: if it the same with status === 1
   masterPhoto: [
     'http://nadezhdaivera.ru/wp-content/uploads/2012/10/master-manikyura-nordos.png',
     'http://www.pro-rubin.ru/wp-content/uploads/2016/10/51.jpg',

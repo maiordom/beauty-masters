@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import vars from '../vars';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
-
-import vars from '../vars';
 
 const onPress = Actions.pop;
 const navBackButtonImage = require('../icons/android/back-arrow.png');
@@ -25,8 +24,8 @@ const NavBar = ({
     </TouchableOpacity>)}
     <Text
       style={[styles.title, leftButtonHidden
-        ? { width: DEVICE_WIDTH - 16 * 2, marginLeft: 16 }
-        : { width: DEVICE_WIDTH - 20 - 16 * 2 - 16 }
+        ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
+        : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
       ]}
       lineBreakMode="tail"
       numberOfLines={1}
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
       android: {
         paddingTop: 54,
       },
-    })
+    }),
   },
   container: {
     position: 'absolute',
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
       android: {
         height: 54,
       },
-    })
+    }),
   },
   title: {
     color: vars.color.white,

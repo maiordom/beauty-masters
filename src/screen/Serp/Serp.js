@@ -4,9 +4,13 @@ import { bindActionCreators } from 'redux';
 import SerpNavBar from '../../components/Serp/SerpNavBar';
 import Serp from '../../components/Serp/Serp';
 
+const mapStateToProps = state => ({
+  sceneKey: state.scene.sceneKey,
+});
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
   }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(SerpNavBar(Serp));
+export default connect(mapStateToProps, mapDispatchToProps)(SerpNavBar(Serp));
