@@ -16,7 +16,7 @@ import Gallery from 'react-native-gallery';
 import MasterCardNavBar from './MasterCardNavBar';
 import MasterCardHeader from './MasterCardHeader';
 import MasterCardWorks from './MasterCardWorks';
-import MasterCardServices from './MasterCardServices';
+import MasterCardServices from '../../containers/MasterCardServices';
 import MasterCardEquipment from './MasterCardEquipment';
 import MasterCardSchedule from './MasterCardSchedule';
 
@@ -74,6 +74,7 @@ export default class MasterCard extends Component {
       inProfile,
       workPhoto,
       addresses,
+      services,
     } = this.props;
 
     if (renderLoader) {
@@ -110,9 +111,7 @@ export default class MasterCard extends Component {
             onWorksShow={this.onWorksShow}
             {...this.props}
           />
-          <MasterCardServices
-            {...this.props}
-          />
+          <MasterCardServices services={services} />
           <MasterCardEquipment
             {...this.props}
           />

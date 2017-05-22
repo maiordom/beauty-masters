@@ -2,8 +2,8 @@
 
 type Service = {
   id: number,
-  master_id: number,
-  service_id: number,
+  masterId: number,
+  serviceId: number,
   price: number,
   duration: ?string,
 };

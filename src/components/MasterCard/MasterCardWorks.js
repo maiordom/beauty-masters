@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image, ListView, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ListView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -26,10 +33,6 @@ export default class MasterCardWorks extends Component {
   render() {
     const { workPhoto } = this.props;
     const { dataSource } = this.state;
-
-    if (workPhoto.length === 0) {
-      return null;
-    }
 
     return (
       <View style={styles.container}>

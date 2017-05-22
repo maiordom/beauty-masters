@@ -1,47 +1,51 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  InteractionManager,
+} from 'react-native';
 
 import vars from '../../vars';
+import i18n from '../../i18n';
 
 export default class MasterCardServices extends Component {
+  state = {
+    renderLoader: true,
+  };
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderLoader: false });
+    });
+  }
+
   render() {
+    const { services } = this.props;
+    const { renderLoader } = this.state;
+
+    if (renderLoader) {
+      return null;
+    }
+
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Мои услуги</Text>
+          <Text style={styles.title}>{i18n.myServices}</Text>
         </View>
-
-        <View style={styles.service}><Text>Маникюр</Text></View>
-        <View style={styles.service}>
-          <Text style={styles.name}>Обрезной/классический маникюр</Text>
-          <Text style={styles.price}>800 ₽, 30 мин</Text>
-        </View>
-        <View style={styles.service}>
-          <Text style={styles.name}>Европейский/необрезной маникюр</Text>
-          <Text style={styles.price}>950 ₽, 50 мин</Text>
-        </View>
-        <View style={styles.service}>
-          <Text style={styles.name}>Покрытие биогелем</Text>
-          <Text style={styles.price}>1 000 ₽, 35 мин</Text>
-        </View>
-
-        <View style={styles.service}><Text>Педикюр</Text></View>
-        <View style={styles.service}>
-          <Text style={styles.name}>Обрезной/классический педикюр</Text>
-          <Text style={styles.price}>800 ₽, 30 мин</Text>
-        </View>
-        <View style={styles.service}>
-          <Text style={styles.name}>SPA-педикюр</Text>
-          <Text style={styles.price}>1 200 ₽, 60 мин</Text>
-        </View>
-        <View style={styles.service}>
-          <Text style={styles.name}>Лунный/обратный френч</Text>
-          <Text style={styles.price}>1400 ₽, 70 мин</Text>
-        </View>
-
-        <Text style={styles.showAll}>ПОСМОТРЕТЬ ВСЕ</Text>
+        {services.map(serviceGroup => (
+          <View key={serviceGroup.id}>
+            <View style={styles.service}><Text>{serviceGroup.title}</Text></View>
+            {serviceGroup.services.map(service => (
+              <View style={styles.service} key={service.serviceId}>
+                <Text style={styles.name}>{service.title}</Text>
+                <Text style={styles.price}>{service.price} ₽, {service.duration} мин</Text>
+              </View>
+            ))}
+          </View>
+        ))}
       </View>
     );
   }
@@ -75,8 +79,5 @@ const styles = StyleSheet.create({
   price: {
     flexShrink: 0,
     color: vars.color.black,
-  },
-  showAll: {
-    color: vars.color.red,
   },
 });

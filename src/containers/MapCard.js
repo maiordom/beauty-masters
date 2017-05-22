@@ -15,9 +15,9 @@ const mockSnippet : MapCardType = {
   distance: '2,2',
   closestDate: moment(new Date()).add(1, 'd').format('YYYY-MM-DD'),
   services: [
-    { id: 'Маникюр', price: 1000 },
-    { id: 'Шеллак', price: 1800 },
-    { id: 'Педикюр', price: 1100 },
+    { serviceId: 'Маникюр', price: 1000, duration: '55' },
+    { serviceId: 'Шеллак', price: 1800, duration: '60' },
+    { serviceId: 'Педикюр', price: 1100, duration: '70' },
   ],
 };
 
