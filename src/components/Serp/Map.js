@@ -92,7 +92,7 @@ export default class Map extends Component<void, void, State> {
   map: MapView;
 
   snippetPanResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
+    onMoveShouldSetPanResponder: (_, gestureState) => gestureState.dy > 0,
     onMoveShouldSetPanResponderCapture: (_, gestureState) => gestureState.dy > 0,
     onPanResponderMove: (evt, gestureState) => {
       if (gestureState.dy > 0) {
