@@ -148,7 +148,7 @@ export default class Map extends Component<void, void, State> {
 
     return (
       <View style={styles.container}>
-        {sceneKey === 'Serp' && (
+        {sceneKey !== 'masterLocation' && (
           <MapView
             style={styles.map}
             onPress={this.onMapPress}
