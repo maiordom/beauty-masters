@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import Gallery from 'react-native-gallery';
 
+import Fade from '../Fade';
+
 import MasterCardNavBar from './MasterCardNavBar';
 import MasterCardHeader from './MasterCardHeader';
 import MasterCardWorks from './MasterCardWorks';
@@ -40,22 +42,27 @@ export default class MasterCard extends Component {
   scrollViewRef: ScrollView;
 
   state = {
-    renderLoader: true,
-    showWorks: false,
+    showWorksGallery: false,
     showWorksIndex: 0,
     scrollViewHeight: 0,
     listHeight: 0,
+    showHeader: false,
+    showWorks: false,
+    showServices: false,
+    showEquipment: false,
+    showSchedule: false,
   };
 
   componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ renderLoader: false });
-    });
+    InteractionManager.runAfterInteractions(() => this.renderComponents());
   }
 
-  onWorksShow = (index: string) => this.setState({ showWorks: true, showWorksIndex: Number(index) });
+  onWorksShow = (index: string) => this.setState({
+    showshowWorksGalleryWorks: true,
+    showWorksIndex: Number(index),
+  });
 
-  onWorksHide = () => this.setState({ showWorks: false });
+  onWorksHide = () => this.setState({ showWorksGallery: false });
 
   scrollToEnd = () => InteractionManager.runAfterInteractions(() => {
     const bottomOfList = this.state.listHeight - this.state.scrollViewHeight;
@@ -63,9 +70,16 @@ export default class MasterCard extends Component {
     this.scrollViewRef.scrollTo({ y: bottomOfList, animated: true });
   });
 
+  renderComponents = () => {
+    const components = ['showHeader', 'showWorks', 'showServices', 'showEquipment', 'showSchedule'];
+
+    for (let i = 0; i < components.length; i++) {
+      setTimeout(() => this.setState({ [components[i]]: true }), i * 300);
+    }
+  };
+
   render() {
     const {
-      renderLoader,
       firstName,
       lastName,
       isSalon,
@@ -77,11 +91,15 @@ export default class MasterCard extends Component {
       services,
     } = this.props;
 
-    if (renderLoader) {
-      return null;
-    }
-
-    const { showWorks, showWorksIndex } = this.state;
+    const {
+      showWorksGallery,
+      showWorksIndex,
+      showHeader,
+      showWorks,
+      showServices,
+      showEquipment,
+      showSchedule,
+    } = this.state;
 
     return (
       <View style={styles.container}>
@@ -91,34 +109,42 @@ export default class MasterCard extends Component {
           onContentSizeChange={(_, contentHeight) => this.setState({ listHeight: contentHeight })}
           onLayout={e => this.setState({ scrollViewHeight: e.nativeEvent.layout.height })}
         >
-          <View>
-            <Image
-              source={require('../../icons/android/photo-master.png')}
-              resizeMode="cover"
-              style={{ height: 260, width: null }}
+          <Fade visible={showHeader}>
+            <View>
+              <Image
+                source={require('../../icons/android/photo-master.png')}
+                resizeMode="cover"
+                style={{ height: 260, width: null }}
+              />
+              <MasterCardNavBar />
+              <MasterCardHeader
+                firstName={firstName}
+                lastName={lastName}
+                isSalon={isSalon}
+                salonName={salonName}
+                vkProfile={vkProfile}
+                inProfile={inProfile}
+              />
+            </View>
+          </Fade>
+          <Fade visible={showWorks}>
+            <MasterCardWorks
+              onWorksShow={this.onWorksShow}
+              {...this.props}
             />
-            <MasterCardNavBar />
-          </View>
-          <MasterCardHeader
-            firstName={firstName}
-            lastName={lastName}
-            isSalon={isSalon}
-            salonName={salonName}
-            vkProfile={vkProfile}
-            inProfile={inProfile}
-          />
-          <MasterCardWorks
-            onWorksShow={this.onWorksShow}
-            {...this.props}
-          />
-          <MasterCardServices services={services} />
-          <MasterCardEquipment
-            {...this.props}
-          />
-          <MasterCardSchedule
-            addresses={addresses}
-            scrollToEnd={this.scrollToEnd}
-          />
+          </Fade>
+          <Fade visible={showServices}>
+            <MasterCardServices services={services} />
+          </Fade>
+          <Fade visible={showEquipment}>
+            <MasterCardEquipment {...this.props} />
+          </Fade>
+          <Fade visible={showSchedule}>
+            <MasterCardSchedule
+              addresses={addresses}
+              scrollToEnd={this.scrollToEnd}
+            />
+          </Fade>
         </ScrollView>
         <ButtonControl
           label={i18n.call}
@@ -126,7 +152,7 @@ export default class MasterCard extends Component {
           customStyles={{ nextButton: styles.callButton }}
           onPress={() => {}}
         />
-        {showWorks && (
+        {showWorksGallery && (
           <View style={styles.gallery}>
             <Gallery initialPage={showWorksIndex} images={workPhoto} />
             <TouchableOpacity

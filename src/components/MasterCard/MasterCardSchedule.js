@@ -31,7 +31,6 @@ const icons = {
 };
 
 type State = {
-  renderLoader: boolean,
   selectedAddress: number,
   selectedDate: string,
   addresses: any,
@@ -46,17 +45,10 @@ export default class MasterCardShedule extends Component<void, void, State> {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      renderLoader: true,
       selectedAddress: 0,
       selectedDate: moment().add(1, 'day').format('YYYY-MM-DD'),
       addresses: ds.cloneWithRows(props.addresses),
     };
-  }
-
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ renderLoader: false });
-    });
   }
 
   onDateSelect = (date: string) => {
@@ -204,12 +196,6 @@ export default class MasterCardShedule extends Component<void, void, State> {
   };
 
   render() {
-    const { renderLoader } = this.state;
-
-    if (renderLoader) {
-      return null;
-    }
-
     return (
       <View style={styles.container}>
         {this.renderAddresses()}

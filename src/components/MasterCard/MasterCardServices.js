@@ -5,30 +5,14 @@ import {
   View,
   StyleSheet,
   Text,
-  InteractionManager,
 } from 'react-native';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
 
 export default class MasterCardServices extends Component {
-  state = {
-    renderLoader: true,
-  };
-
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ renderLoader: false });
-    });
-  }
-
   render() {
     const { services } = this.props;
-    const { renderLoader } = this.state;
-
-    if (renderLoader) {
-      return null;
-    }
 
     return (
       <View style={styles.container}>
