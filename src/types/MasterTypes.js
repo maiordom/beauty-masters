@@ -67,4 +67,5 @@ export type MapCardType = {
   distance: string,
   closestDate?: string,
   services?: Array<Service>,
+  onPress: () => void
 }

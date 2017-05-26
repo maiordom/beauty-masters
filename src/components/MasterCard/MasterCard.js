@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  Dimensions,
   TouchableOpacity,
   Text,
   Platform,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import Gallery from 'react-native-gallery';
 
+import ImagePlaceholder from '../ImagePlaceholder';
 import Fade from '../Fade';
 
 import MasterCardNavBar from './MasterCardNavBar';
@@ -46,11 +48,8 @@ export default class MasterCard extends Component {
     showWorksIndex: 0,
     scrollViewHeight: 0,
     listHeight: 0,
-    showHeader: false,
-    showWorks: false,
-    showServices: false,
-    showEquipment: false,
-    showSchedule: false,
+    showFirstGroup: false,
+    showSecondGroup: false,
   };
 
   componentDidMount() {
@@ -71,7 +70,7 @@ export default class MasterCard extends Component {
   });
 
   renderComponents = () => {
-    const components = ['showHeader', 'showWorks', 'showServices', 'showEquipment', 'showSchedule'];
+    const components = ['showFirstGroup', 'showSecondGroup'];
 
     for (let i = 0; i < components.length; i++) {
       setTimeout(() => this.setState({ [components[i]]: true }), i * 300);
@@ -94,11 +93,8 @@ export default class MasterCard extends Component {
     const {
       showWorksGallery,
       showWorksIndex,
-      showHeader,
-      showWorks,
-      showServices,
-      showEquipment,
-      showSchedule,
+      showFirstGroup,
+      showSecondGroup,
     } = this.state;
 
     return (
@@ -109,12 +105,12 @@ export default class MasterCard extends Component {
           onContentSizeChange={(_, contentHeight) => this.setState({ listHeight: contentHeight })}
           onLayout={e => this.setState({ scrollViewHeight: e.nativeEvent.layout.height })}
         >
-          <Fade visible={showHeader}>
+          <Fade visible={showFirstGroup}>
             <View>
-              <Image
-                source={require('../../icons/android/photo-master.png')}
-                resizeMode="cover"
-                style={{ height: 260, width: null }}
+              <ImagePlaceholder
+                source={{ uri: 'https://cs7050.userapi.com/c636929/v636929022/646fc/i_30pW-gfuI.jpg' }}
+                placeholder={require('../../icons/android/master-photo.png')}
+                style={{ height: 260, width: Dimensions.get('window').width }}
               />
               <MasterCardNavBar />
               <MasterCardHeader
@@ -126,20 +122,14 @@ export default class MasterCard extends Component {
                 inProfile={inProfile}
               />
             </View>
-          </Fade>
-          <Fade visible={showWorks}>
             <MasterCardWorks
               onWorksShow={this.onWorksShow}
               {...this.props}
             />
-          </Fade>
-          <Fade visible={showServices}>
             <MasterCardServices services={services} />
           </Fade>
-          <Fade visible={showEquipment}>
+          <Fade visible={showSecondGroup}>
             <MasterCardEquipment {...this.props} />
-          </Fade>
-          <Fade visible={showSchedule}>
             <MasterCardSchedule
               addresses={addresses}
               scrollToEnd={this.scrollToEnd}

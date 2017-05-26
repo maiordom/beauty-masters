@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 import moment from 'moment';
 
@@ -46,10 +45,11 @@ export default class MapCard extends Component {
       distance,
       services,
       closestDate,
+      onPress,
     } = this.props;
 
     return (
-      <TouchableWithoutFeedback onPress={Actions.card}>
+      <TouchableWithoutFeedback onPress={onPress}>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
