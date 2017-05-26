@@ -25,7 +25,7 @@ export default class MasterCardServices extends Component {
             {serviceGroup.services.map(service => (
               <View style={styles.service} key={service.serviceId}>
                 <Text style={styles.name}>{service.title}</Text>
-                <Text style={styles.price}>{service.price} ₽, {service.duration} мин</Text>
+                <Text style={styles.price}>{service.price} ₽, {service.duration} {i18n.time.minuteShort}.</Text>
               </View>
             ))}
           </View>
