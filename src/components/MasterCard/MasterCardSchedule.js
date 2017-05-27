@@ -170,16 +170,17 @@ export default class MasterCardShedule extends Component<void, void, State> {
         {schedule
           ? (
             <View style={styles.schedule}>
-              <View>
+              <View style={styles.scheduleTextWrapper}>
                 <Text style={styles.scheduleText}>
                   {i18n.accept} {i18n.from.toLowerCase()} {schedule.timeStart}
                   {' '}{i18n.to.toLowerCase()} {schedule.timeEnd}
                 </Text>
                 <Text style={styles.scheduleText}>{i18n.salon} «{salonTitle}»</Text>
                 <Text style={styles.scheduleText}>
-                  {i18n.onAddress} {street}, {i18n.houseShort}. {house}, {i18n.buildingShort}. {building}</Text>
+                  {i18n.onAddress} {street}, {i18n.houseShort}. {house}, {i18n.buildingShort}. {building}
+                </Text>
               </View>
-              <TouchableOpacity onPress={this.onMapPress}>
+              <TouchableOpacity onPress={this.onMapPress} style={styles.mapButton}>
                 <Image source={icons.map} style={styles.map} />
               </TouchableOpacity>
             </View>
@@ -249,6 +250,11 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+  mapButton: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+  },
   dots: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -279,8 +285,12 @@ const styles = StyleSheet.create({
     backgroundColor: vars.color.lightGrey,
   },
   schedule: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  scheduleTextWrapper: {
+    paddingRight: 45,
   },
   calendarIcon: {
     marginRight: 16,

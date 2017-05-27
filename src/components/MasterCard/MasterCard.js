@@ -79,14 +79,8 @@ export default class MasterCard extends Component {
 
   render() {
     const {
-      firstName,
-      lastName,
-      isSalon,
-      salonName,
-      vkProfile,
-      inProfile,
-      workPhoto,
       addresses,
+      equipmentInfo,
       services,
     } = this.props;
 
@@ -113,23 +107,13 @@ export default class MasterCard extends Component {
                 style={{ height: 260, width: Dimensions.get('window').width }}
               />
               <MasterCardNavBar />
-              <MasterCardHeader
-                firstName={firstName}
-                lastName={lastName}
-                isSalon={isSalon}
-                salonName={salonName}
-                vkProfile={vkProfile}
-                inProfile={inProfile}
-              />
+              <MasterCardHeader {...this.props} />
             </View>
-            <MasterCardWorks
-              onWorksShow={this.onWorksShow}
-              {...this.props}
-            />
+            <MasterCardWorks onWorksShow={this.onWorksShow} {...this.props} />
             <MasterCardServices services={services} />
           </Fade>
           <Fade visible={showSecondGroup}>
-            <MasterCardEquipment {...this.props} />
+            <MasterCardEquipment equipmentInfo={equipmentInfo} />
             <MasterCardSchedule
               addresses={addresses}
               scrollToEnd={this.scrollToEnd}
