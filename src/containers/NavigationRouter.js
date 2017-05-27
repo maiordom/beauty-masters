@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Scene, Router } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
 
@@ -17,6 +18,8 @@ import SearchFormAddress from '../screen/SearchForm/SearchFormAddress';
 import SearchCity from '../screen/SearchForm/SearchFormCity';
 
 import Serp from '../screen/Serp/Serp';
+import MasterCard from '../screen/MasterCard/MasterCard';
+import MasterLocation from '../screen/MasterCard/MasterLocation';
 
 import Drawer from '../components/Drawer';
 
@@ -48,8 +51,10 @@ function getMasterStyle(options = {}) {
   };
 }
 
+const RouterWithRedux = connect()(Router);
+
 export default () => (
-  <Router sceneStyle={styles.container}>
+  <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
         initial
@@ -85,6 +90,8 @@ export default () => (
           title={i18n.search.search}
           component={Serp}
         />
+        <Scene key="card" component={MasterCard} />
+        <Scene key="masterLocation" component={MasterLocation} title="Место приема мастера" />
         <Scene
           key="masterAuthorization"
           component={MasterAuthorization}
@@ -134,7 +141,7 @@ export default () => (
         />
       </Scene>
     </Scene>
-  </Router>
+  </RouterWithRedux>
 );
 
 const styles = StyleSheet.create({

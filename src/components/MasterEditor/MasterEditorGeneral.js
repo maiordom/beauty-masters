@@ -14,7 +14,7 @@ const icons = Platform.select({
   android: {
     warning: require('../../icons/android/warning.png'),
   },
-})
+});
 
 export default class MasterEditorGeneral extends Component {
   state = {

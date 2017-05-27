@@ -9,6 +9,7 @@ export default {
     red: '#F65F6E',
     black: '#283741',
     blue: '#14AAF0',
+    green: '#69B92D',
 
     buttonDisabled: '#8CA5AF',
     borderColorAndroid: '#E4E6E8',

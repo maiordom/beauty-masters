@@ -109,7 +109,6 @@ export default makeReducer((state, action) => ({
       calendarSettingsTwo,
       generalSection,
       handlingTools,
-      info,
       serviceManicure,
       servicePedicure,
     } = state.masterEditor;
@@ -418,6 +417,4 @@ export default makeReducer((state, action) => ({
 
     return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
   },
-}), null, state => {
-  console.log(state.masterEditor.createMasterQuery);
-});
+}));

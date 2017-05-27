@@ -17,7 +17,7 @@ import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 
-import SerpSnippet from '../../containers/SerpSnippet';
+import MapCard from '../../containers/MapCard';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -92,21 +92,17 @@ export default class Map extends Component<void, void, State> {
   map: MapView;
 
   snippetPanResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onMoveShouldSetPanResponderCapture: () => true,
+    onMoveShouldSetPanResponder: (_, gestureState) => gestureState.dy > 0,
+    onMoveShouldSetPanResponderCapture: (_, gestureState) => gestureState.dy > 0,
     onPanResponderMove: (evt, gestureState) => {
-      if (gestureState.dy < 0) { // user swipes up
-        return;
+      if (gestureState.dy > 0) {
+        this.state.snippetTranslateY.setValue(gestureState.dy);
       }
-      return gestureState.dy > 0 && Animated.event([
-        null,
-        { dy: this.state.snippetTranslateY },
-      ])(evt, gestureState);
     },
     onPanResponderRelease: (evt, gestureState) => {
-      if (gestureState.dy > 70) {
+      if (gestureState.dy > 35) {
         Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
-      } else {
+      } else if (gestureState.dy < 35) {
         Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 500 }).start();
       }
     },
@@ -143,6 +139,7 @@ export default class Map extends Component<void, void, State> {
   };
 
   render() {
+    const { sceneKey } = this.props;
     const { region, activePin, renderLoader } = this.state;
 
     if (renderLoader) {
@@ -151,24 +148,26 @@ export default class Map extends Component<void, void, State> {
 
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          onPress={this.onMapPress}
-          initialRegion={region}
-          ref={this.setMapRef}
-        >
-          {markers.map(marker => (
-            <MapView.Marker
-              coordinate={marker.latlng}
-              key={marker.latlng.latitude + marker.latlng.longitude}
-              onPress={this.onMarkerPress}
-              image={isEqual(marker.latlng, activePin)
-                ? icons.pinGreen
-                : icons.pinRed
-              }
-            />
-          ))}
-        </MapView>
+        {sceneKey !== 'masterLocation' && (
+          <MapView
+            style={styles.map}
+            onPress={this.onMapPress}
+            initialRegion={region}
+            ref={this.setMapRef}
+          >
+            {markers.map(marker => (
+              <MapView.Marker
+                coordinate={marker.latlng}
+                key={marker.latlng.latitude + marker.latlng.longitude}
+                onPress={this.onMarkerPress}
+                image={isEqual(marker.latlng, activePin)
+                  ? icons.pinGreen
+                  : icons.pinRed
+                }
+              />
+            ))}
+          </MapView>
+        )}
         <TouchableOpacity
           style={styles.filterButtonWrapper}
           onPress={Actions.pop}
@@ -193,14 +192,14 @@ export default class Map extends Component<void, void, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          <SerpSnippet />
+          <MapCard onPress={Actions.card} />
         </Animated.View>
       </View>
     );
   }
 }
 
-const NAV_BAR_WIDTH = 78;
+const NAV_BAR_WIDTH = 70;
 
 const styles = StyleSheet.create({
   container: {

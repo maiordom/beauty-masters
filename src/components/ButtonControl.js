@@ -23,7 +23,8 @@ export default class ButtonControl extends Component {
           styles.nextButton,
           customStyles.nextButton,
           styles[type],
-        ]}>
+        ]}
+        >
           <Text style={[styles.nextText, customStyles.nextText]}>{title}</Text>
         </View>
       </TouchableWithoutFeedback>
@@ -49,6 +50,9 @@ const styles = StyleSheet.create({
   },
   disabled: {
     backgroundColor: vars.color.buttonDisabled,
+  },
+  green: {
+    backgroundColor: vars.color.green,
   },
   nextText: {
     color: vars.color.white,
