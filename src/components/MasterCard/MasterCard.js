@@ -56,10 +56,12 @@ export default class MasterCard extends Component {
     InteractionManager.runAfterInteractions(() => this.renderComponents());
   }
 
-  onWorksShow = (index: string) => this.setState({
-    showshowWorksGalleryWorks: true,
-    showWorksIndex: Number(index),
-  });
+  onWorksShow = (index: string) => {
+    this.setState({
+      showWorksGallery: true,
+      showWorksIndex: Number(index),
+    });
+  }
 
   onWorksHide = () => this.setState({ showWorksGallery: false });
 
@@ -124,7 +126,7 @@ export default class MasterCard extends Component {
             </View>
             <MasterCardWorks
               onWorksShow={this.onWorksShow}
-              {...this.props}
+              workPhoto={workPhoto}
             />
             <MasterCardServices services={services} />
           </Fade>

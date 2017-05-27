@@ -33,6 +33,14 @@ const masterData = {
   okProfile: null,
   site_url: null,
   rating: null,
+  sterialization: [
+    { title: 'Ультразвук' },
+    { title: 'Ультразвук' },
+    { title: 'Ультразвук' },
+    { title: 'Ультразвук' },
+    { title: 'Ультразвук' },
+    { title: 'Ультразвук' },
+  ],
   services: [
     {
       id: 3,

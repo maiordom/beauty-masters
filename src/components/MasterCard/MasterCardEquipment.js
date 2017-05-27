@@ -56,9 +56,11 @@ export default class MasterCardEquipment extends Component {
         </View>
         <ModalComponent isVisible={showInfo} onRequestClose={this.onInfoToggle}>
           <Text style={styles.modalTitle}>{i18n.handlingTool}</Text>
-          <Text style={styles.modalText}>{equipmentInfo[0]}</Text>
-          <Text style={styles.modalText}>{equipmentInfo[1]}</Text>
-          <Text style={styles.modalText}>{equipmentInfo[2]}</Text>
+          <Text style={styles.modalText}>{i18n.sterilization.disinfection}</Text>
+          <Text style={styles.modalText}>{i18n.sterilization.glasperlen}</Text>
+          <Text style={styles.modalText}>{i18n.sterilization.hotSteam}</Text>
+          <Text style={styles.modalText}>{i18n.sterilization.dryhot}</Text>
+          <Text style={styles.modalText}>{i18n.sterilization.boiling}</Text>
         </ModalComponent>
       </View>
     );
@@ -125,5 +127,6 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 16,
+    marginBottom: 10,
   },
 });
