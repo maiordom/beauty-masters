@@ -16,8 +16,6 @@ import i18n from '../../i18n';
 import vars from '../../vars';
 import { hexToRgba } from '../../utils';
 
-import { equipmentInfo } from '../../test/MasterCardData';
-
 const icons = {
   info: require('../../icons/info.png'),
   check: require('../../icons/check.png'),
@@ -32,6 +30,7 @@ export default class MasterCardEquipment extends Component {
 
   render() {
     const { showInfo } = this.state;
+    const { equipmentInfo } = this.props;
 
     return (
       <View style={styles.container}>

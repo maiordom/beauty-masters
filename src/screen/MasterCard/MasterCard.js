@@ -6,10 +6,12 @@ import MasterCard from '../../components/MasterCard/MasterCard';
 import type { MasterCardType } from '../../types/MasterTypes';
 
 import masterCardData from '../../test/MasterCardData';
+import { equipmentInfo } from '../../test/MasterCardData';
 
 const mapStateToProps = (state) => ({
-  scene: state.scene,
   ...masterCardData,
+  equipmentInfo,
+  scene: state.scene,
 } : MasterCardType);
 
 const mapDispatchToProps = dispatch => ({
