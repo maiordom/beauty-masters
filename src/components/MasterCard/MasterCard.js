@@ -82,7 +82,7 @@ export default class MasterCard extends Component {
   render() {
     const {
       addresses,
-      equipmentInfo,
+      workPhoto,
       services,
     } = this.props;
 
@@ -118,7 +118,7 @@ export default class MasterCard extends Component {
             <MasterCardServices services={services} />
           </Fade>
           <Fade visible={showSecondGroup}>
-            <MasterCardEquipment equipmentInfo={equipmentInfo} />
+            <MasterCardEquipment />
             <MasterCardSchedule
               addresses={addresses}
               scrollToEnd={this.scrollToEnd}
