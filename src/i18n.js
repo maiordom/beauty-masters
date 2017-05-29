@@ -26,6 +26,7 @@ export default {
   },
   district: 'Район',
   disinfection: 'Дезинфекция',
+  enter: 'Войти',
   enterAddress: 'Введите адрес',
   errors: {
     allFieldsRequired: 'Необходимо заполнить все поля',
