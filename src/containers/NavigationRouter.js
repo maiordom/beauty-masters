@@ -22,7 +22,7 @@ import MasterCard from '../screen/MasterCard/MasterCard';
 import MasterLocation from '../screen/MasterCard/MasterLocation';
 
 import MasterProfile from '../screen/MasterProfile/MasterProfile';
-
+import MasterProfileCalendar from '../screen/MasterProfile/MasterProfileCalendar';
 import Drawer from '../components/Drawer';
 
 import i18n from '../i18n';
@@ -144,7 +144,11 @@ export default () => (
         <Scene
           key="masterProfile"
           component={MasterProfile}
-          title="Личный кабинет"
+          title={i18n.userProfile}
+        />
+        <Scene
+          key="masterProfileCalendar"
+          component={MasterProfileCalendar}
         />
       </Scene>
     </Scene>
