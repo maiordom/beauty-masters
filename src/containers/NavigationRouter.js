@@ -57,7 +57,6 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
-        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -67,6 +66,7 @@ export default () => (
           component={Presentation}
         />
         <Scene
+          initial
           key="searchForm"
           {...getMasterStyle({ navButtonType: 'menu' })}
           title={i18n.search.searchParams}

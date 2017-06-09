@@ -69,19 +69,17 @@ const addresses = [
   { label: 'Кружская', id: 18 },
 ];
 
-export const searchAddress = (address: string) => (dispatch: (ActionSetItems) => null, getState: () => Object) => {
+export const searchAddress = (address: string) => (
+  dispatch: (ActionSetItems) => null,
+  getState: () => Object
+) => {
   const state = getState();
-
   const query = `${state.searchForm.general.cities.selected.label} ${address}`;
-
-  console.log(query);
 
   SearchService.geoAutoComplete({ query })
     .then(response => {
-      console.log(response);
-      console.log(response.json());
       dispatch({
-        type: actions.SEARCH_ITEMS_SET,
+        type: actions.SEARCH_ADDRESSES_ITEMS_SET,
         items: addresses.slice(0, address.length),
         modelName: 'addresses',
         sectionName: 'general',
@@ -89,8 +87,18 @@ export const searchAddress = (address: string) => (dispatch: (ActionSetItems) =>
     });
 };
 
+export const searchMasters = () => (dispatch: () => null) => {
+  SearchService.searchMasters()
+    .then(items => {
+      dispatch({
+        type: actions.SEARCH_MASTERS_ITEMS_SET,
+        items,
+      });
+    });
+};
+
 export const addressesReset = () => ({
-  type: actions.SEARCH_ITEMS_RESET,
+  type: actions.SEARCH_ADDRESSES_ITEMS_RESET,
   modelName: 'addresses',
   sectionName: 'general',
 });
@@ -98,7 +106,7 @@ export const addressesReset = () => ({
 export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });
 
 export const citiesReset = () => ({
-  type: actions.SEARCH_ITEMS_RESET,
+  type: actions.SEARCH_ADDRESSES_ITEMS_RESET,
   modelName: 'cities',
   sectionName: 'general',
 });

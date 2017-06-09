@@ -8,9 +8,4 @@ const mapStateToProps = state => ({
   sceneKey: state.scene.sceneKey,
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-  }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SerpNavBar(Serp));
+export default connect(mapStateToProps, null)(SerpNavBar(Serp));

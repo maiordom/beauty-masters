@@ -50,14 +50,6 @@ type MarkerType = {
   description?: string
 }
 
-const markers : Array<MarkerType> = [
-  { latlng: { latitude: 60.000316, longitude: 30.256373 } },
-  { latlng: { latitude: 60.001496, longitude: 30.250600 } },
-  { latlng: { latitude: 60.002007, longitude: 30.254395 } },
-  { latlng: { latitude: 60.001707, longitude: 30.300028 } },
-  { latlng: { latitude: 59.982072, longitude: 30.254690 } },
-];
-
 type State = {
   renderLoader: boolean,
   showSnippet: boolean,
@@ -69,19 +61,21 @@ type State = {
 
 const SNIPPET_HEIGHT = 204;
 
+const initialRegion = [55.76, 37.64];
+
 export default class Map extends Component<void, void, State> {
   state = {
     renderLoader: true,
     showSnippet: false,
     initialRegion: {
-      latitude: 60.000316,
-      longitude: 30.256373,
+      latitude: initialRegion[0],
+      longitude: initialRegion[1],
       latitudeDelta: 0.04, // 1 delata degree = 111 km, 0.04 = 5km
       longitudeDelta: 0.04,
     },
     region: {
-      latitude: 60.000316,
-      longitude: 30.256373,
+      latitude: initialRegion[0],
+      longitude: initialRegion[1],
       latitudeDelta: 0.04, // 1 delata degree = 111 km, 0.04 = 5km
       longitudeDelta: 0.04,
     },
@@ -111,6 +105,7 @@ export default class Map extends Component<void, void, State> {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderLoader: false });
+      this.props.actions.searchMasters();
     });
   }
 
@@ -139,7 +134,7 @@ export default class Map extends Component<void, void, State> {
   };
 
   render() {
-    const { sceneKey } = this.props;
+    const { sceneKey, points } = this.props;
     const { region, activePin, renderLoader } = this.state;
 
     if (renderLoader) {
@@ -155,12 +150,12 @@ export default class Map extends Component<void, void, State> {
             initialRegion={region}
             ref={this.setMapRef}
           >
-            {markers.map(marker => (
+            {points.map((point, index) => (
               <MapView.Marker
-                coordinate={marker.latlng}
-                key={marker.latlng.latitude + marker.latlng.longitude}
+                coordinate={point.coordinates.latlng}
+                key={`point-${index}-${point.coordinates.latlng.latitude}-${point.coordinates.latlng.longitude}`}
                 onPress={this.onMarkerPress}
-                image={isEqual(marker.latlng, activePin)
+                image={isEqual(point.coordinates.latlng, activePin)
                   ? icons.pinGreen
                   : icons.pinRed
                 }

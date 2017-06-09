@@ -8,6 +8,7 @@ const methods = [
   { registerUser: 'user.registerUser' },
   { createMaster: 'master.createMaster' },
   { geoAutoComplete: 'geo.autocomplete' },
+  { searchMasters: 'master.search' },
 ];
 
 methods.forEach((method, index) => {

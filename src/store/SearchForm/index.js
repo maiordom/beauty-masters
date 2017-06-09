@@ -35,7 +35,10 @@ const searchQuery: SearchQueryType = {
   isDeparture: false,
 };
 
+const searchResult = { items: [] };
+
 export default {
   ...params,
   searchQuery,
+  searchResult,
 };
