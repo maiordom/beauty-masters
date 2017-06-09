@@ -17,7 +17,7 @@ import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 
-import MapCard from '../../containers/MapCard';
+import MapCard from './MapCard';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -113,12 +113,16 @@ export default class Map extends Component<void, void, State> {
     this.map = ref;
   };
 
-  onMarkerPress = (event: any) => {
+  onMarkerPress = (event: any, index: Number) => {
     const { coordinate } = event.nativeEvent;
     const region = { ...coordinate, latitudeDelta: 0.005, longitudeDelta: 0.005 };
 
     this.map.animateToRegion(region, 600);
-    this.setState({ activePin: coordinate, region });
+    this.setState({
+      activePin: coordinate,
+      activePoint: this.props.points[index],
+      region,
+    });
 
     Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
   };
@@ -133,9 +137,15 @@ export default class Map extends Component<void, void, State> {
     this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
+  onRegionChangeComplete = ({ latitude, longitude }) => {
+    this.props.actions.searchMasters({
+      coordinates: [ latitude, longitude ],
+    });
+  };
+
   render() {
     const { sceneKey, points } = this.props;
-    const { region, activePin, renderLoader } = this.state;
+    const { region, activePin, activePoint, renderLoader } = this.state;
 
     if (renderLoader) {
       return null;
@@ -148,13 +158,14 @@ export default class Map extends Component<void, void, State> {
             style={styles.map}
             onPress={this.onMapPress}
             initialRegion={region}
+            onRegionChangeComplete={this.onRegionChangeComplete}
             ref={this.setMapRef}
           >
             {points.map((point, index) => (
               <MapView.Marker
                 coordinate={point.coordinates.latlng}
-                key={`point-${index}-${point.coordinates.latlng.latitude}-${point.coordinates.latlng.longitude}`}
-                onPress={this.onMarkerPress}
+                key={index}
+                onPress={event => this.onMarkerPress(event, index)}
                 image={isEqual(point.coordinates.latlng, activePin)
                   ? icons.pinGreen
                   : icons.pinRed
@@ -187,7 +198,7 @@ export default class Map extends Component<void, void, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          <MapCard onPress={Actions.card} />
+          {activePoint && <MapCard onPress={Actions.card} {...activePoint} />}
         </Animated.View>
       </View>
     );

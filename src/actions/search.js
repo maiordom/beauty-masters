@@ -87,8 +87,8 @@ export const searchAddress = (address: string) => (
     });
 };
 
-export const searchMasters = () => (dispatch: () => null) => {
-  SearchService.searchMasters()
+export const searchMasters = (query = {}) => (dispatch: () => null) => {
+  SearchService.searchMasters(query)
     .then(items => {
       dispatch({
         type: actions.SEARCH_MASTERS_ITEMS_SET,

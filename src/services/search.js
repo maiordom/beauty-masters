@@ -5,13 +5,13 @@ export function geoAutoComplete(params) {
   return post(routes.geoAutoComplete, params);
 }
 
-export function searchMasters(
+export function searchMasters({
   coordinates = [55.76, 37.64],
   master_type = 1,
-  radius = 5000,
+  radius = 3000,
   schedule = [],
   services = [],
-) {
+}) {
   return post(routes.searchMasters, {
     type: 'map',
     query: {
@@ -30,12 +30,12 @@ export function searchMasters(
         longitude: master.address.coordinates[1],
       }
     },
-    distance: master.address.distance,
-    firstName: master.first_name,
+    distance: (master.address.distance / 1000).toFixed(2),
     id: master.id,
-    lastName: master.last_name,
+    isVerified: master.is_verified,
     masterType: master_type,
     photo: master.photo,
-    services: [],
+    services: master.services,
+    title: `${master.first_name} ${master.last_name}`,
   })));
 }

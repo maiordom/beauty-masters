@@ -37,23 +37,27 @@ export default class MapCard extends Component {
 
   render() {
     const {
-      photo: uri,
-      isVerified,
-      title,
-      subtitle,
       address,
-      distance,
-      services,
       closestDate,
+      distance,
+      isVerified,
+      masterType,
       onPress,
+      photo: uri,
+      services,
+      title,
     } = this.props;
+
+    const subtitle = masterType === 1 ? i18n.card.privareMaster : i18n.card.salon;
 
     return (
       <TouchableWithoutFeedback onPress={onPress}>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
-              <Image style={styles.photo} source={{ uri }} />
+              {uri
+                ? <Image style={styles.photo} source={{ uri }} />
+                : <View style={[styles.photo, styles.emptyPhoto]} />}
               {isVerified && (
                 <Image source={icons.verified} style={styles.verified} />
               )}
@@ -118,6 +122,9 @@ const styles = StyleSheet.create({
   },
   photoWrapper: {
     marginRight: 15,
+  },
+  emptyPhoto: {
+    backgroundColor: vars.color.grey,
   },
   photo: {
     width: 48,

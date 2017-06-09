@@ -7,6 +7,10 @@ export default {
   building: 'Корпус/Строение',
   buildingShort: 'стр',
   call: 'Позвонить',
+  card: {
+    privateMaster: 'Частный мастер',
+    salon: 'Салон',
+  },
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
