@@ -25,7 +25,7 @@ type Address = {
   house: string,
   id: number,
   masterId: number,
-  masterSchedules: Array<Schedule>
+  masterSchedules: Array<Schedule>,
   salonTitle: string,
   street: string,
   subwayStation: string,
@@ -33,7 +33,7 @@ type Address = {
 
 export type MasterCardType = {
   about: ?string,
-  addresses: Array<Address>
+  addresses: Array<Address>,
   certificates: ?Array<string>,
   fbProfile?: string,
   firstName: string,
@@ -60,7 +60,7 @@ export type MasterCardType = {
 
 export type MapCardType = {
   address: string,
-  closestDate?: string,
+  closestDate?: string | null,
   coordinates: {
     latlng: {
       latitude: number,
@@ -71,7 +71,7 @@ export type MapCardType = {
   id: number,
   isVerified: boolean,
   masterType: number,
-  onPress: () => void
+  onPress: () => void,
   photo: string,
   services?: Array<Service>,
   title: string,

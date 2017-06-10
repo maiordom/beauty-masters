@@ -91,17 +91,11 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_MASTERS_ITEMS_SET]: () => {
-    deepUpdate(
-      state,
-      `searchForm.searchResult`,
-      { items: action.items },
-    );
-
-    console.log('123', action.items, state.searchForm.searchResult.items);
-
-    return state;
-  },
+  [actions.SEARCH_MASTERS_ITEMS_SET]: () => deepUpdate(
+    state,
+    `searchForm.searchResult`,
+    { items: action.items },
+  ),
 
   [actions.SEARCH_ADDRESSES_ITEMS_SET]: () => deepUpdate(
     state,

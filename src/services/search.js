@@ -1,7 +1,22 @@
+// @flow
+
 import routes from '../routes';
 import { post } from '../utils/provider';
 
-export function geoAutoComplete(params) {
+type GeoAutocompleteParamsType = {
+  query: string,
+}
+
+type SearchMastersParamsType = {
+  type: string,
+  coordinates: Array<number>,
+  master_type: number,
+  radius: number,
+  schedule: Array<number>,
+  services: Array<number>,
+};
+
+export function geoAutoComplete(params: GeoAutocompleteParamsType) {
   return post(routes.geoAutoComplete, params);
 }
 
@@ -11,7 +26,7 @@ export function searchMasters({
   radius = 3000,
   schedule = [],
   services = [],
-}) {
+}: SearchMastersParamsType) {
   return post(routes.searchMasters, {
     type: 'map',
     query: {

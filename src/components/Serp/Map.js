@@ -22,6 +22,8 @@ import MapCard from './MapCard';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
+import type { MapCardType } from '../../types/MasterTypes';
+
 const icons = Platform.select({
   android: {
     filter: require('../../icons/filter.png'),
@@ -56,14 +58,23 @@ type State = {
   region: RegionType,
   initialRegion: RegionType,
   snippetTranslateY: Animated.Value,
-  activePin: ?LatLngType
+  activePin: ?LatLngType,
+  activePoint: ?MapCardType,
 }
+
+type Props = {
+  points: Array<MapCardType>,
+  sceneKey: string,
+  actions: {
+    searchMasters: Function,
+  },
+};
 
 const SNIPPET_HEIGHT = 204;
 
 const initialRegion = [55.76, 37.64];
 
-export default class Map extends Component<void, void, State> {
+export default class Map extends Component<void, Props, State> {
   state = {
     renderLoader: true,
     showSnippet: false,
@@ -81,6 +92,7 @@ export default class Map extends Component<void, void, State> {
     },
     snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
     activePin: null,
+    activePoint: null,
   };
 
   map: MapView;
@@ -116,11 +128,12 @@ export default class Map extends Component<void, void, State> {
   onMarkerPress = (event: any, index: Number) => {
     const { coordinate } = event.nativeEvent;
     const region = { ...coordinate, latitudeDelta: 0.005, longitudeDelta: 0.005 };
+    const activePoint = this.props.points[index];
 
     this.map.animateToRegion(region, 600);
     this.setState({
       activePin: coordinate,
-      activePoint: this.props.points[index],
+      activePoint,
       region,
     });
 
@@ -137,7 +150,7 @@ export default class Map extends Component<void, void, State> {
     this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
-  onRegionChangeComplete = ({ latitude, longitude }) => {
+  onRegionChangeComplete = ({ latitude, longitude }: LatLngType) => {
     this.props.actions.searchMasters({
       coordinates: [ latitude, longitude ],
     });
