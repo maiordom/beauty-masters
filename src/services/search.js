@@ -50,7 +50,7 @@ export function searchMasters({
     isVerified: master.is_verified,
     masterType: master_type,
     photo: master.photo,
-    services: master.services,
+    services: [],
     title: `${master.first_name} ${master.last_name}`,
   })));
 }
