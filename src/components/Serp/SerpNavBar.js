@@ -9,18 +9,36 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const onPress = Actions.pop;
 const navBackButtonImage = require('../../icons/android/back-arrow.png');
 
-const SerpNavBar = () => (
+const SerpNavBar = ({
+  onMapPress,
+  onListPress,
+}) => (
   <View style={styles.container}>
-    <TouchableOpacity style={[styles.leftButton]} onPress={onPress} activeOpacity={1} underlayColor>
+    <TouchableOpacity
+      style={[styles.leftButton]}
+      onPress={onPress}
+      activeOpacity={1}
+      underlayColor
+    >
       <Image source={navBackButtonImage} />
     </TouchableOpacity>
     <View style={styles.buttonsWrapper}>
-      <TouchableOpacity style={[styles.button, styles.activeButton]} activeOpacity={1} underlayColor>
+      <TouchableOpacity
+        style={[styles.button, styles.activeButton]}
+        onPress={onMapPress}
+        activeOpacity={1}
+        underlayColor
+      >
         <Text style={styles.activeText} lineBreakMode="tail">
           {i18n.serp.onMap}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.button]} activeOpacity={1} underlayColor>
+      <TouchableOpacity
+        style={[styles.button]}
+        onPress={onListPress}
+        activeOpacity={1}
+        underlayColor
+      >
         <Text style={styles.disableText} lineBreakMode="tail">
           {i18n.list}
         </Text>
