@@ -98,7 +98,7 @@ export const searchMasters = (query = {}) => (dispatch: () => null) => {
 };
 
 export const addressesReset = () => ({
-  type: actions.SEARCH_ADDRESSES_ITEMS_RESET,
+  type: actions.SEARCH_ITEMS_RESET,
   modelName: 'addresses',
   sectionName: 'general',
 });
@@ -106,7 +106,7 @@ export const addressesReset = () => ({
 export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });
 
 export const citiesReset = () => ({
-  type: actions.SEARCH_ADDRESSES_ITEMS_RESET,
+  type: actions.SEARCH_ITEMS_RESET,
   modelName: 'cities',
   sectionName: 'general',
 });

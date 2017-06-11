@@ -103,7 +103,7 @@ export default makeReducer((state, action) => ({
     { items: action.items },
   ),
 
-  [actions.SEARCH_ADDRESSES_ITEMS_RESET]: () => deepUpdate(
+  [actions.SEARCH_ITEMS_RESET]: () => deepUpdate(
     state,
     `searchForm.${action.sectionName}.${action.modelName}`,
     { items: [] },
