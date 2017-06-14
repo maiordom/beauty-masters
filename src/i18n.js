@@ -8,6 +8,10 @@ export default {
   buildingShort: 'стр',
   call: 'Позвонить',
   calendar: 'Календарь',
+  card: {
+    privateMaster: 'Частный мастер',
+    salon: 'Салон',
+  },
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',

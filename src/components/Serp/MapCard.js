@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 import moment from 'moment';
+import isEmpty from 'lodash/isEmpty';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -11,6 +12,7 @@ import type { MapCardType } from '../../types/MasterTypes';
 
 const icons = {
   verified: require('../../icons/verified.png'),
+  photoEmpty: require('../../icons/photo-empty.png'),
   ...Platform.select({
     android: {
       pin: require('../../icons/android/pin-small.png'),
@@ -37,23 +39,27 @@ export default class MapCard extends Component {
 
   render() {
     const {
-      photo: uri,
-      isVerified,
-      title,
-      subtitle,
       address,
-      distance,
-      services,
       closestDate,
+      distance,
+      isVerified,
+      masterType,
       onPress,
+      photo: uri,
+      services,
+      title,
     } = this.props;
+
+    const subtitle = masterType === 1 ? i18n.card.privareMaster : i18n.card.salon;
 
     return (
       <TouchableWithoutFeedback onPress={onPress}>
         <View elevation={5} style={styles.container}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
-              <Image style={styles.photo} source={{ uri }} />
+              {uri
+                ? <Image style={styles.photo} source={{ uri }} />
+                : <Image style={styles.photo} source={icons.photoEmpty} />}
               {isVerified && (
                 <Image source={icons.verified} style={styles.verified} />
               )}
@@ -78,7 +84,7 @@ export default class MapCard extends Component {
               <Text style={styles.text}>{i18n.closestDate}: {this.getDate()}</Text>
             </View>
           )}
-          {services && (
+          {!isEmpty(services) && (
             <View style={[styles.row, styles.servicesRow]}>
               <Image style={styles.icon} source={icons.ticket} />
               <View style={styles.services}>

@@ -69,22 +69,30 @@ const addresses = [
   { label: 'Кружская', id: 18 },
 ];
 
-export const searchAddress = (address: string) => (dispatch: (ActionSetItems) => null, getState: () => Object) => {
+export const searchAddress = (address: string) => (
+  dispatch: (ActionSetItems) => null,
+  getState: () => Object,
+) => {
   const state = getState();
-
   const query = `${state.searchForm.general.cities.selected.label} ${address}`;
-
-  console.log(query);
 
   SearchService.geoAutoComplete({ query })
     .then(response => {
-      console.log(response);
-      console.log(response.json());
       dispatch({
-        type: actions.SEARCH_ITEMS_SET,
+        type: actions.SEARCH_ADDRESSES_ITEMS_SET,
         items: addresses.slice(0, address.length),
         modelName: 'addresses',
         sectionName: 'general',
+      });
+    });
+};
+
+export const searchMasters = (query = {}) => (dispatch: () => null) => {
+  SearchService.searchMasters(query)
+    .then(items => {
+      dispatch({
+        type: actions.SEARCH_MASTERS_ITEMS_SET,
+        items,
       });
     });
 };

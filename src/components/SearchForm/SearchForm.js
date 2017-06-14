@@ -200,10 +200,16 @@ export default class SearchFormShort extends Component {
           }
 
           {!showShortForm &&
-            <SearchFormBlockManicure service={serviceManicure} onChange={this.onServiceToggle('serviceManicure')} />}
+            <SearchFormBlockManicure
+              service={serviceManicure}
+              onChange={this.onServiceToggle('serviceManicure')}
+            />}
 
           {!showShortForm &&
-            <SearchFormBlockPedicure service={servicePedicure} onChange={this.onServiceToggle('servicePedicure')} />}
+            <SearchFormBlockPedicure
+              service={servicePedicure}
+              onChange={this.onServiceToggle('servicePedicure')}
+            />}
 
           <ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
