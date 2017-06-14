@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 
+import MasterProfileInfo from '../../screen/MasterProfile/MasterProfileInfo';
 import MasterProfileCalendars from './MasterProfileCalendars';
 
 import i18n from '../../i18n';
@@ -77,7 +78,7 @@ export default class MasterProfile extends Component {
           />
         </View>
         <View style={styles.content}>
-          {activeTab === 'profile' && <Text>Profile ;[</Text>}
+          {activeTab === 'profile' && <MasterProfileInfo />}
           {activeTab === 'calendar' && <MasterProfileCalendars />}
           {activeTab === 'services' && <Text>Services ;[</Text>}
         </View>
