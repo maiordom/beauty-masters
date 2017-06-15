@@ -25,30 +25,51 @@ export default class MasterProfileCalendar extends Component {
   state = {
     showDeactivateModal: false,
     isDisabled: false,
+    selectedDate: moment().add(1, 'day').format('YYYY-MM-DD'),
   };
 
-  onSwitchToggle = (value: boolean) => {
+  onSwitchToggle = () => {
     this.setState({ showDeactivateModal: !this.state.showDeactivateModal });
+  };
+
+  onDateSelect = (date) => {
+    this.setState({ selectedDate: date });
   };
 
   render() {
     const {
+      salon,
+    } = this.props;
+
+    const {
       showDeactivateModal,
       isDisabled,
+      selectedDate,
     } = this.state;
+
+    const selectedDay = salon.masterSchedules.find(day => day.date === selectedDate);
 
     return (
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.subtitle}>Расписание</Text>
           <View style={styles.calendar}>
-            <Calendar selectedDate={moment().format('YYYY-MM-DD')} />
+            <Calendar
+              onDateSelect={this.onDateSelect}
+              workDays={salon.masterSchedules.map(schedule => schedule.date)}
+              selectedDate={selectedDate}
+            />
           </View>
-          <View style={styles.salon}>
-            <Text style={styles.salonText}>Принимаю с 13:00 до 18:00</Text>
-            <Text style={styles.salonText}>Салон «Пилки»</Text>
-            <Text style={styles.salonText}>По адресу Ленинский пр., д. 127</Text>
-          </View>
+          {selectedDay && (
+            <View style={styles.salon}>
+              <Text style={styles.salonText}>
+                {i18n.accept} {i18n.from.toLowerCase()}{' '}
+                {selectedDay.timeStart} {i18n.to.toLowerCase()} {selectedDay.timeEnd}
+              </Text>
+              <Text style={styles.salonText}>{i18n.salon} {salon.salonTitle}</Text>
+              <Text style={styles.salonText}>{i18n.onAddress} {salon.street}, {salon.house}</Text>
+            </View>
+          )}
           <Switch
             title="Временно не работаю"
             customStyles={{ container: styles.switchContainer }}

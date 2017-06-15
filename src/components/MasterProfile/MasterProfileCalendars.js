@@ -28,14 +28,6 @@ export default class MasterProfileCalendars extends Component {
               <Text style={styles.salonTitle}>Пилки</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => Actions.masterProfileCalendar({ title: 'Палки' })}
-          >
-            <View style={styles.salon}>
-              <Text style={styles.salonTitle}>Палки</Text>
-            </View>
-          </TouchableOpacity>
         </View>
       </View>
     );
