@@ -89,7 +89,7 @@ export default class MapCard extends Component {
               <Image style={styles.icon} source={icons.ticket} />
               <View style={styles.services}>
                 {services.map(service => (
-                  <Text key={service.serviceId} style={styles.text}>{service.serviceId} – {service.price} ₽</Text>
+                  <Text key={service.id} style={styles.text}>{service.title} – {service.price} р</Text>
                 ))}
               </View>
             </View>

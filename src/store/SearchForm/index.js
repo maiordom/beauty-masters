@@ -4,8 +4,8 @@ import moment from 'moment';
 
 import type { SearchQueryType } from '../../types/CreateSearchQuery';
 
-import ServiceManicure from '../Filters/ServiceManicure';
-import ServicePedicure from '../Filters/ServicePedicure';
+import ServiceManicure from '../Service/ServiceManicure';
+import ServicePedicure from '../Service/ServicePedicure';
 import General from './General';
 
 const params = {};
@@ -28,11 +28,11 @@ each({
 
 const searchQuery: SearchQueryType = {
   cityId: '175849',
-  services: [],
+  isDeparture: false,
   master_type: 1,
   radius: 400,
   schedule: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')],
-  isDeparture: false,
+  services: [],
 };
 
 const searchResult = { items: [] };

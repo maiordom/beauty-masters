@@ -62,10 +62,8 @@ export type MapCardType = {
   address: string,
   closestDate?: string | null,
   coordinates: {
-    latlng: {
-      latitude: number,
-      longitude: number,
-    },
+    latitude: number,
+    longitude: number,
   },
   distance: string,
   id: number,

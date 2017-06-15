@@ -13,9 +13,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import supercluster from 'supercluster';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
+import throttle from 'lodash/throttle';
+
+import { shouldComponentUpdate } from '../../utils';
 
 import MapCard from './MapCard';
 
@@ -74,6 +78,51 @@ const SNIPPET_HEIGHT = 204;
 
 const initialRegion = [55.76, 37.64];
 
+const convertToGeoPoints = points => points.map((point, key) => ({
+  type: 'Feature',
+  properties: point,
+  geometry: {
+    type: 'Point',
+    coordinates: [
+      point.coordinates.longitude,
+      point.coordinates.latitude,
+    ],
+  },
+}));
+
+const createCluster = geoPoints => {
+  const index = supercluster({
+    radius: 40,
+    maxZoom: 15,
+  });
+
+  index.load(geoPoints);
+
+  return index;
+};
+
+const getZoomLevel = region => {
+  const angle = region.longitudeDelta;
+  const level = Math.round(Math.log(360 / angle) / Math.LN2);
+  return level;
+};
+
+const getLatLng = cluster => ({
+  latitude: cluster.geometry.coordinates[1],
+  longitude: cluster.geometry.coordinates[0],
+});
+
+const getClusters = (cluster, region) => {
+  const padding = 0;
+
+  return cluster.getClusters([
+    region.longitude - (region.longitudeDelta * (0.5 + padding)),
+    region.latitude - (region.latitudeDelta * (0.5 + padding)),
+    region.longitude + (region.longitudeDelta * (0.5 + padding)),
+    region.latitude + (region.latitudeDelta * (0.5 + padding)),
+  ], getZoomLevel(region));
+};
+
 export default class Map extends Component<void, Props, State> {
   state = {
     renderLoader: true,
@@ -81,19 +130,21 @@ export default class Map extends Component<void, Props, State> {
     initialRegion: {
       latitude: initialRegion[0],
       longitude: initialRegion[1],
-      latitudeDelta: 0.04, // 1 delata degree = 111 km, 0.04 = 5km
-      longitudeDelta: 0.04,
     },
     region: {
       latitude: initialRegion[0],
       longitude: initialRegion[1],
-      latitudeDelta: 0.04, // 1 delata degree = 111 km, 0.04 = 5km
-      longitudeDelta: 0.04,
+      latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
+      longitudeDelta: 0.05,
     },
     snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
     activePin: null,
     activePoint: null,
+    clusters: [],
+    cluster: null,
   };
+
+  shouldComponentUpdate = shouldComponentUpdate();
 
   map: MapView;
 
@@ -127,10 +178,20 @@ export default class Map extends Component<void, Props, State> {
 
   onMarkerPress = (event: any, index: Number) => {
     const { coordinate } = event.nativeEvent;
-    const region = { ...coordinate, latitudeDelta: 0.005, longitudeDelta: 0.005 };
-    const activePoint = this.props.points[index];
+    const region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
+    const point = this.state.clusters[index];
+    let activePoint = null;
 
-    this.map.animateToRegion(region, 600);
+    if (point.properties.cluster) {
+      activePoint = this.state.cluster.getLeaves(
+        point.properties.cluster_id,
+        getZoomLevel(this.state.region)
+      )[0].properties;
+    } else {
+      activePoint = point.properties;
+    }
+
+    this.map.animateToRegion(region, 450);
     this.setState({
       activePin: coordinate,
       activePoint,
@@ -150,15 +211,28 @@ export default class Map extends Component<void, Props, State> {
     this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
-  onRegionChangeComplete = ({ latitude, longitude }: LatLngType) => {
-    this.props.actions.searchMasters({
-      coordinates: [ latitude, longitude ],
+  onRegionChangeComplete = (region: RegionType) => {
+    this.setState({ region });
+    this.searchRequest && this.searchRequest.cancel();
+    this.searchRequest = this.props.actions.searchMasters({
+      coordinates: [ region.latitude, region.longitude ],
     });
   };
 
+  componentWillReceiveProps(nextProps) {
+    const { points } = nextProps;
+    const { region } = this.state;
+
+    const geoPoints = convertToGeoPoints(points);
+    const cluster = createCluster(geoPoints);
+    const clusters = getClusters(cluster, region);
+
+    this.setState({ cluster, clusters });
+  }
+
   render() {
-    const { sceneKey, points } = this.props;
-    const { region, activePin, activePoint, renderLoader } = this.state;
+    const { sceneKey } = this.props;
+    const { region, activePin, activePoint, renderLoader, clusters } = this.state;
 
     if (renderLoader) {
       return null;
@@ -171,15 +245,15 @@ export default class Map extends Component<void, Props, State> {
             style={styles.map}
             onPress={this.onMapPress}
             initialRegion={region}
-            onRegionChangeComplete={this.onRegionChangeComplete}
+            onRegionChangeComplete={throttle(this.onRegionChangeComplete, 300)}
             ref={this.setMapRef}
           >
-            {points.map((point, index) => (
+            {clusters.map((cluster, index) => (
               <MapView.Marker
-                coordinate={point.coordinates.latlng}
+                coordinate={getLatLng(cluster)}
                 key={index}
                 onPress={event => this.onMarkerPress(event, index)}
-                image={isEqual(point.coordinates.latlng, activePin)
+                image={isEqual(getLatLng(cluster), activePin)
                   ? icons.pinGreen
                   : icons.pinRed
                 }
