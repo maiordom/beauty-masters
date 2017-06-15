@@ -1,26 +1,26 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Platform,
   Image,
-  Modal,
-  TouchableOpacity,
 } from 'react-native';
-// import moment from 'moment';
 
-import { hexToRgba } from '../../utils';
-
-// import i18n from '../../i18n';
+import i18n from '../../i18n';
 import vars from '../../vars';
 
 import InputWithLabel from '../InputWithLabel';
 
 export default class MasterProfileInfo extends Component {
-  static propTypes = {};
+  static propTypes = {
+    masterPhoto: PropTypes.arrayOf(PropTypes.string).isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  };
 
   render() {
     const {
@@ -28,43 +28,40 @@ export default class MasterProfileInfo extends Component {
       firstName,
       lastName,
       phone,
+      email,
     } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.content}>
           <Image style={styles.photo} source={{ uri: masterPhoto[0] }} />
-          <Text style={styles.edit}>Редактировать данные профиля</Text>
+          <Text style={styles.edit}>{i18n.editProfile}</Text>
           <View style={styles.inputs}>
             <View style={styles.row}>
               <InputWithLabel
                 value={firstName}
-                label="Имя"
+                label={i18n.firstName}
                 style={{ flex: 1 }}
-                editable={false}
               />
               <InputWithLabel
                 value={lastName}
-                label="Фамилия"
+                label={i18n.lastName}
                 style={{ flex: 1 }}
-                editable={false}
               />
             </View>
             <View style={styles.row}>
               <InputWithLabel
                 value={phone}
-                label="Телефон"
+                label={i18n.phoneShort}
                 style={{ flex: 1 }}
-                editable={false}
               />
               <InputWithLabel
-                value="hello@ya.ru"
-                label="Логин"
+                value={email}
+                label={i18n.login}
                 style={{ flex: 1 }}
-                editable={false}
               />
             </View>
-            <Text style={styles.changePwd}>Изменить пароль</Text>
+            <Text style={styles.changePwd}>{i18n.changePwd}</Text>
           </View>
         </View>
       </View>
@@ -95,6 +92,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputs: {
+    borderTopColor: vars.color.borderColorAndroid,
+    borderTopWidth: 1,
+    borderBottomColor: vars.color.borderColorAndroid,
+    borderBottomWidth: 1,
     backgroundColor: vars.color.white,
     padding: 16,
   },

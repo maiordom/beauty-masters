@@ -9,8 +9,8 @@ import i18n from '../i18n';
 import vars from '../vars';
 
 const i18nEnter = Platform.select({
-  ios: i18n.enter,
-  android: i18n.enter.toUpperCase(),
+  ios: i18n.enterTo,
+  android: i18n.enterTo.toUpperCase(),
 });
 
 export default class Login extends Component {
