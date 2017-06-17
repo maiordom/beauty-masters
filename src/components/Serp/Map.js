@@ -307,7 +307,7 @@ export default class Map extends Component<void, Props, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          {activePoint && <MapCard onPress={Actions.card} {...activePoint} />}
+          {activePoint && <MapCard onPress={Actions.card} {...activePoint} location="map" />}
         </Animated.View>
       </View>
     );

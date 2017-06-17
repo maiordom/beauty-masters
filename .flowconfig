@@ -3,6 +3,7 @@
 .*/*[.]android.js
 .*/node_modules/react-native-experimental-navigation/.*
 .*/node_modules/react-native/Libraries/Components/StaticContainer.js
+.*/node_modules/promise/.*
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
