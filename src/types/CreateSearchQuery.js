@@ -12,13 +12,9 @@ type Service = {
 
 export type SearchQueryType = {
   cityId: string,
-  services: Array<Service>,
+  isDeparture: boolean,
   master_type: number,
-  coordinates?: {
-    longitude: string,
-    latitude: string
-  },
   radius: number,
   schedule: Array<string>,
-  isDeparture: boolean
+  services: Array<Service>,
 };

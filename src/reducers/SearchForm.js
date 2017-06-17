@@ -91,11 +91,19 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_MASTERS_ITEMS_SET]: () => deepUpdate(
-    state,
-    `searchForm.searchResult`,
-    { items: action.items },
-  ),
+  [actions.SEARCH_MASTERS_ITEMS_SET]: () => {
+    const { items } = action;
+
+    items.forEach(item => {
+      item.services.forEach(service => {
+        service.title = state.dictionaries.services[service.id].title;
+      });
+    })
+
+    deepUpdate(state, `searchForm.searchResult`, { items });
+
+    return state;
+  },
 
   [actions.SEARCH_ADDRESSES_ITEMS_SET]: () => deepUpdate(
     state,

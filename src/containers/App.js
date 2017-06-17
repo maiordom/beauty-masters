@@ -6,6 +6,7 @@ import NavigationRouter from './NavigationRouter';
 import masterData from '../test/MasterData';
 import { setData } from '../actions/master';
 import { registerUser } from '../actions/auth';
+import { getDictionaries } from '../actions/dictionaries';
 
 const store = configureStore();
 
@@ -19,6 +20,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    getDictionaries()(store.dispatch);
   }
 
   render() {
