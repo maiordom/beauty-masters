@@ -3,18 +3,11 @@
 import routes from '../routes';
 import { post } from '../utils/provider';
 
+import type { SearchMastersParamsType } from '../types/SearchFormTypes';
+
 type GeoAutocompleteParamsType = {
   query: string,
 }
-
-type SearchMastersParamsType = {
-  type: string,
-  coordinates: Array<number>,
-  master_type: number,
-  radius: number,
-  schedule: Array<number>,
-  services: Array<number>,
-};
 
 export function geoAutoComplete(params: GeoAutocompleteParamsType) {
   return post(routes.geoAutoComplete, params);

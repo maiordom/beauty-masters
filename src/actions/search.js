@@ -2,6 +2,8 @@
 import actions from '../constants/search';
 import * as SearchService from '../services/search';
 
+import type { SearchMastersParamsType } from '../types/SearchFormTypes';
+
 export const setDay = (day: string) => ({
   type: actions.SEARCH_SET_DAY,
   day,
@@ -87,7 +89,7 @@ export const searchAddress = (address: string) => (
     });
 };
 
-export const searchMasters = (query = {}) => (dispatch: () => null) => {
+export const searchMasters = (query: SearchMastersParamsType = {}) => (dispatch: () => null) => {
   SearchService.searchMasters(query)
     .then(items => {
       dispatch({

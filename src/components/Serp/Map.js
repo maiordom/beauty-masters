@@ -27,6 +27,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 
 import type { MapCardType } from '../../types/MasterTypes';
+import type { FetchType } from '../../types/FetchTypes';
 
 const icons = Platform.select({
   android: {
@@ -57,13 +58,15 @@ type MarkerType = {
 }
 
 type State = {
-  renderLoader: boolean,
-  showSnippet: boolean,
-  region: RegionType,
-  initialRegion: RegionType,
-  snippetTranslateY: Animated.Value,
   activePin: ?LatLngType,
   activePoint: ?MapCardType,
+  cluster: ClusterInterface,
+  clusters: Array<Cluster>,
+  initialRegion: RegionType,
+  region: RegionType,
+  renderLoader: boolean,
+  showSnippet: boolean,
+  snippetTranslateY: Animated.Value,
 }
 
 type Props = {
@@ -71,6 +74,17 @@ type Props = {
   sceneKey: string,
   actions: {
     searchMasters: Function,
+  },
+};
+
+type ClusterInterface = {
+  getLeaves: Function,
+  getClusters: Function,
+};
+
+type Cluster = {
+  geometry: {
+    coordinates: Array<number>,
   },
 };
 
@@ -101,18 +115,18 @@ const createCluster = geoPoints => {
   return index;
 };
 
-const getZoomLevel = region => {
+const getZoomLevel = (region: RegionType) => {
   const angle = region.longitudeDelta;
   const level = Math.round(Math.log(360 / angle) / Math.LN2);
   return level;
 };
 
-const getLatLng = cluster => ({
+const getLatLng = (cluster: Cluster) => ({
   latitude: cluster.geometry.coordinates[1],
   longitude: cluster.geometry.coordinates[0],
 });
 
-const getClusters = (cluster, region) => {
+const getClusters = (cluster: ClusterInterface, region: RegionType) => {
   const padding = 0;
 
   return cluster.getClusters([
@@ -130,6 +144,8 @@ export default class Map extends Component<void, Props, State> {
     initialRegion: {
       latitude: initialRegion[0],
       longitude: initialRegion[1],
+      latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
+      longitudeDelta: 0.05,
     },
     region: {
       latitude: initialRegion[0],
@@ -141,12 +157,17 @@ export default class Map extends Component<void, Props, State> {
     activePin: null,
     activePoint: null,
     clusters: [],
-    cluster: null,
+    cluster: {
+      getLeaves: () => [],
+      getClusters: () => [],
+    },
   };
 
   shouldComponentUpdate = shouldComponentUpdate();
 
   map: MapView;
+
+  searchRequest: FetchType;
 
   snippetPanResponder = PanResponder.create({
     onMoveShouldSetPanResponder: (_, gestureState) => gestureState.dy > 0,
@@ -179,14 +200,16 @@ export default class Map extends Component<void, Props, State> {
   onMarkerPress = (event: any, index: Number) => {
     const { coordinate } = event.nativeEvent;
     const region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
-    const point = this.state.clusters[index];
+    const { cluster, clusters } = this.state;
+    const point = clusters[index];
     let activePoint = null;
 
     if (point.properties.cluster) {
-      activePoint = this.state.cluster.getLeaves(
+      const leaves = cluster.getLeaves(
         point.properties.cluster_id,
         getZoomLevel(this.state.region)
-      )[0].properties;
+      );
+      activePoint = leaves[0] && leaves[0].properties;
     } else {
       activePoint = point.properties;
     }
@@ -219,7 +242,7 @@ export default class Map extends Component<void, Props, State> {
     });
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     const { points } = nextProps;
     const { region } = this.state;
 

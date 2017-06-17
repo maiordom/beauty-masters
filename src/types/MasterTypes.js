@@ -1,11 +1,10 @@
 /* @flow */
 
 type Service = {
-  duration: ?string,
+  duration: string,
   id: number,
-  masterId: number,
   price: number,
-  serviceId: number,
+  title: string,
 };
 
 type Schedule = {
@@ -71,6 +70,6 @@ export type MapCardType = {
   masterType: number,
   onPress: () => void,
   photo: string,
-  services?: Array<Service>,
+  services: Array<Service>,
   title: string,
 }

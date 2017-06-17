@@ -12,7 +12,7 @@ type Service = {
 
 export type SearchQueryType = {
   cityId: string,
-  isDeparture: boolean
+  isDeparture: boolean,
   master_type: number,
   radius: number,
   schedule: Array<string>,
