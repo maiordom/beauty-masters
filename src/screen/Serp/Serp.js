@@ -17,7 +17,7 @@ class Serp extends Component {
   state = {
     activeView: 'map',
   };
-g
+
   onMapPress = () => {
     this.setState({ activeView: 'map' });
   };
