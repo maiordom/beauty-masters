@@ -117,8 +117,8 @@ const createCluster = geoPoints => {
 
 const getZoomLevel = (region: RegionType) => {
   const angle = region.longitudeDelta;
-  const level = Math.round(Math.log(360 / angle) / Math.LN2);
-  return level;
+
+  return Math.round(Math.log(360 / angle) / Math.LN2);
 };
 
 const getLatLng = (cluster: Cluster) => ({
@@ -242,8 +242,7 @@ export default class Map extends Component<void, Props, State> {
     });
   };
 
-  componentWillReceiveProps(nextProps: Props) {
-    const { points } = nextProps;
+  componentWillReceiveProps({ points }: Props) {
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);
