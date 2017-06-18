@@ -30,16 +30,36 @@ const icons = {
   }),
 };
 
+type Address = {
+  id: number,
+  masterSchedules: Array<any>,
+  salonTitle: string,
+  street: string,
+  house: string,
+  building?: string,
+  subwayStation?: string,
+  latlng: {
+    lattitude: string,
+    longitude: string,
+  },
+};
+
+type Props = {
+  scrollToEnd: Function,
+  addresses: Array<Address>
+};
+
 type State = {
   selectedAddress: number,
   selectedDate: string,
   addresses: any,
 };
 
-export default class MasterCardShedule extends Component<void, void, State> {
+export default class MasterCardShedule extends Component<void, Props, State> {
+  props: Props;
   state: State;
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -71,12 +91,12 @@ export default class MasterCardShedule extends Component<void, void, State> {
       latlng,
       title: 'Марина Ф',
       subtitle: salonTitle,
-      address: `${street}, ${i18n.houseShort} ${house} ${building}`,
+      address: `${street}, ${i18n.houseShort} ${house} ${building || ''}`,
       isVerified: true,
     });
   };
 
-  getSelectedAddress = (index: ?number) => {
+  getSelectedAddress = (index: ?number): Address => {
     const { selectedAddress } = this.state;
     const { addresses } = this.props;
 

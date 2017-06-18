@@ -48,12 +48,14 @@ export default class MasterLocation extends Component {
             />
           </MapView>
         )}
+        {/* $FlowFixMe */}
         <MapCard
           photo="https://unsplash.it/48" // TODO: get it from store of current master
           isVerified={isVerified}
           title={title}
           subtitle={subtitle}
           address={address}
+          services={[]}
           distance="222" // TODO: get it from navigation
         />
       </View>

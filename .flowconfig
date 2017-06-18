@@ -4,6 +4,8 @@
 .*/node_modules/react-native-experimental-navigation/.*
 .*/node_modules/react-native/Libraries/Components/StaticContainer.js
 .*/node_modules/promise/.*
+.*/node_modules/react-native/Libraries/Promise.js
+.*/node_modules/react-native/Libraries/promiseRejectionIsError.js
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
