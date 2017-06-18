@@ -38,6 +38,8 @@ export default class SerpList extends Component<void, Props, State> {
     return (
       <View>
         <ListView style={styles.list}
+          initialListSize={3}
+          pageSize={3}
           dataSource={dataSource}
           renderRow={data => <MapCard {...data} />}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
