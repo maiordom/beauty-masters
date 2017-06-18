@@ -1,11 +1,10 @@
 /* @flow */
 
 type Service = {
-  duration: ?string,
+  duration: string,
   id: number,
-  masterId: number,
   price: number,
-  serviceId: number,
+  title: string,
 };
 
 type Schedule = {
@@ -62,10 +61,8 @@ export type MapCardType = {
   address: string,
   closestDate?: string | null,
   coordinates: {
-    latlng: {
-      latitude: number,
-      longitude: number,
-    },
+    latitude: number,
+    longitude: number,
   },
   distance: string,
   id: number,
@@ -73,6 +70,6 @@ export type MapCardType = {
   masterType: number,
   onPress: () => void,
   photo: string,
-  services?: Array<Service>,
+  services: Array<Service>,
   title: string,
 }
