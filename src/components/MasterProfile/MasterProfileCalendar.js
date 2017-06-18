@@ -29,7 +29,20 @@ const icons = {
 };
 
 export default class MasterProfileCalendar extends Component {
-  static propTypes = {};
+  props: {
+    salon: {
+      /* eslint-disable */
+      masterSchedules: Array<{
+        date: string,
+        timeStart: string,
+        timeEnd: string,
+      }>,
+      street: string,
+      salonTitle: string,
+      house: string,
+      /* eslint-enable */
+    }
+  };
 
   state = {
     showDeactivateModal: false,
@@ -41,14 +54,12 @@ export default class MasterProfileCalendar extends Component {
     this.setState({ showDeactivateModal: !this.state.showDeactivateModal });
   };
 
-  onDateSelect = (date) => {
+  onDateSelect = (date: string) => {
     this.setState({ selectedDate: date });
   };
 
   render() {
-    const {
-      salon,
-    } = this.props;
+    const { salon } = this.props;
 
     const {
       showDeactivateModal,
@@ -86,7 +97,7 @@ export default class MasterProfileCalendar extends Component {
               </View>
             )}
           <Switch
-            title="Временно не работаю"
+            title={i18n.temporarilyDontWork}
             customStyles={{ container: styles.switchContainer }}
             onChange={this.onSwitchToggle}
             value={isDisabled}
@@ -100,14 +111,14 @@ export default class MasterProfileCalendar extends Component {
         >
           <View style={styles.modalWrapper}>
             <View style={styles.modalContainer}>
-              <Text style={styles.modalTitle}>Деактивировать профиль</Text>
+              <Text style={styles.modalTitle}>{i18n.disableProfile}</Text>
               <Text style={styles.modalText}>{i18n.deactivate}</Text>
               <View style={styles.modalButtons}>
                 <TouchableOpacity>
-                  <Text style={styles.modalButton}>Да</Text>
+                  <Text style={styles.modalButton}>{i18n.yes}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Text style={styles.modalButton}>Отмена</Text>
+                  <Text style={styles.modalButton}>{i18n.no}</Text>
                 </TouchableOpacity>
               </View>
             </View>
