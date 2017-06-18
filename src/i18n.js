@@ -15,6 +15,7 @@ export default {
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
+  chooseAddress: 'Выберите адрес',
   closestDate: 'Ближайшая дата приема',
   currency: {
     roubleSign: 'р',

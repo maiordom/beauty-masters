@@ -72,7 +72,7 @@ export default class MasterProfileCalendar extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.content}>
-          <Text style={styles.subtitle}>Расписание</Text>
+          <Text style={styles.subtitle}>{i18n.schedule.schedule}</Text>
           <View style={styles.calendar}>
             <Calendar
               onDateSelect={this.onDateSelect}
