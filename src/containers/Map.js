@@ -1,6 +1,5 @@
 // @flow
 
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

@@ -43,6 +43,7 @@ export default class MapCard extends Component {
       closestDate,
       distance,
       isVerified,
+      location,
       masterType,
       onPress,
       photo: uri,
@@ -54,7 +55,7 @@ export default class MapCard extends Component {
 
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <View elevation={5} style={styles.container}>
+        <View elevation={5} style={[styles.container, location === 'map' && styles.modMap]}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
               {uri
@@ -69,7 +70,7 @@ export default class MapCard extends Component {
               <Text>{subtitle}</Text>
             </View>
           </View>
-          <View style={styles.row}>
+          <View style={[styles.row, styles.rowTitle]}>
             <Image style={styles.icon} source={icons.pin} />
             <Text style={styles.text}>{address}</Text>
             <View style={styles.distanceView}>
@@ -113,6 +114,9 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
+  modMap: {
+    paddingRight: 0,
+  },
   row: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -136,6 +140,9 @@ const styles = StyleSheet.create({
     width: 16,
     right: 0,
     bottom: 0,
+  },
+  rowTitle: {
+    paddingRight: 16,
   },
   title: {
     fontSize: 16,

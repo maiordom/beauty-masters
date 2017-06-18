@@ -10,6 +10,7 @@ const onPress = Actions.pop;
 const navBackButtonImage = require('../../icons/android/back-arrow.png');
 
 const SerpNavBar = ({
+  activeView,
   onMapPress,
   onListPress,
 }) => (
@@ -24,22 +25,22 @@ const SerpNavBar = ({
     </TouchableOpacity>
     <View style={styles.buttonsWrapper}>
       <TouchableOpacity
-        style={[styles.button, styles.activeButton]}
+        style={[styles.button, activeView === 'map' && styles.activeButton]}
         onPress={onMapPress}
         activeOpacity={1}
         underlayColor
       >
-        <Text style={styles.activeText} lineBreakMode="tail">
+        <Text style={activeView === 'map' ? styles.activeText : styles.text} lineBreakMode="tail">
           {i18n.serp.onMap}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.button]}
+        style={[styles.button, activeView === 'list' && styles.activeButton]}
         onPress={onListPress}
         activeOpacity={1}
         underlayColor
       >
-        <Text style={styles.disableText} lineBreakMode="tail">
+        <Text style={activeView === 'list' ? styles.activeText : styles.text} lineBreakMode="tail">
           {i18n.list}
         </Text>
       </TouchableOpacity>
@@ -103,20 +104,9 @@ const styles = StyleSheet.create({
   activeText: {
     color: vars.color.red,
   },
-  disableText: {
+  text: {
     color: vars.color.white,
-  },
-  scene: {
-    flex: 1,
-    ...Platform.select({
-      ios: {
-        paddingTop: 64,
-      },
-      android: {
-        paddingTop: 54,
-      },
-    }),
   },
 });
 
-export default Scene;
+export default SerpNavBar;
