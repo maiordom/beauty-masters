@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Platform,
   Modal,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
@@ -18,6 +19,14 @@ import { hexToRgba } from '../../utils';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+
+const icons = {
+  ...Platform.select({
+    android: {
+      calendar: require('../../icons/android/calendar.png'),
+    },
+  }),
+};
 
 export default class MasterProfileCalendar extends Component {
   static propTypes = {};
@@ -60,16 +69,22 @@ export default class MasterProfileCalendar extends Component {
               selectedDate={selectedDate}
             />
           </View>
-          {selectedDay && (
-            <View style={styles.salon}>
-              <Text style={styles.salonText}>
-                {i18n.accept} {i18n.from.toLowerCase()}{' '}
-                {selectedDay.timeStart} {i18n.to.toLowerCase()} {selectedDay.timeEnd}
-              </Text>
-              <Text style={styles.salonText}>{i18n.salon} {salon.salonTitle}</Text>
-              <Text style={styles.salonText}>{i18n.onAddress} {salon.street}, {salon.house}</Text>
-            </View>
-          )}
+          {selectedDay
+            ? (
+              <View style={styles.salon}>
+                <Text style={styles.salonText}>
+                  {i18n.accept} {i18n.from.toLowerCase()}{' '}
+                  {selectedDay.timeStart} {i18n.to.toLowerCase()} {selectedDay.timeEnd}
+                </Text>
+                <Text style={styles.salonText}>{i18n.salon} {salon.salonTitle}</Text>
+                <Text style={styles.salonText}>{i18n.onAddress} {salon.street}, {salon.house}</Text>
+              </View>
+            ) : (
+              <View style={styles.scheduleEmpty}>
+                <Image source={icons.calendar} style={styles.calendarIcon} />
+                <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
+              </View>
+            )}
           <Switch
             title="Временно не работаю"
             customStyles={{ container: styles.switchContainer }}
@@ -123,6 +138,17 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   salonText: {
+    color: vars.color.black,
+  },
+  calendarIcon: {
+    marginRight: 16,
+  },
+  scheduleEmpty: {
+    margin: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  scheduleText: {
     color: vars.color.black,
   },
   switchContainer: {
