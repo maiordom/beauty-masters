@@ -10,7 +10,7 @@ import {
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-export default class MasterProfileCalendar extends Component {
+export default class MasterProfileServices extends Component {
   props: {
     services: Array<{
       title: string,
