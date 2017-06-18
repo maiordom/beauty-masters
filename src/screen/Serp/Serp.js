@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         paddingTop: 54,
       },
     }),
-  }
+  },
 });
 
 export default connect(mapStateToProps, null)(Serp);

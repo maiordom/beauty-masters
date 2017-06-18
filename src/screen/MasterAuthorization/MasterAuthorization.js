@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'rea
 import { Actions } from 'react-native-router-flux';
 
 import Registration from '../../containers/Registration';
-import Login from '../../components/Login';
+import Login from '../../containers/Login';
 
 import i18n from '../../i18n';
 import vars from '../../vars';

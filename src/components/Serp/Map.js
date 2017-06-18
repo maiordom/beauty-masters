@@ -207,7 +207,7 @@ export default class Map extends Component<void, Props, State> {
     if (point.properties.cluster) {
       const leaves = cluster.getLeaves(
         point.properties.cluster_id,
-        getZoomLevel(this.state.region)
+        getZoomLevel(this.state.region),
       );
       activePoint = leaves[0] && leaves[0].properties;
     } else {
@@ -238,7 +238,7 @@ export default class Map extends Component<void, Props, State> {
     this.setState({ region });
     this.searchRequest && this.searchRequest.cancel();
     this.searchRequest = this.props.actions.searchMasters({
-      coordinates: [ region.latitude, region.longitude ],
+      coordinates: [region.latitude, region.longitude],
     });
   };
 

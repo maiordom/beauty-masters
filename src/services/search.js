@@ -15,6 +15,7 @@ export function geoAutoComplete(params: GeoAutocompleteParamsType) {
 
 export function searchMasters({
   coordinates = [55.76, 37.64],
+  // eslint-disable-next-line
   master_type = 1,
   radius = 3500,
   schedule = [],
@@ -28,7 +29,7 @@ export function searchMasters({
       radius,
       schedule,
       services,
-    }
+    },
   })
   .then(response => response.result.map(master => ({
     address: master.address.subway_station,
@@ -42,7 +43,7 @@ export function searchMasters({
     isVerified: master.is_verified,
     masterType: master_type,
     photo: master.photo,
-    services: master.services.slice(0, 3).map(({duration, id, price}) => ({
+    services: master.services.slice(0, 3).map(({ duration, id, price }) => ({
       duration,
       id,
       price,

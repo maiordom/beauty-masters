@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableHighlight, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 
 import Input from '../components/Input';
 
 import i18n from '../i18n';
-import { hexToRgba } from '../utils';
 import vars from '../vars';
 
 const i18nSignUp = Platform.select({
@@ -31,7 +30,9 @@ export default class Registration extends Component {
           />
           {Platform.OS === 'android'
           ? <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}</Text>
+            <Text style={[styles.registrationText, styles.manifestText]}>
+              {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
+            </Text>
             <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
           </View>
           : <View style={styles.manifest}>
@@ -43,7 +44,7 @@ export default class Registration extends Component {
         <TouchableHighlight
           activeOpacity={1}
           onPress={registerUser}
-          style={styles.registrationButton}
+          style={styles.enterButton}
           underlayColor={vars.color.red}
         >
           <Text style={styles.registrationButtonText}>{i18nSignUp}</Text>
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
-  registrationButton: {
+  enterButton: {
     marginBottom: 15,
     backgroundColor: vars.color.red,
     borderRadius: 22,
