@@ -6,10 +6,10 @@ import each from 'lodash/each';
 
 import CalendarSettings from './MasterEditorCalendarSettings';
 import GeneralFields from './MasterEditorGeneral';
-import HandlingTools from '../Filters/HandlingTools';
+import HandlingTools from '../Service/HandlingTools';
 import Info from './MasterEditorInfo';
-import ServiceManicure from '../Filters/ServiceManicure';
-import ServicePedicure from '../Filters/ServicePedicure';
+import ServiceManicure from '../Service/ServiceManicure';
+import ServicePedicure from '../Service/ServicePedicure';
 import Services from './MasterEditorServices';
 
 import constants from '../../constants/master';
