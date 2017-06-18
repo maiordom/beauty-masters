@@ -5,6 +5,7 @@ import {
   View,
   Text,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 
 import i18n from '../../i18n';
@@ -29,7 +30,7 @@ export default class MasterProfileServices extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           {services.map(serviceGroup => (
             <View key={serviceGroup.id}>
               <View style={styles.serviceTitle}>
@@ -45,7 +46,7 @@ export default class MasterProfileServices extends Component {
               ))}
             </View>
           ))}
-        </View>
+        </ScrollView>
       </View>
     );
   }
