@@ -15,6 +15,7 @@ export function geoAutoComplete(params: GeoAutocompleteParamsType) {
 
 export function searchMasters({
   coordinates = [55.76, 37.64],
+  // eslint-disable-next-line
   master_type = 1,
   radius = 3500,
   schedule = [],

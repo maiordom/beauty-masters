@@ -13,6 +13,15 @@ const i18nEnter = Platform.select({
   android: i18n.enter.toUpperCase(),
 });
 
+const icons = {
+  mail: Platform.select({
+    android: require('../icons/mail.png'),
+  }),
+  pwd: Platform.select({
+    android: require('../icons/pwd.png'),
+  }),
+};
+
 export default class Login extends Component {
   render() {
     const { loginUser } = this.props;
@@ -21,12 +30,12 @@ export default class Login extends Component {
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <Input
-            icon={Platform.OS === 'android' && require('../icons/mail.png')}
+            icon={icons.mail}
             style={styles.input}
             placeholder={i18n.yourEmail}
           />
           <Input
-            icon={Platform.OS === 'android' && require('../icons/pwd.png')}
+            icon={icons.pwd}
             style={styles.input}
             placeholder={i18n.passwordTip}
           />
