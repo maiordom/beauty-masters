@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { View, StyleSheet, Platform } from 'react-native';
 
 import SerpNavBar from '../../components/Serp/SerpNavBar';
@@ -13,7 +12,19 @@ const mapStateToProps = state => ({
   sceneKey: state.scene.sceneKey,
 });
 
-class Serp extends Component {
+type Props = {
+  sceneKey: string,
+};
+
+type State = {
+  activeView: 'map' | 'list',
+};
+
+class Serp extends Component<void, Props, State> {
+  props: Props;
+
+  state: State;
+
   state = {
     activeView: 'map',
   };
