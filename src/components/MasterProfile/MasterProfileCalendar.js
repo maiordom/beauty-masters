@@ -29,8 +29,6 @@ const icons = {
 };
 
 export default class MasterProfileCalendar extends Component {
-  static propTypes = {};
-
   state = {
     showDeactivateModal: false,
     isDisabled: false,

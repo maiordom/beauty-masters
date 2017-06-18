@@ -17,7 +17,7 @@ const icons = {
 export default class Calendar extends Component {
   static defaultProps = {
     format: 'YYYY-MM-DD',
-    workDays: PropTypes.arrayOf(PropTypes.string),
+    workDays: [],
   };
 
   static propTypes = {

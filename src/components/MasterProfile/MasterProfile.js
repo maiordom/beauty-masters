@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import MasterProfileCalendars from './MasterProfileCalendars';
+import MasterProfileServices from '../../screen/MasterProfile/MasterProfileServices';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -79,7 +80,7 @@ export default class MasterProfile extends Component {
         <View style={styles.content}>
           {activeTab === 'profile' && <Text>Profile ;[</Text>}
           {activeTab === 'calendar' && <MasterProfileCalendars />}
-          {activeTab === 'services' && <Text>Services ;[</Text>}
+          {activeTab === 'services' && <MasterProfileServices />}
         </View>
       </View>
     );

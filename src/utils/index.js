@@ -1,3 +1,6 @@
+import find from 'lodash/find';
+import groupBy from 'lodash/groupBy';
+
 export function hexToRgba(hex, opacity = 100) {
   const hexValue = hex.replace('#', '');
   const r = parseInt(hexValue.substring(0, 2), 16);
@@ -109,4 +112,25 @@ export function deepUpdate(obj, path, changes) {
   Object.assign(parentLink, changes);
 
   return obj;
+}
+
+export function getServices(services: Array<any>, servicesDictionaries) {
+  const masterServices = groupBy(
+    services.map(({ serviceId, price, duration }) => {
+      const { title, parentServiceId } = find(servicesDictionaries, service => service.id === serviceId);
+
+      return { price, duration, title, serviceId, parentServiceId };
+    }),
+    'parentServiceId',
+  );
+
+  const groupedServices = Object.keys(masterServices)
+    .map(id => find(servicesDictionaries, service => service.id === Number(id)))
+    .map(service => ({
+      title: service.title,
+      id: service.id,
+      services: masterServices[service.id],
+    }));
+
+  return { services: groupedServices };
 }
