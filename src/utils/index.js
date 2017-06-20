@@ -1,7 +1,12 @@
+// @flow
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
+import capitalize from 'lodash/capitalize';
 
-export function hexToRgba(hex, opacity = 100) {
+import type { ProfileData } from '../types/ProfileData';
+import type { ServiceDictionary } from '../types/Dictionaries';
+
+export function hexToRgba(hex: string, opacity: number = 100) {
   const hexValue = hex.replace('#', '');
   const r = parseInt(hexValue.substring(0, 2), 16);
   const g = parseInt(hexValue.substring(2, 4), 16);
@@ -21,7 +26,7 @@ export function hexToRgba(hex, opacity = 100) {
  *     [SHOW_FAVORITES]: () => changeModel(state, 'favorites', {isShow: true})
  * }));
  */
-export function makeReducer(handler, beforeHandler, afterHandler) {
+export function makeReducer(handler: Function, beforeHandler: Function, afterHandler: Function) {
   return (state, action) => {
     const items = handler(state, action);
 
@@ -37,12 +42,12 @@ export function makeReducer(handler, beforeHandler, afterHandler) {
   };
 }
 
-export function formatNumber(number) {
+export function formatNumber(number: number) {
   return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 }
 
-export function shouldComponentUpdate(ignoreProps, ignoreState) {
-  return function (nextProps, nextState) {
+export function shouldComponentUpdate(ignoreProps: Object, ignoreState: Object) {
+  return function (nextProps: Object, nextState: Object) {
     const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
     const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);
 
@@ -50,7 +55,7 @@ export function shouldComponentUpdate(ignoreProps, ignoreState) {
   };
 }
 
-export function shallowEqual(objA, objB, ignoreKeys) {
+export function shallowEqual(objA: Object, objB: Object, ignoreKeys: Array<string>) {
   if (objA === objB) {
     return { result: true };
   }
@@ -90,7 +95,7 @@ export function shallowEqual(objA, objB, ignoreKeys) {
   return { result: true };
 }
 
-export const capitalizeFirstLetter = word => `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+export const capitalizeFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
 
 /**
  * deepUpdate object by path
@@ -102,7 +107,7 @@ export const capitalizeFirstLetter = word => `${word.charAt(0).toUpperCase()}${w
  * @returns {Object}
  */
 
-export function deepUpdate(obj, path, changes) {
+export function deepUpdate(obj: Object, path: string, changes: Object) {
   const paths = path.split('.');
   let parentLink = obj;
 
@@ -116,9 +121,9 @@ export function deepUpdate(obj, path, changes) {
   return obj;
 }
 
-export function getServices(services: Array<any>, servicesDictionaries) {
+export function getServices(profileData: ProfileData, servicesDictionaries: ServiceDictionary) {
   const masterServices = groupBy(
-    services.map(({ serviceId, price, duration }) => {
+    profileData.services.map(({ service_id: serviceId, price, duration }) => {
       const { title, parentServiceId } = find(servicesDictionaries, service => service.id === serviceId);
 
       return { price, duration, title, serviceId, parentServiceId };
@@ -129,9 +134,9 @@ export function getServices(services: Array<any>, servicesDictionaries) {
   const groupedServices = Object.keys(masterServices)
     .map(id => find(servicesDictionaries, service => service.id === Number(id)))
     .map(service => ({
-      title: service.title,
+      title: capitalize(service.title),
       id: service.id,
-      services: masterServices[service.id],
+      services: masterServices[service.id].map(_service => ({ ..._service, title: capitalize(_service.title) })),
     }));
 
   return { services: groupedServices };

@@ -4,8 +4,8 @@ import { getServices } from '../../utils';
 
 import MasterProfileServices from '../../components/MasterProfile/MasterProfileServices';
 
-import masterCardData from '../../test/MasterCardData';
+import profileData from '../../test/ProfileData';
 
-const mapStateToProps = (state) => getServices(masterCardData.services, state.dictionaries.services);
+const mapStateToProps = (state) => getServices(profileData, state.dictionaries.services);
 
 export default connect(mapStateToProps)(MasterProfileServices);
