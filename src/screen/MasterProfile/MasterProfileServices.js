@@ -6,14 +6,6 @@ import MasterProfileServices from '../../components/MasterProfile/MasterProfileS
 
 import masterCardData from '../../test/MasterCardData';
 
-
-const mapStateToProps = (state) => {
-  const servicesDictionaries = {
-    ...state.searchForm.serviceManicure,
-    ...state.searchForm.servicePedicure,
-  };
-
-  return getServices(masterCardData.services, servicesDictionaries);
-};
+const mapStateToProps = (state) => getServices(masterCardData.services, state.dictionaries.services);
 
 export default connect(mapStateToProps)(MasterProfileServices);
