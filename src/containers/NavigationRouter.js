@@ -25,6 +25,8 @@ import MasterProfile from '../screen/MasterProfile/MasterProfile';
 import MasterProfileCalendar from '../screen/MasterProfile/MasterProfileCalendar';
 import Drawer from '../components/Drawer';
 
+import Favorites from '../screen/Favorites/Favorites';
+
 import i18n from '../i18n';
 
 function getMasterStyle(options = {}) {
@@ -149,6 +151,10 @@ export default () => (
         <Scene
           key="masterProfileCalendar"
           component={MasterProfileCalendar}
+        />
+        <Scene
+          key="favorite"
+          component={Favorites}
         />
       </Scene>
     </Scene>

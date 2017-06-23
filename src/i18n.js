@@ -39,6 +39,8 @@ export default {
   errors: {
     allFieldsRequired: 'Необходимо заполнить все поля',
   },
+  favorites: 'Избранное',
+  feedback: 'Отзыв о приложении',
   findMaster: 'Найти мастера',
   filter: 'Фильтр',
   filters: {
@@ -241,6 +243,7 @@ export default {
   to: 'До',
   tomorrow: 'Завтра',
   userAgreement: 'Условия пользовательского соглашения',
+  userAgreementShort: 'Пользовательское соглашение',
   userProfile: 'Личный кабинет',
   workAddress: 'Адрес, по которому вы принимаете заказы',
   workExamples: 'Примеры работ',

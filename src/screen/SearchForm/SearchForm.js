@@ -13,7 +13,10 @@ import {
 import SearchForm from '../../components/SearchForm/SearchForm';
 import NavBar from '../../components/NavBar';
 
-const mapStateToProps = state => state.searchForm;
+const mapStateToProps = state => ({
+  ...state.searchForm,
+  leftButtonMenu: true,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
