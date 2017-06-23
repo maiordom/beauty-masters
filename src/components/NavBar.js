@@ -68,6 +68,7 @@ const Scene = component => class SceneComponent extends React.Component {
     if (leftButtonMenu) {
       return drawerOpen({
         contentKey: 'SideBar',
+        openDrawerOffset: 0.2,
       });
     }
 

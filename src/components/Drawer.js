@@ -19,7 +19,7 @@ export default class Drawer extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    const { contentKey } = this.props;
+    const { contentKey, openDrawerOffset } = this.props;
     let content;
 
     switch (contentKey) {
@@ -31,14 +31,14 @@ export default class Drawer extends Component {
 
     return (
       <RNDrawer
-        type="displace"
+        type="overlay"
         styles={{ drawer: {
           backgroundColor: hexToRgba(vars.color.black, 40),
         } }}
         captureGestures="closed"
         open={state.open}
         content={content}
-        openDrawerOffset={0}
+        openDrawerOffset={openDrawerOffset || 0}
         panCloseMask={0.7}
         negotiatePan
         tweenDuration={100}
