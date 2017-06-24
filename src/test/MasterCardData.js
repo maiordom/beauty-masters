@@ -7,6 +7,7 @@ const masterData = {
   firstName: 'Елена',
   lastName: 'Трепышина',
   phone: '+79613045087',
+  email: 'awesome@test.ru',
   MasterType: 1,
   masterCity: 'Москва',
   isSalon: true,
