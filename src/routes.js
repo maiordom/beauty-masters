@@ -10,6 +10,7 @@ const methods = [
   { getDictionaries: 'dictionary.getDictionaries' },
   { registerUser: 'user.registerUser' },
   { searchMasters: 'master.search' },
+  { getUserProfile: 'user.getProfile' /* fix it after */},
 ];
 
 methods.forEach((method, index) => {
