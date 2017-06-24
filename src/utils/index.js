@@ -1,4 +1,8 @@
 // @flow
+import capitalize from 'lodash/capitalize';
+import groupBy from 'lodash/groupBy';
+
+import type { Service } from '../types/ProfileData';
 
 export function hexToRgba(hex: string, opacity: number = 100) {
   const hexValue = hex.replace('#', '');
@@ -113,4 +117,23 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
   Object.assign(parentLink, changes);
 
   return obj;
+}
+
+export function groupServices(services: Array<Service>, dictionaries: Object) {
+  const masterServices = groupBy(
+    services.map(({ serviceId, price, duration }) => {
+      const { title, parentServiceId } = dictionaries[serviceId];
+
+      return { price, duration, title, serviceId, parentServiceId };
+    }),
+    'parentServiceId',
+  );
+
+  return Object.keys(masterServices)
+    .map(id => dictionaries[id])
+    .map(service => ({
+      title: capitalize(service.title),
+      id: service.id,
+      services: masterServices[service.id].map(_service => ({ ..._service, title: capitalize(_service.title) })),
+    }));
 }
