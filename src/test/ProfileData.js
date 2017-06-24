@@ -6,6 +6,7 @@ export default {
   email: 'fantastic@test.ru',
   master_city: 'Москва',
   salon_name: 'У вики дома',
+  master_photo: [],
   services: [
     {
       id: 74460,

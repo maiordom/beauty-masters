@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -13,28 +13,38 @@ import vars from '../../vars';
 
 import InputWithLabel from '../InputWithLabel';
 
+const photoEmpty = require('../../icons/photo-empty.png');
+
 export default class MasterProfileInfo extends Component {
-  static propTypes = {
-    masterPhoto: PropTypes.arrayOf(PropTypes.string).isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
+  props: {
+    profile: {
+      /* eslint-disable */
+      masterPhoto: Array<string>,
+      firstName: string,
+      lastName: string,
+      phone: string,
+      email: string,
+      /* eslint-enable */
+    },
   };
 
   render() {
     const {
-      masterPhoto,
-      firstName,
-      lastName,
-      phone,
-      email,
+      profile: {
+        masterPhoto,
+        firstName,
+        lastName,
+        phone,
+        email,
+      },
     } = this.props;
+
+    const photoSrc = masterPhoto[0] ? { uri: masterPhoto[0] } : photoEmpty;
 
     return (
       <View style={styles.container}>
         <View style={styles.content}>
-          <Image style={styles.photo} source={{ uri: masterPhoto[0] }} />
+          <Image style={styles.photo} source={photoSrc} />
           <Text style={styles.edit}>{i18n.editProfile}</Text>
           <View style={styles.inputs}>
             <View style={styles.row}>

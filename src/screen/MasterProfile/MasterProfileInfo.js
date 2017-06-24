@@ -1,13 +1,10 @@
 import { connect } from 'react-redux';
 
 import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo';
-import masterCardData from '../../test/MasterCardData';
 
-const mapStateToProps = () => ({
-  ...masterCardData,
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
-const mapDispatchToProps = () => ({
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(MasterProfileInfo);
+export default connect(mapStateToProps)(MasterProfileInfo);

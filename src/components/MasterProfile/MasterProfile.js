@@ -73,7 +73,12 @@ export default class MasterProfile extends Component {
   };
 
   render() {
+    const { profile } = this.props;
     const { activeTab, tabBorderOffset } = this.state;
+
+    if (!profile) {
+      return <View><Text>Loader</Text></View>;
+    }
 
     return (
       <View style={styles.container}>
