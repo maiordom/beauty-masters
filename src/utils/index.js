@@ -1,10 +1,4 @@
 // @flow
-import find from 'lodash/find';
-import groupBy from 'lodash/groupBy';
-import capitalize from 'lodash/capitalize';
-
-import type { ProfileData } from '../types/ProfileData';
-import type { ServiceDictionary } from '../types/Dictionaries';
 
 export function hexToRgba(hex: string, opacity: number = 100) {
   const hexValue = hex.replace('#', '');
@@ -27,7 +21,7 @@ export function hexToRgba(hex: string, opacity: number = 100) {
  * }));
  */
 export function makeReducer(handler: Function, beforeHandler: Function, afterHandler: Function) {
-  return (state, action) => {
+  return (state: Object, action: Object) => {
     const items = handler(state, action);
 
     beforeHandler && beforeHandler(state, action);
@@ -46,7 +40,7 @@ export function formatNumber(number: number) {
   return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 }
 
-export function shouldComponentUpdate(ignoreProps: Object, ignoreState: Object) {
+export function shouldComponentUpdate(ignoreProps: Array<any>, ignoreState: Object) {
   return function (nextProps: Object, nextState: Object) {
     const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
     const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);
@@ -119,25 +113,4 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
   Object.assign(parentLink, changes);
 
   return obj;
-}
-
-export function getServices(profileData: ProfileData, servicesDictionaries: ServiceDictionary) {
-  const masterServices = groupBy(
-    profileData.services.map(({ service_id: serviceId, price, duration }) => {
-      const { title, parentServiceId } = find(servicesDictionaries, service => service.id === serviceId);
-
-      return { price, duration, title, serviceId, parentServiceId };
-    }),
-    'parentServiceId',
-  );
-
-  const groupedServices = Object.keys(masterServices)
-    .map(id => find(servicesDictionaries, service => service.id === Number(id)))
-    .map(service => ({
-      title: capitalize(service.title),
-      id: service.id,
-      services: masterServices[service.id].map(_service => ({ ..._service, title: capitalize(_service.title) })),
-    }));
-
-  return { services: groupedServices };
 }
