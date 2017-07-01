@@ -10,7 +10,6 @@ export type Service = {
 
 export type ProfileData = {
   id: number,
-  userId: number,
   firstName: string,
   lastName: string,
   phone: string,

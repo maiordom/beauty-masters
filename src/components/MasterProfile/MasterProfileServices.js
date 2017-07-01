@@ -11,20 +11,19 @@ import {
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-export default class MasterProfileServices extends Component {
-  props: {
+type Props = {
+  services: Array<{
+    title: string,
+    id: number,
     services: Array<{
+      price: number,
+      duration: string,
       title: string,
-      id: number,
-      services: Array<{
-        price: number,
-        duration: string,
-        title: string,
-        serviceId: number,
-      }>
+      serviceId: number,
     }>
-  };
-
+  }>
+}
+export default class MasterProfileServices extends Component<void, Props, void> {
   render() {
     const { services } = this.props;
 
@@ -40,7 +39,7 @@ export default class MasterProfileServices extends Component {
                 <View style={styles.service} key={service.serviceId}>
                   <Text>{service.title}</Text>
                   <Text style={styles.price}>
-                    {service.price} ₽, {service.duration} {i18n.time.minuteShort}.
+                    {service.price} р, {service.duration} {i18n.time.minuteShort}.
                   </Text>
                 </View>
               ))}

@@ -10,7 +10,8 @@
     "flow:stop": "node_modules/.bin/flow stop",
     "lint": "node_modules/.bin/eslint src",
     "precommit": "lint-staged",
-    "android": "react-native run-android"
+    "android": "react-native run-android",
+    "postinstall": "rndebugger-open"
   },
   "lint-staged": {
     "*.js": [
@@ -51,6 +52,7 @@
     "invariant": "2.2.2",
     "jest": "18.1.0",
     "lint-staged": "3.4.0",
+    "react-native-debugger-open": "^0.3.11",
     "react-test-renderer": "15.4.2",
     "redux-logger": "3.0.0"
   },

@@ -15,28 +15,22 @@ import InputWithLabel from '../InputWithLabel';
 
 const photoEmpty = require('../../icons/photo-empty.png');
 
-export default class MasterProfileInfo extends Component {
-  props: {
-    profile: {
-      /* eslint-disable */
-      masterPhoto: Array<string>,
-      firstName: string,
-      lastName: string,
-      phone: string,
-      email: string,
-      /* eslint-enable */
-    },
-  };
+type Props = {
+  masterPhoto: Array<string>,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  email: string,
+}
 
+export default class MasterProfileInfo extends Component<void, Props, void> {
   render() {
     const {
-      profile: {
-        masterPhoto,
-        firstName,
-        lastName,
-        phone,
-        email,
-      },
+      masterPhoto,
+      firstName,
+      lastName,
+      phone,
+      email,
     } = this.props;
 
     const photoSrc = masterPhoto[0] ? { uri: masterPhoto[0] } : photoEmpty;
@@ -51,24 +45,24 @@ export default class MasterProfileInfo extends Component {
               <InputWithLabel
                 value={firstName}
                 label={i18n.firstName}
-                style={{ flex: 1 }}
+                style={styles.input}
               />
               <InputWithLabel
                 value={lastName}
                 label={i18n.lastName}
-                style={{ flex: 1 }}
+                style={styles.input}
               />
             </View>
             <View style={styles.row}>
               <InputWithLabel
                 value={phone}
                 label={i18n.phoneShort}
-                style={{ flex: 1 }}
+                style={styles.input}
               />
               <InputWithLabel
                 value={email}
                 label={i18n.login}
-                style={{ flex: 1 }}
+                style={styles.input}
               />
             </View>
             <Text style={styles.changePwd}>{i18n.changePwd}</Text>
@@ -108,6 +102,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     backgroundColor: vars.color.white,
     padding: 16,
+  },
+  input: {
+    flex: 1,
   },
   row: {
     flexDirection: 'row',

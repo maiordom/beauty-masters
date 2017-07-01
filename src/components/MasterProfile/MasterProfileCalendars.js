@@ -12,14 +12,13 @@ import { Actions } from 'react-native-router-flux';
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-export default class MasterProfileCalendars extends Component {
-  props: {
-    salons: Array<{
-      id: number,
-      salonTitle: string,
-    }>
-  };
-
+type Props = {
+  salons: Array<{
+    id: number,
+    salonTitle: string,
+  }>
+}
+export default class MasterProfileCalendars extends Component<void, Props, void> {
   render() {
     const { salons } = this.props;
 
