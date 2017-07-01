@@ -12,20 +12,31 @@ import { Actions } from 'react-native-router-flux';
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-export default class MasterProfileCalendars extends Component {
+type Props = {
+  salons: Array<{
+    id: number,
+    salonTitle: string,
+  }>
+}
+export default class MasterProfileCalendars extends Component<void, Props, void> {
   render() {
+    const { salons } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.subtitle}>{i18n.chooseAddress}</Text>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => Actions.masterProfileCalendar({ title: 'Пилки' })}
-          >
-            <View style={styles.salon}>
-              <Text style={styles.salonTitle}>Пилки</Text>
-            </View>
-          </TouchableOpacity>
+          {salons.map(({ id, salonTitle }) => (
+            <TouchableOpacity
+              key={id}
+              activeOpacity={1}
+              onPress={() => Actions.masterProfileCalendar({ title: salonTitle, id })}
+            >
+              <View style={styles.salon}>
+                <Text style={styles.salonTitle}>{salonTitle}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     );

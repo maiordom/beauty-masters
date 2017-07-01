@@ -28,22 +28,26 @@ const icons = {
   }),
 };
 
-export default class MasterProfileCalendar extends Component {
-  props: {
-    salon: {
-      /* eslint-disable */
-      masterSchedules: Array<{
-        date: string,
-        timeStart: string,
-        timeEnd: string,
-      }>,
-      street: string,
-      salonTitle: string,
-      house: string,
-      /* eslint-enable */
-    }
-  };
+type Props = {
+  salon: {
+    masterSchedules: Array<{
+      date: string,
+      timeStart: string,
+      timeEnd: string,
+    }>,
+    street: string,
+    salonTitle: string,
+    house: string,
+  }
+}
 
+type State = {
+  showDeactivateModal: boolean,
+  isDisabled: boolean,
+  selectedDate: moment
+}
+
+export default class MasterProfileCalendar extends Component<void, Props, State> {
   state = {
     showDeactivateModal: false,
     isDisabled: false,
