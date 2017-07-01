@@ -12,6 +12,7 @@ export default {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
   },
+  changePwd: 'Изменить пароль',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
@@ -34,7 +35,9 @@ export default {
   disableProfile: 'Деактивировать профиль',
   district: 'Район',
   disinfection: 'Дезинфекция',
-  enter: 'Войти',
+  editProfile: 'Редактировать данные профиля',
+  enter: 'Вход',
+  enterTo: 'Войти',
   enterAddress: 'Введите адрес',
   errors: {
     allFieldsRequired: 'Необходимо заполнить все поля',
@@ -127,7 +130,7 @@ export default {
   houseShort: 'д',
   lastName: 'Фамилия',
   list: 'Список',
-  login: 'Вход',
+  login: 'Логин',
   location: {
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
     here: 'Мое текущее месторасположение',
@@ -174,6 +177,7 @@ export default {
   passwordTip: 'Пароль (не менее 6 символов)',
   pedicure: 'Педикюр',
   phone: 'Телефон (для звонков клиентов)',
+  phoneShort: 'Телефон',
   photo: {
     photo: 'Фото',
     select: 'Выбрать фото',

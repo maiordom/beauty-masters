@@ -219,7 +219,9 @@ export default class Calendar extends Component {
 
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
         const currentDate = moment(startOfArgMonthMoment).set('date', dayIndex + 1);
-        isDotted = workDays.find(day => day === currentDate.format('YYYY-MM-DD'));
+        if (workDays.length) {
+          isDotted = workDays.find(day => day === currentDate.format('YYYY-MM-DD'));
+        }
 
         days.push(
           <Day

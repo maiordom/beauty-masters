@@ -21,8 +21,8 @@ import Serp from '../screen/Serp/Serp';
 import MasterCard from '../screen/MasterCard/MasterCard';
 import MasterLocation from '../screen/MasterCard/MasterLocation';
 
-import MasterProfile from '../screen/MasterProfile/MasterProfile';
-import MasterProfileCalendar from '../screen/MasterProfile/MasterProfileCalendar';
+import MasterProfile from './MasterProfile/MasterProfile';
+import MasterProfileCalendar from './MasterProfile/MasterProfileCalendar';
 import Drawer from '../components/Drawer';
 
 import i18n from '../i18n';

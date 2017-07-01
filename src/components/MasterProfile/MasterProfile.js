@@ -11,7 +11,9 @@ import {
   Dimensions,
 } from 'react-native';
 
-import MasterProfileCalendars from './MasterProfileCalendars';
+import MasterProfileInfo from '../../containers/MasterProfile/MasterProfileInfo';
+import MasterProfileCalendars from '../../containers/MasterProfile/MasterProfileCalendars';
+import MasterProfileServices from '../../containers/MasterProfile/MasterProfileServices';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -40,14 +42,29 @@ const tabs = [
   },
 ];
 
+type Props = {
+  profile: Object,
+  actions: Object,
+}
 
-export default class MasterProfile extends Component {
-  static propTypes = {};
+type State = {
+  activeTab: string,
+  tabBorderOffset: Animated,
+}
 
+export default class MasterProfile extends Component<void, Props, State> {
   state = {
     activeTab: 'profile',
     tabBorderOffset: new Animated.Value(0),
   };
+
+  componentDidMount() {
+    const { profile, actions } = this.props;
+
+    if (!profile) {
+      actions.getUserProfile();
+    }
+  }
 
   onTabPress = (activeTab: string, index: number) => () => {
     this.setState({ activeTab });
@@ -60,7 +77,12 @@ export default class MasterProfile extends Component {
   };
 
   render() {
+    const { profile } = this.props;
     const { activeTab, tabBorderOffset } = this.state;
+
+    if (!profile) {
+      return <View><Text>Loader</Text></View>;
+    }
 
     return (
       <View style={styles.container}>
@@ -77,9 +99,9 @@ export default class MasterProfile extends Component {
           />
         </View>
         <View style={styles.content}>
-          {activeTab === 'profile' && <Text>Profile ;[</Text>}
+          {activeTab === 'profile' && <MasterProfileInfo />}
           {activeTab === 'calendar' && <MasterProfileCalendars />}
-          {activeTab === 'services' && <Text>Services ;[</Text>}
+          {activeTab === 'services' && <MasterProfileServices />}
         </View>
       </View>
     );

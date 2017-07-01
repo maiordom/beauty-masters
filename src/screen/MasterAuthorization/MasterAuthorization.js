@@ -40,7 +40,7 @@ export default class MasterAuthorization extends Component {
           component: <Login />,
           active: false,
           style: styles.tab,
-          title: i18n.login,
+          title: i18n.enter,
           action: () => this.onPress('login'),
         },
       ],
