@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   TouchableOpacity,
   Image,
@@ -22,16 +22,16 @@ const getBackButtonImage = (leftButtonMenu) => {
   return require('../icons/android/back-arrow.png');
 };
 
-class NavBar extends React.Component {
+class NavBar extends Component {
   render() {
     const {
       backButtonImage,
-        leftButtonHidden,
-        leftButtonIconStyle,
-        leftButtonStyle,
-        leftButtonMenu,
-        title,
-        onLeftButtonPress,
+      leftButtonHidden,
+      leftButtonIconStyle,
+      leftButtonStyle,
+      leftButtonMenu,
+      title,
+      onLeftButtonPress,
     } = this.props;
 
     return (
@@ -57,9 +57,13 @@ class NavBar extends React.Component {
 
 // Declare only one React component per file
 // eslint-disable-next-line
-const Scene = component => class SceneComponent extends React.Component {
+const Scene = component => class SceneComponent extends Component {
   onLeftButtonPress = () => {
-    const { leftButtonMenu, onLeftButtonPress } = this.props;
+    const {
+      leftButtonMenu,
+      onLeftButtonPress,
+      sceneKey,
+    } = this.props;
 
     if (onLeftButtonPress) {
       onLeftButtonPress();
@@ -69,6 +73,7 @@ const Scene = component => class SceneComponent extends React.Component {
       return drawerOpen({
         contentKey: 'SideBar',
         openDrawerOffset: 0.2,
+        currentScene: sceneKey,
       });
     }
 

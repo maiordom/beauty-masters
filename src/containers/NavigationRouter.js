@@ -26,6 +26,8 @@ import MasterProfileCalendar from '../screen/MasterProfile/MasterProfileCalendar
 import Drawer from '../components/Drawer';
 
 import Favorites from '../screen/Favorites/Favorites';
+import UserAgreement from '../screen/UserAgreement/UserAgreement';
+import Feedback from '../screen/Feedback/Feedback';
 
 import i18n from '../i18n';
 
@@ -155,6 +157,14 @@ export default () => (
         <Scene
           key="favorite"
           component={Favorites}
+        />
+        <Scene
+          key="userAgreement"
+          component={UserAgreement}
+        />
+        <Scene
+          key="feedback"
+          component={Feedback}
         />
       </Scene>
     </Scene>

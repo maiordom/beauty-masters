@@ -44,6 +44,10 @@ export default {
   },
   favorites: 'Избранное',
   feedback: 'Отзыв о приложении',
+  feedbackForm: {
+    email: 'Ваш email',
+    message: 'Ваше сообщение'
+  },
   findMaster: 'Найти мастера',
   filter: 'Фильтр',
   filters: {
@@ -224,6 +228,7 @@ export default {
     short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',
   },
+  send: 'Отправить',
   serp: {
     onMap: 'На карте',
   },

@@ -21,47 +21,87 @@ const icons = {
   photoEmpty: require('../icons/photo-empty-white.png'),
 };
 
-const menuButtons = [
-  {
-    key: 'searchForm',
-    title: i18n.search.search,
-    icon: require('../icons/android/search.png'),
-    onPress: () => {
-      Actions.searchForm();
-      InteractionManager.runAfterInteractions(drawerClose);
-    },
-  },
-  {
-    key: 'favorite',
-    title: i18n.favorites,
-    icon: require('../icons/android/star-active.png'),
-    onPress: () => {
-      Actions.favorite();
-      InteractionManager.runAfterInteractions(drawerClose);
-    },
-  },
-  {
-    key: 'userAgreement',
-    title: i18n.userAgreementShort,
-    icon: require('../icons/android/doc.png'),
-    onPress: Actions.userAgreement,
-  },
-  {
-    key: 'feedback',
-    title: i18n.feedback,
-    icon: require('../icons/android/chat.png'),
-    onPress: Actions.feedback,
-  },
-];
-
 type Props = {
   firstName?: string,
   lastName?: string,
   photo?: string,
   drawerClose: Function,
+  currentScene: ?string,
 };
 
-export default class ModalComponent extends Component<void, Props, void> {
+type State = {
+  currentScene: ?string,
+}
+export default class Sidebar extends Component<void, Props, State> {
+  state = {
+    currentScene: this.props.currentScene,
+  };
+
+  menuButtons = [
+    {
+      key: 'searchForm',
+      title: i18n.search.search,
+      icon: {
+        default: require('../icons/android/search.png'),
+        active: require('../icons/android/search-active.png'),
+      },
+      onPress: () => {
+        const nextScene = { currentScene: 'searchForm' };
+        Actions.searchForm(nextScene);
+        this.setState(nextScene);
+        InteractionManager.runAfterInteractions(drawerClose);
+      },
+    },
+    {
+      key: 'favorite',
+      title: i18n.favorites,
+      icon: {
+        default: require('../icons/android/star.png'),
+        active: require('../icons/android/star-active.png'),
+      },
+      onPress: () => {
+        const nextScene = { currentScene: 'favorite' };
+        Actions.favorite(nextScene);
+        this.setState(nextScene);
+        InteractionManager.runAfterInteractions(drawerClose);
+      },
+    },
+    {
+      key: 'userAgreement',
+      title: i18n.userAgreementShort,
+      icon: {
+        default: require('../icons/android/doc.png'),
+        active: require('../icons/android/doc-active.png'),
+      },
+      onPress: () => {
+        const nextScene = { currentScene: 'userAgreement' };
+        Actions.userAgreement(nextScene);
+        this.setState(nextScene);
+        InteractionManager.runAfterInteractions(drawerClose);
+      },
+    },
+    {
+      key: 'feedback',
+      title: i18n.feedback,
+      icon: {
+        default: require('../icons/android/chat.png'),
+        active: require('../icons/android/chat-active.png'),
+      },
+      onPress: () => {
+        const nextScene = { currentScene: 'feedback' };
+        Actions.feedback({ ...nextScene, title: i18n.feedback });
+        this.setState(nextScene);
+        InteractionManager.runAfterInteractions(drawerClose);
+      },
+    },
+  ];
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.currentScene !== this.props.currentScene) {
+      this.setState({ currentScene: nextProps.currentScene });
+    }
+  }
+
   render() {
     const {
       firstName,
@@ -69,8 +109,9 @@ export default class ModalComponent extends Component<void, Props, void> {
       photo,
     } = this.props;
 
+    const { currentScene } = this.state;
+
     const name = firstName && lastName && `${firstName} ${lastName}`;
-    const activeKey = 'favorite';
 
     return (
       <View style={styles.sidebar}>
@@ -81,16 +122,19 @@ export default class ModalComponent extends Component<void, Props, void> {
           <Text style={styles.title}>{name || i18n.authAsMaster}</Text>
         </View>
         <View style={styles.menu}>
-          {menuButtons.map(button => (
+          {this.menuButtons.map(button => (
             <TouchableOpacity onPress={button.onPress} key={button.title}>
               <View style={styles.button}>
                 {Platform.OS === 'android' && (
-                  <Image style={styles.icon} source={button.icon} />
+                  <Image
+                    style={styles.icon}
+                    source={currentScene === button.key ? button.icon.active : button.icon.default}
+                  />
                 )}
                 <Text
                   style={[
                     styles.text,
-                    { color: activeKey === button.key ? vars.color.blue : null },
+                    { color: currentScene === button.key ? vars.color.blue : null },
                   ]}
                 >
                   {button.title}
