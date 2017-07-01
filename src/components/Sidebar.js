@@ -37,6 +37,15 @@ export default class Sidebar extends Component<void, Props, State> {
     currentScene: this.props.currentScene,
   };
 
+  changeScene = (key: string) => {
+    const nextScene = { currentScene: key };
+
+    Actions[key](nextScene);
+    this.setState(nextScene);
+
+    InteractionManager.runAfterInteractions(drawerClose);
+  };
+
   menuButtons = [
     {
       key: 'searchForm',
@@ -45,12 +54,7 @@ export default class Sidebar extends Component<void, Props, State> {
         default: require('../icons/android/search.png'),
         active: require('../icons/android/search-active.png'),
       },
-      onPress: () => {
-        const nextScene = { currentScene: 'searchForm' };
-        Actions.searchForm(nextScene);
-        this.setState(nextScene);
-        InteractionManager.runAfterInteractions(drawerClose);
-      },
+      onPress: () => this.changeScene('searchForm'),
     },
     {
       key: 'favorite',
@@ -59,12 +63,7 @@ export default class Sidebar extends Component<void, Props, State> {
         default: require('../icons/android/star.png'),
         active: require('../icons/android/star-active.png'),
       },
-      onPress: () => {
-        const nextScene = { currentScene: 'favorite' };
-        Actions.favorite(nextScene);
-        this.setState(nextScene);
-        InteractionManager.runAfterInteractions(drawerClose);
-      },
+      onPress: () => this.changeScene('favorite'),
     },
     {
       key: 'userAgreement',
@@ -73,12 +72,7 @@ export default class Sidebar extends Component<void, Props, State> {
         default: require('../icons/android/doc.png'),
         active: require('../icons/android/doc-active.png'),
       },
-      onPress: () => {
-        const nextScene = { currentScene: 'userAgreement' };
-        Actions.userAgreement(nextScene);
-        this.setState(nextScene);
-        InteractionManager.runAfterInteractions(drawerClose);
-      },
+      onPress: () => this.changeScene('userAgreement'),
     },
     {
       key: 'feedback',
@@ -87,12 +81,7 @@ export default class Sidebar extends Component<void, Props, State> {
         default: require('../icons/android/chat.png'),
         active: require('../icons/android/chat-active.png'),
       },
-      onPress: () => {
-        const nextScene = { currentScene: 'feedback' };
-        Actions.feedback({ ...nextScene, title: i18n.feedback });
-        this.setState(nextScene);
-        InteractionManager.runAfterInteractions(drawerClose);
-      },
+      onPress: () => this.changeScene('feedback'),
     },
   ];
 

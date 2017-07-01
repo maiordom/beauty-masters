@@ -165,6 +165,7 @@ export default () => (
         <Scene
           key="feedback"
           component={Feedback}
+          title={i18n.feedback}
         />
       </Scene>
     </Scene>
