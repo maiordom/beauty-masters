@@ -46,7 +46,9 @@ export default {
   feedback: 'Отзыв о приложении',
   feedbackForm: {
     email: 'Ваш email',
-    message: 'Ваше сообщение'
+    message: 'Ваше сообщение',
+    successTitle: 'Спасибо за ваш отзыв!',
+    successMessage: 'Наши модераторы ознакомятся с вашим отзывом и ответят на указанный вами email',
   },
   findMaster: 'Найти мастера',
   filter: 'Фильтр',

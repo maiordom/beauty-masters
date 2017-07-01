@@ -84,8 +84,8 @@ export default class Feedback extends Component<DefaultProps, Props, State> {
     <View style={styles.container}>
       <View style={styles.success}>
         <Image style={styles.icon} source={icons.success} />
-        <Text style={styles.title}>Спасибо за ваш отзыв!</Text>
-        <Text style={styles.text}>Наши модераторы ознакомятся с вашим отзывом и ответят на указанный вами email</Text>
+        <Text style={styles.title}>{i18n.successTitle}</Text>
+        <Text style={styles.text}>{i18n.successMessage}</Text>
       </View>
       <ButtonControl onPress={Actions.pop} label={i18n.registrationComplete.ok} />
     </View>
