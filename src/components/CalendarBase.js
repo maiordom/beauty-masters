@@ -68,6 +68,7 @@ export default class Calendar extends Component {
     titleFormat: PropTypes.string,
     today: PropTypes.any,
     weekStart: PropTypes.number,
+    workDays: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
@@ -187,7 +188,7 @@ export default class Calendar extends Component {
   }
 
   renderMonthView(argMoment, eventsMap) {
-    const { activeFrom } = this.props;
+    const { activeFrom, workDays } = this.props;
     let renderIndex = 0;
     const weekRows = [];
     let days = [];
@@ -208,6 +209,7 @@ export default class Calendar extends Component {
     do {
       const dayIndex = renderIndex - offset;
       const isoWeekday = renderIndex % 7;
+      let isDotted;
 
       let isDisable;
 
@@ -216,6 +218,11 @@ export default class Calendar extends Component {
       }
 
       if (dayIndex >= 0 && dayIndex < argMonthDaysCount) {
+        const currentDate = moment(startOfArgMonthMoment).set('date', dayIndex + 1);
+        if (workDays.length) {
+          isDotted = workDays.find(day => day === currentDate.format('YYYY-MM-DD'));
+        }
+
         days.push(
           <Day
             dayStyles={this.styles}
@@ -224,10 +231,11 @@ export default class Calendar extends Component {
             startOfMonth={startOfArgMonthMoment}
             isWeekend={isoWeekday === 5 || isoWeekday === 6}
             key={`${renderIndex}`}
-            onPress={isDisable ? null : () => this.selectDate(moment(startOfArgMonthMoment).set('date', dayIndex + 1))}
+            onPress={isDisable ? null : () => this.selectDate(currentDate)}
             caption={`${dayIndex + 1}`}
             isToday={argMonthIsToday && dayIndex === todayIndex}
             isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
+            isDotted={isDotted}
             event={events && events[dayIndex]}
             showEventIndicators={this.props.showEventIndicators}
           />,
@@ -249,11 +257,14 @@ export default class Calendar extends Component {
       renderIndex += 1;
     } while (true);
 
-    return (<View
-      key={argMoment.month()}
-      style={this.styles.monthContainer || styles.monthContainer}>
-      {weekRows}
-    </View>);
+    return (
+      <View
+        key={argMoment.month()}
+        style={this.styles.monthContainer || styles.monthContainer}
+      >
+        {weekRows}
+      </View>
+    );
   }
 
   renderHeading() {
@@ -348,6 +359,7 @@ const Day = ({
   onPress,
   showEventIndicators,
   isDisable,
+  isDotted,
 }) => filler
     ? (
       <TouchableWithoutFeedback>
@@ -369,6 +381,9 @@ const Day = ({
               event && event.eventIndicator,
             ]}
             />
+          )}
+          {isDotted && (
+            <View style={[styles.dot, isSelected ? styles.dotSelected : null]} />
           )}
         </View>
       </TouchableOpacity>
@@ -488,6 +503,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: 'center',
     color: vars.color.black,
+  },
+  dot: {
+    position: 'absolute',
+    top: 35,
+    left: 28,
+    width: 4,
+    height: 4,
+    borderRadius: 50,
+    backgroundColor: vars.color.black,
+  },
+  dotSelected: {
+    backgroundColor: vars.color.white,
   },
   eventIndicatorFiller: {
     borderColor: 'transparent',

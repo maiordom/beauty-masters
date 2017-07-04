@@ -9,7 +9,11 @@ import every from 'lodash/every';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-import type { ServiceToggleType, MasterTypeSelectType, SelectCalendarDateType } from '../../types/SearchFormTypes';
+import type {
+  ServiceToggleType,
+  MasterTypeSelectType,
+  SelectCalendarDateType,
+} from '../../types/SearchFormTypes';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
@@ -52,7 +56,7 @@ export default class SearchFormShort extends Component {
     this.setState({ showShortForm: !this.state.showShortForm });
   };
 
-  onServiceToggle: ServiceToggleType = sectionName => (value, modelName) => {
+  onServiceToggle: ServiceToggleType = (sectionName) => (value, modelName) => {
     this.props.actions.toogleService(modelName, 'active', value, sectionName);
   };
 
@@ -200,6 +204,7 @@ export default class SearchFormShort extends Component {
           }
 
           {!showShortForm &&
+            // $FlowFixMe
             <SearchFormBlockManicure
               service={serviceManicure}
               onChange={this.onServiceToggle('serviceManicure')}

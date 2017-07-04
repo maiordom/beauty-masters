@@ -51,14 +51,9 @@ type RegionType = {
   longitudeDelta: number,
 }
 
-type MarkerType = {
-  latlng: LatLngType,
-  title?: string,
-  description?: string
-}
-
 type State = {
   activePin: ?LatLngType,
+  // $FlowFixMe
   activePoint: ?MapCardType,
   cluster: ClusterInterface,
   clusters: Array<Cluster>,
@@ -86,13 +81,16 @@ type Cluster = {
   geometry: {
     coordinates: Array<number>,
   },
+  properties: {
+    cluster_id: number,
+  },
 };
 
 const SNIPPET_HEIGHT = 204;
 
 const initialRegion = [55.76, 37.64];
 
-const convertToGeoPoints = points => points.map((point, key) => ({
+const convertToGeoPoints = points => points.map(point => ({
   type: 'Feature',
   properties: point,
   geometry: {
@@ -197,7 +195,7 @@ export default class Map extends Component<void, Props, State> {
     this.map = ref;
   };
 
-  onMarkerPress = (event: any, index: Number) => {
+  onMarkerPress = (event: any, index: number) => {
     const { coordinate } = event.nativeEvent;
     const region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
     const { cluster, clusters } = this.state;
@@ -207,7 +205,7 @@ export default class Map extends Component<void, Props, State> {
     if (point.properties.cluster) {
       const leaves = cluster.getLeaves(
         point.properties.cluster_id,
-        getZoomLevel(this.state.region)
+        getZoomLevel(this.state.region),
       );
       activePoint = leaves[0] && leaves[0].properties;
     } else {
@@ -238,7 +236,7 @@ export default class Map extends Component<void, Props, State> {
     this.setState({ region });
     this.searchRequest && this.searchRequest.cancel();
     this.searchRequest = this.props.actions.searchMasters({
-      coordinates: [ region.latitude, region.longitude ],
+      coordinates: [region.latitude, region.longitude],
     });
   };
 
@@ -270,17 +268,21 @@ export default class Map extends Component<void, Props, State> {
             onRegionChangeComplete={throttle(this.onRegionChangeComplete, 300)}
             ref={this.setMapRef}
           >
-            {clusters.map((cluster, index) => (
-              <MapView.Marker
-                coordinate={getLatLng(cluster)}
-                key={index}
-                onPress={event => this.onMarkerPress(event, index)}
-                image={isEqual(getLatLng(cluster), activePin)
-                  ? icons.pinGreen
-                  : icons.pinRed
-                }
-              />
-            ))}
+            {clusters.map((cluster, index) => {
+              const coordinate = getLatLng(cluster);
+
+              return (
+                <MapView.Marker
+                  coordinate={coordinate}
+                  key={coordinate.latitude + coordinate.longitude}
+                  onPress={event => this.onMarkerPress(event, index)}
+                  image={isEqual(coordinate, activePin)
+                    ? icons.pinGreen
+                    : icons.pinRed
+                  }
+                />
+              );
+            })}
           </MapView>
         )}
         <TouchableOpacity

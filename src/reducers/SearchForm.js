@@ -101,9 +101,9 @@ export default makeReducer((state, action) => ({
       item.services.forEach(service => {
         service.title = state.dictionaries.services[service.id].title;
       });
-    })
+    });
 
-    deepUpdate(state, `searchForm.searchResult`, { items });
+    deepUpdate(state, 'searchForm.searchResult', { items });
 
     return state;
   },

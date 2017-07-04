@@ -16,5 +16,5 @@ export default makeReducer((state, action) => ({
     };
 
     return state;
-  }
+  },
 }));

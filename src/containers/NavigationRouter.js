@@ -21,6 +21,8 @@ import Serp from '../screen/Serp/Serp';
 import MasterCard from '../screen/MasterCard/MasterCard';
 import MasterLocation from '../screen/MasterCard/MasterLocation';
 
+import MasterProfile from './MasterProfile/MasterProfile';
+import MasterProfileCalendar from './MasterProfile/MasterProfileCalendar';
 import Drawer from '../components/Drawer';
 
 import i18n from '../i18n';
@@ -138,6 +140,15 @@ export default () => (
           title={i18n.registrationComplete.sceneTitle}
           component={MasterEditorCreateSuccess}
           leftButtonHidden
+        />
+        <Scene
+          key="masterProfile"
+          component={MasterProfile}
+          title={i18n.userProfile}
+        />
+        <Scene
+          key="masterProfileCalendar"
+          component={MasterProfileCalendar}
         />
       </Scene>
     </Scene>

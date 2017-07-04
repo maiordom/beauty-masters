@@ -72,4 +72,5 @@ export type MapCardType = {
   photo: string,
   services: Array<Service>,
   title: string,
+  location?: 'map' | 'list'
 }

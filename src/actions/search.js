@@ -73,7 +73,7 @@ const addresses = [
 
 export const searchAddress = (address: string) => (
   dispatch: (ActionSetItems) => null,
-  getState: () => Object
+  getState: () => Object,
 ) => {
   const state = getState();
   const query = `${state.searchForm.general.cities.selected.label} ${address}`;

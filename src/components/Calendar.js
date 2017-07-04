@@ -17,6 +17,7 @@ const icons = {
 export default class Calendar extends Component {
   static defaultProps = {
     format: 'YYYY-MM-DD',
+    workDays: [],
   };
 
   static propTypes = {
@@ -109,6 +110,7 @@ export default class Calendar extends Component {
       interval,
       selectedDate,
       activeFrom,
+      workDays,
     } = this.props;
 
     const { startDate } = this.state;
@@ -141,6 +143,7 @@ export default class Calendar extends Component {
           onTouchPrev={this.onMonthChange}
           prevButtonImage={icons.arrowLeft}
           selectedDate={selectedDate}
+          workDays={workDays}
           showControls
           showEventIndicators
           width={containerWidth}
