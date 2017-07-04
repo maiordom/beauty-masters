@@ -30,7 +30,7 @@ export function searchMasters({
       services,
     }
   })
-  .then(response => response.result.map(master => ({
+  .then(response => response.result && response.result.map(master => ({
     address: master.address.subway_station,
     closestDate: master.address.closest_date,
     coordinates: {
@@ -48,5 +48,5 @@ export function searchMasters({
       price,
     })),
     title: `${master.first_name} ${master.last_name}`,
-  })));
+  })) || []);
 }

@@ -39,10 +39,9 @@ export default makeReducer((state, action) => ({
     const { searchQuery } = state.searchForm;
 
     if (action.paramValue) {
-      const service = { service_id: model.id };
-      searchQuery.services.push(service);
+      searchQuery.services.push(model.id);
     } else {
-      searchQuery.services = reject(searchQuery.services, { service_id: model.id });
+      searchQuery.services = reject(searchQuery.services, id => id === model.id);
     }
 
     return state;
@@ -50,18 +49,22 @@ export default makeReducer((state, action) => ({
 
   [actions.SEARCH_TOOGLE_EXTENSION]: () => {
     const parentServiceId = 1001;
+    const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
+    const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
 
-    updateSections({ sectionName: 'servicePedicure', paramValue: action.paramValue }, parentServiceId, state);
-    updateSections({ sectionName: 'serviceManicure', paramValue: action.paramValue }, parentServiceId, state);
+    updateSections(servicePedicure, parentServiceId, state);
+    updateSections(serviceManicure, parentServiceId, state);
 
     return state;
   },
 
   [actions.SEARCH_TOOGLE_WITHDRAWAL]: () => {
     const parentServiceId = 1002;
+    const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
+    const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
 
-    updateSections({ sectionName: 'servicePedicure', paramValue: action.paramValue }, parentServiceId, state);
-    updateSections({ sectionName: 'serviceManicure', paramValue: action.paramValue }, parentServiceId, state);
+    updateSections(servicePedicure, parentServiceId, state);
+    updateSections(serviceManicure, parentServiceId, state);
 
     return state;
   },
