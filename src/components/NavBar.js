@@ -36,12 +36,15 @@ class NavBar extends Component {
 
     return (
       <View style={styles.container}>
-        {!leftButtonHidden && (<TouchableOpacity
-          style={[styles.leftButton, leftButtonStyle]}
-          onPress={onLeftButtonPress}
-        >
-          <Image style={leftButtonIconStyle} source={backButtonImage || getBackButtonImage(leftButtonMenu)} />
-        </TouchableOpacity>)}
+        {!leftButtonHidden && (
+          <TouchableOpacity
+            style={[styles.leftButton, leftButtonStyle]}
+            onPress={onLeftButtonPress}
+          >
+            <Image
+              style={leftButtonIconStyle}
+              source={backButtonImage || getBackButtonImage(leftButtonMenu)} />
+          </TouchableOpacity>)}
         <Text
           style={[styles.title, leftButtonHidden
             ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
@@ -72,7 +75,6 @@ const Scene = component => class SceneComponent extends Component {
     if (leftButtonMenu) {
       return drawerOpen({
         contentKey: 'SideBar',
-        openDrawerOffset: 0.2,
         currentScene: sceneKey,
       });
     }

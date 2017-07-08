@@ -115,10 +115,11 @@ export default class Sidebar extends Component<void, Props, State> {
             <TouchableOpacity onPress={button.onPress} key={button.title}>
               <View style={styles.button}>
                 {Platform.OS === 'android' && (
-                  <Image
-                    style={styles.icon}
-                    source={currentScene === button.key ? button.icon.active : button.icon.default}
-                  />
+                  <View style={styles.iconWrapper}>
+                    <Image
+                      source={currentScene === button.key ? button.icon.active : button.icon.default}
+                    />
+                  </View>
                 )}
                 <Text
                   style={[
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
   sidebar: {
     flex: 1,
     backgroundColor: vars.color.white,
-    width: Dimensions.get('window').width - 50,
+    width: Dimensions.get('window').width,
   },
   header: {
     backgroundColor: vars.color.red,
@@ -163,11 +164,12 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
   },
-  icon: {
+  iconWrapper: {
+    width: 25,
     marginLeft: 16,
   },
   text: {
-    marginLeft: 32,
+    marginLeft: 20,
   },
   menu: {
     paddingTop: 10,
