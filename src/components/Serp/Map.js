@@ -274,7 +274,7 @@ export default class Map extends Component<void, Props, State> {
               return (
                 <MapView.Marker
                   coordinate={coordinate}
-                  key={coordinate.latitude + coordinate.longitude}
+                  key={index}
                   onPress={event => this.onMarkerPress(event, index)}
                   image={isEqual(coordinate, activePin)
                     ? icons.pinGreen

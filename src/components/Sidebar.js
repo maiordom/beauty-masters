@@ -40,10 +40,12 @@ export default class Sidebar extends Component<void, Props, State> {
   changeScene = (key: string) => {
     const nextScene = { currentScene: key };
 
-    Actions[key](nextScene);
-    this.setState(nextScene);
+    drawerClose();
 
-    InteractionManager.runAfterInteractions(drawerClose);
+    InteractionManager.runAfterInteractions(() => {
+      Actions[key](nextScene);
+      this.setState(nextScene);
+    })
   };
 
   menuButtons = [
