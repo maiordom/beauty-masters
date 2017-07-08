@@ -1,13 +1,14 @@
 import React from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { drawerOpen } from '../../actions/drawer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
-const onPress = Actions.pop;
-const navBackButtonImage = require('../../icons/android/back-arrow.png');
+const onPress = () => drawerOpen({ contentKey: 'SideBar' });
+
+const menuIcon = require('../../icons/menu.png');
 
 const SerpNavBar = ({
   activeView,
@@ -21,7 +22,7 @@ const SerpNavBar = ({
       activeOpacity={1}
       underlayColor
     >
-      <Image source={navBackButtonImage} />
+      <Image source={menuIcon} />
     </TouchableOpacity>
     <View style={styles.buttonsWrapper}>
       <TouchableOpacity
@@ -48,12 +49,6 @@ const SerpNavBar = ({
   </View>
 );
 
-const Scene = component => props => (
-  <View style={styles.scene}>
-    <SerpNavBar {...props} />
-    {React.createElement(component, props)}
-  </View>
-);
 
 const styles = StyleSheet.create({
   container: {

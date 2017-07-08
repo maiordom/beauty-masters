@@ -25,6 +25,10 @@ import MasterProfile from './MasterProfile/MasterProfile';
 import MasterProfileCalendar from './MasterProfile/MasterProfileCalendar';
 import Drawer from '../components/Drawer';
 
+import Favorites from '../screen/Favorites/Favorites';
+import UserAgreement from '../screen/UserAgreement/UserAgreement';
+import Feedback from '../screen/Feedback/Feedback';
+
 import i18n from '../i18n';
 
 function getMasterStyle(options = {}) {
@@ -149,6 +153,19 @@ export default () => (
         <Scene
           key="masterProfileCalendar"
           component={MasterProfileCalendar}
+        />
+        <Scene
+          key="favorite"
+          component={Favorites}
+        />
+        <Scene
+          key="userAgreement"
+          component={UserAgreement}
+        />
+        <Scene
+          key="feedback"
+          component={Feedback}
+          title={i18n.feedback}
         />
       </Scene>
     </Scene>

@@ -42,6 +42,14 @@ export default {
   errors: {
     allFieldsRequired: 'Необходимо заполнить все поля',
   },
+  favorites: 'Избранное',
+  feedback: 'Отзыв о приложении',
+  feedbackForm: {
+    email: 'Ваш email',
+    message: 'Ваше сообщение',
+    successTitle: 'Спасибо за ваш отзыв!',
+    successMessage: 'Наши модераторы ознакомятся с вашим отзывом и ответят на указанный вами email',
+  },
   findMaster: 'Найти мастера',
   filter: 'Фильтр',
   filters: {
@@ -222,6 +230,7 @@ export default {
     short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',
   },
+  send: 'Отправить',
   serp: {
     onMap: 'На карте',
   },
@@ -245,6 +254,7 @@ export default {
   to: 'До',
   tomorrow: 'Завтра',
   userAgreement: 'Условия пользовательского соглашения',
+  userAgreementShort: 'Пользовательское соглашение',
   userProfile: 'Личный кабинет',
   workAddress: 'Адрес, по которому вы принимаете заказы',
   workExamples: 'Примеры работ',

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import RNDrawer from 'react-native-drawer';
 import { DefaultRenderer } from 'react-native-router-flux';
-import { Text } from 'react-native';
 
 import PhotoMaster from '../containers/PhotoMaster';
 import WorkTimeSpecification from '../containers/WorkTimeSpecification';
 import IntervalStartDate from '../containers/IntervalStartDate';
+import Sidebar from '../containers/Sidebar';
 
 import { drawerClose } from '../actions/drawer';
 import { hexToRgba } from '../utils';
@@ -19,18 +19,18 @@ export default class Drawer extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    const { contentKey } = this.props;
+    const { contentKey, openDrawerOffset } = this.props;
     let content;
 
     switch (contentKey) {
       case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
       case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
       case 'IntervalStartDate': content = <IntervalStartDate {...this.props} />; break;
+      default: content = <Sidebar {...this.props} />;
     }
 
     return (
       <RNDrawer
-        ref="navigation"
         type="overlay"
         styles={{ drawer: {
           backgroundColor: hexToRgba(vars.color.black, 40),
@@ -38,7 +38,7 @@ export default class Drawer extends Component {
         captureGestures="closed"
         open={state.open}
         content={content}
-        openDrawerOffset={0}
+        openDrawerOffset={openDrawerOffset || 0}
         panCloseMask={0.7}
         negotiatePan
         tweenDuration={100}
