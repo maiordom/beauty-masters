@@ -1,0 +1,24 @@
+import { makeReducer, groupServices } from '../utils';
+
+import constants from '../constants/masterCard';
+
+export default makeReducer((state, action) => ({
+  [constants.MASTER_CALENDAR_SET_INTERVAL]: () => {
+    // const { masterData } = action;
+
+    // state.masterCards[masterData.id] = masterData;
+
+    // state.masterCards[masterData.id].services = groupServices(masterData.services, state.dictionaries.services);
+
+    console.log('state.masterCards');
+    console.log('state.masterCards');
+    console.log('state.masterCards');
+    console.log('state.masterCards');
+    console.log('state.masterCards');
+    console.log('state.masterCards');
+    console.log('state.masterCards');
+    console.log('state.masterCards', state.masterCards);
+
+    return state;
+  },
+}));

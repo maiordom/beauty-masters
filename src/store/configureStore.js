@@ -9,12 +9,13 @@ import SearchForm from './SearchForm';
 const initialState = {
   masterEditor: MasterEditor,
   searchForm: SearchForm,
+  masterCards: {},
 };
 
 export default function configureStore() {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunkMiddleware)
+    applyMiddleware(thunkMiddleware),
   );
 }

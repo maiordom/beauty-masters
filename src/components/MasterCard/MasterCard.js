@@ -20,7 +20,7 @@ import Fade from '../Fade';
 import MasterCardNavBar from './MasterCardNavBar';
 import MasterCardHeader from './MasterCardHeader';
 import MasterCardWorks from './MasterCardWorks';
-import MasterCardServices from '../../containers/MasterCardServices';
+import MasterCardServices from './MasterCardServices';
 import MasterCardEquipment from './MasterCardEquipment';
 import MasterCardSchedule from './MasterCardSchedule';
 
@@ -38,10 +38,28 @@ const icons = Platform.select({
   ios: {},
 });
 
-export default class MasterCard extends Component {
+type DefaultProps = {
+
+}
+
+type Props = MasterCardType;
+
+type State = {
+  showWorksGallery: boolean,
+  showWorksIndex: number,
+  scrollViewHeight: 0,
+  listHeight: 0,
+  showFirstGroup: boolean,
+  showSecondGroup: boolean,
+};
+
+export default class MasterCard extends Component<DefaultProps, Props, State> {
   props: MasterCardType;
 
-  scrollViewRef: ScrollView;
+  static defaultProps: DefaultProps = {
+    addresses: [],
+    workPhoto: [],
+  };
 
   state = {
     showWorksGallery: false,
@@ -52,7 +70,12 @@ export default class MasterCard extends Component {
     showSecondGroup: false,
   };
 
+  scrollViewRef: ScrollView;
+
   componentDidMount() {
+    const { actions, id } = this.props;
+    actions.getMasterById(id);
+
     InteractionManager.runAfterInteractions(() => this.renderComponents());
   }
 
@@ -81,6 +104,7 @@ export default class MasterCard extends Component {
 
   render() {
     const {
+      masterPhoto,
       addresses,
       workPhoto,
       services,
@@ -104,25 +128,31 @@ export default class MasterCard extends Component {
           <Fade visible={showFirstGroup}>
             <View>
               <ImagePlaceholder
-                source={{ uri: 'https://cs7050.userapi.com/c636929/v636929022/646fc/i_30pW-gfuI.jpg' }}
+                source={{ uri: masterPhoto }}
                 placeholder={require('../../icons/android/master-photo.png')}
                 style={{ height: 260, width: Dimensions.get('window').width }}
               />
               <MasterCardNavBar />
               <MasterCardHeader {...this.props} />
             </View>
-            <MasterCardWorks
-              onWorksShow={this.onWorksShow}
-              workPhoto={workPhoto}
-            />
-            <MasterCardServices services={services} />
+            {workPhoto && workPhoto.length > 0 && (
+              <MasterCardWorks
+                onWorksShow={this.onWorksShow}
+                workPhoto={workPhoto}
+              />
+            )}
+            {false && (
+              <MasterCardServices services={services} />
+            )}
           </Fade>
           <Fade visible={showSecondGroup}>
             <MasterCardEquipment />
-            <MasterCardSchedule
-              addresses={addresses}
-              scrollToEnd={this.scrollToEnd}
-            />
+            {addresses && addresses.length > 0 && (
+              <MasterCardSchedule
+                addresses={addresses}
+                scrollToEnd={this.scrollToEnd}
+              />
+            )}
           </Fade>
         </ScrollView>
         <ButtonControl
