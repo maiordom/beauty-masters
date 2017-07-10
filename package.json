@@ -11,7 +11,7 @@
     "lint": "node_modules/.bin/eslint src",
     "precommit": "lint-staged",
     "android": "react-native run-android",
-    "postinstall": "rndebugger-open"
+    "rndebugger:open": "rndebugger-open"
   },
   "lint-staged": {
     "*.js": [
