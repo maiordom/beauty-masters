@@ -12,12 +12,12 @@ const i18nSignUp = Platform.select({
 });
 
 const icons = {
-    ...Platform.select({
-        android: {
-            email: require('../icons/mail.png'),
-            pwd: require('../icons/pwd.png'),
-        },
-    })
+  ...Platform.select({
+    android: {
+      email: require('../icons/mail.png'),
+      pwd: require('../icons/pwd.png'),
+    },
+  }),
 };
 
 export default class Registration extends Component {

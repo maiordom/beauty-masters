@@ -7,7 +7,7 @@ export default makeReducer((state, action) => ({
     const { userId } = action;
 
     state.auth = {
-      userId
+      userId,
     };
 
     return state;

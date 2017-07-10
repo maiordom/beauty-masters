@@ -6,6 +6,6 @@ export const userCreate = ({ email, password }) => dispatch =>
     .then(({ user_id }) => {
       dispatch({
         type: actions.AUTH_SET_USER_ID,
-        userId: user_id
-      })
+        userId: user_id,
+      });
     });

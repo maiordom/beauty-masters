@@ -10,9 +10,9 @@ const mapDispatchToProps = dispatch => ({
     userCreate(params) {
       userCreate(params)(dispatch).then(() => {
         Actions.masterEditorGeneral();
-      })
-    }
-  }
+      });
+    },
+  },
 });
 
 export default connect(null, mapDispatchToProps)(Registration);

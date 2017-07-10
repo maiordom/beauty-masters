@@ -18,7 +18,7 @@ export default class App extends Component {
   userCreate() {
     userCreate({
       email: 'maiordom@yandex.ru',
-      pwd: 'qwerty'
+      pwd: 'qwerty',
     });
   }
 
