@@ -129,7 +129,7 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
             <View>
               <ImagePlaceholder
                 source={{ uri: masterPhoto }}
-                placeholder={require('../../icons/android/master-photo.png')}
+                placeholder={require('../../icons/android/master-empty.png')}
                 style={{ height: 260, width: Dimensions.get('window').width }}
               />
               <MasterCardNavBar />
@@ -141,7 +141,7 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
                 workPhoto={workPhoto}
               />
             )}
-            {false && (
+            {services.length > 0 && (
               <MasterCardServices services={services} />
             )}
           </Fade>

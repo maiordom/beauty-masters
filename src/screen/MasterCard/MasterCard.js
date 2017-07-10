@@ -7,11 +7,11 @@ import type { MasterCardType } from '../../types/MasterTypes';
 
 import { getMasterById } from '../../actions/masterCard';
 
-const mapStateToProps = (state, ownProps) => {
-  return ({
-    scene: state.scene,
-  } : MasterCardType);
-};
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  scene: state.scene,
+  ...state.masterCards[ownProps.id],
+} : MasterCardType);
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ getMasterById }, dispatch),

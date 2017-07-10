@@ -5,7 +5,7 @@ import Common from './Common';
 import Profile from './Profile';
 import MasterCard from './MasterCard';
 
-export default function rootReducer(state, action) {
+export default function rootReducer(state, action = {}) {
   state = Object.assign({}, state);
   state = Router(state, action);
   state = MasterEditor(state, action);
