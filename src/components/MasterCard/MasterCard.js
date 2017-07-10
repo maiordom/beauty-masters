@@ -39,7 +39,8 @@ const icons = Platform.select({
 });
 
 type DefaultProps = {
-
+  addresses: Array<void>,
+  workPhoto: Array<void>,
 }
 
 type Props = MasterCardType;
@@ -54,9 +55,10 @@ type State = {
 };
 
 export default class MasterCard extends Component<DefaultProps, Props, State> {
+  defaultProps: DefaultProps;
   props: MasterCardType;
 
-  static defaultProps: DefaultProps = {
+  static defaultProps = {
     addresses: [],
     workPhoto: [],
   };
