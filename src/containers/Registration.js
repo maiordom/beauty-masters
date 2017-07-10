@@ -8,7 +8,6 @@ import Registration from '../components/Registration';
 const mapDispatchToProps = dispatch => ({
   actions: {
     userCreate(params) {
-      console.log(params);
       userCreate(params)(dispatch).then(() => {
         Actions.masterEditorGeneral();
       })
