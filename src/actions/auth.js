@@ -1,7 +1,11 @@
 import * as AuthService from '../services/auth';
+import actions from '../constants/auth';
 
-export const registerUser = (email, password, type) =>
-  dispatch => AuthService.registerUser({ email, password, type })
-    .then(response => {
-      console.log(response);
+export const userCreate = ({ email, password }) => dispatch =>
+  AuthService.userCreate({ email, password })
+    .then(({ user_id }) => {
+      dispatch({
+        type: actions.AUTH_SET_USER_ID,
+        userId: user_id
+      })
     });

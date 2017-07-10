@@ -11,20 +11,39 @@ const i18nSignUp = Platform.select({
   android: i18n.signUp.toUpperCase(),
 });
 
-export default class Registration extends Component {
-  render() {
-    const { registerUser } = this.props;
+const icons = {
+    ...Platform.select({
+        android: {
+            email: require('../icons/mail.png'),
+            pwd: require('../icons/pwd.png'),
+        },
+    })
+};
 
+export default class Registration extends Component {
+  onUserCreatePress = () => {
+    const email = this.emailRef.getValue();
+    const pwd = this.pwdRef.getValue();
+
+    this.props.actions.userCreate({ email, password: pwd });
+  };
+
+  setEmailRef = ref => this.emailRef = ref;
+  setPwdRef = ref => this.pwdRef = ref;
+
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <Input
-            icon={Platform.OS === 'android' && require('../icons/mail.png')}
+            ref={this.setEmailRef}
+            icon={icons.email}
             style={styles.input}
             placeholder={i18n.yourEmail}
           />
           <Input
-            icon={Platform.OS === 'android' && require('../icons/pwd.png')}
+            ref={this.setPwdRef}
+            icon={icons.pwd}
             style={styles.input}
             placeholder={i18n.passwordTip}
           />
@@ -43,7 +62,7 @@ export default class Registration extends Component {
         </View>
         <TouchableHighlight
           activeOpacity={1}
-          onPress={registerUser}
+          onPress={this.onUserCreatePress}
           style={styles.enterButton}
           underlayColor={vars.color.red}
         >
