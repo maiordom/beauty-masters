@@ -15,13 +15,6 @@ export default class App extends Component {
     store.dispatch(setData(masterData));
   }
 
-  userCreate() {
-    userCreate({
-      email: 'maiordom@yandex.ru',
-      pwd: 'qwerty',
-    });
-  }
-
   componentDidMount() {
     getDictionaries()(store.dispatch);
   }
