@@ -9,4 +9,4 @@ const mapStateToProps = (state, ownProps) => ({
     : state.activityIndicator.animating
 });
 
-export default connect(mapStateToProps, null)(ActivityIndicator);
+export default connect(mapStateToProps)(ActivityIndicator);

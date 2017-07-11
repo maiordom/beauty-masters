@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Platform, Image } from 'react-native';
 
 import Input from '../components/Input';
 
@@ -16,22 +16,37 @@ const icons = {
     android: {
       email: require('../icons/mail.png'),
       pwd: require('../icons/pwd.png'),
+      warning: require('../icons/android/warning.png'),
     },
   }),
 };
 
+const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
+
 export default class Registration extends Component {
+  state = {
+    validationStatus: null,
+  };
+
   onUserCreatePress = () => {
     const email = this.emailRef.getValue();
     const pwd = this.pwdRef.getValue();
 
-    this.props.actions.userCreate({ email, password: pwd });
+    if (email.length === 0 || pwd.length === 0) {
+      this.setState({ validationStatus: ALL_FIELDS_REQUIRED });
+    } else {
+      this.setState({ validationStatus: null });
+      this.props.actions.userCreate({ email, password: pwd })
+        .then(this.props.onAuthSuccess);
+    }
   };
 
   setEmailRef = ref => this.emailRef = ref;
   setPwdRef = ref => this.pwdRef = ref;
 
   render() {
+    const { validationStatus } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.wrapper}>
@@ -59,6 +74,12 @@ export default class Registration extends Component {
             <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
             <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
           </View>}
+          {validationStatus === ALL_FIELDS_REQUIRED && (
+            <View style={styles.error}>
+              <Text style={styles.errorText}>{i18n.errors.allFieldsRequired}</Text>
+              <Image source={icons.warning} />
+            </View>
+          )}
         </View>
         <TouchableHighlight
           activeOpacity={1}
@@ -133,5 +154,13 @@ const styles = StyleSheet.create({
         fontSize: 17,
       },
     }),
+  },
+  error: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  errorText: {
+    color: vars.color.red,
   },
 });
