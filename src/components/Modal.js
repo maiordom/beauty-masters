@@ -23,7 +23,7 @@ export default class ModalComponent extends Component<void, Props, void> {
     const {
       children,
       isVisible,
-§      onRequestClose = () => {},
+      onRequestClose = () => {},
     } = this.props;
 
     return (
