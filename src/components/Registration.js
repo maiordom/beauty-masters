@@ -26,18 +26,35 @@ const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 export default class Registration extends Component {
   state = {
     validationStatus: null,
+    hasError: false,
   };
 
   onUserCreatePress = () => {
     const email = this.emailRef.getValue();
     const pwd = this.pwdRef.getValue();
 
-    if (email.length === 0 || pwd.length === 0) {
-      this.setState({ validationStatus: ALL_FIELDS_REQUIRED });
-    } else {
-      this.setState({ validationStatus: null });
+    if (this.validate()) {
       this.props.actions.userCreate({ email, password: pwd })
         .then(this.props.onAuthSuccess);
+    }
+  };
+
+  validate() {
+    const email = this.emailRef.getValue();
+    const pwd = this.pwdRef.getValue();
+
+    if (email.length === 0 || pwd.length === 0) {
+      this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
+      return false;
+    } else {
+      this.setState({ validationStatus: null, hasError: false });
+      return true;
+    }
+  }
+
+  onChangeInput = () => {
+    if (this.state.hasError) {
+      this.validate();
     }
   };
 
@@ -51,16 +68,22 @@ export default class Registration extends Component {
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <Input
+            debounce
+            debounceTimer={200}
             ref={this.setEmailRef}
             icon={icons.email}
             style={styles.input}
             placeholder={i18n.yourEmail}
+            onChange={this.onChangeInput}
           />
           <Input
+            debounce
+            debounceTimer={200}
             ref={this.setPwdRef}
             icon={icons.pwd}
             style={styles.input}
             placeholder={i18n.passwordTip}
+            onChange={this.onChangeInput}
           />
           {Platform.OS === 'android'
           ? <View style={styles.manifest}>
