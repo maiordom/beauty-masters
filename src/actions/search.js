@@ -91,7 +91,7 @@ export const searchAddress = (address: string) => (
 
 export const searchMasters = (query: SearchMastersParamsType = {}) => (
   dispatch: () => null,
-  getState: () => Object
+  getState: () => Object,
 ) => {
   const state = getState();
   const { services } = state.searchForm.searchQuery;

@@ -8,7 +8,7 @@ const methods = [
   { createMaster: 'master.createMaster' },
   { geoAutoComplete: 'geo.autocomplete' },
   { getDictionaries: 'dictionary.getDictionaries' },
-  { registerUser: 'user.registerUser' },
+  { userCreate: 'user.create' },
   { searchMasters: 'master.search' },
   { getUserProfile: 'user.getProfile' /* fix it after */},
 ];

@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import ActivityIndicator from '../../containers/ActivityIndicator';
 import Registration from '../../containers/Registration';
 import Login from '../../containers/Login';
 
@@ -67,6 +68,7 @@ export default class MasterAuthorization extends Component {
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <View style={styles.navBar}>
           <TouchableHighlight
             style={styles.close}

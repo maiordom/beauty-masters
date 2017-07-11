@@ -43,7 +43,8 @@ class NavBar extends Component {
           >
             <Image
               style={leftButtonIconStyle}
-              source={backButtonImage || getBackButtonImage(leftButtonMenu)} />
+              source={backButtonImage || getBackButtonImage(leftButtonMenu)}
+            />
           </TouchableOpacity>)}
         <Text
           style={[styles.title, leftButtonHidden
