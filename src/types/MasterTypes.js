@@ -71,6 +71,7 @@ export type MapCardType = {
   onPress: () => void,
   photo: string,
   services: Array<Service>,
-  title: string,
+  firstName: string,
+  lastName: string,
   location?: 'map' | 'list'
 }

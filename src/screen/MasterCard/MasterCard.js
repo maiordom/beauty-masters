@@ -5,18 +5,16 @@ import MasterCard from '../../components/MasterCard/MasterCard';
 
 import type { MasterCardType } from '../../types/MasterTypes';
 
-import masterCardData from '../../test/MasterCardData';
-import { equipmentInfo } from '../../test/MasterCardData';
+import { getMasterById } from '../../actions/masterCard';
 
-const mapStateToProps = (state) => ({
-  ...masterCardData,
-  equipmentInfo,
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
   scene: state.scene,
+  ...state.masterCards[ownProps.id],
 } : MasterCardType);
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-  }, dispatch),
+  actions: bindActionCreators({ getMasterById }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MasterCard);

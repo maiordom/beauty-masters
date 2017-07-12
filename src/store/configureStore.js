@@ -12,6 +12,7 @@ const initialState = {
   },
   masterEditor: MasterEditor,
   searchForm: SearchForm,
+  masterCards: {},
 };
 
 export default function configureStore() {

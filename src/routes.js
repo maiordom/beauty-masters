@@ -10,6 +10,7 @@ const methods = [
   { getDictionaries: 'dictionary.getDictionaries' },
   { userCreate: 'user.create' },
   { searchMasters: 'master.search' },
+  { getMasterById: 'master.getById' },
   { getUserProfile: 'user.getProfile' /* fix it after */},
 ];
 

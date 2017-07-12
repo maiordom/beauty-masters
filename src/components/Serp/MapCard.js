@@ -48,7 +48,8 @@ export default class MapCard extends Component {
       onPress,
       photo: uri,
       services,
-      title,
+      firstName,
+      lastName,
     } = this.props;
 
     const subtitle = masterType === 1 ? i18n.card.privareMaster : i18n.card.salon;
@@ -66,7 +67,7 @@ export default class MapCard extends Component {
               )}
             </View>
             <View>
-              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.title}>{firstName} {lastName}</Text>
               <Text>{subtitle}</Text>
             </View>
           </View>

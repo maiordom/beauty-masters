@@ -15,10 +15,6 @@ export default class ImagePlaceholder extends Component {
   state = { opacity: new Animated.Value(1) };
 
   onLoad = () => {
-    Animated.timing(this.state.opacity, { toValue: 1, duration: 250 }).start();
-  };
-
-  onPlaceholderLoad = () => {
     Animated.timing(this.state.opacity, { toValue: 0, duration: 250 }).start();
   };
 
@@ -42,7 +38,6 @@ export default class ImagePlaceholder extends Component {
           resizeMode="cover"
           style={[style, { opacity }]}
           source={placeholder}
-          onLoad={this.onPlaceholderLoad}
         />
       </View>
     );

@@ -54,7 +54,7 @@ type RegionType = {
 type State = {
   activePin: ?LatLngType,
   // $FlowFixMe
-  activePoint: ?MapCardType,
+  activePoint: MapCardType | null,
   cluster: ClusterInterface,
   clusters: Array<Cluster>,
   initialRegion: RegionType,
@@ -161,7 +161,7 @@ export default class Map extends Component<void, Props, State> {
     },
   };
 
-  shouldComponentUpdate = shouldComponentUpdate();
+  shouldComponentUpdate = shouldComponentUpdate;
 
   map: MapView;
 
@@ -237,8 +237,14 @@ export default class Map extends Component<void, Props, State> {
     this.searchRequest && this.searchRequest.cancel();
     this.searchRequest = this.props.actions.searchMasters({
       coordinates: [region.latitude, region.longitude],
-      radius: (5 * Math.max(region.latitudeDelta, region.longitudeDelta) / 0.04).toFixed(2) * 1000,
+      radius: ((5 * Math.max(region.latitudeDelta, region.longitudeDelta)) / 0.04).toFixed(2) * 1000,
     });
+  };
+
+  onMapCardPress = () => {
+    const { activePoint } = this.state;
+
+    Actions.card(activePoint);
   };
 
   componentWillReceiveProps({ points }: Props) {
@@ -310,7 +316,7 @@ export default class Map extends Component<void, Props, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          {activePoint && <MapCard onPress={Actions.card} {...activePoint} location="map" />}
+          {activePoint && <MapCard onPress={this.onMapCardPress} {...activePoint} location="map" />}
         </Animated.View>
       </View>
     );
