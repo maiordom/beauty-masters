@@ -41,7 +41,7 @@ const icons = Platform.select({
 type DefaultProps = {
   addresses: Array<void>,
   workPhoto: Array<void>,
-}
+};
 
 type Props = MasterCardType;
 
@@ -86,7 +86,7 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
       showWorksGallery: true,
       showWorksIndex: Number(index),
     });
-  }
+  };
 
   onWorksHide = () => this.setState({ showWorksGallery: false });
 
