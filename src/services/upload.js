@@ -2,8 +2,8 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 import routes from '../routes';
 
-export function uploadFile({ uri, type }) {
-  return RNFetchBlob.fetch('POST', routes.upload, {
+export const uploadFile = ({ uri, type }) =>
+  RNFetchBlob.fetch('POST', routes.upload, {
     'Content-Type': 'multipart/form-data',
   }, [
     {
@@ -13,4 +13,3 @@ export function uploadFile({ uri, type }) {
       type,
     },
   ]);
-}
