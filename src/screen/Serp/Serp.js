@@ -23,8 +23,6 @@ type State = {
 class Serp extends Component<void, Props, State> {
   props: Props;
 
-  state: State;
-
   state = {
     activeView: 'map',
   };
