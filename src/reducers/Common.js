@@ -17,4 +17,10 @@ export default makeReducer((state, action) => ({
 
     return state;
   },
+
+  [actions.ACTIVITY_INDICATOR_ANIMATING]: () => {
+    state.activityIndicator.animating = action.animating;
+
+    return state;
+  }
 }));

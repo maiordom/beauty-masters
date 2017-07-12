@@ -7,6 +7,9 @@ import MasterEditor from './MasterEditor';
 import SearchForm from './SearchForm';
 
 const initialState = {
+  activityIndicator: {
+    animating: false,
+  },
   masterEditor: MasterEditor,
   searchForm: SearchForm,
   masterCards: {},

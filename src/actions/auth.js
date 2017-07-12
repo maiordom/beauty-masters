@@ -1,7 +1,19 @@
 import * as AuthService from '../services/auth';
+import actions from '../constants/auth';
 
-export const registerUser = (email, password, type) =>
-  dispatch => AuthService.registerUser({ email, password, type })
-    .then(response => {
-      console.log(response);
-    });
+import { setActivityIndicator } from './common';
+
+export const userCreate = ({ email, password }) => dispatch => {
+  dispatch(setActivityIndicator(true));
+
+  return AuthService.userCreate({ email, password })
+    .then(({user_id}) => {
+      dispatch(setActivityIndicator(false));
+
+      dispatch({
+        type: actions.AUTH_SET_USER_ID,
+        userId: user_id,
+      });
+    })
+    .catch(() => dispatch(setActivityIndicator(false)));
+};

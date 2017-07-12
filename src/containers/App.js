@@ -5,7 +5,7 @@ import NavigationRouter from './NavigationRouter';
 
 import masterData from '../test/MasterData';
 import { setData } from '../actions/master';
-import { registerUser } from '../actions/auth';
+import { userCreate } from '../actions/auth';
 import { getDictionaries } from '../actions/dictionaries';
 
 const store = configureStore();
@@ -13,10 +13,6 @@ const store = configureStore();
 export default class App extends Component {
   setMasterData() {
     store.dispatch(setData(masterData));
-  }
-
-  registerUser() {
-    registerUser('maiordom@yandex.ru', 'qwerty')();
   }
 
   componentDidMount() {

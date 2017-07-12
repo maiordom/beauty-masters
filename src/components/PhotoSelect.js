@@ -25,6 +25,7 @@ export default class PhotoSelect extends Component {
     ImagePicker.launchCamera({
       noData: true,
       storageOptions: {
+        cameraRoll: true,
         waitUntilSaved: true,
       },
     }, ({ uri, type, didCancel, error }) => {

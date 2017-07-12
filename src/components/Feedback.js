@@ -48,7 +48,6 @@ export default class Feedback extends Component<DefaultProps, Props, State> {
   };
 
   onSend = () => {
-    console.log(this.state);
     this.setState({ isSend: true, message: '' });
   };
 

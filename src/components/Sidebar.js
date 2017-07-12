@@ -45,7 +45,7 @@ export default class Sidebar extends Component<void, Props, State> {
     InteractionManager.runAfterInteractions(() => {
       Actions[key](nextScene);
       this.setState(nextScene);
-    })
+    });
   };
 
   menuButtons = [

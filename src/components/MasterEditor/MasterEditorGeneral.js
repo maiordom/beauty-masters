@@ -33,7 +33,7 @@ export default class MasterEditorGeneral extends Component {
     if (this.validate()) {
       this.props.onNextPress();
     }
-  }
+  };
 
   validate() {
     const {
