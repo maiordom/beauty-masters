@@ -107,6 +107,14 @@ export const setData = data => ({
   data,
 });
 
+export const validateServices = () => (dispatch, getState) => {
+  dispatch({type: actions.MASTER_SERVICES_VALIDATE});
+
+  if (!getState().manicureHasValidationErrors) {
+    Actions.masterEditorHandlingTools();
+  }
+}
+
 export const removePhoto = (itemId, modelName) => ({
   type: actions.MASTER_PHOTO_REMOVE,
   itemId,

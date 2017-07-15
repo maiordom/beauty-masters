@@ -73,7 +73,7 @@ export default class MasterEditorGeneral extends Component {
         <View style={styles.inner}>
           <Input {...firstNameField} debounce onChange={this.onChange} />
           <Input {...lastNameField} debounce onChange={this.onChange} />
-          <Input {...phoneField} debounce onChange={this.onChange} />
+          <Input {...phoneField} keyboardType="phone-pad" debounce onChange={this.onChange} />
           <Switch {...isSalonField} onChange={this.onChange} />
           <Input {...salonNameField} debounce editable={isSalonField.value} onChange={this.onChange} />
           {validationStatus === ALL_FIELDS_REQUIRED && (

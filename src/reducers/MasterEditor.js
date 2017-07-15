@@ -159,26 +159,31 @@ export default makeReducer((state, action) => ({
       });
     });
 
-    each(generalSection, model => {
+    each(generalSection, (model, key) => {
       if (model.queryParam in data) {
         model.value = data[model.queryParam];
+        generalSection[key] = { ...model };
       }
     });
 
     each(services, service => {
-      each(serviceManicure, model => {
+      each(serviceManicure, (model, key) => {
         if (model.id === service.service_id) {
           model.active = true;
           model.price = service.price;
           model.duration = service.duration;
+
+          serviceManicure[key] = { ...model };
         }
       });
 
-      each(servicePedicure, model => {
+      each(servicePedicure, (model, key) => {
         if (model.id === service.service_id) {
           model.active = true;
           model.price = service.price;
           model.duration = service.duration;
+
+          servicePedicure[key] = { ...model };
         }
       });
 
@@ -190,6 +195,9 @@ export default makeReducer((state, action) => ({
     });
 
     state.masterEditor.createMasterQuery = data;
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor.generalSection = { ...generalSection };
+    state.masterEditor.serviceManicure = { ...serviceManicure };
 
     return state;
   },
@@ -383,7 +391,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  MASTER_CUSTOM_SERVICE_TOOGLE: () => {
+  [actions.MASTER_CUSTOM_SERVICE_TOOGLE]: () => {
     const { sectionName, modelName, active, index } = action;
     const section = state.masterEditor[sectionName];
     const model = section[modelName];
@@ -401,7 +409,7 @@ export default makeReducer((state, action) => ({
     return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
   },
 
-  MASTER_CUSTOM_SERVICE_SET_PARAM: () => {
+  [actions.MASTER_CUSTOM_SERVICE_SET_PARAM]: () => {
     const { sectionName, modelName, changes, index } = action;
     const section = state.masterEditor[sectionName];
     const model = section[modelName];
@@ -417,4 +425,29 @@ export default makeReducer((state, action) => ({
 
     return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
   },
+
+  [actions.MASTER_SERVICES_VALIDATE]: () => {
+    const { serviceManicure, servicePedicure } = state.masterEditor;
+    let manicureHasValidationErrors = false;
+
+    each(serviceManicure, model => {
+      if (model.active) {
+        if (!model.price) {
+          model.errorFillPrice = true;
+          manicureHasValidationErrors = true;
+        }
+
+        if (!model.duration) {
+          model.errorFillDuration = true;
+          manicureHasValidationErrors = true;
+        }
+      }
+    });
+
+    state.masterEditor = { ...state.masterEditor };
+    state.masterEditor.serviceManicure = { ...serviceManicure };
+    state.masterEditor.manicureHasValidationErrors = manicureHasValidationErrors;
+
+    return state;
+  }
 }));

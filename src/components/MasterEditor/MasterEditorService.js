@@ -54,6 +54,10 @@ export default class MasterEditorService extends Component {
     this.props.actions.setServiceParam(modelName, 'duration', duration, this.state.tabActiveKey);
   };
 
+  onPressNext = () => {
+    this.props.actions.validateServices();
+  };
+
   render() {
     const { tabs, tabActiveKey, renderLoader } = this.state;
 
@@ -99,8 +103,8 @@ export default class MasterEditorService extends Component {
           <Input {...homeAllowanceField} inputWrapperStyle={styles.homeAllowance} />
           <FilterLabel text={i18n.filters.otherServices} />
           {customServices}
-          <ButtonControl onPress={this.props.onNextPress} />
         </ScrollView>
+        <ButtonControl onPress={this.onPressNext} />
       </View>
     );
   }

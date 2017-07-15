@@ -20,6 +20,7 @@ const classicManicure = (isActive: boolean) => ({
   dictionaryKey: 'ClassicManicure',
   id: 3,
   parentServiceId,
+  required: true,
   title: i18n.filters.classic,
 }: ServiceManicure);
 
@@ -28,6 +29,7 @@ const hardwareManicure = (isActive: boolean) => ({
   dictionaryKey: 'HardwareManicure',
   id: 4,
   parentServiceId,
+  required: true,
   title: i18n.filters.hardware,
 }: ServiceManicure);
 
