@@ -172,50 +172,45 @@ export default class SearchFormShort extends Component {
             masterType={general.masterType}
             onMasterTypeSelect={this.onMasterTypeSelect}
           />
-
-          {showShortForm &&
-            <View>
-              <FilterCheckBox
-                {...serviceManicure.manicure}
-                active={isManicureActive}
-                onChange={this.onServiceToggle('serviceManicure')}
-                withInput={false}
-              />
-              <FilterCheckBox
-                {...servicePedicure.pedicure}
-                active={isPedicureActive}
-                onChange={this.onServiceToggle('servicePedicure')}
-                withInput={false}
-              />
-              <FilterCheckBox
-                title={i18n.filters.nailExtensionShort}
-                active={isExtensionActive}
-                modelName="extensionShort"
-                onChange={this.onExtensionToggle}
-                withInput={false}
-              />
-              <FilterCheckBox
-                title={i18n.filters.withdrawal}
-                active={isWithdrawalActive}
-                onChange={this.onWithdrawalToggle}
-                withInput={false}
-              />
-            </View>
-          }
-
-          {!showShortForm &&
-            // $FlowFixMe
+          <View style={!showShortForm && styles.hidden}>
+            <FilterCheckBox
+              {...serviceManicure.manicure}
+              active={isManicureActive}
+              onChange={this.onServiceToggle('serviceManicure')}
+              withInput={false}
+            />
+            <FilterCheckBox
+              {...servicePedicure.pedicure}
+              active={isPedicureActive}
+              onChange={this.onServiceToggle('servicePedicure')}
+              withInput={false}
+            />
+            <FilterCheckBox
+              title={i18n.filters.nailExtensionShort}
+              active={isExtensionActive}
+              modelName="extensionShort"
+              onChange={this.onExtensionToggle}
+              withInput={false}
+            />
+            <FilterCheckBox
+              title={i18n.filters.withdrawal}
+              active={isWithdrawalActive}
+              onChange={this.onWithdrawalToggle}
+              withInput={false}
+            />
+          </View>
+          <View style={showShortForm && styles.hidden}>
             <SearchFormBlockManicure
               service={serviceManicure}
               onChange={this.onServiceToggle('serviceManicure')}
-            />}
-
-          {!showShortForm &&
+            />
+          </View>
+          <View style={showShortForm && styles.hidden}>
             <SearchFormBlockPedicure
               service={servicePedicure}
               onChange={this.onServiceToggle('servicePedicure')}
-            />}
-
+            />
+          </View>
           <ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
@@ -271,5 +266,10 @@ const styles = StyleSheet.create({
   },
   nextText: {
     color: vars.color.red,
+  },
+  hidden: {
+    position: 'absolute',
+    width: 0,
+    height: 0,
   },
 });

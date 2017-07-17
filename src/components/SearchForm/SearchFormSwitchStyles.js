@@ -3,6 +3,9 @@ import vars from '../../vars';
 
 export default StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
     paddingLeft: 15,
     backgroundColor: vars.color.lightGrey,
     justifyContent: 'space-between',
@@ -26,4 +29,13 @@ export default StyleSheet.create({
       },
     }),
   },
+  icon: {
+    marginRight: 10,
+    width: 15,
+    height: 9,
+  },
+});
+
+export const arrowIcon = Platform.select({
+  android: require('../../icons/android/arrow-up.png'),
 });
