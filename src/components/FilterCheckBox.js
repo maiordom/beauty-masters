@@ -19,7 +19,6 @@ type onChangeTitle = (title: string, modelName?: string, index?: number) => void
 type Props = {
   active?: boolean,
   duration?: string,
-  errorFillDuration?: boolean,
   errorFillPrice?: boolean,
   index?: number,
   modelName?: string,
@@ -55,25 +54,11 @@ export default class FilterCheckBox extends Component {
 
   shouldComponentUpdate = shouldComponentUpdate();
 
-  validate() {
-    const price = this.priceRef.getValue();
-    const duration = this.durationRef.getValue();
-
-    let errorFillPrice = false;
-    let errorFillDuration = false;
-
-    if (!price.length) {
-      errorFillPrice = true;
-    }
-
-    if (!duration.length) {
-      errorFillDuration = true;
-    }
-
-    this.setState({ errorFillPrice, errorFillDuration });
-  }
-
   onPress = () => {
+    if (this.props.required) {
+      return;
+    }
+
     this.props.onChange && this.props.onChange(
       !this.props.active,
       this.props.modelName,
@@ -112,7 +97,6 @@ export default class FilterCheckBox extends Component {
     const {
       active,
       duration,
-      errorFillDuration,
       errorFillPrice,
       price,
       required,
@@ -182,7 +166,6 @@ export default class FilterCheckBox extends Component {
                 sign={` ${i18n.time.minuteShort}`}
                 value={duration}
               />
-              {errorFillDuration && errorView}
             </View>
           </View>
         )}

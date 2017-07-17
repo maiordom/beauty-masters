@@ -194,6 +194,14 @@ export default makeReducer((state, action) => ({
       });
     });
 
+    const { services: masterQueryServices } = state.masterEditor.createMasterQuery;
+
+    masterQueryServices.forEach(({ service_id }) => {
+      if (!find(data.services, { service_id })) {
+        data.services.push({ service_id });
+      }
+    });
+
     state.masterEditor.createMasterQuery = data;
     state.masterEditor = { ...state.masterEditor };
     state.masterEditor.generalSection = { ...generalSection };
@@ -435,11 +443,8 @@ export default makeReducer((state, action) => ({
         if (!model.price) {
           model.errorFillPrice = true;
           manicureHasValidationErrors = true;
-        }
-
-        if (!model.duration) {
-          model.errorFillDuration = true;
-          manicureHasValidationErrors = true;
+        } else {
+          model.errorFillPrice = false;
         }
       }
     });

@@ -84,7 +84,7 @@ export default {
     extensionTipsGel: 'Гелем на типсы',
     form: 'На формы',
     french: 'Французский',
-    gradient: 'Градиентный маникюр',
+    gradientManicure: 'Градиентный маникюр',
     hardware: 'Аппаратный',
     homeAllowance: 'Надбавка за выезд на дом, р',
     hot: 'Горячий маникюр',

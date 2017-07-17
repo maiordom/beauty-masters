@@ -89,9 +89,9 @@ export default class ServicesListManicure extends Component {
         <Filter model={spaManicure} />
 
         <FilterLabel text={i18n.filters.coverage} />
+        <Filter model={applyingNailPolishManicure} />
         <Filter model={applyingShellacManicure} />
         <Filter model={applyingBioGelManicure} />
-        <Filter model={applyingNailPolishManicure} />
         <Filter model={applyingOfAnotherNailGelManicure} />
 
         <FilterLabel text={i18n.filters.nailDesign} />

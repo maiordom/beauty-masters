@@ -58,9 +58,15 @@ class InputBase extends Component {
   };
 
   getValue() {
-    const { sign } = this.props;
+    const { sign, formatValue, replaceReg } = this.props;
 
     let value = this.state.value;
+
+    if (replaceReg) {
+      value = value.replace(replaceReg, '');
+    }
+
+    value = formatValue ? formatValue(value) : value;
 
     if (value && sign && !this.state.isFocused) {
       value += sign;
