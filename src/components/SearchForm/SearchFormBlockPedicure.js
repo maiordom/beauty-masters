@@ -20,20 +20,18 @@ export default class SearchFormBlockPedicure extends Component {
     spinValue: new Animated.Value(0),
   };
 
-  toggleBlock = nextState => {
-    if (nextState !== this.state.showBlock) {
-      Animated.timing(
-        this.state.spinValue,
-        {
-          toValue: nextState ? 1 : 0,
-          duration: 500,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        },
-      ).start();
+  toggleBlock = () => {
+    Animated.timing(
+      this.state.spinValue,
+      {
+        toValue: this.state.showBlock ? 1 : 0,
+        duration: 100,
+        easing: Easing.easeOut,
+        useNativeDriver: true,
+      },
+    ).start();
 
-      this.setState({ showBlock: !this.state.showBlock });
-    }
+    this.setState({ showBlock: !this.state.showBlock });
   };
 
   render() {
