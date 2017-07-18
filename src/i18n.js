@@ -50,6 +50,7 @@ export default {
     successTitle: 'Спасибо за ваш отзыв!',
     successMessage: 'Наши модераторы ознакомятся с вашим отзывом и ответят на указанный вами email',
   },
+  fillAllRequiredFields: 'Заполните все обязательные поля',
   fillField: 'Заполните поле',
   findMaster: 'Найти мастера',
   filter: 'Фильтр',

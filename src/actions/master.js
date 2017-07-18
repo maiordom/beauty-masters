@@ -112,7 +112,10 @@ export const validateServices = () => (dispatch, getState) => {
 
   if (!getState().masterEditor.manicureHasValidationErrors) {
     Actions.masterEditorHandlingTools();
+    return Promise.resolve();
   }
+
+  return Promise.reject();
 };
 
 export const removePhoto = (itemId, modelName) => ({

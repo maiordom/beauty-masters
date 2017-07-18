@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, InteractionManager } from 'react-native';
+import { View, StyleSheet, ScrollView, InteractionManager, Text, TouchableWithoutFeedback } from 'react-native';
 
 import Tabs from '../Tabs';
 import ButtonControl from '../ButtonControl';
@@ -9,11 +9,13 @@ import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
 import Label from '../Label';
 import Input from '../Input';
+import Modal from '../Modal';
 import { FilterLabel } from '../FilterLabel';
 
 import CustomServices from '../../containers/CustomServices';
 
 import i18n from '../../i18n';
+import vars from '../../vars';
 
 type Props = {
   actions: Object,
@@ -23,6 +25,8 @@ type Props = {
 };
 
 export default class MasterEditorService extends Component {
+  props: Props;
+
   state = {
     tabActiveKey: 'serviceManicure',
     tabs: [
@@ -55,11 +59,22 @@ export default class MasterEditorService extends Component {
   };
 
   onPressNext = () => {
-    this.props.actions.validateServices();
+    this.props.actions.validateServices().catch(() => {
+      this.setState({ showAllFieldsRequiredModal: true });
+    });
+  };
+
+  onModalClose = () => {
+    this.setState({ showAllFieldsRequiredModal: false });
   };
 
   render() {
-    const { tabs, tabActiveKey, renderLoader } = this.state;
+    const {
+      renderLoader,
+      showAllFieldsRequiredModal,
+      tabs,
+      tabActiveKey,
+    } = this.state;
 
     if (renderLoader) {
       return null;
@@ -96,6 +111,16 @@ export default class MasterEditorService extends Component {
 
     return (
       <View style={styles.container}>
+        {showAllFieldsRequiredModal && (
+          <Modal>
+            <Text>{i18n.fillAllRequiredFields}</Text>
+            <TouchableWithoutFeedback onPress={this.onModalClose}>
+              <View style={styles.applyButton}>
+                <Text style={styles.applyButtonText}>OK</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </Modal>
+        )}
         <ScrollView>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
@@ -118,4 +143,11 @@ const styles = StyleSheet.create({
     paddingLeft: 11,
     marginBottom: 4,
   },
+  applyButton: {
+    marginTop: 15,
+    alignItems: 'flex-end',
+  },
+  applyButtonText: {
+    color: vars.color.red,
+  }
 });
