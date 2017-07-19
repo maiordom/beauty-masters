@@ -50,8 +50,10 @@ export default {
     successTitle: 'Спасибо за ваш отзыв!',
     successMessage: 'Наши модераторы ознакомятся с вашим отзывом и ответят на указанный вами email',
   },
+  fill: 'Заполнить',
   fillAllRequiredFields: 'Заполните все обязательные поля',
   fillField: 'Заполните поле',
+  fillPedicureSection: 'Вы не заполнили раздел "Педикюр". Уверены, что хотите продолжить?',
   findMaster: 'Найти мастера',
   filter: 'Фильтр',
   filters: {

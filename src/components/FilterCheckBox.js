@@ -42,15 +42,13 @@ const icons = {
   }),
 };
 
-export default class FilterCheckBox extends Component {
+export default class FilterCheckBox extends Component<void, Props, void> {
   static defaultProps = {
     onChange: (active: boolean, modelName: ?string, index?: number) => {},
     onChangeDuration: (duration: string, modelName?: string, index?: number) => {},
     onChangePrice: (price: number, modelName?: string, index?: number) => {},
     onChangeTitle: (title: string, modelName?: string, index?: number) => {},
   };
-
-  props: Props;
 
   shouldComponentUpdate = shouldComponentUpdate();
 

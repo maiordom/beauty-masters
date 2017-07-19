@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, InteractionManager, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, ScrollView, InteractionManager, Text, TouchableWithoutFeedback, Platform } from 'react-native';
 
 import Tabs from '../Tabs';
 import ButtonControl from '../ButtonControl';
@@ -17,17 +17,27 @@ import CustomServices from '../../containers/CustomServices';
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-type Props = {
+const i18nContinue = Platform.select({
+  ios: i18n.continue,
+  android: i18n.continue.toUpperCase(),
+});
+
+const i18nFill = Platform.select({
+  ios: i18n.fill,
+  android: i18n.fill.toUpperCase(),
+});
+
+type TProps = {
   actions: Object,
   homeAllowanceField: Object,
   serviceManicure: Object,
   servicePedicure: Object,
 };
 
-export default class MasterEditorService extends Component {
-  props: Props;
-
+export default class MasterEditorService extends Component<void, TProps, void> {
   state = {
+    showFillPedicureSectionModel: false,
+    showAllFieldsRequiredModal: false,
     tabActiveKey: 'serviceManicure',
     tabs: [
       { title: i18n.manicure, key: 'serviceManicure' },
@@ -59,18 +69,41 @@ export default class MasterEditorService extends Component {
   };
 
   onPressNext = () => {
-    this.props.actions.validateServices().catch(() => {
-      this.setState({ showAllFieldsRequiredModal: true });
+    this.props.actions.validateServices().catch(({ type }) => {
+      if (type === 'VALIDATION_ERRORS') {
+        this.setState({ showAllFieldsRequiredModal: true });
+      }
+
+      if (type === 'FILL_PEDICURE_SECTION') {
+        this.setState({ showFillPedicureSectionModal: true });
+      }
     });
   };
 
-  onModalClose = () => {
+  onValidationModalClose = () => {
     this.setState({ showAllFieldsRequiredModal: false });
   };
+
+  onPedicureAttentionContinue = () => {
+    this.setState({ showFillPedicureSectionModal: false });
+    this.props.actions.next();
+  };
+
+  onPedicureAttentionFill = () => {
+    this.setState({
+      showFillPedicureSectionModal: false,
+      tabActiveKey: 'servicePedicure',
+    }, () => {
+      this.scrollViewRef.scrollTo({y: 0, animated: false});
+    });
+  };
+
+  setScrollViewRef = ref => this.scrollViewRef = ref;
 
   render() {
     const {
       renderLoader,
+      showFillPedicureSectionModal,
       showAllFieldsRequiredModal,
       tabs,
       tabActiveKey,
@@ -114,14 +147,31 @@ export default class MasterEditorService extends Component {
         {showAllFieldsRequiredModal && (
           <Modal>
             <Text>{i18n.fillAllRequiredFields}</Text>
-            <TouchableWithoutFeedback onPress={this.onModalClose}>
-              <View style={styles.applyButton}>
-                <Text style={styles.applyButtonText}>OK</Text>
+            <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
+              <View style={validationStyles.button}>
+                <Text style={validationStyles.text}>OK</Text>
               </View>
             </TouchableWithoutFeedback>
           </Modal>
         )}
-        <ScrollView>
+        {showFillPedicureSectionModal && (
+          <Modal>
+            <Text style={pedicureModalStyles.title}>{i18n.fillPedicureSection}</Text>
+            <View style={pedicureModalStyles.row}>
+              <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>
+                <View style={pedicureModalStyles.button}>
+                  <Text style={pedicureModalStyles.text}>{i18nContinue}</Text>
+                </View>
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={this.onPedicureAttentionFill}>
+                <View style={pedicureModalStyles.button}>
+                  <Text style={pedicureModalStyles.text}>{i18nFill}</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </Modal>
+        )}
+        <ScrollView ref={this.setScrollViewRef}>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
           {servicesList}
@@ -143,11 +193,31 @@ const styles = StyleSheet.create({
     paddingLeft: 11,
     marginBottom: 4,
   },
-  applyButton: {
+});
+
+const validationStyles = StyleSheet.create({
+  button: {
     marginTop: 15,
     alignItems: 'flex-end',
   },
-  applyButtonText: {
+  text: {
     color: vars.color.red,
-  }
+  },
+});
+
+const pedicureModalStyles = StyleSheet.create({
+  title: {
+    lineHeight: 25,
+  },
+  button: {
+    marginTop: 15,
+    marginLeft: 15,
+  },
+  text: {
+    color: vars.color.red,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
 });

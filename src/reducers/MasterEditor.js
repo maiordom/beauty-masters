@@ -343,6 +343,10 @@ export default makeReducer((state, action) => ({
 
     service[action.paramName] = action.paramValue;
 
+    if (action.paramName === 'price' && action.paramValue !== '') {
+      model.errorFillPrice = false;
+    }
+
     return state;
   },
 
@@ -436,22 +440,30 @@ export default makeReducer((state, action) => ({
 
   [actions.MASTER_SERVICES_VALIDATE]: () => {
     const { serviceManicure, servicePedicure } = state.masterEditor;
-    let manicureHasValidationErrors = false;
 
-    each(serviceManicure, model => {
-      if (model.active) {
-        if (!model.price) {
-          model.errorFillPrice = true;
-          manicureHasValidationErrors = true;
-        } else {
-          model.errorFillPrice = false;
+    [serviceManicure, servicePedicure].forEach(service => {
+      let activeServicesCount = 0;
+
+      service.hasValidationErrors = false;
+
+      each(service, model => {
+        if (model.active) {
+          activeServicesCount++;
+          if (!model.price) {
+            model.errorFillPrice = true;
+            service.hasValidationErrors = true;
+          } else {
+            model.errorFillPrice = false;
+          }
         }
-      }
+      });
+
+      service.activeServicesCount = activeServicesCount;
     });
 
     state.masterEditor = { ...state.masterEditor };
     state.masterEditor.serviceManicure = { ...serviceManicure };
-    state.masterEditor.manicureHasValidationErrors = manicureHasValidationErrors;
+    state.masterEditor.servicePedicure = { ...servicePedicure };
 
     return state;
   }

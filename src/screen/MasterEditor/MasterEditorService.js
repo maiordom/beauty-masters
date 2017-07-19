@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import { setServiceParam, toogleService, validateServices } from '../../actions/master';
 
@@ -13,12 +14,21 @@ const mapStateToProps = state => ({
   servicePedicure: state.masterEditor.servicePedicure,
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
+const mapDispatchToProps = dispatch => {
+  const actions = bindActionCreators({
     setServiceParam,
     toogleService,
-    validateServices,
-  }, dispatch)
-});
+    validateServices
+  }, dispatch);
+
+  return {
+    actions: {
+      next() {
+        Actions.masterEditorHandlingTools();
+      },
+      ...actions,
+    },
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorService));

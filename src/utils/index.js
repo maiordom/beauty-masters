@@ -44,8 +44,8 @@ export function formatNumber(number: number) {
   return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 }
 
-export function shouldComponentUpdate(ignoreProps: Array<any>, ignoreState: Object) {
-  return function (nextProps: Object, nextState: Object) {
+export function shouldComponentUpdate(ignoreProps?: Array<string>, ignoreState?: Array<string>) {
+  return function (nextProps: Object, nextState: Object): boolean {
     const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
     const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);
 
@@ -53,7 +53,7 @@ export function shouldComponentUpdate(ignoreProps: Array<any>, ignoreState: Obje
   };
 }
 
-export function shallowEqual(objA: Object, objB: Object, ignoreKeys: Array<string>) {
+export function shallowEqual(objA: Object, objB: Object, ignoreKeys?: Array<string>) {
   if (objA === objB) {
     return { result: true };
   }
