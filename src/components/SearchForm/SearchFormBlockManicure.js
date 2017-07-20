@@ -47,15 +47,15 @@ export default class SearchFormBlockManicure extends Component {
 
     return (
       <View>
-        <View style={switchStyles.container}>
-          <Text style={switchStyles.title}>{i18n.manicure}</Text>
-          <TouchableOpacity onPress={this.toggleBlock}>
+        <TouchableOpacity activeOpacity={1} onPress={this.toggleBlock}>
+          <View style={switchStyles.container}>
+            <Text style={switchStyles.title}>{i18n.manicure}</Text>
             <Animated.Image
               style={[switchStyles.icon, { transform: [{ rotate: spin }] }]}
               source={arrowIcon}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
         {showBlock &&
           <View>
             <FilterSubLabel title={i18n.filters.nailProcessingMethod} />
