@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
+import { TouchableHighlight, View, Text, StyleSheet, Platform, Image } from 'react-native';
 
 import { formatNumber, shouldComponentUpdate } from '../utils';
 
@@ -16,23 +16,40 @@ type onChangeDuration = (duration: string, modelName?: string, index?: number) =
 type onChangePrice = (price: number, modelName?: string, index?: number) => void;
 type onChangeTitle = (title: string, modelName?: string, index?: number) => void;
 
-type Props = {
+type TProps = {
   active?: boolean,
   duration?: string,
+  errorFillPrice?: boolean,
   index?: number,
   modelName?: string,
   onChange: onChange,
-  onChangeDuration: onChangeDuration,
-  onChangePrice: onChangePrice,
-  onChangeTitle: onChangeTitle,
+  onChangeDuration?: onChangeDuration,
+  onChangePrice?: onChangePrice,
+  onChangeTitle?: onChangeTitle,
   price?: number,
+  required?: boolean,
   title?: string,
   titlePlaceholder?: string,
   titleType?: string,
   withInput?: boolean,
 };
 
-export default class FilterCheckBox extends Component {
+type TDefaultProps = {
+  onChange: onChange,
+  onChangeDuration: onChangeDuration,
+  onChangePrice: onChangePrice,
+  onChangeTitle: onChangeTitle,
+}
+
+const icons = {
+  ...Platform.select({
+    android: {
+      warning: require('../icons/android/warning.png'),
+    },
+  }),
+};
+
+export default class FilterCheckBox extends Component<TDefaultProps, TProps, void> {
   static defaultProps = {
     onChange: (active: boolean, modelName: ?string, index?: number) => {},
     onChangeDuration: (duration: string, modelName?: string, index?: number) => {},
@@ -40,11 +57,16 @@ export default class FilterCheckBox extends Component {
     onChangeTitle: (title: string, modelName?: string, index?: number) => {},
   };
 
-  props: Props;
+  durationRef: Object;
+  priceRef: Object;
 
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
+    if (this.props.required) {
+      return;
+    }
+
     this.props.onChange && this.props.onChange(
       !this.props.active,
       this.props.modelName,
@@ -69,23 +91,37 @@ export default class FilterCheckBox extends Component {
   };
 
   onChangeTitle = (title: string) => {
-    this.props.onChangeTitle(
+    this.props.onChangeTitle && this.props.onChangeTitle(
       title,
       this.props.modelName,
       this.props.index,
     );
   };
 
+  setPriceRef = (ref: Object) => this.priceRef = ref;
+  setDurationRef = (ref: Object) => this.durationRef = ref;
+
   render() {
     const {
       active,
       duration,
+      errorFillPrice,
       price,
+      required,
       title,
       titlePlaceholder,
       titleType = 'text',
       withInput = true,
     } = this.props;
+
+    const requiredText = required && (
+      <Text style={styles.required}> *</Text>
+    );
+
+    const errorView = <View style={styles.error}>
+      <Text style={styles.errorText}>{i18n.fillField}</Text>
+      <Image source={icons.warning} />
+    </View>;
 
     return (
       <View style={styles.container}>
@@ -97,7 +133,7 @@ export default class FilterCheckBox extends Component {
         >
           <View style={styles.buttonContent}>
             {titleType === 'text' && (
-              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.title}>{title}{requiredText}</Text>
             )}
             {titleType === 'input' && (
               <Input
@@ -112,26 +148,33 @@ export default class FilterCheckBox extends Component {
         </TouchableHighlight>
         {active && withInput && (
           <View style={styles.fields}>
-            <Input
-              formatValue={formatNumber}
-              inputWrapperStyle={styles.input}
-              keyboardType="numeric"
-              onChange={this.onChangePrice}
-              placeholder={i18n.filters.price}
-              replaceReg={/[^0-9.]/g}
-              sign={` ${i18n.currency.roubleSign}`}
-              value={price}
-            />
-            <Input
-              formatValue={formatNumber}
-              inputWrapperStyle={styles.input}
-              keyboardType="numeric"
-              onChange={this.onChangeDuration}
-              placeholder={i18n.filters.duration}
-              replaceReg={/[^0-9.]/g}
-              sign={` ${i18n.time.minuteShort}`}
-              value={duration}
-            />
+            <View style={styles.inputWrapper}>
+              <Input
+                formatValue={formatNumber}
+                inputWrapperStyle={styles.input}
+                keyboardType="numeric"
+                onChange={this.onChangePrice}
+                placeholder={i18n.filters.price}
+                ref={this.setPriceRef}
+                replaceReg={/[^0-9.]/g}
+                sign={` ${i18n.currency.roubleSign}`}
+                value={price}
+              />
+              {errorFillPrice && errorView}
+            </View>
+            <View style={styles.inputWrapper}>
+              <Input
+                formatValue={formatNumber}
+                inputWrapperStyle={styles.input}
+                keyboardType="numeric"
+                onChange={this.onChangeDuration}
+                placeholder={i18n.filters.duration}
+                ref={this.setDurationRef}
+                replaceReg={/[^0-9.]/g}
+                sign={` ${i18n.time.minuteShort}`}
+                value={duration}
+              />
+            </View>
           </View>
         )}
       </View>
@@ -173,9 +216,26 @@ const styles = StyleSheet.create({
   titleInput: {
     flex: 1,
   },
+  inputWrapper: {
+    flex: 1,
+  },
   input: {
     flex: 1,
     paddingLeft: 11,
     paddingRight: 11,
+  },
+  required: {
+    color: vars.color.red,
+  },
+  error: {
+    marginTop: 3,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: vars.color.red,
   },
 });

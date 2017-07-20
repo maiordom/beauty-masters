@@ -107,6 +107,25 @@ export const setData = data => ({
   data,
 });
 
+export const validateServices = () => (dispatch, getState) => {
+  dispatch({type: actions.MASTER_SERVICES_VALIDATE});
+
+  const state = getState();
+
+  if (!state.masterEditor.serviceManicure.hasValidationErrors
+    && !state.masterEditor.servicePedicure.hasValidationErrors
+  ) {
+    if (state.masterEditor.servicePedicure.activeServicesCount === 0) {
+      return Promise.reject({ type: 'FILL_PEDICURE_SECTION' })
+    }
+
+    Actions.masterEditorHandlingTools();
+    return Promise.resolve();
+  }
+
+  return Promise.reject({ type: 'VALIDATION_ERRORS' });
+};
+
 export const removePhoto = (itemId, modelName) => ({
   type: actions.MASTER_PHOTO_REMOVE,
   itemId,

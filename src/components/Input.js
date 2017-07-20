@@ -11,7 +11,7 @@ class InputBase extends Component {
     super();
 
     this.state = {
-      value: props.value || '',
+      value: props.value && props.value.toString() || '',
       isFocused: false,
     };
   }
@@ -21,6 +21,12 @@ class InputBase extends Component {
   debounceOnChange = () => debounce(() => {
     this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
   }, this.props.debounceTimer || 1000)();
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value === null && nextProps.value !== null) {
+      this.state.value = nextProps.value.toString();
+    }
+  }
 
   onChangeText = value => {
     const { formatValue, replaceReg } = this.props;
@@ -52,9 +58,15 @@ class InputBase extends Component {
   };
 
   getValue() {
-    const { sign } = this.props;
+    const { sign, formatValue, replaceReg } = this.props;
 
     let value = this.state.value;
+
+    if (replaceReg) {
+      value = value.replace(replaceReg, '');
+    }
+
+    value = formatValue ? formatValue(value) : value;
 
     if (value && sign && !this.state.isFocused) {
       value += sign;
@@ -104,7 +116,7 @@ export default class Input extends InputBase {
       editable,
       icon,
       inputWrapperStyle,
-      keyboardType,
+      keyboardType = 'default',
       placeholder,
       placeholderTextColor,
       style: customInputStyle,
