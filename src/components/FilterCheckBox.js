@@ -16,16 +16,16 @@ type onChangeDuration = (duration: string, modelName?: string, index?: number) =
 type onChangePrice = (price: number, modelName?: string, index?: number) => void;
 type onChangeTitle = (title: string, modelName?: string, index?: number) => void;
 
-type Props = {
+type TProps = {
   active?: boolean,
   duration?: string,
   errorFillPrice?: boolean,
   index?: number,
   modelName?: string,
   onChange: onChange,
-  onChangeDuration: onChangeDuration,
-  onChangePrice: onChangePrice,
-  onChangeTitle: onChangeTitle,
+  onChangeDuration?: onChangeDuration,
+  onChangePrice?: onChangePrice,
+  onChangeTitle?: onChangeTitle,
   price?: number,
   required?: boolean,
   title?: string,
@@ -33,6 +33,13 @@ type Props = {
   titleType?: string,
   withInput?: boolean,
 };
+
+type TDefaultProps = {
+  onChange: onChange,
+  onChangeDuration: onChangeDuration,
+  onChangePrice: onChangePrice,
+  onChangeTitle: onChangeTitle,
+}
 
 const icons = {
   ...Platform.select({
@@ -42,13 +49,16 @@ const icons = {
   }),
 };
 
-export default class FilterCheckBox extends Component<void, Props, void> {
+export default class FilterCheckBox extends Component<TDefaultProps, TProps, void> {
   static defaultProps = {
     onChange: (active: boolean, modelName: ?string, index?: number) => {},
     onChangeDuration: (duration: string, modelName?: string, index?: number) => {},
     onChangePrice: (price: number, modelName?: string, index?: number) => {},
     onChangeTitle: (title: string, modelName?: string, index?: number) => {},
   };
+
+  durationRef: Object;
+  priceRef: Object;
 
   shouldComponentUpdate = shouldComponentUpdate();
 
@@ -81,15 +91,15 @@ export default class FilterCheckBox extends Component<void, Props, void> {
   };
 
   onChangeTitle = (title: string) => {
-    this.props.onChangeTitle(
+    this.props.onChangeTitle && this.props.onChangeTitle(
       title,
       this.props.modelName,
       this.props.index,
     );
   };
 
-  setPriceRef = ref => this.priceRef = ref;
-  setDurationRef = ref => this.durationRef = ref;
+  setPriceRef = (ref: Object) => this.priceRef = ref;
+  setDurationRef = (ref: Object) => this.durationRef = ref;
 
   render() {
     const {

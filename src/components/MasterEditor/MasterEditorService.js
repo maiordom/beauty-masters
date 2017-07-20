@@ -1,7 +1,15 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, InteractionManager, Text, TouchableWithoutFeedback, Platform } from 'react-native';
+import {
+  InteractionManager,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import Tabs from '../Tabs';
 import ButtonControl from '../ButtonControl';
@@ -34,16 +42,24 @@ type TProps = {
   servicePedicure: Object,
 };
 
-export default class MasterEditorService extends Component<void, TProps, void> {
+type TState = {
+  renderLoader: boolean,
+  showAllFieldsRequiredModal: boolean,
+  showFillPedicureSectionModal: boolean,
+  tabActiveKey: string,
+  tabs: Array<{ title: string, key: string, }>,
+};
+
+export default class MasterEditorService extends Component<void, TProps, TState> {
   state = {
-    showFillPedicureSectionModel: false,
+    renderLoader: true,
     showAllFieldsRequiredModal: false,
+    showFillPedicureSectionModal: false,
     tabActiveKey: 'serviceManicure',
     tabs: [
       { title: i18n.manicure, key: 'serviceManicure' },
       { title: i18n.pedicure, key: 'servicePedicure' },
     ],
-    renderLoader: true,
   };
 
   componentDidMount() {
@@ -103,10 +119,10 @@ export default class MasterEditorService extends Component<void, TProps, void> {
   render() {
     const {
       renderLoader,
-      showFillPedicureSectionModal,
       showAllFieldsRequiredModal,
-      tabs,
+      showFillPedicureSectionModal,
       tabActiveKey,
+      tabs,
     } = this.state;
 
     if (renderLoader) {
