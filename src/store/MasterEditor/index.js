@@ -40,6 +40,10 @@ each({
   });
 });
 
+Object.assign(params.serviceManicure.classicManicure, { required: true, active: true });
+Object.assign(params.serviceManicure.removingNailPolishManicure, { required: true, active: true });
+Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: true, active: true });
+
 params.calendarSettingsOne.index = 0;
 params.calendarSettingsTwo.index = 1;
 params.calendarSettingsThree.index = 2;
@@ -52,7 +56,11 @@ const createMasterQuery: CreateMasterQuery = {
   manicure_custom_services: [],
   pedicure_custom_services: [],
   master_photos: [],
-  services: [],
+  services: [
+    { service_id: params.serviceManicure.classicManicure.id },
+    { service_id: params.serviceManicure.removingNailPolishManicure.id },
+    { service_id: params.serviceManicure.applyingNailPolishManicure.id }
+  ],
   work_photos: [],
 };
 
