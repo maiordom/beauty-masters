@@ -23,12 +23,10 @@ const mapDispatchToProps = dispatch => {
 
   return {
     actions: {
-      next() {
-        Actions.masterEditorHandlingTools();
-      },
+      next: Actions.masterEditorHandlingTools,
       ...actions,
     },
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorService));
