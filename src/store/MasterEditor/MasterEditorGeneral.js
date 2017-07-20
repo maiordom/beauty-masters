@@ -36,7 +36,7 @@ const isSalonField = (isSalon: boolean) => ({
 const salonNameField = (salonName: string) => ({
   placeholder: i18n.salonName,
   queryParam: 'salon_name',
-  value: salonName,
+  value: salonName || null,
 }: GeneralFieldModel);
 
 export default {

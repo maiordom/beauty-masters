@@ -23,6 +23,7 @@ export type ServiceManicure = {
   id: number,
   parentServiceId: number,
   price?: number,
+  required?: boolean,
   title: string,
 };
 
