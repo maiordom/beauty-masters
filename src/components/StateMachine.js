@@ -18,6 +18,14 @@ export default class StateMachine extends PureComponent<void, TProps, TState> {
     inited: false,
   };
 
+  constructor(props) {
+    super(props);
+
+    if (props.visible) {
+      this.state.inited = true;
+    }
+  }
+
   componentWillReceiveProps(nextProps: TProps) {
     if (nextProps.visible && !this.state.inited) {
       this.setState({ inited: true });

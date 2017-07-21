@@ -173,33 +173,35 @@ export default class SearchFormShort extends Component {
             masterType={general.masterType}
             onMasterTypeSelect={this.onMasterTypeSelect}
           />
-          <View style={!showShortForm && styles.hidden}>
-            <FilterCheckBox
-              {...serviceManicure.manicure}
-              active={isManicureActive}
-              onChange={this.onServiceToggle('serviceManicure')}
-              withInput={false}
-            />
-            <FilterCheckBox
-              {...servicePedicure.pedicure}
-              active={isPedicureActive}
-              onChange={this.onServiceToggle('servicePedicure')}
-              withInput={false}
-            />
-            <FilterCheckBox
-              title={i18n.filters.nailExtensionShort}
-              active={isExtensionActive}
-              modelName="extensionShort"
-              onChange={this.onExtensionToggle}
-              withInput={false}
-            />
-            <FilterCheckBox
-              title={i18n.filters.withdrawal}
-              active={isWithdrawalActive}
-              onChange={this.onWithdrawalToggle}
-              withInput={false}
-            />
-          </View>
+          <StateMachine visible={showShortForm}>
+            <View>
+              <FilterCheckBox
+                {...serviceManicure.manicure}
+                active={isManicureActive}
+                onChange={this.onServiceToggle('serviceManicure')}
+                withInput={false}
+              />
+              <FilterCheckBox
+                {...servicePedicure.pedicure}
+                active={isPedicureActive}
+                onChange={this.onServiceToggle('servicePedicure')}
+                withInput={false}
+              />
+              <FilterCheckBox
+                title={i18n.filters.nailExtensionShort}
+                active={isExtensionActive}
+                modelName="extensionShort"
+                onChange={this.onExtensionToggle}
+                withInput={false}
+              />
+              <FilterCheckBox
+                title={i18n.filters.withdrawal}
+                active={isWithdrawalActive}
+                onChange={this.onWithdrawalToggle}
+                withInput={false}
+              />
+            </View>
+          </StateMachine>
           <StateMachine visible={!showShortForm}>
             <SearchFormBlockManicure
               service={serviceManicure}
