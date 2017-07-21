@@ -20,6 +20,7 @@ import SearchFormMasterType from './SearchFormMasterType';
 import SearchFormBlockManicure from './SearchFormBlockManicure';
 import SearchFormBlockPedicure from './SearchFormBlockPedicure';
 
+import StateMachine from '../../components/StateMachine';
 import { FilterLabel } from '../../components/FilterLabel';
 import FilterTab from '../../components/Filter';
 import FilterCheckBox from '../../components/FilterCheckBox';
@@ -199,18 +200,18 @@ export default class SearchFormShort extends Component {
               withInput={false}
             />
           </View>
-          <View style={showShortForm && styles.hidden}>
+          <StateMachine visible={!showShortForm}>
             <SearchFormBlockManicure
               service={serviceManicure}
               onChange={this.onServiceToggle('serviceManicure')}
             />
-          </View>
-          <View style={showShortForm && styles.hidden}>
+          </StateMachine>
+          <StateMachine visible={!showShortForm}>
             <SearchFormBlockPedicure
               service={servicePedicure}
               onChange={this.onServiceToggle('servicePedicure')}
             />
-          </View>
+          </StateMachine>
           <ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
@@ -266,10 +267,5 @@ const styles = StyleSheet.create({
   },
   nextText: {
     color: vars.color.red,
-  },
-  hidden: {
-    position: 'absolute',
-    width: 0,
-    height: 0,
   },
 });
