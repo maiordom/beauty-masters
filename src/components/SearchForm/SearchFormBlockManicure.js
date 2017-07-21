@@ -1,14 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity, Text, Animated, Easing } from 'react-native';
 
 import type { ServiceToggleType } from '../../types/SearchFormTypes';
 
 import FilterSubLabel from '../../components/FilterSubLabel';
 import FilterCheckBox from '../../components/FilterCheckBox';
-import Switch from '../../components/Switch';
-import switchStyles from './SearchFormSwitchStyles';
+import switchStyles, { arrowIcon } from './SearchFormSwitchStyles';
 
 import i18n from '../../i18n';
 
@@ -18,26 +17,45 @@ export default class SearchFormBlockManicure extends Component {
     onChange: ServiceToggleType
   };
 
-  state = { showBlock: true };
+  state = {
+    showBlock: true,
+    spinValue: new Animated.Value(0),
+  };
 
-  toggleBlock = (nextState: boolean): void => {
-    if (nextState !== this.state.showBlock) {
-      this.setState({ showBlock: !this.state.showBlock });
-    }
+  toggleBlock = () => {
+    Animated.timing(
+      this.state.spinValue,
+      {
+        toValue: this.state.showBlock ? 1 : 0,
+        duration: 100,
+        easing: Easing.easeOut,
+        useNativeDriver: true,
+      },
+    ).start();
+
+    return this.setState({ showBlock: !this.state.showBlock });
   };
 
   render() {
     const { onChange, service } = this.props;
-    const { showBlock } = this.state;
+    const { showBlock, spinValue } = this.state;
+
+    const spin = spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '180deg'],
+    });
 
     return (
       <View>
-        <Switch
-          title={i18n.manicure}
-          customStyles={{ ...switchStyles }}
-          onChange={this.toggleBlock}
-          value={showBlock}
-        />
+        <TouchableOpacity activeOpacity={1} onPress={this.toggleBlock}>
+          <View style={switchStyles.container}>
+            <Text style={switchStyles.title}>{i18n.manicure}</Text>
+            <Animated.Image
+              style={[switchStyles.icon, { transform: [{ rotate: spin }] }]}
+              source={arrowIcon}
+            />
+          </View>
+        </TouchableOpacity>
         {showBlock &&
           <View>
             <FilterSubLabel title={i18n.filters.nailProcessingMethod} />

@@ -20,6 +20,7 @@ import SearchFormMasterType from './SearchFormMasterType';
 import SearchFormBlockManicure from './SearchFormBlockManicure';
 import SearchFormBlockPedicure from './SearchFormBlockPedicure';
 
+import StateMachine from '../../components/StateMachine';
 import { FilterLabel } from '../../components/FilterLabel';
 import FilterTab from '../../components/Filter';
 import FilterCheckBox from '../../components/FilterCheckBox';
@@ -172,8 +173,7 @@ export default class SearchFormShort extends Component {
             masterType={general.masterType}
             onMasterTypeSelect={this.onMasterTypeSelect}
           />
-
-          {showShortForm &&
+          <StateMachine visible={showShortForm}>
             <View>
               <FilterCheckBox
                 {...serviceManicure.manicure}
@@ -201,21 +201,19 @@ export default class SearchFormShort extends Component {
                 withInput={false}
               />
             </View>
-          }
-
-          {!showShortForm &&
-            // $FlowFixMe
+          </StateMachine>
+          <StateMachine visible={!showShortForm}>
             <SearchFormBlockManicure
               service={serviceManicure}
               onChange={this.onServiceToggle('serviceManicure')}
-            />}
-
-          {!showShortForm &&
+            />
+          </StateMachine>
+          <StateMachine visible={!showShortForm}>
             <SearchFormBlockPedicure
               service={servicePedicure}
               onChange={this.onServiceToggle('servicePedicure')}
-            />}
-
+            />
+          </StateMachine>
           <ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
