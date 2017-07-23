@@ -59,7 +59,7 @@ const createMasterQuery: CreateMasterQuery = {
   services: [
     { service_id: params.serviceManicure.classicManicure.id },
     { service_id: params.serviceManicure.removingNailPolishManicure.id },
-    { service_id: params.serviceManicure.applyingNailPolishManicure.id }
+    { service_id: params.serviceManicure.applyingNailPolishManicure.id },
   ],
   work_photos: [],
 };

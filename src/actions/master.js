@@ -108,7 +108,7 @@ export const setData = data => ({
 });
 
 export const validateServices = () => (dispatch, getState) => {
-  dispatch({type: actions.MASTER_SERVICES_VALIDATE});
+  dispatch({ type: actions.MASTER_SERVICES_VALIDATE });
 
   const state = getState();
 
@@ -116,7 +116,7 @@ export const validateServices = () => (dispatch, getState) => {
     && !state.masterEditor.servicePedicure.hasValidationErrors
   ) {
     if (state.masterEditor.servicePedicure.activeServicesCount === 0) {
-      return Promise.reject({ type: 'FILL_PEDICURE_SECTION' })
+      return Promise.reject({ type: 'FILL_PEDICURE_SECTION' });
     }
 
     Actions.masterEditorHandlingTools();

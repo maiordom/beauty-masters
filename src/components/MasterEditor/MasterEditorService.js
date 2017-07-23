@@ -110,7 +110,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
       showFillPedicureSectionModal: false,
       tabActiveKey: 'servicePedicure',
     }, () => {
-      this.scrollViewRef.scrollTo({y: 0, animated: false});
+      this.scrollViewRef.scrollTo({ y: 0, animated: false });
     });
   };
 

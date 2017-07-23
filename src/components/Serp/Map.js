@@ -244,7 +244,24 @@ export default class Map extends Component<void, Props, State> {
   onMapCardPress = () => {
     const { activePoint } = this.state;
 
-    Actions.card(activePoint);
+    if (activePoint) {
+      const {
+        id,
+        photo,
+        firstName,
+        lastName,
+        isVerified,
+      } = activePoint;
+
+      Actions.card({
+        id,
+        photo,
+        firstName,
+        lastName,
+        isVerified,
+        snippet: activePoint,
+      });
+    }
   };
 
   componentWillReceiveProps({ points }: Props) {

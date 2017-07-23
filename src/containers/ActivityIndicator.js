@@ -6,7 +6,7 @@ const mapStateToProps = (state, ownProps) => ({
   position: ownProps.position,
   animating: ownProps.animating !== undefined
     ? ownProps.animation
-    : state.activityIndicator.animating
+    : state.activityIndicator.animating,
 });
 
 export default connect(mapStateToProps)(ActivityIndicator);

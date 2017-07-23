@@ -31,13 +31,14 @@ type Address = {
 };
 
 export type MasterCardType = {
+  id: number,
+  isFavorite?: boolean,
   about: ?string,
   addresses: Array<Address>,
   certificates: ?Array<string>,
   fbProfile?: string,
   firstName: string,
   hasCertificates: boolean,
-  id: number,
   inProfile?: string,
   isSalon: boolean,
   lastName: string,

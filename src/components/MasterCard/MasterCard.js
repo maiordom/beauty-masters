@@ -29,7 +29,7 @@ import ButtonControl from '../ButtonControl';
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-import type { MasterCardType } from '../../types/MasterTypes';
+import type { MasterCardType, MapCardType } from '../../types/MasterTypes';
 
 const icons = Platform.select({
   android: {
@@ -43,7 +43,11 @@ type DefaultProps = {
   workPhoto: Array<void>,
 };
 
-type Props = MasterCardType;
+type Props = MasterCardType & {
+  actions: Object,
+  addresses?: Array<*>,
+  snippet: MapCardType,
+};
 
 type State = {
   showWorksGallery: boolean,
@@ -55,9 +59,6 @@ type State = {
 };
 
 export default class MasterCard extends Component<DefaultProps, Props, State> {
-  defaultProps: DefaultProps;
-  props: MasterCardType;
-
   static defaultProps = {
     addresses: [],
     workPhoto: [],
@@ -106,10 +107,14 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
 
   render() {
     const {
+      id,
+      actions,
       masterPhoto,
       addresses,
       workPhoto,
       services,
+      isFavorite,
+      snippet,
     } = this.props;
 
     const {
@@ -134,7 +139,12 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
                 placeholder={require('../../icons/android/master-empty.png')}
                 style={{ height: 260, width: Dimensions.get('window').width }}
               />
-              <MasterCardNavBar />
+              <MasterCardNavBar
+                id={id}
+                actions={actions}
+                snippet={snippet}
+                isFavorite={isFavorite}
+              />
               <MasterCardHeader {...this.props} />
             </View>
             {workPhoto && workPhoto.length > 0 && (
@@ -143,7 +153,7 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
                 workPhoto={workPhoto}
               />
             )}
-            {services.length > 0 && (
+            {services && services.length > 0 && (
               <MasterCardServices services={services} />
             )}
           </Fade>

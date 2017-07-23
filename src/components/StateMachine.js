@@ -42,7 +42,7 @@ export default class StateMachine extends PureComponent<void, TProps, TState> {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   hidden: {

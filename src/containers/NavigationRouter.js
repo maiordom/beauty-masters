@@ -157,6 +157,7 @@ export default () => (
         <Scene
           key="favorite"
           component={Favorites}
+          title={i18n.favorites}
         />
         <Scene
           key="userAgreement"

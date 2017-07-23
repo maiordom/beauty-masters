@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators({
     setServiceParam,
     toogleService,
-    validateServices
+    validateServices,
   }, dispatch);
 
   return {
