@@ -9,6 +9,7 @@ const methods = [
   { geoAutoComplete: 'geo.autocomplete' },
   { getDictionaries: 'dictionary.getDictionaries' },
   { userCreate: 'user.create' },
+  { userFavorites: 'user.favorites' /* fix it after */},
   { searchMasters: 'master.search' },
   { getMasterById: 'master.getById' },
   { getUserProfile: 'user.getProfile' /* fix it after */},

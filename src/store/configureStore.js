@@ -13,6 +13,10 @@ const initialState = {
   masterEditor: MasterEditor,
   searchForm: SearchForm,
   masterCards: {},
+  favorites: {
+    isLoaded: false,
+    cards: [],
+  },
 };
 
 export default function configureStore() {

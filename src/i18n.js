@@ -42,6 +42,10 @@ export default {
   errors: {
     allFieldsRequired: 'Необходимо заполнить все поля',
   },
+  favoriteEmpty: {
+    title: 'Вы пока никого не добавили',
+    text: 'Добавляйте мастеров в Избранное, нажав зведочку на экране мастера',
+  },
   favorites: 'Избранное',
   feedback: 'Отзыв о приложении',
   feedbackForm: {

@@ -118,10 +118,10 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
       <Text style={styles.required}> *</Text>
     );
 
-    const errorView = <View style={styles.error}>
+    const errorView = (<View style={styles.error}>
       <Text style={styles.errorText}>{i18n.fillField}</Text>
       <Image source={icons.warning} />
-    </View>;
+    </View>);
 
     return (
       <View style={styles.container}>

@@ -37,25 +37,29 @@ export default class MapCard extends Component {
     }).toLowerCase();
   };
 
+  onPress = () => {
+    this.props.onPress(this.props);
+  };
+
   render() {
     const {
       address,
       closestDate,
       distance,
+      firstName,
       isVerified,
+      lastName,
       location,
       masterType,
-      onPress,
       photo: uri,
       services,
-      firstName,
-      lastName,
+      type,
     } = this.props;
 
     const subtitle = masterType === 1 ? i18n.card.privareMaster : i18n.card.salon;
 
     return (
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableWithoutFeedback onPress={this.onPress}>
         <View elevation={5} style={[styles.container, location === 'map' && styles.modMap]}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
@@ -74,11 +78,13 @@ export default class MapCard extends Component {
           <View style={[styles.row, styles.rowTitle]}>
             <Image style={styles.icon} source={icons.pin} />
             <Text style={styles.text}>{address}</Text>
-            <View style={styles.distanceView}>
-              <Text style={styles.distanceText}>
-                {i18n.fromYou.toLowerCase()} {distance} {i18n.km}
-              </Text>
-            </View>
+            {type !== 'favorites' && (
+              <View style={styles.distanceView}>
+                <Text style={styles.distanceText}>
+                  {i18n.fromYou.toLowerCase()} {distance} {i18n.km}
+                </Text>
+              </View>
+            )}
           </View>
           {closestDate && (
             <View style={styles.row}>

@@ -466,5 +466,5 @@ export default makeReducer((state, action) => ({
     state.masterEditor.servicePedicure = { ...servicePedicure };
 
     return state;
-  }
+  },
 }));

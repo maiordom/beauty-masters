@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { View, ListView, StyleSheet } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import MapCard from './MapCard';
 
@@ -32,6 +33,25 @@ export default class SerpList extends Component<void, Props, State> {
     };
   }
 
+  onMapCardPress = (card: MapCardType) => {
+    const {
+      id,
+      photo,
+      firstName,
+      lastName,
+      isVerified,
+    } = card;
+
+    Actions.card({
+      id,
+      photo,
+      firstName,
+      lastName,
+      isVerified,
+      snippet: card,
+    });
+  };
+
   render() {
     const { dataSource } = this.state;
 
@@ -41,7 +61,7 @@ export default class SerpList extends Component<void, Props, State> {
           initialListSize={3}
           pageSize={3}
           dataSource={dataSource}
-          renderRow={data => <MapCard {...data} />}
+          renderRow={data => <MapCard onPress={this.onMapCardPress} {...data} />}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
         />
       </View>
@@ -49,7 +69,7 @@ export default class SerpList extends Component<void, Props, State> {
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   list: {
     padding: 8,
     backgroundColor: vars.color.darkGrey,
