@@ -21,6 +21,23 @@ export default class Tabs extends Component {
     }
   }
 
+  componentWillReceiveProps({ tabActiveKey }) {
+    if (tabActiveKey === this.state.tabActiveKey) {
+      return;
+    }
+
+    const { tabs } = this.state;
+
+    _.each(tabs, (tab, index) => {
+      tab.active = tab.key === tabActiveKey;
+    });
+
+    this.setState({
+     tabs: [ ...tabs ],
+     tabActiveKey: tabActiveKey,
+    });
+  }
+
   onPress = activeIndex => {
     const { tabs } = this.state;
     const tabActive = tabs[activeIndex];
@@ -29,7 +46,10 @@ export default class Tabs extends Component {
       tab.active = index === activeIndex;
     });
 
-    this.setState({ tabs: [...tabs] });
+    this.setState({
+       tabs: [ ...tabs ],
+       tabActiveKey: tabActive.key,
+      });
     this.props.onPress && this.props.onPress(tabActive);
   };
 

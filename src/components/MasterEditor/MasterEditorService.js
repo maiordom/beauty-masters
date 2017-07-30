@@ -175,7 +175,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
         </Modal>
         <ScrollView ref={this.setScrollViewRef}>
           <Label text={i18n.yourServices} spacing />
-          <Tabs tabs={tabs} onPress={this.onServicesPress} />
+          <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
           <StateMachine visible={tabActiveKey === 'servicePedicure'}>
             <ServicesListPedicure models={servicePedicure} {...filterHandlers} />
           </StateMachine>
