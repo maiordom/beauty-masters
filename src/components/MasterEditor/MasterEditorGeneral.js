@@ -1,5 +1,9 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
+import upperFirst from 'lodash/upperFirst';
+import { toPattern } from 'vanilla-masker';
 
 import Input from '../Input';
 import Switch from '../Switch';
@@ -18,15 +22,34 @@ const icons = Platform.select({
 
 export default class MasterEditorGeneral extends Component {
   state = {
-    validationStatus: null,
     hasError: false,
+    validationStatus: null,
   };
 
-  onChange = (value, modelName) => {
+  onChange = (value, modelName, toUpperFirst) => {
+    value = toUpperFirst ? upperFirst(value) : value;
     this.props.actions.setFieldValue(modelName, value, this.props[modelName].sectionName);
     if (this.state.hasError) {
       this.validate();
     }
+  };
+
+  onUserNameChange = (...args) => this.onChange(...args, true);
+
+  formatPhone = (value: string) => {
+    let rawValue = value.replace(/[^0-9]+/g, '');
+
+    if (rawValue.length > 1 && rawValue[0] === '7') {
+      rawValue = rawValue.slice(1);
+    }
+
+    if (value === '7') {
+      rawValue = '';
+    }
+
+    return toPattern(rawValue, {
+      pattern: '+7 (999) 999 99 99'
+    });
   };
 
   onNextPress = () => {
@@ -38,9 +61,9 @@ export default class MasterEditorGeneral extends Component {
   validate() {
     const {
       firstNameField,
+      isSalonField,
       lastNameField,
       phoneField,
-      isSalonField,
       salonNameField,
     } = this.props;
 
@@ -71,9 +94,26 @@ export default class MasterEditorGeneral extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inner}>
-          <Input {...firstNameField} debounce onChange={this.onChange} />
-          <Input {...lastNameField} debounce onChange={this.onChange} />
-          <Input {...phoneField} keyboardType="phone-pad" debounce onChange={this.onChange} />
+          <Input
+           {...firstNameField}
+            debounce
+            formatValue={upperFirst}
+            onChange={this.onUserNameChange}
+          />
+          <Input
+            {...lastNameField}
+            debounce
+            formatValue={upperFirst}
+            onChange={this.onUserNameChange}
+          />
+          <Input
+            {...phoneField}
+            debounce
+            formatValue={this.formatPhone}
+            keyboardType="phone-pad"
+            onChange={this.onChange}
+            replaceReg={/(?!^-)[^0-9]/g}
+          />
           <Switch {...isSalonField} onChange={this.onChange} />
           <Input {...salonNameField} debounce editable={isSalonField.value} onChange={this.onChange} />
           {validationStatus === ALL_FIELDS_REQUIRED && (

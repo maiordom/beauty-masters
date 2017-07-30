@@ -63,7 +63,6 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
-        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -109,6 +108,7 @@ export default () => (
           component={MasterEditorGeneral}
         />
         <Scene
+          initial
           key="masterEditorService"
           {...getMasterStyle()}
           title={i18n.masterEditor.services}

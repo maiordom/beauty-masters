@@ -19,6 +19,7 @@ import Label from '../Label';
 import Input from '../Input';
 import Modal from '../Modal';
 import { FilterLabel } from '../FilterLabel';
+import StateMachine from '../StateMachine';
 
 import CustomServices from '../../containers/CustomServices';
 
@@ -147,53 +148,48 @@ export default class MasterEditorService extends Component<void, TProps, TState>
       onChangePrice,
     };
 
-    let servicesList = null;
-    let customServices = null;
-
-    if (tabActiveKey === 'servicePedicure') {
-      servicesList = <ServicesListPedicure models={servicePedicure} {...filterHandlers} />;
-      customServices = <CustomServices key="pedicure" type="pedicure" />;
-    } else {
-      servicesList = <ServicesListManicure models={serviceManicure} {...filterHandlers} />;
-      customServices = <CustomServices key="manicure" type="manicure" />;
-    }
-
     return (
       <View style={styles.container}>
-        {showAllFieldsRequiredModal && (
-          <Modal>
-            <Text>{i18n.fillAllRequiredFields}</Text>
-            <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
-              <View style={validationStyles.button}>
-                <Text style={validationStyles.text}>OK</Text>
+        <Modal isVisible={showAllFieldsRequiredModal}>
+          <Text>{i18n.fillAllRequiredFields}</Text>
+          <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
+            <View style={validationStyles.button}>
+              <Text style={validationStyles.text}>OK</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+        <Modal isVisible={showFillPedicureSectionModal}>
+          <Text style={pedicureModalStyles.title}>{i18n.fillPedicureSection}</Text>
+          <View style={pedicureModalStyles.row}>
+            <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>
+              <View style={pedicureModalStyles.button}>
+                <Text style={pedicureModalStyles.text}>{i18nContinue}</Text>
               </View>
             </TouchableWithoutFeedback>
-          </Modal>
-        )}
-        {showFillPedicureSectionModal && (
-          <Modal>
-            <Text style={pedicureModalStyles.title}>{i18n.fillPedicureSection}</Text>
-            <View style={pedicureModalStyles.row}>
-              <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>
-                <View style={pedicureModalStyles.button}>
-                  <Text style={pedicureModalStyles.text}>{i18nContinue}</Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={this.onPedicureAttentionFill}>
-                <View style={pedicureModalStyles.button}>
-                  <Text style={pedicureModalStyles.text}>{i18nFill}</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </Modal>
-        )}
+            <TouchableWithoutFeedback onPress={this.onPedicureAttentionFill}>
+              <View style={pedicureModalStyles.button}>
+                <Text style={pedicureModalStyles.text}>{i18nFill}</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </Modal>
         <ScrollView ref={this.setScrollViewRef}>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} onPress={this.onServicesPress} />
-          {servicesList}
+          <StateMachine visible={tabActiveKey === 'servicePedicure'}>
+            <ServicesListPedicure models={servicePedicure} {...filterHandlers} />
+          </StateMachine>
+          <StateMachine visible={tabActiveKey === 'serviceManicure'}>
+            <ServicesListManicure models={serviceManicure} {...filterHandlers} />
+          </StateMachine>
           <Input {...homeAllowanceField} inputWrapperStyle={styles.homeAllowance} />
           <FilterLabel text={i18n.filters.otherServices} />
-          {customServices}
+          <StateMachine visible={tabActiveKey === 'servicePedicure'}>
+            <CustomServices key="pedicure" type="pedicure" />
+          </StateMachine>
+          <StateMachine visible={tabActiveKey === 'serviceManicure'}>
+            <CustomServices key="manicure" type="manicure" />
+          </StateMachine>
         </ScrollView>
         <ButtonControl onPress={this.onPressNext} />
       </View>

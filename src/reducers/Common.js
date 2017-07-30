@@ -4,7 +4,7 @@ import actions from '../constants/common';
 
 export default makeReducer((state, action) => ({
   [actions.DICTIONARIES_SET]: () => {
-    const { services } = action;
+    const { services = [] } = action;
     const serviceMapping = {};
 
     services.forEach(service => {
