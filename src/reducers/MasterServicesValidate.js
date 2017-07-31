@@ -44,6 +44,13 @@ export const validateCustomServices = (state) => {
         } else {
           model.errorFillPrice = false;
         }
+
+        if (!model.title) {
+          model.errorFillTitle = true;
+          service.hasValidationErrors;
+        } else {
+          model.errorFillTitle = false;
+        }
       }
     });
   });

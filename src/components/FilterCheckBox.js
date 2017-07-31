@@ -20,6 +20,7 @@ type TProps = {
   active?: boolean,
   duration?: string,
   errorFillPrice?: boolean,
+  errorFillTitle?: boolean,
   index?: number,
   modelName?: string,
   onChange: onChange,
@@ -98,6 +99,11 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
     );
   };
 
+  errorView = (wrapperStyle) => (<View style={[styles.error, wrapperStyle]}>
+    <Text style={styles.errorText}>{i18n.fillField}</Text>
+    <Image source={icons.warning} />
+  </View>);
+
   setPriceRef = (ref: Object) => this.priceRef = ref;
   setDurationRef = (ref: Object) => this.durationRef = ref;
 
@@ -106,6 +112,7 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
       active,
       duration,
       errorFillPrice,
+      errorFillTitle,
       price,
       required,
       title,
@@ -118,11 +125,6 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
       <Text style={styles.required}> *</Text>
     );
 
-    const errorView = (<View style={styles.error}>
-      <Text style={styles.errorText}>{i18n.fillField}</Text>
-      <Image source={icons.warning} />
-    </View>);
-
     return (
       <View style={styles.container}>
         <TouchableHighlight
@@ -131,19 +133,22 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
           onPress={this.onPress}
           style={[styles.button, titleType === 'input' && styles.buttonWithInput]}
         >
-          <View style={styles.buttonContent}>
-            {titleType === 'text' && (
-              <Text style={styles.title}>{title}{requiredText}</Text>
-            )}
-            {titleType === 'input' && (
-              <Input
-                inputWrapperStyle={styles.titleInput}
-                onChange={this.onChangeTitle}
-                placeholder={titlePlaceholder}
-                value={title}
-              />
-            )}
-            <Checkbox onPress={this.onPress} checked={active} />
+          <View>
+            <View style={styles.buttonContent}>
+              {titleType === 'text' && (
+                <Text style={styles.title}>{title}{requiredText}</Text>
+              )}
+              {titleType === 'input' && (
+                <Input
+                  inputWrapperStyle={styles.titleInput}
+                  onChange={this.onChangeTitle}
+                  placeholder={titlePlaceholder}
+                  value={title}
+                />
+              )}
+              <Checkbox onPress={this.onPress} checked={active} />
+            </View>
+            {errorFillTitle && this.errorView(styles.titleError)}
           </View>
         </TouchableHighlight>
         {active && withInput && (
@@ -160,7 +165,7 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
                 sign={` ${i18n.currency.roubleSign}`}
                 value={price}
               />
-              {errorFillPrice && errorView}
+              {errorFillPrice && this.errorView()}
             </View>
             <View style={styles.inputWrapper}>
               <Input
@@ -237,5 +242,11 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: vars.color.red,
+    marginRight: 10,
+  },
+  titleError: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    justifyContent: 'flex-start',
   },
 });

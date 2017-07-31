@@ -437,6 +437,14 @@ export default makeReducer((state, action) => ({
       customService[model.queryMapping[key]] = changes[key];
     });
 
+    if (typeof item.title === 'string' && item.title.length && item.errorFillTitle) {
+      item.errorFillTitle = false;
+    }
+
+    if (typeof item.price === 'number' && item.price > 0 && item.errorFillPrice) {
+      item.errorFillPrice = false;
+    }
+
     return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
   },
 
