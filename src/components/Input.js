@@ -19,7 +19,9 @@ class InputBase extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   debounceOnChange = () => debounce(() => {
-    this.props.onChange && this.props.onChange(this.state.value, this.props.modelName);
+    const value = this.clearValue(this.state.value);
+
+    this.props.onChange && this.props.onChange(value, this.props.modelName);
   }, this.props.debounceTimer || 1000)();
 
   componentWillReceiveProps(nextProps) {
@@ -31,9 +33,7 @@ class InputBase extends Component {
   onChangeText = value => {
     const { formatValue, replaceReg } = this.props;
 
-    if (replaceReg) {
-      value = value.replace(replaceReg, '');
-    }
+    value = this.clearValue(value);
 
     this.setState(
       { value: formatValue ? formatValue(value) : value },
@@ -47,24 +47,26 @@ class InputBase extends Component {
 
   onBlur = () => {
     const { replaceReg } = this.props;
-    let value = this.state.value;
-
-    if (replaceReg) {
-      value = value.replace(replaceReg, '');
-    }
+    let value = this.clearValue(this.state.value);
 
     this.setState({ isFocused: false });
     this.props.onChange && this.props.onChange(value, this.props.modelName);
   };
 
-  getValue() {
-    const { sign, formatValue, replaceReg } = this.props;
-
-    let value = this.state.value;
+  clearValue = (value) => {
+    const { replaceReg } = this.props;
 
     if (replaceReg) {
       value = value.replace(replaceReg, '');
     }
+
+    return value;
+  };
+
+  getValue() {
+    const { sign, formatValue, replaceReg } = this.props;
+
+    let value = this.clearValue(this.state.value);
 
     value = formatValue ? formatValue(value) : value;
 

@@ -102,13 +102,13 @@ export default () => (
           component={MasterAuthorization}
         />
         <Scene
+          initial
           key="masterEditorGeneral"
           {...getMasterStyle()}
           title={i18n.masterEditor.generalInformation}
           component={MasterEditorGeneral}
         />
         <Scene
-          initial
           key="masterEditorService"
           {...getMasterStyle()}
           title={i18n.masterEditor.services}

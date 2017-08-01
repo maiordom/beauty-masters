@@ -20,9 +20,26 @@ const icons = Platform.select({
   },
 });
 
-export default class MasterEditorGeneral extends Component {
+type TState = {
+    hasError: boolean;
+    errorFillPhoneNumber: boolean;
+    validationStatus: null | string;
+};
+
+type TProps = {
+    actions: object;
+    onNextPress: () => void;
+    firstNameField: object;
+    isSalonField: object;
+    lastNameField: object;
+    phoneField: object;
+    salonNameField: object;
+};
+
+export default class MasterEditorGeneral extends Component<void, void, TState> {
   state = {
     hasError: false,
+    errorFillPhoneNumber: false,
     validationStatus: null,
   };
 
@@ -67,18 +84,40 @@ export default class MasterEditorGeneral extends Component {
       salonNameField,
     } = this.props;
 
+    let validation = true;
+    let state = {};
+
+    if (!phoneField.value || phoneField.value && phoneField.value.length < 11) {
+        validation = false;
+        state = { errorFillPhoneNumber: true, hasError: true };
+    } else {
+        state = { errorFillPhoneNumber: false };
+    }
+
     if (!firstNameField.value
       || !lastNameField.value
       || !phoneField.value
       || isSalonField.value && !salonNameField.value
     ) {
-      this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
-      return false;
+      validation = false;
+      state = Object.assign(state, { validationStatus: ALL_FIELDS_REQUIRED });
+    } else {
+      state = Object.assign(state, { validationStatus: null });
     }
 
-    this.setState({ validationStatus: null, hasError: false });
-    return true;
+    state.hasError = !validation;
+
+    this.setState(state);
+
+    return validation;
   }
+
+  error = (text) => (
+    <View style={styles.error}>
+      <Text style={styles.errorText}>{text}</Text>
+      <Image style={styles.errorImage} source={icons.warning} />
+    </View>
+  );
 
   render() {
     const {
@@ -89,7 +128,7 @@ export default class MasterEditorGeneral extends Component {
       salonNameField,
     } = this.props;
 
-    const { validationStatus, hasError } = this.state;
+    const { validationStatus, hasError, errorFillPhoneNumber } = this.state;
 
     return (
       <View style={styles.container}>
@@ -114,13 +153,13 @@ export default class MasterEditorGeneral extends Component {
             onChange={this.onChange}
             replaceReg={/(?!^-)[^0-9]/g}
           />
+          {errorFillPhoneNumber && (
+            this.error(i18n.fillPhoneNumber)
+          )}
           <Switch {...isSalonField} onChange={this.onChange} />
           <Input {...salonNameField} debounce editable={isSalonField.value} onChange={this.onChange} />
           {validationStatus === ALL_FIELDS_REQUIRED && (
-            <View style={styles.error}>
-              <Text style={styles.errorText}>{i18n.errors.allFieldsRequired}</Text>
-              <Image source={icons.warning} />
-            </View>
+            this.error(i18n.errors.allFieldsRequired)
           )}
         </View>
         <ButtonControl
@@ -144,9 +183,12 @@ const styles = StyleSheet.create({
   error: {
     paddingLeft: 4,
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   errorText: {
     color: vars.color.red,
+    marginRight: 10,
+  },
+  errorImage: {
+    marginTop: 3,
   },
 });
