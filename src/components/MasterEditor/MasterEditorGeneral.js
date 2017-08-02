@@ -21,26 +21,30 @@ const icons = Platform.select({
 });
 
 type TState = {
-    hasError: boolean;
+    errorFillFirstName: boolean;
+    errorFillLastName: boolean;
     errorFillPhoneNumber: boolean;
-    validationStatus: null | string;
+    errorFillSalonName: boolean;
+    hasError: boolean;
 };
 
 type TProps = {
     actions: object;
-    onNextPress: () => void;
     firstNameField: object;
     isSalonField: object;
     lastNameField: object;
+    onNextPress: () => void;
     phoneField: object;
     salonNameField: object;
 };
 
-export default class MasterEditorGeneral extends Component<void, void, TState> {
+export default class MasterEditorGeneral extends Component<void, TProps, TState> {
   state = {
-    hasError: false,
+    errorFillFirstName: false,
+    errorFillLastName: false,
     errorFillPhoneNumber: false,
-    validationStatus: null,
+    errorFillSalonName: false,
+    hasError: false,
   };
 
   onChange = (value, modelName, toUpperFirst) => {
@@ -89,10 +93,14 @@ export default class MasterEditorGeneral extends Component<void, void, TState> {
 
     if (!phoneField.value || phoneField.value && phoneField.value.length < 11) {
         validation = false;
-        state = { errorFillPhoneNumber: true, hasError: true };
+        state.errorFillPhoneNumber = true;
     } else {
-        state = { errorFillPhoneNumber: false };
+        state.errorFillPhoneNumber = false;
     }
+
+    state.errorFillFirstName = !firstNameField.value;
+    state.errorFillLastName = !lastNameField.value;
+    state.errorFillSalonName = isSalonField.value && !salonNameField.value;
 
     if (!firstNameField.value
       || !lastNameField.value
@@ -100,9 +108,6 @@ export default class MasterEditorGeneral extends Component<void, void, TState> {
       || isSalonField.value && !salonNameField.value
     ) {
       validation = false;
-      state = Object.assign(state, { validationStatus: ALL_FIELDS_REQUIRED });
-    } else {
-      state = Object.assign(state, { validationStatus: null });
     }
 
     state.hasError = !validation;
@@ -122,13 +127,19 @@ export default class MasterEditorGeneral extends Component<void, void, TState> {
   render() {
     const {
       firstNameField,
+      isSalonField,
       lastNameField,
       phoneField,
-      isSalonField,
       salonNameField,
     } = this.props;
 
-    const { validationStatus, hasError, errorFillPhoneNumber } = this.state;
+    const {
+      errorFillFirstName,
+      errorFillLastName,
+      errorFillPhoneNumber,
+      errorFillSalonName,
+      hasError,
+    } = this.state;
 
     return (
       <View style={styles.container}>
@@ -139,12 +150,18 @@ export default class MasterEditorGeneral extends Component<void, void, TState> {
             formatValue={upperFirst}
             onChange={this.onUserNameChange}
           />
+          {errorFillFirstName && (
+            this.error(i18n.fillField)
+          )}
           <Input
             {...lastNameField}
             debounce
             formatValue={upperFirst}
             onChange={this.onUserNameChange}
           />
+          {errorFillLastName && (
+            this.error(i18n.fillField)
+          )}
           <Input
             {...phoneField}
             debounce
@@ -158,8 +175,8 @@ export default class MasterEditorGeneral extends Component<void, void, TState> {
           )}
           <Switch {...isSalonField} onChange={this.onChange} />
           <Input {...salonNameField} debounce editable={isSalonField.value} onChange={this.onChange} />
-          {validationStatus === ALL_FIELDS_REQUIRED && (
-            this.error(i18n.errors.allFieldsRequired)
+          {errorFillSalonName && (
+            this.error(i18n.fillField)
           )}
         </View>
         <ButtonControl
