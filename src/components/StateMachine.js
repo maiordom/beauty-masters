@@ -18,7 +18,7 @@ export default class StateMachine extends PureComponent<void, TProps, TState> {
     inited: false,
   };
 
-  constructor(props) {
+  constructor(props: TProps) {
     super(props);
 
     if (props.visible) {

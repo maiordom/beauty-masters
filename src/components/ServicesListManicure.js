@@ -19,7 +19,16 @@ type TProps = {
   onChangePrice: onChangePrice,
 };
 
-export default class ServicesListManicure extends Component<void, TProps, void> {
+type TState = {
+  automate: Array<string>,
+  nailProcessingMethod?: boolean,
+  coverage?: boolean,
+  nailDesign?: boolean,
+  nailExtension?: boolean,
+  withdrawal?: boolean,
+};
+
+export default class ServicesListManicure extends Component<void, TProps, TState> {
   state = {
     automate: [
       'nailProcessingMethod',

@@ -22,9 +22,11 @@ const icons = {
   }),
 };
 
-export default class MapCard extends Component {
-  props: MapCardType;
+type TProps = MapCardType & {
+  type: string,
+};
 
+export default class MapCard extends Component<void, TProps, void> {
   getDate = () => {
     const { closestDate } = this.props;
 
