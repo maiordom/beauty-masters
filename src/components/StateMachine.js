@@ -18,7 +18,7 @@ export default class StateMachine extends PureComponent<void, TProps, TState> {
     inited: false,
   };
 
-  constructor(props) {
+  constructor(props: TProps) {
     super(props);
 
     if (props.visible) {
@@ -49,5 +49,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 0,
     height: 0,
+    left: -1000,
   },
 });

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, InteractionManager } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
@@ -12,15 +12,51 @@ type onChange = (active: boolean, modelName: string) => void;
 type onChangeDuration = (duration: string, modelName: string) => void;
 type onChangePrice = (price: number, modelName: string) => void;
 
-type Props = {
+type TProps = {
   models: Object,
   onChange: onChange,
   onChangeDuration: onChangeDuration,
   onChangePrice: onChangePrice,
 };
 
-export default class ServicesListManicure extends Component {
-  props: Props;
+type TState = {
+  automate: Array<string>,
+  nailProcessingMethod?: boolean,
+  coverage?: boolean,
+  nailDesign?: boolean,
+  nailExtension?: boolean,
+  withdrawal?: boolean,
+};
+
+export default class ServicesListManicure extends Component<void, TProps, TState> {
+  state = {
+    automate: [
+      'nailProcessingMethod',
+      'coverage',
+      'nailDesign',
+      'nailExtension',
+      'withdrawal',
+    ],
+  };
+
+  componentDidMount() {
+    setTimeout(() => this.iterate(), 10);
+  }
+
+  iterate = () => {
+    if (!this.state.automate.length) {
+      return;
+    }
+
+    const sectionName = this.state.automate[0];
+
+    this.setState({
+       automate: this.state.automate.slice(1),
+       [sectionName]: true,
+    });
+
+    setTimeout(() => this.iterate(), 30);
+  };
 
   onChange = (active: boolean, modelName: string) => {
     this.props.onChange(active, modelName);
@@ -64,56 +100,69 @@ export default class ServicesListManicure extends Component {
       removingNailsManicure,
     } = this.props.models;
 
-    const {
-      onChange,
-      onChangePrice,
-      onChangeDuration,
-    } = this;
-
-    const Filter = ({ model }) => <FilterCheckBox
-      {...model}
-      onChange={onChange}
-      onChangePrice={onChangePrice}
-      onChangeDuration={onChangeDuration}
-    />;
+    const filterHandlers = {
+      onChange: this.onChange,
+      onChangeDuration: this.onChangeDuration,
+      onChangePrice: this.onChangePrice,
+    };
 
     return (
       <View>
-        <FilterLabel text={i18n.filters.nailProcessingMethod} />
-        <Filter model={classicManicure} />
-        <Filter model={hardwareManicure} />
-        <Filter model={europeanManicure} />
-        <Filter model={combinedManicure} />
-        <Filter model={expressManicure} />
-        <Filter model={hotManicure} />
-        <Filter model={spaManicure} />
+        {this.state.nailProcessingMethod && (
+          <View>
+            <FilterLabel text={i18n.filters.nailProcessingMethod} />
+            <FilterCheckBox {...classicManicure} {...filterHandlers} />
+            <FilterCheckBox {...hardwareManicure} {...filterHandlers} />
+            <FilterCheckBox {...europeanManicure} {...filterHandlers} />
+            <FilterCheckBox {...combinedManicure} {...filterHandlers} />
+            <FilterCheckBox {...expressManicure} {...filterHandlers} />
+            <FilterCheckBox {...hotManicure} {...filterHandlers} />
+            <FilterCheckBox {...spaManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        <FilterLabel text={i18n.filters.coverage} />
-        <Filter model={applyingNailPolishManicure} />
-        <Filter model={applyingShellacManicure} />
-        <Filter model={applyingBioGelManicure} />
-        <Filter model={applyingOfAnotherNailGelManicure} />
+        {this.state.coverage && (
+          <View>
+            <FilterLabel text={i18n.filters.coverage} />
+            <FilterCheckBox {...applyingNailPolishManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingShellacManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingBioGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingOfAnotherNailGelManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        <FilterLabel text={i18n.filters.nailDesign} />
-        <Filter model={frenchManicure} />
-        <Filter model={moonManicure} />
-        <Filter model={reverseMoonManicure} />
-        <Filter model={stencilManicure} />
-        <Filter model={artDesignManicure} />
-        <Filter model={gradientManicure} />
+        {this.state.nailDesign && (
+          <View>
+            <FilterLabel text={i18n.filters.nailDesign} />
+            <FilterCheckBox {...frenchManicure} {...filterHandlers} />
+            <FilterCheckBox {...moonManicure} {...filterHandlers} />
+            <FilterCheckBox {...reverseMoonManicure} {...filterHandlers} />
+            <FilterCheckBox {...stencilManicure} {...filterHandlers} />
+            <FilterCheckBox {...artDesignManicure} {...filterHandlers} />
+            <FilterCheckBox {...gradientManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        <FilterLabel text={i18n.filters.nailExtension} />
-        <Filter model={extensionTipsAcrilycManicure} />
-        <Filter model={extensionFormsAcrilycManicure} />
-        <Filter model={extensionTipsGelManicure} />
-        <Filter model={extensionAcrilycGelManicure} />
+        {this.state.nailExtension && (
+          <View>
+            <FilterLabel text={i18n.filters.nailExtension} />
+            <FilterCheckBox {...extensionTipsAcrilycManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionFormsAcrilycManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionTipsGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionAcrilycGelManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        <FilterLabel text={i18n.filters.withdrawal} />
-        <Filter model={removingNailPolishManicure} />
-        <Filter model={removingShellacManicure} />
-        <Filter model={removingBioGelManicure} />
-        <Filter model={removingGeManicure} />
-        <Filter model={removingNailsManicure} />
+        {this.state.withdrawal && (
+          <View>
+            <FilterLabel text={i18n.filters.withdrawal} />
+            <FilterCheckBox {...removingNailPolishManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingShellacManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingGeManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingNailsManicure} {...filterHandlers} />
+          </View>
+        )}
       </View>
     );
   }

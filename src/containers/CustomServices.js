@@ -17,7 +17,10 @@ const mapStateToProps = (state, { type }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ toogleCustomService, setCustomServiceParam }, dispatch),
+  actions: bindActionCreators({
+     toogleCustomService,
+     setCustomServiceParam
+  }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MasterEditorCustomServices);

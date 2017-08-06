@@ -57,6 +57,7 @@ export default {
   fill: 'Заполнить',
   fillAllRequiredFields: 'Заполните все обязательные поля',
   fillField: 'Заполните поле',
+  fillPhoneNumber: 'Поле не заполнено, менее 10 цифр',
   fillPedicureSection: 'Вы не заполнили раздел "Педикюр". Уверены, что хотите продолжить?',
   findMaster: 'Найти мастера',
   filter: 'Фильтр',

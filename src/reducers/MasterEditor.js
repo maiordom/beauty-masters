@@ -7,6 +7,8 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/master';
 
+import { validateGeneralServices, validateCustomServices } from './MasterServicesValidate';
+
 const setParam = (action, state) => {
   const { sectionName, modelName, paramValue, paramName } = action;
   const section = state.masterEditor[sectionName];
@@ -435,36 +437,21 @@ export default makeReducer((state, action) => ({
       customService[model.queryMapping[key]] = changes[key];
     });
 
+    if (typeof item.title === 'string' && item.title.length && item.errorFillTitle) {
+      item.errorFillTitle = false;
+    }
+
+    if (typeof item.price === 'number' && item.price > 0 && item.errorFillPrice) {
+      item.errorFillPrice = false;
+    }
+
     return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
   },
 
   [actions.MASTER_SERVICES_VALIDATE]: () => {
-    const { serviceManicure, servicePedicure } = state.masterEditor;
-
-    [serviceManicure, servicePedicure].forEach(service => {
-      let activeServicesCount = 0;
-
-      service.hasValidationErrors = false;
-
-      each(service, model => {
-        if (model.active) {
-          activeServicesCount++;
-          if (!model.price) {
-            model.errorFillPrice = true;
-            service.hasValidationErrors = true;
-          } else {
-            model.errorFillPrice = false;
-          }
-        }
-      });
-
-      service.activeServicesCount = activeServicesCount;
-    });
-
-    state.masterEditor = { ...state.masterEditor };
-    state.masterEditor.serviceManicure = { ...serviceManicure };
-    state.masterEditor.servicePedicure = { ...servicePedicure };
+    state = validateGeneralServices(state);
+    state = validateCustomServices(state);
 
     return state;
-  },
+  }
 }));
