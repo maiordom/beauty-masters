@@ -108,51 +108,61 @@ export default class ServicesListManicure extends Component<void, TProps, TState
 
     return (
       <View>
-        {this.state.nailProcessingMethod && (<View>
-          <FilterLabel text={i18n.filters.nailProcessingMethod} />
-          <FilterCheckBox {...classicManicure} {...filterHandlers} />
-          <FilterCheckBox {...hardwareManicure} {...filterHandlers} />
-          <FilterCheckBox {...europeanManicure} {...filterHandlers} />
-          <FilterCheckBox {...combinedManicure} {...filterHandlers} />
-          <FilterCheckBox {...expressManicure} {...filterHandlers} />
-          <FilterCheckBox {...hotManicure} {...filterHandlers} />
-          <FilterCheckBox {...spaManicure} {...filterHandlers} />
-        </View>)}
+        {this.state.nailProcessingMethod && (
+          <View>
+            <FilterLabel text={i18n.filters.nailProcessingMethod} />
+            <FilterCheckBox {...classicManicure} {...filterHandlers} />
+            <FilterCheckBox {...hardwareManicure} {...filterHandlers} />
+            <FilterCheckBox {...europeanManicure} {...filterHandlers} />
+            <FilterCheckBox {...combinedManicure} {...filterHandlers} />
+            <FilterCheckBox {...expressManicure} {...filterHandlers} />
+            <FilterCheckBox {...hotManicure} {...filterHandlers} />
+            <FilterCheckBox {...spaManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        {this.state.coverage && (<View>
-          <FilterLabel text={i18n.filters.coverage} />
-          <FilterCheckBox {...applyingNailPolishManicure} {...filterHandlers} />
-          <FilterCheckBox {...applyingShellacManicure} {...filterHandlers} />
-          <FilterCheckBox {...applyingBioGelManicure} {...filterHandlers} />
-          <FilterCheckBox {...applyingOfAnotherNailGelManicure} {...filterHandlers} />
-        </View>)}
+        {this.state.coverage && (
+          <View>
+            <FilterLabel text={i18n.filters.coverage} />
+            <FilterCheckBox {...applyingNailPolishManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingShellacManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingBioGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingOfAnotherNailGelManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        {this.state.nailDesign && (<View>
-          <FilterLabel text={i18n.filters.nailDesign} />
-          <FilterCheckBox {...frenchManicure} {...filterHandlers} />
-          <FilterCheckBox {...moonManicure} {...filterHandlers} />
-          <FilterCheckBox {...reverseMoonManicure} {...filterHandlers} />
-          <FilterCheckBox {...stencilManicure} {...filterHandlers} />
-          <FilterCheckBox {...artDesignManicure} {...filterHandlers} />
-          <FilterCheckBox {...gradientManicure} {...filterHandlers} />
-        </View>)}
+        {this.state.nailDesign && (
+          <View>
+            <FilterLabel text={i18n.filters.nailDesign} />
+            <FilterCheckBox {...frenchManicure} {...filterHandlers} />
+            <FilterCheckBox {...moonManicure} {...filterHandlers} />
+            <FilterCheckBox {...reverseMoonManicure} {...filterHandlers} />
+            <FilterCheckBox {...stencilManicure} {...filterHandlers} />
+            <FilterCheckBox {...artDesignManicure} {...filterHandlers} />
+            <FilterCheckBox {...gradientManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        {this.state.nailExtension && (<View>
-          <FilterLabel text={i18n.filters.nailExtension} />
-          <FilterCheckBox {...extensionTipsAcrilycManicure} {...filterHandlers} />
-          <FilterCheckBox {...extensionFormsAcrilycManicure} {...filterHandlers} />
-          <FilterCheckBox {...extensionTipsGelManicure} {...filterHandlers} />
-          <FilterCheckBox {...extensionAcrilycGelManicure} {...filterHandlers} />
-        </View>)}
+        {this.state.nailExtension && (
+          <View>
+            <FilterLabel text={i18n.filters.nailExtension} />
+            <FilterCheckBox {...extensionTipsAcrilycManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionFormsAcrilycManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionTipsGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionAcrilycGelManicure} {...filterHandlers} />
+          </View>
+        )}
 
-        {this.state.withdrawal && (<View>
-          <FilterLabel text={i18n.filters.withdrawal} />
-          <FilterCheckBox {...removingNailPolishManicure} {...filterHandlers} />
-          <FilterCheckBox {...removingShellacManicure} {...filterHandlers} />
-          <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
-          <FilterCheckBox {...removingGeManicure} {...filterHandlers} />
-          <FilterCheckBox {...removingNailsManicure} {...filterHandlers} />
-        </View>)}
+        {this.state.withdrawal && (
+          <View>
+            <FilterLabel text={i18n.filters.withdrawal} />
+            <FilterCheckBox {...removingNailPolishManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingShellacManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingGeManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingNailsManicure} {...filterHandlers} />
+          </View>
+        )}
       </View>
     );
   }
