@@ -2,13 +2,16 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 import config from '../config';
 
-export const post = (method, params) => (
-  RNFetchBlob.fetch('POST', `${config.host}/${config.rpc}`, {
+export const post = (method) => (
+  RNFetchBlob.fetch(method.method, config.host + method.path, {
     'Content-Type': 'application/json',
-  }, JSON.stringify({
-    ...method,
-    jsonrpc: '2.0',
-    params,
-  }))
-  .then(response => response.json())
+  })
+  .then(res => res.json())
+);
+
+export const get = (method) => (
+  RNFetchBlob.fetch(method.method, config.host + method.path, {
+      'Content-Type': 'application/json',
+  })
+  .then(res => res.json())
 );

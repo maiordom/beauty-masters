@@ -1,26 +1,25 @@
 import config from './config';
 
-const routes = {
-  upload: `${config.host}/upload`,
-};
+const routes = {};
 
 const methods = [
-  { createMaster: 'master.createMaster' },
-  { geoAutoComplete: 'geo.autocomplete' },
-  { getDictionaries: 'dictionary.getDictionaries' },
-  { userCreate: 'user.create' },
-  { userFavorites: 'user.favorites' /* fix it after */},
-  { searchMasters: 'master.search' },
-  { getMasterById: 'master.getById' },
-  { getUserProfile: 'user.getProfile' /* fix it after */},
+  { upload: '/upload', method: 'POST' },
+  { createMaster: '/master', method: 'POST' },
+  { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
+  { getDictionaries: '/dictionary', method: 'GET' },
+  { userCreate: '/user', method: 'POST' },
+  { userFavorites: '/favorites', method: 'GET' },
+  { searchMasters: '/master/search', method: 'GET' },
+  { getMasterById: '/master', method: 'GET' },
+  { getUserProfile: '/profile', method: 'GET' },
 ];
 
-methods.forEach((method, index) => {
-  const routeName = Object.keys(method)[0];
+methods.forEach((methodObj, index) => {
+  const routeName = Object.keys(methodObj)[0];
 
   routes[routeName] = {
-    id: index,
-    method: method[routeName],
+    method: methodObj.method,
+    path: methodObj[routeName],
   };
 });
 

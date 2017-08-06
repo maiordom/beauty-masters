@@ -111,9 +111,20 @@ export const validateServices = () => (dispatch, getState) => {
   dispatch({ type: actions.MASTER_SERVICES_VALIDATE });
 
   const state = getState();
+  const {
+    manicureCustomServices,
+    pedicureCustomServices,
+  } = state.masterEditor.services;
 
-  if (!state.masterEditor.serviceManicure.hasValidationErrors
-    && !state.masterEditor.servicePedicure.hasValidationErrors
+  const {
+    serviceManicure,
+    servicePedicure,
+  } = state.masterEditor;
+
+  if (!serviceManicure.hasValidationErrors
+    && !servicePedicure.hasValidationErrors
+    && !manicureCustomServices.hasValidationErrors
+    && !pedicureCustomServices.hasValidationErrors
   ) {
     if (state.masterEditor.servicePedicure.activeServicesCount === 0) {
       return Promise.reject({ type: 'FILL_PEDICURE_SECTION' });

@@ -349,6 +349,8 @@ export default makeReducer((state, action) => ({
       model.errorFillPrice = false;
     }
 
+    console.log(action);
+
     return state;
   },
 

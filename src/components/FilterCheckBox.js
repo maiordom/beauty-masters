@@ -141,7 +141,7 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
               {titleType === 'input' && (
                 <Input
                   inputWrapperStyle={styles.titleInput}
-                  onChange={this.onChangeTitle}
+                  onBlur={this.onChangeTitle}
                   placeholder={titlePlaceholder}
                   value={title}
                 />
@@ -158,7 +158,7 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onChange={this.onChangePrice}
+                onBlur={this.onChangePrice}
                 placeholder={i18n.filters.price}
                 ref={this.setPriceRef}
                 replaceReg={/[^0-9.]/g}
@@ -172,7 +172,7 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onChange={this.onChangeDuration}
+                onBlur={this.onChangeDuration}
                 placeholder={i18n.filters.duration}
                 ref={this.setDurationRef}
                 replaceReg={/[^0-9.]/g}

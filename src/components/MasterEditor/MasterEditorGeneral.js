@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
-import upperFirst from 'lodash/upperFirst';
 import { toPattern } from 'vanilla-masker';
+import upperFirst from 'lodash/upperFirst';
 
 import Input from '../Input';
 import Switch from '../Switch';
@@ -47,15 +47,29 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
     hasError: false,
   };
 
-  onChange = (value, modelName, toUpperFirst) => {
-    value = toUpperFirst ? upperFirst(value) : value;
-    this.props.actions.setFieldValue(modelName, value, this.props[modelName].sectionName);
+  onChange = (value, modelName) => {
+    const sectionName = this.props[modelName].sectionName
+
+    this.props.actions.setFieldValue(modelName, value, sectionName);
+
     if (this.state.hasError) {
       this.validate();
     }
   };
 
-  onUserNameChange = (...args) => this.onChange(...args, true);
+  onUsernameBlur = (value, modelName) => {
+    const sectionName = this.props[modelName].sectionName;
+
+    this.props.actions.setFieldValue(modelName, upperFirst(value), sectionName);
+  };
+
+  onPhoneChange = (value, modelName) => {
+    const sectionName = this.props[modelName].sectionName;
+
+    value = value.replace(/[^0-9]+/g, '');
+
+    this.props.actions.setFieldValue(modelName, upperFirst(value), sectionName);
+  };
 
   formatPhone = (value: string) => {
     let rawValue = value.replace(/[^0-9]+/g, '');
@@ -64,7 +78,7 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
       rawValue = rawValue.slice(1);
     }
 
-    if (value === '7') {
+    if (value === '+7 (') {
       rawValue = '';
     }
 
@@ -145,10 +159,10 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
       <View style={styles.container}>
         <View style={styles.inner}>
           <Input
-           {...firstNameField}
+            {...firstNameField}
             debounce
-            formatValue={upperFirst}
-            onChange={this.onUserNameChange}
+            onBlur={this.onUsernameBlur}
+            onChange={this.onChange}
           />
           {errorFillFirstName && (
             this.error(i18n.fillField)
@@ -156,8 +170,8 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
           <Input
             {...lastNameField}
             debounce
-            formatValue={upperFirst}
-            onChange={this.onUserNameChange}
+            onBlur={this.onUsernameBlur}
+            onChange={this.onChange}
           />
           {errorFillLastName && (
             this.error(i18n.fillField)
@@ -167,8 +181,7 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
             debounce
             formatValue={this.formatPhone}
             keyboardType="phone-pad"
-            onChange={this.onChange}
-            replaceReg={/(?!^-)[^0-9]/g}
+            onChange={this.onPhoneChange}
           />
           {errorFillPhoneNumber && (
             this.error(i18n.fillPhoneNumber)

@@ -7,7 +7,7 @@ export const userCreate = ({ email, password }) => dispatch => {
   dispatch(setActivityIndicator(true));
 
   return AuthService.userCreate({ email, password })
-    .then(({user_id}) => {
+    .then(({ user_id }) => {
       dispatch(setActivityIndicator(false));
 
       dispatch({

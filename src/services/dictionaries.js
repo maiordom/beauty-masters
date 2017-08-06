@@ -1,8 +1,8 @@
 import routes from '../routes';
-import { post } from '../utils/provider';
+import { get } from '../utils/provider';
 
 export function getDictionaries() {
-  return post(routes.getDictionaries, {})
+  return get(routes.getDictionaries)
     .then(response => (response.result && {
       services: response.result.data.services.map(service => ({
         id: service.Id,

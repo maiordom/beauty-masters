@@ -25,13 +25,16 @@ class InputBase extends Component {
   }, this.props.debounceTimer || 1000)();
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.value === null && nextProps.value !== null) {
+    if (nextProps.value !== null
+      && nextProps.value !== undefined
+      && this.props.value !== nextProps.value
+    ) {
       this.state.value = nextProps.value.toString();
     }
   }
 
   onChangeText = value => {
-    const { formatValue, replaceReg } = this.props;
+    const { formatValue } = this.props;
 
     value = this.clearValue(value);
 
@@ -46,11 +49,10 @@ class InputBase extends Component {
   };
 
   onBlur = () => {
-    const { replaceReg } = this.props;
     let value = this.clearValue(this.state.value);
 
     this.setState({ isFocused: false });
-    this.props.onChange && this.props.onChange(value, this.props.modelName);
+    this.props.onBlur && this.props.onBlur(value, this.props.modelName);
   };
 
   clearValue = (value) => {
@@ -64,7 +66,7 @@ class InputBase extends Component {
   };
 
   getValue() {
-    const { sign, formatValue, replaceReg } = this.props;
+    const { sign, formatValue } = this.props;
 
     let value = this.clearValue(this.state.value);
 
@@ -115,6 +117,7 @@ export class InputWithLabel extends InputBase {
 export default class Input extends InputBase {
   render() {
     const {
+      autoCorrect,
       editable,
       icon,
       inputWrapperStyle,
@@ -136,6 +139,7 @@ export default class Input extends InputBase {
       >
         {icon && <Image source={icon} />}
         <TextInput
+          autoCorrect={autoCorrect !== undefined ? autoCorrect : true}
           editable={editable !== undefined ? editable : true}
           keyboardType={keyboardType}
           onBlur={this.onBlur}
