@@ -28,7 +28,7 @@ export default class Tabs extends Component {
 
     const { tabs } = this.state;
 
-    _.each(tabs, (tab, index) => {
+    _.each(tabs, (tab) => {
       tab.active = tab.key === tabActiveKey;
     });
 
