@@ -14,7 +14,7 @@ import i18n from '../../i18n';
 export default class SearchFormBlockManicure extends Component {
   props: {
     service: Object,
-    onChange: ServiceToggleType
+    onChange: ServiceToggleType,
   };
 
   state = {

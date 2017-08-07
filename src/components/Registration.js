@@ -70,20 +70,21 @@ export default class Registration extends Component {
           <Input
             debounce
             debounceTimer={200}
-            ref={this.setEmailRef}
             icon={icons.email}
-            style={styles.input}
-            placeholder={i18n.yourEmail}
             onChange={this.onChangeInput}
+            placeholder={i18n.yourEmail}
+            ref={this.setEmailRef}
+            style={styles.input}
           />
           <Input
             debounce
             debounceTimer={200}
-            ref={this.setPwdRef}
             icon={icons.pwd}
-            style={styles.input}
-            placeholder={i18n.passwordTip}
             onChange={this.onChangeInput}
+            placeholder={i18n.passwordTip}
+            ref={this.setPwdRef}
+            secureTextEntry={true}
+            style={styles.input}
           />
           {Platform.OS === 'android'
           ? <View style={styles.manifest}>

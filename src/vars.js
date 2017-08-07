@@ -14,7 +14,7 @@ export default {
 
     buttonDisabled: '#8CA5AF',
     borderColorAndroid: '#E4E6E8',
-    placeholderColor: '#283741',
+    placeholderColor: '#9E9E9E',
     underlineColorAndroid: '#E4E6E8',
   },
 };

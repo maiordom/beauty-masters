@@ -29,13 +29,13 @@ type TState = {
 };
 
 type TProps = {
-    actions: object;
-    firstNameField: object;
-    isSalonField: object;
-    lastNameField: object;
+    actions: Object;
+    firstNameField: Object;
+    isSalonField: Object;
+    lastNameField: Object;
     onNextPress: () => void;
-    phoneField: object;
-    salonNameField: object;
+    phoneField: Object;
+    salonNameField: Object;
 };
 
 export default class MasterEditorGeneral extends Component<void, TProps, TState> {
@@ -47,7 +47,7 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
     hasError: false,
   };
 
-  onChange = (value, modelName) => {
+  onChange = (value: string, modelName: string) => {
     const sectionName = this.props[modelName].sectionName
 
     this.props.actions.setFieldValue(modelName, value, sectionName);
@@ -57,13 +57,13 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
     }
   };
 
-  onUsernameBlur = (value, modelName) => {
+  onUsernameBlur = (value: string, modelName: string) => {
     const sectionName = this.props[modelName].sectionName;
 
     this.props.actions.setFieldValue(modelName, upperFirst(value), sectionName);
   };
 
-  onPhoneChange = (value, modelName) => {
+  onPhoneChange = (value: string, modelName: string) => {
     const sectionName = this.props[modelName].sectionName;
 
     value = value.replace(/[^0-9]+/g, '');
@@ -131,7 +131,7 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
     return validation;
   }
 
-  error = (text) => (
+  error = (text: string) => (
     <View style={styles.error}>
       <Text style={styles.errorText}>{text}</Text>
       <Image style={styles.errorImage} source={icons.warning} />

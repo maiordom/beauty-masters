@@ -237,7 +237,7 @@ export default class Map extends Component<void, Props, State> {
     this.searchRequest && this.searchRequest.cancel();
     this.searchRequest = this.props.actions.searchMasters({
       coordinates: [region.latitude, region.longitude],
-      radius: ((5 * Math.max(region.latitudeDelta, region.longitudeDelta)) / 0.04).toFixed(2) * 1000,
+      radius: Number(((5 * Math.max(region.latitudeDelta, region.longitudeDelta)) / 0.04).toFixed(2)) * 1000,
     });
   };
 

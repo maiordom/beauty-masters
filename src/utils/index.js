@@ -44,8 +44,9 @@ export function formatNumber(number: number) {
   return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 }
 
+// $FlowFixMe
 export function shouldComponentUpdate(ignoreProps?: Array<string>, ignoreState?: Array<string>) {
-   // $FlowFixMe
+  // $FlowFixMe
   return function (nextProps: Object, nextState: Object): boolean {
     const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
     const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);

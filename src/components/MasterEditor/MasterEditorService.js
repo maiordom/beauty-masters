@@ -63,6 +63,10 @@ export default class MasterEditorService extends Component<void, TProps, TState>
     ],
   };
 
+  scrollViewRef = {
+    scrollTo() {}
+  };
+
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderLoader: false });
@@ -115,7 +119,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
     });
   };
 
-  setScrollViewRef = ref => this.scrollViewRef = ref;
+  setScrollViewRef = (ref: Object) => this.scrollViewRef = ref;
 
   render() {
     const {

@@ -11,11 +11,6 @@ import Input from '../components/Input';
 import vars from '../vars';
 import i18n from '../i18n';
 
-type onChange = (active: boolean, modelName: ?string, index?: number) => void;
-type onChangeDuration = (duration: string, modelName?: string, index?: number) => void;
-type onChangePrice = (price: number, modelName?: string, index?: number) => void;
-type onChangeTitle = (title: string, modelName?: string, index?: number) => void;
-
 type TProps = {
   active?: boolean,
   duration?: string,
@@ -23,10 +18,11 @@ type TProps = {
   errorFillTitle?: boolean,
   index?: number,
   modelName?: string,
-  onChange: onChange,
-  onChangeDuration?: onChangeDuration,
-  onChangePrice?: onChangePrice,
-  onChangeTitle?: onChangeTitle,
+  onChange: (...args: any) => void,
+  onChangeDuration?: (...args: any) => void,
+  onChangeTitle?: (...args: any) => void,
+  /* $FlowFixMe */
+  onChangePrice?: (...args: any) => void,
   price?: number,
   required?: boolean,
   title?: string,
@@ -34,13 +30,6 @@ type TProps = {
   titleType?: string,
   withInput?: boolean,
 };
-
-type TDefaultProps = {
-  onChange: onChange,
-  onChangeDuration: onChangeDuration,
-  onChangePrice: onChangePrice,
-  onChangeTitle: onChangeTitle,
-}
 
 const icons = {
   ...Platform.select({
@@ -50,14 +39,8 @@ const icons = {
   }),
 };
 
-export default class FilterCheckBox extends Component<TDefaultProps, TProps, void> {
-  static defaultProps = {
-    onChange: (active: boolean, modelName: ?string, index?: number) => {},
-    onChangeDuration: (duration: string, modelName?: string, index?: number) => {},
-    onChangePrice: (price: number, modelName?: string, index?: number) => {},
-    onChangeTitle: (title: string, modelName?: string, index?: number) => {},
-  };
-
+// $FlowFixMe
+export default class FilterCheckBox extends Component<void, TProps, void> {
   durationRef: Object;
   priceRef: Object;
 
@@ -99,10 +82,12 @@ export default class FilterCheckBox extends Component<TDefaultProps, TProps, voi
     );
   };
 
-  errorView = (wrapperStyle) => (<View style={[styles.error, wrapperStyle]}>
-    <Text style={styles.errorText}>{i18n.fillField}</Text>
-    <Image source={icons.warning} />
-  </View>);
+  errorView = (wrapperStyle: any) => (
+    <View style={[styles.error, wrapperStyle]}>
+      <Text style={styles.errorText}>{i18n.fillField}</Text>
+      <Image source={icons.warning} />
+    </View>
+  );
 
   setPriceRef = (ref: Object) => this.priceRef = ref;
   setDurationRef = (ref: Object) => this.durationRef = ref;
