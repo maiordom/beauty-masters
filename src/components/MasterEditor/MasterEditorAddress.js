@@ -24,18 +24,50 @@ export default class MasterEditorAddress extends Component {
 
     return (
       <View style={styles.container}>
-        <InputWithLabel {...salonTitleField} onChange={onChange} placeholder={i18n.specify} />
-        <InputWithLabel {...cityField} onChange={onChange} placeholder={i18n.specify} />
-        <InputWithLabel {...streetField} onChange={onChange} placeholder={i18n.specify} />
+        <InputWithLabel
+          {...salonTitleField}
+          onBlur={onChange}
+          placeholder={i18n.specify}
+        />
+        <InputWithLabel
+          {...cityField}
+          onBlur={onChange}
+          placeholder={i18n.specify}
+        />
+        <InputWithLabel
+          {...streetField}
+          onBlur={onChange}
+          placeholder={i18n.specify}
+        />
         <View style={styles.row}>
-          <InputWithLabel style={styles.groupInput} onChange={onChange} {...buildingField} placeholder={i18n.specify} />
+          <InputWithLabel
+            {...buildingField}
+            onBlur={onChange}
+            placeholder={i18n.specify}
+            style={styles.groupInput}
+          />
           <View style={styles.gap} />
-          <InputWithLabel style={styles.groupInput} onChange={onChange} {...houseField} placeholder={i18n.specify} />
+          <InputWithLabel
+            {...houseField}
+            onBlur={onChange}
+            placeholder={i18n.specify}
+            style={styles.groupInput}
+          />
         </View>
         <View style={styles.row}>
-          <InputWithLabel style={styles.groupInput} onChange={onChange} {...districtField} placeholder={i18n.specify} />
+          <InputWithLabel
+            {...districtField}
+            onBlur={onChange}
+            placeholder={i18n.specify}
+            style={styles.groupInput}
+          />
           <View style={styles.gap} />
-          <InputWithLabel style={styles.groupInput} onChange={onChange} {...subwayStationField} placeholder={i18n.specify} />
+          <InputWithLabel
+            {...subwayStationField}
+            onBlur={onChange}
+            placeholder={i18n.specify}
+            style={styles.groupInput}
+          />
         </View>
       </View>
     );
