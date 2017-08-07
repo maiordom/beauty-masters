@@ -6,6 +6,7 @@
 .*/node_modules/promise/.*
 .*/node_modules/react-native/Libraries/Promise.js
 .*/node_modules/react-native/Libraries/promiseRejectionIsError.js
+.*/node_modules/react-native-gesture-responder/library/TouchHistoryMath.js
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/

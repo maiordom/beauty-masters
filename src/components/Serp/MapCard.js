@@ -23,7 +23,7 @@ const icons = {
 };
 
 type TProps = MapCardType & {
-  type: string,
+  type?: string,
 };
 
 export default class MapCard extends Component<void, TProps, void> {

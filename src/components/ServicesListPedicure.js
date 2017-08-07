@@ -62,7 +62,7 @@ export default class ServicesListPedicure extends Component<void, TProps, TState
     this.props.onChange(active, modelName);
   };
 
-  onChangePrice = (price: string, modelName: string) => {
+  onChangePrice = (price: number, modelName: string) => {
     this.props.onChangePrice(Number(price), modelName);
   };
 

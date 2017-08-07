@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Text, TextInput, StyleSheet, View, Platform, Image } from 'react-native';
 import debounce from 'lodash/debounce';
@@ -6,15 +8,42 @@ import vars from '../vars';
 
 import { shouldComponentUpdate } from '../utils';
 
-class InputBase extends Component {
-  constructor(props) {
-    super();
+type TProps = {
+  autoCorrect?: boolean,
+  debounce?: boolean,
+  editable?: boolean,
+  formatValue?: (value: any) => string,
+  icon?: string,
+  inputWrapperStyle?: Object,
+  keyboardType?: string,
+  label?: string,
+  modelName?: string,
+  onBlur?: (value: string, modelName?: string) => void,
+  onChange?: (value: string, modelName?: string) => void,
+  placeholder?: string,
+  placeholderTextColor?: string,
+  replaceReg?: Object,
+  secureTextEntry?: boolean,
+  sign?: string,
+  style?: Object,
+  underlineColorAndroid?: string,
+  value?: string | number,
+};
 
-    this.state = {
-      value: props.value && props.value.toString() || '',
-      isFocused: false,
-    };
+type TState = {
+  isFocused: boolean,
+  value: string,
+};
+
+class InputBase extends Component<void, TProps, TState> {
+  constructor(props) {
+    super(props);
   }
+
+  state = {
+    value: this.props.value && this.props.value.toString() || '',
+    isFocused: false,
+  };
 
   shouldComponentUpdate = shouldComponentUpdate();
 
@@ -40,7 +69,9 @@ class InputBase extends Component {
 
     this.setState(
       { value: formatValue ? formatValue(value) : value },
-      () => this.props.debounce && this.debounceOnChange(),
+      () => {
+        this.props.debounce && this.debounceOnChange();
+      },
     );
   };
 
@@ -55,7 +86,7 @@ class InputBase extends Component {
     this.props.onBlur && this.props.onBlur(value, this.props.modelName);
   };
 
-  clearValue = (value) => {
+  clearValue = (value: string) => {
     const { replaceReg } = this.props;
 
     if (replaceReg) {
@@ -104,7 +135,7 @@ export class InputWithLabel extends InputBase {
           onChangeText={this.onChangeText}
           onFocus={this.onFocus}
           placeholder={placeholder}
-          placeholderTextColor={placeholderTextColor || vars.color.placeholderTextColor}
+          placeholderTextColor={placeholderTextColor || vars.color.placeholderColor}
           style={inputWithLabelStyle.input}
           underlineColorAndroid={underlineColorAndroid || vars.color.underlineColorAndroid}
           value={value}
@@ -124,6 +155,7 @@ export default class Input extends InputBase {
       keyboardType = 'default',
       placeholder,
       placeholderTextColor,
+      secureTextEntry,
       style: customInputStyle,
       underlineColorAndroid,
     } = this.props;
@@ -146,7 +178,8 @@ export default class Input extends InputBase {
           onChangeText={this.onChangeText}
           onFocus={this.onFocus}
           placeholder={placeholder}
-          placeholderTextColor={placeholderTextColor || vars.color.placeholderTextColor}
+          placeholderTextColor={placeholderTextColor || vars.color.placeholderColor}
+          secureTextEntry={secureTextEntry}
           style={[customInputStyle, inputStyle.input]}
           underlineColorAndroid={underlineColorAndroid || vars.color.underlineColorAndroid}
           value={value}

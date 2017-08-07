@@ -15,7 +15,7 @@ import { hexToRgba } from '../utils';
 type Props = {
   children?: Children,
   isVisible: boolean,
-  onRequestClose: () => void
+  onRequestClose?: () => void
 };
 
 export default class ModalComponent extends Component<void, Props, void> {

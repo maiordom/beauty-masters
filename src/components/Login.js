@@ -37,6 +37,7 @@ export default class Login extends Component {
           <Input
             icon={icons.pwd}
             style={styles.input}
+            secureTextEntry={true}
             placeholder={i18n.passwordTip}
           />
         </View>

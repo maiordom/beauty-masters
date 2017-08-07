@@ -44,6 +44,7 @@ export function formatNumber(number: number) {
   return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 }
 
+// $FlowFixMe
 export function shouldComponentUpdate(ignoreProps?: Array<string>, ignoreState?: Array<string>) {
    // $FlowFixMe
   return function (nextProps: Object, nextState: Object): boolean {
