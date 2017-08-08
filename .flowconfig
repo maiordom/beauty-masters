@@ -1,6 +1,6 @@
 [ignore]
 ; We fork some components by platform
-.*/*[.]android.js
+.*/node_modules/.*/*[.]android.js
 .*/node_modules/react-native-experimental-navigation/.*
 .*/node_modules/react-native/Libraries/Components/StaticContainer.js
 .*/node_modules/promise/.*

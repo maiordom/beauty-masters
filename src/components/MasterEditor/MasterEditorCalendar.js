@@ -9,6 +9,7 @@ import vars from '../../vars';
 export default class MasterEditorCalendar extends Component {
   render() {
     const {
+      addressValues,
       onCalendarPress,
       onNextPress,
     } = this.props;
@@ -18,17 +19,23 @@ export default class MasterEditorCalendar extends Component {
         <View style={styles.selectCalendar}>
           <TouchableWithoutFeedback onPress={() => onCalendarPress('calendarSettingsOne')}>
             <View style={styles.openCalendar}>
-              <Text style={styles.openCalendarText}>{i18n.addAddress[0]}</Text>
+              <Text style={styles.openCalendarText}>
+                {addressValues[0] || i18n.addAddress[0]}
+              </Text>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => onCalendarPress('calendarSettingsTwo')}>
             <View style={styles.openCalendar}>
-              <Text style={styles.openCalendarText}>{i18n.addAddress[1]}</Text>
+              <Text style={styles.openCalendarText}>
+                {addressValues[1] || i18n.addAddress[1]}
+              </Text>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => onCalendarPress('calendarSettingsThree')}>
             <View style={styles.openCalendar}>
-              <Text style={styles.openCalendarText}>{i18n.addAddress[2]}</Text>
+              <Text style={styles.openCalendarText}>
+                {addressValues[2] || i18n.addAddress[2]}
+              </Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

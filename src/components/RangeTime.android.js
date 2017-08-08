@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import {
   View,
@@ -12,19 +14,37 @@ import { shouldComponentUpdate } from '../utils';
 import i18n from '../i18n';
 import vars from '../vars';
 
-export default class RangeTime extends Component {
-  shouldComponentUpdate = shouldComponentUpdate();
+type TProps = {
+  onTimeEndChange: (timeEnd: string, modelName: string) => void,
+  onTimeStartChange: (timeStart: string, modelName: string) => void,
+  timeEnd: string,
+  timeStart: string,
+  timeStartModelName: string,
+  timeEndModelName: string,
+};
 
-  constructor(props) {
-    super();
+type TState = {
+  timeStart: string,
+  timeEnd: string,
+  timeStartHour: number,
+  timeStartMinute: number,
+  timeEndHour: number,
+  timeEndMinute: number,
+};
 
-    this.state = this.getStorage(props);
+export default class RangeTime extends Component<void, TProps, TState> {
+  constructor(props: TProps) {
+    super(props);
   }
 
-  getStorage = (props) => {
+  state = this.getStorage(this.props);
+
+  shouldComponentUpdate = shouldComponentUpdate();
+
+  getStorage = (props: TProps) => {
     const { timeStart, timeEnd } = props;
-    const [timeStartHour, timeStartMinute] = timeStart.split(':');
-    const [timeEndHour, timeEndMinute] = timeEnd.split(':');
+    const [ timeStartHour, timeStartMinute ] = timeStart.split(':');
+    const [ timeEndHour, timeEndMinute ] = timeEnd.split(':');
 
     return {
       timeStart,
@@ -36,11 +56,11 @@ export default class RangeTime extends Component {
     };
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: TProps) {
     this.state = this.getStorage(nextProps);
   }
 
-  formatTime = (hour, minute) => `${hour}:${minute < 10 ? `0${minute}` : minute}`;
+  formatTime = (hour: number, minute: number) => `${hour}:${minute < 10 ? `0${minute}` : minute}`;
 
   onTimeStartPress = () => {
     const { timeStartHour, timeStartMinute } = this.state;
