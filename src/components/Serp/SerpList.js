@@ -23,7 +23,7 @@ export default class SerpList extends Component<void, TProps, TState> {
     dataSource: [],
   };
 
-  constructor(props: Props) {
+  constructor(props: TProps) {
     super(props);
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });

@@ -1,15 +1,34 @@
+// @flow
+
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
 import Input from '../Input';
 import Label from '../Label';
 import Switch from '../Switch';
 import ButtonControl from '../ButtonControl';
+import { SubLabel } from '../SubLabel';
 
 import i18n from '../../i18n';
 
-export default class MasterEditorHandlingTools extends Component {
-  onChange = (state, modelName) => {
+type TProps = {
+  actions: Object,
+  boilingMethod: Object,
+  disinfectionMethod: Object,
+  dryHotMethod: Object,
+  fieldDescription: string,
+  fieldValue: string,
+  glasperlenovySterilizerMethod: Object,
+  hotSteamMethod: Object,
+  onNextPress: () => void,
+  sectionName: string,
+  sterileOtherMethod: Object,
+  ultraSoundMethod: Object,
+  ultraVioletMethod: Object,
+};
+
+export default class MasterEditorHandlingTools extends Component<void, TProps, void> {
+  onChange = (state: boolean, modelName: string) => {
     const { fieldValue, sectionName } = this.props;
 
     this.props.actions.toogleService(
@@ -20,7 +39,7 @@ export default class MasterEditorHandlingTools extends Component {
     );
   };
 
-  onChangeOtherMethod = (value, modelName) => {
+  onChangeOtherMethod = (value: string, modelName?: string) => {
     const { fieldDescription, sectionName } = this.props;
 
     this.props.actions.setServiceParam(
@@ -33,8 +52,11 @@ export default class MasterEditorHandlingTools extends Component {
 
   render() {
     const {
+      boilingMethod,
+      disinfectionMethod,
       dryHotMethod,
       glasperlenovySterilizerMethod,
+      hotSteamMethod,
       onNextPress,
       sterileOtherMethod,
       ultraSoundMethod,
@@ -43,21 +65,30 @@ export default class MasterEditorHandlingTools extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.inner}>
+        <ScrollView style={styles.inner}>
           <Label text={i18n.handlingTool} subText={i18n.specifyHowYouSterilizeTools} />
-          <Switch {...ultraSoundMethod} onChange={this.onChange} />
-          <Switch {...ultraVioletMethod} onChange={this.onChange} />
-          <Switch {...glasperlenovySterilizerMethod} onChange={this.onChange} />
-          <Switch {...dryHotMethod} onChange={this.onChange} />
-          <Switch {...sterileOtherMethod} onChange={this.onChange} />
-          <Input
-            value={sterileOtherMethod.description}
-            placeholder={sterileOtherMethod.placeholder}
-            modelName={sterileOtherMethod.modelName}
-            editable={sterileOtherMethod.value}
-            onChange={this.onChangeOtherMethod}
-          />
-        </View>
+          <View>
+            <SubLabel customStyles={styles.subLabel} label={i18n.disinfection} />
+            <Switch {...ultraSoundMethod} onChange={this.onChange} />
+            <Switch {...ultraVioletMethod} onChange={this.onChange} />
+            <Switch {...disinfectionMethod} onChange={this.onChange} />
+          </View>
+          <View>
+            <SubLabel customStyles={styles.subLabel} label={i18n.handlingToolMethods.sterilization} />
+            <Switch {...glasperlenovySterilizerMethod} onChange={this.onChange} />
+            <Switch {...hotSteamMethod} onChange={this.onChange} />
+            <Switch {...dryHotMethod} onChange={this.onChange} />
+            <Switch {...boilingMethod} onChange={this.onChange} />
+            <Switch {...sterileOtherMethod} onChange={this.onChange} />
+            <Input
+              value={sterileOtherMethod.description}
+              placeholder={sterileOtherMethod.placeholder}
+              modelName={sterileOtherMethod.modelName}
+              editable={sterileOtherMethod.value}
+              onChange={this.onChangeOtherMethod}
+            />
+          </View>
+        </ScrollView>
         <ButtonControl onPress={onNextPress} />
       </View>
     );
@@ -72,5 +103,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
+  },
+  subLabel: {
+    height: 48,
   },
 });
