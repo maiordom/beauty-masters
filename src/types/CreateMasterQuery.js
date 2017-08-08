@@ -37,13 +37,12 @@ type MasterAddress = {
 
 export type CreateMasterQuery = {
   certificates: Array<string>,
-  first_name?: string,
+  username?: string,
   is_salon?: boolean,
   last_name?: string,
   manicure_custom_services: Array<CustomService>,
   master_addresses: Array<MasterAddress>,
   master_photos: Array<string>,
-  passport?: string,
   pedicure_custom_services: Array<CustomService>,
   phone?: string,
   salon_name?: string,

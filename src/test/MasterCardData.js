@@ -4,8 +4,7 @@
 const masterData = {
   id: 30,
   userId: 30,
-  firstName: 'Елена',
-  lastName: 'Трепышина',
+  username: 'Елена Трепышина',
   phone: '+79613045087',
   email: 'awesome@test.ru',
   MasterType: 1,

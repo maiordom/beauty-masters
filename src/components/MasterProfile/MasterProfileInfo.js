@@ -15,20 +15,18 @@ import InputWithLabel from '../InputWithLabel';
 
 const photoEmpty = require('../../icons/photo-empty.png');
 
-type Props = {
-  masterPhoto: Array<string>,
-  firstName: string,
-  lastName: string,
-  phone: string,
+type TProps = {
   email: string,
+  masterPhoto: Array<string>,
+  phone: string,
+  username: string,
 }
 
-export default class MasterProfileInfo extends Component<void, Props, void> {
+export default class MasterProfileInfo extends Component<void, TProps, void> {
   render() {
     const {
       masterPhoto,
-      firstName,
-      lastName,
+      username,
       phone,
       email,
     } = this.props;
@@ -43,13 +41,8 @@ export default class MasterProfileInfo extends Component<void, Props, void> {
           <View style={styles.inputs}>
             <View style={styles.row}>
               <InputWithLabel
-                value={firstName}
-                label={i18n.firstName}
-                style={styles.input}
-              />
-              <InputWithLabel
-                value={lastName}
-                label={i18n.lastName}
+                value={username}
+                label={i18n.username}
                 style={styles.input}
               />
             </View>

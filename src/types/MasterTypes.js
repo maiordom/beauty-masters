@@ -31,17 +31,15 @@ type Address = {
 };
 
 export type MasterCardType = {
-  id: number,
-  isFavorite?: boolean,
   about: ?string,
   addresses: Array<Address>,
   certificates: ?Array<string>,
   fbProfile?: string,
-  firstName: string,
   hasCertificates: boolean,
+  id: number,
   inProfile?: string,
+  isFavorite?: boolean,
   isSalon: boolean,
-  lastName: string,
   masterCity: ?string,
   masterPhoto: ?Array<string>,
   MasterType: number,
@@ -54,6 +52,7 @@ export type MasterCardType = {
   site_url: ?string,
   status: number,
   userId: number,
+  username: string,
   vkProfile?: string,
   workPhoto: ?Array<string>,
 };
@@ -68,11 +67,10 @@ export type MapCardType = {
   distance: string,
   id: number,
   isVerified: boolean,
+  location?: 'map' | 'list',
   masterType: number,
   onPress: () => void,
   photo: string,
   services: Array<Service>,
-  firstName: string,
-  lastName: string,
-  location?: 'map' | 'list'
+  username: string,
 }

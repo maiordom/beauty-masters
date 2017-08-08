@@ -9,16 +9,10 @@ type GeneralFieldModel = {
 
 import i18n from '../../i18n';
 
-const firstNameField = (firstName: string) => ({
-  placeholder: i18n.firstName,
-  queryParam: 'first_name',
-  value: firstName || null,
-}: GeneralFieldModel);
-
-const lastNameField = (lastName: string) => ({
-  placeholder: i18n.lastName,
-  queryParam: 'last_name',
-  value: lastName || null,
+const usernameField = (username: string) => ({
+  placeholder: i18n.username,
+  queryParam: 'username',
+  value: username || null,
 }: GeneralFieldModel);
 
 const phoneField = (phone: string) => ({
@@ -40,8 +34,7 @@ const salonNameField = (salonName: string) => ({
 }: GeneralFieldModel);
 
 export default {
-  firstNameField,
-  lastNameField,
+  usernameField,
   phoneField,
   isSalonField,
   salonNameField,

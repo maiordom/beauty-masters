@@ -9,12 +9,11 @@ export type Service = {
 }
 
 export type ProfileData = {
-  id: number,
-  firstName: string,
-  lastName: string,
-  phone: string,
   email: string,
+  id: number,
   masterCity: string,
   masterPhoto: ?Array<string>,
-  services: Array<Service>
+  phone: string,
+  services: Array<Service>,
+  username: string,
 }

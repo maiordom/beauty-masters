@@ -48,14 +48,13 @@ export default class MapCard extends Component<void, TProps, void> {
       address,
       closestDate,
       distance,
-      firstName,
       isVerified,
-      lastName,
       location,
       masterType,
       photo: uri,
       services,
       type,
+      username,
     } = this.props;
 
     const subtitle = masterType === 1 ? i18n.card.privareMaster : i18n.card.salon;
@@ -73,7 +72,7 @@ export default class MapCard extends Component<void, TProps, void> {
               )}
             </View>
             <View>
-              <Text style={styles.title}>{firstName} {lastName}</Text>
+              <Text style={styles.title}>{username}</Text>
               <Text>{subtitle}</Text>
             </View>
           </View>

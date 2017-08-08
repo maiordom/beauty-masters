@@ -14,8 +14,7 @@ export function getUserProfile() {
 
       const profile : ProfileData = {
         id: response.id,
-        firstName: response.first_name,
-        lastName: response.last_name,
+        username: response.username,
         phone: response.phone,
         email: response.email,
         masterCity: response.master_city,

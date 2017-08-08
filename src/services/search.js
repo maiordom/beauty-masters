@@ -48,7 +48,6 @@ export function searchMasters({
       id,
       price,
     })),
-    firstName: master.first_name,
-    lastName: master.last_name,
+    username: master.username
   })) || []);
 }

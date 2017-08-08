@@ -10,15 +10,15 @@ import vars from '../../vars';
 
 import type { MapCardType } from '../../types/MasterTypes';
 
-type State = {
+type TState = {
   dataSource: Array<*>,
 };
 
-type Props = {
+type TProps = {
   points: Array<MapCardType>,
 };
 
-export default class SerpList extends Component<void, Props, State> {
+export default class SerpList extends Component<void, TProps, TState> {
   state = {
     dataSource: [],
   };
@@ -36,19 +36,17 @@ export default class SerpList extends Component<void, Props, State> {
   onMapCardPress = (card: MapCardType) => {
     const {
       id,
-      photo,
-      firstName,
-      lastName,
       isVerified,
+      photo,
+      username,
     } = card;
 
     Actions.card({
       id,
-      photo,
-      firstName,
-      lastName,
       isVerified,
+      photo,
       snippet: card,
+      username,
     });
   };
 

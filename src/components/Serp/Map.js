@@ -247,19 +247,17 @@ export default class Map extends Component<void, Props, State> {
     if (activePoint) {
       const {
         id,
-        photo,
-        firstName,
-        lastName,
         isVerified,
+        photo,
+        username,
       } = activePoint;
 
       Actions.card({
         id,
-        photo,
-        firstName,
-        lastName,
         isVerified,
+        photo,
         snippet: activePoint,
+        username,
       });
     }
   };

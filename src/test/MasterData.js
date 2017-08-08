@@ -6,9 +6,8 @@ import type { CreateMasterQuery } from '../types/CreateMasterQuery';
 
 const createMasterQuery: CreateMasterQuery = {
   certificates: [],
-  first_name: 'Вадим',
+  username: 'Вадим',
   is_salon: true,
-  last_name: 'Жуланов',
   manicure_custom_services: [],
   master_addresses: [
     {
@@ -40,7 +39,6 @@ const createMasterQuery: CreateMasterQuery = {
     },
   ],
   master_photos: [],
-  passport: '',
   pedicure_custom_services: [],
   phone: '89264978293',
   salon_name: 'У Вики дома',

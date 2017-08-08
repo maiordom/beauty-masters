@@ -12,35 +12,31 @@ const icons = {
   inst: require('../../icons/social/inst.png'),
 };
 
-export default class MasterCardHeader extends Component {
-  props: {
-    firstName: string,
-    lastName: string,
-    isSalon: boolean,
-    salonName?: string,
-    vkProfile?: string,
-    inProfile?: string,
-    isVerified?: boolean
-  };
+type TProps = {
+  username?: string,
+  isSalon: boolean,
+  salonName?: string,
+  vkProfile?: string,
+  inProfile?: string,
+  isVerified?: boolean,
+}
 
+export default class MasterCardHeader extends Component<void, TProps, void> {
   render() {
     const {
-      firstName,
-      lastName,
-      isSalon,
-      salonName,
-      vkProfile,
       inProfile,
+      isSalon,
       isVerified,
+      salonName,
+      username,
+      vkProfile,
     } = this.props;
 
     return (
       <View style={styles.container}>
         <View>
           <View style={styles.titleWrapper}>
-            <Text style={styles.title}>
-              {firstName} {lastName}
-            </Text>
+            <Text style={styles.title}>{username}</Text>
             {isVerified && (
               <Image source={icons.verified} style={styles.verified} />
             )}

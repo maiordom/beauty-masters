@@ -18,13 +18,6 @@ const workPhotos = () => ({
   queryType: 'array',
 }: PhotosModel);
 
-const passportPhotos = () => ({
-  items: [],
-  limit: 1,
-  queryParam: 'passport',
-  queryType: 'string',
-}: PhotosModel);
-
 const certificatePhotos = () => ({
   items: [],
   limit: 10,
@@ -42,7 +35,6 @@ const personalPhotos = () => ({
 export default {
   photosQueue,
   certificatePhotos,
-  passportPhotos,
   personalPhotos,
   workPhotos,
 };

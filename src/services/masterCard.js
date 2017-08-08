@@ -7,8 +7,7 @@ export function getMasterById(id: number) {
   return post(routes.getMasterById, { id })
     .then(({ result: res }) => res && {
       id: res.id,
-      firstName: res.first_name,
-      lastName: res.last_name,
+      username: res.username,
       phone: res.phone,
       city: res.master_city,
       isSalon: res.is_salon,

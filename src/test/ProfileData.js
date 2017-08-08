@@ -1,7 +1,6 @@
 export default {
   id: 7463,
-  first_name: 'Player',
-  last_name: 'Name',
+  username: 'Player',
   phone: '79832454455',
   email: 'fantastic@test.ru',
   master_city: 'Москва',
