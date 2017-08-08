@@ -21,29 +21,26 @@ const icons = Platform.select({
 });
 
 type TState = {
-    errorFillFirstName: boolean;
-    errorFillLastName: boolean;
     errorFillPhoneNumber: boolean;
     errorFillSalonName: boolean;
+    errorFillUsername: boolean;
     hasError: boolean;
 };
 
 type TProps = {
     actions: Object;
-    firstNameField: Object;
     isSalonField: Object;
-    lastNameField: Object;
     onNextPress: () => void;
     phoneField: Object;
     salonNameField: Object;
+    usernameField: Object;
 };
 
 export default class MasterEditorGeneral extends Component<void, TProps, TState> {
   state = {
-    errorFillFirstName: false,
-    errorFillLastName: false,
     errorFillPhoneNumber: false,
     errorFillSalonName: false,
+    errorFillUsername: false,
     hasError: false,
   };
 
@@ -95,9 +92,8 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
 
   validate() {
     const {
-      firstNameField,
+      usernameField,
       isSalonField,
-      lastNameField,
       phoneField,
       salonNameField,
     } = this.props;
@@ -112,12 +108,10 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
         state.errorFillPhoneNumber = false;
     }
 
-    state.errorFillFirstName = !firstNameField.value;
-    state.errorFillLastName = !lastNameField.value;
+    state.errorFillUsername = !usernameField.value;
     state.errorFillSalonName = isSalonField.value && !salonNameField.value;
 
-    if (!firstNameField.value
-      || !lastNameField.value
+    if (!usernameField.value
       || !phoneField.value
       || isSalonField.value && !salonNameField.value
     ) {
@@ -140,18 +134,16 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
 
   render() {
     const {
-      firstNameField,
       isSalonField,
-      lastNameField,
       phoneField,
       salonNameField,
+      usernameField,
     } = this.props;
 
     const {
-      errorFillFirstName,
-      errorFillLastName,
       errorFillPhoneNumber,
       errorFillSalonName,
+      errorFillUsername,
       hasError,
     } = this.state;
 
@@ -159,21 +151,12 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
       <View style={styles.container}>
         <View style={styles.inner}>
           <Input
-            {...firstNameField}
+            {...usernameField}
             debounce
             onBlur={this.onUsernameBlur}
             onChange={this.onChange}
           />
-          {errorFillFirstName && (
-            this.error(i18n.fillField)
-          )}
-          <Input
-            {...lastNameField}
-            debounce
-            onBlur={this.onUsernameBlur}
-            onChange={this.onChange}
-          />
-          {errorFillLastName && (
+          {errorFillUsername && (
             this.error(i18n.fillField)
           )}
           <Input

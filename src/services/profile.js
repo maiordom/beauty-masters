@@ -1,21 +1,22 @@
 // @flow
 
 import routes from '../routes';
-import { post } from '../utils/provider';
+import { get } from '../utils/provider';
 
 import profileData from '../test/ProfileData';
 
 import type { ProfileData } from '../types/ProfileData';
 
 export function getUserProfile() {
-  return post(routes.getUserProfile, {})
-    .then(() => { // here we will fetch real data
+  return get(routes.getUserProfile, {})
+    .then((profileData) => {
       const response = profileData;
+
+      console.log(response);
 
       const profile : ProfileData = {
         id: response.id,
-        firstName: response.first_name,
-        lastName: response.last_name,
+        username: response.username,
         phone: response.phone,
         email: response.email,
         masterCity: response.master_city,

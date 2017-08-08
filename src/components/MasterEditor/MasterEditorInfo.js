@@ -24,7 +24,6 @@ export default class MasterEditorInfo extends Component {
     actions: PropTypes.object,
     certificatePhotos: PropTypes.object,
     drawerOpen: PropTypes.func,
-    passportPhotos: PropTypes.object,
     personalPhotos: PropTypes.object,
     workPhotos: PropTypes.object,
   };
@@ -48,7 +47,6 @@ export default class MasterEditorInfo extends Component {
   render() {
     const {
       certificatePhotos,
-      passportPhotos,
       personalPhotos,
       workPhotos,
     } = this.props;
@@ -88,19 +86,6 @@ export default class MasterEditorInfo extends Component {
                 />
               </View>
             )}
-            <View style={styles.photosWrapper}>
-              <SubLabel
-                customStyle={styles.photosLabel}
-                label={i18n.masterEditor.needFirstPhotoOfYourPassport}
-              />
-              <MasterPhotoList
-                onPhotoRemovePress={this.onPhotoRemovePress}
-                onPhotoSelectPress={this.onPhotoSelectPress}
-                photoSize={PHOTO_SIZE}
-                wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-                {...passportPhotos}
-              />
-            </View>
             <View style={styles.photosWrapper}>
               <SubLabel
                 customStyle={styles.photosLabel}

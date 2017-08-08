@@ -21,18 +21,17 @@ const icons = {
   photoEmpty: require('../icons/photo-empty-white.png'),
 };
 
-type Props = {
-  firstName?: string,
-  lastName?: string,
+type TProps = {
+  username?: string,
   photo?: string,
   drawerClose: Function,
   currentScene: ?string,
 };
 
-type State = {
+type TState = {
   currentScene: ?string,
 }
-export default class Sidebar extends Component<void, Props, State> {
+export default class Sidebar extends Component<void, TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
   };
@@ -95,14 +94,11 @@ export default class Sidebar extends Component<void, Props, State> {
 
   render() {
     const {
-      firstName,
-      lastName,
       photo,
+      username,
     } = this.props;
 
     const { currentScene } = this.state;
-
-    const name = firstName && lastName && `${firstName} ${lastName}`;
 
     return (
       <View style={styles.sidebar}>
@@ -110,7 +106,7 @@ export default class Sidebar extends Component<void, Props, State> {
           <View style={styles.photoWrapper}>
             <Image style={styles.photo} source={photo || icons.photoEmpty} />
           </View>
-          <Text style={styles.title}>{name || i18n.authAsMaster}</Text>
+          <Text style={styles.title}>{username || i18n.authAsMaster}</Text>
         </View>
         <View style={styles.menu}>
           {this.menuButtons.map(button => (
