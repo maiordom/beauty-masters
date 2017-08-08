@@ -63,6 +63,7 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
+        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -120,7 +121,6 @@ export default () => (
           component={MasterEditorHandlingTools}
         />
         <Scene
-          initial
           key="masterEditorCalendar"
           {...getMasterStyle()}
           title={i18n.masterEditor.schedule}
