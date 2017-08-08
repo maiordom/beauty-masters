@@ -21,25 +21,49 @@ const ultraVioletMethod = (isActive: boolean) => ({
   value: Boolean(isActive),
 }: HandlingTools);
 
+const disinfectionMethod = (isActive: boolean) => ({
+  dictionaryKey: 'DisinfectionWithAlcohol',
+  id: 68,
+  parentServiceId,
+  title: i18n.handlingToolMethods.disinfectionWithAlcohol,
+  value: Boolean(isActive),
+}: HandlingTools);
+
 const glasperlenovySterilizerMethod = (isActive: boolean) => ({
   dictionaryKey: 'Glasperlen',
-  id: 68,
+  id: 69,
   parentServiceId,
   title: i18n.handlingToolMethods.glasperlenovySterilizer,
   value: Boolean(isActive),
 }: HandlingTools);
 
+const hotSteamMethod = (isActive: boolean) => ({
+  dictionaryKey: 'HotSteam',
+  id: 70,
+  parentServiceId,
+  title: i18n.handlingToolMethods.hotSteam,
+  value: Boolean(isActive)
+}: HandlingTools);
+
 const dryHotMethod = (isActive: boolean) => ({
   dictionaryKey: 'DryHot',
-  id: 69,
+  id: 71,
   parentServiceId,
   title: i18n.handlingToolMethods.dryHeatMethod,
   value: Boolean(isActive),
 }: HandlingTools);
 
+const boilingMethod = (isActive: boolean) => ({
+  dictionaryKey: 'Boiling',
+  id: 72,
+  parentServiceId,
+  title: i18n.handlingToolMethods.boiling,
+  value: Boolean(isActive),
+}: HandlingTools);
+
 const sterileOtherMethod = (isActive: boolean) => ({
   dictionaryKey: 'SterileOther',
-  id: 70,
+  id: 73,
   parentServiceId,
   placeholder: i18n.handlingToolMethods.enterNameMethod,
   title: i18n.handlingToolMethods.anotherWay,
@@ -49,7 +73,10 @@ const sterileOtherMethod = (isActive: boolean) => ({
 export default {
   ultraSoundMethod,
   ultraVioletMethod,
+  disinfectionMethod,
   glasperlenovySterilizerMethod,
+  hotSteamMethod,
   dryHotMethod,
+  boilingMethod,
   sterileOtherMethod,
 };

@@ -1,17 +1,35 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback } from 'react-native';
 
 import { hexToRgba, shouldComponentUpdate } from '../utils';
 import SwitchBase from './SwitchBase';
 
-export default class CustomSwitch extends Component {
+type TProps = {
+  customStyles: {
+    container?: Object,
+    title?: Object,
+  },
+  onChange: (state: boolean, modelName?: string) => void,
+  modelName?: string,
+  title: string,
+  value: boolean,
+};
+
+export default class CustomSwitch extends Component<void, TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
-  onChange = state => {
+  ref = {
+    toggle() { return; },
+    changeStateImmediately(value: boolean) { return; }
+  };
+
+  onChange = (state: boolean) => {
     this.props.onChange && this.props.onChange(state, this.props.modelName);
   };
 
-  setRef = ref => {
+  setRef = (ref: Object) => {
     this.ref = ref;
   };
 
@@ -19,7 +37,7 @@ export default class CustomSwitch extends Component {
     this.ref.toggle();
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: TProps) {
     if (typeof nextProps.value === 'boolean') {
       this.ref && this.ref.changeStateImmediately(nextProps.value);
     }
@@ -55,7 +73,6 @@ export default class CustomSwitch extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 4,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -86,7 +86,7 @@ export default class Sidebar extends Component<void, TProps, TState> {
     },
   ];
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillReceiveProps(nextProps: TProps) {
     if (nextProps.currentScene !== this.props.currentScene) {
       this.setState({ currentScene: nextProps.currentScene });
     }

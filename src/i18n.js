@@ -137,9 +137,13 @@ export default {
   handlingTool: 'Обработка инструмента',
   handlingToolMethods: {
     anotherWay: 'Другой способ',
+    boiling: 'Кипячение',
+    disinfectionWithAlcohol: 'Дезинфекция раствором / спиртом',
     dryHeatMethod: 'Сухожаровой метод',
     enterNameMethod: 'Введите название метода',
     glasperlenovySterilizer: 'Гласперленовый стерилизатор',
+    hotSteam: 'Горячий пар',
+    sterilization: 'Стерилизация',
     ultrasound: 'Ультразвук',
     ultraviolet: 'Ультрафиолет',
   },
