@@ -110,48 +110,52 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
     };
 
     return (
-      <ScrollView>
-        {show.address && (
-          <View>
-            <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
-            <MasterEditorAddress {...addressModels} onChange={this.onChange} />
-          </View>
-        )}
-        {show.schedule && (
-          <View>
-            <Label text={i18n.yourSchedule} subText={i18n.selectYoutSchedule} spacing />
-            <RadioGroup {...intervalGroup} onChange={this.onIntervalChange} />
-            <RangeTime
-              onTimeStartChange={this.onTimeStartChange}
-              onTimeEndChange={this.onTimeEndChange}
-              timeStart={timeStartField.value}
-              timeEnd={timeEndField.value}
-              timeStartModelName={timeStartField.modelName}
-              timeEndModelName={timeEndField.modelName}
-            />
-          </View>
-        )}
-        {show.calendar && (
-          <View>
-            <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
-            <Calendar
-              disableSelectDate
-              events={customDates.items}
-              interval={intervalGroup.selected}
-              onDateSelect={this.onDateSelect}
-              startDate={startDateField.value}
-            />
-            <View style={styles.gap} />
-            <ButtonControl label={i18n.ready} onPress={onReadyPress} />
-          </View>
-        )}
-      </ScrollView>
+      <View style={styles.container}>
+        <ScrollView style={styles.inner}>
+          {show.address && (
+            <View>
+              <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
+              <MasterEditorAddress {...addressModels} onChange={this.onChange} />
+            </View>
+          )}
+          {show.schedule && (
+            <View>
+              <Label text={i18n.yourSchedule} subText={i18n.selectYoutSchedule} spacing />
+              <RadioGroup {...intervalGroup} onChange={this.onIntervalChange} />
+              <RangeTime
+                onTimeStartChange={this.onTimeStartChange}
+                onTimeEndChange={this.onTimeEndChange}
+                timeStart={timeStartField.value}
+                timeEnd={timeEndField.value}
+                timeStartModelName={timeStartField.modelName}
+                timeEndModelName={timeEndField.modelName}
+              />
+            </View>
+          )}
+          {show.calendar && (
+            <View>
+              <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
+              <Calendar
+                disableSelectDate
+                events={customDates.items}
+                interval={intervalGroup.selected}
+                onDateSelect={this.onDateSelect}
+                startDate={startDateField.value}
+              />
+            </View>
+          )}
+        </ScrollView>
+        <ButtonControl label={i18n.ready} onPress={onReadyPress} />
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  gap: {
-    height: 36,
+  container: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
   },
 });
