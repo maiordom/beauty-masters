@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import upperFirst from 'lodash/upperFirst';
 
 import InputWithLabel from '../InputWithLabel';
 
@@ -10,46 +11,49 @@ import { shouldComponentUpdate } from '../../utils';
 export default class MasterEditorAddress extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
+  onChange = (value, modelName) => {
+    this.props.onChange(upperFirst(value), modelName);
+  };
+
   render() {
     const {
-      salonTitleField,
-      cityField,
-      streetField,
-      districtField,
-      subwayStationField,
-      houseField,
       buildingField,
-      onChange,
+      cityField,
+      districtField,
+      houseField,
+      salonTitleField,
+      streetField,
+      subwayStationField,
     } = this.props;
 
     return (
       <View style={styles.container}>
         <InputWithLabel
           {...salonTitleField}
-          onBlur={onChange}
+          onBlur={this.onChange}
           placeholder={i18n.specify}
         />
         <InputWithLabel
           {...cityField}
-          onBlur={onChange}
+          onBlur={this.onChange}
           placeholder={i18n.specify}
         />
         <InputWithLabel
           {...streetField}
-          onBlur={onChange}
+          onBlur={this.onChange}
           placeholder={i18n.specify}
         />
         <View style={styles.row}>
           <InputWithLabel
             {...buildingField}
-            onBlur={onChange}
+            onBlur={this.onChange}
             placeholder={i18n.specify}
             style={styles.groupInput}
           />
           <View style={styles.gap} />
           <InputWithLabel
             {...houseField}
-            onBlur={onChange}
+            onBlur={this.onChange}
             placeholder={i18n.specify}
             style={styles.groupInput}
           />
@@ -57,14 +61,14 @@ export default class MasterEditorAddress extends Component {
         <View style={styles.row}>
           <InputWithLabel
             {...districtField}
-            onBlur={onChange}
+            onBlur={this.onChange}
             placeholder={i18n.specify}
             style={styles.groupInput}
           />
           <View style={styles.gap} />
           <InputWithLabel
             {...subwayStationField}
-            onBlur={onChange}
+            onBlur={this.onChange}
             placeholder={i18n.specify}
             style={styles.groupInput}
           />

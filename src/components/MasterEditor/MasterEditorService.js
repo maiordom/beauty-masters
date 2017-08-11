@@ -177,7 +177,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
             </TouchableWithoutFeedback>
           </View>
         </Modal>
-        <ScrollView ref={this.setScrollViewRef}>
+        <ScrollView ref={this.setScrollViewRef} style={styles.inner}>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
           <StateMachine visible={tabActiveKey === 'servicePedicure'}>
@@ -204,6 +204,9 @@ export default class MasterEditorService extends Component<void, TProps, TState>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  inner: {
+      flex: 1,
   },
   homeAllowance: {
     paddingLeft: 11,

@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, Text, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
@@ -11,12 +13,25 @@ const i18nAddService = Platform.select({
   android: i18n.filters.addService.toUpperCase(),
 });
 
-export default class MasterEditorCustomServices extends Component {
-  addCustomService = () => this.toogleCustomService(true);
+type TProps = {
+  actions: Object,
+  items: Array<Object>,
+  modelName: string,
+  sectionName: string,
+};
 
-  onChange = active => this.toogleCustomService(active);
+export default class MasterEditorCustomServices extends Component<void, TProps, void> {
+  addCustomService = () => {
+    if (this.props.items.length > 2) {
+      return;
+    }
 
-  toogleCustomService = active => {
+    this.toogleCustomService(true);
+  };
+
+  onChange = (active: boolean) => this.toogleCustomService(active);
+
+  toogleCustomService = (active: boolean) => {
     this.props.actions.toogleCustomService(
       this.props.modelName,
       this.props.sectionName,
@@ -24,7 +39,7 @@ export default class MasterEditorCustomServices extends Component {
     );
   };
 
-  onChangeTitle = (title, modelName, index) => {
+  onChangeTitle = (title: string, modelName: string, index: number) => {
     this.props.actions.setCustomServiceParam(
       this.props.modelName,
       { title },
@@ -33,7 +48,7 @@ export default class MasterEditorCustomServices extends Component {
     );
   };
 
-  onChangePrice = (price, modelName, index) => {
+  onChangePrice = (price: number, modelName: string, index: number) => {
     this.props.actions.setCustomServiceParam(
       this.props.modelName,
       { price },
@@ -42,7 +57,7 @@ export default class MasterEditorCustomServices extends Component {
     );
   };
 
-  onChangeDuration = (duration, modelName, index) => {
+  onChangeDuration = (duration: string, modelName: string, index: number) => {
     this.props.actions.setCustomServiceParam(
       this.props.modelName,
       { duration },

@@ -55,7 +55,7 @@ export default class MasterEditorInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView style={styles.inner}>
           <View style={styles.scrollViewInner}>
             <Label
               text={i18n.masterEditor.informationAboutYou}
@@ -100,8 +100,8 @@ export default class MasterEditorInfo extends Component {
               />
             </View>
           </View>
-          <ButtonControl onPress={this.onNextPress} />
         </ScrollView>
+        <ButtonControl onPress={this.onNextPress} />
       </View>
     );
   }
@@ -118,5 +118,10 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
-  container: {},
+  container: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
+  },
 });
