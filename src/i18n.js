@@ -2,12 +2,14 @@
 export default {
   accept: 'Принимает',
   acceptNot: 'В этот день мастер не принимает',
+  activeMaster: 'Активный мастер',
   addAddress: ['Добавить адрес 1', 'Добавить адрес 2', 'Добавить адрес 3'],
+  addMasterCard: 'Добавить еще карточку мастера',
   authAsMaster: 'Авторизоваться как мастер услуг',
   building: 'Корпус/Строение',
   buildingShort: 'стр',
-  call: 'Позвонить',
   calendar: 'Календарь',
+  call: 'Позвонить',
   card: {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
@@ -241,6 +243,7 @@ export default {
     short: 'Быстрый поиск',
     vacantDays: 'Дни, когда возможен прием',
   },
+  selectAnotherMaster: 'Выбрать другого мастера',
   send: 'Отправить',
   serp: {
     onMap: 'На карте',

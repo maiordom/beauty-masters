@@ -12,8 +12,6 @@ export function getUserProfile() {
     .then((profileData) => {
       const response = profileData;
 
-      console.log(response);
-
       const profile : ProfileData = {
         id: response.id,
         username: response.username,

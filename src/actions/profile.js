@@ -9,3 +9,7 @@ export const getUserProfile = () => dispatch => {
       data: response,
     }));
 };
+
+export const selectMainMaster = (index) => dispatch => {
+  dispatch({type: constants.PROFILE_SET_MAIN, index});
+}

@@ -35,9 +35,9 @@ type TState = {
 export default class RangeTime extends Component<void, TProps, TState> {
   constructor(props: TProps) {
     super(props);
-  }
 
-  state = this.getStorage(this.props);
+    this.state = this.getStorage(this.props);
+  }
 
   shouldComponentUpdate = shouldComponentUpdate();
 

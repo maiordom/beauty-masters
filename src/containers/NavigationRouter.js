@@ -21,8 +21,10 @@ import Serp from '../screen/Serp/Serp';
 import MasterCard from '../screen/MasterCard/MasterCard';
 import MasterLocation from '../screen/MasterCard/MasterLocation';
 
-import MasterProfile from './MasterProfile/MasterProfile';
-import MasterProfileCalendar from './MasterProfile/MasterProfileCalendar';
+import MasterProfile from '../screen/MasterProfile/MasterProfile';
+import MasterProfileCalendar from '../screen/MasterProfile/MasterProfileCalendar';
+import MasterProfileSelectProfile from '../screen/MasterProfile/MasterProfileSelectProfile';
+
 import Drawer from '../components/Drawer';
 
 import Favorites from '../screen/Favorites/Favorites';
@@ -31,39 +33,12 @@ import Feedback from '../screen/Feedback/Feedback';
 
 import i18n from '../i18n';
 
-function getMasterStyle(options = {}) {
-  let leftButtonIconStyle;
-
-  switch (options.navButtonType) {
-    case 'menu':
-      leftButtonIconStyle = { width: 20, height: 18 }; break;
-    default:
-      leftButtonIconStyle = { width: 24, height: 24 };
-  }
-
-  let backButtonImage;
-
-  switch (options.navButtonType) {
-    case 'menu':
-      backButtonImage = require('../icons/menu.png');
-      break;
-    default:
-      backButtonImage = require('../icons/android/back-arrow.png');
-  }
-
-  return {
-    leftButtonIconStyle,
-    backButtonImage,
-  };
-}
-
 const RouterWithRedux = connect()(Router);
 
 export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
-        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -74,25 +49,21 @@ export default () => (
         />
         <Scene
           key="searchForm"
-          {...getMasterStyle({ navButtonType: 'menu' })}
           title={i18n.search.searchParams}
           component={SearchForm}
         />
         <Scene
           key="searchCity"
-          {...getMasterStyle()}
-          title={'Город'}
+          title="Город"
           component={SearchCity}
         />
         <Scene
           key="searchAddress"
-          {...getMasterStyle()}
           title={i18n.search.masterPlace}
           component={SearchFormAddress}
         />
         <Scene
           key="Serp"
-          {...getMasterStyle()}
           title={i18n.search.search}
           component={Serp}
         />
@@ -104,48 +75,42 @@ export default () => (
         />
         <Scene
           key="masterEditorGeneral"
-          {...getMasterStyle()}
           title={i18n.masterEditor.generalInformation}
           component={MasterEditorGeneral}
         />
         <Scene
           key="masterEditorService"
-          {...getMasterStyle()}
           title={i18n.masterEditor.services}
           component={MasterEditorService}
         />
         <Scene
           key="masterEditorHandlingTools"
-          {...getMasterStyle()}
           title={i18n.masterEditor.handlingTools}
           component={MasterEditorHandlingTools}
         />
         <Scene
           key="masterEditorCalendar"
-          {...getMasterStyle()}
           title={i18n.masterEditor.schedule}
           component={MasterEditorCalendar}
         />
         <Scene
           key="masterEditorCalendarSetting"
-          {...getMasterStyle()}
           title={i18n.masterEditor.calendarSettings}
           component={props => <MasterEditorCalendarSettings {...props} />}
         />
         <Scene
           key="masterEditorInfo"
-          {...getMasterStyle()}
           title={i18n.masterEditor.additionalInformation}
           component={MasterEditorInfo}
         />
         <Scene
           key="createMasterSuccess"
-          {...getMasterStyle()}
           title={i18n.registrationComplete.sceneTitle}
           component={MasterEditorCreateSuccess}
           leftButtonHidden
         />
         <Scene
+          initial
           key="masterProfile"
           component={MasterProfile}
           title={i18n.userProfile}
@@ -153,6 +118,11 @@ export default () => (
         <Scene
           key="masterProfileCalendar"
           component={MasterProfileCalendar}
+        />
+        <Scene
+          key="masterProfileSelectProfile"
+          title={i18n.userProfile}
+          component={MasterProfileSelectProfile}
         />
         <Scene
           key="favorite"

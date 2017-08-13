@@ -17,14 +17,14 @@ export default class Checkbox extends Component {
   };
 
   render() {
-    const { checked } = this.props;
+    const { checked, customStyles = {} } = this.props;
 
     return (
       <TouchableHighlight
         underlayColor="transparent"
         activeOpacity={1}
         onPress={this.onPress}
-        style={styles.container}
+        style={[styles.container, customStyles.container]}
       >
         <Image source={checked ? checkboxCheckedIcon : checkboxIcon} />
       </TouchableHighlight>

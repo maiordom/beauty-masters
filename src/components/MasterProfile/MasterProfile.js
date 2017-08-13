@@ -42,17 +42,17 @@ const tabs = [
   },
 ];
 
-type Props = {
+type TProps = {
   profile: Object,
   actions: Object,
 }
 
-type State = {
+type TState = {
   activeTab: string,
   tabBorderOffset: Animated,
 }
 
-export default class MasterProfile extends Component<void, Props, State> {
+export default class MasterProfile extends Component<void, TProps, TState> {
   state = {
     activeTab: 'profile',
     tabBorderOffset: new Animated.Value(0),

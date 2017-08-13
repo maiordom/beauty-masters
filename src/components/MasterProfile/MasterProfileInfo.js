@@ -12,6 +12,7 @@ import i18n from '../../i18n';
 import vars from '../../vars';
 
 import InputWithLabel from '../InputWithLabel';
+import ButtonPanel from '../ButtonPanel';
 
 const photoEmpty = require('../../icons/photo-empty.png');
 
@@ -23,6 +24,10 @@ type TProps = {
 }
 
 export default class MasterProfileInfo extends Component<void, TProps, void> {
+  onSelectAnotherMaster = () => {
+    this.props.actions.selectAnotherMaster();
+  };
+
   render() {
     const {
       masterPhoto,
@@ -61,6 +66,10 @@ export default class MasterProfileInfo extends Component<void, TProps, void> {
             <Text style={styles.changePwd}>{i18n.changePwd}</Text>
           </View>
         </View>
+        <ButtonPanel
+          onPress={this.onSelectAnotherMaster}
+          title={i18n.selectAnotherMaster}
+        />
       </View>
     );
   }
@@ -69,11 +78,9 @@ export default class MasterProfileInfo extends Component<void, TProps, void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
   content: {
     flex: 1,
-    alignSelf: 'stretch',
     backgroundColor: vars.color.lightGrey,
   },
   photo: {
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
     borderBottomColor: vars.color.borderColorAndroid,
     borderBottomWidth: 1,
     backgroundColor: vars.color.white,
-    padding: 16,
+    padding: 12,
   },
   input: {
     flex: 1,
@@ -105,6 +112,7 @@ const styles = StyleSheet.create({
   },
   changePwd: {
     marginTop: 16,
+    marginLeft: 4,
     color: vars.color.black,
     fontSize: 16,
   },
