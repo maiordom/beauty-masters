@@ -20,18 +20,20 @@ export default class Radio extends Component {
   };
 
   render() {
-    const { label, checked } = this.props;
+    const { label, checked, customStyles = {} } = this.props;
 
     return (
       <TouchableHighlight
         underlayColor="transparent"
         activeOpacity={1}
         onPress={this.onPress}
-        style={styles.container}
+        style={[styles.container, customStyles.container]}
       >
         <View style={styles.inner}>
           <Image source={checked ? iconChecked : icon} />
-          <Text style={styles.label}>{label}</Text>
+          {label && (
+            <Text style={styles.label}>{label}</Text>
+          )}
         </View>
       </TouchableHighlight>
     );
@@ -41,7 +43,7 @@ export default class Radio extends Component {
 const styles = StyleSheet.create({
   container: {
     height: 48,
-    paddingLeft: 24,
+    justifyContent: 'center',
   },
   inner: {
     flexDirection: 'row',

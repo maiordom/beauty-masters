@@ -19,10 +19,11 @@ export default class RadioGroup extends Component {
       <View style={styles.container}>
         {items.map((item, key) => (
           <Radio
+            checked={item.active}
+            customStyles={{container: styles.radio}}
+            id={item.id}
             key={key}
             label={item.label}
-            id={item.id}
-            checked={item.active}
             onChange={this.onRadioChange}
           />
         ))}
@@ -33,4 +34,7 @@ export default class RadioGroup extends Component {
 
 const styles = StyleSheet.create({
   container: {},
+  radio: {
+    paddingLeft: 16,
+  },
 });
