@@ -39,7 +39,6 @@ export type CreateMasterQuery = {
   certificates: Array<string>,
   username?: string,
   is_salon?: boolean,
-  last_name?: string,
   manicure_custom_services: Array<CustomService>,
   master_addresses: Array<MasterAddress>,
   master_photos: Array<string>,

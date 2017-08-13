@@ -39,6 +39,7 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
+        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -110,7 +111,6 @@ export default () => (
           leftButtonHidden
         />
         <Scene
-          initial
           key="masterProfile"
           component={MasterProfile}
           title={i18n.userProfile}
