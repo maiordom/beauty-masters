@@ -125,11 +125,11 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
 export function groupServices(services: Array<Service>, dictionaries: Object) {
   const masterServices = groupBy(
     services.map(({ serviceId, price, duration }) => {
-      const { title, categoryId } = dictionaries[serviceId];
+      const { title, categoryKey } = dictionaries[serviceId];
 
-      return { price, duration, title, serviceId, categoryId };
+      return { price, duration, title, serviceId, categoryKey };
     }),
-    'categoryId',
+    'categoryKey',
   );
 
   return Object.keys(masterServices)

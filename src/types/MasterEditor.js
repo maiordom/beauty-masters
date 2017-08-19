@@ -8,12 +8,14 @@ export type CustomService = {
 
 export type ServicePedicure = {
   active: boolean,
+  categoryKey?: string,
   dictionaryKey: string,
   title: string,
 };
 
 export type ServiceManicure = {
   active: boolean,
+  categoryKey?: string,
   dictionaryKey: string,
   required?: boolean,
   title: string,

@@ -5,7 +5,7 @@ type Service = {
   key: string,
   title: string,
   description: string,
-  categoryId: number
+  categoryKey: number
 }
 
 export type ServiceDictionary = {
