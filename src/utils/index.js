@@ -95,7 +95,8 @@ export function shallowEqual(objA: Object, objB: Object, ignoreKeys?: Array<stri
   return { result: true };
 }
 
-export const capitalizeFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+export const capitalizeFirstLetter = (word: string) =>
+  `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
 
 /**
  * deepUpdate object by path

@@ -1,12 +1,18 @@
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { userLogin } from '../actions/auth';
 
 import Login from '../components/Login';
 
-const mapDispatchToProps = () => ({
-  loginUser() {
-    Actions.masterProfile();
-  },
+const mapStateToProps = (state) => ({
+  error: state.auth.loginError,
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({ userLogin }, dispatch),
+  onAuthSuccess: Actions.masterProfile,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -14,7 +14,7 @@ export default {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
   },
-  changePwd: 'Изменить пароль',
+  changePassword: 'Изменить пароль',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',

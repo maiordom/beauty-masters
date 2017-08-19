@@ -6,9 +6,13 @@ import { userCreate } from '../../src/actions/auth';
 
 import Registration from '../components/Registration';
 
+const mapStateToProps = (state) => ({
+  error: state.auth.registerError,
+});
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ userCreate }, dispatch),
   onAuthSuccess: Actions.masterEditorGeneral,
 });
 
-export default connect(null, mapDispatchToProps)(Registration);
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

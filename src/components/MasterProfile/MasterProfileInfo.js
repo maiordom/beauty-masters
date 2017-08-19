@@ -17,6 +17,7 @@ import ButtonPanel from '../ButtonPanel';
 const photoEmpty = require('../../icons/photo-empty.png');
 
 type TProps = {
+  actions: Object,
   email: string,
   masterPhoto: Array<string>,
   phone: string,
@@ -63,7 +64,7 @@ export default class MasterProfileInfo extends Component<void, TProps, void> {
                 style={styles.input}
               />
             </View>
-            <Text style={styles.changePwd}>{i18n.changePwd}</Text>
+            <Text style={styles.changePassword}>{i18n.changePassword}</Text>
           </View>
         </View>
         <ButtonPanel
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  changePwd: {
+  changePassword: {
     marginTop: 16,
     marginLeft: 4,
     color: vars.color.black,

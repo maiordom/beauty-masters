@@ -39,7 +39,6 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
-        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -71,6 +70,7 @@ export default () => (
         <Scene key="card" component={MasterCard} />
         <Scene key="masterLocation" component={MasterLocation} title="Место приема мастера" />
         <Scene
+          initial
           key="masterAuthorization"
           component={MasterAuthorization}
         />
