@@ -114,21 +114,21 @@ export default class SearchFormShort extends Component {
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
 
     const isManicureActive = every(filter(
-      serviceManicure, service => service.parentServiceId === 1,
+      serviceManicure, service => service.categoryId === 1,
     ), { active: true });
 
     const isPedicureActive = every(filter(
-      servicePedicure, service => service.parentServiceId === 33,
+      servicePedicure, service => service.categoryId === 33,
     ), { active: true });
 
     const isExtensionActive = every(filter(
       { ...servicePedicure, ...serviceManicure },
-      service => service.parentServiceId === 1001 && [22, 54].includes(service.id),
+      service => service.categoryId === 1001 && [22, 54].includes(service.id),
     ), { active: true });
 
     const isWithdrawalActive = every(filter(
       { ...servicePedicure, ...serviceManicure },
-      service => service.parentServiceId === 1002,
+      service => service.categoryId === 1002,
     ), { active: true });
 
     return (

@@ -12,7 +12,8 @@ const initialState = {
   },
   auth: {},
   dictionaries: {
-    services: [],
+    services: {},
+    serviceByKey: {},
   },
   masterEditor: MasterEditor,
   searchForm: SearchForm,

@@ -6,7 +6,7 @@ const methods = [
   { upload: '/upload', method: 'POST' },
   { createMaster: '/master', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
-  { getDictionaries: '/dictionary', method: 'GET' },
+  { getServices: '/service', method: 'GET' },
   { userCreate: '/user/registration', method: 'POST' },
   { userLogin: '/token', method: 'POST' },
   { userFavorites: '/favorites', method: 'GET' },

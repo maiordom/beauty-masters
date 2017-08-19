@@ -16,14 +16,14 @@ const setParam = (action, state) => {
   deepUpdate(state, `searchForm.${sectionName}`, { [`${modelName}`]: model });
 };
 
-const updateSections = (action, parentServiceId, state) => {
+const updateSections = (action, categoryId, state) => {
   const section = state.searchForm[action.sectionName];
 
   state.searchForm = { ...state.searchForm };
   state.searchForm[action.sectionName] = { ...section };
 
   map(state.searchForm[action.sectionName], sectionModel => {
-    if (sectionModel.parentServiceId === parentServiceId) {
+    if (sectionModel.categoryId === categoryId) {
       sectionModel.active = action.paramValue;
     }
   });
@@ -48,23 +48,23 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.SEARCH_TOOGLE_EXTENSION]: () => {
-    const parentServiceId = 1001;
+    const categoryId = 1001;
     const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
     const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
 
-    updateSections(servicePedicure, parentServiceId, state);
-    updateSections(serviceManicure, parentServiceId, state);
+    updateSections(servicePedicure, categoryId, state);
+    updateSections(serviceManicure, categoryId, state);
 
     return state;
   },
 
   [actions.SEARCH_TOOGLE_WITHDRAWAL]: () => {
-    const parentServiceId = 1002;
+    const categoryId = 1002;
     const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
     const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
 
-    updateSections(servicePedicure, parentServiceId, state);
-    updateSections(serviceManicure, parentServiceId, state);
+    updateSections(servicePedicure, categoryId, state);
+    updateSections(serviceManicure, categoryId, state);
 
     return state;
   },
@@ -99,7 +99,7 @@ export default makeReducer((state, action) => ({
 
     items.forEach(item => {
       item.services.forEach(service => {
-        service.title = state.dictionaries.services[service.id].title;
+        service.title = state.dictionaries.serviceById[service.id].title;
       });
     });
 

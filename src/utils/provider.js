@@ -47,12 +47,6 @@ export const post = (method, params) => {
 export const get = (method, params) => (
   RNFetchBlob.fetch(method.method, config.host + method.path, {
       'Content-Type': 'application/json',
-  }, [stringify({
-    data: {
-      attributes: {
-        ...params
-      },
-    },
-  })])
+  })
   .then(res => res.json())
 );

@@ -5,7 +5,7 @@ type Service = {
   dictionaryKey: string,
   duration?: string,
   id: number,
-  parentServiceId: number,
+  categoryId: number,
   price?: number,
   title: string,
 };

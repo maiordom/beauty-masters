@@ -8,7 +8,7 @@ export default makeReducer((state, action) => ({
 
     state.profile = data;
 
-    state.profile.services = groupServices(state.profile.services, state.dictionaries.services);
+    state.profile.services = groupServices(state.profile.services, state.dictionaries.serviceById);
 
     return state;
   },

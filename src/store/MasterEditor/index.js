@@ -1,6 +1,4 @@
-/*
- * @flow
- */
+// @flow
 
 import each from 'lodash/each';
 
