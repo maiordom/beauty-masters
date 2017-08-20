@@ -298,14 +298,9 @@ export default makeReducer((state, action) => ({
 
   [actions.MASTER_FIELD_SET_VALUE]: () => {
     const { sectionName, modelName, value } = action;
-    const section = state.masterEditor[sectionName];
-    const model = section[modelName];
+    const model = state.masterEditor[sectionName][modelName];
 
-    model.value = value;
-
-    state.masterEditor = { ...state.masterEditor };
-    state.masterEditor[sectionName] = { ...section };
-    state.masterEditor[sectionName][modelName] = { ...model };
+    state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
 
     if (model.queryParam) {
       state.masterEditor.createMasterQuery[model.queryParam] = value;

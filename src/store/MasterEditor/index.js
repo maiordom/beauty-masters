@@ -48,19 +48,7 @@ params.calendarSettingsThree.index = 2;
 
 params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 
-const createMasterQuery: CreateMasterQuery = {
-  master_addresses: [],
-  certificates: [],
-  manicure_custom_services: [],
-  pedicure_custom_services: [],
-  master_photos: [],
-  services: [
-    { service_id: params.serviceManicure.classicManicure.id },
-    { service_id: params.serviceManicure.removingNailPolishManicure.id },
-    { service_id: params.serviceManicure.applyingNailPolishManicure.id },
-  ],
-  work_photos: [],
-};
+const createMasterQuery: CreateMasterQuery = {};
 
 export default {
   ...params,

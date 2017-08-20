@@ -8,6 +8,7 @@ import upperFirst from 'lodash/upperFirst';
 import Input from '../Input';
 import Switch from '../Switch';
 import ButtonControl from '../ButtonControl';
+import ActivityIndicator from '../../containers/ActivityIndicator';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -30,7 +31,7 @@ type TState = {
 type TProps = {
     actions: Object;
     isSalonField: Object;
-    onNextPress: () => void;
+    next: () => void;
     phoneField: Object;
     salonNameField: Object;
     usernameField: Object;
@@ -86,7 +87,11 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
 
   onNextPress = () => {
     if (this.validate()) {
-      this.props.onNextPress();
+      this.props.actions.createMaster().then((res) => {
+        if (res.result === 'success') {
+          this.props.next();
+        }
+      });
     }
   };
 
@@ -149,6 +154,7 @@ export default class MasterEditorGeneral extends Component<void, TProps, TState>
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <View style={styles.inner}>
           <Input
             {...usernameField}

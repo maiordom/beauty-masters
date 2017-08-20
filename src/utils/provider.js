@@ -18,9 +18,10 @@ const getBody = (params) => stringify({
   };
 });
 
-export const post = (method, params) => {
-  return RNFetchBlob.fetch(method.method, config.host + method.path, {
+export const post = (method, params, headers = {}) => {
+  return RNFetchBlob.fetch('POST', config.host + method.path, {
     'Content-Type': 'multipart/form-data',
+    ...headers
   }, getBody(params))
   .then(res => res.json())
   .then(res => {
@@ -44,9 +45,10 @@ export const post = (method, params) => {
   })
 };
 
-export const get = (method, params) => (
-  RNFetchBlob.fetch(method.method, config.host + method.path, {
+export const get = (method, params, headers = {}) => (
+  RNFetchBlob.fetch('GET', config.host + method.path, {
       'Content-Type': 'application/json',
+      ...headers
   })
   .then(res => res.json())
 );

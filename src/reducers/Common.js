@@ -23,6 +23,6 @@ export default makeReducer((state, action) => ({
 
   [actions.ACTIVITY_INDICATOR_ANIMATING]: () =>
     deepUpdate(state, 'activityIndicator', {
-      animating: actions.animating
+      animating: action.animating
     })
 }));

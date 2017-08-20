@@ -4,7 +4,7 @@ const routes = {};
 
 const methods = [
   { upload: '/upload', method: 'POST' },
-  { createMaster: '/master', method: 'POST' },
+  { createMaster: '/master-card', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
   { getServices: '/service', method: 'GET' },
   { userCreate: '/user/registration', method: 'POST' },
