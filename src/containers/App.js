@@ -5,8 +5,8 @@ import NavigationRouter from './NavigationRouter';
 
 import masterData from '../test/MasterData';
 import { setData } from '../actions/master';
-import { userCreate } from '../actions/auth';
-import { getDictionaries } from '../actions/dictionaries';
+import { userLogin } from '../actions/auth';
+import { getServices } from '../actions/dictionaries';
 
 const store = configureStore();
 
@@ -15,8 +15,15 @@ export default class App extends Component {
     store.dispatch(setData(masterData));
   }
 
+  login() {
+    userLogin({
+      username: 'admin@example.com',
+      password: 'qwerty'
+    })(store.dispatch);
+  }
+
   componentDidMount() {
-    getDictionaries()(store.dispatch);
+    getServices()(store.dispatch);
   }
 
   render() {

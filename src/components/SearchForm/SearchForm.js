@@ -114,21 +114,21 @@ export default class SearchFormShort extends Component {
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
 
     const isManicureActive = every(filter(
-      serviceManicure, service => service.parentServiceId === 1,
+      serviceManicure, service => service.categoryKey === 'manicure',
     ), { active: true });
 
     const isPedicureActive = every(filter(
-      servicePedicure, service => service.parentServiceId === 33,
+      servicePedicure, service => service.categoryKey === 'pedicure',
     ), { active: true });
 
     const isExtensionActive = every(filter(
       { ...servicePedicure, ...serviceManicure },
-      service => service.parentServiceId === 1001 && [22, 54].includes(service.id),
+      service => service.categoryKey === 'extension',
     ), { active: true });
 
     const isWithdrawalActive = every(filter(
       { ...servicePedicure, ...serviceManicure },
-      service => service.parentServiceId === 1002,
+      service => service.categoryKey === 'removing',
     ), { active: true });
 
     return (
@@ -142,8 +142,6 @@ export default class SearchFormShort extends Component {
             onDateSelect={this.onSelectCalendarDate}
             containerWidth={170}
           />
-
-          {/* Где принимает мастер */}
           <FilterLabel text={i18n.search.masterPlace} />
           <FilterTab
             onChange={Actions.searchCity}

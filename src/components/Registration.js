@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Platform, Image } from 'react-native';
 
@@ -15,7 +17,7 @@ const icons = {
   ...Platform.select({
     android: {
       email: require('../icons/mail.png'),
-      pwd: require('../icons/pwd.png'),
+      password: require('../icons/password.png'),
       warning: require('../icons/android/warning.png'),
     },
   }),
@@ -23,27 +25,52 @@ const icons = {
 
 const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 
-export default class Registration extends Component {
+type TProps = {
+  actions: Object,
+  onAuthSuccess: () => void,
+};
+
+type TState = {
+  hasError: boolean,
+  responseError: null | Object,
+  validationStatus: null | string,
+};
+
+export default class Registration extends Component<void, TProps, TState> {
   state = {
-    validationStatus: null,
     hasError: false,
+    responseError: null,
+    validationStatus: null,
   };
+
+  emailRef: Object;
+  passwordRef: Object;
+
+  componentWillReceiveProps(nextProps: Object) {
+    if (nextProps.error !== this.state.responseError) {
+      this.setState({ responseError: nextProps.error });
+    }
+  }
 
   onUserCreatePress = () => {
     const email = this.emailRef.getValue();
-    const pwd = this.pwdRef.getValue();
+    const password = this.passwordRef.getValue();
 
     if (this.validate()) {
-      this.props.actions.userCreate({ email, password: pwd })
-        .then(this.props.onAuthSuccess);
+      this.props.actions.userCreate({ email, password })
+        .then((res) => {
+          if (res.result === 'success') {
+            this.props.onAuthSuccess();
+          }
+        });
     }
   };
 
   validate() {
     const email = this.emailRef.getValue();
-    const pwd = this.pwdRef.getValue();
+    const password = this.passwordRef.getValue();
 
-    if (email.length === 0 || pwd.length === 0) {
+    if (email.length === 0 || password.length === 0) {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
       return false;
     } else {
@@ -58,11 +85,20 @@ export default class Registration extends Component {
     }
   };
 
-  setEmailRef = ref => this.emailRef = ref;
-  setPwdRef = ref => this.pwdRef = ref;
+  error = (text: string, withImage: boolean = true) => (
+    <View style={styles.error}>
+      <Text style={styles.errorText}>{text}</Text>
+      {withImage && (
+        <Image source={icons.warning} />
+      )}
+    </View>
+  );
+
+  setEmailRef = (ref: Object) => this.emailRef = ref;
+  setPasswordRef = (ref: Object) => this.passwordRef = ref;
 
   render() {
-    const { validationStatus } = this.state;
+    const { validationStatus, responseError } = this.state;
 
     return (
       <View style={styles.container}>
@@ -79,10 +115,10 @@ export default class Registration extends Component {
           <Input
             debounce
             debounceTimer={200}
-            icon={icons.pwd}
+            icon={icons.password}
             onChange={this.onChangeInput}
             placeholder={i18n.passwordTip}
-            ref={this.setPwdRef}
+            ref={this.setPasswordRef}
             secureTextEntry={true}
             style={styles.input}
           />
@@ -99,10 +135,10 @@ export default class Registration extends Component {
             <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
           </View>}
           {validationStatus === ALL_FIELDS_REQUIRED && (
-            <View style={styles.error}>
-              <Text style={styles.errorText}>{i18n.errors.allFieldsRequired}</Text>
-              <Image source={icons.warning} />
-            </View>
+            this.error(i18n.errors.allFieldsRequired)
+          )}
+          {responseError && (
+            this.error(responseError.detail, false)
           )}
         </View>
         <TouchableHighlight

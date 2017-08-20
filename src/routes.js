@@ -4,10 +4,11 @@ const routes = {};
 
 const methods = [
   { upload: '/upload', method: 'POST' },
-  { createMaster: '/master', method: 'POST' },
+  { createMaster: '/master-card', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
-  { getDictionaries: '/dictionary', method: 'GET' },
-  { userCreate: '/user', method: 'POST' },
+  { getServices: '/service', method: 'GET' },
+  { userCreate: '/user/registration', method: 'POST' },
+  { userLogin: '/token', method: 'POST' },
   { userFavorites: '/favorites', method: 'GET' },
   { searchMasters: '/master/search', method: 'GET' },
   { getMasterById: '/master', method: 'GET' },

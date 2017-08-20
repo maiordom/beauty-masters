@@ -1,15 +1,14 @@
 import routes from '../routes';
 import { get } from '../utils/provider';
 
-export function getDictionaries() {
-  return get(routes.getDictionaries)
-    .then(response => (response.result && {
-      services: response.result.data.services.map(service => ({
-        id: service.Id,
-        key: service.Key,
-        title: service.Title,
-        description: service.Description,
-        parentServiceId: service.ParentServiceId,
+export function getServices() {
+  return get(routes.getServices)
+    .then(response => (response.data && {
+      services: response.data.map(service => ({
+        id: service.id,
+        key: service.attributes.key,
+        title: service.attributes.title,
+        categoryId: service.attributes.category_id,
       })),
     } || {
       services: []

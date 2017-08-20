@@ -8,7 +8,12 @@ const ActivityIndicatorComponent = ({
   position = 'relative',
   size = 'large',
 }) => (
-  animating && <View style={position === 'absolute' && styles.positionAbsolute}>
+  <View style={animating
+    ? position === 'absolute'
+      ? styles.positionAbsolute
+      : null
+    : styles.hidden
+  }>
     <ActivityIndicator
       animating={animating}
       size={size}
@@ -18,6 +23,10 @@ const ActivityIndicatorComponent = ({
 );
 
 const styles = StyleSheet.create({
+  hidden: {
+    width: 0,
+    height: 0,
+  },
   positionAbsolute: {
     position: 'absolute',
     top: 0,

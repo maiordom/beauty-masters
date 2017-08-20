@@ -95,7 +95,8 @@ export function shallowEqual(objA: Object, objB: Object, ignoreKeys?: Array<stri
   return { result: true };
 }
 
-export const capitalizeFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+export const capitalizeFirstLetter = (word: string) =>
+  `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
 
 /**
  * deepUpdate object by path
@@ -124,11 +125,11 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
 export function groupServices(services: Array<Service>, dictionaries: Object) {
   const masterServices = groupBy(
     services.map(({ serviceId, price, duration }) => {
-      const { title, parentServiceId } = dictionaries[serviceId];
+      const { title, categoryKey } = dictionaries[serviceId];
 
-      return { price, duration, title, serviceId, parentServiceId };
+      return { price, duration, title, serviceId, categoryKey };
     }),
-    'parentServiceId',
+    'categoryKey',
   );
 
   return Object.keys(masterServices)

@@ -11,7 +11,7 @@ import i18n from '../../i18n';
 
 const usernameField = (username: string) => ({
   placeholder: i18n.username,
-  queryParam: 'username',
+  queryParam: 'full_name',
   value: username || null,
 }: GeneralFieldModel);
 

@@ -22,6 +22,7 @@
   "dependencies": {
     "lodash": "~4.17.x",
     "moment": "2.17.1",
+    "qs": "6.5.0",
     "react": "15.4.2",
     "react-native": "0.40.0",
     "react-native-drawer": "2.3.0",
@@ -48,7 +49,7 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.3",
-    "flow-bin": "0.36.0",
+    "flow-bin": "0.53.1",
     "invariant": "2.2.2",
     "jest": "18.1.0",
     "lint-staged": "3.4.0",

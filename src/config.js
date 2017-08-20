@@ -1,3 +1,3 @@
 export default {
-  host: 'http://pilochka.mocklab.io'
+  host: 'http://pilochki.demostage.ru/api'
 };

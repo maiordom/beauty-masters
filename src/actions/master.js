@@ -6,6 +6,8 @@ import * as MasterService from '../services/master';
 import actions from '../constants/master';
 import constants from '../constants/master';
 
+import { setActivityIndicator } from './common';
+
 let index = 0;
 
 function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
@@ -68,14 +70,23 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
 }
 
 export const createMaster = () => (dispatch, getState) => {
-  const createMasterQuery = getState().masterEditor.createMasterQuery;
+  const state = getState();
+  const auth = state.auth;
+  const createMasterQuery = state.masterEditor.createMasterQuery;
 
-  return MasterService.createMaster({ master: createMasterQuery })
+  dispatch(setActivityIndicator(true));
+
+  return MasterService.createMaster(createMasterQuery, {
+    'Authorization': `${auth.tokenType} ${auth.accessToken}`,
+  })
     .then(response => {
-      if (response.result) {
-        Actions.createMasterSuccess();
+      dispatch(setActivityIndicator(false));
+
+      if (response.data) {
+        return { result: 'success' };
       }
-    });
+    })
+    .catch(() => dispatch(setActivityIndicator(false)));
 };
 
 export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) => {
