@@ -37,7 +37,7 @@ type TProps = {
     usernameField: Object;
 };
 
-export default class MasterEditorGeneral extends Component<void, TProps, TState> {
+export default class MasterEditorGeneral extends Component<TProps, TState> {
   state = {
     errorFillPhoneNumber: false,
     errorFillSalonName: false,

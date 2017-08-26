@@ -6,7 +6,7 @@ import NavigationRouter from './NavigationRouter';
 import masterData from '../test/MasterData';
 import { setData } from '../actions/master';
 import { userLogin } from '../actions/auth';
-import { getServices } from '../actions/dictionaries';
+import { getServices, getCategoryServices } from '../actions/dictionaries';
 
 const store = configureStore();
 
@@ -18,12 +18,14 @@ export default class App extends Component {
   login() {
     userLogin({
       username: 'admin@example.com',
-      password: 'qwerty'
+      password: 'qwerty',
     })(store.dispatch);
   }
 
   componentDidMount() {
+    this.login();
     getServices()(store.dispatch);
+    getCategoryServices()(store.dispatch);
   }
 
   render() {

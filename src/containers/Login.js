@@ -11,8 +11,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({ userLogin }, dispatch),
-  onAuthSuccess: Actions.masterProfile,
+  actions: {
+    ...bindActionCreators({ userLogin }, dispatch),
+    next: Actions.masterProfile,
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

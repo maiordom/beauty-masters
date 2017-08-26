@@ -2,24 +2,18 @@
 
 import i18n from '../../i18n';
 
-import type { CustomService } from '../../types/MasterEditor';
+import type { TCustomService } from '../../types/CreateMaster';
 
-const customServiceQueryMapping = {
-  title: 'description',
-  duration: 'duration',
-  price: 'price',
-};
-
-const manicureCustomServices = (customServices: Array<CustomService> = []) => ({
+const manicureCustomServices = (customServices: Array<TCustomService> = []) => ({
+  dictionaryKey: 'Manicure',
   items: customServices,
-  queryParam: 'manicure_custom_services',
-  queryMapping: customServiceQueryMapping,
+  queryParam: 'manicureCustomServicesQuery',
 });
 
-const pedicureCustomServices = (customServices: Array<CustomService> = []) => ({
+const pedicureCustomServices = (customServices: Array<TCustomService> = []) => ({
+  dictionaryKey: 'Pedicure',
   items: customServices,
-  queryParam: 'pedicure_custom_services',
-  queryMapping: customServiceQueryMapping,
+  queryParam: 'pedicureCustomServicesQuery',
 });
 
 const homeAllowanceField = (homeAllowance: number) => ({

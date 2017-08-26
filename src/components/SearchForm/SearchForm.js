@@ -33,7 +33,7 @@ import { capitalizeFirstLetter } from '../../utils';
 export default class SearchFormShort extends Component {
   props: {
     actions: {
-      toogleService: Function,
+      toggleService: Function,
       toggleDeparture: Function,
       setItemById: Function,
       setDay: Function,
@@ -58,7 +58,7 @@ export default class SearchFormShort extends Component {
   };
 
   onServiceToggle: ServiceToggleType = (sectionName) => (value, modelName) => {
-    this.props.actions.toogleService(modelName, 'active', value, sectionName);
+    this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
   onExtensionToggle = (value: boolean) => {

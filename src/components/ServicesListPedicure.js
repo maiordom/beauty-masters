@@ -28,7 +28,7 @@ type TState = {
   withdrawal?: boolean,
 };
 
-export default class ServicesListPedicure extends Component<void, TProps, TState> {
+export default class ServicesListPedicure extends Component<TProps, TState> {
   state = {
     automate: [
       'nailProcessingMethod',

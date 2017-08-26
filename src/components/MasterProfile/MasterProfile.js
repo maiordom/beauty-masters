@@ -52,7 +52,7 @@ type TState = {
   tabBorderOffset: Animated,
 }
 
-export default class MasterProfile extends Component<void, TProps, TState> {
+export default class MasterProfile extends Component<TProps, TState> {
   state = {
     activeTab: 'profile',
     tabBorderOffset: new Animated.Value(0),

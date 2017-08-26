@@ -20,9 +20,9 @@ type TProps = {
   modelName?: string,
   onChange: (...args: any) => void,
   onChangeDuration?: (...args: any) => void,
-  onChangeTitle?: (...args: any) => void,
   /* $FlowFixMe */
   onChangePrice?: (...args: any) => void,
+  onChangeTitle?: (...args: any) => void,
   price?: number,
   required?: boolean,
   title?: string,
@@ -40,9 +40,9 @@ const icons = {
 };
 
 // $FlowFixMe
-export default class FilterCheckBox extends Component<void, TProps, void> {
-  durationRef: Object;
-  priceRef: Object;
+export default class FilterCheckBox extends Component<TProps, void> {
+  durationRef: any;
+  priceRef: any;
 
   shouldComponentUpdate = shouldComponentUpdate();
 
@@ -89,8 +89,8 @@ export default class FilterCheckBox extends Component<void, TProps, void> {
     </View>
   );
 
-  setPriceRef = (ref: Object) => this.priceRef = ref;
-  setDurationRef = (ref: Object) => this.durationRef = ref;
+  setPriceRef = (ref: any) => (this.priceRef = ref);
+  setDurationRef = (ref: any) => (this.durationRef = ref);
 
   render() {
     const {

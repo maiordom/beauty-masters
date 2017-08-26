@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import MasterEditorHandlingTools from '../../components/MasterEditor/MasterEditorHandlingTools';
 import NavBar from '../../components/NavBar';
 
-import { toogleService, setServiceParam } from '../../actions/master';
+import { toggleService, setServiceParam } from '../../actions/master';
 
 const mapStateToProps = state => ({
   ...state.masterEditor.handlingTools,
@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators({ toogleService, setServiceParam }, dispatch);
+  const actions = bindActionCreators({ toggleService, setServiceParam }, dispatch);
 
   return {
     onNextPress: Actions.masterEditorCalendar,

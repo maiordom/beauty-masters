@@ -11,6 +11,20 @@ export function getServices() {
         categoryId: service.attributes.category_id,
       })),
     } || {
-      services: []
+      services: [],
     }));
 }
+
+export function getCategoryServices() {
+  return get(routes.getCategoryServices)
+    .then(response => (response.data && {
+      categoryServices: response.data.map(categoryService => ({
+        id: categoryService.id,
+        key: categoryService.attributes.key,
+      })),
+    } || {
+      categoryServices: [],
+    }));
+}
+
+export default null;

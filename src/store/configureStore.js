@@ -11,10 +11,7 @@ const initialState = {
     animating: false,
   },
   auth: {},
-  dictionaries: {
-    services: {},
-    serviceByKey: {},
-  },
+  dictionaries: {},
   masterEditor: MasterEditor,
   searchForm: SearchForm,
   masterCards: {},
@@ -25,12 +22,12 @@ const initialState = {
   userMasters: [{
     avatar: null,
     username: 'Елена Трепышина 1',
-    isMain: true
+    isMain: true,
   }, {
     avatar: null,
     username: 'Елена Трепышина 2',
-    isMain: false
-  }]
+    isMain: false,
+  }],
 };
 
 export default function configureStore() {

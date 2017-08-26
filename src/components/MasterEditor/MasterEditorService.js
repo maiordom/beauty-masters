@@ -20,6 +20,7 @@ import Input from '../Input';
 import Modal from '../Modal';
 import { FilterLabel } from '../FilterLabel';
 import StateMachine from '../StateMachine';
+import ActivityIndicator from '../../containers/ActivityIndicator';
 
 import CustomServices from '../../containers/CustomServices';
 
@@ -51,7 +52,7 @@ type TState = {
   tabs: Array<{ title: string, key: string, }>,
 };
 
-export default class MasterEditorService extends Component<void, TProps, TState> {
+export default class MasterEditorService extends Component<TProps, TState> {
   state = {
     renderLoader: true,
     showAllFieldsRequiredModal: false,
@@ -78,7 +79,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
   };
 
   onChange = (active: boolean, modelName: string) => {
-    this.props.actions.toogleService(modelName, 'active', active, this.state.tabActiveKey);
+    this.props.actions.toggleService(modelName, 'active', active, this.state.tabActiveKey);
   };
 
   onChangePrice = (price: number, modelName: string) => {
@@ -154,6 +155,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <Modal isVisible={showAllFieldsRequiredModal}>
           <Text>{i18n.fillAllRequiredFields}</Text>
           <TouchableWithoutFeedback onPress={this.onValidationModalClose}>

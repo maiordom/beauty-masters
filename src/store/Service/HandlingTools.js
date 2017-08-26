@@ -30,7 +30,7 @@ const glasperlenovySterilizerMethod = (isActive: boolean) => ({
 const hotSteamMethod = (isActive: boolean) => ({
   dictionaryKey: 'HotSteam',
   title: i18n.handlingToolMethods.hotSteam,
-  value: Boolean(isActive)
+  value: Boolean(isActive),
 }: HandlingTools);
 
 const dryHotMethod = (isActive: boolean) => ({

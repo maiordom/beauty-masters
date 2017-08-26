@@ -16,13 +16,13 @@ export const setItemById = (modelName: string, id: number, sectionName: string) 
   sectionName,
 });
 
-export const toogleService = (
+export const toggleService = (
   modelName: string,
   paramName: string,
   paramValue: boolean,
   sectionName: string,
 ) => ({
-  type: actions.SEARCH_TOOGLE_SERVICE,
+  type: actions.SEARCH_TOGGLE_SERVICE,
   modelName,
   paramName,
   paramValue,
@@ -30,12 +30,12 @@ export const toogleService = (
 });
 
 export const toggleExtension = (paramValue: boolean) => ({
-  type: actions.SEARCH_TOOGLE_EXTENSION,
+  type: actions.SEARCH_TOGGLE_EXTENSION,
   paramValue,
 });
 
 export const toggleWithdrawal = (paramValue: boolean) => ({
-  type: actions.SEARCH_TOOGLE_WITHDRAWAL,
+  type: actions.SEARCH_TOGGLE_WITHDRAWAL,
   paramValue,
 });
 

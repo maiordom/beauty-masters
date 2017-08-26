@@ -20,7 +20,7 @@ type TProps = {
   sectionName: string,
 };
 
-export default class MasterEditorCustomServices extends Component<void, TProps, void> {
+export default class MasterEditorCustomServices extends Component<TProps, void> {
   addCustomService = () => {
     if (this.props.items.length > 2) {
       return;

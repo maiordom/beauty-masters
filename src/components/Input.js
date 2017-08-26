@@ -35,7 +35,7 @@ type TState = {
   value: string,
 };
 
-class InputBase extends Component<void, TProps, TState> {
+class InputBase extends Component<TProps, TState> {
   constructor(props) {
     super(props);
   }

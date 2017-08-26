@@ -27,11 +27,11 @@ type TProps = {
   ultraVioletMethod: Object,
 };
 
-export default class MasterEditorHandlingTools extends Component<void, TProps, void> {
+export default class MasterEditorHandlingTools extends Component<TProps, void> {
   onChange = (state: boolean, modelName: string) => {
     const { fieldValue, sectionName } = this.props;
 
-    this.props.actions.toogleService(
+    this.props.actions.toggleService(
       modelName,
       fieldValue,
       state,

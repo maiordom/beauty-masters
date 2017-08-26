@@ -30,7 +30,7 @@ type TProps = {
 
 const avatarEmpty = require('../../icons/photo-empty.png');
 
-export default class MasterProfileSelectProfile extends Component<void, TProps, void> {
+export default class MasterProfileSelectProfile extends Component<TProps, void> {
   onSelectMaster = (index: number) => {
     if (!this.props.items[index].isMain) {
       this.props.actions.selectMainMaster(index);

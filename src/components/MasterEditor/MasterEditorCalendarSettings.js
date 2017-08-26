@@ -26,7 +26,7 @@ type TState = {
   show: Object,
 };
 
-export default class MasterEditorCalendarSettings extends Component<void, TProps, TState> {
+export default class MasterEditorCalendarSettings extends Component<TProps, TState> {
   state = {
     automate: [
       'address',

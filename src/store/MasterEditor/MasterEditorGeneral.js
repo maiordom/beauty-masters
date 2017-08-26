@@ -1,13 +1,13 @@
 /* @flow */
 
+import i18n from '../../i18n';
+
 type GeneralFieldModel = {
   placeholder?: string,
   queryParam: string,
   title?: string,
   value: string | boolean | null,
 };
-
-import i18n from '../../i18n';
 
 const usernameField = (username: string) => ({
   placeholder: i18n.username,

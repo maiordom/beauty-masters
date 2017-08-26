@@ -36,7 +36,7 @@ type TState = {
   validationStatus: null | string,
 };
 
-export default class Registration extends Component<void, TProps, TState> {
+export default class Registration extends Component<TProps, TState> {
   state = {
     hasError: false,
     responseError: null,
@@ -60,7 +60,7 @@ export default class Registration extends Component<void, TProps, TState> {
       this.props.actions.userCreate({ email, password })
         .then((res) => {
           if (res.result === 'success') {
-            this.props.onAuthSuccess();
+            this.props.actions.next();
           }
         });
     }

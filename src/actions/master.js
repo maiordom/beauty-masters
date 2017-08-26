@@ -4,14 +4,13 @@ import * as UploadService from '../services/upload';
 import * as MasterService from '../services/master';
 
 import actions from '../constants/master';
-import constants from '../constants/master';
 
 import { setActivityIndicator } from './common';
 
-let index = 0;
+let photoIndex = 0;
 
 function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
-  getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.IN_PROCESS;
+  getState().masterEditor.uploadPhotoStatus = actions.UPLOAD_STATUS.IN_PROCESS;
 
   return UploadService.uploadFile(fileData)
     .then(response => {
@@ -59,12 +58,12 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
           type: actions.MASTER_PHOTO_SET_MOCK,
           id,
           modelName,
-          status: constants.UPLOAD_STATUS.IN_PROCESS,
+          status: actions.UPLOAD_STATUS.IN_PROCESS,
         });
 
         uploadFileAction(fileData, modelName, id, dispatch, getState);
       } else {
-        getState().masterEditor.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
+        getState().masterEditor.uploadPhotoStatus = actions.UPLOAD_STATUS.INACTIVE;
       }
     });
 }
@@ -77,12 +76,45 @@ export const createMaster = () => (dispatch, getState) => {
   dispatch(setActivityIndicator(true));
 
   return MasterService.createMaster(createMasterQuery, {
-    'Authorization': `${auth.tokenType} ${auth.accessToken}`,
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  })
+    .then(response => {
+      dispatch(setActivityIndicator(false));
+      dispatch({
+        type: actions.MASTER_CARD_SET_ID,
+        ...response,
+      });
+
+      if (response.masterCardId) {
+        return { result: 'success' };
+      }
+    })
+    .catch(() => dispatch(setActivityIndicator(false)));
+};
+
+export const createMasterServices = () => (dispatch, getState) => {
+  const state = getState();
+  const auth = state.auth;
+  const masterServices = [
+    ...state.masterEditor.manicureCustomServicesQuery,
+    ...state.masterEditor.masterServicesQuery,
+    ...state.masterEditor.pedicureCustomServicesQuery,
+  ];
+
+  const params = {
+    data: masterServices,
+    master_card_id: state.masterEditor.masterCardId,
+  };
+
+  dispatch(setActivityIndicator(true));
+
+  return MasterService.createMasterServices(params, {
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
   })
     .then(response => {
       dispatch(setActivityIndicator(false));
 
-      if (response.data) {
+      if (response) {
         return { result: 'success' };
       }
     })
@@ -90,18 +122,18 @@ export const createMaster = () => (dispatch, getState) => {
 };
 
 export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) => {
-  const photoId = index++;
+  const photoId = photoIndex++;
 
   dispatch({
     type: actions.MASTER_PHOTO_SET_MOCK,
     id: photoId,
     modelName,
-    status: getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS
-      ? constants.UPLOAD_STATUS.IN_QUEUE
-      : constants.UPLOAD_STATUS.IN_PROCESS,
+    status: getState().masterEditor.uploadPhotoStatus === actions.UPLOAD_STATUS.IN_PROCESS
+      ? actions.UPLOAD_STATUS.IN_QUEUE
+      : actions.UPLOAD_STATUS.IN_PROCESS,
   });
 
-  if (getState().masterEditor.uploadPhotoStatus === constants.UPLOAD_STATUS.IN_PROCESS) {
+  if (getState().masterEditor.uploadPhotoStatus === actions.UPLOAD_STATUS.IN_PROCESS) {
     return dispatch({
       type: actions.MASTER_PHOTO_SET_QUEUE,
       fileData,
@@ -169,8 +201,8 @@ export const setServiceParam = (modelName, paramName, paramValue, sectionName) =
   sectionName,
 });
 
-export const toogleService = (modelName, paramName, paramValue, sectionName) => ({
-  type: actions.MASTER_SERVICE_TOOGLE,
+export const toggleService = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_SERVICE_TOGGLE,
   modelName,
   paramName,
   paramValue,
@@ -201,7 +233,7 @@ export const setCalendarField = (modelName, paramName, paramValue, sectionName) 
 });
 
 export const toogleCustomService = (modelName, sectionName, active) => ({
-  type: actions.MASTER_CUSTOM_SERVICE_TOOGLE,
+  type: actions.MASTER_CUSTOM_SERVICE_TOGGLE,
   modelName,
   sectionName,
   active,

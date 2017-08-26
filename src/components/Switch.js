@@ -17,7 +17,7 @@ type TProps = {
   value: boolean,
 };
 
-export default class CustomSwitch extends Component<void, TProps, void> {
+export default class CustomSwitch extends Component<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   ref = {

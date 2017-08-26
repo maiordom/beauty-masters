@@ -18,7 +18,7 @@ type TProps = {
   points: Array<MapCardType>,
 };
 
-export default class SerpList extends Component<void, TProps, TState> {
+export default class SerpList extends Component<TProps, TState> {
   state = {
     dataSource: [],
   };

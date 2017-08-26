@@ -25,7 +25,13 @@ const handleAuth = (res, dispatch, errorType) => {
 export const userCreate = ({ email, password, roleId = 2 }) => (dispatch) => {
   dispatch(setActivityIndicator(true));
 
-  return AuthService.userCreate({ email, password, role_id: roleId })
+  const params = {
+    data: {
+      attributes: { email, password, role_id: roleId },
+    },
+  };
+
+  return AuthService.userCreate(params)
     .then((res) => (handleAuth(res, dispatch, actions.AUTH_SET_REGISTER_ERROR)))
     .catch(() => dispatch(setActivityIndicator(false)));
 };
@@ -33,7 +39,13 @@ export const userCreate = ({ email, password, roleId = 2 }) => (dispatch) => {
 export const userLogin = ({ username, password }) => (dispatch) => {
   dispatch(setActivityIndicator(true));
 
-  return AuthService.userLogin({ username, password })
+  const params = {
+    data: {
+      attributes: { username, password },
+    },
+  };
+
+  return AuthService.userLogin(params)
     .then((res) => handleAuth(res, dispatch, actions.AUTH_SET_LOGIN_ERROR))
     .catch(() => dispatch(setActivityIndicator(false)));
 };

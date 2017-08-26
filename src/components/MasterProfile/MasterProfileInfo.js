@@ -24,7 +24,7 @@ type TProps = {
   username: string,
 }
 
-export default class MasterProfileInfo extends Component<void, TProps, void> {
+export default class MasterProfileInfo extends Component<TProps, void> {
   onSelectAnotherMaster = () => {
     this.props.actions.selectAnotherMaster();
   };

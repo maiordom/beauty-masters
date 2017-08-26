@@ -26,7 +26,7 @@ type TProps = MapCardType & {
   type?: string,
 };
 
-export default class MapCard extends Component<void, TProps, void> {
+export default class MapCard extends Component<TProps, void> {
   getDate = () => {
     const { closestDate } = this.props;
 
