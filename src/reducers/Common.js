@@ -3,6 +3,14 @@ import { makeReducer, deepUpdate } from '../utils';
 import a from '../constants/common';
 
 export default makeReducer((state, action) => ({
+  [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo', {
+    places: action.places,
+  }),
+
+  [a.GEO_DATA_CLEAR]: () => deepUpdate(state, 'geo', {
+    places: [],
+  }),
+
   [a.DICTIONARIES_CATEGORY_SERVICES_SET]: () => {
     const { categoryServices = [] } = action;
     const categoryServiceById = {};

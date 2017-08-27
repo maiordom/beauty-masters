@@ -1,10 +1,28 @@
-import React, { Component } from 'react';
-import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
+/* @flow */
+
+import React, { PureComponent } from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 
 import vars from '../vars';
 import { shouldComponentUpdate } from '../utils';
 
-export default class Filter extends Component {
+type TProps = {
+  active?: boolean,
+  customStyles?: Object,
+  modelName?: string,
+  onChange: (active?: boolean, modelName?: string) => void,
+  spacing?: boolean,
+  subtitle?: string,
+  title: string,
+};
+
+export default class Filter extends PureComponent<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {
@@ -25,7 +43,12 @@ export default class Filter extends Component {
   };
 
   render() {
-    const { title, subtitle } = this.props;
+    const {
+      customStyles = {},
+      spacing = true,
+      subtitle,
+      title,
+    } = this.props;
 
     return (
       <View>
@@ -33,7 +56,11 @@ export default class Filter extends Component {
           underlayColor="transparent"
           activeOpacity={1}
           onPress={this.onPress}
-          style={styles.button}
+          style={[
+            customStyles.container,
+            spacing && styles.spacing,
+            styles.container,
+          ]}
         >
           <View style={[styles.buttonContent, this.getButtonContentHeight()]}>
             <Text style={styles.title}>{title}</Text>
@@ -48,7 +75,8 @@ export default class Filter extends Component {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  container: {},
+  spacing: {
     paddingLeft: 15,
     paddingRight: 15,
   },

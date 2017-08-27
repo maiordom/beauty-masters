@@ -246,3 +246,15 @@ export const setCustomServiceParam = (modelName, changes, index, sectionName) =>
   index,
   sectionName,
 });
+
+export const setPlaceDetail = (place, modelName) => ({
+  type: actions.MASTER_PLACE_SET,
+  modelName,
+  place,
+});
+
+export const setPlaceLocation = (location, modelName) => ({
+  type: actions.MASTER_LOCATION_SET,
+  location,
+  modelName,
+});

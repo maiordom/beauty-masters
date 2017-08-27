@@ -79,7 +79,7 @@ export const searchAddress = (address: string) => (
   const query = `${state.searchForm.general.cities.selected.label} ${address}`;
 
   SearchService.geoAutoComplete({ query })
-    .then(response => {
+    .then(() => {
       dispatch({
         type: actions.SEARCH_ADDRESSES_ITEMS_SET,
         items: addresses.slice(0, address.length),

@@ -57,3 +57,27 @@ export const get = (method, params, headers = {}) => (
   })
   .then(res => res.json())
 );
+
+export const geo = (method, params) => {
+  const decodedParams = stringify(params);
+  const url = `${config.googlePlacesHost}${method}?${decodedParams}`;
+
+  return RNFetchBlob.fetch('GET', url, {
+    'Content-Type': 'application/json',
+  })
+  .then((res) => res.json())
+  .then(res => {
+    if (__DEV__) {
+      console.log('googlePlaces::params', params);
+      console.log('googlePlaces::response', res);
+    }
+
+    if (res.status !== 'OK') {
+      return {
+        error: {},
+      };
+    }
+
+    return res;
+  });
+};

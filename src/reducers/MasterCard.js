@@ -8,7 +8,10 @@ export default makeReducer((state, action) => ({
 
     state.masterCards[masterData.id] = masterData;
 
-    state.masterCards[masterData.id].services = groupServices(masterData.services, state.dictionaries.serviceById);
+    state.masterCards[masterData.id].services = groupServices(
+      masterData.services,
+      state.dictionaries.serviceByI,
+    );
 
     return state;
   },

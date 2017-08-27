@@ -29,6 +29,7 @@ const mapDispatchToProps = dispatch => {
 
   return {
     actions: {
+      ...actions,
       next: () => {
         actions.createMasterServices().then((res) => {
           if (res.result === 'success') {
@@ -36,7 +37,6 @@ const mapDispatchToProps = dispatch => {
           }
         });
       },
-      ...actions,
     },
   };
 };

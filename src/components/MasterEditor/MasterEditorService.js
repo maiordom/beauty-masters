@@ -11,18 +11,17 @@ import {
   View,
 } from 'react-native';
 
-import Tabs from '../Tabs';
+import { FilterLabel } from '../FilterLabel';
+import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
+import CustomServices from '../../containers/CustomServices';
+import Input from '../Input';
+import Label from '../Label';
+import Modal from '../Modal';
 import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
-import Label from '../Label';
-import Input from '../Input';
-import Modal from '../Modal';
-import { FilterLabel } from '../FilterLabel';
 import StateMachine from '../StateMachine';
-import ActivityIndicator from '../../containers/ActivityIndicator';
-
-import CustomServices from '../../containers/CustomServices';
+import Tabs from '../Tabs';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -64,9 +63,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
     ],
   };
 
-  scrollViewRef = {
-    scrollTo() {}
-  };
+  scrollViewRef: any;
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
@@ -120,7 +117,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
     });
   };
 
-  setScrollViewRef = (ref: Object) => this.scrollViewRef = ref;
+  setScrollViewRef = (ref: any) => (this.scrollViewRef = ref);
 
   render() {
     const {
@@ -208,7 +205,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inner: {
-      flex: 1,
+    flex: 1,
   },
   homeAllowance: {
     paddingLeft: 11,

@@ -15,6 +15,12 @@ export default class App extends Component {
     store.dispatch(setData(masterData));
   }
 
+  getLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+    });
+  }
+
   login() {
     userLogin({
       username: 'admin@example.com',

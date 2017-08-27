@@ -24,4 +24,9 @@ methods.forEach((methodObj) => {
   };
 });
 
+export const geoRoutes = {
+  autocomplete: '/autocomplete/json',
+  details: '/details/json',
+};
+
 export default routes;

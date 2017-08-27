@@ -12,13 +12,13 @@ import type { Children } from 'react';
 import vars from '../vars';
 import { hexToRgba } from '../utils';
 
-type Props = {
+type TProps = {
   children?: Children,
   isVisible: boolean,
   onRequestClose?: () => void
 };
 
-export default class ModalComponent extends Component<void, Props, void> {
+export default class ModalComponent extends Component<TProps, void> {
   render() {
     const {
       children,
@@ -28,7 +28,7 @@ export default class ModalComponent extends Component<void, Props, void> {
 
     return (
       <Modal
-        animationType='fade'
+        animationType="fade"
         transparent
         visible={isVisible}
         onRequestClose={onRequestClose}

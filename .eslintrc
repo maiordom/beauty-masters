@@ -21,6 +21,7 @@
     "global-require": 0,
     "import/prefer-default-export": 1,
     "max-len": ["error", 120],
+    "no-console": 0,
     "no-mixed-operators": 0,
     "no-param-reassign": "off",
     "no-plusplus": 0,

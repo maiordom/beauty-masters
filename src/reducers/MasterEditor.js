@@ -90,6 +90,16 @@ const removePhotoParam = (state, model, fileName) => {
 };
 
 export default makeReducer((state, action) => ({
+  [actions.MASTER_LOCATION_SET]: () => (state),
+
+  [actions.MASTER_PLACE_SET]: () => {
+    const { place, modelName } = action;
+
+    return deepUpdate(state, `masterEditor.${modelName}.addressField`, {
+      value: place.label,
+    });
+  },
+
   [actions.MASTER_CARD_SET_ID]: () => {
     state.masterEditor.masterCardId = action.masterCardId;
 

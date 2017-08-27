@@ -1,30 +1,34 @@
-import React, { Component } from 'react';
+/* @flow */
+
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import upperFirst from 'lodash/upperFirst';
 
 import InputWithLabel from '../InputWithLabel';
+import Filter from '../Filter';
 
 import i18n from '../../i18n';
 
-import { shouldComponentUpdate } from '../../utils';
+type TProps = {
+  models: Object,
+  onAddressChange: () => void,
+  onChange: (value: string, modelName: string) => void,
+};
 
-export default class MasterEditorAddress extends Component {
-  shouldComponentUpdate = shouldComponentUpdate();
-
-  onChange = (value, modelName) => {
+export default class MasterEditorAddress extends PureComponent<TProps, void> {
+  onChange = (value: string, modelName: string) => {
     this.props.onChange(upperFirst(value), modelName);
   };
 
   render() {
     const {
-      buildingField,
+      addressField,
       cityField,
-      districtField,
-      houseField,
       salonTitleField,
-      streetField,
       subwayStationField,
-    } = this.props;
+    } = this.props.models;
+
+    const { onAddressChange } = this.props;
 
     return (
       <View style={styles.container}>
@@ -33,46 +37,25 @@ export default class MasterEditorAddress extends Component {
           onBlur={this.onChange}
           placeholder={i18n.specify}
         />
+        <Filter
+          customStyles={{ container: styles.filter }}
+          onChange={() => {}}
+          spacing={false}
+          subtitle={cityField.value || i18n.specify}
+          title={cityField.label}
+        />
+        <Filter
+          customStyles={{ container: styles.filter }}
+          onChange={onAddressChange}
+          spacing={false}
+          title={addressField.label}
+          subtitle={addressField.value || i18n.specify}
+        />
         <InputWithLabel
-          {...cityField}
+          {...subwayStationField}
           onBlur={this.onChange}
           placeholder={i18n.specify}
         />
-        <InputWithLabel
-          {...streetField}
-          onBlur={this.onChange}
-          placeholder={i18n.specify}
-        />
-        <View style={styles.row}>
-          <InputWithLabel
-            {...buildingField}
-            onBlur={this.onChange}
-            placeholder={i18n.specify}
-            style={styles.groupInput}
-          />
-          <View style={styles.gap} />
-          <InputWithLabel
-            {...houseField}
-            onBlur={this.onChange}
-            placeholder={i18n.specify}
-            style={styles.groupInput}
-          />
-        </View>
-        <View style={styles.row}>
-          <InputWithLabel
-            {...districtField}
-            onBlur={this.onChange}
-            placeholder={i18n.specify}
-            style={styles.groupInput}
-          />
-          <View style={styles.gap} />
-          <InputWithLabel
-            {...subwayStationField}
-            onBlur={this.onChange}
-            placeholder={i18n.specify}
-            style={styles.groupInput}
-          />
-        </View>
       </View>
     );
   }
@@ -83,13 +66,7 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 15,
   },
-  row: {
-    flexDirection: 'row',
-  },
-  groupInput: {
-    flex: 1,
-  },
-  gap: {
-    width: 30,
+  filter: {
+    paddingLeft: 4,
   },
 });

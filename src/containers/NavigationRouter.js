@@ -31,6 +31,8 @@ import Favorites from '../screen/Favorites/Favorites';
 import UserAgreement from '../screen/UserAgreement/UserAgreement';
 import Feedback from '../screen/Feedback/Feedback';
 
+import CalendarAddressAutocomplete from '../screen/CalendarAddressAutocomplete';
+
 import i18n from '../i18n';
 
 const RouterWithRedux = connect()(Router);
@@ -39,7 +41,6 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
-        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -68,8 +69,15 @@ export default () => (
           title={i18n.search.search}
           component={Serp}
         />
-        <Scene key="card" component={MasterCard} />
-        <Scene key="masterLocation" component={MasterLocation} title="Место приема мастера" />
+        <Scene
+          key="card"
+          component={MasterCard}
+        />
+        <Scene
+          key="masterLocation"
+          component={MasterLocation}
+          title="Место приема мастера"
+        />
         <Scene
           key="masterAuthorization"
           component={MasterAuthorization}
@@ -95,9 +103,15 @@ export default () => (
           component={MasterEditorCalendar}
         />
         <Scene
+          initial
           key="masterEditorCalendarSetting"
           title={i18n.masterEditor.calendarSettings}
           component={props => <MasterEditorCalendarSettings {...props} />}
+        />
+        <Scene
+          key="calendarAddressAutocomplete"
+          title={i18n.chooseAddress}
+          component={props => <CalendarAddressAutocomplete {...props} />}
         />
         <Scene
           key="masterEditorInfo"

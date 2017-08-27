@@ -9,16 +9,15 @@ const mapStateToProps = (state) => ({
     state.masterEditor.calendarSettingsOne.salonTitleField.value,
     state.masterEditor.calendarSettingsTwo.salonTitleField.value,
     state.masterEditor.calendarSettingsThree.salonTitleField.value,
-  ]
+  ],
 });
 
-const mapDispatchToProps = dispatch => ({
-  onCalendarPress(modelName) {
-    Actions.masterEditorCalendarSetting({ modelName });
-  },
-
-  onNextPress() {
-    Actions.masterEditorInfo();
+const mapDispatchToProps = () => ({
+  actions: {
+    next: Actions.masterEditorInfo,
+    selectCalendar(modelName) {
+      Actions.masterEditorCalendarSetting({ modelName });
+    },
   },
 });
 

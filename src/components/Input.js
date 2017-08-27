@@ -80,7 +80,7 @@ class InputBase extends Component<TProps, TState> {
   };
 
   onBlur = () => {
-    let value = this.clearValue(this.state.value);
+    const value = this.clearValue(this.state.value);
 
     this.setState({ isFocused: false });
     this.props.onBlur && this.props.onBlur(value, this.props.modelName);
