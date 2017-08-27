@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import { TouchableHighlight, StyleSheet, Platform, View, Text } from 'react-native';
 
 import vars from '../vars';
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
         height: 48,
         justifyContent: 'center',
         alignItems: 'center',
-      }
-    })
+      },
+    }),
   },
   text: {
     color: vars.color.red,

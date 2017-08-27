@@ -5,6 +5,8 @@
 [include]
 
 [libs]
+node_modules/react-native/flow
+flow/
 
 [lints]
 
