@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
       ...actions,
       next: () => {
         actions.createMasterServices().then((res) => {
-          if (res.result === 'sucess') {
+          if (res.result === 'success') {
             Actions.masterEditorCalendar();
           }
         });
