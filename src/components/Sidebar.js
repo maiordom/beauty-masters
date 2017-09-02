@@ -2,17 +2,16 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
   Dimensions,
-  Platform,
-  TouchableOpacity,
+  Image,
   InteractionManager,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { drawerClose } from '../actions/drawer';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -22,10 +21,10 @@ const icons = {
 };
 
 type TProps = {
-  username?: string,
-  photo?: string,
-  drawerClose: Function,
+  avatar?: string,
+  actions: Object,
   currentScene: ?string,
+  username?: string,
 };
 
 type TState = {
@@ -39,7 +38,7 @@ export default class Sidebar extends Component<TProps, TState> {
   changeScene = (key: string) => {
     const nextScene = { currentScene: key };
 
-    drawerClose();
+    this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
       Actions[key](nextScene);
@@ -92,9 +91,17 @@ export default class Sidebar extends Component<TProps, TState> {
     }
   }
 
+  onAvatarPress = () => {
+    this.props.actions.drawerClose();
+
+    InteractionManager.runAfterInteractions(() => {
+      this.props.actions.routeToMasterProfile();
+    });
+  };
+
   render() {
     const {
-      photo,
+      avatar,
       username,
     } = this.props;
 
@@ -102,12 +109,16 @@ export default class Sidebar extends Component<TProps, TState> {
 
     return (
       <View style={styles.sidebar}>
-        <View style={styles.header}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={this.onAvatarPress}
+          style={styles.header}
+        >
           <View style={styles.photoWrapper}>
-            <Image style={styles.photo} source={photo || icons.photoEmpty} />
+            <Image style={styles.photo} source={avatar || icons.photoEmpty} />
           </View>
           <Text style={styles.title}>{username || i18n.authAsMaster}</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.menu}>
           {this.menuButtons.map(button => (
             <TouchableOpacity onPress={button.onPress} key={button.title}>
@@ -115,7 +126,10 @@ export default class Sidebar extends Component<TProps, TState> {
                 {Platform.OS === 'android' && (
                   <View style={styles.iconWrapper}>
                     <Image
-                      source={currentScene === button.key ? button.icon.active : button.icon.default}
+                      source={currentScene === button.key
+                        ? button.icon.active
+                        : button.icon.default
+                      }
                     />
                   </View>
                 )}

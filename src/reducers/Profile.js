@@ -4,9 +4,10 @@ import c from '../constants/profile';
 
 export default makeReducer((state, action) => ({
   [c.PROFILE_SET_DATA]: () => {
-    const { userId, masterCards } = action;
+    const { email, userId, masterCards } = action;
 
     state.profile = {
+      email,
       userId,
       masterCards,
     };

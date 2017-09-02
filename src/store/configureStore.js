@@ -25,6 +25,7 @@ const initialState = {
   },
   masterCards: {},
   masterEditor: MasterEditor,
+  profile: { masterCards: [] },
   searchForm: SearchForm,
 };
 
