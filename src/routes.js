@@ -4,6 +4,7 @@ const methods = [
   { createAddress: '/address', method: 'POST' },
   { createMaster: '/master-card', method: 'POST' },
   { createMasterServices: '/master-service', method: 'POST' },
+  { createTimeTable: '/timetable', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
   { getCategoryServices: '/category-service', method: 'GET' },
   { getMasterById: '/master', method: 'GET' },

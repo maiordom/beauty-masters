@@ -68,30 +68,41 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
     });
 }
 
-export const createAddress = (modelName) => (dispatch, getState) => {
+export const createTimeTable = (modelName) => (dispatch, getState) => {
   const state = getState();
   const auth = state.auth;
-  const createAddressQuery = state.masterEditor[modelName].createAddressQuery;
-
-  dispatch(setActivityIndicator(true));
+  const { createTimeTableQuery } = state.masterEditor[modelName];
 
   const params = {
     data: {
       attributes: {
-        master_card_id: state.masterEditor.masterCardId,
+        ...createTimeTableQuery,
+      },
+    },
+  };
+
+  return MasterService.createTimeTable(params, {
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  });
+};
+
+export const createAddress = (modelName) => (dispatch, getState) => {
+  const state = getState();
+  const auth = state.auth;
+  const { createAddressQuery } = state.masterEditor[modelName];
+
+  const params = {
+    data: {
+      attributes: {
         ...createAddressQuery,
+        master_card_id: state.masterEditor.masterCardId,
       },
     },
   };
 
   return MasterService.createAddress(params, {
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
-  })
-    .then((res) => {
-      dispatch(setActivityIndicator(false));
-      return res;
-    })
-    .catch(() => dispatch(setActivityIndicator(false)));
+  });
 };
 
 export const createMaster = () => (dispatch, getState) => {
@@ -241,24 +252,13 @@ export const toggleService = (modelName, paramName, paramValue, sectionName) => 
 
 export const setCalendarInterval = (modelName, id, sectionName) => ({
   type: actions.MASTER_CALENDAR_SET_INTERVAL,
-  modelName,
-  id,
-  sectionName,
-  paramValue: id,
+  payload: { modelName, id, sectionName, paramValue: id },
 });
 
 export const setCalendarRecipientDate = (modelName, changes, sectionName) => ({
   type: actions.MASTER_CALENDAR_SET_RECIPIENT_DATE,
   modelName,
   changes,
-  sectionName,
-});
-
-export const setCalendarField = (modelName, paramName, paramValue, sectionName) => ({
-  type: actions.MASTER_CALENDAR_SET_PARAM,
-  modelName,
-  paramName,
-  paramValue,
   sectionName,
 });
 
@@ -289,5 +289,10 @@ export const setPlaceLocation = (location, sectionName) => ({
 
 export const setAddressField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_ADDRESS_SET_PARAM,
+  payload: { modelName, paramName, paramValue, sectionName },
+});
+
+export const setTimeTableField = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_TIME_TABLE_SET_PARAM,
   payload: { modelName, paramName, paramValue, sectionName },
 });

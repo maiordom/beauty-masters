@@ -16,4 +16,8 @@ export function createAddress(params, headers) {
   return post(routes.createAddress, params, headers);
 }
 
+export function createTimeTable(params, headers) {
+  return post(routes.createTimeTable, params, headers);
+}
+
 export default null;

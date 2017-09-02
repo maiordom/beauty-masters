@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import {
   createAddress,
   setAddressField,
-  setCalendarField,
   setCalendarInterval,
+  setTimeTableField,
 } from '../../actions/master';
 import { drawerOpen } from '../../actions/drawer';
 
@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
   const actions = bindActionCreators({
     createAddress,
     setAddressField,
-    setCalendarField,
     setCalendarInterval,
+    setTimeTableField,
   }, dispatch);
 
   return {

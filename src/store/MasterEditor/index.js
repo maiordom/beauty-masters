@@ -55,8 +55,17 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
   object.createAddressQuery.lat = Geo.city.location.lat;
   object.createAddressQuery.lon = Geo.city.location.lng;
 
-  delete object.createAddressQuery.sectionName;
-  delete object.createAddressQuery.modelName;
+  object.createTimeTableQuery.time_start = object.timeStartField.value;
+  object.createTimeTableQuery.time_end = object.timeEndField.value;
+
+  [
+    object.createAddressQuery,
+    object.createTimeTableQuery,
+    object.createSchedulesQuery,
+  ].forEach((query) => {
+    delete query.sectionName;
+    delete query.modelName;
+  });
 });
 
 params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;

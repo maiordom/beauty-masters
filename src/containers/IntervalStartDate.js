@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import IntervalStartDate from '../components/IntervalStartDate';
 
-import { setCalendarField } from '../actions/master';
+import { setTimeTableField } from '../actions/master';
 import { drawerClose } from '../actions/drawer';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     applyDate(date, sectionName) {
-      dispatch(setCalendarField('startDateField', 'value', date, sectionName));
+      dispatch(setTimeTableField('startDateField', 'value', date, sectionName));
       drawerClose();
     },
   },

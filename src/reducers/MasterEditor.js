@@ -14,7 +14,7 @@ const setItemById = (action, state) => {
   const section = state.masterEditor[sectionName];
   const model = section[modelName];
 
-  each(model.items, item => {
+  each(model.items, (item) => {
     item.active = item.id === id;
 
     if (item.active) {
@@ -22,10 +22,9 @@ const setItemById = (action, state) => {
     }
   });
 
-  state.masterEditor = { ...state.masterEditor };
-  state.masterEditor[sectionName] = { ...section };
-  state.masterEditor[sectionName][modelName] = { ...model };
-  state.masterEditor[sectionName][modelName].items = [...model.items];
+  deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, {
+    items: [...model.items],
+  });
 };
 
 const setPhotoParam = (state, model, fileName) => {
@@ -50,13 +49,13 @@ const removePhotoParam = (state, model, fileName) => {
   }
 };
 
-const setAddressFieldParam = (payload, state) => {
+const setCreateQueryParam = (payload, state, createType) => {
   const { sectionName, modelName, paramValue } = payload;
   const section = state.masterEditor[sectionName];
   const model = section[modelName];
-  const createAddressQuery = section.createAddressQuery;
+  const query = section[createType];
 
-  createAddressQuery[model.queryParam] = paramValue;
+  query[model.queryParam] = paramValue;
 };
 
 export default makeReducer((state, action) => ({
@@ -171,18 +170,13 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_CALENDAR_SET_INTERVAL]: () => {
-    setItemById(action, state);
+    setItemById(action.payload, state);
+    setCreateQueryParam(action.payload, state, 'createTimeTableQuery');
 
     return state;
   },
 
   [actions.MASTER_CALENDAR_SET_RECIPIENT_DATE]: () => (state),
-
-  [actions.MASTER_CALENDAR_SET_PARAM]: () => {
-    setParam(action, state);
-
-    return state;
-  },
 
   [actions.MASTER_LOCATION_SET]: () => {
     const { location, sectionName } = action.payload;
@@ -196,14 +190,21 @@ export default makeReducer((state, action) => ({
 
   [actions.MASTER_PLACE_SET]: () => {
     setParam(action.payload, state);
-    setAddressFieldParam(action.payload, state);
+    setCreateQueryParam(action.payload, state, 'createAddressQuery');
 
     return state;
   },
 
   [actions.MASTER_ADDRESS_SET_PARAM]: () => {
     setParam(action.payload, state);
-    setAddressFieldParam(action.payload, state);
+    setCreateQueryParam(action.payload, state, 'createAddressQuery');
+
+    return state;
+  },
+
+  [actions.MASTER_TIME_TABLE_SET_PARAM]: () => {
+    setParam(action.payload, state);
+    setCreateQueryParam(action.payload, state, 'createTimeTableQuery');
 
     return state;
   },

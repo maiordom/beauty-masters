@@ -62,10 +62,6 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
     this.props.actions.setAddressField(modelName, 'value', value, this.props.sectionName);
   }
 
-  onChange = (value: string, modelName: string) => {
-    this.props.actions.setCalendarField(modelName, 'value', value, this.props.sectionName);
-  };
-
   onIntervalChange = (value: string, id: number, modelName: string) => {
     this.props.actions.setCalendarInterval(modelName, id, this.props.sectionName);
     this.props.actions.drawerOpen({
@@ -75,11 +71,11 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
   };
 
   onTimeEndChange = (timeEnd: string, modelName: string) => {
-    this.props.actions.setCalendarField(modelName, 'value', timeEnd, this.props.sectionName);
+    this.props.actions.setTimeTableField(modelName, 'value', timeEnd, this.props.sectionName);
   };
 
   onTimeStartChange = (timeStart: string, modelName: string) => {
-    this.props.actions.setCalendarField(modelName, 'value', timeStart, this.props.sectionName);
+    this.props.actions.setTimeTableField(modelName, 'value', timeStart, this.props.sectionName);
   };
 
   onDateSelect = (date: string) => {
