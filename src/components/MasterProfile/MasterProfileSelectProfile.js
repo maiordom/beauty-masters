@@ -18,9 +18,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 
 type TProps = {
-  actions: {
-    selectMainMaster: (index: number) => void,
-  },
+  actions: Object,
   items: Array<{
     avatar: null | string,
     username: string,
@@ -36,6 +34,10 @@ export default class MasterProfileSelectProfile extends Component<TProps, void> 
       this.props.actions.selectMainMaster(index);
     }
   };
+
+  onAddMasterCardPress = () => {
+    this.props.actions.routeToCreateMasterCard();
+  }
 
   render() {
     const { items } = this.props;
@@ -60,7 +62,10 @@ export default class MasterProfileSelectProfile extends Component<TProps, void> 
             </TouchableWithoutFeedback>
           ))}
         </ScrollView>
-        <ButtonControl label={i18n.addMasterCard} />
+        <ButtonControl
+          onPress={this.onAddMasterCardPress}
+          label={i18n.addMasterCard}
+        />
       </View>
     );
   }
@@ -103,6 +108,6 @@ const styles = StyleSheet.create({
       android: {
         height: 48,
       },
-    })
+    }),
   },
 });

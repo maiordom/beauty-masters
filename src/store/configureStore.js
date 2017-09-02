@@ -26,15 +26,6 @@ const initialState = {
   masterCards: {},
   masterEditor: MasterEditor,
   searchForm: SearchForm,
-  userMasters: [{
-    avatar: null,
-    username: 'Елена Трепышина 1',
-    isMain: true,
-  }, {
-    avatar: null,
-    username: 'Елена Трепышина 2',
-    isMain: false,
-  }],
 };
 
 export default function configureStore() {

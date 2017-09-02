@@ -17,11 +17,11 @@ export default makeReducer((state, action) => ({
   [c.PROFILE_SET_MAIN]: () => {
     const { index } = action;
 
-    state.userMasters.forEach((master, masterIndex) => {
-      master.isMain = masterIndex === index;
+    state.profile.masterCards.forEach((card, masterIndex) => {
+      card.isMain = masterIndex === index;
     });
 
-    state.userMasters = [...state.userMasters];
+    state.profile.masterCards = [...state.profile.masterCards];
 
     return state;
   },

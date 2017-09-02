@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import find from 'lodash/find';
 
 import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo';
 
 const mapStateToProps = (state) => ({
-  ...state.profile,
+  ...find(state.profile.masterCards, { isMain: true }),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = () => ({
   actions: {
     selectAnotherMaster() {
       Actions.masterProfileSelectProfile();
