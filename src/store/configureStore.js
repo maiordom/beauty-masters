@@ -11,26 +11,21 @@ const initialState = {
     animating: false,
   },
   auth: {},
-  dictionaries: {
-    services: {},
-    serviceByKey: {},
+  dictionaries: {},
+  favorites: { isLoaded: false, cards: [] },
+  geo: {
+    places: [],
+    city: {
+      name: 'Москва',
+      location: {
+        lat: 55.755826,
+        lng: 37.6172999,
+      },
+    },
   },
+  masterCards: {},
   masterEditor: MasterEditor,
   searchForm: SearchForm,
-  masterCards: {},
-  favorites: {
-    isLoaded: false,
-    cards: [],
-  },
-  userMasters: [{
-    avatar: null,
-    username: 'Елена Трепышина 1',
-    isMain: true
-  }, {
-    avatar: null,
-    username: 'Елена Трепышина 2',
-    isMain: false
-  }]
 };
 
 export default function configureStore() {

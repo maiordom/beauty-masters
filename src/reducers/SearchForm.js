@@ -30,7 +30,7 @@ const updateSections = (action, categoryKey, state) => {
 };
 
 export default makeReducer((state, action) => ({
-  [actions.SEARCH_TOOGLE_SERVICE]: () => {
+  [actions.SEARCH_TOGGLE_SERVICE]: () => {
     const model = state.searchForm[action.sectionName][action.modelName];
 
     setParam(action, state);
@@ -47,7 +47,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_TOOGLE_EXTENSION]: () => {
+  [actions.SEARCH_TOGGLE_EXTENSION]: () => {
     const categoryKey = 1001;
     const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
     const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
@@ -58,7 +58,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_TOOGLE_WITHDRAWAL]: () => {
+  [actions.SEARCH_TOGGLE_WITHDRAWAL]: () => {
     const categoryKey = 1002;
     const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
     const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };

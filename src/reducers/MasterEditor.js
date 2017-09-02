@@ -7,19 +7,7 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/master';
 
-import { validateGeneralServices, validateCustomServices } from './MasterServicesValidate';
-
-const setParam = (action, state) => {
-  const { sectionName, modelName, paramValue, paramName } = action;
-  const section = state.masterEditor[sectionName];
-  const model = section[modelName];
-
-  model[paramName] = paramValue;
-
-  state.masterEditor = { ...state.masterEditor };
-  state.masterEditor[sectionName] = { ...section };
-  state.masterEditor[sectionName][modelName] = { ...model };
-};
+import { setParam } from './MasterEditorHelpers';
 
 const setItemById = (action, state) => {
   const { modelName, id, sectionName } = action;
@@ -102,6 +90,22 @@ const removePhotoParam = (state, model, fileName) => {
 };
 
 export default makeReducer((state, action) => ({
+  [actions.MASTER_LOCATION_SET]: () => (state),
+
+  [actions.MASTER_PLACE_SET]: () => {
+    const { place, modelName } = action;
+
+    return deepUpdate(state, `masterEditor.${modelName}.addressField`, {
+      value: place.label,
+    });
+  },
+
+  [actions.MASTER_CARD_SET_ID]: () => {
+    state.masterEditor.masterCardId = action.masterCardId;
+
+    return state;
+  },
+
   [actions.MASTER_DATA_SET]: () => {
     const { data } = action;
     const { services, master_addresses } = data;
@@ -303,7 +307,8 @@ export default makeReducer((state, action) => ({
     state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
 
     if (model.queryParam) {
-      state.masterEditor.createMasterQuery[model.queryParam] = value;
+      const queryValue = model.valueType === 'number' ? Number(value) : value;
+      state.masterEditor.createMasterQuery[model.queryParam] = queryValue;
     }
 
     return state;
@@ -311,38 +316,6 @@ export default makeReducer((state, action) => ({
 
   [actions.MASTER_FIELD_SET_PARAM]: () => {
     setParam(action, state);
-
-    return state;
-  },
-
-  [actions.MASTER_SERVICE_TOOGLE]: () => {
-    setParam(action, state);
-
-    const createMasterQuery = state.masterEditor.createMasterQuery;
-    const model = state.masterEditor[action.sectionName][action.modelName];
-
-    if (action.paramValue) {
-      const service = { service_id: model.id };
-      createMasterQuery.services.push(service);
-    } else {
-      createMasterQuery.services = reject(createMasterQuery.services, { service_id: model.id });
-    }
-
-    return state;
-  },
-
-  [actions.MASTER_SERVICE_SET_PARAM]: () => {
-    setParam(action, state);
-
-    const createMasterQuery = state.masterEditor.createMasterQuery;
-    const model = state.masterEditor[action.sectionName][action.modelName];
-    const service = find(createMasterQuery.services, { service_id: model.id });
-
-    service[action.paramName] = action.paramValue;
-
-    if (action.paramName === 'price' && action.paramValue !== '') {
-      model.errorFillPrice = false;
-    }
 
     return state;
   },
@@ -399,54 +372,4 @@ export default makeReducer((state, action) => ({
 
     return state;
   },
-
-  [actions.MASTER_CUSTOM_SERVICE_TOOGLE]: () => {
-    const { sectionName, modelName, active, index } = action;
-    const section = state.masterEditor[sectionName];
-    const model = section[modelName];
-    const customService = state.masterEditor.createMasterQuery[model.queryParam];
-    const items = model.items;
-
-    if (active) {
-      items.push({ active });
-      customService.push({});
-    } else {
-      items.splice(index, 1);
-      customService.splice(index, 1);
-    }
-
-    return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
-  },
-
-  [actions.MASTER_CUSTOM_SERVICE_SET_PARAM]: () => {
-    const { sectionName, modelName, changes, index } = action;
-    const section = state.masterEditor[sectionName];
-    const model = section[modelName];
-    const items = model.items;
-    const item = items[index];
-    const customService = state.masterEditor.createMasterQuery[model.queryParam][index];
-
-    assign(item, changes);
-
-    Object.keys(changes).forEach(key => {
-      customService[model.queryMapping[key]] = changes[key];
-    });
-
-    if (typeof item.title === 'string' && item.title.length && item.errorFillTitle) {
-      item.errorFillTitle = false;
-    }
-
-    if (typeof item.price === 'number' && item.price > 0 && item.errorFillPrice) {
-      item.errorFillPrice = false;
-    }
-
-    return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
-  },
-
-  [actions.MASTER_SERVICES_VALIDATE]: () => {
-    state = validateGeneralServices(state);
-    state = validateCustomServices(state);
-
-    return state;
-  }
 }));

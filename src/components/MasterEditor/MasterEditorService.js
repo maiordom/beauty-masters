@@ -11,17 +11,17 @@ import {
   View,
 } from 'react-native';
 
-import Tabs from '../Tabs';
+import { FilterLabel } from '../FilterLabel';
+import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
+import CustomServices from '../../containers/CustomServices';
+import Input from '../Input';
+import Label from '../Label';
+import Modal from '../Modal';
 import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
-import Label from '../Label';
-import Input from '../Input';
-import Modal from '../Modal';
-import { FilterLabel } from '../FilterLabel';
 import StateMachine from '../StateMachine';
-
-import CustomServices from '../../containers/CustomServices';
+import Tabs from '../Tabs';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -51,7 +51,7 @@ type TState = {
   tabs: Array<{ title: string, key: string, }>,
 };
 
-export default class MasterEditorService extends Component<void, TProps, TState> {
+export default class MasterEditorService extends Component<TProps, TState> {
   state = {
     renderLoader: true,
     showAllFieldsRequiredModal: false,
@@ -63,9 +63,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
     ],
   };
 
-  scrollViewRef = {
-    scrollTo() {}
-  };
+  scrollViewRef: any;
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
@@ -78,7 +76,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
   };
 
   onChange = (active: boolean, modelName: string) => {
-    this.props.actions.toogleService(modelName, 'active', active, this.state.tabActiveKey);
+    this.props.actions.toggleService(modelName, 'active', active, this.state.tabActiveKey);
   };
 
   onChangePrice = (price: number, modelName: string) => {
@@ -119,7 +117,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
     });
   };
 
-  setScrollViewRef = (ref: Object) => this.scrollViewRef = ref;
+  setScrollViewRef = (ref: any) => (this.scrollViewRef = ref);
 
   render() {
     const {
@@ -154,6 +152,7 @@ export default class MasterEditorService extends Component<void, TProps, TState>
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <Modal isVisible={showAllFieldsRequiredModal}>
           <Text>{i18n.fillAllRequiredFields}</Text>
           <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
@@ -206,7 +205,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inner: {
-      flex: 1,
+    flex: 1,
   },
   homeAllowance: {
     paddingLeft: 11,

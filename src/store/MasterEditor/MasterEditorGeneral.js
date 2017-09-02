@@ -1,13 +1,13 @@
 /* @flow */
 
+import i18n from '../../i18n';
+
 type GeneralFieldModel = {
   placeholder?: string,
   queryParam: string,
   title?: string,
   value: string | boolean | null,
 };
-
-import i18n from '../../i18n';
 
 const usernameField = (username: string) => ({
   placeholder: i18n.username,
@@ -25,6 +25,7 @@ const isSalonField = (isSalon: boolean) => ({
   queryParam: 'is_salon',
   title: i18n.salonMaster,
   value: isSalon || false,
+  valueType: 'number',
 }: GeneralFieldModel);
 
 const salonNameField = (salonName: string) => ({

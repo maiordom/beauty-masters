@@ -2,9 +2,9 @@
 
 import moment from 'moment';
 
-import type { CreateMasterQuery } from '../types/CreateMasterQuery';
+import type { TCreateMasterQuery } from '../types/TCreateMasterQuery';
 
-const createMasterQuery: CreateMasterQuery = {
+const createMasterQuery: TCreateMasterQuery = {
   full_name: 'Вадим',
   is_salon: true,
   phone: '89264978293',

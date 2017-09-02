@@ -10,7 +10,12 @@ export default class ButtonControl extends Component {
   shouldComponentUpdate = shouldComponentUpdate();
 
   render() {
-    const { onPress, label, customStyles = {}, type } = this.props;
+    const {
+      customStyles = {},
+      label,
+      onPress,
+      type,
+    } = this.props;
 
     const title = Platform.select({
       ios: label || i18n.next,

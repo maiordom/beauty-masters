@@ -11,8 +11,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ userCreate }, dispatch),
-  onAuthSuccess: Actions.masterEditorGeneral,
+  actions: {
+    ...bindActionCreators({ userCreate }, dispatch),
+    next: Actions.masterEditorGeneral,
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Registration);

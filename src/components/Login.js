@@ -36,7 +36,7 @@ type TState = {
 
 const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 
-export default class Login extends Component<void, TProps, TState> {
+export default class Login extends Component<TProps, TState> {
   state = {
     hasError: false,
     responseError: null,
@@ -91,7 +91,7 @@ export default class Login extends Component<void, TProps, TState> {
       this.props.actions.userLogin({ username, password })
         .then((res) => {
           if (res.result === 'success') {
-            this.props.onAuthSuccess();
+            this.props.actions.next();
           }
         });
     }

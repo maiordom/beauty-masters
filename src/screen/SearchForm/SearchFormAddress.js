@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import SearchFormAddress from '../../components/SearchForm/SearchFormAddress';
+import PlacesAutocomplete from '../../components/PlacesAutocomplete';
 import NavBar from '../../components/NavBar';
 
 import { searchAddress, addressesReset } from '../../actions/search';
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar(SearchFormAddress));
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(PlacesAutocomplete));

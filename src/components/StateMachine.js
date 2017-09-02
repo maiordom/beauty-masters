@@ -13,7 +13,7 @@ type TProps = {
   children?: Children,
 };
 
-export default class StateMachine extends PureComponent<void, TProps, TState> {
+export default class StateMachine extends PureComponent<TProps, TState> {
   state = {
     inited: false,
   };

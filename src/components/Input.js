@@ -35,7 +35,7 @@ type TState = {
   value: string,
 };
 
-class InputBase extends Component<void, TProps, TState> {
+class InputBase extends Component<TProps, TState> {
   constructor(props) {
     super(props);
   }
@@ -80,7 +80,7 @@ class InputBase extends Component<void, TProps, TState> {
   };
 
   onBlur = () => {
-    let value = this.clearValue(this.state.value);
+    const value = this.clearValue(this.state.value);
 
     this.setState({ isFocused: false });
     this.props.onBlur && this.props.onBlur(value, this.props.modelName);

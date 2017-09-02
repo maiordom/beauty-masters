@@ -9,8 +9,8 @@ import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEd
 import NavBar from '../../components/NavBar';
 
 const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
-  masterSchedule: state.masterSchedule,
   calendarSettings: state.masterEditor[modelName],
+  masterSchedule: state.masterSchedule,
   sectionName: modelName,
 });
 
@@ -21,9 +21,14 @@ const mapDispatchToProps = dispatch => {
   }, dispatch);
 
   return {
-    onReadyPress: Actions.masterEditorCalendar,
-    drawerOpen,
-    actions,
+    actions: {
+      ...actions,
+      drawerOpen,
+      next: Actions.masterEditorCalendar,
+      selectAddress: (modelName) => {
+        Actions.calendarAddressAutocomplete({ modelName });
+      },
+    },
   };
 };
 

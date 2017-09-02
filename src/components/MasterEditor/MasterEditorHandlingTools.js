@@ -3,51 +3,48 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
+import { SubLabel } from '../SubLabel';
+import ActivityIndicator from '../../containers/ActivityIndicator';
+import ButtonControl from '../ButtonControl';
 import Input from '../Input';
 import Label from '../Label';
 import Switch from '../Switch';
-import ButtonControl from '../ButtonControl';
-import { SubLabel } from '../SubLabel';
 
 import i18n from '../../i18n';
 
 type TProps = {
   actions: Object,
-  boilingMethod: Object,
-  disinfectionMethod: Object,
-  dryHotMethod: Object,
-  fieldDescription: string,
-  fieldValue: string,
-  glasperlenovySterilizerMethod: Object,
-  hotSteamMethod: Object,
-  onNextPress: () => void,
+  modelParamName: string,
+  models: Object,
+  queryParamName: string,
   sectionName: string,
-  sterileOtherMethod: Object,
-  ultraSoundMethod: Object,
-  ultraVioletMethod: Object,
 };
 
-export default class MasterEditorHandlingTools extends Component<void, TProps, void> {
+export default class MasterEditorHandlingTools extends Component<TProps, void> {
   onChange = (state: boolean, modelName: string) => {
-    const { fieldValue, sectionName } = this.props;
+    const { modelParamName, sectionName } = this.props;
 
-    this.props.actions.toogleService(
+    this.props.actions.toggleService(
       modelName,
-      fieldValue,
+      modelParamName,
       state,
       sectionName,
     );
   };
 
   onChangeOtherMethod = (value: string, modelName?: string) => {
-    const { fieldDescription, sectionName } = this.props;
+    const { queryParamName, sectionName } = this.props;
 
     this.props.actions.setServiceParam(
       modelName,
-      fieldDescription,
+      queryParamName,
       value,
       sectionName,
     );
+  };
+
+  onNextPress = () => {
+    this.props.actions.next();
   };
 
   render() {
@@ -57,14 +54,14 @@ export default class MasterEditorHandlingTools extends Component<void, TProps, v
       dryHotMethod,
       glasperlenovySterilizerMethod,
       hotSteamMethod,
-      onNextPress,
       sterileOtherMethod,
       ultraSoundMethod,
       ultraVioletMethod,
-    } = this.props;
+    } = this.props.models;
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <ScrollView style={styles.inner}>
           <Label text={i18n.handlingTool} subText={i18n.specifyHowYouSterilizeTools} />
           <View>
@@ -89,7 +86,7 @@ export default class MasterEditorHandlingTools extends Component<void, TProps, v
             />
           </View>
         </ScrollView>
-        <ButtonControl onPress={onNextPress} />
+        <ButtonControl onPress={this.onNextPress} />
       </View>
     );
   }

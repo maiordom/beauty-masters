@@ -16,8 +16,6 @@ import i18n from '../../i18n';
 type TProps = {
   actions: Object,
   calendarSettings: Object,
-  drawerOpen: () => void,
-  onReadyPress: () => void,
   sectionName: string,
 };
 
@@ -26,14 +24,14 @@ type TState = {
   show: Object,
 };
 
-export default class MasterEditorCalendarSettings extends Component<void, TProps, TState> {
+export default class MasterEditorCalendarSettings extends Component<TProps, TState> {
   state = {
     automate: [
       'address',
       'schedule',
       'calendar',
     ],
-    show: {}
+    show: {},
   };
 
   componentDidMount() {
@@ -48,8 +46,8 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
     const sectionName = this.state.automate[0];
 
     this.setState({
-       automate: this.state.automate.slice(1),
-       show: Object.assign(this.state.show, { [sectionName]: true }),
+      automate: this.state.automate.slice(1),
+      show: Object.assign(this.state.show, { [sectionName]: true }),
     });
 
     setTimeout(() => this.iterate(), 20);
@@ -61,7 +59,7 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
 
   onIntervalChange = (value: string, id: number, modelName: string) => {
     this.props.actions.setCalendarInterval(modelName, id, this.props.sectionName);
-    this.props.drawerOpen({
+    this.props.actions.drawerOpen({
       contentKey: 'IntervalStartDate',
       sectionName: this.props.sectionName,
     });
@@ -76,21 +74,24 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
   };
 
   onDateSelect = (date: string) => {
-    this.props.drawerOpen({
+    this.props.actions.drawerOpen({
       date,
       contentKey: 'WorkTimeSpecification',
       sectionName: this.props.sectionName,
     });
   };
 
+  onReadyPress = () => {
+    this.props.actions.next();
+  };
+
+  onAddressChange = () => {
+    this.props.actions.selectAddress(this.props.sectionName);
+  };
+
   render() {
-    const {
-      calendarSettings,
-      onReadyPress,
-    } = this.props;
-
+    const { calendarSettings } = this.props;
     const { show } = this.state;
-
     const {
       intervalGroup,
       timeStartField,
@@ -100,13 +101,10 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
     } = calendarSettings;
 
     const addressModels = {
-      salonTitleField: calendarSettings.salonTitleField,
+      addressField: calendarSettings.addressField,
       cityField: calendarSettings.cityField,
-      streetField: calendarSettings.streetField,
-      districtField: calendarSettings.districtField,
+      salonTitleField: calendarSettings.salonTitleField,
       subwayStationField: calendarSettings.subwayStationField,
-      houseField: calendarSettings.houseField,
-      buildingField: calendarSettings.buildingField,
     };
 
     return (
@@ -115,7 +113,11 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
           {show.address && (
             <View>
               <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
-              <MasterEditorAddress {...addressModels} onChange={this.onChange} />
+              <MasterEditorAddress
+                models={addressModels}
+                onAddressChange={this.onAddressChange}
+                onChange={this.onChange}
+              />
             </View>
           )}
           {show.schedule && (
@@ -145,7 +147,7 @@ export default class MasterEditorCalendarSettings extends Component<void, TProps
             </View>
           )}
         </ScrollView>
-        <ButtonControl label={i18n.ready} onPress={onReadyPress} />
+        <ButtonControl label={i18n.ready} onPress={this.onReadyPress} />
       </View>
     );
   }

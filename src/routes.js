@@ -1,21 +1,22 @@
-import config from './config';
-
 const routes = {};
 
 const methods = [
-  { upload: '/upload', method: 'POST' },
   { createMaster: '/master-card', method: 'POST' },
+  { createMasterServices: '/master-service', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
-  { getServices: '/service', method: 'GET' },
-  { userCreate: '/user/registration', method: 'POST' },
-  { userLogin: '/token', method: 'POST' },
-  { userFavorites: '/favorites', method: 'GET' },
-  { searchMasters: '/master/search', method: 'GET' },
+  { getCategoryServices: '/category-service', method: 'GET' },
   { getMasterById: '/master', method: 'GET' },
-  { getUserProfile: '/profile', method: 'GET' },
+  { getServices: '/service', method: 'GET' },
+  { getUserProfile: '/user/profile?include=master_cards', method: 'GET' },
+  { refreshToken: '/refresh-token', method: 'POST' },
+  { searchMasters: '/master/search', method: 'GET' },
+  { upload: '/upload', method: 'POST' },
+  { userCreate: '/user/registration', method: 'POST' },
+  { userFavorites: '/favorites', method: 'GET' },
+  { userLogin: '/token', method: 'POST' },
 ];
 
-methods.forEach((methodObj, index) => {
+methods.forEach((methodObj) => {
   const routeName = Object.keys(methodObj)[0];
 
   routes[routeName] = {
@@ -23,5 +24,10 @@ methods.forEach((methodObj, index) => {
     path: methodObj[routeName],
   };
 });
+
+export const geoRoutes = {
+  autocomplete: '/autocomplete/json',
+  details: '/details/json',
+};
 
 export default routes;

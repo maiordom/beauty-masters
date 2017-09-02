@@ -21,7 +21,7 @@ type TProps = {
   isVerified?: boolean,
 }
 
-export default class MasterCardHeader extends Component<void, TProps, void> {
+export default class MasterCardHeader extends Component<TProps, void> {
   render() {
     const {
       inProfile,

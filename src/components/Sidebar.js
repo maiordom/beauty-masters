@@ -31,7 +31,7 @@ type TProps = {
 type TState = {
   currentScene: ?string,
 }
-export default class Sidebar extends Component<void, TProps, TState> {
+export default class Sidebar extends Component<TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
   };

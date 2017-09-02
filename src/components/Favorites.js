@@ -31,7 +31,7 @@ const icons = {
   }),
 };
 
-export default class Favorites extends Component<void, Props, State> {
+export default class Favorites extends Component<Props, State> {
   state: State;
 
   constructor(props: Props) {

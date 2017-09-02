@@ -12,7 +12,11 @@ import Services from './MasterEditorServices';
 
 import constants from '../../constants/master';
 
-import type { CreateMasterQuery } from '../../types/CreateMasterQuery';
+import type {
+  TCreateMaster,
+  TCustomService,
+  TMasterService,
+} from '../../types/CreateMaster';
 
 const params = {};
 
@@ -48,9 +52,16 @@ params.calendarSettingsThree.index = 2;
 
 params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 
-const createMasterQuery: CreateMasterQuery = {};
+const createMasterQuery: TCreateMaster = {};
+const manicureCustomServicesQuery: Array<TCustomService> = [];
+const masterServicesQuery: Array<TMasterService> = [];
+const pedicureCustomServicesQuery: Array<TCustomService> = [];
 
 export default {
   ...params,
   createMasterQuery,
+  manicureCustomServicesQuery,
+  masterCardId: 3,
+  masterServicesQuery,
+  pedicureCustomServicesQuery,
 };

@@ -33,7 +33,7 @@ type TState = {
 };
 
 // $FlowFixMe
-export default class RangeTime extends Component<void, TProps, TState> {
+export default class RangeTime extends Component<TProps, TState> {
   constructor(props: TProps) {
     super(props);
 

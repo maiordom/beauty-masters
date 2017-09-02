@@ -12,32 +12,32 @@ import i18n from '../../i18n';
 import vars from '../../vars';
 
 import InputWithLabel from '../InputWithLabel';
-import ButtonPanel from '../ButtonPanel';
+import { ButtonPanel } from '../ButtonPanel';
 
 const photoEmpty = require('../../icons/photo-empty.png');
 
 type TProps = {
   actions: Object,
   email: string,
-  masterPhoto: Array<string>,
+  masterPhotos: Array<string>,
   phone: string,
   username: string,
 }
 
-export default class MasterProfileInfo extends Component<void, TProps, void> {
+export default class MasterProfileInfo extends Component<TProps, void> {
   onSelectAnotherMaster = () => {
     this.props.actions.selectAnotherMaster();
   };
 
   render() {
     const {
-      masterPhoto,
+      masterPhotos,
       username,
       phone,
       email,
     } = this.props;
 
-    const photoSrc = masterPhoto[0] ? { uri: masterPhoto[0] } : photoEmpty;
+    const photoSrc = masterPhotos[0] ? { uri: masterPhotos[0] } : photoEmpty;
 
     return (
       <View style={styles.container}>
