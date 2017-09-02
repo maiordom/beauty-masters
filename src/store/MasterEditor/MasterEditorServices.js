@@ -2,7 +2,7 @@
 
 import i18n from '../../i18n';
 
-import type { TCustomService } from '../../types/CreateMaster';
+import type { TCustomService } from '../../types/CreateService';
 
 const manicureCustomServices = (customServices: Array<TCustomService> = []) => ({
   dictionaryKey: 'Manicure',

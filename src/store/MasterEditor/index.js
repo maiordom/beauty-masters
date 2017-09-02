@@ -10,13 +10,11 @@ import ServiceManicure from '../Service/ServiceManicure';
 import ServicePedicure from '../Service/ServicePedicure';
 import Services from './MasterEditorServices';
 
+import Geo from '../Geo';
 import constants from '../../constants/master';
 
-import type {
-  TCreateMaster,
-  TCustomService,
-  TMasterService,
-} from '../../types/CreateMaster';
+import type { TCreateMaster } from '../../types/CreateMaster';
+import type { TCustomService, TMasterService } from '../../types/CreateService';
 
 const params = {};
 
@@ -46,9 +44,20 @@ Object.assign(params.serviceManicure.classicManicure, { required: true, active: 
 Object.assign(params.serviceManicure.removingNailPolishManicure, { required: true, active: true });
 Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: true, active: true });
 
-params.calendarSettingsOne.index = 0;
-params.calendarSettingsTwo.index = 1;
-params.calendarSettingsThree.index = 2;
+[
+  params.calendarSettingsOne,
+  params.calendarSettingsTwo,
+  params.calendarSettingsThree,
+].forEach((object, index) => {
+  object.index = index;
+  object.cityField.value = Geo.city.name;
+  object.createAddressQuery.city = Geo.city.name;
+  object.createAddressQuery.lat = Geo.city.location.lat;
+  object.createAddressQuery.lon = Geo.city.location.lng;
+
+  delete object.createAddressQuery.sectionName;
+  delete object.createAddressQuery.modelName;
+});
 
 params.uploadPhotoStatus = constants.UPLOAD_STATUS.INACTIVE;
 

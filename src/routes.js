@@ -1,6 +1,7 @@
 const routes = {};
 
 const methods = [
+  { createAddress: '/address', method: 'POST' },
   { createMaster: '/master-card', method: 'POST' },
   { createMasterServices: '/master-service', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },

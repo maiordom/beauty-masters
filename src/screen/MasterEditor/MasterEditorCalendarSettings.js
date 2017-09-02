@@ -2,7 +2,12 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setCalendarField, setCalendarInterval } from '../../actions/master';
+import {
+  createAddress,
+  setAddressField,
+  setCalendarField,
+  setCalendarInterval,
+} from '../../actions/master';
 import { drawerOpen } from '../../actions/drawer';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
@@ -14,8 +19,10 @@ const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
   sectionName: modelName,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => {
   const actions = bindActionCreators({
+    createAddress,
+    setAddressField,
     setCalendarField,
     setCalendarInterval,
   }, dispatch);
@@ -24,8 +31,14 @@ const mapDispatchToProps = dispatch => {
     actions: {
       ...actions,
       drawerOpen,
-      next: Actions.masterEditorCalendar,
-      selectAddress: (modelName) => {
+      next() {
+        actions.createAddress(modelName).then((res) => {
+          if (!res.error) {
+            Actions.masterEditorCalendar();
+          }
+        });
+      },
+      selectAddress(modelName) {
         Actions.calendarAddressAutocomplete({ modelName });
       },
     },

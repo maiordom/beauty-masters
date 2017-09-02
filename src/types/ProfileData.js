@@ -1,19 +1,20 @@
 /* @flow */
 
-export type Service = {
-  id: number,
-  masterId: number,
-  serviceId: number,
-  price: number,
-  duration: string,
+export type TMasterCard = {
+    addresses: Array<any>,
+    email: string,
+    id: number,
+    isMain: boolean,
+    isSalon: boolean,
+    masterPhotos: Array<any>,
+    masterServices: Array<any>,
+    phone: string,
+    salonName: string,
+    username: string,
 }
 
-export type ProfileData = {
+export type TProfileData = {
   email: string,
-  id: number,
-  masterCity: string,
-  masterPhoto: ?Array<string>,
-  phone: string,
-  services: Array<Service>,
-  username: string,
+  userId: number,
+  masterCards: Array<TMasterCard>
 }

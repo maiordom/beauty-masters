@@ -1,12 +1,17 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, InteractionManager } from 'react-native';
+import {
+  InteractionManager,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import RadioGroup from '../RadioGroup';
 import ButtonControl from '../ButtonControl';
 import Label from '../Label';
-import RangeTime from '../RangeTime.android.js';
+import RangeTime from '../RangeTime.android';
 import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
 import { SubLabel } from '../SubLabel';
 import Calendar from '../Calendar';
@@ -52,6 +57,10 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
 
     setTimeout(() => this.iterate(), 20);
   };
+
+  onAddressFieldChange = (value: string, modelName: string) => {
+    this.props.actions.setAddressField(modelName, 'value', value, this.props.sectionName);
+  }
 
   onChange = (value: string, modelName: string) => {
     this.props.actions.setCalendarField(modelName, 'value', value, this.props.sectionName);
@@ -116,7 +125,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
               <MasterEditorAddress
                 models={addressModels}
                 onAddressChange={this.onAddressChange}
-                onChange={this.onChange}
+                onChange={this.onAddressFieldChange}
               />
             </View>
           )}

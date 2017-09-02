@@ -2,14 +2,14 @@
 
 import actions from '../constants/favorites';
 
-import type { MapCardType } from '../types/MasterTypes';
+import type { TMapCardType } from '../types/MasterTypes';
 
 import { setActivityIndicator } from './common';
 
 export const getFavorites = () => (dispatch: Function) => {
   dispatch(setActivityIndicator(true));
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, 1500);
   })
     .then(() => {
@@ -25,7 +25,7 @@ export const getFavorites = () => (dispatch: Function) => {
     });
 };
 
-export const addToFavorites = (card: MapCardType) => (dispatch: Function) => {
+export const addToFavorites = (card: TMapCardType) => (dispatch: Function) => {
   dispatch({
     type: actions.FAVORITES_ADD_DATA,
     card,

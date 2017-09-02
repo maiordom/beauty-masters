@@ -68,6 +68,32 @@ function uploadFileAction(fileData, modelName, photoId, dispatch, getState) {
     });
 }
 
+export const createAddress = (modelName) => (dispatch, getState) => {
+  const state = getState();
+  const auth = state.auth;
+  const createAddressQuery = state.masterEditor[modelName].createAddressQuery;
+
+  dispatch(setActivityIndicator(true));
+
+  const params = {
+    data: {
+      attributes: {
+        master_card_id: state.masterEditor.masterCardId,
+        ...createAddressQuery,
+      },
+    },
+  };
+
+  return MasterService.createAddress(params, {
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  })
+    .then((res) => {
+      dispatch(setActivityIndicator(false));
+      return res;
+    })
+    .catch(() => dispatch(setActivityIndicator(false)));
+};
+
 export const createMaster = () => (dispatch, getState) => {
   const state = getState();
   const auth = state.auth;
@@ -153,11 +179,6 @@ export const uploadMasterPhoto = (fileData, modelName) => (dispatch, getState) =
 
   return uploadFileAction(fileData, modelName, photoId, dispatch, getState);
 };
-
-export const setData = data => ({
-  type: actions.MASTER_DATA_SET,
-  data,
-});
 
 export const validateServices = () => (dispatch, getState) => {
   dispatch({ type: actions.MASTER_SERVICES_VALIDATE });
@@ -256,14 +277,17 @@ export const setCustomServiceParam = (modelName, changes, index, sectionName) =>
   sectionName,
 });
 
-export const setPlaceDetail = (place, modelName) => ({
+export const setPlaceDetail = (place, sectionName) => ({
   type: actions.MASTER_PLACE_SET,
-  modelName,
-  place,
+  payload: { modelName: 'addressField', paramName: 'value', paramValue: place, sectionName },
 });
 
-export const setPlaceLocation = (location, modelName) => ({
+export const setPlaceLocation = (location, sectionName) => ({
   type: actions.MASTER_LOCATION_SET,
-  location,
-  modelName,
+  payload: { location, sectionName },
+});
+
+export const setAddressField = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_ADDRESS_SET_PARAM,
+  payload: { modelName, paramName, paramValue, sectionName },
 });

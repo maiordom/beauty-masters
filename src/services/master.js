@@ -12,4 +12,8 @@ export function createMasterServices(params, headers) {
   return post(routes.createMasterServices, params, headers);
 }
 
+export function createAddress(params, headers) {
+  return post(routes.createAddress, params, headers);
+}
+
 export default null;
