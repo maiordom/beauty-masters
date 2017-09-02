@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 import { toPattern } from 'vanilla-masker';
 import upperFirst from 'lodash/upperFirst';
 
@@ -12,8 +12,6 @@ import ActivityIndicator from '../../containers/ActivityIndicator';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
-
-const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 
 const icons = Platform.select({
   android: {
@@ -46,7 +44,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
   };
 
   onChange = (value: string, modelName: string) => {
-    const sectionName = this.props[modelName].sectionName
+    const sectionName = this.props[modelName].sectionName;
 
     this.props.actions.setFieldValue(modelName, value, sectionName);
 
@@ -81,7 +79,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     }
 
     return toPattern(rawValue, {
-      pattern: '+7 (999) 999 99 99'
+      pattern: '+7 (999) 999 99 99',
     });
   };
 
@@ -104,13 +102,13 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     } = this.props;
 
     let validation = true;
-    let state = {};
+    const state = {};
 
     if (!phoneField.value || phoneField.value && phoneField.value.length < 11) {
-        validation = false;
-        state.errorFillPhoneNumber = true;
+      validation = false;
+      state.errorFillPhoneNumber = true;
     } else {
-        state.errorFillPhoneNumber = false;
+      state.errorFillPhoneNumber = false;
     }
 
     state.errorFillUsername = !usernameField.value;
@@ -176,7 +174,12 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
             this.error(i18n.fillPhoneNumber)
           )}
           <Switch {...isSalonField} onChange={this.onChange} />
-          <Input {...salonNameField} debounce editable={isSalonField.value} onChange={this.onChange} />
+          <Input
+            {...salonNameField}
+            debounce
+            editable={isSalonField.value}
+            onChange={this.onChange}
+          />
           {errorFillSalonName && (
             this.error(i18n.fillField)
           )}

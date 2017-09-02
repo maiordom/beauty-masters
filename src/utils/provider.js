@@ -30,8 +30,10 @@ export const post = (method, params, headers = {}) => {
   })
   .then(res => {
     if (__DEV__) {
-      console.log(`${method.path}::${method.method}::params`, bodyCopy);
-      console.log(`${method.path}::${method.method}::response`, res);
+      console.log(`${method.path}::${method.method}::params`);
+      console.log(bodyCopy);
+      console.log(`${method.path}::${method.method}::response`);
+      console.log(res);
     }
 
     if (res.errors) {
@@ -50,12 +52,19 @@ export const post = (method, params, headers = {}) => {
   });
 };
 
-export const get = (method, params, headers = {}) => (
+export const get = (method, params = {}, headers = {}) => (
   RNFetchBlob.fetch('GET', config.host + method.path, {
     'Content-Type': 'application/json',
     ...headers,
   })
   .then(res => res.json())
+  .then(res => {
+    if (__DEV__) {
+      console.log(`${method.path}::${method.method}::response`);
+    }
+
+    return res;
+  })
 );
 
 export const geo = (method, params) => {
@@ -68,8 +77,10 @@ export const geo = (method, params) => {
   .then((res) => res.json())
   .then(res => {
     if (__DEV__) {
-      console.log('googlePlaces::params', params);
-      console.log('googlePlaces::response', res);
+      console.log('googlePlaces::params');
+      console.log(params);
+      console.log('googlePlaces::response');
+      console.log(res);
     }
 
     if (res.status !== 'OK') {

@@ -83,6 +83,7 @@ export default () => (
           component={MasterAuthorization}
         />
         <Scene
+          initial
           key="masterEditorGeneral"
           title={i18n.masterEditor.generalInformation}
           component={MasterEditorGeneral}
@@ -103,7 +104,6 @@ export default () => (
           component={MasterEditorCalendar}
         />
         <Scene
-          initial
           key="masterEditorCalendarSetting"
           title={i18n.masterEditor.calendarSettings}
           component={props => <MasterEditorCalendarSettings {...props} />}

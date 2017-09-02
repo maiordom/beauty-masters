@@ -1,14 +1,15 @@
-import { makeReducer, groupServices } from '../utils';
+import { makeReducer } from '../utils';
 
 import c from '../constants/profile';
 
 export default makeReducer((state, action) => ({
   [c.PROFILE_SET_DATA]: () => {
-    const { data } = action;
+    const { userId, masterCards } = action;
 
-    state.profile = data;
-
-    state.profile.services = groupServices(state.profile.services, state.dictionaries.serviceById);
+    state.profile = {
+      userId,
+      masterCards,
+    };
 
     return state;
   },
@@ -20,8 +21,8 @@ export default makeReducer((state, action) => ({
       master.isMain = masterIndex === index;
     });
 
-    state.userMasters = [ ...state.userMasters ];
+    state.userMasters = [...state.userMasters];
 
     return state;
-  }
+  },
 }));

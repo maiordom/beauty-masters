@@ -49,3 +49,20 @@ export const userLogin = ({ username, password }) => (dispatch) => {
     .then((res) => handleAuth(res, dispatch, actions.AUTH_SET_LOGIN_ERROR))
     .catch(() => dispatch(setActivityIndicator(false)));
 };
+
+export const refreshToken = (token) => (dispatch) => {
+  const params = {
+    data: {
+      attributes: {
+        refresh_token: token,
+      },
+    },
+  };
+
+  return AuthService.refreshToken(params).then(res => {
+    dispatch({
+      type: actions.AUTH_SET_DATA,
+      ...res,
+    });
+  });
+};

@@ -12,6 +12,7 @@ const initialState = {
   },
   auth: {},
   dictionaries: {},
+  favorites: { isLoaded: false, cards: [] },
   geo: {
     places: [],
     city: {
@@ -22,13 +23,9 @@ const initialState = {
       },
     },
   },
+  masterCards: {},
   masterEditor: MasterEditor,
   searchForm: SearchForm,
-  masterCards: {},
-  favorites: {
-    isLoaded: false,
-    cards: [],
-  },
   userMasters: [{
     avatar: null,
     username: 'Елена Трепышина 1',

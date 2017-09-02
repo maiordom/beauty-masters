@@ -25,6 +25,7 @@ const isSalonField = (isSalon: boolean) => ({
   queryParam: 'is_salon',
   title: i18n.salonMaster,
   value: isSalon || false,
+  valueType: 'number',
 }: GeneralFieldModel);
 
 const salonNameField = (salonName: string) => ({

@@ -14,3 +14,10 @@ export const userLogin = (params) => post(routes.userLogin, params)
     refreshToken: res.refresh_token,
     tokenType: res.token_type,
   }));
+
+export const refreshToken = (params) => post(routes.refreshToken, params)
+  .then(res => (res.error ? res : {
+    accessToken: res.access_token,
+    refreshToken: res.refresh_token,
+    tokenType: res.token_type,
+  }));

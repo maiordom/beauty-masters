@@ -75,7 +75,16 @@ export const createMaster = () => (dispatch, getState) => {
 
   dispatch(setActivityIndicator(true));
 
-  return MasterService.createMaster(createMasterQuery, {
+  const params = {
+    data: {
+      attributes: {
+        user_id: state.profile.userId,
+        ...createMasterQuery,
+      },
+    },
+  };
+
+  return MasterService.createMaster(params, {
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
   })
     .then(response => {

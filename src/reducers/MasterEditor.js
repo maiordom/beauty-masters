@@ -307,7 +307,8 @@ export default makeReducer((state, action) => ({
     state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
 
     if (model.queryParam) {
-      state.masterEditor.createMasterQuery[model.queryParam] = value;
+      const queryValue = model.valueType === 'number' ? Number(value) : value;
+      state.masterEditor.createMasterQuery[model.queryParam] = queryValue;
     }
 
     return state;
