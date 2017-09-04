@@ -1,14 +1,10 @@
 // @flow
 
-type TSchedule = {
+export type TCreateSchedule = {
   attributes: {
     date: string,
-    time_start: string,
+    is_not_work: number,
     time_end: string,
+    time_start: string,
   },
-};
-
-export type TCreateSchedules = {
-  timetable_id?: number,
-  data: Array<TSchedule>,
 };

@@ -4,7 +4,7 @@ import i18n from '../../i18n';
 
 import type { TCreateAddress } from '../../types/CreateAddress';
 import type { TCreateTimeTable } from '../../types/CreateTimeTable';
-import type { TCreateSchedules } from '../../types/CreateSchedules';
+import type { TCreateSchedule } from '../../types/CreateSchedules';
 
 type TCalendarFieldModel = {
   label: string,
@@ -85,7 +85,7 @@ const intervalGroup = () => ({
 
 const createAddressQuery = () => ({}: TCreateAddress);
 const createTimeTableQuery = () => ({}: TCreateTimeTable);
-const createSchedulesQuery = () => ({ data: [] }: TCreateSchedules);
+const createSchedulesQuery = () => ([]: Array<TCreateSchedule>);
 
 export default {
   salonTitleField,

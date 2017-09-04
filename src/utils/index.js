@@ -29,7 +29,7 @@ export function makeReducer(handler: Function, beforeHandler: Function, afterHan
     beforeHandler && beforeHandler(state, action);
 
     if (items[action.type]) {
-      state = items[action.type]();
+      state = items[action.type](state, action);
     }
 
     afterHandler && afterHandler(state, action);

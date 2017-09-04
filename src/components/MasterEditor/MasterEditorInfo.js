@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+// @flow
+
+import React, { Component } from 'react';
+import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
 import Input from '../Input';
 import Label from '../Label';
@@ -17,26 +19,30 @@ const PHOTO_INNER_SPACE = 6;
 const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3;
 const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
-export default class MasterEditorInfo extends Component {
+type TProps = {
+  actions: Object,
+  certificatePhotos: Object,
+  drawerOpen: (any) => void,
+  personalPhotos: Object,
+  workPhotos: Object,
+};
+
+type TState = {
+  certificatesShow: boolean,
+};
+
+export default class MasterEditorInfo extends Component<TProps, TState> {
   state = { certificatesShow: false };
 
-  static propTypes = {
-    actions: PropTypes.object,
-    certificatePhotos: PropTypes.object,
-    drawerOpen: PropTypes.func,
-    personalPhotos: PropTypes.object,
-    workPhotos: PropTypes.object,
+  onPhotoSelectPress = (modelName: string) => {
+    this.props.drawerOpen({ contentKey: 'PhotoMaster', name: modelName });
   };
 
-  onPhotoSelectPress = modelName => {
-    this.props.drawerOpen({ contentKey: 'PhotoMaster', ...{ name: modelName } });
-  };
-
-  onCertificatesChange = state => {
+  onCertificatesChange = (state: boolean) => {
     this.setState({ certificatesShow: Boolean(state) });
   };
 
-  onPhotoRemovePress = (itemId, modelName) => {
+  onPhotoRemovePress = (itemId: number, modelName: string) => {
     this.props.actions.removePhoto(itemId, modelName);
   };
 
@@ -62,15 +68,21 @@ export default class MasterEditorInfo extends Component {
               subText={i18n.masterEditor.aboutDescription}
             />
             <MasterPhotoList
+              {...personalPhotos}
               onPhotoRemovePress={this.onPhotoRemovePress}
               onPhotoSelectPress={this.onPhotoSelectPress}
               photoSize={PHOTO_SIZE}
               wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-              {...personalPhotos}
             />
-            <Label text={i18n.masterEditor.fewWordsAboutYouToClients} customStyle={{ paddingBottom: 0 }} />
+            <Label
+              text={i18n.masterEditor.fewWordsAboutYouToClients}
+              customStyle={{ paddingBottom: 0 }}
+            />
             <Input placeholder={i18n.masterEditor.aboutExample} />
-            <Switch title={i18n.masterEditor.certificates} onChange={this.onCertificatesChange} />
+            <Switch
+              title={i18n.masterEditor.certificates}
+              onChange={this.onCertificatesChange}
+            />
             {certificatesShow && (
               <View style={styles.photosWrapper}>
                 <SubLabel
@@ -78,11 +90,11 @@ export default class MasterEditorInfo extends Component {
                   label={i18n.masterEditor.attachPhotosToConfirmCertificates}
                 />
                 <MasterPhotoList
+                  {...certificatePhotos}
                   onPhotoRemovePress={this.onPhotoRemovePress}
                   onPhotoSelectPress={this.onPhotoSelectPress}
                   photoSize={PHOTO_SIZE}
                   wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-                  {...certificatePhotos}
                 />
               </View>
             )}
@@ -92,11 +104,11 @@ export default class MasterEditorInfo extends Component {
                 label={i18n.masterEditor.attachPhotosOfYourWork}
               />
               <MasterPhotoList
+                {...workPhotos}
                 onPhotoRemovePress={this.onPhotoRemovePress}
                 onPhotoSelectPress={this.onPhotoSelectPress}
                 photoSize={PHOTO_SIZE}
                 wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-                {...workPhotos}
               />
             </View>
           </View>

@@ -1,5 +1,4 @@
 import find from 'lodash/find';
-import each from 'lodash/each';
 import assign from 'lodash/assign';
 import reject from 'lodash/reject';
 
@@ -7,56 +6,12 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/master';
 
-import { setParam } from './MasterEditorHelpers';
-
-const setItemById = (action, state) => {
-  const { modelName, id, sectionName } = action;
-  const section = state.masterEditor[sectionName];
-  const model = section[modelName];
-
-  each(model.items, (item) => {
-    item.active = item.id === id;
-
-    if (item.active) {
-      model.selected = item;
-    }
-  });
-
-  deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, {
-    items: [...model.items],
-  });
-};
-
-const setPhotoParam = (state, model, fileName) => {
-  const createMasterQuery = state.masterEditor.createMasterQuery;
-  const { queryType, queryParam } = model;
-
-  if (queryType === 'array') {
-    createMasterQuery[queryParam].push(fileName);
-  } else {
-    createMasterQuery[queryParam] = fileName;
-  }
-};
-
-const removePhotoParam = (state, model, fileName) => {
-  const createMasterQuery = state.masterEditor.createMasterQuery;
-  const { queryType, queryParam } = model;
-
-  if (queryType === 'array') {
-    createMasterQuery[queryParam] = reject(createMasterQuery[queryParam], value => (value === fileName));
-  } else {
-    createMasterQuery[queryParam] = fileName;
-  }
-};
-
-const setCreateQueryParam = (payload, state, createType) => {
-  const { sectionName, modelName, paramValue } = payload;
-  const section = state.masterEditor[sectionName];
-  const model = section[modelName];
-  const query = section[createType];
-
-  query[model.queryParam] = paramValue;
-};
+import {
+  setCreateQueryParam,
+  setItemById,
+  setParam,
+  setScheduleQuery,
+} from './MasterEditorHelpers';
 
 export default makeReducer((state, action) => ({
   [actions.MASTER_CARD_SET_ID]: () => {
@@ -67,9 +22,7 @@ export default makeReducer((state, action) => ({
 
   [actions.MASTER_PHOTO_SET_MOCK]: () => {
     const { modelName, id, status } = action;
-    const section = state.masterEditor.info;
-    const model = section[modelName];
-    const { items } = model;
+    const { items } = state.masterEditor.info[modelName];
     const item = find(items, { id });
 
     if (item) {
@@ -78,12 +31,9 @@ export default makeReducer((state, action) => ({
       items.push({ id, status, type: 'mock' });
     }
 
-    state.masterEditor = { ...state.masterEditor };
-    state.masterEditor.info = { ...section };
-    state.masterEditor.info[modelName] = { ...model };
-    state.masterEditor.info[modelName].items = [...items];
-
-    return state;
+    return deepUpdate(state, `masterEditor.info.${modelName}`, {
+      items: [...items],
+    });
   },
 
   [actions.MASTER_PHOTO_SET_QUEUE]: () => {
@@ -106,47 +56,31 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_PHOTO_SET]: () => {
-    const { modelName, id, sizes, mediaUrl, fileName } = action;
-    const section = state.masterEditor.info;
-    const model = section[modelName];
-    const { items } = model;
+    const { modelName, id, sizes, mediaFileId } = action;
+    const { items } = state.masterEditor.info[modelName];
     const item = find(items, { id });
 
     assign(item, {
-      fileName,
-      mediaUrl,
+      mediaFileId,
       sizes,
       type: 'photo',
       status: 'uploaded',
     });
 
-    state.masterEditor = { ...state.masterEditor };
-    state.masterEditor.info = { ...section };
-    state.masterEditor.info[modelName] = { ...model };
-    state.masterEditor.info[modelName].items = [...items];
-
-    setPhotoParam(state, model, fileName);
-
-    return state;
+    return deepUpdate(state, `masterEditor.info.${modelName}`, {
+      items: [...items],
+    });
   },
 
   [actions.MASTER_PHOTO_REMOVE]: () => {
     const { itemId, modelName } = action;
-    const section = state.masterEditor.info;
-    const model = section[modelName];
-    let { items } = model;
-    const { fileName } = find(items, { id: itemId });
+    let { items } = state.masterEditor.info[modelName];
 
     items = reject(items, { id: itemId });
 
-    state.masterEditor = { ...state.masterEditor };
-    state.masterEditor.info = { ...section };
-    state.masterEditor.info[modelName] = { ...model };
-    state.masterEditor.info[modelName].items = items;
-
-    removePhotoParam(state, model, fileName);
-
-    return state;
+    return deepUpdate(state, `masterEditor.info.${modelName}`, {
+      items: [...items],
+    });
   },
 
   [actions.MASTER_FIELD_SET_VALUE]: () => {
@@ -176,7 +110,20 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_CALENDAR_SET_RECIPIENT_DATE]: () => (state),
+  [actions.MASTER_CALENDAR_SCHEDULE_SET]: (state, { payload: { modelName, changes, sectionName } }) => {
+    const items = state.masterEditor[sectionName][modelName].items;
+    const item = find(items, { date: changes.date });
+
+    if (item) {
+      Object.assign(item, changes);
+    } else {
+      items.push(changes);
+    }
+
+    setScheduleQuery({ modelName, changes, sectionName }, state, changes);
+
+    return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { items: [...items] });
+  },
 
   [actions.MASTER_LOCATION_SET]: () => {
     const { location, sectionName } = action.payload;
@@ -208,4 +155,10 @@ export default makeReducer((state, action) => ({
 
     return state;
   },
+
+  [actions.MASTER_ADDRESS_SET_ID]: (state, { payload: { sectionName, addressId } }) =>
+    deepUpdate(state, `masterEditor.${sectionName}`, { addressId }),
+
+  [actions.MASTER_TIME_TABLE_SET_ID]: (state, { payload: { sectionName, timeTableId } }) =>
+    deepUpdate(state, `masterEditor.${sectionName}`, { timeTableId }),
 }));

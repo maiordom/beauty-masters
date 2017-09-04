@@ -50,6 +50,8 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
   params.calendarSettingsThree,
 ].forEach((object, index) => {
   object.index = index;
+  object.timeTableId = null;
+  object.addressId = null;
   object.cityField.value = Geo.city.name;
   object.createAddressQuery.city = Geo.city.name;
   object.createAddressQuery.lat = Geo.city.location.lat;
@@ -79,7 +81,7 @@ export default {
   ...params,
   createMasterQuery,
   manicureCustomServicesQuery,
-  masterCardId: 3,
+  masterCardId: 34,
   masterServicesQuery,
   pedicureCustomServicesQuery,
 };

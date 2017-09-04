@@ -34,7 +34,9 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
       <View style={styles.container}>
         <InputWithLabel
           {...salonTitleField}
-          onBlur={this.onChange}
+          debounce
+          debounceTimer={200}
+          onChange={this.onChange}
           placeholder={i18n.specify}
         />
         <TouchableWithoutFeedback>
@@ -51,7 +53,9 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
         </TouchableWithoutFeedback>
         <InputWithLabel
           {...subwayStationField}
-          onBlur={this.onChange}
+          debounce
+          debounceTimer={200}
+          onChange={this.onChange}
           placeholder={i18n.specify}
         />
       </View>

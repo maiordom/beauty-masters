@@ -103,7 +103,6 @@ export default () => (
           component={MasterEditorCalendar}
         />
         <Scene
-          initial
           key="masterEditorCalendarSetting"
           title={i18n.masterEditor.calendarSettings}
           component={props => <MasterEditorCalendarSettings {...props} />}
@@ -114,6 +113,7 @@ export default () => (
           component={props => <CalendarAddressAutocomplete {...props} />}
         />
         <Scene
+          initial
           key="masterEditorInfo"
           title={i18n.masterEditor.additionalInformation}
           component={MasterEditorInfo}

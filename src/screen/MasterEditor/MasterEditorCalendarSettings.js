@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  createAddress,
+  createSchedules,
+  handleAddress,
+  handleTimeTable,
   setAddressField,
   setCalendarInterval,
   setTimeTableField,
@@ -15,13 +17,14 @@ import NavBar from '../../components/NavBar';
 
 const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
   calendarSettings: state.masterEditor[modelName],
-  masterSchedule: state.masterSchedule,
   sectionName: modelName,
 });
 
 const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => {
   const actions = bindActionCreators({
-    createAddress,
+    createSchedules,
+    handleAddress,
+    handleTimeTable,
     setAddressField,
     setCalendarInterval,
     setTimeTableField,
@@ -32,11 +35,11 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
       ...actions,
       drawerOpen,
       next() {
-        actions.createAddress(modelName).then((res) => {
-          if (!res.error) {
-            Actions.masterEditorCalendar();
-          }
-        });
+        return actions.handleAddress(modelName)
+          .then(() => actions.handleTimeTable(modelName))
+          .then(() => actions.createSchedules(modelName))
+          .then(Actions.masterEditorCalendar)
+          .catch(Actions.masterEditorCalendar);
       },
       selectAddress(modelName) {
         Actions.calendarAddressAutocomplete({ modelName });

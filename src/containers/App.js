@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { AsyncStorage } from 'react-native';
+import isEmpty from 'lodash/isEmpty';
 
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
@@ -28,13 +29,13 @@ export default class App extends Component {
     AsyncStorage.getItem('auth').then(res => {
       console.log(`AsyncStorage::read::auth::${res}`);
 
-      if (!res) {
+      const result = JSON.parse(res);
+
+      if (isEmpty(result)) {
         return;
       }
 
-      const authData = JSON.parse(res);
-
-      refreshToken(authData.refreshToken)(store.dispatch).then(() => {
+      refreshToken(result.refreshToken)(store.dispatch).then(() => {
         getUserProfile()(store.dispatch, store.getState);
       });
     });

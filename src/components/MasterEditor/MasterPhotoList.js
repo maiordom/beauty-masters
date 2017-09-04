@@ -81,7 +81,7 @@ export default class MasterPhotoList extends Component {
                 ]}
               >
                 <Image
-                  source={{ uri: item.mediaUrl + item.sizes.s }}
+                  source={{ uri: item.sizes.s }}
                   style={{ width: photoSize, height: photoSize }}
                 />
                 <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id)}>
