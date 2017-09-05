@@ -39,7 +39,7 @@ export const handleTimeTable = (sectionName) => (dispatch, getState) => {
     return Promise.resolve({ error: {} });
   }
 
-  const handleTimeTable = (res) => {
+  const handleResponse = (res) => {
     if (!res.error) {
       dispatch({
         type: actions.MASTER_TIME_TABLE_SET_ID,
@@ -55,10 +55,10 @@ export const handleTimeTable = (sectionName) => (dispatch, getState) => {
   };
 
   if (timeTableId) {
-    return MasterService.updateTimeTable(timeTableId, params, headers).then(handleTimeTable);
+    return MasterService.updateTimeTable(timeTableId, params, headers).then(handleResponse);
   }
 
-  return MasterService.createTimeTable(params, headers).then(handleTimeTable);
+  return MasterService.createTimeTable(params, headers).then(handleResponse);
 };
 
 export const handleAddress = (sectionName) => (dispatch, getState) => {
@@ -75,7 +75,7 @@ export const handleAddress = (sectionName) => (dispatch, getState) => {
     },
   };
 
-  const handleRequest = (res) => {
+  const handleResponse = (res) => {
     if (!res.error) {
       dispatch({
         type: actions.MASTER_ADDRESS_SET_ID,
@@ -91,8 +91,8 @@ export const handleAddress = (sectionName) => (dispatch, getState) => {
   };
 
   if (addressId) {
-    return MasterService.updateAddress(addressId, params, headers).then(handleRequest);
+    return MasterService.updateAddress(addressId, params, headers).then(handleResponse);
   }
 
-  return MasterService.createAddress(params, headers).then(handleRequest);
+  return MasterService.createAddress(params, headers).then(handleResponse);
 };

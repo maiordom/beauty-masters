@@ -83,7 +83,7 @@ export default makeReducer((state, action) => ({
     });
   },
 
-  [actions.MASTER_FIELD_SET_VALUE]: () => {
+  [actions.MASTER_GENERAL_SET_PARAM]: () => {
     const { sectionName, modelName, value } = action;
     const model = state.masterEditor[sectionName][modelName];
 
@@ -93,12 +93,6 @@ export default makeReducer((state, action) => ({
       const queryValue = model.valueType === 'number' ? Number(value) : value;
       state.masterEditor.createMasterQuery[model.queryParam] = queryValue;
     }
-
-    return state;
-  },
-
-  [actions.MASTER_FIELD_SET_PARAM]: () => {
-    setParam(action, state);
 
     return state;
   },

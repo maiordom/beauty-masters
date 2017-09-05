@@ -11,6 +11,7 @@ import {
   setTimeTableField,
 } from '../../actions/master';
 import { drawerOpen } from '../../actions/drawer';
+import { setActivityIndicator } from '../../actions/common';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
 import NavBar from '../../components/NavBar';
@@ -35,11 +36,19 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
       ...actions,
       drawerOpen,
       next() {
+        dispatch(setActivityIndicator(true));
+
         return actions.handleAddress(modelName)
           .then(() => actions.handleTimeTable(modelName))
           .then(() => actions.createSchedules(modelName))
-          .then(Actions.masterEditorCalendar)
-          .catch(Actions.masterEditorCalendar);
+          .then(() => {
+            Actions.masterEditorCalendar();
+            dispatch(setActivityIndicator(false));
+          })
+          .catch(() => {
+            Actions.masterEditorCalendar();
+            dispatch(setActivityIndicator(false));
+          });
       },
       selectAddress(modelName) {
         Actions.calendarAddressAutocomplete({ modelName });

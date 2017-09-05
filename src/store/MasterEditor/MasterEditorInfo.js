@@ -1,5 +1,7 @@
 /* @flow */
 
+import i18n from '../../i18n';
+
 type PhotosModel = {
   items: Array<string>,
   limit: number,
@@ -35,9 +37,16 @@ const personalPhotos = () => ({
   type: 'master',
 }: PhotosModel);
 
+const aboutField = () => ({
+  placeholder: i18n.masterEditor.aboutExample,
+  queryParam: 'about',
+  value: null,
+});
+
 export default {
   photosQueue,
   certificatePhotos,
   personalPhotos,
   workPhotos,
+  aboutField,
 };

@@ -9,7 +9,7 @@ import { setActivityIndicator } from './common';
 export const createMaster = () => (dispatch, getState) => {
   const state = getState();
   const auth = state.auth;
-  const createMasterQuery = state.masterEditor.createMasterQuery;
+  const { masterCardId, createMasterQuery } = state.masterEditor;
 
   dispatch(setActivityIndicator(true));
 
@@ -22,20 +22,30 @@ export const createMaster = () => (dispatch, getState) => {
     },
   };
 
-  return MasterService.createMaster(params, {
-    Authorization: `${auth.tokenType} ${auth.accessToken}`,
-  })
-    .then(response => {
-      dispatch(setActivityIndicator(false));
-      dispatch({
-        type: actions.MASTER_CARD_SET_ID,
-        ...response,
-      });
+  const handleResponse = (res) => {
+    dispatch(setActivityIndicator(false));
+    dispatch({
+      type: actions.MASTER_CARD_SET_ID,
+      ...res,
+    });
 
-      if (response.masterCardId) {
-        return { result: 'success' };
-      }
-    })
+    if (res.masterCardId) {
+      return { result: 'success' };
+    }
+  };
+
+  const headers = {
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  };
+
+  if (masterCardId) {
+    return MasterService.updateMaster(masterCardId, params, headers)
+      .then(handleResponse)
+      .catch(() => dispatch(setActivityIndicator(false)));
+  }
+
+  return MasterService.createMaster(params, headers)
+    .then(handleResponse)
     .catch(() => dispatch(setActivityIndicator(false)));
 };
 
@@ -104,8 +114,8 @@ export const removePhoto = (itemId, modelName) => ({
   modelName,
 });
 
-export const setFieldValue = (modelName, value, sectionName) => ({
-  type: actions.MASTER_FIELD_SET_VALUE,
+export const setGeneralParam = (modelName, value, sectionName) => ({
+  type: actions.MASTER_GENERAL_SET_PARAM,
   modelName,
   sectionName,
   value,

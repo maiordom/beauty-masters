@@ -17,6 +17,7 @@ const methods = [
   { refreshToken: '/refresh-token', method: 'POST' },
   { searchMasters: '/master/search', method: 'GET' },
   { updateAddress: ({ id }) => `/address/${id}`, method: 'PATCH' },
+  { updateMaster: ({ id }) => `/master-card/${id}`, method: 'PATCH' },
   { updateTimeTable: ({ id }) => `/timetable/${id}`, method: 'PATCH' },
   { upload: (type) => `/upload/${type}`, method: 'POST' },
   { userCreate: '/user/registration', method: 'POST' },

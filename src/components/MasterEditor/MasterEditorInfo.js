@@ -3,12 +3,13 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
+import { SubLabel } from '../SubLabel';
+import ActivityIndicator from '../../containers/ActivityIndicator';
+import ButtonControl from '../ButtonControl';
 import Input from '../Input';
 import Label from '../Label';
-import Switch from '../Switch';
-import { SubLabel } from '../SubLabel';
 import MasterPhotoList from '../MasterEditor/MasterPhotoList';
-import ButtonControl from '../ButtonControl';
+import Switch from '../Switch';
 
 import i18n from '../../i18n';
 
@@ -20,10 +21,11 @@ const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3
 const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
 type TProps = {
+  aboutField: Object,
   actions: Object,
   certificatePhotos: Object,
-  drawerOpen: (any) => void,
   personalPhotos: Object,
+  sectionName: string,
   workPhotos: Object,
 };
 
@@ -35,7 +37,7 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   state = { certificatesShow: false };
 
   onPhotoSelectPress = (modelName: string) => {
-    this.props.drawerOpen({ contentKey: 'PhotoMaster', name: modelName });
+    this.props.actions.drawerOpen({ contentKey: 'PhotoMaster', name: modelName });
   };
 
   onCertificatesChange = (state: boolean) => {
@@ -46,12 +48,17 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
     this.props.actions.removePhoto(itemId, modelName);
   };
 
+  onChangeAbout = (value: string, modelName: string) => {
+    this.props.actions.setGeneralParam(modelName, value, this.props.sectionName);
+  }
+
   onNextPress = () => {
     this.props.actions.createMaster();
   };
 
   render() {
     const {
+      aboutField,
       certificatePhotos,
       personalPhotos,
       workPhotos,
@@ -61,6 +68,7 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <ScrollView style={styles.inner}>
           <View style={styles.scrollViewInner}>
             <Label
@@ -78,7 +86,11 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
               text={i18n.masterEditor.fewWordsAboutYouToClients}
               customStyle={{ paddingBottom: 0 }}
             />
-            <Input placeholder={i18n.masterEditor.aboutExample} />
+            <Input
+              {...aboutField}
+              debounce
+              onChange={this.onChangeAbout}
+            />
             <Switch
               title={i18n.masterEditor.certificates}
               onChange={this.onCertificatesChange}

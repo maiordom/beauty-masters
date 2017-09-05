@@ -8,13 +8,14 @@ import {
   View,
 } from 'react-native';
 
-import RadioGroup from '../RadioGroup';
-import ButtonControl from '../ButtonControl';
-import Label from '../Label';
-import RangeTime from '../RangeTime.android';
-import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
 import { SubLabel } from '../SubLabel';
+import ActivityIndicator from '../../containers/ActivityIndicator';
+import ButtonControl from '../ButtonControl';
 import Calendar from '../Calendar';
+import Label from '../Label';
+import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
+import RadioGroup from '../RadioGroup';
+import RangeTime from '../RangeTime.android';
 
 import i18n from '../../i18n';
 
@@ -114,6 +115,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <ScrollView style={styles.inner}>
           {show.address && (
             <View>

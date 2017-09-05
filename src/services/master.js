@@ -7,6 +7,12 @@ export const createMaster = (params, headers) =>
       masterCardId: res.data.id,
     }));
 
+export const updateMaster = (masterCardId, params, headers) =>
+  patch(routes.updateMaster, params, headers, { id: masterCardId })
+    .then((res) => ({
+      masterCardId: res.data.id,
+    }));
+
 export const createMasterServices = (params, headers) =>
   post(routes.createMasterServices, params, headers);
 

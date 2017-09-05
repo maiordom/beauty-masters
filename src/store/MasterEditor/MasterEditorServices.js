@@ -17,6 +17,7 @@ const pedicureCustomServices = (customServices: Array<TCustomService> = []) => (
 });
 
 const homeAllowanceField = (homeAllowance: number) => ({
+  dictionaryKey: 'AtHome',
   placeholder: i18n.filters.homeAllowance,
   queryParam: 'home_allowance',
   value: homeAllowance || null,
