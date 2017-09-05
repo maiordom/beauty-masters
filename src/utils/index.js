@@ -2,8 +2,6 @@
 import capitalize from 'lodash/capitalize';
 import groupBy from 'lodash/groupBy';
 
-import type { Service } from '../types/ProfileData';
-
 export function hexToRgba(hex: string, opacity: number = 100) {
   const hexValue = hex.replace('#', '');
   const r = parseInt(hexValue.substring(0, 2), 16);
@@ -31,7 +29,7 @@ export function makeReducer(handler: Function, beforeHandler: Function, afterHan
     beforeHandler && beforeHandler(state, action);
 
     if (items[action.type]) {
-      state = items[action.type]();
+      state = items[action.type](state, action);
     }
 
     afterHandler && afterHandler(state, action);
@@ -122,7 +120,7 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
   return obj;
 }
 
-export function groupServices(services: Array<Service>, dictionaries: Object) {
+export function groupServices(services: Array<any>, dictionaries: Object) {
   const masterServices = groupBy(
     services.map(({ serviceId, price, duration }) => {
       const { title, categoryKey } = dictionaries[serviceId];

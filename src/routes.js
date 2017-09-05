@@ -1,8 +1,14 @@
 const routes = {};
 
 const methods = [
+  { createAddress: '/address', method: 'POST' },
+  { createCertificatePhoto: '/certificate-photo', method: 'POST' },
   { createMaster: '/master-card', method: 'POST' },
+  { createMasterPhoto: '/master-photo', method: 'POST' },
   { createMasterServices: '/master-service', method: 'POST' },
+  { createPortfolioPhoto: '/portfolio-photo', method: 'POST' },
+  { createSchedules: '/schedule', method: 'POST' },
+  { createTimeTable: '/timetable', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
   { getCategoryServices: '/category-service', method: 'GET' },
   { getMasterById: '/master', method: 'GET' },
@@ -10,7 +16,10 @@ const methods = [
   { getUserProfile: '/user/profile?include=master_cards', method: 'GET' },
   { refreshToken: '/refresh-token', method: 'POST' },
   { searchMasters: '/master/search', method: 'GET' },
-  { upload: '/upload', method: 'POST' },
+  { updateAddress: ({ id }) => `/address/${id}`, method: 'PATCH' },
+  { updateMaster: ({ id }) => `/master-card/${id}`, method: 'PATCH' },
+  { updateTimeTable: ({ id }) => `/timetable/${id}`, method: 'PATCH' },
+  { upload: (type) => `/upload/${type}`, method: 'POST' },
   { userCreate: '/user/registration', method: 'POST' },
   { userFavorites: '/favorites', method: 'GET' },
   { userLogin: '/token', method: 'POST' },

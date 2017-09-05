@@ -3,26 +3,28 @@ import { stringify } from 'qs';
 
 import config from '../config';
 
-const getBody = (params) =>
-  decodeURIComponent(stringify(params)).split('&').map(param => {
-    const [name, data] = param.split('=');
+const getBody = (params) => decodeURIComponent(stringify(params));
 
-    return {
-      name,
-      data,
-    };
-  });
-
-export const post = (method, params, headers = {}) => {
+const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) => {
   const body = getBody(params);
-  const bodyCopy = body.slice().map(param => Object.assign({}, param));
+  const path = typeof method.path === 'string'
+    ? method.path
+    : method.path.apply(null, [pathParams]);
 
-  return RNFetchBlob.fetch('POST', config.host + method.path, {
-    'Content-Type': 'multipart/form-data',
-    ...headers,
-  }, body)
+  console.log(`${path}::${method.method}::params`);
+  console.log(params);
+
+  return fetch(config.host + path, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      ...headers,
+    },
+    method: fetchMethod,
+    body,
+  })
   .then(res => {
-    if (!res.data) {
+    /* eslint-disable no-underscore-dangle */
+    if (!res._bodyText) {
       return {};
     }
 
@@ -30,9 +32,7 @@ export const post = (method, params, headers = {}) => {
   })
   .then(res => {
     if (__DEV__) {
-      console.log(`${method.path}::${method.method}::params`);
-      console.log(bodyCopy);
-      console.log(`${method.path}::${method.method}::response`);
+      console.log(`${path}::${method.method}::response`);
       console.log(res);
     }
 
@@ -40,6 +40,7 @@ export const post = (method, params, headers = {}) => {
       const { code, title, detail } = res.errors[0];
 
       return {
+        status: 'error',
         error: {
           code,
           detail,
@@ -48,9 +49,17 @@ export const post = (method, params, headers = {}) => {
       };
     }
 
-    return res;
+    return {
+      ...res,
+      status: 'success',
+    };
+  }).catch((res) => {
+    console.log(res);
   });
 };
+
+export const post = baseFetch('POST');
+export const patch = baseFetch('PATCH');
 
 export const get = (method, params = {}, headers = {}) => (
   RNFetchBlob.fetch('GET', config.host + method.path, {
@@ -63,7 +72,10 @@ export const get = (method, params = {}, headers = {}) => (
       console.log(`${method.path}::${method.method}::response`);
     }
 
-    return res;
+    return {
+      ...res,
+      status: 'ok',
+    };
   })
 );
 
@@ -71,14 +83,15 @@ export const geo = (method, params) => {
   const decodedParams = stringify(params);
   const url = `${config.googlePlacesHost}${method}?${decodedParams}`;
 
+  console.log('googlePlaces::params');
+  console.log(params);
+
   return RNFetchBlob.fetch('GET', url, {
     'Content-Type': 'application/json',
   })
   .then((res) => res.json())
   .then(res => {
     if (__DEV__) {
-      console.log('googlePlaces::params');
-      console.log(params);
       console.log('googlePlaces::response');
       console.log(res);
     }
@@ -86,9 +99,13 @@ export const geo = (method, params) => {
     if (res.status !== 'OK') {
       return {
         error: {},
+        status: 'error',
       };
     }
 
-    return res;
+    return {
+      ...res,
+      status: 'ok',
+    };
   });
 };

@@ -2,112 +2,76 @@
 
 import i18n from '../../i18n';
 
-type CalendarFieldModel = {
+import type { TCreateAddress } from '../../types/CreateAddress';
+import type { TCreateTimeTable } from '../../types/CreateTimeTable';
+import type { TCreateSchedule } from '../../types/CreateSchedules';
+
+type TCalendarFieldModel = {
   label: string,
   queryParam: string,
-  queryType: string,
   value: string | null,
 };
 
-type RecipientFieldModel = {
+type TRecipientFieldModel = {
   queryParam: string,
-  queryType: string,
   value: string | null,
 };
 
-type CustomDatesModel = {
-  fromQueryParamMapping: {
-    date: string,
-    active: string,
-    end_time: string,
-    start_time: string,
-  },
+type TCustomDatesModel = {
   items: Array<any>,
-  queryAction: string,
-  queryParam: string,
-  queryParamMapping: {
-    date: string,
-    status: string,
-    timeEnd: string,
-    timeStart: string,
-  },
   timeEndDefault: string,
   timeStartDefault: string,
 };
 
-type IntervalGroupModel = {
+type TIntervalGroupModel = {
   items: Array<any>,
-  queryAction: string,
   queryParam: string,
-  queryType: string,
 };
 
 const salonTitleField = (salonTitle: string) => ({
   label: i18n.name,
-  queryParam: 'salon_title',
-  queryType: 'value',
+  queryParam: 'name',
   value: salonTitle || null,
-}: CalendarFieldModel);
+}: TCalendarFieldModel);
 
 const addressField = (address: string) => ({
   label: i18n.address,
   queryParam: 'address',
-  queryType: 'value',
   value: address || null,
-}: CalendarFieldModel);
+}: TCalendarFieldModel);
 
 const cityField = (city: string) => ({
   label: i18n.city,
   queryParam: 'city',
-  queryType: 'value',
   value: city || null,
-}: CalendarFieldModel);
+}: TCalendarFieldModel);
 
 const subwayStationField = (district: string) => ({
   label: i18n.subwayStation,
   queryParam: 'subway_station',
-  queryType: 'value',
   value: district || null,
-}: CalendarFieldModel);
+}: TCalendarFieldModel);
 
 const timeStartField = (timeStart: string) => ({
   queryParam: 'time_start',
-  queryType: 'value',
   value: timeStart || '10:00',
-}: RecipientFieldModel);
+}: TRecipientFieldModel);
 
 const timeEndField = (timeEnd: string) => ({
   queryParam: 'time_end',
-  queryType: 'value',
   value: timeEnd || '20:00',
-}: RecipientFieldModel);
+}: TRecipientFieldModel);
 
 const startDateField = (startDate: string) => ({
-  queryParam: 'start_date',
-  queryType: 'value',
+  queryParam: 'date_start',
   value: startDate || null,
-}: RecipientFieldModel);
+}: TRecipientFieldModel);
 
 const customDates = () => ({
-  fromQueryParamMapping: {
-    date: 'date',
-    active: 'status',
-    end_time: 'timeEnd',
-    start_time: 'timeStart',
-  },
   items: [],
-  queryAction: 'fill',
-  queryParam: 'custom_recipients',
-  queryParamMapping: {
-    date: 'date',
-    status: 'active',
-    timeEnd: 'end_time',
-    timeStart: 'start_time',
-  },
-  queryType: 'items',
   timeEndDefault: '20:00',
   timeStartDefault: '10:00',
-}: CustomDatesModel);
+}: TCustomDatesModel);
 
 const intervalGroup = () => ({
   items: [
@@ -116,10 +80,12 @@ const intervalGroup = () => ({
     { label: i18n.schedule.onWeekdays, id: 2, key: 'onWeekdays' },
     { label: i18n.schedule.onWeekends, id: 3, key: 'onWeekends' },
   ],
-  queryAction: 'select',
-  queryParam: 'interval_id',
-  queryType: 'items',
-}: IntervalGroupModel);
+  queryParam: 'interval_type',
+}: TIntervalGroupModel);
+
+const createAddressQuery = () => ({}: TCreateAddress);
+const createTimeTableQuery = () => ({}: TCreateTimeTable);
+const createSchedulesQuery = () => ([]: Array<TCreateSchedule>);
 
 export default {
   salonTitleField,
@@ -131,4 +97,7 @@ export default {
   startDateField,
   intervalGroup,
   customDates,
+  createAddressQuery,
+  createTimeTableQuery,
+  createSchedulesQuery,
 };

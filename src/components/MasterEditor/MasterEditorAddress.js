@@ -1,13 +1,13 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import upperFirst from 'lodash/upperFirst';
 
 import InputWithLabel from '../InputWithLabel';
-import Filter from '../Filter';
 
 import i18n from '../../i18n';
+import vars from '../../vars';
 
 type TProps = {
   models: Object,
@@ -34,26 +34,28 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
       <View style={styles.container}>
         <InputWithLabel
           {...salonTitleField}
-          onBlur={this.onChange}
+          debounce
+          debounceTimer={200}
+          onChange={this.onChange}
           placeholder={i18n.specify}
         />
-        <Filter
-          customStyles={{ container: styles.filter }}
-          onChange={() => {}}
-          spacing={false}
-          subtitle={cityField.value || i18n.specify}
-          title={cityField.label}
-        />
-        <Filter
-          customStyles={{ container: styles.filter }}
-          onChange={onAddressChange}
-          spacing={false}
-          title={addressField.label}
-          subtitle={addressField.value || i18n.specify}
-        />
+        <TouchableWithoutFeedback>
+          <View style={[styles.label, styles.labelCity]}>
+            <Text style={styles.labelText}>{cityField.label}</Text>
+            <Text style={styles.labelValue}>{cityField.value || i18n.specify}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={onAddressChange}>
+          <View style={[styles.label, styles.labelAddress]}>
+            <Text style={styles.labelText}>{addressField.label}</Text>
+            <Text style={styles.labelValue}>{addressField.value || i18n.specify}</Text>
+          </View>
+        </TouchableWithoutFeedback>
         <InputWithLabel
           {...subwayStationField}
-          onBlur={this.onChange}
+          debounce
+          debounceTimer={200}
+          onChange={this.onChange}
           placeholder={i18n.specify}
         />
       </View>
@@ -68,5 +70,23 @@ const styles = StyleSheet.create({
   },
   filter: {
     paddingLeft: 4,
+  },
+  labelAddress: {
+    marginBottom: 10,
+  },
+  labelCity: {
+    marginBottom: 15,
+  },
+  label: {
+    paddingLeft: 4,
+  },
+  labelText: {
+    fontSize: 12,
+    color: vars.color.grey,
+    marginBottom: 5,
+  },
+  labelValue: {
+    fontSize: 16,
+    color: vars.color.black,
   },
 });

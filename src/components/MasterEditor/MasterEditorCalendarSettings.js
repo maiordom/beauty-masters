@@ -1,15 +1,21 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, InteractionManager } from 'react-native';
+import {
+  InteractionManager,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
-import RadioGroup from '../RadioGroup';
-import ButtonControl from '../ButtonControl';
-import Label from '../Label';
-import RangeTime from '../RangeTime.android.js';
-import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
 import { SubLabel } from '../SubLabel';
+import ActivityIndicator from '../../containers/ActivityIndicator';
+import ButtonControl from '../ButtonControl';
 import Calendar from '../Calendar';
+import Label from '../Label';
+import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
+import RadioGroup from '../RadioGroup';
+import RangeTime from '../RangeTime.android';
 
 import i18n from '../../i18n';
 
@@ -53,9 +59,9 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
     setTimeout(() => this.iterate(), 20);
   };
 
-  onChange = (value: string, modelName: string) => {
-    this.props.actions.setCalendarField(modelName, 'value', value, this.props.sectionName);
-  };
+  onAddressFieldChange = (value: string, modelName: string) => {
+    this.props.actions.setAddressField(modelName, 'value', value, this.props.sectionName);
+  }
 
   onIntervalChange = (value: string, id: number, modelName: string) => {
     this.props.actions.setCalendarInterval(modelName, id, this.props.sectionName);
@@ -66,11 +72,11 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
   };
 
   onTimeEndChange = (timeEnd: string, modelName: string) => {
-    this.props.actions.setCalendarField(modelName, 'value', timeEnd, this.props.sectionName);
+    this.props.actions.setTimeTableField(modelName, 'value', timeEnd, this.props.sectionName);
   };
 
   onTimeStartChange = (timeStart: string, modelName: string) => {
-    this.props.actions.setCalendarField(modelName, 'value', timeStart, this.props.sectionName);
+    this.props.actions.setTimeTableField(modelName, 'value', timeStart, this.props.sectionName);
   };
 
   onDateSelect = (date: string) => {
@@ -109,6 +115,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <ScrollView style={styles.inner}>
           {show.address && (
             <View>
@@ -116,7 +123,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
               <MasterEditorAddress
                 models={addressModels}
                 onAddressChange={this.onAddressChange}
-                onChange={this.onChange}
+                onChange={this.onAddressFieldChange}
               />
             </View>
           )}

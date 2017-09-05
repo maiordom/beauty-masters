@@ -7,14 +7,14 @@ import { hexToRgba, shouldComponentUpdate } from '../utils';
 import SwitchBase from './SwitchBase';
 
 type TProps = {
-  customStyles: {
+  customStyles?: {
     container?: Object,
     title?: Object,
   },
   onChange: (state: boolean, modelName?: string) => void,
   modelName?: string,
   title: string,
-  value: boolean,
+  value?: boolean,
 };
 
 export default class CustomSwitch extends Component<TProps, void> {

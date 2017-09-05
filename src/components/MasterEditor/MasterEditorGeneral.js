@@ -29,7 +29,6 @@ type TState = {
 type TProps = {
     actions: Object;
     isSalonField: Object;
-    next: () => void;
     phoneField: Object;
     salonNameField: Object;
     usernameField: Object;
@@ -46,7 +45,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
   onChange = (value: string, modelName: string) => {
     const sectionName = this.props[modelName].sectionName;
 
-    this.props.actions.setFieldValue(modelName, value, sectionName);
+    this.props.actions.setGeneralParam(modelName, value, sectionName);
 
     if (this.state.hasError) {
       this.validate();
@@ -56,7 +55,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
   onUsernameBlur = (value: string, modelName: string) => {
     const sectionName = this.props[modelName].sectionName;
 
-    this.props.actions.setFieldValue(modelName, upperFirst(value), sectionName);
+    this.props.actions.setGeneralParam(modelName, upperFirst(value), sectionName);
   };
 
   onPhoneChange = (value: string, modelName: string) => {
@@ -64,7 +63,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
 
     value = value.replace(/[^0-9]+/g, '');
 
-    this.props.actions.setFieldValue(modelName, upperFirst(value), sectionName);
+    this.props.actions.setGeneralParam(modelName, upperFirst(value), sectionName);
   };
 
   formatPhone = (value: string) => {
@@ -87,7 +86,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
-          this.props.next();
+          this.props.actions.next();
         }
       });
     }

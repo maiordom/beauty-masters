@@ -3,7 +3,7 @@ import each from 'lodash/each';
 export const validateGeneralServices = (state) => {
   const { serviceManicure, servicePedicure } = state.masterEditor;
 
-  [ serviceManicure, servicePedicure ].forEach(service => {
+  [serviceManicure, servicePedicure].forEach(service => {
     let activeServicesCount = 0;
 
     service.hasValidationErrors = false;
@@ -28,12 +28,12 @@ export const validateGeneralServices = (state) => {
   state.masterEditor.servicePedicure = { ...servicePedicure };
 
   return state;
-}
+};
 
 export const validateCustomServices = (state) => {
   const { manicureCustomServices, pedicureCustomServices } = state.masterEditor.services;
 
-  [ manicureCustomServices, pedicureCustomServices ].forEach(service => {
+  [manicureCustomServices, pedicureCustomServices].forEach(service => {
     service.hasValidationErrors = false;
 
     each(service.items, model => {
@@ -55,10 +55,10 @@ export const validateCustomServices = (state) => {
     });
   });
 
-  manicureCustomServices.items = [ ...manicureCustomServices.items ];
+  manicureCustomServices.items = [...manicureCustomServices.items];
   state.masterEditor.services.manicureCustomServices = { ...manicureCustomServices };
 
-  pedicureCustomServices.items = [ ...pedicureCustomServices.items ];
+  pedicureCustomServices.items = [...pedicureCustomServices.items];
   state.masterEditor.services.pedicureCustomServices = { ...pedicureCustomServices };
 
   return state;

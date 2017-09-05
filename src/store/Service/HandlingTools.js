@@ -46,7 +46,7 @@ const boilingMethod = (isActive: boolean) => ({
 }: HandlingTools);
 
 const sterileOtherMethod = (isActive: boolean) => ({
-  dictionaryKey: 'SterileOther',
+  dictionaryKey: 'Other',
   placeholder: i18n.handlingToolMethods.enterNameMethod,
   title: i18n.handlingToolMethods.anotherWay,
   value: Boolean(isActive),

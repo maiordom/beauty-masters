@@ -1,30 +1,22 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger'; // eslint-disable-line
+
 import rootReducer from '../reducers';
 
 import MasterEditor from './MasterEditor';
+import Geo from './Geo';
 import SearchForm from './SearchForm';
 
 const initialState = {
-  activityIndicator: {
-    animating: false,
-  },
+  activityIndicator: { animating: false },
   auth: {},
   dictionaries: {},
   favorites: { isLoaded: false, cards: [] },
-  geo: {
-    places: [],
-    city: {
-      name: 'Москва',
-      location: {
-        lat: 55.755826,
-        lng: 37.6172999,
-      },
-    },
-  },
+  geo: Geo,
   masterCards: {},
   masterEditor: MasterEditor,
+  profile: { masterCards: [] },
   searchForm: SearchForm,
 };
 

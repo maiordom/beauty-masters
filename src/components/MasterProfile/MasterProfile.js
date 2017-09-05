@@ -59,10 +59,8 @@ export default class MasterProfile extends Component<TProps, TState> {
   };
 
   componentDidMount() {
-    const { profile, actions } = this.props;
-
-    if (!profile) {
-      actions.getUserProfile();
+    if (!this.props.profile.userId) {
+      this.props.actions.getUserProfile();
     }
   }
 
@@ -80,7 +78,7 @@ export default class MasterProfile extends Component<TProps, TState> {
     const { profile } = this.props;
     const { activeTab, tabBorderOffset } = this.state;
 
-    if (!profile) {
+    if (!profile.userId) {
       return <View><Text>Loader</Text></View>;
     }
 

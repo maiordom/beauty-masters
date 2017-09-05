@@ -83,6 +83,10 @@ export default class MasterEditorService extends Component<TProps, TState> {
     this.props.actions.setServiceParam(modelName, 'price', Number(price), this.state.tabActiveKey);
   };
 
+  onChangeAtHome = (price: string, modelName: string) => {
+    this.props.actions.setServiceParam(modelName, 'price', Number(price), 'services');
+  };
+
   onChangeDuration = (duration: string, modelName: string) => {
     this.props.actions.setServiceParam(modelName, 'duration', duration, this.state.tabActiveKey);
   };
@@ -185,7 +189,11 @@ export default class MasterEditorService extends Component<TProps, TState> {
           <StateMachine visible={tabActiveKey === 'serviceManicure'}>
             <ServicesListManicure models={serviceManicure} {...filterHandlers} />
           </StateMachine>
-          <Input {...homeAllowanceField} inputWrapperStyle={styles.homeAllowance} />
+          <Input
+            {...homeAllowanceField}
+            inputWrapperStyle={styles.homeAllowance}
+            onBlur={this.onChangeAtHome}
+          />
           <FilterLabel text={i18n.filters.otherServices} />
           <StateMachine visible={tabActiveKey === 'servicePedicure'}>
             <CustomServices key="pedicure" type="pedicure" />

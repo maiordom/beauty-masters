@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import moment from 'moment';
@@ -11,28 +13,46 @@ import RangeTime from '../components/RangeTime';
 import vars from '../vars';
 import i18n from '../i18n';
 
-export default class WorkTimeSpecification extends Component {
+type TProps = {
+  actions: Object,
+  timeStartDefault: string,
+  timeEndDefault: string,
+  date: string,
+  workInThisDay: boolean,
+  modelName: string,
+  sectionName: string,
+};
+
+type TState = {
+  date: string,
+  dateFormatted: string,
+  timeEnd: string,
+  timeStart: string,
+  workInThisDay: boolean,
+};
+
+export default class WorkTimeSpecification extends Component<TProps, TState> {
   shouldComponentUpdate = shouldComponentUpdate();
 
-  constructor(props) {
-    super();
+  constructor(props: TProps) {
+    super(props);
 
-    this.state = this.getStorage(props);
+    this.state = this.getStorage(this.props);
   }
 
-  getStorage = props => ({
+  getStorage = (props: TProps) => ({
     timeStart: props.timeStart || props.timeStartDefault,
     timeEnd: props.timeEnd || props.timeEndDefault,
     date: props.date,
     dateFormatted: moment(props.date).format('DD MMMM YYYY, dd'),
     workInThisDay: props.workInThisDay === undefined ? true : props.workInThisDay,
-  });
+  }: Object);
 
-  onTimeStartChange = timeStart => {
+  onTimeStartChange = (timeStart: string) => {
     this.state.timeStart = timeStart;
   };
 
-  onTimeEndChange = timeEnd => {
+  onTimeEndChange = (timeEnd: string) => {
     this.state.timeEnd = timeEnd;
   };
 
@@ -50,7 +70,7 @@ export default class WorkTimeSpecification extends Component {
     );
 
     if (!diff.length) {
-      this.props.applyChanges(null);
+      this.props.actions.applyChanges(null);
       return;
     }
 
@@ -61,14 +81,14 @@ export default class WorkTimeSpecification extends Component {
       workInThisDay,
     };
 
-    this.props.applyChanges(this.props.modelName, changes, this.props.sectionName);
+    this.props.actions.applyChanges(this.props.modelName, changes, this.props.sectionName);
   };
 
-  onStatusChange = workInThisDay => {
+  onStatusChange = (workInThisDay: boolean) => {
     this.state.workInThisDay = workInThisDay;
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: TProps) {
     this.state = this.getStorage(nextProps);
   }
 

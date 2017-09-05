@@ -1,16 +1,20 @@
 import { makeReducer } from '../utils';
 
+import type { TProfileData } from '../types/ProfileData';
+
 import c from '../constants/profile';
 
 export default makeReducer((state, action) => ({
   [c.PROFILE_SET_DATA]: () => {
-    const { userId, masterCards } = action;
+    const { email, userId, masterCards } = action;
 
-    state.profile = {
-      userId,
+    const profile: TProfileData = {
+      email,
       masterCards,
+      userId,
     };
 
+    state.profile = profile;
     return state;
   },
 

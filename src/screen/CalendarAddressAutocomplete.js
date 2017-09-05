@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         getPlaceDetails(place).then(res => {
           dispatch(setPlaceLocation(res.location, ownProps.modelName));
         });
-        dispatch(setPlaceDetail(place, ownProps.modelName));
+        dispatch(setPlaceDetail(place.label, ownProps.modelName));
         Actions.pop();
       },
     }, dispatch),

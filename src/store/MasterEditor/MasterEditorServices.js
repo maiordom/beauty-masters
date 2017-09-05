@@ -2,7 +2,7 @@
 
 import i18n from '../../i18n';
 
-import type { TCustomService } from '../../types/CreateMaster';
+import type { TCustomService } from '../../types/CreateService';
 
 const manicureCustomServices = (customServices: Array<TCustomService> = []) => ({
   dictionaryKey: 'Manicure',
@@ -17,6 +17,7 @@ const pedicureCustomServices = (customServices: Array<TCustomService> = []) => (
 });
 
 const homeAllowanceField = (homeAllowance: number) => ({
+  dictionaryKey: 'AtHome',
   placeholder: i18n.filters.homeAllowance,
   queryParam: 'home_allowance',
   value: homeAllowance || null,
