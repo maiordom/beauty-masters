@@ -41,6 +41,7 @@ export default () => (
   <RouterWithRedux sceneStyle={styles.container}>
     <Scene key="drawer" component={Drawer}>
       <Scene
+        initial
         key="root"
         hideNavBar
         animationStyle="leftToRight"
@@ -113,7 +114,6 @@ export default () => (
           component={props => <CalendarAddressAutocomplete {...props} />}
         />
         <Scene
-          initial
           key="masterEditorInfo"
           title={i18n.masterEditor.additionalInformation}
           component={MasterEditorInfo}
