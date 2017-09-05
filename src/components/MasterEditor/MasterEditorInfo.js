@@ -53,8 +53,12 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 
   onNextPress = () => {
-    this.props.actions.createMaster();
-  };
+    this.props.actions.createMaster().then((res) => {
+      if (res.result === 'success') {
+        this.props.actions.next();
+      }
+    });
+  }
 
   render() {
     const {

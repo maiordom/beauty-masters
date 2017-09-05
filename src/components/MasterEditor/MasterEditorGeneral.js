@@ -29,7 +29,6 @@ type TState = {
 type TProps = {
     actions: Object;
     isSalonField: Object;
-    next: () => void;
     phoneField: Object;
     salonNameField: Object;
     usernameField: Object;
@@ -87,7 +86,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
-          this.props.next();
+          this.props.actions.next();
         }
       });
     }

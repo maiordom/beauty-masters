@@ -12,8 +12,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ setGeneralParam, createMaster }, dispatch),
-  next: Actions.masterEditorService,
+  actions: {
+    ...bindActionCreators({ setGeneralParam, createMaster }, dispatch),
+    next: Actions.masterEditorService,
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorGeneral));
