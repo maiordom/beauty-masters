@@ -1,4 +1,5 @@
 import each from 'lodash/each';
+import find from 'lodash/find';
 
 import { deepUpdate } from '../utils';
 
