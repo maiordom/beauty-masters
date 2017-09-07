@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { userCreate } from '../../src/actions/auth';
+import { getUserProfile } from '../actions/profile';
 
 import Registration from '../components/Registration';
 
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    ...bindActionCreators({ userCreate }, dispatch),
+    ...bindActionCreators({ userCreate, getUserProfile }, dispatch),
     next: Actions.masterEditorGeneral,
   },
 });
