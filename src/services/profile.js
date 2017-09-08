@@ -8,7 +8,7 @@ export const getUserProfile = (headers: Object) =>
     .then((res) => ({
       email: res.data.attributes.email,
       userId: res.data.id,
-      masterCards: res.included && res.included.map((card) => ({
+      masterCards: res.included ? res.included.map((card) => ({
         addresses: [],
         email: res.data.attributes.email,
         id: card.id,
@@ -19,7 +19,7 @@ export const getUserProfile = (headers: Object) =>
         phone: card.attributes.phone,
         salonName: card.attributes.salon_name,
         username: card.attributes.full_name,
-      }) || []),
+      })) : [],
     }));
 
 export default null;

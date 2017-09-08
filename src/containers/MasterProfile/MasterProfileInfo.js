@@ -5,7 +5,12 @@ import find from 'lodash/find';
 import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo';
 
 const mapStateToProps = (state) => ({
-  ...find(state.profile.masterCards, { isMain: true }),
+  ...find(state.profile.masterCards, { isMain: true }) || {
+    email: null,
+    masterPhotos: [],
+    phone: null,
+    username: null,
+  },
 });
 
 const mapDispatchToProps = () => ({
