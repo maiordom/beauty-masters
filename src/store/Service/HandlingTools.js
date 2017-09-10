@@ -16,7 +16,7 @@ const ultraVioletMethod = (isActive: boolean) => ({
 }: HandlingTools);
 
 const disinfectionMethod = (isActive: boolean) => ({
-  dictionaryKey: 'DisinfectionWithAlcohol',
+  dictionaryKey: 'Disinfection',
   title: i18n.handlingToolMethods.disinfectionWithAlcohol,
   value: Boolean(isActive),
 }: HandlingTools);
