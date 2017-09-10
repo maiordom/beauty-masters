@@ -81,6 +81,7 @@ export default {
   ...params,
   createMasterQuery,
   manicureCustomServicesQuery,
+  masterCardId: 34,
   masterServicesQuery,
   pedicureCustomServicesQuery,
 };
