@@ -172,7 +172,11 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
           {errorFillPhoneNumber && (
             this.error(i18n.fillPhoneNumber)
           )}
-          <Switch {...isSalonField} onChange={this.onChange} />
+          <Switch
+            {...isSalonField}
+            onChange={this.onChange}
+            customStyles={{ container: styles.switcher }}
+          />
           <Input
             {...salonNameField}
             debounce
@@ -195,6 +199,9 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  switcher: {
+    paddingLeft: 4,
   },
   inner: {
     flex: 1,
