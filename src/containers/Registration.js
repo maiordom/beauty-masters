@@ -11,11 +11,21 @@ const mapStateToProps = (state) => ({
   error: state.auth.registerError,
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    ...bindActionCreators({ userCreate, getUserProfile }, dispatch),
-    next: Actions.masterEditorGeneral,
-  },
-});
+const mapDispatchToProps = dispatch => {
+  const actions = bindActionCreators({ userCreate, getUserProfile }, dispatch);
+
+  return {
+    actions: {
+      userCreate(params) {
+        actions.userCreate(params).then((res) => {
+          if (res.result === 'success') {
+            actions.getUserProfile();
+            Actions.masterEditorGeneral();
+          }
+        });
+      },
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Registration);

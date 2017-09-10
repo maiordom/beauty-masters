@@ -2,16 +2,15 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   Image,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-import InputWithLabel from '../InputWithLabel';
 import { ButtonPanel } from '../ButtonPanel';
 
 const photoEmpty = require('../../icons/photo-empty.png');
@@ -46,23 +45,20 @@ export default class MasterProfileInfo extends Component<TProps, void> {
           <Text style={styles.edit}>{i18n.editProfile}</Text>
           <View style={styles.inputs}>
             <View style={styles.row}>
-              <InputWithLabel
-                value={username}
-                label={i18n.username}
-                style={styles.input}
-              />
+              <View style={styles.label}>
+                <Text style={styles.labelText}>{i18n.username}</Text>
+                <Text style={styles.labelValue}>{username}</Text>
+              </View>
             </View>
             <View style={styles.row}>
-              <InputWithLabel
-                value={phone}
-                label={i18n.phoneShort}
-                style={styles.input}
-              />
-              <InputWithLabel
-                value={email}
-                label={i18n.login}
-                style={styles.input}
-              />
+              <View style={styles.label}>
+                <Text style={styles.labelText}>{i18n.phoneShort}</Text>
+                <Text style={styles.labelValue}>{phone}</Text>
+              </View>
+              <View style={styles.label}>
+                <Text style={styles.labelText}>{i18n.email}</Text>
+                <Text style={styles.labelValue}>{email}</Text>
+              </View>
             </View>
             <Text style={styles.changePassword}>{i18n.changePassword}</Text>
           </View>
@@ -104,17 +100,27 @@ const styles = StyleSheet.create({
     backgroundColor: vars.color.white,
     padding: 12,
   },
-  input: {
-    flex: 1,
-  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 20,
   },
   changePassword: {
-    marginTop: 16,
     marginLeft: 4,
     color: vars.color.black,
     fontSize: 16,
+  },
+  label: {
+    paddingLeft: 4,
+    paddingRight: 4,
+  },
+  labelText: {
+    fontSize: 12,
+    color: vars.color.grey,
+    marginBottom: 5,
+  },
+  labelValue: {
+    fontSize: 16,
+    color: vars.color.black,
   },
 });

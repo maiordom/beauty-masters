@@ -22,7 +22,7 @@ const handleAuth = (res, dispatch, errorType) => {
   return { result: 'error' };
 };
 
-export const userCreate = ({ email, password, roleId = 2 }) => (dispatch) => {
+export const userCreate = ({ email, password, roleId = 3 }) => (dispatch) => {
   dispatch(setActivityIndicator(true));
 
   const params = {

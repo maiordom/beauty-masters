@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { userLogin } from '../actions/Auth';
+import { getUserProfile } from '../actions/Profile';
 
 import Login from '../components/Login';
 
@@ -10,11 +11,28 @@ const mapStateToProps = (state) => ({
   error: state.auth.loginError,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: {
-    ...bindActionCreators({ userLogin }, dispatch),
-    next: Actions.masterProfile,
-  },
-});
+const mapDispatchToProps = (dispatch) => {
+  const actions = bindActionCreators({ userLogin, getUserProfile }, dispatch);
+
+  return {
+    actions: {
+      userLogin(params) {
+        actions.userLogin(params).then((res) => {
+          if (res.result === 'success') {
+            actions.getUserProfile().then((res) => {
+              if (res.error) {
+                return;
+              }
+
+              res.masterCards.length
+                ? Actions.masterProfile()
+                : Actions.masterEditorGeneral();
+            });
+          }
+        });
+      },
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

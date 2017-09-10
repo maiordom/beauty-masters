@@ -1,7 +1,14 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Platform, Image } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 
 import Input from '../components/Input';
 
@@ -88,12 +95,7 @@ export default class Login extends Component<TProps, TState> {
     const password = this.passwordRef.getValue();
 
     if (this.validate()) {
-      this.props.actions.userLogin({ username, password })
-        .then((res) => {
-          if (res.result === 'success') {
-            this.props.actions.next();
-          }
-        });
+      this.props.actions.userLogin({ username, password });
     }
   };
 

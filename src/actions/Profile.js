@@ -5,7 +5,7 @@ import constants from '../constants/Profile';
 export const getUserProfile = () => (dispatch, getState) => {
   const auth = getState().auth;
 
-  ProfileService.getUserProfile({
+  return ProfileService.getUserProfile({
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
   })
     .then((res) => {
@@ -15,6 +15,8 @@ export const getUserProfile = () => (dispatch, getState) => {
           ...res,
         });
       }
+
+      return res;
     });
 };
 

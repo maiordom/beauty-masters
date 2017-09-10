@@ -41,6 +41,7 @@ export default {
   disableProfile: 'Деактивировать профиль',
   disinfection: 'Дезинфекция',
   editProfile: 'Редактировать данные профиля',
+  email: 'Почта',
   enter: 'Вход',
   enterTo: 'Войти',
   enterAddress: 'Введите адрес',
@@ -154,7 +155,6 @@ export default {
   },
   houseShort: 'д',
   list: 'Список',
-  login: 'Логин',
   location: {
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
     here: 'Мое текущее месторасположение',
