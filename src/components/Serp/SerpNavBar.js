@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
-import { drawerOpen } from '../../actions/drawer';
+import { drawerOpen } from '../../actions/Drawer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';

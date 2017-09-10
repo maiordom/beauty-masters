@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SearchFormCity from '../../components/SearchForm/SearchFormCity';
 import NavBar from '../../components/NavBar';
 
-import { searchCities, citiesReset, citiesAdd } from '../../actions/search';
+import { searchCities, citiesReset, citiesAdd } from '../../actions/Search';
 
 const mapStateToProps = state => ({
   cities: state.searchForm.general.cities,

@@ -4,7 +4,7 @@ import map from 'lodash/map';
 
 import { makeReducer, deepUpdate } from '../utils';
 
-import actions from '../constants/search';
+import actions from '../constants/Search';
 
 const setParam = (action, state) => {
   const { sectionName, modelName, paramValue, paramName } = action;

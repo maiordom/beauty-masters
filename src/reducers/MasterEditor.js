@@ -4,7 +4,7 @@ import reject from 'lodash/reject';
 
 import { makeReducer, deepUpdate } from '../utils';
 
-import actions from '../constants/master';
+import actions from '../constants/Master';
 
 import {
   setCreateQueryParam,

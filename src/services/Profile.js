@@ -1,11 +1,11 @@
 // @flow
 
 import routes from '../routes';
-import { get } from '../utils/provider';
+import { get } from '../utils/Provider';
 
 export const getUserProfile = (headers: Object) =>
   get(routes.getUserProfile, {}, headers)
-    .then((res) => ({
+    .then((res) => (res.error ? res : {
       email: res.data.attributes.email,
       userId: res.data.id,
       masterCards: res.included ? res.included.map((card) => ({

@@ -1,6 +1,6 @@
-import * as MasterService from '../services/master';
+import * as MasterService from '../services/Master';
 
-import actions from '../constants/master';
+import actions from '../constants/Master';
 
 export const createSchedules = (sectionName) => (dispatch, getState) => {
   const state = getState();

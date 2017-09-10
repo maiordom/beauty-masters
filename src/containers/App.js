@@ -7,10 +7,10 @@ import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
 
 import masterData from '../test/MasterData';
-import { setData } from '../actions/master';
-import { refreshToken } from '../actions/auth';
-import { getUserProfile } from '../actions/profile';
-import { getServices, getCategoryServices } from '../actions/dictionaries';
+import { setData } from '../actions/Master';
+import { refreshToken } from '../actions/Auth';
+import { getUserProfile } from '../actions/Profile';
+import { getServices, getCategoryServices } from '../actions/Dictionaries';
 
 const store = configureStore();
 

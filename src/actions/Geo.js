@@ -1,7 +1,7 @@
-import * as GeoServices from '../services/geo';
+import * as GeoServices from '../services/Geo';
 import config from '../config';
 
-import actions from '../constants/common';
+import actions from '../constants/Common';
 
 export const searchPlace = ({
   input,

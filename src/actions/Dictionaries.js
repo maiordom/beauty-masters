@@ -1,5 +1,5 @@
-import * as DictionariesService from '../services/dictionaries';
-import actions from '../constants/common';
+import * as DictionariesService from '../services/Dictionaries';
+import actions from '../constants/Common';
 
 export const getServices = () =>
   dispatch => DictionariesService.getServices()

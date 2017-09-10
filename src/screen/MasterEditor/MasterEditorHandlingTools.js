@@ -9,7 +9,7 @@ import {
   createMasterServices,
   setServiceParam,
   toggleService,
-} from '../../actions/master';
+} from '../../actions/Master';
 
 const mapStateToProps = state => ({
   modelParamName: 'value',

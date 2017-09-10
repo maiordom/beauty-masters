@@ -5,8 +5,8 @@ import MasterCard from '../../components/MasterCard/MasterCard';
 
 import type { MasterCardType } from '../../types/MasterTypes';
 
-import { getMasterById } from '../../actions/masterCard';
-import { addToFavorites, removeFromFavorites } from '../../actions/favorites';
+import { getMasterById } from '../../actions/MasterCard';
+import { addToFavorites, removeFromFavorites } from '../../actions/Favorites';
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,

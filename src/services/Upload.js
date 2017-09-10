@@ -3,7 +3,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import config from '../config';
 import routes from '../routes';
 
-import { post } from '../utils/provider';
+import { post } from '../utils/Provider';
 
 export const uploadFile = ({ uri, type }, headers, mediaType) => {
   const path = config.host + routes.upload.path(mediaType);

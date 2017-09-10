@@ -1,7 +1,7 @@
-import * as AuthService from '../services/auth';
-import actions from '../constants/auth';
+import * as AuthService from '../services/Auth';
+import actions from '../constants/Auth';
 
-import { setActivityIndicator } from './common';
+import { setActivityIndicator } from './Common';
 
 const handleAuth = (res, dispatch, errorType) => {
   dispatch(setActivityIndicator(false));

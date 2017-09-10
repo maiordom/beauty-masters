@@ -1,6 +1,6 @@
 import { makeReducer, groupServices } from '../utils';
 
-import constants from '../constants/masterCard';
+import constants from '../constants/MasterCard';
 
 export default makeReducer((state, action) => ({
   [constants.MASTER_CARD_SET_DATA]: () => {

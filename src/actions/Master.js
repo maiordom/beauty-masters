@@ -1,10 +1,10 @@
 import { Actions } from 'react-native-router-flux';
 
-import * as MasterService from '../services/master';
+import * as MasterService from '../services/Master';
 
-import actions from '../constants/master';
+import actions from '../constants/Master';
 
-import { setActivityIndicator } from './common';
+import { setActivityIndicator } from './Common';
 
 export const createMaster = () => (dispatch, getState) => {
   const state = getState();

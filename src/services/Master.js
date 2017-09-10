@@ -1,5 +1,5 @@
 import routes from '../routes';
-import { post, patch } from '../utils/provider';
+import { post, patch } from '../utils/Provider';
 
 export const createMaster = (params, headers) =>
   post(routes.createMaster, params, headers)

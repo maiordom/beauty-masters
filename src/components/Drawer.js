@@ -7,7 +7,7 @@ import WorkTimeSpecification from '../containers/WorkTimeSpecification';
 import IntervalStartDate from '../containers/IntervalStartDate';
 import Sidebar from '../containers/Sidebar';
 
-import { drawerClose } from '../actions/drawer';
+import { drawerClose } from '../actions/Drawer';
 import { hexToRgba } from '../utils';
 import vars from '../vars';
 

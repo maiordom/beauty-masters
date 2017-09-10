@@ -1,4 +1,4 @@
-import { geo } from '../utils/provider';
+import { geo } from '../utils/Provider';
 import { geoRoutes } from '../routes';
 
 export const placesAutocomplete = (params) =>

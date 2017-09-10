@@ -9,9 +9,9 @@ import {
   setAddressField,
   setCalendarInterval,
   setTimeTableField,
-} from '../../actions/master';
-import { drawerOpen } from '../../actions/drawer';
-import { setActivityIndicator } from '../../actions/common';
+} from '../../actions/Master';
+import { drawerOpen } from '../../actions/Drawer';
+import { setActivityIndicator } from '../../actions/Common';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
 import NavBar from '../../components/NavBar';

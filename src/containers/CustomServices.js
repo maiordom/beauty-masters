@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { toogleCustomService, setCustomServiceParam } from '../actions/master';
+import { toogleCustomService, setCustomServiceParam } from '../actions/Master';
 
 import MasterEditorCustomServices from '../components/MasterEditor/MasterEditorCustomServices';
 

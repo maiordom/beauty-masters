@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
-import { drawerOpen } from '../../actions/drawer';
-import { removePhoto, createMaster, setGeneralParam } from '../../actions/master';
+import { drawerOpen } from '../../actions/Drawer';
+import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
 import NavBar from '../../components/NavBar';

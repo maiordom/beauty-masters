@@ -1,6 +1,6 @@
 import { makeReducer, deepUpdate } from '../utils';
 
-import a from '../constants/common';
+import a from '../constants/Common';
 
 export default makeReducer((state, action) => ({
   [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo', {

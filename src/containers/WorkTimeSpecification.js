@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import find from 'lodash/find';
 
-import { drawerClose } from '../actions/drawer';
-import { setCalendarSchedule } from '../actions/master';
+import { drawerClose } from '../actions/Drawer';
+import { setCalendarSchedule } from '../actions/Master';
 
 import WorkTimeSpecification from '../components/WorkTimeSpecification';
 

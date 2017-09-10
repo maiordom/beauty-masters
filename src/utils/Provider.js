@@ -5,6 +5,31 @@ import config from '../config';
 
 const getBody = (params) => decodeURIComponent(stringify(params));
 
+const handleFetchResponse = (res, path, method) => {
+  if (__DEV__) {
+    console.log(`${path}::${method}::response`);
+    console.log(res);
+  }
+
+  if (res.errors) {
+    const { code, title, detail } = res.errors[0];
+
+    return {
+      status: 'error',
+      error: {
+        code,
+        detail,
+        title,
+      },
+    };
+  }
+
+  return {
+    ...res,
+    status: 'success',
+  };
+};
+
 const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) => {
   const body = getBody(params);
   const path = typeof method.path === 'string'
@@ -30,54 +55,35 @@ const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) =>
 
     return res.json();
   })
-  .then(res => {
-    if (__DEV__) {
-      console.log(`${path}::${method.method}::response`);
-      console.log(res);
-    }
-
-    if (res.errors) {
-      const { code, title, detail } = res.errors[0];
-
-      return {
-        status: 'error',
-        error: {
-          code,
-          detail,
-          title,
-        },
-      };
-    }
-
-    return {
-      ...res,
-      status: 'success',
-    };
-  }).catch((res) => {
+  .then((res) => handleFetchResponse(res, path, method.method))
+  .catch((res) => {
     console.log(res);
+    return res;
   });
 };
 
 export const post = baseFetch('POST');
 export const patch = baseFetch('PATCH');
 
-export const get = (method, params = {}, headers = {}) => (
-  RNFetchBlob.fetch('GET', config.host + method.path, {
+export const get = (method, params = {}, headers = {}, pathParams) => {
+  const path = typeof method.path === 'string'
+    ? method.path
+    : method.path.apply(null, [pathParams]);
+
+  console.log(`${path}::${method.method}::request`);
+  console.log(params);
+
+  return RNFetchBlob.fetch('GET', config.host + path, {
     'Content-Type': 'application/json',
     ...headers,
   })
   .then(res => res.json())
-  .then(res => {
-    if (__DEV__) {
-      console.log(`${method.path}::${method.method}::response`);
-    }
-
-    return {
-      ...res,
-      status: 'ok',
-    };
-  })
-);
+  .then(res => handleFetchResponse(res, path, method.method))
+  .catch((res) => {
+    console.log(res);
+    return res;
+  });
+};
 
 export const geo = (method, params) => {
   const decodedParams = stringify(params);

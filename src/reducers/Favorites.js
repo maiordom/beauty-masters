@@ -1,7 +1,7 @@
 import uniqBy from 'lodash/uniqBy';
 import { makeReducer } from '../utils';
 
-import constants from '../constants/favorites';
+import constants from '../constants/Favorites';
 
 export default makeReducer((state, action) => ({
   [constants.FAVORITES_SET_DATA]: () => {

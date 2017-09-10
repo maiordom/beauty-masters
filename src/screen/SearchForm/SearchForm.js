@@ -8,7 +8,7 @@ import {
   toggleDeparture,
   toggleExtension,
   toggleWithdrawal,
-} from '../../actions/search';
+} from '../../actions/Search';
 
 import SearchForm from '../../components/SearchForm/SearchForm';
 import NavBar from '../../components/NavBar';

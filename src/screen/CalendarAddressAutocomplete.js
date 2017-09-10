@@ -8,9 +8,9 @@ import {
   getPlaceDetails,
   placesReset,
   searchPlace,
-} from '../actions/geo';
+} from '../actions/Geo';
 
-import { setPlaceDetail, setPlaceLocation } from '../actions/master';
+import { setPlaceDetail, setPlaceLocation } from '../actions/Master';
 
 const mapStateToProps = (state) => ({
   places: state.geo.places,

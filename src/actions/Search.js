@@ -1,6 +1,6 @@
 // @flow
-import actions from '../constants/search';
-import * as SearchService from '../services/search';
+import actions from '../constants/Search';
+import * as SearchService from '../services/Search';
 
 import type { SearchMastersParamsType } from '../types/SearchFormTypes';
 

@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import { setGeneralParam, createMaster } from '../../actions/master';
+import { setGeneralParam, createMaster } from '../../actions/Master';
 
 import MasterEditorGeneral from '../../components/MasterEditor/MasterEditorGeneral';
 import NavBar from '../../components/NavBar';

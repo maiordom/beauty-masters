@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { uploadMasterPhoto } from '../actions/master';
+import { uploadMasterPhoto } from '../actions/Master';
 
 import PhotoSelect from '../components/PhotoSelect';
 

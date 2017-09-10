@@ -2,7 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
 
-import { drawerClose } from '../actions/drawer';
+import { drawerClose } from '../actions/Drawer';
 
 import Sidebar from '../components/Sidebar';
 

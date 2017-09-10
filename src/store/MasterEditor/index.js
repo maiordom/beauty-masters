@@ -11,7 +11,7 @@ import ServicePedicure from '../Service/ServicePedicure';
 import Services from './MasterEditorServices';
 
 import Geo from '../Geo';
-import constants from '../../constants/master';
+import constants from '../../constants/Master';
 
 import type { TCreateMaster } from '../../types/CreateMaster';
 import type { TCustomService, TMasterService } from '../../types/CreateService';

@@ -1,5 +1,5 @@
 import routes from '../routes';
-import { get } from '../utils/provider';
+import { get } from '../utils/Provider';
 
 export function getServices() {
   return get(routes.getServices)

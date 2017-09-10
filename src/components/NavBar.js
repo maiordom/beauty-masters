@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { drawerOpen } from '../actions/drawer';
+import { drawerOpen } from '../actions/Drawer';
 import vars from '../vars';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;

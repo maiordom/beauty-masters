@@ -1,7 +1,7 @@
 // @flow
 
-import actions from '../constants/masterCard';
-import * as MasterCardService from '../services/masterCard';
+import actions from '../constants/MasterCard';
+import * as MasterCardService from '../services/MasterCard';
 
 export const getMasterById = (id: number) => (dispatch: Function) => {
   MasterCardService.getMasterById(id)

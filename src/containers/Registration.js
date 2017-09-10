@@ -2,8 +2,8 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userCreate } from '../../src/actions/auth';
-import { getUserProfile } from '../actions/profile';
+import { userCreate } from '../actions/Auth';
+import { getUserProfile } from '../actions/Profile';
 
 import Registration from '../components/Registration';
 

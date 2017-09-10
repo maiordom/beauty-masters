@@ -1,5 +1,5 @@
-import * as UploadService from '../services/upload';
-import actions from '../constants/master';
+import * as UploadService from '../services/Upload';
+import actions from '../constants/Master';
 
 let photoIndex = 0;
 

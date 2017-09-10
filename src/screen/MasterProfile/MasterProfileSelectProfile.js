@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import NavBar from '../../components/NavBar';
 import MasterProfileSelectProfile from '../../components/MasterProfile/MasterProfileSelectProfile';
 
-import { selectMainMaster } from '../../actions/profile';
+import { selectMainMaster } from '../../actions/Profile';
 
 const mapStateToProps = (state) => ({
   items: state.profile.masterCards,

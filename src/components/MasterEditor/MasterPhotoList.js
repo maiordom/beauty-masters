@@ -14,7 +14,7 @@ import {
 import MasterPhotoUpload from './MasterPhotoUpload';
 
 import vars from '../../vars';
-import constants from '../../constants/master';
+import constants from '../../constants/Master';
 
 const icons = {
   remove: Platform.select({

@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 
 import { makeReducer, deepUpdate } from '../utils';
 
-import actions from '../constants/auth';
+import actions from '../constants/Auth';
 
 export default makeReducer((state, action) => ({
   [actions.AUTH_SET_DATA]: () => {

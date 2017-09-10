@@ -1,5 +1,5 @@
 import routes from '../routes';
-import { post } from '../utils/provider';
+import { post } from '../utils/Provider';
 
 export const userCreate = (params) => post(routes.userCreate, params)
   .then(res => (res.error ? res : {

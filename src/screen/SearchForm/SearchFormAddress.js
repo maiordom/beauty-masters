@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PlacesAutocomplete from '../../components/PlacesAutocomplete';
 import NavBar from '../../components/NavBar';
 
-import { searchAddress, addressesReset } from '../../actions/search';
+import { searchAddress, addressesReset } from '../../actions/Search';
 
 const mapStateToProps = state => ({
   distances: state.searchForm.general.distances,

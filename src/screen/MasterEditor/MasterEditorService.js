@@ -7,7 +7,7 @@ import {
   setServiceParam,
   toggleService,
   validateServices,
-} from '../../actions/master';
+} from '../../actions/Master';
 
 import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
 import NavBar from '../../components/NavBar';

@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getFavorites } from '../../actions/favorites';
+import { getFavorites } from '../../actions/Favorites';
 
 import NavBar from '../../components/NavBar';
 import Favorites from '../../components/Favorites';

@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { searchMasters } from '../actions/search';
+import { searchMasters } from '../actions/Search';
 
 import Map from '../components/Serp/Map';
 

@@ -1,10 +1,10 @@
 // @flow
 
-import actions from '../constants/favorites';
+import actions from '../constants/Favorites';
 
 import type { TMapCardType } from '../types/MasterTypes';
 
-import { setActivityIndicator } from './common';
+import { setActivityIndicator } from './Common';
 
 export const getFavorites = () => (dispatch: Function) => {
   dispatch(setActivityIndicator(true));

@@ -1,7 +1,7 @@
 // @flow
 
 import routes from '../routes';
-import { post } from '../utils/provider';
+import { post } from '../utils/Provider';
 
 import type { SearchMastersParamsType } from '../types/SearchFormTypes';
 

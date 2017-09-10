@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 
 import IntervalStartDate from '../components/IntervalStartDate';
 
-import { setTimeTableField } from '../actions/master';
-import { drawerClose } from '../actions/drawer';
+import { setTimeTableField } from '../actions/Master';
+import { drawerClose } from '../actions/Drawer';
 
 const mapStateToProps = (state, ownProps) => ({
   sectionName: ownProps.sectionName,
