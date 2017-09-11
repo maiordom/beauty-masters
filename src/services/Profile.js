@@ -3,8 +3,8 @@
 import routes from '../routes';
 import { get } from '../utils/Provider';
 
-export const getUserProfile = (headers: Object) =>
-  get(routes.getUserProfile, {}, headers)
+export const getUserProfile = (headers: Object, params: Object) =>
+  get(routes.getUserProfile, params, headers)
     .then((res) => (res.error ? res : {
       email: res.data.attributes.email,
       userId: res.data.id,

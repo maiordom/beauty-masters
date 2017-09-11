@@ -3,10 +3,15 @@ import { stringify } from 'qs';
 
 import config from '../config';
 
-const getBody = (params) => decodeURIComponent(stringify(params));
+const { host, googlePlacesHost } = config;
+const getBody = (params: Object) => decodeURIComponent(stringify(params));
 
-const handleFetchResponse = (res, path, method) => {
-  if (__DEV__) {
+const handleFetchResponse = (
+  res: Object,
+  path: string,
+  method: string,
+) => {
+  if (__DEV__ && method !== 'GET') {
     console.log(`${path}::${method}::response`);
     console.log(res);
   }
@@ -30,16 +35,22 @@ const handleFetchResponse = (res, path, method) => {
   };
 };
 
-const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) => {
+const baseFetch = (fetchMethod: string) => (
+  method: Object,
+  params: Object,
+  headers: Object = {},
+  pathParams: Object = {},
+) => {
   const body = getBody(params);
   const path = typeof method.path === 'string'
     ? method.path
     : method.path.apply(null, [pathParams]);
+  const url = `${host}${path}`;
 
   console.log(`${path}::${method.method}::params`);
   console.log(params);
 
-  return fetch(config.host + path, {
+  return fetch(url, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       ...headers,
@@ -47,7 +58,7 @@ const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) =>
     method: fetchMethod,
     body,
   })
-  .then(res => {
+  .then((res: Object) => {
     /* eslint-disable no-underscore-dangle */
     if (!res._bodyText) {
       return {};
@@ -55,9 +66,9 @@ const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) =>
 
     return res.json();
   })
-  .then((res) => handleFetchResponse(res, path, method.method))
-  .catch((res) => {
-    console.log(res);
+  .then((res: Object) => handleFetchResponse(res, path, method.method))
+  .catch((res: Object) => {
+    console.log(`${path}::${method.method}::exx`, res);
     return res;
   });
 };
@@ -65,29 +76,41 @@ const baseFetch = (fetchMethod) => (method, params, headers = {}, pathParams) =>
 export const post = baseFetch('POST');
 export const patch = baseFetch('PATCH');
 
-export const get = (method, params = {}, headers = {}, pathParams) => {
+export const get = (
+  method: Object,
+  params: Object = {},
+  headers: Object = {},
+  pathParams: Object = {},
+) => {
   const path = typeof method.path === 'string'
     ? method.path
     : method.path.apply(null, [pathParams]);
 
-  console.log(`${path}::${method.method}::request`);
-  console.log(params);
+  const serializedParams = stringify(params);
+  const location = `${path}?${serializedParams}`;
+  const url = `${host}${location}`;
 
-  return RNFetchBlob.fetch('GET', config.host + path, {
+  console.log(
+    `${location}::GET::request`,
+    'params::', params,
+    'pathParams::', pathParams,
+  );
+
+  return RNFetchBlob.fetch('GET', url, {
     'Content-Type': 'application/json',
     ...headers,
   })
-  .then(res => res.json())
-  .then(res => handleFetchResponse(res, path, method.method))
-  .catch((res) => {
-    console.log(res);
+  .then((res: Object) => res.json())
+  .then((res: Object) => handleFetchResponse(res, path, method.method))
+  .catch((res: Object) => {
+    console.log(`${location}::GET::exx`, res);
     return res;
   });
 };
 
-export const geo = (method, params) => {
+export const geo = (method: string, params: Object) => {
   const decodedParams = stringify(params);
-  const url = `${config.googlePlacesHost}${method}?${decodedParams}`;
+  const url = `${googlePlacesHost}${method}?${decodedParams}`;
 
   console.log('googlePlaces::params');
   console.log(params);
@@ -95,8 +118,8 @@ export const geo = (method, params) => {
   return RNFetchBlob.fetch('GET', url, {
     'Content-Type': 'application/json',
   })
-  .then((res) => res.json())
-  .then(res => {
+  .then((res: Object) => res.json())
+  .then((res: Object) => {
     if (__DEV__) {
       console.log('googlePlaces::response');
       console.log(res);
