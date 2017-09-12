@@ -6,8 +6,6 @@ import MasterProfileCalendars from '../../components/MasterProfile/MasterProfile
 const mapStateToProps = (state) => {
   const card = find(state.profile.masterCards, { isMain: true });
 
-  console.log(card);
-
   return {
     addresses: card && card.addresses || [],
   };
