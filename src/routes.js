@@ -10,6 +10,7 @@ const methods = [
   { createSchedules: '/schedule', method: 'POST' },
   { createTimeTable: '/timetable', method: 'POST' },
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
+  { getAddress: '/address', method: 'GET' },
   { getCategoryServices: '/category-service', method: 'GET' },
   { getMasterById: ({ id }) => `/master-card/${id}`, method: 'GET' },
   { getServices: '/service', method: 'GET' },

@@ -9,7 +9,7 @@ import NavigationRouter from './NavigationRouter';
 import masterData from '../test/MasterData';
 import { setData } from '../actions/Master';
 import { refreshToken } from '../actions/Auth';
-import { getUserProfile } from '../actions/Profile';
+import { getUserProfile, getAddresses } from '../actions/Profile';
 import { getServices, getCategoryServices } from '../actions/Dictionaries';
 
 const store = configureStore();
@@ -36,7 +36,9 @@ export default class App extends Component {
       }
 
       refreshToken(result.refreshToken)(store.dispatch).then(() => {
-        getUserProfile()(store.dispatch, store.getState);
+        getUserProfile()(store.dispatch, store.getState).then(() => {
+          getAddresses('50')(store.dispatch);
+        });
       });
     });
   }

@@ -20,5 +20,9 @@ export default function rootReducer(state, action = {}) {
   state = Router(state, action);
   state = SearchForm(state, action);
 
+  if (__DEV__) {
+    console.log(`action::${action.type}`);
+  }
+
   return state;
 }
