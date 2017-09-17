@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 
@@ -6,6 +6,7 @@ import NativeCalendar from './CalendarBase';
 
 import i18n from '../i18n';
 
+import { prepareEventDates } from '../utils/Calendar';
 import { shouldComponentUpdate } from '../utils';
 import vars from '../vars';
 
@@ -20,18 +21,20 @@ export default class Calendar extends Component {
     workDays: [],
   };
 
-  static propTypes = {
-    activeFrom: PropTypes.instanceOf(moment),
-  };
+  eventDates: [];
 
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       startDate: props.startDate || null,
     };
 
     this.state.originStartDate = this.state.startDate;
+
+    if (this.props.interval && this.state.startDate) {
+      this.eventDates = prepareEventDates(this.props.interval.key, this.state.startDate);
+    }
   }
 
   shouldComponentUpdate = shouldComponentUpdate();
@@ -40,61 +43,35 @@ export default class Calendar extends Component {
     this.props.onDateSelect(moment(date).format(this.props.format));
   };
 
+  getEventDates = () => this.eventDates;
+
   onMonthChange = date => {
     const momentDate = moment(date.format());
+    let diffMonths = false;
+    let startDate = this.state.originStartDate;
 
     if (momentDate.get('month') !== moment().get('month')) {
-      this.setState({ startDate: momentDate.set('date', 1).format(this.props.format) });
-    } else {
-      this.setState({ startDate: this.state.originStartDate });
+      startDate = momentDate.set('date', 1).format(this.props.format);
+      diffMonths = true;
     }
+
+    if (this.props.interval) {
+      this.eventDates = prepareEventDates(this.props.interval.key, startDate);
+    }
+
+    this.setState({ startDate });
+    this.props.onMonthChange && this.props.onMonthChange(
+      diffMonths,
+      this.eventDates,
+    );
   };
-
-  prepareEventDates(interval, startDate) {
-    let momentStartDate = moment(startDate);
-    let twoAfterTwo = 0;
-
-    const todayDate = momentStartDate.date();
-    const dayInMonth = momentStartDate.daysInMonth();
-    const events = [];
-    const formatDate = 'YYYY-MM-DD';
-
-    for (let i = todayDate; i <= dayInMonth; i++) {
-      const isoWeekday = momentStartDate.isoWeekday();
-
-      switch (interval) {
-        case 'onWeekdays': {
-          if ([6, 7].indexOf(isoWeekday) === -1) {
-            events.push(momentStartDate.format(formatDate));
-          }
-        } break;
-        case 'onWeekends': {
-          if ([6, 7].indexOf(isoWeekday) !== -1) {
-            events.push(momentStartDate.format(formatDate));
-          }
-        } break;
-        case 'wholeWeek': {
-          events.push(momentStartDate.format(formatDate));
-        } break;
-        case 'twoAfterTwo': {
-          if (twoAfterTwo < 2) {
-            events.push(momentStartDate.format(formatDate));
-          }
-          if (twoAfterTwo === 3) {
-            twoAfterTwo = -1;
-          }
-          twoAfterTwo++;
-        } break;
-      }
-
-      momentStartDate = momentStartDate.add(1, 'day');
-    }
-
-    return events;
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.startDate && this.props.startDate !== nextProps.startDate) {
+      if (this.props.interval) {
+        this.eventDates = prepareEventDates(this.props.interval.key, nextProps.startDate);
+      }
+
       this.setState({
         startDate: nextProps.startDate,
         originStartDate: nextProps.startDate,
@@ -104,19 +81,15 @@ export default class Calendar extends Component {
 
   render() {
     const {
+      activeFrom,
       containerWidth,
       disableSelectDate,
       events = [],
-      interval,
       selectedDate,
-      activeFrom,
       workDays,
     } = this.props;
 
-    const { startDate } = this.state;
-
-    let eventDates = [];
-
+    const eventDates = this.eventDates;
     const eventsCalendar = events.map(event => ({
       date: event.date,
       eventIndicator: {
@@ -124,16 +97,12 @@ export default class Calendar extends Component {
       },
     }));
 
-    if (interval && startDate) {
-      eventDates = this.prepareEventDates(interval.key, startDate);
-    }
-
     return (
       <View style={styles.container}>
         <NativeCalendar
-          disableSelectDate={disableSelectDate}
           activeFrom={activeFrom}
           dayHeadings={i18n.dayHeadings}
+          disableSelectDate={disableSelectDate}
           eventDates={eventDates}
           events={eventsCalendar}
           monthNames={i18n.monthNames}
@@ -143,10 +112,10 @@ export default class Calendar extends Component {
           onTouchPrev={this.onMonthChange}
           prevButtonImage={icons.arrowLeft}
           selectedDate={selectedDate}
-          workDays={workDays}
           showControls
           showEventIndicators
           width={containerWidth}
+          workDays={workDays}
         />
       </View>
     );

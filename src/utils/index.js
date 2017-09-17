@@ -1,4 +1,5 @@
 // @flow
+
 import capitalize from 'lodash/capitalize';
 import groupBy from 'lodash/groupBy';
 

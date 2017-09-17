@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
+import find from 'lodash/find';
 
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
@@ -37,7 +38,11 @@ export default class App extends Component {
 
       refreshToken(result.refreshToken)(store.dispatch).then(() => {
         getUserProfile()(store.dispatch, store.getState).then(() => {
-          getAddresses('50')(store.dispatch);
+          const card = find(store.getState().profile.masterCards, { isMain: true });
+
+          if (card) {
+            getAddresses(card.id)(store.dispatch);
+          }
         });
       });
     });

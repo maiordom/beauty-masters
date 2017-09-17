@@ -1,10 +1,13 @@
 import find from 'lodash/find';
 
 import { makeReducer } from '../utils';
+import { intervalGroup } from '../store/Interval';
 
 import type { TProfileData } from '../types/ProfileData';
 
 import c from '../constants/Profile';
+
+const intervalModel = intervalGroup();
 
 export default makeReducer((state, action) => ({
   [c.PROFILE_DATA_SET]: () => {
@@ -37,6 +40,12 @@ export default makeReducer((state, action) => ({
 
     if (masterCard) {
       masterCard.addresses = addresses;
+
+      addresses.forEach(address => {
+        const interval = find(intervalModel.items, { id: address.timeTable.intervalType });
+
+        address.timeTable.intervalKey = interval.key;
+      });
     }
 
     return state;
