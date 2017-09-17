@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
-import find from 'lodash/find';
 
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
@@ -10,7 +9,7 @@ import NavigationRouter from './NavigationRouter';
 import masterData from '../test/MasterData';
 import { setData } from '../actions/Master';
 import { refreshToken } from '../actions/Auth';
-import { getUserProfile, getAddresses } from '../actions/Profile';
+import { getUserProfile } from '../actions/Profile';
 import { getServices, getCategoryServices } from '../actions/Dictionaries';
 
 const store = configureStore();
