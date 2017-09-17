@@ -3,19 +3,19 @@ import actions from '../constants/Common';
 
 export const getServices = () =>
   dispatch => DictionariesService.getServices()
-    .then(response => {
+    .then(res => {
       dispatch({
         type: actions.DICTIONARIES_SERVICES_SET,
-        services: response.services,
+        payload: { services: res.services },
       });
     });
 
 export const getCategoryServices = () =>
   dispatch => DictionariesService.getCategoryServices()
-    .then(response => {
+    .then(res => {
       dispatch({
         type: actions.DICTIONARIES_CATEGORY_SERVICES_SET,
-        categoryServices: response.categoryServices,
+        payload: { categoryServices: res.categoryServices },
       });
     });
 

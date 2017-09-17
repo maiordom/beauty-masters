@@ -10,19 +10,38 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 
+import ActivityIndicator from '../../containers/ActivityIndicator';
+
 import i18n from '../../i18n';
 import vars from '../../vars';
 
 type TProps = {
+  actions: any,
   addresses: Array<{
     id: number,
     name: string,
-  }>
+  }>,
+  uploaded: boolean,
 }
 
 export default class MasterProfileCalendars extends Component<TProps, void> {
+  componentDidMount() {
+    if (!this.props.uploaded) {
+      this.props.actions.getAddresses();
+    }
+  }
+
   render() {
-    const { addresses } = this.props;
+    const { addresses, uploaded } = this.props;
+
+    if (!uploaded) {
+      return (
+        <ActivityIndicator
+          animating
+          position="absolute"
+        />
+      );
+    }
 
     return (
       <View style={styles.container}>

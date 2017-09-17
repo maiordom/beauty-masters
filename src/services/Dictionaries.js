@@ -3,8 +3,8 @@ import { get } from '../utils/Provider';
 
 export function getServices() {
   return get(routes.getServices)
-    .then(response => (response.data && {
-      services: response.data.map(service => ({
+    .then(res => (res.data && {
+      services: res.data.map(service => ({
         id: service.id,
         key: service.attributes.key,
         title: service.attributes.title,
@@ -17,10 +17,12 @@ export function getServices() {
 
 export function getCategoryServices() {
   return get(routes.getCategoryServices)
-    .then(response => (response.data && {
-      categoryServices: response.data.map(categoryService => ({
+    .then(res => (res.data && {
+      categoryServices: res.data.map(categoryService => ({
         id: categoryService.id,
         key: categoryService.attributes.key,
+        parentId: categoryService.attributes.parent_id,
+        title: categoryService.attributes.title,
       })),
     } || {
       categoryServices: [],

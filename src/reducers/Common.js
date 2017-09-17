@@ -11,8 +11,7 @@ export default makeReducer((state, action) => ({
     places: [],
   }),
 
-  [a.DICTIONARIES_CATEGORY_SERVICES_SET]: () => {
-    const { categoryServices = [] } = action;
+  [a.DICTIONARIES_CATEGORY_SERVICES_SET]: (state, { payload: { categoryServices = [] } }) => {
     const categoryServiceById = {};
     const categoryServiceByKey = {};
 
@@ -27,8 +26,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [a.DICTIONARIES_SERVICES_SET]: () => {
-    const { services = [] } = action;
+  [a.DICTIONARIES_SERVICES_SET]: (state, { payload: { services = [] } }) => {
     const serviceById = {};
     const serviceByKey = {};
 

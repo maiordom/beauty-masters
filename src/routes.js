@@ -13,6 +13,7 @@ const methods = [
   { getAddress: '/address', method: 'GET' },
   { getCategoryServices: '/category-service', method: 'GET' },
   { getMasterById: ({ id }) => `/master-card/${id}`, method: 'GET' },
+  { getMasterServices: '/master-service', method: 'GET' },
   { getServices: '/service', method: 'GET' },
   { getUserProfile: '/user/profile', method: 'GET' },
   { refreshToken: '/refresh-token', method: 'POST' },

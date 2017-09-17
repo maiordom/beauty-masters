@@ -96,7 +96,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
       removingNailPolishPedicure,
       removingShellacPedicure,
       removingBioGelPedicure,
-      removingGePedicure,
+      removingGelPedicure,
       removingNailsPedicure,
     } = this.props.models;
 
@@ -159,7 +159,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
             <FilterCheckBox {...removingNailPolishPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelPedicure} {...filterHandlers} />
-            <FilterCheckBox {...removingGePedicure} {...filterHandlers} />
+            <FilterCheckBox {...removingGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingNailsPedicure} {...filterHandlers} />
           </View>
         )}

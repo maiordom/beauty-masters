@@ -24,6 +24,20 @@ export const getUserProfile = () => (dispatch: Function, getState: Function) => 
     });
 };
 
+export const getMasterServices = (masterCardId: number) => (dispatch: Function) =>
+  ProfileService.getMasterServices({
+    filters: `[{"operator":"=","attribute":"master_card_id","value":"${masterCardId}"}]`,
+  }).then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: constants.PROFILE_MASTER_SERVICES_SET,
+        payload: { masterServices: res, masterCardId },
+      });
+    }
+
+    return res;
+  });
+
 export const getAddresses = (masterCardId: number) => (dispatch: Function) =>
   ProfileService.getAddresses({
     filters: `[{"operator":"=","attribute":"master_card_id","value":${masterCardId}}]`,

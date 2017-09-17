@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 
-import { makeReducer } from '../utils';
+import { makeReducer, groupServices } from '../utils';
 import { intervalGroup } from '../store/Interval';
 
 import type { TProfileData } from '../types/ProfileData';
@@ -40,6 +40,7 @@ export default makeReducer((state, action) => ({
 
     if (masterCard) {
       masterCard.addresses = addresses;
+      masterCard.status.addressesUploaded = true;
 
       addresses.forEach(address => {
         const interval = find(intervalModel.items, { id: address.timeTable.intervalType });
@@ -47,6 +48,15 @@ export default makeReducer((state, action) => ({
         address.timeTable.intervalKey = interval.key;
       });
     }
+
+    return state;
+  },
+
+  [c.PROFILE_MASTER_SERVICES_SET]: (state, { payload: { masterServices, masterCardId } }) => {
+    const masterCard = find(state.profile.masterCards, { id: masterCardId });
+
+    masterCard.masterServices = groupServices(masterServices, state.dictionaries);
+    masterCard.status.masterServicesUploaded = true;
 
     return state;
   },

@@ -37,13 +37,7 @@ export default class App extends Component {
       }
 
       refreshToken(result.refreshToken)(store.dispatch).then(() => {
-        getUserProfile()(store.dispatch, store.getState).then(() => {
-          const card = find(store.getState().profile.masterCards, { isMain: true });
-
-          if (card) {
-            getAddresses(card.id)(store.dispatch);
-          }
-        });
+        getUserProfile()(store.dispatch, store.getState);
       });
     });
   }

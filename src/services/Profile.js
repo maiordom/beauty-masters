@@ -20,13 +20,32 @@ export const getUserProfile = (headers: Object, params: Object) =>
         masterServices: [],
         phone: card.attributes.phone,
         salonName: card.attributes.salon_name,
+        status: {
+          masterServicesUploaded: false,
+          addressesUploaded: false,
+        },
         username: card.attributes.full_name,
       })) : [],
     }));
 
+export const getMasterServices = (params: Object) =>
+  get(routes.getMasterServices, params)
+    .then((res: Object) => {
+      if (res.error) {
+        return res;
+      }
+
+      return res.data.map(item => ({
+        categoryId: item.attributes.category_service_id,
+        duration: item.attributes.duration,
+        price: item.attributes.price,
+        serviceId: item.attributes.service_id,
+      }));
+    });
+
 export const getAddresses = (params: Object) =>
   get(routes.getAddress, params)
-    .then((res) => {
+    .then((res: Object) => {
       if (res.error) {
         return res;
       }
