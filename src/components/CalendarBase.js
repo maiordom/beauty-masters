@@ -47,7 +47,6 @@ export default class Calendar extends Component {
   };
 
   static propTypes = {
-    customStyle: PropTypes.object,
     dayHeadings: PropTypes.array,
     disableSelectDate: PropTypes.bool,
     eventDates: PropTypes.array,
@@ -72,7 +71,6 @@ export default class Calendar extends Component {
   };
 
   static defaultProps = {
-    customStyle: {},
     dayHeadings: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
     disableSelectDate: false,
     eventDates: [],
@@ -169,7 +167,7 @@ export default class Calendar extends Component {
     const scrollToX = itemIndex * this.props.width;
 
     if (this.props.scrollEnabled) {
-      this._calendar.scrollTo({ y: 0, x: scrollToX, animated: false });
+      this.calendarRef.scrollTo({ y: 0, x: scrollToX, animated: false });
     }
   }
 
@@ -236,7 +234,7 @@ export default class Calendar extends Component {
             isToday={argMonthIsToday && dayIndex === todayIndex}
             isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
             isDotted={isDotted}
-            event={events && events[dayIndex]}
+            event={events && dayIndex === selectedIndex ? null : events[dayIndex]}
             showEventIndicators={this.props.showEventIndicators}
           />,
         );
@@ -318,6 +316,8 @@ export default class Calendar extends Component {
       </View>;
   }
 
+  setCalendarRef = (ref: any) => { this.calendarRef = ref; }
+
   render() {
     const calendarDates = this.getMonthStack(this.state.currentMonthMoment);
     const eventDatesMap = this.prepareEventDates(this.props.eventDates, this.props.events);
@@ -328,7 +328,7 @@ export default class Calendar extends Component {
         {this.renderHeading(this.props.titleFormat)}
         {this.props.scrollEnabled
           ? <ScrollView
-            ref={calendar => this._calendar = calendar}
+            ref={this.setCalendarRef}
             horizontal
             scrollEnabled
             pagingEnabled
@@ -340,7 +340,7 @@ export default class Calendar extends Component {
           >
             {calendarDates.map(date => this.renderMonthView(moment(date), eventDatesMap))}
           </ScrollView>
-          : <View ref={calendar => this._calendar = calendar}>
+          : <View ref={this.setCalendarRef}>
             {calendarDates.map(date => this.renderMonthView(moment(date), eventDatesMap))}
           </View>}
       </View>
@@ -524,7 +524,7 @@ const styles = StyleSheet.create({
     top: -4,
   },
   eventIndicator: {
-    backgroundColor: '#000',
+    backgroundColor: vars.color.black,
   },
   dayCircleFiller: {
     justifyContent: 'center',
@@ -533,8 +533,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 30,
   },
-  currentDayCircle: {},
-  currentDayText: {},
+  currentDayCircle: {
+    backgroundColor: vars.color.red,
+  },
+  currentDayText: {
+    color: vars.color.white,
+  },
   selectedDayCircle: {
     backgroundColor: vars.color.red,
   },

@@ -15,7 +15,7 @@ export const getUserProfile = () => (dispatch: Function, getState: Function) => 
     .then((res: Object) => {
       if (!res.error) {
         dispatch({
-          type: constants.PROFILE_SET_DATA,
+          type: constants.PROFILE_DATA_SET,
           ...res,
         });
       }
@@ -24,6 +24,35 @@ export const getUserProfile = () => (dispatch: Function, getState: Function) => 
     });
 };
 
+export const getMasterServices = (masterCardId: number) => (dispatch: Function) =>
+  ProfileService.getMasterServices({
+    filters: `[{"operator":"=","attribute":"master_card_id","value":"${masterCardId}"}]`,
+  }).then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: constants.PROFILE_MASTER_SERVICES_SET,
+        payload: { masterServices: res, masterCardId },
+      });
+    }
+
+    return res;
+  });
+
+export const getAddresses = (masterCardId: number) => (dispatch: Function) =>
+  ProfileService.getAddresses({
+    filters: `[{"operator":"=","attribute":"master_card_id","value":${masterCardId}}]`,
+    include: 'timetables,schedules',
+  }).then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: constants.PROFILE_ADDRESSES_SET,
+        payload: { addresses: res, masterCardId },
+      });
+    }
+
+    return res;
+  });
+
 export const selectMainMaster = (index: number) => (dispatch: Function) => {
-  dispatch({ type: constants.PROFILE_SET_MAIN, index });
+  dispatch({ type: constants.PROFILE_MAIN_SET, index });
 };

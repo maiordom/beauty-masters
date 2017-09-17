@@ -7,33 +7,54 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+
 import { Actions } from 'react-native-router-flux';
+
+import ActivityIndicator from '../../containers/ActivityIndicator';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-type Props = {
-  salons: Array<{
+type TProps = {
+  actions: any,
+  addresses: Array<{
     id: number,
-    salonTitle: string,
-  }>
+    name: string,
+  }>,
+  uploaded: boolean,
 }
-export default class MasterProfileCalendars extends Component<void, Props, void> {
+
+export default class MasterProfileCalendars extends Component<TProps, void> {
+  componentDidMount() {
+    if (!this.props.uploaded) {
+      this.props.actions.getAddresses();
+    }
+  }
+
   render() {
-    const { salons } = this.props;
+    const { addresses, uploaded } = this.props;
+
+    if (!uploaded) {
+      return (
+        <ActivityIndicator
+          animating
+          position="absolute"
+        />
+      );
+    }
 
     return (
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.subtitle}>{i18n.chooseAddress}</Text>
-          {salons.map(({ id, salonTitle }) => (
+          {addresses.map(({ id, name }) => (
             <TouchableOpacity
               key={id}
               activeOpacity={1}
-              onPress={() => Actions.masterProfileCalendar({ title: salonTitle, id })}
+              onPress={() => Actions.masterProfileCalendar({ title: name, id })}
             >
-              <View style={styles.salon}>
-                <Text style={styles.salonTitle}>{salonTitle}</Text>
+              <View style={styles.address}>
+                <Text style={styles.addressTitle}>{name}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -58,7 +79,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: vars.color.borderColorAndroid,
   },
-  salon: {
+  address: {
     height: 50,
     backgroundColor: vars.color.white,
     paddingTop: 15,
@@ -66,7 +87,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: vars.color.borderColorAndroid,
   },
-  salonTitle: {
+  addressTitle: {
     color: vars.color.black,
     fontSize: 16,
   },

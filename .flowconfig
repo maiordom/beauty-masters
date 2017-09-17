@@ -1,5 +1,8 @@
 [ignore]
-.*/node_modules/react-native/.*/*.js
+.*/node_modules/react-native/Libraries/.*/*.js
+.*/node_modules/react-native/local-cli/.*/*.js
+.*/node_modules/react-native/packager/.*/*.js
+.*/node_modules/react-native/lib/.*/*.js
 .*/node_modules/react-native-experimental-navigation/.*
 
 [include]
@@ -12,6 +15,7 @@ flow/
 
 [options]
 module.system=haste
+module.system.node.resolve_dirname=apps
 
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable

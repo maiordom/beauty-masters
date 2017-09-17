@@ -1,4 +1,5 @@
 // @flow
+
 import capitalize from 'lodash/capitalize';
 import groupBy from 'lodash/groupBy';
 
@@ -121,20 +122,31 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
 }
 
 export function groupServices(services: Array<any>, dictionaries: Object) {
-  const masterServices = groupBy(
-    services.map(({ serviceId, price, duration }) => {
-      const { title, categoryKey } = dictionaries[serviceId];
+  services.forEach(service => {
+    let parentCategory;
+    let categoryId = service.categoryId;
 
-      return { price, duration, title, serviceId, categoryKey };
-    }),
-    'categoryKey',
+    service.title = dictionaries.serviceById[service.serviceId].title;
+
+    do {
+      parentCategory = dictionaries.categoryServiceById[categoryId];
+      categoryId = parentCategory.parentId;
+    } while (categoryId !== null);
+
+    service.parentCategoryKey = parentCategory.key;
+  });
+
+  const groupedService = groupBy(
+    services,
+    'parentCategoryKey',
   );
 
-  return Object.keys(masterServices)
-    .map(id => dictionaries[id])
-    .map(service => ({
-      title: capitalize(service.title),
-      id: service.id,
-      services: masterServices[service.id].map(_service => ({ ..._service, title: capitalize(_service.title) })),
+  console.log(services);
+
+  return Object.keys(groupedService)
+    .map(groupKey => ({
+      id: dictionaries.categoryServiceByKey[groupKey].id,
+      title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
+      services: groupedService[groupKey],
     }));
 }

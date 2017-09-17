@@ -138,7 +138,7 @@ export const toggleService = (modelName, paramName, paramValue, sectionName) => 
 });
 
 export const setCalendarInterval = (modelName, id, sectionName) => ({
-  type: actions.MASTER_CALENDAR_SET_INTERVAL,
+  type: actions.MASTER_CALENDAR_INTERVAL_SET,
   payload: { modelName, id, sectionName, paramValue: id },
 });
 

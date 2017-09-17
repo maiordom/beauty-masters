@@ -6,6 +6,8 @@ import type { TCreateAddress } from '../../types/CreateAddress';
 import type { TCreateTimeTable } from '../../types/CreateTimeTable';
 import type { TCreateSchedule } from '../../types/CreateSchedules';
 
+import { intervalGroup } from '../Interval';
+
 type TCalendarFieldModel = {
   label: string,
   queryParam: string,
@@ -21,11 +23,6 @@ type TCustomDatesModel = {
   items: Array<any>,
   timeEndDefault: string,
   timeStartDefault: string,
-};
-
-type TIntervalGroupModel = {
-  items: Array<any>,
-  queryParam: string,
 };
 
 const salonTitleField = (salonTitle: string) => ({
@@ -72,16 +69,6 @@ const customDates = () => ({
   timeEndDefault: '20:00',
   timeStartDefault: '10:00',
 }: TCustomDatesModel);
-
-const intervalGroup = () => ({
-  items: [
-    { label: i18n.schedule.wholeWeek, id: 1, key: 'wholeWeek' },
-    { label: i18n.schedule.twoAfterTwo, id: 4, key: 'twoAfterTwo' },
-    { label: i18n.schedule.onWeekdays, id: 2, key: 'onWeekdays' },
-    { label: i18n.schedule.onWeekends, id: 3, key: 'onWeekends' },
-  ],
-  queryParam: 'interval_type',
-}: TIntervalGroupModel);
 
 const createAddressQuery = () => ({}: TCreateAddress);
 const createTimeTableQuery = () => ({}: TCreateTimeTable);

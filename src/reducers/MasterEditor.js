@@ -97,7 +97,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_CALENDAR_SET_INTERVAL]: () => {
+  [actions.MASTER_CALENDAR_INTERVAL_SET]: () => {
     setItemById(action.payload, state);
     setCreateQueryParam(action.payload, state, 'createTimeTableQuery');
 

@@ -116,7 +116,7 @@ export default {
     naroshchennyhNails: 'Нарощенных ногтей',
     otherServices: 'Другие услуги',
     price: 'Стоимость, р',
-    removingGe: 'Другого геля-лака',
+    removingGel: 'Другого геля-лака',
     removingNailPolish: 'Лака',
     removingNails: {
       nom: 'Нарощенные ногти',

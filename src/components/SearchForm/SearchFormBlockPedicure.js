@@ -71,7 +71,7 @@ export default class SearchFormBlockPedicure extends Component {
             <FilterCheckBox {...service.removingNailPolishPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.removingBioGelPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.removingShellacPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingGePedicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.removingGelPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.removingNailsPedicure} onChange={onChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.otherServices} />
