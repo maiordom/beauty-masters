@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import {
   setDay,
-  toggleService,
   setItemById,
   toggleDeparture,
   toggleExtension,
+  toggleService,
   toggleWithdrawal,
 } from '../../actions/Search';
 
@@ -21,13 +21,13 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    onSearchLocation: Actions.masterLocation,
     setDay,
-    toggleService,
-    toggleExtension,
-    toggleWithdrawal,
     setItemById,
     toggleDeparture,
-    onSearchLocation: Actions.masterLocation,
+    toggleExtension,
+    toggleService,
+    toggleWithdrawal,
   }, dispatch),
 });
 

@@ -30,24 +30,31 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
 
-export default class SearchFormShort extends Component {
-  props: {
-    actions: {
-      toggleService: Function,
-      toggleDeparture: Function,
-      setItemById: Function,
-      setDay: Function,
-      toggleExtension: Function,
-      toggleWithdrawal: Function
-    },
-    serviceManicure: Object,
-    servicePedicure: Object,
-    general: Object,
-    searchQuery: Object
-  };
+type TProps = {
+  actions: {
+    toggleService: Function,
+    toggleDeparture: Function,
+    setItemById: Function,
+    setDay: Function,
+    toggleExtension: Function,
+    toggleWithdrawal: Function
+  },
+  serviceManicure: Object,
+  servicePedicure: Object,
+  general: Object,
+  searchQuery: Object,
+};
 
+type TState = {
+  selectedDate: string,
+  showMasterCalendarModal: boolean,
+  showMasterTypeModal: boolean,
+  showShortForm: boolean,
+};
+
+export default class SearchFormShort extends Component<TProps, TState> {
   state = {
-    selectedDate: this.props.searchQuery.schedule[0],
+    selectedDate: this.props.searchQuery.dates[0],
     showShortForm: true,
     showMasterCalendarModal: false,
     showMasterTypeModal: false,

@@ -108,6 +108,12 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.SEARCH_LOCATION_SET]: (state, { payload: { lat, lon } }) =>
+    deepUpdate(state, 'searchForm.searchQuery', {
+      lat,
+      lon,
+    }),
+
   [actions.SEARCH_ADDRESSES_ITEMS_SET]: () => deepUpdate(
     state,
     `searchForm.${action.sectionName}.${action.modelName}`,

@@ -1,8 +1,11 @@
 // @flow
+
+import pickBy from 'lodash/pickBy';
+
 import actions from '../constants/Search';
 import * as SearchService from '../services/Search';
 
-import type { SearchMastersParamsType } from '../types/SearchFormTypes';
+import type { TSearchQuery } from '../types/CreateSearchQuery';
 
 export const setDay = (day: string) => ({
   type: actions.SEARCH_SET_DAY,
@@ -89,23 +92,34 @@ export const searchAddress = (address: string) => (
     });
 };
 
-export const searchMasters = (query: SearchMastersParamsType = {}) => (
-  dispatch: () => null,
-  getState: () => Object,
-) => {
-  const state = getState();
-  const { services } = state.searchForm.searchQuery;
+export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
+  const { searchQuery } = getState().searchForm;
 
-  query.services = services;
+  params = Object.assign({}, searchQuery, params);
 
-  SearchService.searchMasters(query)
-    .then(items => {
-      dispatch({
-        type: actions.SEARCH_MASTERS_ITEMS_SET,
-        items,
-      });
+  SearchService.searchMasters({
+    query: JSON.stringify(pickBy(params, (item => {
+      if (item && item.constructor === Array && item.length === 0) {
+        return false;
+      }
+
+      return item !== undefined;
+    }))),
+  })
+    .then((res: Object) => {
+      if (!res.error) {
+        dispatch({
+          type: actions.SEARCH_MASTERS_ITEMS_SET,
+          items: res,
+        });
+      }
     });
 };
+
+export const setSearchLocation = (lat: number, lon: number) => ({
+  type: actions.SEARCH_LOCATION_SET,
+  payload: { lat, lon },
+});
 
 export const addressesReset = () => ({
   type: actions.SEARCH_ITEMS_RESET,

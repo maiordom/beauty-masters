@@ -11,7 +11,6 @@ import i18n from '../../i18n';
 import type { MapCardType } from '../../types/MasterTypes';
 
 const icons = {
-  verified: require('../../icons/verified.png'),
   photoEmpty: require('../../icons/photo-empty.png'),
   ...Platform.select({
     android: {
@@ -26,7 +25,11 @@ type TProps = MapCardType & {
   type?: string,
 };
 
-export default class MapCard extends Component<TProps, void> {
+type TState = {
+  distance: number,
+};
+
+export default class MapCard extends Component<TProps, TState> {
   getDate = () => {
     const { closestDate } = this.props;
 
@@ -48,7 +51,6 @@ export default class MapCard extends Component<TProps, void> {
       address,
       closestDate,
       distance,
-      isVerified,
       location,
       masterType,
       photo: uri,
@@ -67,9 +69,6 @@ export default class MapCard extends Component<TProps, void> {
               {uri
                 ? <Image style={styles.photo} source={{ uri }} />
                 : <Image style={styles.photo} source={icons.photoEmpty} />}
-              {isVerified && (
-                <Image source={icons.verified} style={styles.verified} />
-              )}
             </View>
             <View>
               <Text style={styles.title}>{username}</Text>
@@ -141,13 +140,6 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 50,
-  },
-  verified: {
-    position: 'absolute',
-    height: 16,
-    width: 16,
-    right: 0,
-    bottom: 0,
   },
   rowTitle: {
     paddingRight: 16,

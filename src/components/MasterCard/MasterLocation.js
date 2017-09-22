@@ -22,12 +22,11 @@ const icons = Platform.select({
 export default class MasterLocation extends Component {
   render() {
     const {
+      address,
       latlng: { latitude, longitude },
       sceneKey,
-      title,
       subtitle,
-      address,
-      isVerified,
+      title,
     } = this.props;
 
     return (
@@ -51,7 +50,6 @@ export default class MasterLocation extends Component {
         {/* $FlowFixMe */}
         <MapCard
           photo="https://unsplash.it/48" // TODO: get it from store of current master
-          isVerified={isVerified}
           title={title}
           subtitle={subtitle}
           address={address}
