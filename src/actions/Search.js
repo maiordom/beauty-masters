@@ -25,21 +25,28 @@ export const toggleService = (
   paramValue: boolean,
   sectionName: string,
 ) => ({
-  type: actions.SEARCH_TOGGLE_SERVICE,
-  modelName,
-  paramName,
-  paramValue,
-  sectionName,
+  type: actions.SEARCH_SERVICE_TOGGLE,
+  payload: { modelName, paramName, paramValue, sectionName },
+});
+
+export const toggleManicure = (paramValue: boolean) => ({
+  type: actions.SEARCH_MANICURE_TOGGLE,
+  payload: { paramValue },
+});
+
+export const togglePedicure = (paramValue: boolean) => ({
+  type: actions.SEARCH_PEDICURE_TOGGLE,
+  payload: { paramValue },
 });
 
 export const toggleExtension = (paramValue: boolean) => ({
-  type: actions.SEARCH_TOGGLE_EXTENSION,
-  paramValue,
+  type: actions.SEARCH_EXTENSION_TOGGLE,
+  payload: { paramValue },
 });
 
 export const toggleWithdrawal = (paramValue: boolean) => ({
-  type: actions.SEARCH_TOGGLE_WITHDRAWAL,
-  paramValue,
+  type: actions.SEARCH_WITHDRAWAL_TOGGLE,
+  payload: { paramValue },
 });
 
 export const toggleDeparture = () => ({ type: actions.SEARCH_DEPARTURE_TOGGLE });
@@ -74,24 +81,6 @@ const addresses = [
   { label: 'Кружская', id: 18 },
 ];
 
-export const searchAddress = (address: string) => (
-  dispatch: (ActionSetItems) => null,
-  getState: () => Object,
-) => {
-  const state = getState();
-  const query = `${state.searchForm.general.cities.selected.label} ${address}`;
-
-  SearchService.geoAutoComplete({ query })
-    .then(() => {
-      dispatch({
-        type: actions.SEARCH_ADDRESSES_ITEMS_SET,
-        items: addresses.slice(0, address.length),
-        modelName: 'addresses',
-        sectionName: 'general',
-      });
-    });
-};
-
 export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
   const { searchQuery } = getState().searchForm;
 
@@ -119,12 +108,6 @@ export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function,
 export const setSearchLocation = (lat: number, lon: number) => ({
   type: actions.SEARCH_LOCATION_SET,
   payload: { lat, lon },
-});
-
-export const addressesReset = () => ({
-  type: actions.SEARCH_ITEMS_RESET,
-  modelName: 'addresses',
-  sectionName: 'general',
 });
 
 export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });

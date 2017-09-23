@@ -6,6 +6,8 @@ import {
   setItemById,
   toggleDeparture,
   toggleExtension,
+  toggleManicure,
+  togglePedicure,
   toggleService,
   toggleWithdrawal,
 } from '../../actions/Search';
@@ -26,6 +28,8 @@ const mapDispatchToProps = dispatch => ({
     setItemById,
     toggleDeparture,
     toggleExtension,
+    toggleManicure,
+    togglePedicure,
     toggleService,
     toggleWithdrawal,
   }, dispatch),

@@ -16,7 +16,11 @@ import vars from '../vars';
 import i18n from '../i18n';
 
 type TProps = {
-  actions: Object,
+  actions: {
+    placesReset: () => void,
+    searchPlace: (value: string) => void,
+    selectPlace: (place: Object) => void,
+  },
   distances: Array<{ label: string }>,
   places: Array<{ label: string }>,
 };
@@ -26,6 +30,11 @@ type TState = {
 };
 
 export default class PlacesAutocomplete extends Component<TProps, TState> {
+  static defaultProps = {
+    places: [],
+    distances: [],
+  };
+
   onChange = (value: string) => this.searchPlace(value);
 
   ds: Object;
@@ -59,10 +68,7 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
   };
 
   render() {
-    const {
-      distances = [],
-      places = [],
-    } = this.props;
+    const { distances, places } = this.props;
 
     return (
       <View style={styles.container}>

@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
@@ -17,8 +19,32 @@ import vars from '../vars';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const VIEW_INDEX = 2;
 
-export default class Calendar extends Component {
-  constructor(props) {
+type TProps = {
+  dayHeadings: Array<string>,
+  disableSelectDate: boolean,
+  eventDates: Array<string>,
+  monthNames: Array<string>,
+  nextButtonText: string | object,
+  onDateSelect: (date: string | null) => void,
+  onSwipeNext: () => void,
+  onSwipePrev: () => void,
+  onTouchNext: () => void,
+  onTouchPrev: () => void,
+  prevButtonText: string | object,
+  scrollEnabled: boolean,
+  selectedDate: any,
+  showControls: boolean,
+  showEventIndicators: Pboolean,
+  startDate: any,
+  activeFrom: moment,
+  titleFormat: string,
+  today: any,
+  weekStart: number,
+  workDays: Array<string>,
+};
+
+export default class Calendar extends Component<TProps, void> {
+  constructor(props: TProps) {
     super(props);
 
     this.styles = {};
@@ -44,30 +70,6 @@ export default class Calendar extends Component {
   state = {
     currentMonthMoment: moment(this.props.startDate),
     selectedMoment: moment(this.props.selectedDate),
-  };
-
-  static propTypes = {
-    dayHeadings: PropTypes.array,
-    disableSelectDate: PropTypes.bool,
-    eventDates: PropTypes.array,
-    monthNames: PropTypes.array,
-    nextButtonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    onDateSelect: PropTypes.func,
-    onSwipeNext: PropTypes.func,
-    onSwipePrev: PropTypes.func,
-    onTouchNext: PropTypes.func,
-    onTouchPrev: PropTypes.func,
-    prevButtonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    scrollEnabled: PropTypes.bool,
-    selectedDate: PropTypes.any,
-    showControls: PropTypes.bool,
-    showEventIndicators: PropTypes.bool,
-    startDate: PropTypes.any,
-    activeFrom: PropTypes.instanceOf(moment),
-    titleFormat: PropTypes.string,
-    today: PropTypes.any,
-    weekStart: PropTypes.number,
-    workDays: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
@@ -234,7 +236,7 @@ export default class Calendar extends Component {
             isToday={argMonthIsToday && dayIndex === todayIndex}
             isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
             isDotted={isDotted}
-            event={events && dayIndex === selectedIndex ? null : events[dayIndex]}
+            event={events && dayIndex === selectedIndex ? null : events && events[dayIndex]}
             showEventIndicators={this.props.showEventIndicators}
           />,
         );

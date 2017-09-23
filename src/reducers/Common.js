@@ -1,3 +1,5 @@
+// @flow
+
 import { makeReducer, deepUpdate } from '../utils';
 
 import a from '../constants/Common';

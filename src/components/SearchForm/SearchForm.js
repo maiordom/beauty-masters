@@ -9,12 +9,6 @@ import every from 'lodash/every';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-import type {
-  ServiceToggleType,
-  MasterTypeSelectType,
-  SelectCalendarDateType,
-} from '../../types/SearchFormTypes';
-
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
 import SearchFormBlockManicure from './SearchFormBlockManicure';
@@ -64,17 +58,14 @@ export default class SearchFormShort extends Component<TProps, TState> {
     this.setState({ showShortForm: !this.state.showShortForm });
   };
 
-  onServiceToggle: ServiceToggleType = (sectionName) => (value, modelName) => {
+  onServiceToggle = (sectionName) => (value, modelName) => {
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
-  onExtensionToggle = (value: boolean) => {
-    this.props.actions.toggleExtension(value);
-  };
-
-  onWithdrawalToggle = (value: boolean) => {
-    this.props.actions.toggleWithdrawal(value);
-  };
+  onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
+  onWithdrawalToggle = (value: boolean) => this.props.actions.toggleWithdrawal(value);
+  onManicureToggle = (value: boolean) => this.props.actions.toggleManicure(value);
+  onPedicureToggle = (value: boolean) => this.props.actions.togglePedicure(value);
 
   onDepartureToggle = () => this.props.actions.toggleDeparture();
 
@@ -82,12 +73,12 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
-  onMasterTypeSelect: MasterTypeSelectType = (value, id, modelName) => {
+  onMasterTypeSelect = (value, id, modelName) => {
     this.props.actions.setItemById(modelName, id, 'general');
     this.toggleMasterTypeModal();
   };
 
-  onSelectCalendarDate: SelectCalendarDateType = selectedDate => {
+  onSelectCalendarDate = selectedDate => {
     this.setState({ selectedDate });
     this.props.actions.setDay(selectedDate);
     this.toggleCalendarModal();
@@ -183,13 +174,13 @@ export default class SearchFormShort extends Component<TProps, TState> {
               <FilterCheckBox
                 {...serviceManicure.manicure}
                 active={isManicureActive}
-                onChange={this.onServiceToggle('serviceManicure')}
+                onChange={this.onManicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 {...servicePedicure.pedicure}
                 active={isPedicureActive}
-                onChange={this.onServiceToggle('servicePedicure')}
+                onChange={this.onPedicureToggle}
                 withInput={false}
               />
               <FilterCheckBox

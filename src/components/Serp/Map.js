@@ -17,7 +17,7 @@ import supercluster from 'supercluster';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 
 import getDistance from '../../utils/Geo';
 
@@ -28,8 +28,7 @@ import MapCard from './MapCard';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-import type { MapCardType } from '../../types/MasterTypes';
-import type { FetchType } from '../../types/FetchTypes';
+import type { TMapCard } from '../../types/MasterTypes';
 
 const icons = Platform.select({
   android: {
@@ -53,10 +52,9 @@ type RegionType = {
   longitudeDelta: number,
 }
 
-type State = {
+type TState = {
   activePin: ?LatLngType,
-  // $FlowFixMe
-  activePoint: MapCardType | null,
+  activePoint: TMapCard | null,
   cluster: ClusterInterface,
   clusters: Array<Cluster>,
   distanceToPin: number,
@@ -67,12 +65,12 @@ type State = {
   snippetTranslateY: Animated.Value,
 }
 
-type Props = {
+type TProps = {
   initialRegion: {
     lat: number,
     lon: number,
   },
-  points: Array<MapCardType>,
+  points: Array<TMapCard>,
   sceneKey: string,
   actions: {
     searchMasters: Function,
@@ -140,20 +138,20 @@ const getClusters = (cluster: ClusterInterface, region: RegionType) => {
   ], getZoomLevel(region));
 };
 
-export default class Map extends Component<Props, State> {
+export default class Map extends Component<TProps, TState> {
   constructor(props: Props) {
     super();
 
     this.state = {
       initialRegion: {
         latitude: props.initialRegion.lat,
-        longitude: props.initialRegion.lon,
+        longitude: props.initialRegion.lon || props.initialRegion.lng,
         latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
         longitudeDelta: 0.05,
       },
       region: {
         latitude: props.initialRegion.lat,
-        longitude: props.initialRegion.lon,
+        longitude: props.initialRegion.lon || props.initialRegion.lng,
         latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
         longitudeDelta: 0.05,
       },
@@ -173,8 +171,6 @@ export default class Map extends Component<Props, State> {
   shouldComponentUpdate = shouldComponentUpdate;
 
   map: MapView;
-
-  searchRequest: FetchType;
 
   snippetPanResponder = PanResponder.create({
     onMoveShouldSetPanResponder: (_, gestureState) => gestureState.dy > 0,
@@ -249,10 +245,11 @@ export default class Map extends Component<Props, State> {
     this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
-  onRegionChangeComplete = (region: RegionType) => {
+  onRegionChange = (region: RegionType) => {
+    console.log('Map::RegionChange', region);
+
     this.setState({ region });
-    this.searchRequest && this.searchRequest.cancel();
-    this.searchRequest = this.props.actions.searchMasters({
+    this.props.actions.searchMasters({
       lat: region.latitude,
       lon: region.longitude,
       radius: Number(((5 * Math.max(region.latitudeDelta, region.longitudeDelta)) / 0.04).toFixed(2)) * 1000,
@@ -300,11 +297,10 @@ export default class Map extends Component<Props, State> {
       <View style={styles.container}>
         {sceneKey !== 'masterLocation' && (
           <MapView
-            moveOnMarkerPress={false}
             style={styles.map}
             onPress={this.onMapPress}
             initialRegion={region}
-            onRegionChangeComplete={throttle(this.onRegionChangeComplete, 300)}
+            onRegionChange={debounce(this.onRegionChange, 300)}
             ref={this.setMapRef}
           >
             {clusters.map((cluster, index) => {

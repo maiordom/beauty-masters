@@ -189,11 +189,11 @@ const removingBioGelManicure = (isActive: boolean) => ({
   title: i18n.filters.bioGel.gen,
 }: ServiceManicure);
 
-const removingGeManicure = (isActive: boolean) => ({
+const removingGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'ManicureRemovingGel',
-  title: i18n.filters.removingGe,
+  title: i18n.filters.removingGel,
 }: ServiceManicure);
 
 const removingNailsManicure = (isActive: boolean) => ({
@@ -230,6 +230,6 @@ export default {
   removingNailPolishManicure,
   removingShellacManicure,
   removingBioGelManicure,
-  removingGeManicure,
+  removingGelManicure,
   removingNailsManicure,
 };

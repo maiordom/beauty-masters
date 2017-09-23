@@ -12,15 +12,15 @@ const mapStateToProps = state => ({
   sceneKey: state.scene.sceneKey,
 });
 
-type Props = {
+type TProps = {
   sceneKey: string,
 };
 
-type State = {
+type TState = {
   activeView: 'map' | 'list',
 };
 
-class Serp extends Component<void, Props, State> {
+class Serp extends Component<TProps, TState> {
   props: Props;
 
   state = {
