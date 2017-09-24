@@ -141,8 +141,6 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
     'parentCategoryKey',
   );
 
-  console.log(services);
-
   return Object.keys(groupedService)
     .map(groupKey => ({
       id: dictionaries.categoryServiceByKey[groupKey].id,

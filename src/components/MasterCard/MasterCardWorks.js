@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
-  View,
-  StyleSheet,
-  Text,
   Image,
   ListView,
+  StyleSheet,
+  Text,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 
 import vars from '../../vars';

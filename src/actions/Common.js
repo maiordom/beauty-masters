@@ -24,6 +24,11 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
         dispatch(setSearchLocation(lat, lon));
       }
     }
+  }, (err) => {
+    console.log('geo::location::', err);
+  }, {
+    timeout: 10000,
+    maximumAge: 3000,
   });
 };
 

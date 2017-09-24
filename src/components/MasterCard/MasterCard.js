@@ -2,34 +2,34 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Image,
   Dimensions,
-  TouchableOpacity,
-  Text,
-  Platform,
+  Image,
   InteractionManager,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Gallery from 'react-native-gallery';
 
 import ImagePlaceholder from '../ImagePlaceholder';
 import Fade from '../Fade';
 
-import MasterCardNavBar from './MasterCardNavBar';
-import MasterCardHeader from './MasterCardHeader';
-import MasterCardWorks from './MasterCardWorks';
-import MasterCardServices from './MasterCardServices';
 import MasterCardEquipment from './MasterCardEquipment';
+import MasterCardHeader from './MasterCardHeader';
+import MasterCardNavBar from './MasterCardNavBar';
 import MasterCardSchedule from './MasterCardSchedule';
+import MasterCardServices from './MasterCardServices';
+import MasterCardWorks from './MasterCardWorks';
 
 import ButtonControl from '../ButtonControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-import type { MasterCardType, MapCardType } from '../../types/MasterTypes';
+import type { MasterCardType, TMapCard } from '../../types/MasterTypes';
 
 const icons = Platform.select({
   android: {
@@ -46,7 +46,7 @@ type DefaultProps = {
 type Props = MasterCardType & {
   actions: Object,
   addresses?: Array<*>,
-  snippet: MapCardType,
+  snippet: TMapCard,
 };
 
 type State = {
@@ -101,20 +101,21 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
     const components = ['showFirstGroup', 'showSecondGroup'];
 
     for (let i = 0; i < components.length; i++) {
-      setTimeout(() => this.setState({ [components[i]]: true }), i * 300);
+      setTimeout(() => this.setState({ [components[i]]: true }), i * 50);
     }
   };
 
   render() {
     const {
-      id,
       actions,
-      masterPhoto,
       addresses,
-      workPhoto,
-      services,
+      handlingTools,
+      id,
       isFavorite,
+      masterPhoto,
+      services,
       snippet,
+      workPhoto,
     } = this.props;
 
     const {
@@ -158,7 +159,9 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
             )}
           </Fade>
           <Fade visible={showSecondGroup}>
-            <MasterCardEquipment />
+            {handlingTools && handlingTools.length > 0 && (
+              <MasterCardEquipment services={handlingTools} />
+            )}
             {addresses && addresses.length > 0 && (
               <MasterCardSchedule
                 addresses={addresses}

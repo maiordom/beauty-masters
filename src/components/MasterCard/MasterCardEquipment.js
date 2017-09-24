@@ -30,7 +30,7 @@ export default class MasterCardEquipment extends Component {
 
   render() {
     const { showInfo } = this.state;
-    const { equipmentInfo } = this.props;
+    const { services } = this.props;
 
     return (
       <View style={styles.container}>
@@ -42,17 +42,12 @@ export default class MasterCardEquipment extends Component {
             <Image source={icons.info} style={styles.info} />
           </TouchableOpacity>
         </View>
-        <View style={styles.equipment}>
-          <Text>{i18n.disinfection}</Text>
-        </View>
-        <View style={styles.equipment}>
-          <Image source={icons.check} style={styles.check} />
-          <Text style={styles.name}>{i18n.handlingToolMethods.ultrasound}</Text>
-        </View>
-        <View style={styles.equipment}>
-          <Image source={icons.check} style={styles.check} />
-          <Text style={styles.name}>{i18n.handlingToolMethods.ultraviolet}</Text>
-        </View>
+        {services.map((service, key) => (
+          <View style={styles.equipment} key={key}>
+            <Image source={icons.check} style={styles.check} />
+            <Text style={styles.name}>{service.title}</Text>
+          </View>
+        ))}
         <ModalComponent isVisible={showInfo} onRequestClose={this.onInfoToggle}>
           <Text style={styles.modalTitle}>{i18n.handlingTool}</Text>
           <Text style={styles.modalText}>{i18n.sterilization.disinfection}</Text>
@@ -83,11 +78,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 16,
   },
   title: {
     fontSize: 20,
     color: vars.color.black,
-    marginBottom: 16,
   },
   info: {
     height: 24,
