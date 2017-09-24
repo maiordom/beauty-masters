@@ -36,7 +36,7 @@ type TState = {
 };
 
 class InputBase extends Component<TProps, TState> {
-  constructor(props) {
+  constructor(props: TProps) {
     super(props);
   }
 

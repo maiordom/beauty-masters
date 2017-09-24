@@ -1,53 +1,30 @@
 // @flow
 
 import routes from '../routes';
-import { post } from '../utils/Provider';
+import { post, get } from '../utils/Provider';
 
-import type { SearchMastersParamsType } from '../types/SearchFormTypes';
-
-type GeoAutocompleteParamsType = {
-  query: string,
-}
-
-export function geoAutoComplete(params: GeoAutocompleteParamsType) {
+export function geoAutoComplete(params: Object) {
   return post(routes.geoAutoComplete, params);
 }
 
-export function searchMasters({
-  coordinates = [55.76, 37.64],
-  // eslint-disable-next-line
-  master_type = 1,
-  radius = 3500,
-  schedule = [],
-  services = [],
-}: SearchMastersParamsType) {
-  return post(routes.searchMasters, {
-    type: 'map',
-    query: {
-      coordinates,
-      master_type,
-      radius,
-      schedule,
-      services,
-    },
-  })
-  .then(response => response.result && response.result.map(master => ({
-    address: master.address.subway_station,
-    closestDate: master.address.closest_date,
+export function searchMasters(params: { query: string }) {
+  return get(routes.searchMasters, params)
+  .then((res: Object) => (res.error ? res : res.data.map(master => ({
+    address: master.attributes.address,
+    closestDate: master.attributes.closest_date,
     coordinates: {
-      latitude: master.address.coordinates[0],
-      longitude: master.address.coordinates[1],
+      latitude: master.attributes.lat,
+      longitude: master.attributes.lon,
     },
-    distance: (master.address.distance / 1000).toFixed(2),
     id: master.id,
-    isVerified: master.is_verified,
-    masterType: master_type,
-    photo: master.photo,
-    services: master.services.slice(0, 3).map(({ duration, id, price }) => ({
+    masterType: master.attributes.is_salon,
+    photo: master.attributes.avatar,
+    services: master.attributes.master_services.map(({ duration, id, price, title }) => ({
       duration,
       id,
       price,
+      title,
     })),
-    username: master.username
-  })) || []);
+    username: master.attributes.full_name,
+  })) || []));
 }

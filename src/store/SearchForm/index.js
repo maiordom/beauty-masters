@@ -2,7 +2,7 @@
 import each from 'lodash/each';
 import moment from 'moment';
 
-import type { SearchQueryType } from '../../types/CreateSearchQuery';
+import type { TSearchQuery } from '../../types/CreateSearchQuery';
 
 import ServiceManicure from '../Service/ServiceManicure';
 import ServicePedicure from '../Service/ServicePedicure';
@@ -26,13 +26,15 @@ each({
   });
 });
 
-const searchQuery: SearchQueryType = {
-  cityId: '175849',
-  isDeparture: false,
-  master_type: 1,
-  radius: 400,
-  schedule: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')],
-  services: [],
+const searchQuery: TSearchQuery = {
+  category_service_ids: [],
+  city: 'RU-MOW',
+  dates: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')],
+  is_salon: 0,
+  lat: 55.76,
+  lon: 37.64,
+  radius: 2000,
+  service_ids: [],
 };
 
 const searchResult = { items: [] };

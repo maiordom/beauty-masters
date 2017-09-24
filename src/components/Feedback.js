@@ -1,4 +1,5 @@
 // @flow
+
 import React, { Component } from 'react';
 import {
   View,
@@ -22,21 +23,21 @@ const icons = {
   }),
 };
 
-type DefaultProps = {
+type TDefaultProps = {
   email: string,
 }
 
-type Props = {
+type TProps = {
   email: string,
 }
 
-type State = {
+type TState = {
   email: string,
   message: string,
   isSend: boolean,
 }
 
-export default class Feedback extends Component<DefaultProps, Props, State> {
+export default class Feedback extends Component<TProps, TState, TDefaultProps> {
   static defaultProps = {
     email: '',
   };
@@ -123,4 +124,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-

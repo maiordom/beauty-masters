@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, InteractionManager } from 'react-native';
+import { View } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
@@ -51,8 +51,8 @@ export default class ServicesListManicure extends Component<TProps, TState> {
     const sectionName = this.state.automate[0];
 
     this.setState({
-       automate: this.state.automate.slice(1),
-       [sectionName]: true,
+      automate: this.state.automate.slice(1),
+      [sectionName]: true,
     });
 
     setTimeout(() => this.iterate(), 30);
@@ -96,7 +96,7 @@ export default class ServicesListManicure extends Component<TProps, TState> {
       removingNailPolishManicure,
       removingShellacManicure,
       removingBioGelManicure,
-      removingGeManicure,
+      removingGelManicure,
       removingNailsManicure,
     } = this.props.models;
 
@@ -159,7 +159,7 @@ export default class ServicesListManicure extends Component<TProps, TState> {
             <FilterCheckBox {...removingNailPolishManicure} {...filterHandlers} />
             <FilterCheckBox {...removingShellacManicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
-            <FilterCheckBox {...removingGeManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingGelManicure} {...filterHandlers} />
             <FilterCheckBox {...removingNailsManicure} {...filterHandlers} />
           </View>
         )}

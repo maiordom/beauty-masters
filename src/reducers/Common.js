@@ -1,8 +1,16 @@
+// @flow
+
 import { makeReducer, deepUpdate } from '../utils';
 
 import a from '../constants/Common';
 
 export default makeReducer((state, action) => ({
+  [a.USER_LOCATION_SET]: (state, { payload: { lon, lat } }) =>
+    deepUpdate(state, 'geo.userLocation', {
+      lon,
+      lat,
+    }),
+
   [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo', {
     places: action.places,
   }),

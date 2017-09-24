@@ -7,7 +7,6 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 
 const icons = {
-  verified: require('../../icons/verified.png'),
   vk: require('../../icons/social/vk.png'),
   inst: require('../../icons/social/inst.png'),
 };
@@ -18,7 +17,6 @@ type TProps = {
   salonName?: string,
   vkProfile?: string,
   inProfile?: string,
-  isVerified?: boolean,
 }
 
 export default class MasterCardHeader extends Component<TProps, void> {
@@ -26,7 +24,6 @@ export default class MasterCardHeader extends Component<TProps, void> {
     const {
       inProfile,
       isSalon,
-      isVerified,
       salonName,
       username,
       vkProfile,
@@ -37,9 +34,6 @@ export default class MasterCardHeader extends Component<TProps, void> {
         <View>
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{username}</Text>
-            {isVerified && (
-              <Image source={icons.verified} style={styles.verified} />
-            )}
           </View>
           {isSalon && (
             <Text style={styles.subtitle}>{i18n.salon} «{salonName}»</Text>
@@ -79,11 +73,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: vars.color.black,
-  },
-  verified: {
-    height: 16,
-    width: 16,
-    marginLeft: 6,
   },
   subtitle: {
     fontSize: 16,

@@ -1,20 +1,12 @@
 /* @flow */
 
-type Service = {
-  active: boolean,
-  dictionaryKey: string,
-  duration?: string,
-  id: number,
-  categoryKey: number,
-  price?: number,
-  title: string,
-};
-
-export type SearchQueryType = {
-  cityId: string,
-  isDeparture: boolean,
-  master_type: number,
-  radius: number,
-  schedule: Array<string>,
-  services: Array<Service>,
+export type TSearchQuery = {
+  category_service_ids?: Array<number>,
+  city?: string,
+  dates?: Array<string>,
+  is_salon?: number,
+  lat?: number,
+  lon?: number,
+  radius?: number,
+  service_ids?: Array<number>,
 };

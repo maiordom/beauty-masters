@@ -51,8 +51,8 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
     const sectionName = this.state.automate[0];
 
     this.setState({
-       automate: this.state.automate.slice(1),
-       [sectionName]: true,
+      automate: this.state.automate.slice(1),
+      [sectionName]: true,
     });
 
     setTimeout(() => this.iterate(), 30);

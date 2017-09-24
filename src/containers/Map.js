@@ -8,8 +8,11 @@ import { searchMasters } from '../actions/Search';
 import Map from '../components/Serp/Map';
 
 const mapStateToProps = (state, ownProps) => ({
-  sceneKey: ownProps.sceneKey,
+  initialRegion: state.geo.userLocation.lat
+    ? state.geo.userLocation
+    : state.geo.city.location,
   points: state.searchForm.searchResult.items,
+  sceneKey: ownProps.sceneKey,
 });
 
 const mapDispatchToProps = dispatch => ({

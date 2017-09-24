@@ -6,25 +6,14 @@ import isEmpty from 'lodash/isEmpty';
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
 
-import masterData from '../test/MasterData';
-import { setData } from '../actions/Master';
 import { refreshToken } from '../actions/Auth';
 import { getUserProfile } from '../actions/Profile';
+import { getLocation } from '../actions/Common';
 import { getServices, getCategoryServices } from '../actions/Dictionaries';
 
 const store = configureStore();
 
 export default class App extends Component {
-  setMasterData() {
-    store.dispatch(setData(masterData));
-  }
-
-  getLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
-    });
-  }
-
   readStorage() {
     AsyncStorage.getItem('auth').then(res => {
       console.log(`AsyncStorage::read::auth::${res}`);
@@ -45,6 +34,10 @@ export default class App extends Component {
     this.readStorage();
     getServices()(store.dispatch);
     getCategoryServices()(store.dispatch);
+
+    setTimeout(() => {
+      getLocation(true)(store.dispatch);
+    }, 50);
   }
 
   render() {

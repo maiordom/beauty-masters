@@ -17,7 +17,9 @@ import supercluster from 'supercluster';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
+
+import getDistance from '../../utils/Geo';
 
 import { shouldComponentUpdate } from '../../utils';
 
@@ -26,8 +28,7 @@ import MapCard from './MapCard';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-import type { MapCardType } from '../../types/MasterTypes';
-import type { FetchType } from '../../types/FetchTypes';
+import type { TMapCard } from '../../types/MasterTypes';
 
 const icons = Platform.select({
   android: {
@@ -51,21 +52,25 @@ type RegionType = {
   longitudeDelta: number,
 }
 
-type State = {
+type TState = {
   activePin: ?LatLngType,
-  // $FlowFixMe
-  activePoint: MapCardType | null,
+  activePoint: TMapCard | null,
   cluster: ClusterInterface,
   clusters: Array<Cluster>,
-  initialRegion: RegionType,
-  region: RegionType,
+  distanceToPin: number,
+  initialRegion?: RegionType,
+  region?: RegionType,
   renderLoader: boolean,
   showSnippet: boolean,
   snippetTranslateY: Animated.Value,
 }
 
-type Props = {
-  points: Array<MapCardType>,
+type TProps = {
+  initialRegion: {
+    lat: number,
+    lon: number,
+  },
+  points: Array<TMapCard>,
   sceneKey: string,
   actions: {
     searchMasters: Function,
@@ -87,8 +92,6 @@ type Cluster = {
 };
 
 const SNIPPET_HEIGHT = 204;
-
-const initialRegion = [55.76, 37.64];
 
 const convertToGeoPoints = points => points.map(point => ({
   type: 'Feature',
@@ -135,37 +138,39 @@ const getClusters = (cluster: ClusterInterface, region: RegionType) => {
   ], getZoomLevel(region));
 };
 
-export default class Map extends Component<void, Props, State> {
-  state = {
-    renderLoader: true,
-    showSnippet: false,
-    initialRegion: {
-      latitude: initialRegion[0],
-      longitude: initialRegion[1],
-      latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
-      longitudeDelta: 0.05,
-    },
-    region: {
-      latitude: initialRegion[0],
-      longitude: initialRegion[1],
-      latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
-      longitudeDelta: 0.05,
-    },
-    snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
-    activePin: null,
-    activePoint: null,
-    clusters: [],
-    cluster: {
-      getLeaves: () => [],
-      getClusters: () => [],
-    },
-  };
+export default class Map extends Component<TProps, TState> {
+  constructor(props: Props) {
+    super();
+
+    this.state = {
+      initialRegion: {
+        latitude: props.initialRegion.lat,
+        longitude: props.initialRegion.lon || props.initialRegion.lng,
+        latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
+        longitudeDelta: 0.05,
+      },
+      region: {
+        latitude: props.initialRegion.lat,
+        longitude: props.initialRegion.lon || props.initialRegion.lng,
+        latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
+        longitudeDelta: 0.05,
+      },
+      renderLoader: true,
+      showSnippet: false,
+      snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
+      activePin: null,
+      activePoint: null,
+      clusters: [],
+      cluster: {
+        getLeaves: () => [],
+        getClusters: () => [],
+      },
+    };
+  }
 
   shouldComponentUpdate = shouldComponentUpdate;
 
   map: MapView;
-
-  searchRequest: FetchType;
 
   snippetPanResponder = PanResponder.create({
     onMoveShouldSetPanResponder: (_, gestureState) => gestureState.dy > 0,
@@ -212,10 +217,18 @@ export default class Map extends Component<void, Props, State> {
       activePoint = point.properties;
     }
 
+    const distanceToPin = getDistance(
+      coordinate.latitude,
+      coordinate.longitude,
+      this.props.initialRegion.lat,
+      this.props.initialRegion.lon,
+    ).toFixed(2);
+
     this.map.animateToRegion(region, 450);
     this.setState({
       activePin: coordinate,
       activePoint,
+      distanceToPin,
       region,
     });
 
@@ -232,11 +245,13 @@ export default class Map extends Component<void, Props, State> {
     this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
-  onRegionChangeComplete = (region: RegionType) => {
+  onRegionChange = (region: RegionType) => {
+    console.log('Map::RegionChange', region);
+
     this.setState({ region });
-    this.searchRequest && this.searchRequest.cancel();
-    this.searchRequest = this.props.actions.searchMasters({
-      coordinates: [region.latitude, region.longitude],
+    this.props.actions.searchMasters({
+      lat: region.latitude,
+      lon: region.longitude,
       radius: Number(((5 * Math.max(region.latitudeDelta, region.longitudeDelta)) / 0.04).toFixed(2)) * 1000,
     });
   };
@@ -247,14 +262,12 @@ export default class Map extends Component<void, Props, State> {
     if (activePoint) {
       const {
         id,
-        isVerified,
         photo,
         username,
       } = activePoint;
 
       Actions.card({
         id,
-        isVerified,
         photo,
         snippet: activePoint,
         username,
@@ -287,7 +300,7 @@ export default class Map extends Component<void, Props, State> {
             style={styles.map}
             onPress={this.onMapPress}
             initialRegion={region}
-            onRegionChangeComplete={throttle(this.onRegionChangeComplete, 300)}
+            onRegionChange={debounce(this.onRegionChange, 300)}
             ref={this.setMapRef}
           >
             {clusters.map((cluster, index) => {
@@ -296,7 +309,7 @@ export default class Map extends Component<void, Props, State> {
               return (
                 <MapView.Marker
                   coordinate={coordinate}
-                  key={index}
+                  key={Math.random()}
                   onPress={event => this.onMarkerPress(event, index)}
                   image={isEqual(coordinate, activePin)
                     ? icons.pinGreen
@@ -331,7 +344,13 @@ export default class Map extends Component<void, Props, State> {
           }}
           {...this.snippetPanResponder.panHandlers}
         >
-          {activePoint && <MapCard onPress={this.onMapCardPress} {...activePoint} location="map" />}
+          {activePoint && <MapCard
+            {...activePoint}
+            location="map"
+            distance={this.state.distanceToPin}
+            onPress={this.onMapCardPress}
+            region={region}
+          />}
         </Animated.View>
       </View>
     );

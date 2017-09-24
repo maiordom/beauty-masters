@@ -4,17 +4,15 @@ import { connect } from 'react-redux';
 import PlacesAutocomplete from '../../components/PlacesAutocomplete';
 import NavBar from '../../components/NavBar';
 
-import { searchAddress, addressesReset } from '../../actions/Search';
-
 const mapStateToProps = state => ({
-  distances: state.searchForm.general.distances,
-  addresses: state.searchForm.general.addresses,
+  distances: state.searchForm.general.distances.items,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    searchAddress,
-    addressesReset,
+    placesReset: () => ({ type: 'FOO' }),
+    searchPlace: () => ({ type: 'FOO' }),
+    selectPlace: () => ({ type: 'FOO' }),
   }, dispatch),
 });
 

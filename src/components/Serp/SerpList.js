@@ -36,14 +36,12 @@ export default class SerpList extends Component<TProps, TState> {
   onMapCardPress = (card: MapCardType) => {
     const {
       id,
-      isVerified,
       photo,
       username,
     } = card;
 
     Actions.card({
       id,
-      isVerified,
       photo,
       snippet: card,
       username,

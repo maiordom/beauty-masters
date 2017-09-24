@@ -3,8 +3,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Animated, Easing } from 'react-native';
 
-import type { ServiceToggleType } from '../../types/SearchFormTypes';
-
 import FilterSubLabel from '../../components/FilterSubLabel';
 import FilterCheckBox from '../../components/FilterCheckBox';
 import switchStyles, { arrowIcon } from './SearchFormSwitchStyles';
@@ -73,7 +71,7 @@ export default class SearchFormBlockManicure extends Component {
             <FilterCheckBox {...service.removingNailPolishManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.removingBioGelManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.removingShellacManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingGeManicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.removingGelManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.removingNailsManicure} onChange={onChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.otherServices} />

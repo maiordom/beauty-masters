@@ -91,8 +91,7 @@ export default class MasterCardShedule extends Component<void, Props, State> {
       latlng,
       title: 'Марина Ф',
       subtitle: salonTitle,
-      address: `${street}, ${i18n.houseShort} ${house} ${building || ''}`,
-      isVerified: true,
+      address: `${street}, ${i18n.houseShort} ${house} ${building || ''}`
     });
   };
 

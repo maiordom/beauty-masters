@@ -6,6 +6,8 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/Search';
 
+import { TSearchQuery } from '../types/CreateSearchQuery';
+
 const setParam = (action, state) => {
   const { sectionName, modelName, paramValue, paramName } = action;
   const section = state.searchForm[sectionName];
@@ -30,27 +32,48 @@ const updateSections = (action, categoryKey, state) => {
 };
 
 export default makeReducer((state, action) => ({
-  [actions.SEARCH_TOGGLE_SERVICE]: () => {
-    const model = state.searchForm[action.sectionName][action.modelName];
+  [actions.SEARCH_SERVICE_TOGGLE]: (state, { payload }) => {
+    const { sectionName, modelName, id } = payload;
+    const model = state.searchForm[sectionName][modelName];
 
-    setParam(action, state);
-    updateSections(action, model.id, state);
+    setParam(payload, state);
+    updateSections(payload, id, state);
 
-    const { searchQuery } = state.searchForm;
+    const searchQuery: TSearchQuery = state.searchForm.searchQuery;
+    const { serviceByKey } = state.dictionaries;
 
-    if (action.paramValue) {
-      searchQuery.services.push(model.id);
+    if (payload.paramValue) {
+      const id = serviceByKey[model.dictionaryKey].id;
+      searchQuery.service_ids.push(id);
     } else {
-      searchQuery.services = reject(searchQuery.services, id => id === model.id);
+      searchQuery.service_ids = reject(searchQuery.service_ids, { id });
     }
 
     return state;
   },
 
-  [actions.SEARCH_TOGGLE_EXTENSION]: () => {
-    const categoryKey = 1001;
-    const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
-    const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
+  [actions.SEARCH_MANICURE_TOGGLE]: (state, { payload: { paramValue } }) => {
+    const categoryKey = 'manicure';
+    const serviceManicure = { sectionName: 'serviceManicure', paramValue };
+
+    updateSections(serviceManicure, categoryKey, state);
+
+    return state;
+  },
+
+  [actions.SEARCH_PEDICURE_TOGGLE]: (state, { payload: { paramValue } }) => {
+    const categoryKey = 'pedicure';
+    const serviceManicure = { sectionName: 'servicePedicure', paramValue };
+
+    updateSections(serviceManicure, categoryKey, state);
+
+    return state;
+  },
+
+  [actions.SEARCH_EXTENSION_TOGGLE]: (state, { payload: { paramValue } }) => {
+    const categoryKey = 'extension';
+    const servicePedicure = { sectionName: 'servicePedicure', paramValue };
+    const serviceManicure = { sectionName: 'serviceManicure', paramValue };
 
     updateSections(servicePedicure, categoryKey, state);
     updateSections(serviceManicure, categoryKey, state);
@@ -58,10 +81,10 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_TOGGLE_WITHDRAWAL]: () => {
-    const categoryKey = 1002;
-    const servicePedicure = { sectionName: 'servicePedicure', paramValue: action.paramValue };
-    const serviceManicure = { sectionName: 'serviceManicure', paramValue: action.paramValue };
+  [actions.SEARCH_WITHDRAWAL_TOGGLE]: (state, { payload: { paramValue } }) => {
+    const categoryKey = 'removing';
+    const servicePedicure = { sectionName: 'servicePedicure', paramValue };
+    const serviceManicure = { sectionName: 'serviceManicure', paramValue };
 
     updateSections(servicePedicure, categoryKey, state);
     updateSections(serviceManicure, categoryKey, state);
@@ -108,17 +131,11 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_ADDRESSES_ITEMS_SET]: () => deepUpdate(
-    state,
-    `searchForm.${action.sectionName}.${action.modelName}`,
-    { items: action.items },
-  ),
-
-  [actions.SEARCH_ITEMS_RESET]: () => deepUpdate(
-    state,
-    `searchForm.${action.sectionName}.${action.modelName}`,
-    { items: [] },
-  ),
+  [actions.SEARCH_LOCATION_SET]: (state, { payload: { lat, lon } }) =>
+    deepUpdate(state, 'searchForm.searchQuery', {
+      lat,
+      lon,
+    }),
 
   [actions.SEARCH_DEPARTURE_TOGGLE]: () => deepUpdate(
     state,

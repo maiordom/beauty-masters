@@ -17,7 +17,7 @@ const methods = [
   { getServices: '/service', method: 'GET' },
   { getUserProfile: '/user/profile', method: 'GET' },
   { refreshToken: '/refresh-token', method: 'POST' },
-  { searchMasters: '/master/search', method: 'GET' },
+  { searchMasters: '/search-master', method: 'GET' },
   { updateAddress: ({ id }) => `/address/${id}`, method: 'PATCH' },
   { updateMaster: ({ id }) => `/master-card/${id}`, method: 'PATCH' },
   { updateTimeTable: ({ id }) => `/timetable/${id}`, method: 'PATCH' },
