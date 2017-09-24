@@ -221,7 +221,7 @@ export default class Map extends Component<TProps, TState> {
       coordinate.latitude,
       coordinate.longitude,
       this.props.initialRegion.lat,
-      this.props.initialRegion.lon,
+      this.props.initialRegion.lon || this.props.initialRegion.lng,
     ).toFixed(2);
 
     this.map.animateToRegion(region, 450);

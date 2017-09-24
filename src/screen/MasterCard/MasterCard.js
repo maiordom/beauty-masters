@@ -3,22 +3,20 @@ import { bindActionCreators } from 'redux';
 
 import MasterCard from '../../components/MasterCard/MasterCard';
 
-import type { MasterCardType } from '../../types/MasterTypes';
-
 import { getMasterById } from '../../actions/MasterCard';
 import { addToFavorites, removeFromFavorites } from '../../actions/Favorites';
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  scene: state.scene,
   ...state.masterCards[ownProps.id],
   isFavorite: state.favorites.cards.find(card => card.id === ownProps.id) && true,
-} : MasterCardType);
+  scene: state.scene,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    getMasterById,
     addToFavorites,
+    getMasterById,
     removeFromFavorites,
   }, dispatch),
 });

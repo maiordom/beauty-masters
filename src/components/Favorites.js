@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View, Text, ListView, StyleSheet, Platform, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import type { MapCardType } from '../types/MasterTypes';
+import type { TMapCard } from '../types/MasterTypes';
 
 import ActivityIndicator from '../containers/ActivityIndicator';
 import MapCard from './Serp/MapCard';
@@ -12,16 +12,16 @@ import { styles as serpListStyles } from './Serp/SerpList';
 import vars from '../vars';
 import i18n from '../i18n';
 
-type State = {
+type TState = {
   refreshing: boolean,
   dataSource: Array<*>,
 };
 
-type Props = {
+type TProps = {
   actions: {
     getFavorites: Function,
   },
-  cards: Array<MapCardType>,
+  cards: Array<TMapCard>,
   isLoaded: boolean,
 };
 
@@ -31,15 +31,15 @@ const icons = {
   }),
 };
 
-export default class Favorites extends Component<Props, State> {
-  state: State;
+export default class Favorites extends Component<TProps, TState> {
+  state: TState;
 
-  constructor(props: Props) {
+  constructor(props: TProps) {
     super(props);
 
     this.state = {
-      refreshing: false,
       dataSource: this.ds.cloneWithRows(props.cards),
+      refreshing: false,
     };
   }
 
@@ -57,7 +57,7 @@ export default class Favorites extends Component<Props, State> {
     }
   }
 
-  onCardPress = (card : MapCardType) => Actions.card(card);
+  onCardPress = (card : TMapCard) => Actions.card(card);
 
   renderEmptyScreen = () => (
     <View style={styles.emptyScreen}>

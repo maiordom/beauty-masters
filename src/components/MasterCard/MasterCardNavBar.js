@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import type { MapCardType } from '../../types/MasterTypes';
+import type { TMapCard } from '../../types/MasterTypes';
 
 const icons = {
   favs: require('../../icons/favs.png'),
@@ -18,13 +18,13 @@ const icons = {
 };
 
 type Props = {
-  id: number,
-  isFavorite: boolean,
   actions: {
-    addToFavorites: (snippet: MapCardType) => void,
+    addToFavorites: (snippet: TMapCard) => void,
     removeFromFavorites: (id: number) => void,
   },
-  snippet: MapCardType,
+  id: number,
+  isFavorite: boolean,
+  snippet: TMapCard,
 }
 
 export default class MasterCardNavBar extends Component<void, Props, void> {

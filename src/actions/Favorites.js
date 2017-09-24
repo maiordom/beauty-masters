@@ -2,7 +2,7 @@
 
 import actions from '../constants/Favorites';
 
-import type { TMapCardType } from '../types/MasterTypes';
+import type { TMapCard } from '../types/MasterTypes';
 
 import { setActivityIndicator } from './Common';
 
@@ -25,7 +25,7 @@ export const getFavorites = () => (dispatch: Function) => {
     });
 };
 
-export const addToFavorites = (card: TMapCardType) => (dispatch: Function) => {
+export const addToFavorites = (card: TMapCard) => (dispatch: Function) => {
   dispatch({
     type: actions.FAVORITES_ADD_DATA,
     card,

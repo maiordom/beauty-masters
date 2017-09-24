@@ -8,14 +8,14 @@ import MapCard from './MapCard';
 
 import vars from '../../vars';
 
-import type { MapCardType } from '../../types/MasterTypes';
+import type { TMapCard } from '../../types/MasterTypes';
 
 type TState = {
   dataSource: Array<*>,
 };
 
 type TProps = {
-  points: Array<MapCardType>,
+  points: Array<TMapCard>,
 };
 
 export default class SerpList extends Component<TProps, TState> {
@@ -33,7 +33,7 @@ export default class SerpList extends Component<TProps, TState> {
     };
   }
 
-  onMapCardPress = (card: MapCardType) => {
+  onMapCardPress = (card: TMapCard) => {
     const {
       id,
       photo,

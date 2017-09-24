@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-import type { MapCardType } from '../../types/MasterTypes';
+import type { TMapCard } from '../../types/MasterTypes';
 
 const icons = {
   photoEmpty: require('../../icons/photo-empty.png'),
@@ -21,7 +21,7 @@ const icons = {
   }),
 };
 
-type TProps = MapCardType & {
+type TProps = TMapCard & {
   type?: string,
 };
 
