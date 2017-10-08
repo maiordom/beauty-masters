@@ -157,12 +157,12 @@ export default class MasterCard extends Component<TProps, TState> {
                 workPhotos={workPhotos}
               />
             )}
-            {services && services.length < 0 && (
+            {services && services.length > 0 && (
               <MasterCardServices services={services} />
             )}
           </Fade>
           <Fade visible={showSecondGroup}>
-            {handlingTools && handlingTools.length < 0 && (
+            {handlingTools && handlingTools.length > 0 && (
               <MasterCardEquipment services={handlingTools} />
             )}
             {addresses && addresses.length > 0 && (
