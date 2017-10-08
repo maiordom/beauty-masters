@@ -20,9 +20,7 @@ export default class MasterCardWorks extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: ds.cloneWithRows(props.workPhoto.map(uri => (
-        <Image source={{ uri }} style={styles.workPhoto} />
-      ))),
+      dataSource: ds.cloneWithRows(props.workPhotos)
     };
   }
 
@@ -31,22 +29,26 @@ export default class MasterCardWorks extends Component {
   };
 
   render() {
-    const { workPhoto } = this.props;
+    const { workPhotos } = this.props;
     const { dataSource } = this.state;
 
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>{i18n.workExamples} {workPhoto.length} {i18n.photo.photo.toLowerCase()}</Text>
+          <Text style={styles.title}>{i18n.workExamples} {workPhotos.length} {i18n.photo.photo.toLowerCase()}</Text>
         </View>
         <ListView
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.photos}
           dataSource={dataSource}
-          renderRow={(image, sectionID, rowID) => (
-            <TouchableWithoutFeedback onPress={this.onWorkPress(rowID)} activeOpacity={1} underlayColor>
-              {image}
+          renderRow={(photo, sectionID, rowID) => (
+            <TouchableWithoutFeedback
+              onPress={this.onWorkPress(rowID)}
+              activeOpacity={1}
+              underlayColor
+            >
+              <Image source={{ uri: photo.sizes.s }} style={styles.workPhoto} />
             </TouchableWithoutFeedback>
           )}
         />

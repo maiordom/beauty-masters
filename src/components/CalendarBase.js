@@ -144,6 +144,8 @@ export default class Calendar extends Component<TProps, void> {
   }
 
   selectDate(date) {
+    console.log('CalendarBase', date.format());
+
     if (!this.props.disableSelectDate) {
       this.setState({ selectedMoment: date });
     }

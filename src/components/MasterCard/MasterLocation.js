@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  StyleSheet,
   Dimensions,
   Platform,
+  StyleSheet,
+  View,
 } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -23,10 +23,11 @@ export default class MasterLocation extends Component {
   render() {
     const {
       address,
-      latlng: { latitude, longitude },
+      isSalon,
+      location: { lat, lng },
+      photo,
       sceneKey,
-      subtitle,
-      title,
+      username,
     } = this.props;
 
     return (
@@ -35,26 +36,24 @@ export default class MasterLocation extends Component {
           <MapView
             style={styles.map}
             region={{
-              latitude,
-              longitude,
+              latitude: lat,
+              longitude: lng,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}
           >
             <MapView.Marker
-              coordinate={{ latitude, longitude }}
+              coordinate={{ latitude: lat, longitude: lng }}
               image={icons.pinRed}
             />
           </MapView>
         )}
-        {/* $FlowFixMe */}
         <MapCard
-          photo="https://unsplash.it/48" // TODO: get it from store of current master
-          title={title}
-          subtitle={subtitle}
           address={address}
-          services={[]}
-          distance="222" // TODO: get it from navigation
+          distance="222"
+          isSalon={isSalon}
+          photo={photo}
+          username={username}
         />
       </View>
     );

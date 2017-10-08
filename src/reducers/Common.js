@@ -1,5 +1,7 @@
 // @flow
 
+import { AsyncStorage } from 'react-native';
+
 import { makeReducer, deepUpdate } from '../utils';
 
 import a from '../constants/Common';
@@ -23,6 +25,8 @@ export default makeReducer((state, action) => ({
     const categoryServiceById = {};
     const categoryServiceByKey = {};
 
+    AsyncStorage.setItem('categoryServices', JSON.stringify(categoryServices));
+
     categoryServices.forEach(categoryService => {
       categoryServiceById[categoryService.id] = categoryService;
       categoryServiceByKey[categoryService.key] = categoryService;
@@ -37,6 +41,8 @@ export default makeReducer((state, action) => ({
   [a.DICTIONARIES_SERVICES_SET]: (state, { payload: { services = [] } }) => {
     const serviceById = {};
     const serviceByKey = {};
+
+    AsyncStorage.setItem('services', JSON.stringify(services));
 
     services.forEach(service => {
       serviceById[service.id] = service;

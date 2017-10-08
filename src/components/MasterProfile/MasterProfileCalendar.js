@@ -72,8 +72,8 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
       diffMonths: false,
       disableCalendar: false,
       selectedDate: moment().format('YYYY-MM-DD'),
-      today: moment().format('YYYY-MM-DD'),
       showDeactivateModal: false,
+      today: moment().format('YYYY-MM-DD'),
     };
 
     this.state.schedules = this.props.schedules.filter(item => !item.isNotWork);
@@ -91,8 +91,6 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
       }
     }
   }
-
-  calendarRef: any;
 
   onSwitchToggle = () => {
     if (this.state.disableCalendar) {
@@ -177,7 +175,6 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
               interval={{ key: intervalKey }}
               onDateSelect={this.onDateSelect}
               onMonthChange={this.onMonthChange}
-              ref={(ref) => { this.calendarRef = ref; }}
               selectedDate={selectedDate}
               startDate={dateStart}
             />

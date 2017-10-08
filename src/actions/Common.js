@@ -20,15 +20,14 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
         payload: { lon, lat },
       });
 
+      console.log('geo::location::', position.coords);
+
       if (updateSearchQuery) {
         dispatch(setSearchLocation(lat, lon));
       }
     }
   }, (err) => {
     console.log('geo::location::', err);
-  }, {
-    timeout: 10000,
-    maximumAge: 3000,
   });
 };
 
