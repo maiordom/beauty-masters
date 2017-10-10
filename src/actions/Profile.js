@@ -56,3 +56,7 @@ export const getAddresses = (masterCardId: number) => (dispatch: Function) =>
 export const selectMainMaster = (index: number) => (dispatch: Function) => {
   dispatch({ type: constants.PROFILE_MAIN_SET, index });
 };
+
+export const recoverPwd = () => {
+  ProfileService.recoverPwd()
+}

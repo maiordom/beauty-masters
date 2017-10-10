@@ -1,0 +1,144 @@
+// @flow
+
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
+import ActivityIndicator from '../containers/ActivityIndicator';
+import Input from './Input';
+import ButtonControl from './ButtonControl';
+import ModalComponent from './Modal';
+
+import vars from '../vars';
+import i18n from '../i18n';
+
+const icons = {
+  mail: Platform.select({
+    android: require('../icons/mail.png'),
+  }),
+};
+
+type TProps = {
+  actions: {
+    recoverPwd: (string) => Promise<*>
+  }
+}
+
+type TState = {
+  email: string,
+  showModal: boolean,
+  error: boolean,
+}
+
+export default class Favorites extends Component<void, TProps, TState> {
+  state: TState = {
+    email: '',
+    showModal: false,
+    error: false,
+  };
+
+  onChange = (email: string) => {
+    this.setState({ email });
+  };
+
+  onPress = () => {
+    const { email } = this.state;
+
+    if (email.length === 0) {
+      return;
+    }
+
+    this.props.actions
+      .recoverPwd(this.state.email)
+      .then((result) => {
+        if (!result) {
+          this.setState({ error: true });
+        }
+
+        this.setState({ showModal: true });
+      });
+  };
+
+  onBack = () => {
+    this.setState({
+      showModal: false,
+    }, () => {
+      const { error } = this.state;
+
+      if (!error) {
+        Actions.pop();
+      }
+    });
+  };
+
+  render() {
+    const { email, showModal, error } = this.state;
+
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
+        <View style={styles.wrapper}>
+          <Input
+            debounce
+            icon={icons.mail}
+            style={styles.input}
+            placeholder={i18n.yourEmail}
+            onChange={this.onChange}
+          />
+          <Text style={styles.text}>
+            {i18n.forgotPwdText}.
+          </Text>
+        </View>
+        <ButtonControl
+          type={email.length === 0 && 'disabled'}
+          label={i18n.send}
+          onPress={this.onPress}
+        />
+        <ModalComponent animationType="fade" transparent isVisible={showModal} onRequestClose={() => {}}>
+          <View>
+            <Text style={styles.success}>
+              {error
+                ? i18n.forgotPwdError
+                : i18n.forgotPwdSuccess
+              }
+            </Text>
+            <TouchableOpacity onPress={this.onBack}>
+              <Text style={styles.ok}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </ModalComponent>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: vars.color.white,
+  },
+  wrapper: {
+    flex: 1,
+    marginTop: 32,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+  text: {
+    color: vars.color.grey,
+    textAlign: Platform.select({
+      android: 'left',
+      ios: 'center',
+    }),
+    lineHeight: 25,
+    marginTop: 16,
+  },
+  success: {
+    fontSize: 16,
+  },
+  ok: {
+    alignSelf: 'flex-end',
+    marginTop: 16,
+    color: vars.color.red,
+    fontSize: 16,
+  },
+});

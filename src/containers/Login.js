@@ -31,6 +31,9 @@ const mapDispatchToProps = (dispatch) => {
           }
         });
       },
+      recoverPwd() {
+        Actions.masterRecoverPwd();
+      },
     },
   };
 };

@@ -1,60 +1,65 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Image,
   Platform,
   StyleSheet,
   Text,
   TouchableHighlight,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 
-import Input from '../components/Input';
+import Input from "../components/Input";
 
-import i18n from '../i18n';
-import vars from '../vars';
+import i18n from "../i18n";
+import vars from "../vars";
 
 const i18nEnter = Platform.select({
   ios: i18n.enterTo,
-  android: i18n.enterTo.toUpperCase(),
+  android: i18n.enterTo.toUpperCase()
+});
+
+const i18nRecovery = Platform.select({
+  ios: i18n.forgotPwd,
+  android: i18n.forgotPwd.toUpperCase()
 });
 
 const icons = {
   ...Platform.select({
     android: {
-      email: require('../icons/mail.png'),
-      password: require('../icons/password.png'),
-      warning: require('../icons/android/warning.png'),
-    },
-  }),
+      email: require("../icons/mail.png"),
+      password: require("../icons/password.png"),
+      warning: require("../icons/android/warning.png")
+    }
+  })
 };
 
 type TProps = {
   actions: Object,
-  onAuthSuccess: () => void,
+  onAuthSuccess: () => void
 };
 
 type TState = {
   hasError: boolean,
   responseError: null | Object,
-  validationStatus: null | string,
+  validationStatus: null | string
 };
 
-const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
+const ALL_FIELDS_REQUIRED = "ALL_FIELDS_REQUIRED";
 
 export default class Login extends Component<TProps, TState> {
   state = {
     hasError: false,
     responseError: null,
-    validationStatus: null,
+    validationStatus: null
   };
 
   usernameRef: Object;
   passwordRef: Object;
 
-  setUsernameRef = (ref: Object) => this.usernameRef = ref;
-  setPasswordRef = (ref: Object) => this.passwordRef = ref;
+  setUsernameRef = (ref: Object) => (this.usernameRef = ref);
+  setPasswordRef = (ref: Object) => (this.passwordRef = ref);
 
   componentWillReceiveProps(nextProps: Object) {
     if (nextProps.error !== this.state.responseError) {
@@ -84,9 +89,7 @@ export default class Login extends Component<TProps, TState> {
   error = (text: string, withImage: boolean = true) => (
     <View style={styles.error}>
       <Text style={styles.errorText}>{text}</Text>
-      {withImage && (
-        <Image source={icons.warning} />
-      )}
+      {withImage && <Image source={icons.warning} />}
     </View>
   );
 
@@ -100,6 +103,7 @@ export default class Login extends Component<TProps, TState> {
   };
 
   render() {
+    const { recoverPwd } = this.props;
     const { validationStatus, responseError } = this.state;
 
     return (
@@ -121,16 +125,20 @@ export default class Login extends Component<TProps, TState> {
             onChange={this.onChangeInput}
             placeholder={i18n.passwordTip}
             ref={this.setPasswordRef}
-            secureTextEntry={true}
+            secureTextEntry
             style={styles.input}
           />
-          {validationStatus === ALL_FIELDS_REQUIRED && (
-            this.error(i18n.errors.allFieldsRequired)
-          )}
-          {responseError && (
-            this.error(responseError.detail, false)
-          )}
+          {validationStatus === ALL_FIELDS_REQUIRED &&
+            this.error(i18n.errors.allFieldsRequired)}
+          {responseError && this.error(responseError.detail, false)}
         </View>
+        <TouchableHighlight
+          activeOpacity={1}
+          onPress={recoverPwd}
+          style={styles.recoveryButton}
+        >
+          <Text style={styles.recoveryButtonText}>{i18nRecovery}</Text>
+        </TouchableHighlight>
         <TouchableHighlight
           activeOpacity={1}
           onPress={this.onLoginUserPress}
@@ -148,48 +156,57 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 15,
-    marginRight: 15,
+    marginRight: 15
   },
   wrapper: {
-    flex: 1,
+    flex: 1
   },
   input: {
     ...Platform.select({
       android: {
-        marginLeft: 16,
-      },
-    }),
+        marginLeft: 16
+      }
+    })
   },
   enterButton: {
     marginBottom: 15,
     backgroundColor: vars.color.red,
     borderRadius: 22,
     height: 44,
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
     ...Platform.select({
       android: {
         height: 48,
         width: 240,
-        borderRadius: 24,
-      },
-    }),
+        borderRadius: 24
+      }
+    })
   },
   enterButtonText: {
     color: vars.color.white,
     ...Platform.select({
       ios: {
-        fontSize: 17,
-      },
-    }),
+        fontSize: 17
+      }
+    })
   },
   error: {
     marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   errorText: {
-    color: vars.color.red,
+    color: vars.color.red
   },
+  recoveryButton: {
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    marginBottom: 16
+  },
+  recoveryButtonText: {
+    color: vars.color.red
+  }
 });
