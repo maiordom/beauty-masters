@@ -54,8 +54,13 @@ export const getAddresses = (params: Object) =>
         const address = {
           address: item.attributes.address,
           id: item.id,
+          location: {
+            lat: item.attributes.lat,
+            lng: item.attributes.lon,
+          },
           name: item.attributes.name,
           schedules: [],
+          subwayStation: item.attributes.subway_station,
           timeTable: {},
         };
 

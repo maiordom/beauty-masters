@@ -17,7 +17,7 @@ export function searchMasters(params: { query: string }) {
       longitude: master.attributes.lon,
     },
     id: master.id,
-    masterType: master.attributes.is_salon,
+    isSalon: master.attributes.is_salon,
     photo: master.attributes.avatar,
     services: master.attributes.master_services.map(({ duration, id, price, title }) => ({
       duration,

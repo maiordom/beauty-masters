@@ -51,15 +51,15 @@ export default class MapCard extends Component<TProps, TState> {
       address,
       closestDate,
       distance,
+      isSalon,
       location,
-      masterType,
       photo: uri,
       services,
       type,
       username,
     } = this.props;
 
-    const subtitle = masterType === 1 ? i18n.card.privareMaster : i18n.card.salon;
+    const subtitle = isSalon ? i18n.card.salon : i18n.card.privateMaster;
 
     return (
       <TouchableWithoutFeedback onPress={this.onPress}>

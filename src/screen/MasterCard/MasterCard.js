@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 
 import MasterCard from '../../components/MasterCard/MasterCard';
 
-import { getMasterById } from '../../actions/MasterCard';
+import { getMasterById, getAddresses } from '../../actions/MasterCard';
 import { addToFavorites, removeFromFavorites } from '../../actions/Favorites';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -16,6 +16,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     addToFavorites,
+    getAddresses,
     getMasterById,
     removeFromFavorites,
   }, dispatch),

@@ -11,7 +11,6 @@ export default {
   ],
   addMasterCard: 'Добавить еще карточку мастера',
   authAsMaster: 'Авторизоваться как мастер услуг',
-  buildingShort: 'стр',
   calendar: 'Календарь',
   call: 'Позвонить',
   card: {
@@ -153,7 +152,6 @@ export default {
     ultrasound: 'Ультразвук',
     ultraviolet: 'Ультрафиолет',
   },
-  houseShort: 'д',
   list: 'Список',
   location: {
     distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,

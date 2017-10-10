@@ -1,22 +1,28 @@
 import * as DictionariesService from '../services/Dictionaries';
 import actions from '../constants/Common';
 
+export const setServices = (dispatch, services) =>
+  dispatch({
+    type: actions.DICTIONARIES_SERVICES_SET,
+    payload: { services },
+  });
+
+export const setCategoryServices = (dispatch, categoryServices) =>
+  dispatch({
+    type: actions.DICTIONARIES_CATEGORY_SERVICES_SET,
+    payload: { categoryServices },
+  });
+
 export const getServices = () =>
   dispatch => DictionariesService.getServices()
     .then(res => {
-      dispatch({
-        type: actions.DICTIONARIES_SERVICES_SET,
-        payload: { services: res.services },
-      });
+      setServices(dispatch, res.services);
     });
 
 export const getCategoryServices = () =>
   dispatch => DictionariesService.getCategoryServices()
     .then(res => {
-      dispatch({
-        type: actions.DICTIONARIES_CATEGORY_SERVICES_SET,
-        payload: { categoryServices: res.categoryServices },
-      });
+      setCategoryServices(dispatch, res.categoryServices);
     });
 
 export default null;

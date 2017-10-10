@@ -10,13 +10,13 @@ export type TMapCard = {
     longitude: number,
   },
   id: number,
-  masterType: number,
+  isSalon: boolean,
   photo: string,
   services: {
     duration: string,
     id: number,
     price: number,
     title: string,
-  })),
+  },
   username: string,
 };

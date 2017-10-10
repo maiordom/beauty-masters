@@ -2,20 +2,21 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  StyleSheet,
-  Text,
+  Dimensions,
   Image,
+  InteractionManager,
   ListView,
   Platform,
-  Dimensions,
-  InteractionManager,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
 import Calendar from '../Calendar';
+import { prepareEventDates } from '../../utils/Calendar';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -32,30 +33,29 @@ const icons = {
 
 type Address = {
   id: number,
-  masterSchedules: Array<any>,
-  salonTitle: string,
-  street: string,
-  house: string,
-  building?: string,
-  subwayStation?: string,
-  latlng: {
-    lattitude: string,
-    longitude: string,
+  location: {
+    lat: string,
+    lng: string,
   },
+  name: string,
 };
 
-type Props = {
+type TProps = {
+  addresses: Array<Address>,
+  isSalon: boolean,
+  masterPhoto: string,
+  salonName: string,
   scrollToEnd: Function,
-  addresses: Array<Address>
+  username: string,
 };
 
-type State = {
+type TState = {
+  addresses: any,
   selectedAddress: number,
   selectedDate: string,
-  addresses: any,
 };
 
-export default class MasterCardShedule extends Component<void, Props, State> {
+export default class MasterCardShedule extends Component<TProps, TState> {
   props: Props;
   state: State;
 
@@ -65,33 +65,38 @@ export default class MasterCardShedule extends Component<void, Props, State> {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      selectedAddress: 0,
-      selectedDate: moment().add(1, 'day').format('YYYY-MM-DD'),
       addresses: ds.cloneWithRows(props.addresses),
+      scheduleShow: true,
+      selectedAddress: 0,
+      selectedDate: moment().format('YYYY-MM-DD'),
+      today: moment().format('YYYY-MM-DD'),
     };
   }
 
   onDateSelect = (date: string) => {
-    this.setState({ selectedDate: date });
+    this.setState({ selectedDate: date, scheduleShow: true });
     InteractionManager.runAfterInteractions(() => {
       this.props.scrollToEnd();
     });
   };
 
+  onMonthChange = (diffMonths: boolean, eventDates: Array<any>) => {
+    this.eventDates = eventDates;
+    this.setState({ scheduleShow: false });
+  };
+
   onMapPress = () => {
     const {
-      latlng,
-      salonTitle,
-      street,
-      house,
-      building,
+      address,
+      location,
     } = this.getSelectedAddress();
 
     Actions.masterLocation({
-      latlng,
-      title: 'Марина Ф',
-      subtitle: salonTitle,
-      address: `${street}, ${i18n.houseShort} ${house} ${building || ''}`
+      address,
+      isSalon: this.props.isSalon,
+      location,
+      photo: this.props.masterPhoto,
+      username: this.props.username,
     });
   };
 
@@ -101,6 +106,40 @@ export default class MasterCardShedule extends Component<void, Props, State> {
 
     return addresses[index || selectedAddress];
   };
+
+  getDateStart() {
+    const address = this.getSelectedAddress();
+
+    let startDate = address.timeTable.dateStart;
+    let startDateMoment = moment(startDate);
+    const { intervalKey } = address.timeTable;
+
+    if (startDateMoment.get('month') !== moment().get('month')) {
+      startDate = moment().set('date', 1).format('YYYY-MM-DD');
+    }
+
+    return startDate;
+  }
+
+  getSelectedDay = (date: string) => {
+    const address = this.getSelectedAddress();
+
+    if (!this.eventDates) {
+      this.eventDates = prepareEventDates(
+        address.timeTable.intervalKey,
+        this.getDateStart(),
+      );
+    }
+
+    const hasSelectedDate = this.eventDates.includes(date);
+
+    if (hasSelectedDate) {
+      return {
+        timeStart: address.timeTable.timeStart,
+        timeEnd: address.timeTable.timeEnd,
+      };
+    }
+  }
 
   onAddressesSwipe = (event: any) => {
     const clientWidth = Dimensions.get('window').width;
@@ -114,9 +153,7 @@ export default class MasterCardShedule extends Component<void, Props, State> {
 
   renderAddress = (index: number) => {
     const {
-      street,
-      house,
-      building,
+      address,
       subwayStation,
     } = this.getSelectedAddress(index);
 
@@ -124,7 +161,7 @@ export default class MasterCardShedule extends Component<void, Props, State> {
       <View style={styles.address}>
         <View>
           <Text style={styles.addressTitle}>
-            {street}, {i18n.houseShort}. {house}, {i18n.buildingShort}. {building}
+            {address}
           </Text>
           <View style={styles.metro}>
             <Image source={icons.location} style={styles.location} />
@@ -141,13 +178,13 @@ export default class MasterCardShedule extends Component<void, Props, State> {
   renderAddresses = () => (
     <View style={styles.addressWrapper}>
       <ListView
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={this.onAddressesSwipe}
-        scrollEventThrottle={200}
         dataSource={this.state.addresses}
+        horizontal
+        onScroll={this.onAddressesSwipe}
+        pagingEnabled
         renderRow={(rowData, _, index) => this.renderAddress(index)}
+        scrollEventThrottle={200}
+        showsHorizontalScrollIndicator={false}
       />
       <View style={styles.dots}>
         {this.props.addresses.map((address, index) => (
@@ -160,29 +197,37 @@ export default class MasterCardShedule extends Component<void, Props, State> {
     </View>
   );
 
-  renderCalendar = () => (
-    <View style={styles.calendar}>
-      <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
-      <Calendar
-        activeFrom={moment()}
-        selectedDate={this.state.selectedDate}
-        onDateSelect={this.onDateSelect}
-      />
-    </View>
-  );
+  renderCalendar = () => {
+    const address = this.getSelectedAddress();
+    const { intervalKey } = address.timeTable;
+
+    return (
+      <View style={styles.calendar}>
+        <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
+        <Calendar
+          interval={{ key: intervalKey }}
+          onDateSelect={this.onDateSelect}
+          onMonthChange={this.onMonthChange}
+          selectedDate={this.state.selectedDate}
+          startDate={this.getDateStart()}
+        />
+      </View>
+    );
+  };
+
+  getScheduleTitle = (schedule) => [
+    i18n.accept,
+    i18n.from.toLowerCase(),
+    schedule.timeStart,
+    i18n.to.toLowerCase(),
+    schedule.timeEnd
+  ].join(' ');
 
   renderSchedule = () => {
-    const { selectedDate } = this.state;
-
-    const {
-      masterSchedules,
-      salonTitle,
-      street,
-      house,
-      building,
-    } = this.getSelectedAddress();
-
-    const schedule = masterSchedules.find(day => day.date === selectedDate);
+    const { address } = this.getSelectedAddress();
+    const { isSalon, salonName } = this.props;
+    const { selectedDate, scheduleShow } = this.state;
+    const schedule = this.getSelectedDay(selectedDate);
 
     return (
       <View style={styles.scheduleWrapper}>
@@ -190,26 +235,25 @@ export default class MasterCardShedule extends Component<void, Props, State> {
           ? (
             <View style={styles.schedule}>
               <View style={styles.scheduleTextWrapper}>
-                <Text style={styles.scheduleText}>
-                  {i18n.accept} {i18n.from.toLowerCase()} {schedule.timeStart}
-                  {' '}{i18n.to.toLowerCase()} {schedule.timeEnd}
-                </Text>
-                <Text style={styles.scheduleText}>{i18n.salon} «{salonTitle}»</Text>
-                <Text style={styles.scheduleText}>
-                  {i18n.onAddress} {street}, {i18n.houseShort}. {house}, {i18n.buildingShort}. {building}
-                </Text>
+                <Text style={styles.scheduleText}>{this.getScheduleTitle(schedule)}</Text>
+                {isSalon && (
+                  <Text style={styles.scheduleText}>{i18n.salon} «{salonName}»</Text>
+                )}
+                <Text style={styles.scheduleText}>{i18n.onAddress} {address}</Text>
               </View>
               <TouchableOpacity onPress={this.onMapPress} style={styles.mapButton}>
                 <Image source={icons.map} style={styles.map} />
               </TouchableOpacity>
             </View>
           )
-          : (
-            <View style={styles.scheduleEmpty}>
-              <Image source={icons.calendar} style={styles.calendarIcon} />
-              <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
-            </View>
-          )
+          : scheduleShow
+            ? (
+              <View style={styles.scheduleEmpty}>
+                <Image source={icons.calendar} style={styles.calendarIcon} />
+                <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
+              </View>
+            )
+            : null
         }
       </View>
     );

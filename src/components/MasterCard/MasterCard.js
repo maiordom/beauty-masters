@@ -38,27 +38,22 @@ const icons = Platform.select({
   ios: {},
 });
 
-type DefaultProps = {
-  addresses: Array<void>,
-  workPhoto: Array<void>,
-};
-
-type Props = MasterCardType & {
+type TProps = MasterCardType & {
   actions: Object,
   addresses?: Array<*>,
   snippet: TMapCard,
 };
 
-type State = {
-  showWorksGallery: boolean,
-  showWorksIndex: number,
-  scrollViewHeight: 0,
+type TState = {
   listHeight: 0,
+  scrollViewHeight: 0,
   showFirstGroup: boolean,
   showSecondGroup: boolean,
+  showWorksGallery: boolean,
+  showWorksIndex: number,
 };
 
-export default class MasterCard extends Component<DefaultProps, Props, State> {
+export default class MasterCard extends Component<TProps, TState> {
   static defaultProps = {
     addresses: [],
     workPhoto: [],
@@ -76,8 +71,11 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
   scrollViewRef: ScrollView;
 
   componentDidMount() {
-    const { actions, id } = this.props;
-    actions.getMasterById(id);
+    this.props.actions.getMasterById(this.props.id).then((res) => {
+      if (!res.error) {
+        this.props.actions.getAddresses(this.props.id);
+      }
+    });
 
     InteractionManager.runAfterInteractions(() => this.renderComponents());
   }
@@ -112,10 +110,13 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
       handlingTools,
       id,
       isFavorite,
-      masterPhoto,
+      isSalon,
+      masterPhotos,
+      salonName,
       services,
       snippet,
-      workPhoto,
+      username,
+      workPhotos,
     } = this.props;
 
     const {
@@ -124,6 +125,8 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
       showFirstGroup,
       showSecondGroup,
     } = this.state;
+
+    const masterPhoto = masterPhotos && masterPhotos.length > 0 && masterPhotos[0].sizes.m;
 
     return (
       <View style={styles.container}>
@@ -148,10 +151,10 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
               />
               <MasterCardHeader {...this.props} />
             </View>
-            {workPhoto && workPhoto.length > 0 && (
+            {workPhotos && workPhotos.length > 0 && (
               <MasterCardWorks
                 onWorksShow={this.onWorksShow}
-                workPhoto={workPhoto}
+                workPhotos={workPhotos}
               />
             )}
             {services && services.length > 0 && (
@@ -165,7 +168,11 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
             {addresses && addresses.length > 0 && (
               <MasterCardSchedule
                 addresses={addresses}
+                isSalon={isSalon}
+                masterPhoto={masterPhoto}
+                salonName={salonName}
                 scrollToEnd={this.scrollToEnd}
+                username={username}
               />
             )}
           </Fade>
@@ -178,7 +185,10 @@ export default class MasterCard extends Component<DefaultProps, Props, State> {
         />
         {showWorksGallery && (
           <View style={styles.gallery}>
-            <Gallery initialPage={showWorksIndex} images={workPhoto} />
+            <Gallery
+              initialPage={showWorksIndex}
+              images={workPhotos.map((photo) => photo.sizes.m)}
+            />
             <TouchableOpacity
               activeOpacity={1}
               onPress={this.onWorksHide}
