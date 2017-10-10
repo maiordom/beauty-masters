@@ -71,9 +71,8 @@ export default () => (
           component={Serp}
         />
         <Scene
-          initial
           key="card"
-          component={props => <MasterCard {...props} id={2594} />}
+          component={MasterCard}
         />
         <Scene
           key="masterLocation"
