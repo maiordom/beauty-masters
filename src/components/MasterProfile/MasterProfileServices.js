@@ -48,22 +48,19 @@ export default class MasterProfileServices extends Component<TProps, void> {
               <View style={styles.serviceTitle}>
                 <Text>{serviceGroup.title}</Text>
               </View>
-              {serviceGroup.services.map(service => {
-                console.log(service, !isEmpty(service.price), !isEmpty(service.duration));
-                return (
-                  <View style={styles.service} key={service.serviceId + service.categoryId + service.title}>
-                    <Text>{service.title}</Text>
-                    <Text style={styles.serviceInfo}>
-                      {!isEmpty(service.price) && (
-                        <Text>{service.price} р</Text>
-                      )}
-                      {service.duration > 0 && (
-                        <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
-                      )}
-                    </Text>
-                  </View>
-                );
-              })}
+              {serviceGroup.services.map(service => (
+                <View style={styles.service} key={service.serviceId + service.categoryId + service.title}>
+                  <Text>{service.title}</Text>
+                  <Text style={styles.serviceInfo}>
+                    {!isEmpty(service.price) && (
+                      <Text>{service.price} р</Text>
+                    )}
+                    {service.duration > 0 && (
+                      <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
+                    )}
+                  </Text>
+                </View>
+              ))}
             </View>
           ))}
         </ScrollView>
