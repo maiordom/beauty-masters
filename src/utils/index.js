@@ -122,11 +122,15 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
 }
 
 export function groupServices(services: Array<any>, dictionaries: Object) {
-  services.forEach(service => {
+  console.log(services);
+
+  services.forEach((service) => {
     let parentCategory;
     let categoryId = service.categoryId;
 
-    service.title = dictionaries.serviceById[service.serviceId].title;
+    if (!service.title) {
+      service.title = dictionaries.serviceById[service.serviceId].title;
+    }
 
     do {
       parentCategory = dictionaries.categoryServiceById[categoryId];

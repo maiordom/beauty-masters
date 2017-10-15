@@ -20,14 +20,14 @@ import vars from '../../vars';
 
 const tabs = [
   {
-    key: 'profile',
+    key: 'info',
     title: Platform.select({
       ios: i18n.profile,
       android: i18n.profile.toUpperCase(),
     }),
   },
   {
-    key: 'calendar',
+    key: 'calendars',
     title: Platform.select({
       ios: i18n.calendar,
       android: i18n.calendar.toUpperCase(),
@@ -43,18 +43,19 @@ const tabs = [
 ];
 
 type TProps = {
-  profile: Object,
   actions: Object,
+  profile: Object,
+  sectionKey: string,
 }
 
 type TState = {
-  activeTab: string,
+  tabCurrentKey: string,
   tabBorderOffset: Animated,
 }
 
 export default class MasterProfile extends Component<TProps, TState> {
   state = {
-    activeTab: 'profile',
+    tabCurrentKey: this.props.sectionKey,
     tabBorderOffset: new Animated.Value(0),
   };
 
@@ -64,8 +65,9 @@ export default class MasterProfile extends Component<TProps, TState> {
     }
   }
 
-  onTabPress = (activeTab: string, index: number) => () => {
-    this.setState({ activeTab });
+  onTabPress = (tabCurrentKey: string, index: number) => () => {
+    this.setState({ tabCurrentKey });
+    this.props.actions.selectProfileSection(tabCurrentKey);
 
     Animated
       .timing(this.state.tabBorderOffset, {
@@ -76,7 +78,7 @@ export default class MasterProfile extends Component<TProps, TState> {
 
   render() {
     const { profile } = this.props;
-    const { activeTab, tabBorderOffset } = this.state;
+    const { tabCurrentKey, tabBorderOffset } = this.state;
 
     if (!profile.userId) {
       return <View><Text>Loader</Text></View>;
@@ -87,7 +89,7 @@ export default class MasterProfile extends Component<TProps, TState> {
         <View style={styles.tabsWrapper}>
           {tabs.map((tab, index) => (
             <TouchableOpacity key={tab.title} onPress={this.onTabPress(tab.key, index)}>
-              <Text style={[styles.tabsText, activeTab === tab.key ? styles.tabsTextActive : null]}>
+              <Text style={[styles.tabsText, tabCurrentKey === tab.key ? styles.tabsTextActive : null]}>
                 {tab.title}
               </Text>
             </TouchableOpacity>
@@ -97,9 +99,9 @@ export default class MasterProfile extends Component<TProps, TState> {
           />
         </View>
         <View style={styles.content}>
-          {activeTab === 'profile' && <MasterProfileInfo />}
-          {activeTab === 'calendar' && <MasterProfileCalendars />}
-          {activeTab === 'services' && <MasterProfileServices />}
+          {tabCurrentKey === 'info' && <MasterProfileInfo />}
+          {tabCurrentKey === 'calendars' && <MasterProfileCalendars />}
+          {tabCurrentKey === 'services' && <MasterProfileServices />}
         </View>
       </View>
     );

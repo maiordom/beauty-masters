@@ -40,6 +40,7 @@ export const getMasterServices = (params: Object) =>
         duration: item.attributes.duration,
         price: item.attributes.price,
         serviceId: item.attributes.service_id,
+        title: item.attributes.title,
       }));
     });
 

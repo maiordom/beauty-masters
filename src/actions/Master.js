@@ -16,8 +16,9 @@ export const createMaster = () => (dispatch, getState) => {
   const params = {
     data: {
       attributes: {
-        user_id: state.profile.userId,
         ...createMasterQuery,
+        status: 0,
+        user_id: state.profile.userId,
       },
     },
   };

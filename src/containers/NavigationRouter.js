@@ -125,6 +125,7 @@ export default () => (
           leftButtonHidden
         />
         <Scene
+          initial
           key="masterProfile"
           component={MasterProfile}
           title={i18n.userProfile}

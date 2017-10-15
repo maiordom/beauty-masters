@@ -98,6 +98,7 @@ export default {
     form: 'На формы',
     french: 'Французский',
     gradientManicure: 'Градиентный маникюр',
+    gradientPedicure: 'Градиентный педикюр',
     hardware: 'Аппаратный',
     homeAllowance: 'Надбавка за выезд на дом, р',
     hot: 'Горячий маникюр',

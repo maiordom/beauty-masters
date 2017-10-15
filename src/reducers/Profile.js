@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 
-import { makeReducer, groupServices } from '../utils';
+import { makeReducer, groupServices, deepUpdate } from '../utils';
 import { intervalGroup } from '../store/Interval';
 
 import type { TProfileData } from '../types/ProfileData';
@@ -10,12 +10,14 @@ import c from '../constants/Profile';
 const intervalModel = intervalGroup();
 
 export default makeReducer((state, action) => ({
-  [c.PROFILE_DATA_SET]: () => {
-    const { email, userId, masterCards } = action;
+  [c.PROFILE_SECTION_SET]: (state, { payload: { sectionKey } }) =>
+    deepUpdate(state, 'profile', { sectionKey }),
 
+  [c.PROFILE_DATA_SET]: (state, { payload: { email, userId, masterCards } }) => {
     const profile: TProfileData = {
       email,
       masterCards,
+      sectionKey: state.profile.sectionKey,
       userId,
     };
 
@@ -23,9 +25,7 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [c.PROFILE_MAIN_SET]: () => {
-    const { index } = action;
-
+  [c.PROFILE_MAIN_SET]: (state, { payload: { index } }) => {
     state.profile.masterCards.forEach((card, masterIndex) => {
       card.isMain = masterIndex === index;
     });

@@ -12,11 +12,11 @@ const initialState = {
   activityIndicator: { animating: false },
   auth: {},
   dictionaries: {},
-  favorites: { isLoaded: false, cards: [] },
+  favorites: { cards: [], isLoaded: false },
   geo: Geo,
   masterCards: {},
   masterEditor: MasterEditor,
-  profile: { masterCards: [] },
+  profile: { masterCards: [], sectionKey: 'info' },
   searchForm: SearchForm,
 };
 

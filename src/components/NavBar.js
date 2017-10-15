@@ -28,10 +28,12 @@ class NavBar extends Component {
       backButtonImage,
       leftButtonHidden,
       leftButtonIconStyle,
-      leftButtonStyle,
       leftButtonMenu,
-      title,
+      leftButtonStyle,
       onLeftButtonPress,
+      onRightButtonPress,
+      rightButtonImage,
+      title,
     } = this.props;
 
     return (
@@ -47,13 +49,20 @@ class NavBar extends Component {
             />
           </TouchableOpacity>)}
         <Text
-          style={[styles.title, leftButtonHidden
-            ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
-            : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
-          ]}
+          style={[styles.title, leftButtonHidden && { marginLeft: 16  }]}
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
+        {rightButtonImage && (
+          <TouchableOpacity
+            style={styles.rightButton}
+            onPress={onRightButtonPress}
+          >
+            <Image
+              source={rightButtonImage}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -61,7 +70,7 @@ class NavBar extends Component {
 
 // Declare only one React component per file
 // eslint-disable-next-line
-const Scene = component => class SceneComponent extends Component {
+const Scene = (component) => class SceneComponent extends Component {
   onLeftButtonPress = () => {
     const {
       leftButtonMenu,
@@ -83,10 +92,22 @@ const Scene = component => class SceneComponent extends Component {
     Actions.pop();
   };
 
+  onRightButtonPress = () => {
+    const { onRightButtonPress } = this.props;
+
+    if (onRightButtonPress) {
+      onRightButtonPress();
+    }
+  }
+
   render() {
     return (
       <View style={styles.scene}>
-        <NavBar {...this.props} onLeftButtonPress={this.onLeftButtonPress} />
+        <NavBar
+          {...this.props}
+          onLeftButtonPress={this.onLeftButtonPress}
+          onRightButtonPress={this.onRightButtonPress}
+        />
         {React.createElement(component, this.props)}
       </View>
     );
@@ -122,14 +143,17 @@ const styles = StyleSheet.create({
     }),
   },
   title: {
+    flex: 1,
     color: vars.color.white,
     fontSize: 20,
     alignSelf: 'center',
   },
   leftButton: {
-    paddingLeft: 16,
-    paddingRight: 16,
+    padding: 16,
     justifyContent: 'center',
+  },
+  rightButton: {
+    padding: 16,
   },
   sidebar: {
     position: 'absolute',
