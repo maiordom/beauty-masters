@@ -21,8 +21,8 @@ const i18nEnter = Platform.select({
 });
 
 const i18nRecovery = Platform.select({
-  ios: i18n.forgotPwd,
-  android: i18n.forgotPwd.toUpperCase(),
+  ios: i18n.forgotPassword.question,
+  android: i18n.forgotPassword.question.toUpperCase(),
 });
 
 const icons = {

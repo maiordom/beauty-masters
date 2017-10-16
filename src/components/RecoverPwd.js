@@ -91,7 +91,7 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
             onChange={this.onChange}
           />
           <Text style={styles.text}>
-            {i18n.forgotPwdText}.
+            {i18n.forgotPassword.text}.
           </Text>
         </View>
         <ButtonControl
@@ -103,8 +103,8 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
           <View>
             <Text style={styles.success}>
               {error
-                ? (errorText || i18n.forgotPwdError)
-                : i18n.forgotPwdSuccess
+                ? (errorText || i18n.forgotPassword.error)
+                : i18n.forgotPassword.success
               }
             </Text>
             <TouchableOpacity onPress={this.onBack}>
