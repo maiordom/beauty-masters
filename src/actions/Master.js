@@ -23,11 +23,11 @@ export const createMaster = () => (dispatch, getState) => {
     },
   };
 
-  const handleResponse = (res) => {
+  const handleResponse = ({ masterCardId }) => {
     dispatch(setActivityIndicator(false));
     dispatch({
-      type: actions.MASTER_CARD_SET_ID,
-      ...res,
+      type: actions.MASTER_CARD_ID_SET,
+      payload: { masterCardId },
     });
 
     if (res.masterCardId) {

@@ -5,7 +5,17 @@ export const setGeneralInfo = (masterCard) => ({
   payload: { masterCard },
 });
 
-export const setServices = (masterCard) => ({
-  type: actions.MASTER_EDIT_SERVICES_SET,
+export const setManicureServices = (masterCard) => ({
+  type: actions.MASTER_EDIT_MANICURE_SERVICES_SET,
+  payload: { masterCard },
+});
+
+export const setPedicureServices = (masterCard) => ({
+  type: actions.MASTER_EDIT_PEDICURE_SERVICES_SET,
+  payload: { masterCard },
+});
+
+export const setHandlingTools = (masterCard) => ({
+  type: actions.MASTER_EDIT_HANDLING_TOOLS_SET,
   payload: { masterCard },
 });

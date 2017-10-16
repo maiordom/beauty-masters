@@ -21,6 +21,7 @@ export default makeReducer((state, action) => ({
       userId,
     };
 
+    state.masterEditor.masterCardId = find(masterCards, { isMain: true }).id;
     state.profile = profile;
     return state;
   },
@@ -30,6 +31,7 @@ export default makeReducer((state, action) => ({
       card.isMain = masterIndex === index;
     });
 
+    state.masterEditor.masterCardId = find(masterCards, { isMain: true }).id;
     state.profile.masterCards = [...state.profile.masterCards];
 
     return state;

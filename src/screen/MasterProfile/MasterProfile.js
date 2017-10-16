@@ -7,7 +7,12 @@ import NavBar from '../../components/NavBar';
 import MasterProfile from '../../components/MasterProfile/MasterProfile';
 
 import { getUserProfile, selectProfileSection } from '../../actions/Profile';
-import { setGeneralInfo, setServices } from '../../actions/MasterEdit';
+import {
+  setGeneralInfo,
+  setHandlingTools,
+  setManicureServices,
+  setPedicureServices,
+} from '../../actions/MasterEdit';
 
 const rightButtonImage = require('../../icons/edit.png');
 
@@ -30,7 +35,9 @@ const mapDispatchToProps = (dispatch) => ({
       } break;
       case 'calendars': { Actions.masterEditorCalendar(); } break;
       case 'services': {
-        dispatch(setServices(masterCard));
+        dispatch(setManicureServices(masterCard));
+        dispatch(setPedicureServices(masterCard));
+        dispatch(setHandlingTools(masterCard));
         Actions.masterEditorService();
       } break;
     }
