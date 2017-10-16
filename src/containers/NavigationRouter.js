@@ -88,12 +88,12 @@ export default () => (
         <Scene
           key="masterRecoverPwd"
           component={MasterRecoverPwd}
-          title="Восстановление пароля"
+          title={i18n.forgotPassword.title}
         />
         <Scene
           key="masterSetNewPwd"
           component={MasterSetNewPwd}
-          title="Задать новый пароль"
+          title={i18n.forgotPassword.setNew}
           leftButtonHidden
         />
         <Scene
