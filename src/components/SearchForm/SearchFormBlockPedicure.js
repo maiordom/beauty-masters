@@ -62,7 +62,7 @@ export default class SearchFormBlockPedicure extends Component {
             <FilterCheckBox {...service.europeanPedicure} onChange={onChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.coverage} />
-            {/* {любой гель-лак}*/}
+            {/* {любой гель-лак} */}
             <FilterCheckBox {...service.applyingShellacPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingBioGelPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingNailPolishPedicure} onChange={onChange} withInput={false} />

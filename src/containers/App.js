@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Platform, Linking } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
+import { Actions } from 'react-native-router-flux';
 
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
@@ -65,7 +66,34 @@ export default class App extends Component {
     setTimeout(() => {
       getLocation(true)(store.dispatch);
     }, 50);
+
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then(url => {
+        this.navigate(url);
+      });
+    } else {
+      Linking.addEventListener('url', this.handleOpenURL);
+    }
   }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.handleOpenURL);
+  }
+
+  handleOpenURL(event) {
+    this.navigate(event.url);
+  }
+
+  navigate = (url) => {
+    const route = url.replace(/.*?:\/\//g, '');
+    const token = route.match(/\/([^/]+)\/?$/)[1];
+    const routeName = route.split('/')[0];
+
+    if (routeName === 'reset-pwd') {
+      Actions.setNewPwd({ token });
+    }
+  }
+
 
   render() {
     return (

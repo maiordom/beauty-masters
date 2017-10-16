@@ -200,6 +200,7 @@ export default {
   next: 'Далее',
   no: 'Нет',
   passwordTip: 'Пароль (не менее 6 символов)',
+  passwordRepeat: 'Повторите пароль',
   pedicure: 'Педикюр',
   phone: 'Телефон (для звонков клиентов)',
   phoneShort: 'Телефон',
@@ -229,6 +230,11 @@ export default {
   salon: 'Салон',
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
+  setNewPwd: {
+    error: 'Не удалось установить новый пароль, попробуйте еще раз',
+    set: 'Установить',
+    success: 'Пароль был успешно изменен',
+  },
   schedule: {
     schedule: 'Расписание',
     wholeWeek: '7 дней в неделю',

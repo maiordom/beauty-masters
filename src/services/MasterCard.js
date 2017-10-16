@@ -9,7 +9,7 @@ const getPhotos = (included, type) =>
       l: photo.attributes.image.l,
       m: photo.attributes.image.m,
       s: photo.attributes.image.s,
-    }
+    },
   }));
 
 const getServices = (included) =>
@@ -21,7 +21,7 @@ const getServices = (included) =>
 
 export const getMasterById = (id: number) =>
   get(routes.getMasterById, {
-    include: 'addresses,master_services,master_photos,certificate_photos,portfolio_photos'
+    include: 'addresses,master_services,master_photos,certificate_photos,portfolio_photos',
   }, null, { id }).then((res: Object) => (res.error ? res : {
     addresses: [],
     id: res.data.id,

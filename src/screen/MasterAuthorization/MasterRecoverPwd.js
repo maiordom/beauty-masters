@@ -8,7 +8,7 @@ import { recoverPwd } from '../../actions/Profile';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    // recoverPwd,
+    recoverPwd,
   }, dispatch),
 });
 

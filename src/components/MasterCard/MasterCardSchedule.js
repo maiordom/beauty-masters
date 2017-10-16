@@ -111,7 +111,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
     const address = this.getSelectedAddress();
 
     let startDate = address.timeTable.dateStart;
-    let startDateMoment = moment(startDate);
+    const startDateMoment = moment(startDate);
     const { intervalKey } = address.timeTable;
 
     if (startDateMoment.get('month') !== moment().get('month')) {
@@ -220,7 +220,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
     i18n.from.toLowerCase(),
     schedule.timeStart,
     i18n.to.toLowerCase(),
-    schedule.timeEnd
+    schedule.timeEnd,
   ].join(' ');
 
   renderSchedule = () => {

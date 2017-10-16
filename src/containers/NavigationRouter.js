@@ -6,6 +6,7 @@ import { StyleSheet } from 'react-native';
 import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
 import MasterRecoverPwd from '../screen/MasterAuthorization/MasterRecoverPwd';
+import MasterSetNewPwd from '../screen/MasterAuthorization/MasterSetNewPwd';
 import MasterEditorGeneral from '../screen/MasterEditor/MasterEditorGeneral';
 import MasterEditorService from '../screen/MasterEditor/MasterEditorService';
 import MasterEditorHandlingTools from '../screen/MasterEditor/MasterEditorHandlingTools';
@@ -89,7 +90,12 @@ export default () => (
           component={MasterRecoverPwd}
           title="Восстановление пароля"
         />
-
+        <Scene
+          key="masterSetNewPwd"
+          component={MasterSetNewPwd}
+          title="Задать новый пароль"
+          leftButtonHidden
+        />
         <Scene
           key="masterEditorGeneral"
           title={i18n.masterEditor.generalInformation}

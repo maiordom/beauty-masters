@@ -62,7 +62,7 @@ export default class SearchFormBlockManicure extends Component {
             <FilterCheckBox {...service.europeanManicure} onChange={onChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.coverage} />
-            {/* {любой гель-лак}*/}
+            {/* {любой гель-лак} */}
             <FilterCheckBox {...service.applyingShellacManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingBioGelManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingNailPolishManicure} onChange={onChange} withInput={false} />

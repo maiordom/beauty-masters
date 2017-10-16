@@ -3,6 +3,7 @@
 import * as ProfileService from '../services/Profile';
 
 import constants from '../constants/Profile';
+import { setActivityIndicator } from './Common';
 
 export const getUserProfile = () => (dispatch: Function, getState: Function) => {
   const auth = getState().auth;
@@ -57,6 +58,41 @@ export const selectMainMaster = (index: number) => (dispatch: Function) => {
   dispatch({ type: constants.PROFILE_MAIN_SET, index });
 };
 
-export const recoverPwd = () => {
-  ProfileService.recoverPwd()
-}
+export const recoverPwd = (email) => dispatch => {
+  dispatch(setActivityIndicator(true));
+
+  const params = {
+    data: {
+      attributes: {
+        email,
+      },
+    },
+  };
+
+  return ProfileService.sendResetPwdLink(params)
+    .then(res => {
+      dispatch(setActivityIndicator(false));
+
+      return res;
+    });
+};
+
+export const setNewPwd = (password, token) => dispatch => {
+  dispatch(setActivityIndicator(true));
+
+  const params = {
+    data: {
+      attributes: {
+        token,
+        password,
+      },
+    },
+  };
+
+  return ProfileService.setNewPwd(params)
+    .then(res => {
+      dispatch(setActivityIndicator(false));
+
+      return res;
+    });
+};

@@ -21,8 +21,8 @@ export default class CustomSwitch extends Component<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   ref = {
-    toggle() { return; },
-    changeStateImmediately(value: boolean) { return; }
+    toggle() { },
+    changeStateImmediately(value: boolean) { },
   };
 
   onChange = (state: boolean) => {

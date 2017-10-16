@@ -30,11 +30,12 @@ type TState = {
   error: boolean,
 }
 
-export default class Favorites extends Component<void, TProps, TState> {
+export default class RecoverPwd extends Component<void, TProps, TState> {
   state: TState = {
     email: '',
     showModal: false,
     error: false,
+    errorText: '',
   };
 
   onChange = (email: string) => {
@@ -50,12 +51,14 @@ export default class Favorites extends Component<void, TProps, TState> {
 
     this.props.actions
       .recoverPwd(this.state.email)
-      .then((result) => {
-        if (!result) {
-          this.setState({ error: true });
+      .then((response) => {
+        if (response.error) {
+          return this.setState({ showModal: true, error: true, errorText: response.error.detail });
         }
-
         this.setState({ showModal: true });
+      })
+      .catch(() => {
+        this.setState({ error: true, showModal: true });
       });
   };
 
@@ -66,14 +69,17 @@ export default class Favorites extends Component<void, TProps, TState> {
       const { error } = this.state;
 
       if (!error) {
-        Actions.pop();
+        return Actions.pop();
       }
+
+      Actions.masterSetNewPwd();
     });
   };
 
   render() {
-    const { email, showModal, error } = this.state;
+    const { email, showModal, error, errorText } = this.state;
 
+    console.log('render then', errorText)
     return (
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
@@ -98,7 +104,7 @@ export default class Favorites extends Component<void, TProps, TState> {
           <View>
             <Text style={styles.success}>
               {error
-                ? i18n.forgotPwdError
+                ? (errorText || i18n.forgotPwdError)
                 : i18n.forgotPwdSuccess
               }
             </Text>

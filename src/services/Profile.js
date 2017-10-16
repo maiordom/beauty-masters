@@ -3,7 +3,7 @@
 import find from 'lodash/find';
 
 import routes from '../routes';
-import { get } from '../utils/Provider';
+import { get, post } from '../utils/Provider';
 
 export const getUserProfile = (headers: Object, params: Object) =>
   get(routes.getUserProfile, params, headers)
@@ -95,5 +95,9 @@ export const getAddresses = (params: Object) =>
         return address;
       });
     });
+
+export const sendResetPwdLink = (params: Object) => post(routes.sendResetPwdLink, params);
+
+export const setNewPwd = (params: Object) => post(routes.setNewPwd, params);
 
 export default null;
