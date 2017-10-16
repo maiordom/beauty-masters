@@ -85,6 +85,10 @@ export default class App extends Component {
   }
 
   navigate = (url) => {
+    if (!url) {
+      return;
+    }
+
     const route = url.replace(/.*?:\/\//g, '');
     const token = route.match(/\/([^/]+)\/?$/)[1];
     const routeName = route.split('/')[0];

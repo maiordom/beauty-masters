@@ -79,7 +79,6 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
   render() {
     const { email, showModal, error, errorText } = this.state;
 
-    console.log('render then', errorText)
     return (
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
