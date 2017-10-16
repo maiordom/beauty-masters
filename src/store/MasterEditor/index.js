@@ -77,10 +77,16 @@ const manicureCustomServicesQuery: Array<TCustomService> = [];
 const masterServicesQuery: Array<TMasterService> = [];
 const pedicureCustomServicesQuery: Array<TCustomService> = [];
 
-export default {
+const masterEditorObject = {
   ...params,
   createMasterQuery,
   manicureCustomServicesQuery,
   masterServicesQuery,
   pedicureCustomServicesQuery,
 };
+
+const masterEditorJSONString = JSON.stringify(masterEditorObject);
+
+export default JSON.parse(masterEditorJSONString);
+
+export const getCleanMasterEditorObject = () => JSON.parse(masterEditorJSONString);

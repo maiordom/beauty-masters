@@ -1,7 +1,7 @@
 // @flow
 
 import i18n from '../../i18n';
-import type { ServiceManicure } from '../../types/MasterEditor';
+import type { TServiceManicure } from '../../types/MasterEditor';
 
 const commonCategoryKey = 'manicure';
 const extensionCategoryKey = 'extension';
@@ -12,196 +12,196 @@ const manicure = (isActive: boolean) => ({
   categoryKey: commonCategoryKey,
   dictionaryKey: 'Manicure',
   title: i18n.manicure,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const classicManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ClassicManicure',
   title: i18n.filters.classic,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const hardwareManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'HardwareManicure',
   title: i18n.filters.hardware,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const europeanManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'EuropeanManicure',
   title: i18n.filters.european,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const combinedManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'CombinedManicure',
   title: i18n.filters.combined,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const expressManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ExpressManicure',
   title: i18n.filters.express,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const hotManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'HotManicure',
   title: i18n.filters.hot,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const spaManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'SPAManicure',
   title: i18n.filters.spa,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const applyingShellacManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureShellac',
   title: i18n.filters.applyingShellac,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const applyingBioGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureBiogel',
   title: i18n.filters.applyingBioGel,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const applyingNailPolishManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureNailPolish',
   title: i18n.filters.applyingNailPolish,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const applyingOfAnotherNailGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureOtherGel',
   title: i18n.filters.applyingOfAnotherNailGel,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const frenchManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureFrench',
   title: i18n.filters.french,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const moonManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureReverseFrench',
   title: i18n.filters.moon,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const reverseMoonManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureReverseMoon',
   title: i18n.filters.reverseMoon,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const stencilManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureStencil',
   title: i18n.filters.stencil,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const artDesignManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureArtDesign',
   title: i18n.filters.artDesign,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const gradientManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ManicureGradient',
   title: i18n.filters.gradientManicure,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const extensionManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'ManicureExtension',
   title: i18n.filters.nailExtension,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const extensionTipsAcrilycManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'ManicureExtensionTipsAcrilyc',
   title: i18n.filters.extensionTipsAcrilyc,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const extensionFormsAcrilycManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'ManicureExtensionFormsAcrilyc',
   title: i18n.filters.extensionFormsAcrilyc,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const extensionTipsGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'ManicureExtensionTipsGel',
   title: i18n.filters.extensionTipsGel,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const extensionAcrilycGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'ManicureExtensionAcrilycGel',
   title: i18n.filters.extensionAcrilycGel,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const removingNailPolishManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'ManicureRemovingNailPolish',
   title: i18n.filters.removingNailPolish,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const removingShellacManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'ManicureRemovingShellac',
   title: i18n.filters.removingShellac,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const removingBioGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'ManicureRemovingBioGel',
   title: i18n.filters.bioGel.gen,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const removingGelManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'ManicureRemovingGel',
   title: i18n.filters.removingGel,
-}: ServiceManicure);
+}: TServiceManicure);
 
 const removingNailsManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'ManicureRemovingNails',
   title: i18n.filters.removingNails.gen,
-}: ServiceManicure);
+}: TServiceManicure);
 
 export default {
   manicure,
