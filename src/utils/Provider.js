@@ -16,6 +16,14 @@ const handleFetchResponse = (
     console.log(res);
   }
 
+  if (__DEV__ && method === 'GET') {
+    console.log(`${path}::${method}::response`);
+
+    if (res.errors) {
+      console.log(res.errors);
+    }
+  }
+
   if (res.errors) {
     const { code, title, detail } = res.errors[0];
 
