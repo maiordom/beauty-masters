@@ -8,6 +8,7 @@ import MasterProfile from '../../components/MasterProfile/MasterProfile';
 
 import { getUserProfile, selectProfileSection } from '../../actions/Profile';
 import {
+  setCalendars,
   setGeneralInfo,
   setHandlingTools,
   setManicureServices,
@@ -33,7 +34,10 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(setGeneralInfo(masterCard));
         Actions.masterEditorGeneral();
       } break;
-      case 'calendars': { Actions.masterEditorCalendar(); } break;
+      case 'calendars': {
+        dispatch(setCalendars(masterCard));
+        Actions.masterEditorCalendar();
+      } break;
       case 'services': {
         dispatch(setManicureServices(masterCard));
         dispatch(setPedicureServices(masterCard));

@@ -19,3 +19,8 @@ export const setHandlingTools = (masterCard) => ({
   type: actions.MASTER_EDIT_HANDLING_TOOLS_SET,
   payload: { masterCard },
 });
+
+export const setCalendars = (masterCard) => ({
+  type: actions.MASTER_EDIT_CALENDARS_SET,
+  payload: { masterCard },
+});

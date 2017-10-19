@@ -4,6 +4,13 @@ import { makeReducer } from '../utils';
 
 import actions from '../constants/MasterEdit';
 
+import {
+  setCreateQueryParam,
+  setItemById,
+  setParam,
+  setScheduleQuery,
+} from './MasterEditorHelpers';
+
 const setHandlingTools = ({
   servicesData,
   servicesModels,
@@ -74,6 +81,88 @@ const setServices = ({
 };
 
 export default makeReducer((state, action) => ({
+  [actions.MASTER_EDIT_CALENDARS_SET]: (state, { payload: { masterCard } }) => {
+    const calendarsMapping = [
+      {
+        model: state.masterEditor.calendarSettingsOne,
+        name: 'calendarSettingsOne',
+      },
+      {
+        model: state.masterEditor.calendarSettingsTwo,
+        name: 'calendarSettingsTwo',
+      },
+      {
+        model: state.masterEditor.calendarSettingsThree,
+        name: 'calendarSettingsThree',
+      },
+    ];
+
+    const createPayload = (
+      sectionName,
+      modelName,
+      paramValue,
+      paramName,
+    ) => ({
+      sectionName,
+      modelName,
+      paramValue,
+      paramName,
+    });
+
+    masterCard.addresses.map((address, index) => {
+      const {
+        model: calendarModel,
+        name: sectionName,
+      } = calendarsMapping[index];
+
+      calendarModel.addressId = address.id;
+      calendarModel.timeTableId = address.timeTable.id;
+
+      [
+        createPayload(sectionName, 'salonTitleField', address.name, 'value'),
+        createPayload(sectionName, 'addressField', address.address, 'value'),
+        createPayload(sectionName, 'cityField', address.city, 'value'),
+        createPayload(sectionName, 'subwayStationField', address.subwayStation, 'value'),
+      ].forEach((payload) => {
+        setParam(payload, state);
+        setCreateQueryParam(payload, state, 'createAddressQuery');
+      });
+
+      [
+        createPayload(sectionName, 'timeStartField', address.timeTable.timeStart, 'value'),
+        createPayload(sectionName, 'timeEndField', address.timeTable.timeEnd, 'value'),
+        createPayload(sectionName, 'startDateField', address.timeTable.dateStart, 'value'),
+      ].forEach((payload) => {
+        setParam(payload, state);
+        setCreateQueryParam(payload, state, 'createTimeTableQuery');
+      });
+
+      calendarModel.customDates.items = address.schedules.map((schedule) => {
+        const scheduleObject = {
+          date: schedule.date,
+          timeStart: schedule.timeStart,
+          timeEnd: schedule.timeEnd,
+          workInThisDay: !schedule.isNotWork,
+        };
+
+        setScheduleQuery({ sectionName }, state, scheduleObject);
+
+        return scheduleObject;
+      });
+
+      const intervalGroupPayload = {
+        modelName: 'intervalGroup',
+        id: address.timeTable.intervalType,
+        sectionName,
+      };
+
+      setItemById(intervalGroupPayload, state);
+      setCreateQueryParam(intervalGroupPayload, state, 'createTimeTableQuery');
+    });
+
+    return state;
+  },
+
   [actions.MASTER_EDIT_GENERAL_INFO_SET]: (state, { payload: { masterCard } }) => {
     const section = state.masterEditor.generalSection;
 

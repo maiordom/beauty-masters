@@ -2,6 +2,7 @@
 
 export type TMasterCard = {
     addresses: Array<TMasterAddress>,
+    city: string,
     email: string,
     id: number,
     isMain: boolean,
@@ -37,6 +38,7 @@ export type TMasterAddress = {
   subwayStation: string,
   timeTable: {
     dateStart: string,
+    id: number,
     intervalType: number,
     timeEnd: string,
     timeStart: string,

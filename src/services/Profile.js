@@ -54,6 +54,7 @@ export const getAddresses = (params: Object) =>
       return res.data.filter((item: Object) => item.type === 'address').map((item: Object) => {
         const address = {
           address: item.attributes.address,
+          city: item.attributes.city,
           id: item.id,
           location: {
             lat: item.attributes.lat,
@@ -73,6 +74,7 @@ export const getAddresses = (params: Object) =>
           if (timeTableObject) {
             address.timeTable = {
               dateStart: timeTableObject.attributes.date_start,
+              id: timeTable.id,
               intervalType: timeTableObject.attributes.interval_type,
               timeEnd: timeTableObject.attributes.time_end,
               timeStart: timeTableObject.attributes.time_start,
