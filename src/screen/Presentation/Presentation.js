@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import IOSScreen from '../../utils/ios_screens';
 import styles from './styles';
 
 const icons = Platform.select({
@@ -12,6 +13,14 @@ const icons = Platform.select({
     list: require('./icons/ios/list.png'),
     photo: require('./icons/ios/photo.png'),
     calendar: require('./icons/ios/calendar.png'),
+    ...IOSScreen.select({
+      small: {
+        pin: require('./icons/ios/pin_small.png'),
+        list: require('./icons/ios/list_small.png'),
+        photo: require('./icons/ios/photo_small.png'),
+        calendar: require('./icons/ios/calendar_small.png'),
+      },
+    }),
   },
   android: {
     pin: require('./icons/android/pin.png'),

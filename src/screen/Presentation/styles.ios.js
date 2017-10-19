@@ -1,11 +1,31 @@
 import { StyleSheet } from 'react-native';
 import commonStyles from './styles.common';
 
+import IOSScreen from '../../utils/ios_screens';
+
 const iosStyles = {
   ...commonStyles,
   title: {
     ...commonStyles.title,
     fontSize: 17,
+    textAlign: 'center',
+  },
+  logo: {
+    ...commonStyles.logo,
+    ...IOSScreen.select({
+      small: {
+        marginBottom: 10,
+      },
+    }),
+  },
+  listItem: {
+    ...commonStyles.listItem,
+    ...IOSScreen.select({
+      small: {
+        marginTop: 0,
+        marginBottom: 15,
+      },
+    }),
   },
   continueButton: {
     ...commonStyles.continueButton,
