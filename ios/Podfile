@@ -1,0 +1,46 @@
+platform :ios, '8.0'
+
+inhibit_all_warnings!
+
+NODE_MODULES_PATH = '../node_modules'
+
+target 'pilochka' do
+  # Pods for pilochka
+
+  pod 'react-native-image-picker', :path => File.join(NODE_MODULES_PATH, 'react-native-image-picker')
+  pod 'react-native-maps', :path => File.join(NODE_MODULES_PATH, 'react-native-maps')
+  pod 'react-native-fetch-blob', :path => File.join(NODE_MODULES_PATH, 'react-native-fetch-blob')
+  pod 'ReactNativeFabric', :path => File.join(NODE_MODULES_PATH, 'react-native-fabric')
+  pod 'React', :path => File.join(NODE_MODULES_PATH, 'react-native'), :subspecs => [
+    'Core',
+    'RCTAnimation',
+    'RCTActionSheet',
+    'RCTGeolocation',
+    'RCTLinkingIOS',
+    'RCTSettings',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+  ]
+
+  target 'pilochkaTests' do
+    inherit! :search_paths
+  end
+
+end
+
+def fix_loader_bug()
+  file_name = File.join(NODE_MODULES_PATH, 'react-native', 'React', 'Base', 'RCTJavaScriptLoader.mm')
+  source = File.read(file_name)
+  fixed_source = source.gsub(/_total > 0/, "[_total integerValue] > 0")
+  File.open(file_name, "w") do |file| 
+    file.puts fixed_source
+  end
+end
+
+post_install do |installer|
+  puts "Applying manual fix for a bug of RCTJavaScriptLoader.mm"
+  fix_loader_bug
+end
