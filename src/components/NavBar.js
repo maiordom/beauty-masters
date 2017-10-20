@@ -43,13 +43,19 @@ class NavBar extends Component {
         ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
         : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
     });
+
     return (
-      <LinearGradient
-        colors={[vars.color.red, vars.color.orange]}
-        start={{ x: 0.0, y: 0.0 }}
-        end={{ x: 1.0, y: 0.0 }}
-        style={styles.container}
-      >
+      <View style={styles.container}>
+        {
+          Platform.OS === 'ios' && (
+            <LinearGradient
+              style={styles.gradient}
+              colors={[vars.color.red, vars.color.orange]}
+              start={{ x: 0.0, y: 0.0 }}
+              end={{ x: 1.0, y: 0.0 }}
+            />
+          )
+        }
         {!leftButtonHidden && (
           <TouchableOpacity
             style={[styles.leftButton, leftButtonStyle]}
@@ -65,7 +71,7 @@ class NavBar extends Component {
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
-      </LinearGradient>
+      </View>
     );
   }
 }
@@ -122,6 +128,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: 'row',
+    backgroundColor: vars.color.red,
     ...Platform.select({
       ios: {
         height: 64,
@@ -131,6 +138,13 @@ const styles = StyleSheet.create({
         height: 54,
       },
     }),
+  },
+  gradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   title: {
     color: vars.color.white,
