@@ -34,6 +34,14 @@ class NavBar extends Component {
       onLeftButtonPress,
     } = this.props;
 
+    const titleCustomStyle = Platform.select({
+      ios: leftButtonHidden
+        ? { marginLeft: 16, marginRight: 16 }
+        : { marginLeft: 16 * 2 + 20, marginRight: 16 * 2 + 20 },
+      android: leftButtonHidden
+        ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
+        : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
+    });
     return (
       <View style={styles.container}>
         {!leftButtonHidden && (
@@ -47,10 +55,7 @@ class NavBar extends Component {
             />
           </TouchableOpacity>)}
         <Text
-          style={[styles.title, leftButtonHidden
-            ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
-            : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
-          ]}
+          style={[styles.title, titleCustomStyle]}
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
@@ -115,6 +120,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: 64,
+        paddingTop: 20,
       },
       android: {
         height: 54,
@@ -124,7 +130,25 @@ const styles = StyleSheet.create({
   title: {
     color: vars.color.white,
     fontSize: 20,
-    alignSelf: 'center',
+    ...Platform.select({
+      ios: {
+        position: 'absolute',
+        top: 20,
+        left: 0,
+        right: 0,
+        flex: 1,
+        flexDirection: 'row',
+        textAlign: 'center',
+        marginLeft: 32,
+        marginRight: 32,
+        paddingTop: 12,
+        fontSize: 17,
+        fontWeight: '600',
+      },
+      android: {
+        alignSelf: 'center',
+      },
+    }),
   },
   leftButton: {
     paddingLeft: 16,
