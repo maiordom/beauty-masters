@@ -262,6 +262,11 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     backgroundColor: vars.color.lightGrey,
+    ...Platform.select({
+      ios: {
+        height: 50,
+      },
+    }),
   },
   nextText: {
     color: vars.color.red,

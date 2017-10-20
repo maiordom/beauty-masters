@@ -198,6 +198,9 @@ const styles = StyleSheet.create({
       android: {
         fontSize: 16,
       },
+      ios: {
+        fontSize: 17,
+      },
     }),
   },
   fields: {
