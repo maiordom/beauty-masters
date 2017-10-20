@@ -8,6 +8,7 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
 import { drawerOpen } from '../actions/Drawer';
 import vars from '../vars';
@@ -43,7 +44,12 @@ class NavBar extends Component {
         : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
     });
     return (
-      <View style={styles.container}>
+      <LinearGradient
+        colors={[vars.color.red, vars.color.orange]}
+        start={{ x: 0.0, y: 0.0 }}
+        end={{ x: 1.0, y: 0.0 }}
+        style={styles.container}
+      >
         {!leftButtonHidden && (
           <TouchableOpacity
             style={[styles.leftButton, leftButtonStyle]}
@@ -59,7 +65,7 @@ class NavBar extends Component {
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -116,7 +122,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: 'row',
-    backgroundColor: vars.color.red,
     ...Platform.select({
       ios: {
         height: 64,
@@ -129,6 +134,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: vars.color.white,
+    backgroundColor: 'transparent',
     fontSize: 20,
     ...Platform.select({
       ios: {
