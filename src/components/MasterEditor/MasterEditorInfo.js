@@ -156,7 +156,10 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
         </ScrollView>
         {cardType === 'create'
           ? <ButtonControl onPress={this.onNextPress} />
-          : <ButtonControl label={localization.save} onPress={this.onSavePress} />
+          : <ButtonControl
+            label={localization.save}
+            onPress={this.onSavePress}
+          />
         }
       </View>
     );
