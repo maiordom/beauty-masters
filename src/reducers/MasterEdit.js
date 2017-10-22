@@ -180,18 +180,21 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_EDIT_GENERAL_INFO_SET]: (state, { payload: { masterCard } }) => {
-    const section = state.masterEditor.generalSection;
+    const generalSection = state.masterEditor.generalSection;
+    const infoSection = state.masterEditor.info;
 
-    section.usernameField.value = masterCard.username;
-    section.phoneField.value = masterCard.phone;
-    section.isSalonField.value = masterCard.isSalon;
-    section.salonNameField.value = masterCard.salonName;
+    generalSection.isSalonField.value = masterCard.isSalon;
+    generalSection.phoneField.value = masterCard.phone;
+    generalSection.salonNameField.value = masterCard.salonName;
+    generalSection.usernameField.value = masterCard.username;
+    infoSection.aboutField.value = masterCard.about;
 
     Object.assign(state.masterEditor.createMasterQuery, {
-      [section.usernameField.queryParam]: masterCard.username,
-      [section.phoneField.queryParam]: masterCard.phone,
-      [section.isSalonField.queryParam]: masterCard.isSalon,
-      [section.salonNameField]: masterCard.salonName,
+      [generalSection.isSalonField.queryParam]: Number(masterCard.isSalon),
+      [generalSection.phoneField.queryParam]: masterCard.phone,
+      [generalSection.salonNameField.queryParam]: masterCard.salonName,
+      [generalSection.usernameField.queryParam]: masterCard.username,
+      [infoSection.aboutField.queryParam]: masterCard.about,
     });
 
     deepUpdate(state, 'masterEditor.editStatus', { general: 'uploaded' });

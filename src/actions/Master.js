@@ -30,7 +30,7 @@ export const createMaster = () => (dispatch, getState) => {
       payload: { masterCardId },
     });
 
-    if (res.masterCardId) {
+    if (masterCardId) {
       return { result: 'success' };
     }
   };
@@ -102,7 +102,6 @@ export const validateServices = () => (dispatch, getState) => {
       return Promise.reject({ type: 'FILL_PEDICURE_SECTION' });
     }
 
-    Actions.masterEditorHandlingTools();
     return Promise.resolve();
   }
 

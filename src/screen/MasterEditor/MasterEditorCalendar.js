@@ -5,6 +5,7 @@ import MasterEditorCalendar from '../../components/MasterEditor/MasterEditorCale
 import NavBar from '../../components/NavBar';
 
 const mapStateToProps = (state) => ({
+  cardType: state.masterEditor.cardType,
   addressValues: [
     state.masterEditor.calendarSettingsOne.salonTitleField.value,
     state.masterEditor.calendarSettingsTwo.salonTitleField.value,
@@ -14,10 +15,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = () => ({
   actions: {
-    next: Actions.masterEditorInfo,
-    selectCalendar(modelName) {
-      Actions.masterEditorCalendarSetting({ modelName });
-    },
+    routeToInfo: Actions.masterEditorInfo,
+    routeToProfile: Actions.pop,
+    selectCalendar: Actions.masterEditorCalendarSetting,
   },
 });
 

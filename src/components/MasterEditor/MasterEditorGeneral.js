@@ -5,10 +5,11 @@ import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 import { toPattern } from 'vanilla-masker';
 import upperFirst from 'lodash/upperFirst';
 
+import ActivityIndicator from '../../containers/ActivityIndicator';
+import ButtonControl from '../ButtonControl';
+import EditControl from '../EditControl';
 import Input from '../Input';
 import Switch from '../Switch';
-import ButtonControl from '../ButtonControl';
-import ActivityIndicator from '../../containers/ActivityIndicator';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -28,6 +29,7 @@ type TState = {
 
 type TProps = {
     actions: Object;
+    cardType: string;
     isSalonField: Object;
     phoneField: Object;
     salonNameField: Object;
@@ -86,7 +88,17 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
-          this.props.actions.next();
+          this.props.actions.routeToServices();
+        }
+      });
+    }
+  };
+
+  onSavePress = () => {
+    if (this.validate()) {
+      this.props.actions.createMaster().then((res) => {
+        if (res.result === 'success') {
+          this.props.actions.routeToProfile();
         }
       });
     }
@@ -136,6 +148,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
 
   render() {
     const {
+      cardType,
       isSalonField,
       phoneField,
       salonNameField,
@@ -187,10 +200,16 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
             this.error(i18n.fillField)
           )}
         </View>
-        <ButtonControl
-          type={hasError && 'disabled'}
-          onPress={this.onNextPress}
-        />
+        {cardType === 'create'
+          ? <ButtonControl
+            type={hasError && 'disabled'}
+            onPress={this.onNextPress}
+          />
+          : <EditControl
+            onNextPress={this.onNextPress}
+            onSavePress={this.onSavePress}
+          />
+        }
       </View>
     );
   }

@@ -26,7 +26,8 @@ const mapDispatchToProps = dispatch => ({
       setPhotos,
     }, dispatch),
     drawerOpen,
-    next: Actions.createMasterSuccess,
+    routeToProfile: Actions.masterProfile,
+    routeToSuccess: Actions.createMasterSuccess,
   },
 });
 
