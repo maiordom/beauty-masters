@@ -16,7 +16,16 @@ import constants from '../../constants/Master';
 import type { TCreateMaster } from '../../types/CreateMaster';
 import type { TCustomService, TMasterService } from '../../types/CreateService';
 
-const params = {};
+const params = {
+  cardType: 'create',
+  editStatus: {
+    general: 'required',
+    services: 'required',
+    addresses: 'required',
+    photos: 'required'
+  },
+  masterCardId: null,
+};
 
 each({
   calendarSettingsOne: CalendarSettings,

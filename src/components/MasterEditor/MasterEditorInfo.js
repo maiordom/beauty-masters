@@ -23,7 +23,10 @@ const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_S
 type TProps = {
   aboutField: Object,
   actions: Object,
+  cardType: string,
   certificatePhotos: Object,
+  editStatus: Object,
+  masterCardId: number | null,
   personalPhotos: Object,
   sectionName: string,
   workPhotos: Object,
@@ -35,6 +38,12 @@ type TState = {
 
 export default class MasterEditorInfo extends Component<TProps, TState> {
   state = { certificatesShow: false };
+
+  componentDidMount() {
+    if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
+      this.props.actions.setPhotos(this.props.masterCardId);
+    }
+  }
 
   onPhotoSelectPress = (modelName: string) => {
     this.props.actions.drawerOpen({ contentKey: 'PhotoMaster', name: modelName });

@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 
-import { makeReducer } from '../utils';
+import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/MasterEdit';
 
@@ -10,6 +10,20 @@ import {
   setParam,
   setScheduleQuery,
 } from './MasterEditorHelpers';
+
+const setPhotos = ({
+  model,
+  data,
+}) => {
+  data.forEach((item) => {
+    model.items.push({
+      mediaFileId: item.mediaFileId,
+      sizes: item.sizes,
+      status: 'uploaded',
+      type: 'photo',
+    });
+  });
+};
 
 const setHandlingTools = ({
   servicesData,
@@ -160,6 +174,8 @@ export default makeReducer((state, action) => ({
       setCreateQueryParam(intervalGroupPayload, state, 'createTimeTableQuery');
     });
 
+    deepUpdate(state, `masterEditor.editStatus`, { addresses: 'uploaded' });
+
     return state;
   },
 
@@ -177,6 +193,8 @@ export default makeReducer((state, action) => ({
       [section.isSalonField.queryParam]: masterCard.isSalon,
       [section.salonNameField]: masterCard.salonName,
     });
+
+    deepUpdate(state, 'masterEditor.editStatus', { general: 'uploaded' });
 
     return state;
   },
@@ -238,6 +256,38 @@ export default makeReducer((state, action) => ({
       state,
     });
 
+    deepUpdate(state, 'masterEditor.editStatus', { services: 'uploaded' });
+
+    return state;
+  },
+
+  [actions.MASTER_EDIT_STATUS_SET]: (state, { payload: { masterCardId } }) => {
+    if (state.masterEditor.cardType === 'edit' &&
+      state.masterEditor.masterCardId === masterCardId
+    ) {
+      return state;
+    }
+
+    return deepUpdate(state, 'masterEditor', {
+      cardType: 'edit',
+      editStatus: {
+        general: 'required',
+        services: 'required',
+        addresses: 'required',
+        photos: 'required'
+      },
+      masterCardId,
+    });
+  },
+
+  [actions.MASTER_EDIT_PHOTOS_SET]: (state, { payload: { masterCard } }) => {
+    const { masterPhotos, certificatePhotos, workPhotos } = masterCard;
+
+    setPhotos({ model: state.masterEditor.info.certificatePhotos, data: certificatePhotos});
+    setPhotos({ model: state.masterEditor.info.personalPhotos, data: masterPhotos});
+    setPhotos({ model: state.masterEditor.info.workPhotos, data: workPhotos});
+
+    deepUpdate(state, 'masterEditor.editStatus', { photos: 'uploaded' });
     return state;
   }
 }));
