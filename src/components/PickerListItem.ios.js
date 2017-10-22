@@ -12,7 +12,7 @@ type TProps = {
   checked: boolean,
   id: number,
   title: string,
-  onChange: (boolean, number) => void,
+  onChange: (value: boolean, id: number) => void,
 };
 
 export default class PickerListItem extends Component<TProps, void> {

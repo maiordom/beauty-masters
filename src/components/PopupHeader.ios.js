@@ -45,7 +45,7 @@ export default class PopupHeader extends Component<TProps, void> {
             </TouchableOpacity>
           )
         }
-        <View style={{ flexGrow: 1 }} />
+        <View style={styles.flexStub} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
             {title}
@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: hexToRgba('#1E232D'),
+  },
+  flexStub: {
+    flexGrow: 1,
   },
   button: {
     paddingLeft: 16,

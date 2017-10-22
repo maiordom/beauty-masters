@@ -10,7 +10,7 @@ import { shouldComponentUpdate } from '../utils';
 type TProps = {
   items: Array<Object>,
   modelName: string,
-  onChange: (boolean, number, string) => {},
+  onChange: (value: boolean, id: number, modelName: string) => {},
 };
 
 export default class RadioGroup extends Component<TProps, void> {
