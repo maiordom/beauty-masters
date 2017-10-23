@@ -36,28 +36,25 @@ export default class PopupHeader extends Component<TProps, void> {
       onCloseButtonPress,
       onAcceptButtonPress,
     } = this.props;
+
     return (
       <View style={styles.container}>
-        {
-          hasCloseButton && (
-            <TouchableOpacity style={styles.button} onPress={onCloseButtonPress}>
-              <Image source={icons.close} />
-            </TouchableOpacity>
-          )
-        }
+        {hasCloseButton && (
+          <TouchableOpacity style={styles.button} onPress={onCloseButtonPress}>
+            <Image source={icons.close} />
+          </TouchableOpacity>
+        )}
         <View style={styles.flexStub} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
             {title}
           </Text>
         </View>
-        {
-          hasAcceptButton && (
-            <TouchableOpacity style={styles.button} onPress={onAcceptButtonPress}>
-              <Image source={icons.accept} />
-            </TouchableOpacity>
-          )
-        }
+        {hasAcceptButton && (
+          <TouchableOpacity style={styles.button} onPress={onAcceptButtonPress}>
+            <Image source={icons.accept} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }

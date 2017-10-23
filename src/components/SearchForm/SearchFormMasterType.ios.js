@@ -10,7 +10,9 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-export default class SearchFormMasterType extends Component<TSearchFormMasterTypeProps, void> {
+type TProps = TSearchFormMasterTypeProps;
+
+export default class SearchFormMasterType extends Component<TProps, void> {
   render() {
     const {
       showMasterTypeModal,

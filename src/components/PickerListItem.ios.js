@@ -6,7 +6,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native'
 import vars from '../vars';
 import { shouldComponentUpdate } from '../utils';
 
-const checkmarkIcon = require('../icons/ios/checkmark_red.png');
+const checkmarkIcon = require('../icons/ios/checkmark-red.png');
 
 type TProps = {
   checked: boolean,
