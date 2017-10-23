@@ -11,13 +11,17 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     height: 44,
     paddingRight: 8,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
     ...Platform.select({
       android: {
         height: 48,
         borderBottomColor: vars.color.borderColorAndroid,
-        borderBottomWidth: 1,
         borderTopColor: vars.color.borderColorAndroid,
-        borderTopWidth: 1,
+      },
+      ios: {
+        borderTopColor: vars.color.cellSeparatorColorIOS,
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },
@@ -27,15 +31,27 @@ export default StyleSheet.create({
       android: {
         fontSize: 14,
       },
+      ios: {
+        fontSize: 12,
+      },
     }),
   },
   icon: {
     marginRight: 10,
-    width: 15,
-    height: 9,
+    ...Platform.select({
+      ios: {
+        width: 10,
+        height: 6,
+      },
+      android: {
+        width: 15,
+        height: 9,
+      },
+    }),
   },
 });
 
 export const arrowIcon = Platform.select({
   android: require('../../icons/android/arrow-up.png'),
+  ios: require('../../icons/ios/arrow-up.png'),
 });

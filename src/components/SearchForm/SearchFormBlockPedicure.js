@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Animated, Easing } from 'react-native';
+import { View, TouchableOpacity, Text, Animated, Easing, Platform } from 'react-native';
 
 import type { ServiceToggleType } from '../../types/SearchFormTypes';
 
@@ -43,10 +43,15 @@ export default class SearchFormBlockPedicure extends Component {
       outputRange: ['0deg', '180deg'],
     });
 
+    const title = Platform.select({
+      ios: i18n.pedicure.toUpperCase(),
+      android: i18n.pedicure,
+    });
+
     return (
       <View>
         <View style={switchStyles.container}>
-          <Text style={switchStyles.title}>{i18n.pedicure}</Text>
+          <Text style={switchStyles.title}>{title}</Text>
           <TouchableOpacity onPress={this.toggleBlock}>
             <Animated.Image
               style={[switchStyles.icon, { transform: [{ rotate: spin }] }]}

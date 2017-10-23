@@ -8,6 +8,7 @@ export const FilterLabel = ({ text }) => {
     ios: text.toUpperCase(),
     android: text,
   });
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
@@ -21,13 +22,17 @@ const styles = StyleSheet.create({
     backgroundColor: vars.color.lightGrey,
     justifyContent: 'center',
     height: 44,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
     ...Platform.select({
       android: {
         height: 48,
         borderBottomColor: vars.color.borderColorAndroid,
-        borderBottomWidth: 1,
         borderTopColor: vars.color.borderColorAndroid,
-        borderTopWidth: 1,
+      },
+      ios: {
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
+        borderTopColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },

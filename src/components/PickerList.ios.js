@@ -6,6 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import PickerListItem from './PickerListItem.ios';
 
 import { shouldComponentUpdate } from '../utils';
+import vars from '../vars';
 
 type TProps = {
   items: Array<Object>,
@@ -46,7 +47,7 @@ export default class RadioGroup extends Component<TProps, void> {
 const styles = StyleSheet.create({
   separator: {
     marginLeft: 14,
-    backgroundColor: '#E4E6E8',
+    backgroundColor: vars.color.cellSeparatorColorIOS,
     height: 1,
   },
 });
