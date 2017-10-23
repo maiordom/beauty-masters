@@ -27,6 +27,14 @@ const iosStyles = {
       },
     }),
   },
+  icon: {
+    ...IOSScreen.select({
+      small: {
+        width: 30,
+        height: 30,
+      },
+    }),
+  },
   continueButton: {
     ...commonStyles.continueButton,
     width: 290,
