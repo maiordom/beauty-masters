@@ -221,6 +221,8 @@ export default makeReducer((state, action) => ({
       state,
     });
 
+    deepUpdate(state, `masterEditor.services`, { manicureCustomServices });
+
     return state;
   },
 
@@ -242,6 +244,8 @@ export default makeReducer((state, action) => ({
       customServicesQuery: pedicureCustomServicesQuery,
       state,
     });
+
+    deepUpdate(state, `masterEditor.services`, { pedicureCustomServices });
 
     return state;
   },

@@ -1,8 +1,11 @@
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import MasterEditorCalendar from '../../components/MasterEditor/MasterEditorCalendar';
 import NavBar from '../../components/NavBar';
+
+import { getCalendars } from '../../actions/MasterEdit';
 
 const mapStateToProps = (state) => ({
   cardType: state.masterEditor.cardType,
@@ -13,8 +16,9 @@ const mapStateToProps = (state) => ({
   ],
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   actions: {
+    ...bindActionCreators({ getCalendars }, dispatch),
     routeToInfo: Actions.masterEditorInfo,
     routeToProfile: Actions.pop,
     selectCalendar: Actions.masterEditorCalendarSetting,

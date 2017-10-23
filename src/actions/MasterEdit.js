@@ -1,5 +1,9 @@
+import find from 'lodash/find';
+
 import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
+
+import { getMasterServices, getAddresses } from './Profile';
 
 export const setGeneralInfo = (masterCard) => ({
   type: actions.MASTER_EDIT_GENERAL_INFO_SET,
@@ -31,7 +35,7 @@ export const setStatus = (masterCardId) => ({
   payload: { masterCardId },
 });
 
-export const setPhotos = (id: number) => (dispatch: Function) =>
+export const getPhotos = (id: number) => (dispatch: Function) =>
   MasterCardService.getMasterById(id)
     .then((res: Object) => {
       if (!res.error) {
@@ -41,3 +45,35 @@ export const setPhotos = (id: number) => (dispatch: Function) =>
         });
       }
     });
+
+export const getServices = () => (dispatch: Function, getState: Function) => {
+  const state = getState();
+
+  if (state.masterEditor.editStatus.services === 'required') {
+    const masterCard = find(state.profile.masterCards, { isMain: true });
+
+    dispatch(getMasterServices(masterCard.id)).then((res) => {
+      if (!res.error) {
+        dispatch(setStatus(masterCard.id));
+        dispatch(setManicureServices(masterCard));
+        dispatch(setPedicureServices(masterCard));
+        dispatch(setHandlingTools(masterCard));
+      }
+    });
+  }
+};
+
+export const getCalendars = () => (dispatch: Function, getState: Function) => {
+  const state = getState();
+
+  if (state.masterEditor.editStatus.addresses === 'required') {
+    const masterCard = find(state.profile.masterCards, { isMain: true });
+
+    dispatch(getAddresses(masterCard.id)).then((res) => {
+      if (!res.error) {
+        dispatch(setStatus(masterCard.id));
+        dispatch(setCalendars(masterCard));
+      }
+    });
+  }
+};

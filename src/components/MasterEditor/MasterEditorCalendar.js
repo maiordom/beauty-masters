@@ -16,6 +16,12 @@ type TProps = {
 };
 
 export default class MasterEditorCalendar extends Component<TProps, void> {
+  componentDidMount() {
+    if (this.props.cardType === 'edit') {
+      this.props.actions.getCalendars();
+    }
+  }
+
   onNextPress = () => {
     this.props.actions.routeToInfo();
   };

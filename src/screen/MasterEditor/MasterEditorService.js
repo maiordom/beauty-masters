@@ -9,6 +9,8 @@ import {
   validateServices,
 } from '../../actions/Master';
 
+import { getServices } from '../../actions/MasterEdit';
+
 import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
 import NavBar from '../../components/NavBar';
 
@@ -23,6 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
   actions: {
     ...bindActionCreators({
       createMasterServices,
+      getServices,
       setServiceParam,
       toggleService,
       validateServices,

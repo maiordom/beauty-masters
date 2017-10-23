@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 import { drawerOpen } from '../../actions/Drawer';
 import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
-import { setPhotos } from '../../actions/MasterEdit';
+import { getPhotos } from '../../actions/MasterEdit';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
 import NavBar from '../../components/NavBar';
@@ -21,9 +21,9 @@ const mapDispatchToProps = dispatch => ({
   actions: {
     ...bindActionCreators({
       createMaster,
+      getPhotos,
       removePhoto,
       setGeneralParam,
-      setPhotos,
     }, dispatch),
     drawerOpen,
     routeToProfile: Actions.masterProfile,

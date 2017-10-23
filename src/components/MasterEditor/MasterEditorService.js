@@ -71,6 +71,10 @@ export default class MasterEditorService extends Component<TProps, TState> {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderLoader: false });
+
+      if (this.props.cardType === 'edit') {
+        this.props.actions.getServices();
+      }
     });
   }
 
