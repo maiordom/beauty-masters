@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
-import IOSScreen from '../../utils/ios_screens';
+import IOSScreen from '../../utils/IOSScreen';
 import styles from './styles';
 
 const icons = Platform.select({

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import commonStyles from './styles.common';
 
-import IOSScreen from '../../utils/ios_screens';
+import IOSScreen from '../../utils/IOSScreen';
 
 const iosStyles = {
   ...commonStyles,
