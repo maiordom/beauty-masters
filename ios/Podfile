@@ -11,6 +11,7 @@ target 'pilochka' do
   pod 'react-native-maps', :path => File.join(NODE_MODULES_PATH, 'react-native-maps')
   pod 'react-native-fetch-blob', :path => File.join(NODE_MODULES_PATH, 'react-native-fetch-blob')
   pod 'ReactNativeFabric', :path => File.join(NODE_MODULES_PATH, 'react-native-fabric')
+  pod 'BVLinearGradient', :path => File.join(NODE_MODULES_PATH, 'react-native-linear-gradient')
   pod 'React', :path => File.join(NODE_MODULES_PATH, 'react-native'), :subspecs => [
     'Core',
     'RCTAnimation',

@@ -8,6 +8,7 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
 import { drawerOpen } from '../actions/Drawer';
 import vars from '../vars';
@@ -34,8 +35,27 @@ class NavBar extends Component {
       onLeftButtonPress,
     } = this.props;
 
+    const titleCustomStyle = Platform.select({
+      ios: leftButtonHidden
+        ? { marginLeft: 16, marginRight: 16 }
+        : { marginLeft: 16 * 2 + 20, marginRight: 16 * 2 + 20 },
+      android: leftButtonHidden
+        ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
+        : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
+    });
+
     return (
       <View style={styles.container}>
+        {
+          Platform.OS === 'ios' && (
+            <LinearGradient
+              style={styles.gradient}
+              colors={[vars.color.red, vars.color.orange]}
+              start={{ x: 0.0, y: 0.0 }}
+              end={{ x: 1.0, y: 0.0 }}
+            />
+          )
+        }
         {!leftButtonHidden && (
           <TouchableOpacity
             style={[styles.leftButton, leftButtonStyle]}
@@ -47,10 +67,7 @@ class NavBar extends Component {
             />
           </TouchableOpacity>)}
         <Text
-          style={[styles.title, leftButtonHidden
-            ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
-            : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
-          ]}
+          style={[styles.title, titleCustomStyle]}
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
@@ -115,16 +132,43 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: 64,
+        paddingTop: 20,
       },
       android: {
         height: 54,
       },
     }),
   },
+  gradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   title: {
     color: vars.color.white,
+    backgroundColor: 'transparent',
     fontSize: 20,
-    alignSelf: 'center',
+    ...Platform.select({
+      ios: {
+        position: 'absolute',
+        top: 20,
+        left: 0,
+        right: 0,
+        flex: 1,
+        flexDirection: 'row',
+        textAlign: 'center',
+        marginLeft: 32,
+        marginRight: 32,
+        paddingTop: 12,
+        fontSize: 17,
+        fontWeight: '600',
+      },
+      android: {
+        alignSelf: 'center',
+      },
+    }),
   },
   leftButton: {
     paddingLeft: 16,

@@ -11,6 +11,7 @@ export default {
     black: '#283741',
     blue: '#14AAF0',
     green: '#69B92D',
+    orange: '#FA6E64',
 
     buttonDisabled: '#8CA5AF',
     borderColorAndroid: '#E4E6E8',

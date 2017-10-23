@@ -91,6 +91,9 @@ const styles = StyleSheet.create({
       android: {
         fontSize: 16,
       },
+      ios: {
+        fontSize: 17,
+      },
     }),
   },
   subtitle: {
@@ -99,6 +102,9 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         fontSize: 14,
+      },
+      ios: {
+        fontSize: 12,
       },
     }),
   },

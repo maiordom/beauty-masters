@@ -1,4 +1,6 @@
 PODS:
+  - BVLinearGradient (2.3.0):
+    - React
   - Crashlytics (3.9.0):
     - Fabric (~> 1.7.0)
   - Fabric (1.7.0)
@@ -44,6 +46,7 @@ PODS:
     - React
 
 DEPENDENCIES:
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
@@ -61,6 +64,8 @@ DEPENDENCIES:
   - ReactNativeFabric (from `../node_modules/react-native-fabric`)
 
 EXTERNAL SOURCES:
+  BVLinearGradient:
+    :path: ../node_modules/react-native-linear-gradient
   React:
     :path: ../node_modules/react-native
   react-native-fetch-blob:
@@ -73,6 +78,7 @@ EXTERNAL SOURCES:
     :path: ../node_modules/react-native-fabric
 
 SPEC CHECKSUMS:
+  BVLinearGradient: e5b57d7ae2011487190ad11ed2e73edccdfc25fa
   Crashlytics: 64aad5dd97249dd3ff94b979fea140144590cdd3
   Fabric: e6be012366472553807dada21243c5ab8d904151
   React: 6dfb2f72edb1d74a800127ae157af038646673ce
@@ -81,6 +87,6 @@ SPEC CHECKSUMS:
   react-native-maps: b9fd04cf693b9059c6fae00eb16203f7d5b69878
   ReactNativeFabric: b7d9763b3f8fd580ac208b2af84cca725f4922f4
 
-PODFILE CHECKSUM: 6e5adbf40be5285150cb0c5d1b247fee777effff
+PODFILE CHECKSUM: 271b83e2a135c3c5817a1eb5516228c3879ced64
 
 COCOAPODS: 1.3.1
