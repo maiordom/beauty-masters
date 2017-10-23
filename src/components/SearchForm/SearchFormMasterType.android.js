@@ -2,8 +2,7 @@
 
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
-
-import type { MasterTypeSelectType } from '../../types/SearchFormTypes';
+import type { TSearchFormMasterTypeProps } from './SearchFormMasterType.types';
 
 import RadioGroup from '../RadioGroup';
 
@@ -11,14 +10,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-export default class SearchFormMasterType extends Component {
-  props: {
-    showMasterTypeModal: boolean,
-    toggleMasterTypeModal: () => void,
-    masterType: Object,
-    onMasterTypeSelect: MasterTypeSelectType
-  };
-
+export default class SearchFormMasterType extends Component<TSearchFormMasterTypeProps, void> {
   render() {
     const {
       showMasterTypeModal,
