@@ -25,7 +25,7 @@ export default makeReducer((state, action) => ({
       const profileCard = find(state.profile.masterCards, { id: card.id });
 
       if (profileCard) {
-        card.addresses = profilceCard.addresses;
+        card.addresses = profileCard.addresses;
         card.masterServices = profileCard.masterServices;
       }
     });
