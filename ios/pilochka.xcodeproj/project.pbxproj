@@ -94,21 +94,21 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		1DECE1951F9FC9C1002A9113 /* PBXContainerItemProxy */ = {
+		1DECE1CA1F9FCA13002A9113 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5BFC41CCACED49FD8946AEF6 /* AirMaps.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
 		};
-		1DECE1B11F9FC9C1002A9113 /* PBXContainerItemProxy */ = {
+		1DECE1E61F9FCA13002A9113 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4771BD92EE50438CA2D9E8E3 /* RNFetchBlob.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
-		1DECE1B51F9FC9C1002A9113 /* PBXContainerItemProxy */ = {
+		1DECE1EA1F9FCA13002A9113 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 92B23A877FB14D858CC2654E /* SMXCrashlytics.xcodeproj */;
 			proxyType = 2;
@@ -416,26 +416,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1DECE18E1F9FC9C1002A9113 /* Products */ = {
+		1DECE1C31F9FCA13002A9113 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DECE1B21F9FC9C1002A9113 /* libRNFetchBlob.a */,
+				1DECE1EB1F9FCA13002A9113 /* libSMXCrashlytics.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1DECE1901F9FC9C1002A9113 /* Products */ = {
+		1DECE1C51F9FCA13002A9113 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DECE1961F9FC9C1002A9113 /* libAirMaps.a */,
+				1DECE1E71F9FCA13002A9113 /* libRNFetchBlob.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1DECE1921F9FC9C1002A9113 /* Products */ = {
+		1DECE1C71F9FCA13002A9113 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DECE1B61F9FC9C1002A9113 /* libSMXCrashlytics.a */,
+				1DECE1CB1F9FCA13002A9113 /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -585,7 +585,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 1DECE1901F9FC9C1002A9113 /* Products */;
+					ProductGroup = 1DECE1C71F9FCA13002A9113 /* Products */;
 					ProjectRef = 5BFC41CCACED49FD8946AEF6 /* AirMaps.xcodeproj */;
 				},
 				{
@@ -633,7 +633,7 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 1DECE18E1F9FC9C1002A9113 /* Products */;
+					ProductGroup = 1DECE1C51F9FCA13002A9113 /* Products */;
 					ProjectRef = 4771BD92EE50438CA2D9E8E3 /* RNFetchBlob.xcodeproj */;
 				},
 				{
@@ -641,7 +641,7 @@
 					ProjectRef = 95B87B19E9A04447A0725545 /* RNImagePicker.xcodeproj */;
 				},
 				{
-					ProductGroup = 1DECE1921F9FC9C1002A9113 /* Products */;
+					ProductGroup = 1DECE1C31F9FCA13002A9113 /* Products */;
 					ProjectRef = 92B23A877FB14D858CC2654E /* SMXCrashlytics.xcodeproj */;
 				},
 			);
@@ -710,25 +710,25 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		1DECE1961F9FC9C1002A9113 /* libAirMaps.a */ = {
+		1DECE1CB1F9FCA13002A9113 /* libAirMaps.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libAirMaps.a;
-			remoteRef = 1DECE1951F9FC9C1002A9113 /* PBXContainerItemProxy */;
+			remoteRef = 1DECE1CA1F9FCA13002A9113 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		1DECE1B21F9FC9C1002A9113 /* libRNFetchBlob.a */ = {
+		1DECE1E71F9FCA13002A9113 /* libRNFetchBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNFetchBlob.a;
-			remoteRef = 1DECE1B11F9FC9C1002A9113 /* PBXContainerItemProxy */;
+			remoteRef = 1DECE1E61F9FCA13002A9113 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		1DECE1B61F9FC9C1002A9113 /* libSMXCrashlytics.a */ = {
+		1DECE1EB1F9FCA13002A9113 /* libSMXCrashlytics.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSMXCrashlytics.a;
-			remoteRef = 1DECE1B51F9FC9C1002A9113 /* PBXContainerItemProxy */;
+			remoteRef = 1DECE1EA1F9FCA13002A9113 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
