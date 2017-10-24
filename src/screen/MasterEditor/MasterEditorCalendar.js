@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   actions: {
     ...bindActionCreators({ getCalendars }, dispatch),
     routeToInfo: Actions.masterEditorInfo,
-    routeToProfile: Actions.pop,
+    routeToProfile: Actions.masterProfile,
     selectCalendar: Actions.masterEditorCalendarSetting,
   },
 });

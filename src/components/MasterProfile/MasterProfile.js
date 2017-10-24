@@ -54,9 +54,21 @@ type TState = {
   tabCurrentKey: string,
 }
 
+const getTabBorderOffset = (sectionKey: string) => {
+  let tabIndex = 0;
+
+  tabs.forEach((tab, index) => {
+    if (tab.key === sectionKey) {
+      tabIndex = index;
+    }
+  });
+
+  return (Dimensions.get('window').width / 3) * tabIndex;
+};
+
 export default class MasterProfile extends Component<TProps, TState> {
   state = {
-    tabBorderOffset: new Animated.Value(0),
+    tabBorderOffset: new Animated.Value(getTabBorderOffset(this.props.sectionKey)),
     tabCurrentKey: this.props.sectionKey,
   };
 

@@ -49,7 +49,11 @@ class NavBar extends Component {
             />
           </TouchableOpacity>)}
         <Text
-          style={[styles.title, leftButtonHidden && { marginLeft: 16  }]}
+          style={[
+            styles.title,
+            leftButtonHidden && { marginLeft: 16 },
+            !rightButtonImage && { marginRight: 16 },
+          ]}
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>

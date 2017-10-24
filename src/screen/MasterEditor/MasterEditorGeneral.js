@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     ...bindActionCreators({ setGeneralParam, createMaster }, dispatch),
-    routeToProfile: Actions.pop,
+    routeToProfile: Actions.masterProfile,
     routeToServices: Actions.masterEditorService,
   },
 });

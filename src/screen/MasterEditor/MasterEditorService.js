@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
       validateServices,
     }, dispatch),
     routeToHandlingTools: Actions.masterEditorHandlingTools,
-    routeToProfile: Actions.pop,
+    routeToProfile: Actions.masterProfile,
   },
 });
 
