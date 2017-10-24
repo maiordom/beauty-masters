@@ -3,25 +3,31 @@
 import * as ProfileService from '../services/Profile';
 
 import actions from '../constants/Profile';
+import { setActivityIndicator } from './Common';
 
 export const getUserProfile = () => (dispatch: Function, getState: Function) => {
   const auth = getState().auth;
+
+  dispatch(setActivityIndicator(true));
 
   return ProfileService.getUserProfile({
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
   }, {
     include: 'master_cards',
-  })
-    .then((res: Object) => {
-      if (!res.error) {
-        dispatch({
-          type: actions.PROFILE_DATA_SET,
-          payload: res,
-        });
-      }
+  }).then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.PROFILE_DATA_SET,
+        payload: res,
+      });
+    }
 
-      return res;
-    });
+    dispatch(setActivityIndicator(false));
+
+    return res;
+  }).catch(() => {
+    dispatch(setActivityIndicator(false));
+  });
 };
 
 export const getMasterServices = (masterCardId: number) => (dispatch: Function) =>

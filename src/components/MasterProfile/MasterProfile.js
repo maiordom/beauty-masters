@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 
+import ActivityIndicator from '../../containers/ActivityIndicator';
 import MasterProfileInfo from '../../containers/MasterProfile/MasterProfileInfo';
 import MasterProfileCalendars from '../../containers/MasterProfile/MasterProfileCalendars';
 import MasterProfileServices from '../../containers/MasterProfile/MasterProfileServices';
@@ -49,20 +50,18 @@ type TProps = {
 }
 
 type TState = {
-  tabCurrentKey: string,
   tabBorderOffset: Animated,
+  tabCurrentKey: string,
 }
 
 export default class MasterProfile extends Component<TProps, TState> {
   state = {
-    tabCurrentKey: this.props.sectionKey,
     tabBorderOffset: new Animated.Value(0),
+    tabCurrentKey: this.props.sectionKey,
   };
 
   componentDidMount() {
-    if (!this.props.profile.userId) {
-      this.props.actions.getUserProfile();
-    }
+    this.props.actions.getUserProfile();
   }
 
   onTabPress = (tabCurrentKey: string, index: number) => () => {
@@ -81,11 +80,16 @@ export default class MasterProfile extends Component<TProps, TState> {
     const { tabCurrentKey, tabBorderOffset } = this.state;
 
     if (!profile.userId) {
-      return <View><Text>Loader</Text></View>;
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator position="absolute" />
+        </View>
+      );
     }
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <View style={styles.tabsWrapper}>
           {tabs.map((tab, index) => (
             <TouchableOpacity key={tab.title} onPress={this.onTabPress(tab.key, index)}>
