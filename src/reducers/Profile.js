@@ -21,8 +21,11 @@ export default makeReducer((state, action) => ({
       userId,
     };
 
-    state.masterEditor.masterCardId = find(masterCards, { isMain: true }).id;
+    const mainCard = find(masterCards, { isMain: true });
+
+    state.masterEditor.masterCardId = mainCard && mainCard.id || null;
     state.profile = profile;
+
     return state;
   },
 
