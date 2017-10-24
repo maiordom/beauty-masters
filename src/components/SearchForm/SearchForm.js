@@ -37,6 +37,9 @@ type TProps = {
   servicePedicure: Object,
   general: Object,
   searchQuery: Object,
+  place: ?{
+    label: ?string
+  },
 };
 
 type TState = {
@@ -100,6 +103,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
       servicePedicure,
       general,
       searchQuery,
+      place = {},
     } = this.props;
 
     const {
@@ -149,7 +153,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <FilterTab
             onChange={Actions.searchAddress}
             title={i18n.search.nearWith}
-            subtitle={i18n.location.here}
+            subtitle={place.label || i18n.location.here}
           />
           <FilterCheckBox
             title={i18n.search.masterToHome}
