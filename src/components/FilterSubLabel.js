@@ -7,7 +7,7 @@ import Separator from './Separator.ios';
 import vars from '../vars';
 
 type TProps = {
-  title: String,
+  title: string,
   shouldShowSeparator: boolean,
 };
 
@@ -20,13 +20,21 @@ export default class FilterSubLabel extends Component<TProps, void> {
   shouldComponentUpdate = () => false;
 
   render() {
-    const { title, shouldShowSeparator } = this.props;
+    const {
+      title,
+      shouldShowSeparator,
+    } = this.props;
+
+    const renderTitle = Platform.select({
+      ios: title.toUpperCase(),
+      android: title,
+    });
 
     return (
       <View style={styles.container}>
         <TouchableHighlight underlayColor="transparent" activeOpacity={1} style={styles.button}>
           <View style={styles.buttonContent}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{renderTitle}</Text>
           </View>
         </TouchableHighlight>
         {shouldShowSeparator && Platform.OS === 'ios' && (
@@ -59,6 +67,9 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         fontSize: 14,
+      },
+      ios: {
+        fontSize: 12,
       },
     }),
   },
