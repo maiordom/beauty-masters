@@ -86,7 +86,12 @@ export default class SearchFormBlockPedicure extends Component {
               onChange={onChange}
               withInput={false}
             />
-            <FilterCheckBox {...service.extensionPedicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox
+              {...service.extensionPedicure}
+              onChange={onChange}
+              withInput={false}
+              shouldShowSeparator={false}
+            />
           </View>}
       </View>
     );

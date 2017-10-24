@@ -2,18 +2,25 @@
 
 import React, { Component } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
+import Separator from './Separator.ios';
 
 import vars from '../vars';
 
-export default class FilterSubLabel extends Component {
-  props: {
-    title: string
-  };
+type TProps = {
+  title: String,
+  shouldShowSeparator: boolean,
+};
+
+export default class FilterSubLabel extends Component<TProps, void> {
+  static defaultProps = {
+    title: '',
+    shouldShowSeparator: true,
+  }
 
   shouldComponentUpdate = () => false;
 
   render() {
-    const { title } = this.props;
+    const { title, shouldShowSeparator } = this.props;
 
     return (
       <View style={styles.container}>
@@ -22,6 +29,9 @@ export default class FilterSubLabel extends Component {
             <Text style={styles.title}>{title}</Text>
           </View>
         </TouchableHighlight>
+        {shouldShowSeparator && Platform.OS === 'ios' && (
+          <Separator />
+        )}
       </View>
     );
   }
