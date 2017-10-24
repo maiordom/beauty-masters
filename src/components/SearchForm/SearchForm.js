@@ -272,6 +272,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: 50,
+        borderTopColor: vars.color.cellSeparatorColorIOS,
+        borderTopWidth: 1,
       },
     }),
   },
