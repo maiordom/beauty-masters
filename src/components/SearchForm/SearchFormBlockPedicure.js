@@ -50,15 +50,15 @@ export default class SearchFormBlockPedicure extends Component {
 
     return (
       <View>
-        <View style={switchStyles.container}>
-          <Text style={switchStyles.title}>{title}</Text>
-          <TouchableOpacity onPress={this.toggleBlock}>
+        <TouchableOpacity activeOpacity={1} onPress={this.toggleBlock}>
+          <View style={switchStyles.container}>
+            <Text style={switchStyles.title}>{title}</Text>
             <Animated.Image
               style={[switchStyles.icon, { transform: [{ rotate: spin }] }]}
               source={arrowIcon}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
         {showBlock &&
           <View>
             <FilterSubLabel title={i18n.filters.nailProcessingMethod} />
