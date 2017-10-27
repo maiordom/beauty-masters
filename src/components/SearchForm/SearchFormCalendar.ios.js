@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Dimensions,
   View,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   Modal,
 } from 'react-native';
@@ -27,22 +27,23 @@ const SearchFormCalendar = ({
   toggleCalendarModal,
 }: TProps) => (
   <Modal animationType={'fade'} transparent visible={showCalendar} onRequestClose={toggleCalendarModal}>
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.dismissButton} onPress={toggleCalendarModal} />
-      <View style={styles.modalContainer}>
-        <PopupHeader
-          title={i18n.filters.availableDays}
-          hasCloseButton
-          onCloseButtonPress={toggleCalendarModal}
-        />
-        <Calendar
-          activeFrom={moment()}
-          selectedDate={selectedDate}
-          onDateSelect={onDateSelect}
-          containerWidth={Dimensions.get('window').width}
-        />
+    <TouchableWithoutFeedback style={styles.dismissButton} onPress={toggleCalendarModal} >
+      <View style={styles.container}>
+        <View style={styles.modalContainer}>
+          <PopupHeader
+            title={i18n.filters.availableDays}
+            hasCloseButton
+            onCloseButtonPress={toggleCalendarModal}
+          />
+          <Calendar
+            activeFrom={moment()}
+            selectedDate={selectedDate}
+            onDateSelect={onDateSelect}
+            containerWidth={Dimensions.get('window').width}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   </Modal>
 );
 
