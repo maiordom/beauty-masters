@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import moment from 'moment';
 
 import NativeCalendar from './CalendarBase';
@@ -96,12 +96,16 @@ export default class Calendar extends Component {
         backgroundColor: vars.color.blue,
       },
     }));
+    const dayHeadings = Platform.select({
+      ios: i18n.dayHeadings.map((heading) => (heading.charAt(0).toUpperCase() + heading.slice(1).toLowerCase())),
+      android: i18n.dayHeadings,
+    });
 
     return (
       <View style={styles.container}>
         <NativeCalendar
           activeFrom={activeFrom}
-          dayHeadings={i18n.dayHeadings}
+          dayHeadings={dayHeadings}
           disableSelectDate={disableSelectDate}
           eventDates={eventDates}
           events={eventsCalendar}

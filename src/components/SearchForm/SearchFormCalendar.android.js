@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
 import moment from 'moment';
 
-import type { SelectCalendarDateType } from '../../types/SearchFormTypes';
+import type { TSearchFormCelendar } from './SearchFormCalendar.types';
 
 import Calendar from '../Calendar';
 
@@ -12,15 +12,13 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
+type TProps = TSearchFormCelendar;
+
 const SearchFormCalendar = ({
   showCalendar,
   selectedDate,
   onDateSelect,
-}: {
-  showCalendar: boolean,
-  selectedDate: string,
-  onDateSelect: SelectCalendarDateType,
-}) => (
+}: TProps) => (
   <Modal animationType="fade" transparent visible={showCalendar} onRequestClose={() => {}}>
     <View style={styles.container}>
       <View style={styles.modalContainer}>

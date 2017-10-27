@@ -138,6 +138,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
             showCalendar={showMasterCalendarModal}
             selectedDate={selectedDate}
             onDateSelect={this.onSelectCalendarDate}
+            toggleCalendarModal={this.toggleCalendarModal}
             containerWidth={170}
           />
           <FilterLabel text={i18n.search.masterPlace} />
