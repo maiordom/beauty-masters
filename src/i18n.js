@@ -240,7 +240,7 @@ export default {
     masterToHome: 'Мастер выезжает на дом',
     search: 'Поиск',
     searchParams: 'Параметры поиска',
-    short: 'Быстрый поиск',
+    short: 'Сокращенный поиск',
     vacantDays: 'Дни, когда возможен прием',
   },
   selectAnotherMaster: 'Выбрать другого мастера',

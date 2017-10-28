@@ -1,9 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import PickerListItem from './PickerListItem.ios';
+import Separator from './Separator.ios';
 
 import { shouldComponentUpdate } from '../utils';
 
@@ -34,7 +35,7 @@ export default class RadioGroup extends Component<TProps, void> {
               onChange={this.onPickerChange}
             />
             {
-              key !== items.length - 1 && <View style={styles.separator} />
+              key !== items.length - 1 && <Separator />
             }
           </View>
         ))}
@@ -42,11 +43,3 @@ export default class RadioGroup extends Component<TProps, void> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  separator: {
-    marginLeft: 14,
-    backgroundColor: '#E4E6E8',
-    height: 1,
-  },
-});

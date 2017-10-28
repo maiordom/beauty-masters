@@ -17,5 +17,7 @@ export default {
     borderColorAndroid: '#E4E6E8',
     placeholderColor: '#9E9E9E',
     underlineColorAndroid: '#E4E6E8',
+
+    cellSeparatorColorIOS: '#E4E6E8',
   },
 };
