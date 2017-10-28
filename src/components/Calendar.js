@@ -32,6 +32,11 @@ export default class Calendar extends Component {
     };
 
     this.state.originStartDate = this.state.startDate;
+    
+    this.dayHeadings = Platform.select({
+      ios: i18n.dayHeadings.map((heading) => capitalize(heading)),
+      android: i18n.dayHeadings,
+    });
 
     if (this.props.interval && this.state.startDate) {
       this.eventDates = prepareEventDates(this.props.interval.key, this.state.startDate);
@@ -97,16 +102,12 @@ export default class Calendar extends Component {
         backgroundColor: vars.color.blue,
       },
     }));
-    const dayHeadings = Platform.select({
-      ios: i18n.dayHeadings.map((heading) => capitalize(heading)),
-      android: i18n.dayHeadings,
-    });
 
     return (
       <View style={styles.container}>
         <NativeCalendar
           activeFrom={activeFrom}
-          dayHeadings={dayHeadings}
+          dayHeadings={this.dayHeadings}
           disableSelectDate={disableSelectDate}
           eventDates={eventDates}
           events={eventsCalendar}
