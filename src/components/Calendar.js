@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
+import capitalize from 'lodash/capitalize';
 import moment from 'moment';
 
 import NativeCalendar from './CalendarBase';
@@ -31,6 +32,11 @@ export default class Calendar extends Component {
     };
 
     this.state.originStartDate = this.state.startDate;
+    
+    this.dayHeadings = Platform.select({
+      ios: i18n.dayHeadings.map((heading) => capitalize(heading)),
+      android: i18n.dayHeadings,
+    });
 
     if (this.props.interval && this.state.startDate) {
       this.eventDates = prepareEventDates(this.props.interval.key, this.state.startDate);
@@ -101,7 +107,7 @@ export default class Calendar extends Component {
       <View style={styles.container}>
         <NativeCalendar
           activeFrom={activeFrom}
-          dayHeadings={i18n.dayHeadings}
+          dayHeadings={this.dayHeadings}
           disableSelectDate={disableSelectDate}
           eventDates={eventDates}
           events={eventsCalendar}
