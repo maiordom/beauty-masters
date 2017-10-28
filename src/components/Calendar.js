@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
+import capitalize from 'lodash/capitalize';
 import moment from 'moment';
 
 import NativeCalendar from './CalendarBase';
@@ -97,7 +98,7 @@ export default class Calendar extends Component {
       },
     }));
     const dayHeadings = Platform.select({
-      ios: i18n.dayHeadings.map((heading) => (heading.charAt(0).toUpperCase() + heading.slice(1).toLowerCase())),
+      ios: i18n.dayHeadings.map((heading) => capitalize(heading)),
       android: i18n.dayHeadings,
     });
 
