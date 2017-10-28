@@ -1,17 +1,13 @@
 // @flow
 
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import vars from '../vars';
 
-export default class Separator extends PureComponent {
-  shouldComponentUpdate = () => false;
-
-  render() {
-    return (<View style={styles.separator} />);
-  }
-}
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
 const styles = StyleSheet.create({
   separator: {
@@ -21,3 +17,5 @@ const styles = StyleSheet.create({
     height: 1,
   },
 });
+
+export default Separator;
