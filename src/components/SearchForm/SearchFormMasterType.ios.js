@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { View, TouchableWithoutFeedback, StyleSheet, Modal } from 'react-native';
-import type { TSearchFormMasterTypeProps } from './SearchFormMasterType.types';
+import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
 import PopupHeader from '../PopupHeader.ios';
 import PickerList from '../PickerList.ios';
 

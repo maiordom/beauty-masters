@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
-import type { TSearchFormMasterTypeProps } from './SearchFormMasterType.types';
+import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
 
 import RadioGroup from '../RadioGroup';
 
