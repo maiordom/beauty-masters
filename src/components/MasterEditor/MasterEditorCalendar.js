@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 import ButtonControl from '../ButtonControl';
 import EditControl from '../EditControl';
