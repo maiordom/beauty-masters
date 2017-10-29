@@ -37,15 +37,6 @@ class NavBar extends Component {
       title,
     } = this.props;
 
-    const titleCustomStyle = Platform.select({
-      ios: leftButtonHidden
-        ? { marginLeft: 16, marginRight: 16 }
-        : { marginLeft: 16 * 2 + 20, marginRight: 16 * 2 + 20 },
-      android: leftButtonHidden
-        ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
-        : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
-    });
-
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && (
@@ -176,14 +167,12 @@ const styles = StyleSheet.create({
     flex: 1,
     color: vars.color.white,
     backgroundColor: 'transparent',
+    alignSelf: 'center',
     fontSize: 20,
     ...Platform.select({
       ios: {
         textAlign: 'center',
         fontSize: 17,
-      },
-      android: {
-        alignSelf: 'center',
       },
     }),
   },
