@@ -182,6 +182,10 @@ export const setTimeTableField = (modelName, paramName, paramValue, sectionName)
   payload: { modelName, paramName, paramValue, sectionName },
 });
 
+export const refreshEditor = () => ({
+  type: actions.MASTER_EDITOR_REFRESH,
+});
+
 export {
   createSchedules,
   handleTimeTable,

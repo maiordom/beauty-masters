@@ -52,13 +52,15 @@ export const getServices = () => (dispatch: Function, getState: Function) => {
   if (state.masterEditor.editStatus.services === 'required') {
     const masterCard = find(state.profile.masterCards, { isMain: true });
 
-    dispatch(getMasterServices(masterCard.id)).then((res) => {
+    return dispatch(getMasterServices(masterCard.id)).then((res) => {
       if (!res.error) {
         dispatch(setStatus(masterCard.id));
         dispatch(setManicureServices(masterCard));
         dispatch(setPedicureServices(masterCard));
         dispatch(setHandlingTools(masterCard));
       }
+
+      return res;
     });
   }
 };

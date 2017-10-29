@@ -70,10 +70,14 @@ export default class MasterEditorService extends Component<TProps, TState> {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ renderLoader: false });
-
       if (this.props.cardType === 'edit') {
-        this.props.actions.getServices();
+        this.props.actions.getServices().then((res) => {
+          if (!res.error) {
+            this.setState({ renderLoader: false });
+          }
+        })
+      } else {
+        this.setState({ renderLoader: false });
       }
     });
   }
@@ -162,7 +166,11 @@ export default class MasterEditorService extends Component<TProps, TState> {
     } = this.state;
 
     if (renderLoader) {
-      return null;
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator animating position="absolute" />
+        </View>
+      );
     }
 
     const {

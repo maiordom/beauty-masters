@@ -221,6 +221,7 @@ export default makeReducer((state, action) => ({
       state,
     });
 
+    deepUpdate(state, 'masterEditor', { serviceManicure: manicureServicesModels });
     deepUpdate(state, `masterEditor.services`, { manicureCustomServices });
 
     return state;
@@ -245,6 +246,7 @@ export default makeReducer((state, action) => ({
       state,
     });
 
+    deepUpdate(state, 'masterEditor', { servicePedicure: pedicureServicesModels });
     deepUpdate(state, `masterEditor.services`, { pedicureCustomServices });
 
     return state;
@@ -263,6 +265,7 @@ export default makeReducer((state, action) => ({
       state,
     });
 
+    deepUpdate(state, 'masterEditor', { handlingTools: handlingToolsModels });
     deepUpdate(state, 'masterEditor.editStatus', { services: 'uploaded' });
 
     return state;

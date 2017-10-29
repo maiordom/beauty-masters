@@ -23,7 +23,9 @@ export default class ButtonControl extends Component {
     });
 
     return (
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableWithoutFeedback
+        onPress={onPress}
+      >
         <View style={[
           styles.container,
           customStyles.nextButton,
