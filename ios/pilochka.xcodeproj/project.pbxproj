@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* pilochkaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* pilochkaTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -12,12 +13,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		43A566189D29BB6117FE6CC6 /* libPods-pilochkaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */; };
-		A191F626EB9D1A14D158DA82 /* libPods-pilochka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */; };
-		D0381D32AE034AB9900F07A7 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */; };
 		5E0A9C58081D4E73A617024F /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */; };
+		A191F626EB9D1A14D158DA82 /* libPods-pilochka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */; };
+		A664C0F81EF64418937173AA /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20836BF3E9594F128E0F4415 /* libAirMaps.a */; };
+		D0381D32AE034AB9900F07A7 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */; };
 		D2C5252F4B084C98A7F7822A /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EE60A4B755495591A35264 /* libRNImagePicker.a */; };
 		F138B71C27A64F04B54C98AC /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */; };
-		A664C0F81EF64418937173AA /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20836BF3E9594F128E0F4415 /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,48 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = pilochka;
+		};
+		1D5227741FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
+		};
+		1D5227781FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
+		1D52277A1FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64AA15081EF7F30100718508;
+			remoteInfo = "BVLinearGradient-tvOS";
+		};
+		1D52277D1FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A15C300E1CD25C330074CB35;
+			remoteInfo = RNFetchBlob;
+		};
+		1D5227841FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
+		1D5227871FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8D9DB831C6D03DB009FBC0E;
+			remoteInfo = SMXCrashlytics;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -42,22 +85,22 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = pilochka/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = pilochka/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = pilochka/main.m; sourceTree = "<group>"; };
+		20836BF3E9594F128E0F4415 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		3B51D562BAFB41C9FE0BF6E5 /* Pods-pilochkaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pilochkaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57EE60A4B755495591A35264 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.debug.xcconfig"; sourceTree = "<group>"; };
+		7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.release.xcconfig"; sourceTree = "<group>"; };
+		C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
+		C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		CE52678CC8A778B618A6FB4C /* Pods-pilochka.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.release.xcconfig"; sourceTree = "<group>"; };
+		D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSMXCrashlytics.a; sourceTree = "<group>"; };
+		E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 		ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pilochka.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; name = "SMXCrashlytics.xcodeproj"; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; name = "libSMXCrashlytics.a"; path = "libSMXCrashlytics.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		57EE60A4B755495591A35264 /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; name = "BVLinearGradient.xcodeproj"; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		20836BF3E9594F128E0F4415 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +159,59 @@
 			name = pilochka;
 			sourceTree = "<group>";
 		};
+		1D52276C1FA5FAD500C67B82 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */,
+				C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */,
+				57EE60A4B755495591A35264 /* libRNImagePicker.a */,
+				7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */,
+				20836BF3E9594F128E0F4415 /* libAirMaps.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		1D52276D1FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227791FA5FAD500C67B82 /* libBVLinearGradient.a */,
+				1D52277B1FA5FAD500C67B82 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D52276F1FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227751FA5FAD500C67B82 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D5227711FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D52277E1FA5FAD500C67B82 /* libRNFetchBlob.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D52277F1FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227851FA5FAD500C67B82 /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D5227811FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227881FA5FAD500C67B82 /* libSMXCrashlytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		31312C652E57F0C211FB820C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +230,7 @@
 				EF428379603AC6CA9E624540 /* Pods */,
 				31312C652E57F0C211FB820C /* Frameworks */,
 				89567E703C9548B28276FB1B /* Libraries */,
+				1D52276C1FA5FAD500C67B82 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -148,17 +245,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EF428379603AC6CA9E624540 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */,
-				CE52678CC8A778B618A6FB4C /* Pods-pilochka.release.xcconfig */,
-				3B51D562BAFB41C9FE0BF6E5 /* Pods-pilochkaTests.debug.xcconfig */,
-				B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		89567E703C9548B28276FB1B /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +255,17 @@
 				AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
-			path = "";
+			sourceTree = "<group>";
+		};
+		EF428379603AC6CA9E624540 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */,
+				CE52678CC8A778B618A6FB4C /* Pods-pilochka.release.xcconfig */,
+				3B51D562BAFB41C9FE0BF6E5 /* Pods-pilochkaTests.debug.xcconfig */,
+				B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +343,28 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1D52276F1FA5FAD500C67B82 /* Products */;
+					ProjectRef = AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D52276D1FA5FAD500C67B82 /* Products */;
+					ProjectRef = 439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D5227711FA5FAD500C67B82 /* Products */;
+					ProjectRef = C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D52277F1FA5FAD500C67B82 /* Products */;
+					ProjectRef = 8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D5227811FA5FAD500C67B82 /* Products */;
+					ProjectRef = E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* pilochka */,
@@ -254,6 +372,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1D5227751FA5FAD500C67B82 /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = 1D5227741FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D5227791FA5FAD500C67B82 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 1D5227781FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D52277B1FA5FAD500C67B82 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 1D52277A1FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D52277E1FA5FAD500C67B82 /* libRNFetchBlob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFetchBlob.a;
+			remoteRef = 1D52277D1FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D5227851FA5FAD500C67B82 /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 1D5227841FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D5227881FA5FAD500C67B82 /* libSMXCrashlytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSMXCrashlytics.a;
+			remoteRef = 1D5227871FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
