@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  Platform,
 } from 'react-native';
 
 import vars from '../vars';
@@ -505,6 +506,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: 'center',
     color: vars.color.black,
+    ...Platform.select({
+      ios: {
+        fontSize: 15,
+      },
+    }),
   },
   dot: {
     position: 'absolute',

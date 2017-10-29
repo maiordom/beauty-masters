@@ -45,9 +45,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     ...Platform.select({
-      ios: {
-        fontSize: 17,
-      },
       android: {
         height: 48,
       },
@@ -61,5 +58,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: vars.color.white,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+      },
+    }),
   },
 });

@@ -15,7 +15,7 @@ import Calendar from '../Calendar';
 import Label from '../Label';
 import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
 import RadioGroup from '../RadioGroup';
-import RangeTime from '../RangeTime.android';
+import RangeTime from '../RangeTime';
 
 import i18n from '../../i18n';
 
