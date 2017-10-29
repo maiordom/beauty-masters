@@ -2,6 +2,11 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
 
+import {
+  setGeneralInfo,
+  setStatus,
+} from '../../actions/MasterEdit';
+
 import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo';
 
 const mapStateToProps = (state) => ({
@@ -13,11 +18,17 @@ const mapStateToProps = (state) => ({
   },
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   actions: {
-    selectAnotherMaster() {
-      Actions.masterProfileSelectProfile();
-    },
+    selectAnotherMaster: Actions.masterProfileSelectProfile,
+    routeToEdit: () => dispatch((dispatch, getState) => {
+      const masterCard = find(getState().profile.masterCards, { isMain: true });
+
+      dispatch(setStatus(masterCard.id));
+      dispatch(setGeneralInfo(masterCard));
+
+      Actions.masterEditorGeneral();
+    })
   },
 });
 

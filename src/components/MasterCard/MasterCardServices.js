@@ -28,8 +28,8 @@ export default class MasterCardServices extends Component {
               <View style={styles.service} key={service.serviceId}>
                 <Text style={styles.name}>{service.title}</Text>
                   <Text style={styles.price}>
-                    <Text>{service.price} р</Text>
-                    {!isEmpty(service.duration) && (
+                    <Text>{service.serviceInfo} р</Text>
+                    {service.duration > 0 && (
                       <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
                     )}
                   </Text>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   name: {
     flex: 3,
   },
-  price: {
+  serviceInfo: {
     flexShrink: 0,
     color: vars.color.black,
   },

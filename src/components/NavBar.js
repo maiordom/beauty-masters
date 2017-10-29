@@ -29,33 +29,24 @@ class NavBar extends Component {
       backButtonImage,
       leftButtonHidden,
       leftButtonIconStyle,
-      leftButtonStyle,
       leftButtonMenu,
-      title,
+      leftButtonStyle,
       onLeftButtonPress,
+      onRightButtonPress,
+      rightButtonImage,
+      title,
     } = this.props;
-
-    const titleCustomStyle = Platform.select({
-      ios: leftButtonHidden
-        ? { marginLeft: 16, marginRight: 16 }
-        : { marginLeft: 16 * 2 + 20, marginRight: 16 * 2 + 20 },
-      android: leftButtonHidden
-        ? { width: DEVICE_WIDTH - (16 * 2), marginLeft: 16 }
-        : { width: DEVICE_WIDTH - 20 - (16 * 2) - 16 },
-    });
 
     return (
       <View style={styles.container}>
-        {
-          Platform.OS === 'ios' && (
-            <LinearGradient
-              style={styles.gradient}
-              colors={[vars.color.red, vars.color.orange]}
-              start={{ x: 0.0, y: 0.0 }}
-              end={{ x: 1.0, y: 0.0 }}
-            />
-          )
-        }
+        {Platform.OS === 'ios' && (
+          <LinearGradient
+            style={styles.gradient}
+            colors={[vars.color.red, vars.color.orange]}
+            start={{ x: 0.0, y: 0.0 }}
+            end={{ x: 1.0, y: 0.0 }}
+          />
+        )}
         {!leftButtonHidden && (
           <TouchableOpacity
             style={[styles.leftButton, leftButtonStyle]}
@@ -67,10 +58,24 @@ class NavBar extends Component {
             />
           </TouchableOpacity>)}
         <Text
-          style={[styles.title, titleCustomStyle]}
+          style={[
+            styles.title,
+            leftButtonHidden && { marginLeft: 16 },
+            !rightButtonImage && { marginRight: 16 },
+          ]}
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
+        {rightButtonImage && (
+          <TouchableOpacity
+            style={styles.rightButton}
+            onPress={onRightButtonPress}
+          >
+            <Image
+              source={rightButtonImage}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -78,7 +83,7 @@ class NavBar extends Component {
 
 // Declare only one React component per file
 // eslint-disable-next-line
-const Scene = component => class SceneComponent extends Component {
+const Scene = (component) => class SceneComponent extends Component {
   onLeftButtonPress = () => {
     const {
       leftButtonMenu,
@@ -100,10 +105,22 @@ const Scene = component => class SceneComponent extends Component {
     Actions.pop();
   };
 
+  onRightButtonPress = () => {
+    const { onRightButtonPress } = this.props;
+
+    if (onRightButtonPress) {
+      onRightButtonPress();
+    }
+  }
+
   render() {
     return (
       <View style={styles.scene}>
-        <NavBar {...this.props} onLeftButtonPress={this.onLeftButtonPress} />
+        <NavBar
+          {...this.props}
+          onLeftButtonPress={this.onLeftButtonPress}
+          onRightButtonPress={this.onRightButtonPress}
+        />
         {React.createElement(component, this.props)}
       </View>
     );
@@ -147,33 +164,24 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   title: {
+    flex: 1,
     color: vars.color.white,
     backgroundColor: 'transparent',
+    alignSelf: 'center',
     fontSize: 20,
     ...Platform.select({
       ios: {
-        position: 'absolute',
-        top: 20,
-        left: 0,
-        right: 0,
-        flex: 1,
-        flexDirection: 'row',
         textAlign: 'center',
-        marginLeft: 32,
-        marginRight: 32,
-        paddingTop: 12,
         fontSize: 17,
-        fontWeight: '600',
-      },
-      android: {
-        alignSelf: 'center',
       },
     }),
   },
   leftButton: {
-    paddingLeft: 16,
-    paddingRight: 16,
+    padding: 16,
     justifyContent: 'center',
+  },
+  rightButton: {
+    padding: 16,
   },
   sidebar: {
     position: 'absolute',

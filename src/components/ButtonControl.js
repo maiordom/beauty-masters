@@ -25,12 +25,12 @@ export default class ButtonControl extends Component {
     return (
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={[
-          styles.nextButton,
+          styles.container,
           customStyles.nextButton,
           styles[type],
         ]}
         >
-          <Text style={[styles.nextText, customStyles.nextText]}>{title}</Text>
+          <Text style={[styles.title, customStyles.nextText]}>{title}</Text>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -38,7 +38,7 @@ export default class ButtonControl extends Component {
 }
 
 const styles = StyleSheet.create({
-  nextButton: {
+  container: {
     height: 44,
     alignSelf: 'stretch',
     backgroundColor: vars.color.red,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   green: {
     backgroundColor: vars.color.green,
   },
-  nextText: {
+  title: {
     color: vars.color.white,
     ...Platform.select({
       ios: {

@@ -14,8 +14,8 @@ import {
 } from './MasterEditorHelpers';
 
 export default makeReducer((state, action) => ({
-  [actions.MASTER_CARD_SET_ID]: () => {
-    state.masterEditor.masterCardId = action.masterCardId;
+  [actions.MASTER_CARD_ID_SET]: (state, { payload: { masterCardId } }) => {
+    state.masterEditor.masterCardId = masterCardId;
 
     return state;
   },

@@ -11,32 +11,24 @@ import {
   toggleService,
 } from '../../actions/Master';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
+  cardType: state.masterEditor.cardType,
   modelParamName: 'value',
   models: state.masterEditor.handlingTools,
   queryParamName: 'price',
   sectionName: 'handlingTools',
 });
 
-const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators({
-    createMasterServices,
-    setServiceParam,
-    toggleService,
-  }, dispatch);
-
-  return {
-    actions: {
-      ...actions,
-      next: () => {
-        actions.createMasterServices().then((res) => {
-          if (res.result === 'success') {
-            Actions.masterEditorCalendar();
-          }
-        });
-      },
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: {
+    ...bindActionCreators({
+      createMasterServices,
+      setServiceParam,
+      toggleService,
+    }, dispatch),
+    routeToCalendars: Actions.masterEditorCalendar,
+    routeToProfile: Actions.masterProfile,
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorHandlingTools));

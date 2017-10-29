@@ -11,6 +11,7 @@ export const getUserProfile = (headers: Object, params: Object) =>
       email: res.data.attributes.email,
       userId: res.data.id,
       masterCards: res.included ? res.included.map((card) => ({
+        about: card.attributes.about,
         addresses: [],
         email: res.data.attributes.email,
         id: card.id,
@@ -40,6 +41,7 @@ export const getMasterServices = (params: Object) =>
         duration: item.attributes.duration,
         price: item.attributes.price,
         serviceId: item.attributes.service_id,
+        title: item.attributes.title,
       }));
     });
 
@@ -53,6 +55,7 @@ export const getAddresses = (params: Object) =>
       return res.data.filter((item: Object) => item.type === 'address').map((item: Object) => {
         const address = {
           address: item.attributes.address,
+          city: item.attributes.city,
           id: item.id,
           location: {
             lat: item.attributes.lat,
@@ -72,6 +75,7 @@ export const getAddresses = (params: Object) =>
           if (timeTableObject) {
             address.timeTable = {
               dateStart: timeTableObject.attributes.date_start,
+              id: timeTable.id,
               intervalType: timeTableObject.attributes.interval_type,
               timeEnd: timeTableObject.attributes.time_end,
               timeStart: timeTableObject.attributes.time_start,

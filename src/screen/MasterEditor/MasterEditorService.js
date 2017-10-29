@@ -9,36 +9,30 @@ import {
   validateServices,
 } from '../../actions/Master';
 
+import { getServices } from '../../actions/MasterEdit';
+
 import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
 import NavBar from '../../components/NavBar';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
+  cardType: state.masterEditor.cardType,
   homeAllowanceField: state.masterEditor.services.homeAllowanceField,
   serviceManicure: state.masterEditor.serviceManicure,
-  serviceManicureHasValidationErrors: state.masterEditor,
   servicePedicure: state.masterEditor.servicePedicure,
 });
 
-const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators({
-    createMasterServices,
-    setServiceParam,
-    toggleService,
-    validateServices,
-  }, dispatch);
-
-  return {
-    actions: {
-      ...actions,
-      next: () => {
-        actions.createMasterServices().then((res) => {
-          if (res.result === 'success') {
-            Actions.masterEditorHandlingTools();
-          }
-        });
-      },
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: {
+    ...bindActionCreators({
+      createMasterServices,
+      getServices,
+      setServiceParam,
+      toggleService,
+      validateServices,
+    }, dispatch),
+    routeToHandlingTools: Actions.masterEditorHandlingTools,
+    routeToProfile: Actions.masterProfile,
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorService));

@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 
+import ActivityIndicator from '../../containers/ActivityIndicator';
 import MasterProfileInfo from '../../containers/MasterProfile/MasterProfileInfo';
 import MasterProfileCalendars from '../../containers/MasterProfile/MasterProfileCalendars';
 import MasterProfileServices from '../../containers/MasterProfile/MasterProfileServices';
@@ -20,14 +21,14 @@ import vars from '../../vars';
 
 const tabs = [
   {
-    key: 'profile',
+    key: 'info',
     title: Platform.select({
       ios: i18n.profile,
       android: i18n.profile.toUpperCase(),
     }),
   },
   {
-    key: 'calendar',
+    key: 'calendars',
     title: Platform.select({
       ios: i18n.calendar,
       android: i18n.calendar.toUpperCase(),
@@ -43,29 +44,41 @@ const tabs = [
 ];
 
 type TProps = {
-  profile: Object,
   actions: Object,
+  profile: Object,
+  sectionKey: string,
 }
 
 type TState = {
-  activeTab: string,
   tabBorderOffset: Animated,
+  tabCurrentKey: string,
 }
+
+const getTabBorderOffset = (sectionKey: string) => {
+  let tabIndex = 0;
+
+  tabs.forEach((tab, index) => {
+    if (tab.key === sectionKey) {
+      tabIndex = index;
+    }
+  });
+
+  return (Dimensions.get('window').width / 3) * tabIndex;
+};
 
 export default class MasterProfile extends Component<TProps, TState> {
   state = {
-    activeTab: 'profile',
-    tabBorderOffset: new Animated.Value(0),
+    tabBorderOffset: new Animated.Value(getTabBorderOffset(this.props.sectionKey)),
+    tabCurrentKey: this.props.sectionKey,
   };
 
   componentDidMount() {
-    if (!this.props.profile.userId) {
-      this.props.actions.getUserProfile();
-    }
+    this.props.actions.getUserProfile();
   }
 
-  onTabPress = (activeTab: string, index: number) => () => {
-    this.setState({ activeTab });
+  onTabPress = (tabCurrentKey: string, index: number) => () => {
+    this.setState({ tabCurrentKey });
+    this.props.actions.selectProfileSection(tabCurrentKey);
 
     Animated
       .timing(this.state.tabBorderOffset, {
@@ -76,18 +89,23 @@ export default class MasterProfile extends Component<TProps, TState> {
 
   render() {
     const { profile } = this.props;
-    const { activeTab, tabBorderOffset } = this.state;
+    const { tabCurrentKey, tabBorderOffset } = this.state;
 
     if (!profile.userId) {
-      return <View><Text>Loader</Text></View>;
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator position="absolute" />
+        </View>
+      );
     }
 
     return (
       <View style={styles.container}>
+        <ActivityIndicator position="absolute" />
         <View style={styles.tabsWrapper}>
           {tabs.map((tab, index) => (
             <TouchableOpacity key={tab.title} onPress={this.onTabPress(tab.key, index)}>
-              <Text style={[styles.tabsText, activeTab === tab.key ? styles.tabsTextActive : null]}>
+              <Text style={[styles.tabsText, tabCurrentKey === tab.key ? styles.tabsTextActive : null]}>
                 {tab.title}
               </Text>
             </TouchableOpacity>
@@ -97,9 +115,9 @@ export default class MasterProfile extends Component<TProps, TState> {
           />
         </View>
         <View style={styles.content}>
-          {activeTab === 'profile' && <MasterProfileInfo />}
-          {activeTab === 'calendar' && <MasterProfileCalendars />}
-          {activeTab === 'services' && <MasterProfileServices />}
+          {tabCurrentKey === 'info' && <MasterProfileInfo />}
+          {tabCurrentKey === 'calendars' && <MasterProfileCalendars />}
+          {tabCurrentKey === 'services' && <MasterProfileServices />}
         </View>
       </View>
     );

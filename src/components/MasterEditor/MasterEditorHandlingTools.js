@@ -9,11 +9,13 @@ import ButtonControl from '../ButtonControl';
 import Input from '../Input';
 import Label from '../Label';
 import Switch from '../Switch';
+import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
 
 type TProps = {
   actions: Object,
+  cardType: string,
   modelParamName: string,
   models: Object,
   queryParamName: string,
@@ -44,10 +46,23 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
   };
 
   onNextPress = () => {
-    this.props.actions.next();
+    this.props.actions.createMasterServices().then((res) => {
+      if (res.result === 'success') {
+        this.props.actions.routeToCalendars();
+      }
+    });
+  };
+
+  onSavePress = () => {
+    this.props.actions.createMasterServices().then((res) => {
+      if (res.result === 'success') {
+        this.props.actions.routeToProfile();
+      }
+    });
   };
 
   render() {
+    const { cardType } = this.props;
     const {
       boilingMethod,
       disinfectionMethod,
@@ -86,7 +101,13 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
             />
           </View>
         </ScrollView>
-        <ButtonControl onPress={this.onNextPress} />
+        {cardType === 'create'
+          ? <ButtonControl onPress={this.onNextPress} />
+          : <EditControl
+            onNextPress={this.onNextPress}
+            onSavePress={this.onSavePress}
+          />
+        }
       </View>
     );
   }

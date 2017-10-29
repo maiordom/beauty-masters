@@ -49,18 +49,16 @@ export default class MasterProfileServices extends Component<TProps, void> {
                 <Text>{serviceGroup.title}</Text>
               </View>
               {serviceGroup.services.map(service => (
-                <View style={styles.service} key={service.serviceId}>
+                <View style={styles.service} key={service.serviceId + service.categoryId + service.title}>
                   <Text>{service.title}</Text>
-                  {!isEmpty(service.price) && !isEmpty(service.duration) && (
-                    <Text style={styles.price}>
-                      {service.price} р, {service.duration} {i18n.time.minuteShort}.
-                    </Text>
-                  )}
-                  {!isEmpty(service.price) && isEmpty(service.duration) && (
-                    <Text style={styles.price}>
-                      {service.price} р
-                    </Text>
-                  )}
+                  <Text style={styles.serviceInfo}>
+                    {!isEmpty(service.price) && (
+                      <Text>{service.price} р</Text>
+                    )}
+                    {service.duration > 0 && (
+                      <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
+                    )}
+                  </Text>
                 </View>
               ))}
             </View>
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     backgroundColor: vars.color.white,
   },
-  price: {
+  serviceInfo: {
     color: vars.color.black,
   },
 });
