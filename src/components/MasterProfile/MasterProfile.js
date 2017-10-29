@@ -104,7 +104,7 @@ export default class MasterProfile extends Component<TProps, TState> {
         <ActivityIndicator position="absolute" />
         <View style={styles.tabsWrapper}>
           {tabs.map((tab, index) => (
-            <TouchableOpacity key={tab.title} onPress={this.onTabPress(tab.key, index)}>
+            <TouchableOpacity style={styles.tab} key={tab.title} onPress={this.onTabPress(tab.key, index)}>
               <Text style={[styles.tabsText, tabCurrentKey === tab.key ? styles.tabsTextActive : null]}>
                 {tab.title}
               </Text>
@@ -135,14 +135,18 @@ const styles = StyleSheet.create({
     backgroundColor: vars.color.lightGrey,
   },
   tabsWrapper: {
-    height: 48,
     alignSelf: 'stretch',
     backgroundColor: vars.color.red,
     borderTopColor: vars.color.underlineColorAndroid,
     borderTopWidth: 0.5,
     justifyContent: 'space-around',
-    alignItems: 'center',
     flexDirection: 'row',
+  },
+  tab: {
+    flex: 1,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tabsText: {
     color: vars.color.white,
