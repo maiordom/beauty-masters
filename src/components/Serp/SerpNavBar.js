@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
 import { drawerOpen } from '../../actions/Drawer';
+import LinearGradient from 'react-native-linear-gradient';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -16,6 +17,14 @@ const SerpNavBar = ({
   onListPress,
 }) => (
   <View style={styles.container}>
+    {Platform.OS === 'ios' && (
+      <LinearGradient
+        style={styles.gradient}
+        colors={[vars.color.red, vars.color.orange]}
+        start={{ x: 0.0, y: 0.0 }}
+        end={{ x: 1.0, y: 0.0 }}
+      />
+    )}
     <TouchableOpacity
       style={[styles.leftButton]}
       onPress={onPress}
@@ -62,11 +71,19 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: 64,
+        paddingTop: 20,
       },
       android: {
         height: 54,
       },
     }),
+  },
+  gradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   leftButton: {
     paddingLeft: 16,
@@ -75,23 +92,43 @@ const styles = StyleSheet.create({
   },
   buttonsWrapper: {
     position: 'absolute',
-    height: 32,
-    width: 180,
-    top: 10,
-    marginLeft: (DEVICE_WIDTH / 2) - 90,
     borderWidth: 1,
-    borderRadius: 50,
     borderColor: vars.color.white,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        height: 28,
+        borderRadius: 4,
+        top: 26,
+        width: 152,
+        marginLeft: (DEVICE_WIDTH / 2) - 76,
+      },
+      android: {
+        height: 32,
+        borderRadius: 50,
+        top: 10,
+        width: 180,
+        marginLeft: (DEVICE_WIDTH / 2) - 90,
+      },
+    }),
   },
   button: {
-    width: 90,
-    height: 32,
-    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        width: 76,
+        height: 28,
+        borderRadius: 4,
+      },
+      android: {
+        width: 90,
+        height: 32,
+        borderRadius: 50,
+      },
+    }),
   },
   activeButton: {
     backgroundColor: vars.color.white,
