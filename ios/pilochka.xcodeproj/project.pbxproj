@@ -13,12 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		43A566189D29BB6117FE6CC6 /* libPods-pilochkaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */; };
-		5E0A9C58081D4E73A617024F /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */; };
 		A191F626EB9D1A14D158DA82 /* libPods-pilochka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */; };
-		A664C0F81EF64418937173AA /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20836BF3E9594F128E0F4415 /* libAirMaps.a */; };
-		D0381D32AE034AB9900F07A7 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */; };
-		D2C5252F4B084C98A7F7822A /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EE60A4B755495591A35264 /* libRNImagePicker.a */; };
-		F138B71C27A64F04B54C98AC /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,11 +112,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A191F626EB9D1A14D158DA82 /* libPods-pilochka.a in Frameworks */,
-				D0381D32AE034AB9900F07A7 /* libSMXCrashlytics.a in Frameworks */,
-				5E0A9C58081D4E73A617024F /* libRNFetchBlob.a in Frameworks */,
-				D2C5252F4B084C98A7F7822A /* libRNImagePicker.a in Frameworks */,
-				F138B71C27A64F04B54C98AC /* libBVLinearGradient.a in Frameworks */,
-				A664C0F81EF64418937173AA /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
