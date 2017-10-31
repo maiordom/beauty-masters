@@ -1,9 +1,9 @@
 PODS:
   - BVLinearGradient (2.3.0):
     - React
-  - Crashlytics (3.9.0):
-    - Fabric (~> 1.7.0)
-  - Fabric (1.7.0)
+  - Crashlytics (3.9.3):
+    - Fabric (~> 1.7.2)
+  - Fabric (1.7.2)
   - React (0.40.0):
     - React/Core (= 0.40.0)
   - react-native-fetch-blob (0.10.6):
@@ -79,8 +79,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BVLinearGradient: e5b57d7ae2011487190ad11ed2e73edccdfc25fa
-  Crashlytics: 64aad5dd97249dd3ff94b979fea140144590cdd3
-  Fabric: e6be012366472553807dada21243c5ab8d904151
+  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   React: 6dfb2f72edb1d74a800127ae157af038646673ce
   react-native-fetch-blob: 2bef9be702de8726f4d7bf58d2345579aaaee60d
   react-native-image-picker: 3693786b3d5958c8f71deed66ec068b323565e0d
