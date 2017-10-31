@@ -31,7 +31,7 @@ const setHandlingTools = ({
   servicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId, price, duration, title }) => {
+  servicesData.forEach(({ categoryId, serviceId, price, duration }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });
@@ -94,7 +94,7 @@ const setServices = ({
   });
 };
 
-export default makeReducer((state, action) => ({
+export default makeReducer((state) => ({
   [actions.MASTER_EDIT_CALENDARS_SET]: (state, { payload: { masterCard } }) => {
     const calendarsMapping = [
       {
@@ -123,7 +123,7 @@ export default makeReducer((state, action) => ({
       paramName,
     });
 
-    masterCard.addresses.map((address, index) => {
+    masterCard.addresses.forEach((address, index) => {
       const {
         model: calendarModel,
         name: sectionName,

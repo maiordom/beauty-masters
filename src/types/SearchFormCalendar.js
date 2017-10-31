@@ -1,9 +1,8 @@
 // @flow
-import type { SelectCalendarDateType } from '../../types/SearchFormTypes';
 
-export type TSearchFormCelendar {
+export type TSearchFormCalendar = {
   showCalendar: boolean,
   selectedDate: string,
-  onDateSelect: SelectCalendarDateType,
+  onDateSelect: (date: string) => void,
   toggleCalendarModal: () => void,
 };

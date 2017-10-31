@@ -1,9 +1,8 @@
 // @flow
-import type { MasterTypeSelectType } from '../../types/SearchFormTypes';
 
-export type TSearchFormMasterTypeProps {
+export type TSearchFormMasterTypeProps = {
   showMasterTypeModal: boolean,
   toggleMasterTypeModal: () => void,
   masterType: Object,
-  onMasterTypeSelect: MasterTypeSelectType
+  onMasterTypeSelect: (value: boolean, id: string, modelName: string) => void,
 };

@@ -9,7 +9,7 @@ import c from '../constants/Profile';
 
 const intervalModel = intervalGroup();
 
-export default makeReducer((state, action) => ({
+export default makeReducer(() => ({
   [c.PROFILE_SECTION_SET]: (state, { payload: { sectionKey } }) =>
     deepUpdate(state, 'profile', { sectionKey }),
 
@@ -39,7 +39,9 @@ export default makeReducer((state, action) => ({
   },
 
   [c.PROFILE_MAIN_SET]: (state, { payload: { index } }) => {
-    state.profile.masterCards.forEach((card, masterIndex) => {
+    const { masterCards } = state.profile;
+
+    masterCards.forEach((card, masterIndex) => {
       card.isMain = masterIndex === index;
     });
 

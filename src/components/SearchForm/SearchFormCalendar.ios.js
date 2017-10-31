@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 
-import type { TSearchFormCelendar } from '../../types/SearchFormCalendar';
+import type { TSearchFormCalendar } from '../../types/SearchFormCalendar';
 
 import Calendar from '../Calendar';
 import PopupHeader from '../PopupHeader.ios';
@@ -18,7 +18,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-type TProps = TSearchFormCelendar;
+type TProps = TSearchFormCalendar;
 
 const SearchFormCalendar = ({
   showCalendar,

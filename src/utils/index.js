@@ -46,7 +46,7 @@ export function formatNumber(number: number) {
 // $FlowFixMe
 export function shouldComponentUpdate(ignoreProps?: Array<string>, ignoreState?: Array<string>) {
   // $FlowFixMe
-  return function (nextProps: Object, nextState: Object): boolean {
+  return (nextProps: Object, nextState: Object): boolean => {
     const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
     const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);
 

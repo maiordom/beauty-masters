@@ -21,7 +21,7 @@ type TState = {
 };
 
 class Serp extends Component<TProps, TState> {
-  props: Props;
+  props: TProps;
 
   state = {
     activeView: 'map',
