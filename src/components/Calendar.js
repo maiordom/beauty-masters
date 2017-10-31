@@ -32,7 +32,7 @@ export default class Calendar extends Component {
     };
 
     this.state.originStartDate = this.state.startDate;
-    
+
     this.dayHeadings = Platform.select({
       ios: i18n.dayHeadings.map((heading) => capitalize(heading)),
       android: i18n.dayHeadings,

@@ -33,8 +33,8 @@ export default class Tabs extends Component {
     });
 
     this.setState({
-     tabs: [ ...tabs ],
-     tabActiveKey: tabActiveKey,
+      tabs: [...tabs],
+      tabActiveKey,
     });
   }
 
@@ -47,9 +47,9 @@ export default class Tabs extends Component {
     });
 
     this.setState({
-       tabs: [ ...tabs ],
-       tabActiveKey: tabActive.key,
-      });
+      tabs: [...tabs],
+      tabActiveKey: tabActive.key,
+    });
     this.props.onPress && this.props.onPress(tabActive);
   };
 

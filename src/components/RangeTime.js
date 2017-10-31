@@ -44,8 +44,8 @@ export default class RangeTime extends Component<TProps, TState> {
 
   getStorage = (props: TProps) => {
     const { timeStart, timeEnd } = props;
-    const [ timeStartHour, timeStartMinute ] = timeStart.split(':');
-    const [ timeEndHour, timeEndMinute ] = timeEnd.split(':');
+    const [timeStartHour, timeStartMinute] = timeStart.split(':');
+    const [timeEndHour, timeEndMinute] = timeEnd.split(':');
 
     return {
       timeStart,

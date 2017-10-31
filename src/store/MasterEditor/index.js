@@ -22,7 +22,7 @@ const params = {
     general: 'required',
     services: 'required',
     addresses: 'required',
-    photos: 'required'
+    photos: 'required',
   },
   masterCardId: null,
 };

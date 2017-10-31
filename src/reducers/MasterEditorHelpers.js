@@ -7,7 +7,7 @@ export const setParam = (action, state) => {
   const { sectionName, modelName, paramValue, paramName } = action;
 
   return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, {
-    [paramName]: paramValue
+    [paramName]: paramValue,
   });
 };
 

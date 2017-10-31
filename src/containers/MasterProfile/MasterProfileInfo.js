@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
       dispatch(setGeneralInfo(masterCard));
 
       Actions.masterEditorGeneral();
-    })
+    }),
   },
 });
 

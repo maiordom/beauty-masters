@@ -89,7 +89,7 @@ const setServices = ({
           price,
           title,
         },
-      })
+      });
     }
   });
 };
@@ -174,7 +174,7 @@ export default makeReducer((state, action) => ({
       setCreateQueryParam(intervalGroupPayload, state, 'createTimeTableQuery');
     });
 
-    deepUpdate(state, `masterEditor.editStatus`, { addresses: 'uploaded' });
+    deepUpdate(state, 'masterEditor.editStatus', { addresses: 'uploaded' });
 
     return state;
   },
@@ -222,7 +222,7 @@ export default makeReducer((state, action) => ({
     });
 
     deepUpdate(state, 'masterEditor', { serviceManicure: manicureServicesModels });
-    deepUpdate(state, `masterEditor.services`, { manicureCustomServices });
+    deepUpdate(state, 'masterEditor.services', { manicureCustomServices });
 
     return state;
   },
@@ -247,7 +247,7 @@ export default makeReducer((state, action) => ({
     });
 
     deepUpdate(state, 'masterEditor', { servicePedicure: pedicureServicesModels });
-    deepUpdate(state, `masterEditor.services`, { pedicureCustomServices });
+    deepUpdate(state, 'masterEditor.services', { pedicureCustomServices });
 
     return state;
   },
@@ -284,7 +284,7 @@ export default makeReducer((state, action) => ({
         general: 'required',
         services: 'required',
         addresses: 'required',
-        photos: 'required'
+        photos: 'required',
       },
       masterCardId,
     });
@@ -293,11 +293,11 @@ export default makeReducer((state, action) => ({
   [actions.MASTER_EDIT_PHOTOS_SET]: (state, { payload: { masterCard } }) => {
     const { masterPhotos, certificatePhotos, workPhotos } = masterCard;
 
-    setPhotos({ model: state.masterEditor.info.certificatePhotos, data: certificatePhotos});
-    setPhotos({ model: state.masterEditor.info.personalPhotos, data: masterPhotos});
-    setPhotos({ model: state.masterEditor.info.workPhotos, data: workPhotos});
+    setPhotos({ model: state.masterEditor.info.certificatePhotos, data: certificatePhotos });
+    setPhotos({ model: state.masterEditor.info.personalPhotos, data: masterPhotos });
+    setPhotos({ model: state.masterEditor.info.workPhotos, data: workPhotos });
 
     deepUpdate(state, 'masterEditor.editStatus', { photos: 'uploaded' });
     return state;
-  }
+  },
 }));

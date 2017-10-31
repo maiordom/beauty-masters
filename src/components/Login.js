@@ -69,10 +69,10 @@ export default class Login extends Component<TProps, TState> {
     if (username.length === 0 || password.length === 0) {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
       return false;
-    } else {
-      this.setState({ validationStatus: null, hasError: false });
-      return true;
     }
+
+    this.setState({ validationStatus: null, hasError: false });
+    return true;
   }
 
   onChangeInput = () => {
@@ -121,7 +121,7 @@ export default class Login extends Component<TProps, TState> {
             onChange={this.onChangeInput}
             placeholder={i18n.passwordTip}
             ref={this.setPasswordRef}
-            secureTextEntry={true}
+            secureTextEntry
             style={styles.input}
           />
           {validationStatus === ALL_FIELDS_REQUIRED && (

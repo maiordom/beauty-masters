@@ -20,7 +20,7 @@ export default class RadioGroup extends Component {
         {items.map((item, key) => (
           <Radio
             checked={item.active}
-            customStyles={{container: styles.radio}}
+            customStyles={{ container: styles.radio }}
             id={item.id}
             key={key}
             label={item.label}

@@ -18,8 +18,8 @@ const mapStateToProps = (state, { type }) => {
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-     toogleCustomService,
-     setCustomServiceParam
+    toogleCustomService,
+    setCustomServiceParam,
   }, dispatch),
 });
 

@@ -75,7 +75,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
           if (!res.error) {
             this.setState({ renderLoader: false });
           }
-        })
+        });
       } else {
         this.setState({ renderLoader: false });
       }

@@ -46,5 +46,5 @@ export default makeReducer(() => ({
     });
 
     return state;
-  }
+  },
 }));
