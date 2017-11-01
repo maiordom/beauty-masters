@@ -1,8 +1,11 @@
 import find from 'lodash/find';
+import omitBy from 'lodash/omitBy';
 
 import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/MasterEdit';
+
+const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
 
 import {
   setCreateQueryParam,
@@ -31,7 +34,7 @@ const setHandlingTools = ({
   servicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId, price, duration }) => {
+  servicesData.forEach(({ categoryId, serviceId }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });
@@ -40,8 +43,6 @@ const setHandlingTools = ({
       servicesQuery.push({
         attributes: {
           category_service_id: categoryId,
-          duration,
-          price,
           service_id: serviceId,
         },
       });
@@ -67,28 +68,28 @@ const setServices = ({
       serviceModel.price = price;
 
       servicesQuery.push({
-        attributes: {
+        attributes: filterNullable({
           category_service_id: categoryId,
           duration,
           price,
           service_id: serviceId,
-        },
+        }),
       });
     } else {
-      customServices.items.push({
+      customServices.items.push(filterNullable({
         active: true,
         duration,
         price,
         title,
-      });
+      }));
 
       customServicesQuery.push({
-        attributes: {
+        attributes: filterNullable({
           category_service_id: categoryId,
           duration,
           price,
           title,
-        },
+        }),
       });
     }
   });
@@ -204,7 +205,7 @@ export default makeReducer((state) => ({
 
   [actions.MASTER_EDIT_MANICURE_SERVICES_SET]: (state, { payload: { masterCard } }) => {
     const manicureCategoryId = state.dictionaries.categoryServiceByKey.Manicure.id;
-    const manicureServicesData = find(masterCard.masterServices, { id: manicureCategoryId }).services;
+    const manicureServicesByCategory = find(masterCard.masterServices, { id: manicureCategoryId });
     const manicureServicesModels = state.masterEditor.serviceManicure;
     const {
       manicureCustomServicesQuery,
@@ -212,8 +213,12 @@ export default makeReducer((state) => ({
     } = state.masterEditor;
     const { manicureCustomServices } = state.masterEditor.services;
 
+    if (!manicureServicesByCategory) {
+      return state;
+    }
+
     setServices({
-      servicesData: manicureServicesData,
+      servicesData: manicureServicesByCategory.services,
       servicesModels: manicureServicesModels,
       servicesQuery: masterServicesQuery,
       customServices: manicureCustomServices,
@@ -229,7 +234,7 @@ export default makeReducer((state) => ({
 
   [actions.MASTER_EDIT_PEDICURE_SERVICES_SET]: (state, { payload: { masterCard } }) => {
     const pedicureCategoryId = state.dictionaries.categoryServiceByKey.Pedicure.id;
-    const pedicureServicesData = find(masterCard.masterServices, { id: pedicureCategoryId }).services;
+    const pedicureServicesByCategory = find(masterCard.masterServices, { id: pedicureCategoryId });
     const pedicureServicesModels = state.masterEditor.servicePedicure;
     const {
       pedicureCustomServicesQuery,
@@ -237,8 +242,12 @@ export default makeReducer((state) => ({
     } = state.masterEditor;
     const { pedicureCustomServices } = state.masterEditor.services;
 
+    if (!pedicureServicesByCategory) {
+      return state;
+    }
+
     setServices({
-      servicesData: pedicureServicesData,
+      servicesData: pedicureServicesByCategory.services,
       servicesModels: pedicureServicesModels,
       servicesQuery: masterServicesQuery,
       customServices: pedicureCustomServices,
@@ -254,12 +263,16 @@ export default makeReducer((state) => ({
 
   [actions.MASTER_EDIT_HANDLING_TOOLS_SET]: (state, { payload: { masterCard } }) => {
     const handlingToolsCategoryId = state.dictionaries.categoryServiceByKey.HandlingTools.id;
-    const handlingToolsData = find(masterCard.masterServices, { id: handlingToolsCategoryId }).services;
+    const handlingToolsByCategory = find(masterCard.masterServices, { id: handlingToolsCategoryId });
     const handlingToolsModels = state.masterEditor.handlingTools;
     const { masterServicesQuery } = state.masterEditor;
 
+    if (!handlingToolsByCategory) {
+      return state;
+    }
+
     setHandlingTools({
-      servicesData: handlingToolsData,
+      servicesData: handlingToolsByCategory.services,
       servicesModels: handlingToolsModels,
       servicesQuery: masterServicesQuery,
       state,
