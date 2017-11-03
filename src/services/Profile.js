@@ -9,12 +9,12 @@ export const getUserProfile = (headers: Object, params: Object) =>
   get(routes.getUserProfile, params, headers)
     .then((res) => (res.error ? res : {
       email: res.data.attributes.email,
-      userId: res.data.id,
+      userId: Number(res.data.id),
       masterCards: res.included ? res.included.map((card) => ({
         about: card.attributes.about,
         addresses: [],
         email: res.data.attributes.email,
-        id: card.id,
+        id: Number(card.id),
         isMain: Boolean(card.attributes.is_main),
         isSalon: Boolean(card.attributes.is_salon),
         masterPhotos: [],

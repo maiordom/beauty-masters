@@ -64,10 +64,13 @@ export default class MasterPhotoList extends Component {
                   ]}
                 >
                   {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                    <Text>In progress</Text>
+                    <Text>Загружается</Text>
                   )}
                   {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
-                    <Text>In queue</Text>
+                    <Text>В очереди</Text>
+                  )}
+                  {item.status === constants.UPLOAD_STATUS.ERROR && (
+                    <Text>Ошибка</Text>
                   )}
                 </View>);
               }
