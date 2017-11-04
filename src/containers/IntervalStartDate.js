@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
   sectionName: ownProps.sectionName,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: {
     applyDate(date, sectionName) {
       dispatch(setTimeTableField('startDateField', 'value', date, sectionName));

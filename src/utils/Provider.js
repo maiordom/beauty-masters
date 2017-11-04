@@ -149,5 +149,12 @@ export const geo = (method: string, params: Object) => {
       ...res,
       status: 'ok',
     };
+  })
+  .catch((exx) => {
+    console.log('googlePlaces::exx', exx);
+
+    return {
+      error: {},
+    };
   });
 };

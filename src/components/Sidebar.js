@@ -95,7 +95,11 @@ export default class Sidebar extends Component<TProps, TState> {
     this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
-      this.props.actions.routeToMasterProfile();
+      if (this.props.username) {
+        this.props.actions.routeToMasterProfile();
+      } else {
+        this.props.actions.routeToAuthorization();
+      }
     });
   };
 

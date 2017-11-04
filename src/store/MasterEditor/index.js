@@ -1,6 +1,7 @@
 // @flow
 
 import each from 'lodash/each';
+import moment from 'moment';
 
 import CalendarSettings from './MasterEditorCalendarSettings';
 import GeneralFields from './MasterEditorGeneral';
@@ -68,6 +69,10 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
 
   object.createTimeTableQuery.time_start = object.timeStartField.value;
   object.createTimeTableQuery.time_end = object.timeEndField.value;
+  object.createTimeTableQuery.interval_type = object.intervalGroup.selected.id;
+  object.createTimeTableQuery.date_start = moment().format('YYYY-MM-DD');
+
+  console.log(object.createTimeTableQuery);
 
   [
     object.createAddressQuery,
@@ -98,4 +103,16 @@ const masterEditorJSONString = JSON.stringify(masterEditorObject);
 
 export default JSON.parse(masterEditorJSONString);
 
-export const getCleanMasterEditorObject = () => JSON.parse(masterEditorJSONString);
+export const getCleanMasterEditorObject = () => {
+  const cleanObject = JSON.parse(masterEditorJSONString);
+
+  [
+    'calendarSettingsOne',
+    'calendarSettingsThree',
+    'calendarSettingsTwo',
+  ].forEach((modelName) => {
+    cleanObject[modelName].startDateField.value = moment().format('YYYY-MM-DD');
+  });
+
+  return cleanObject;
+}

@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = () => ({
   actions: {
     drawerClose,
+    routeToAuthorization: Actions.masterAuthorization,
     routeToMasterProfile: Actions.masterProfile,
   },
 });
