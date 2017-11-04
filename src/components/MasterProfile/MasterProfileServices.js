@@ -23,22 +23,11 @@ type TProps = {
 
 export default class MasterProfileServices extends Component<TProps, void> {
   componentDidMount() {
-    if (!this.props.uploaded) {
-      this.props.actions.getMasterServices();
-    }
+    this.props.actions.getMasterServices();
   }
 
   render() {
-    const { services, uploaded } = this.props;
-
-    if (!uploaded) {
-      return (
-        <ActivityIndicator
-          animating
-          position="absolute"
-        />
-      );
-    }
+    const { services = [], uploaded } = this.props;
 
     return (
       <View style={styles.container}>
@@ -64,6 +53,12 @@ export default class MasterProfileServices extends Component<TProps, void> {
             </View>
           ))}
         </ScrollView>
+        {!uploaded && (
+          <ActivityIndicator
+            animating
+            position="absolute"
+          />
+        )}
       </View>
     );
   }
