@@ -63,6 +63,8 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
   object.timeTableId = null;
   object.addressId = null;
   object.cityField.value = Geo.city.name;
+  object.startDateField.value = moment().format('YYYY-MM-DD');
+
   object.createAddressQuery.city = Geo.city.name;
   object.createAddressQuery.lat = Geo.city.location.lat;
   object.createAddressQuery.lon = Geo.city.location.lng;
@@ -71,8 +73,6 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
   object.createTimeTableQuery.time_end = object.timeEndField.value;
   object.createTimeTableQuery.interval_type = object.intervalGroup.selected.id;
   object.createTimeTableQuery.date_start = moment().format('YYYY-MM-DD');
-
-  console.log(object.createTimeTableQuery);
 
   [
     object.createAddressQuery,
@@ -112,7 +112,8 @@ export const getCleanMasterEditorObject = () => {
     'calendarSettingsTwo',
   ].forEach((modelName) => {
     cleanObject[modelName].startDateField.value = moment().format('YYYY-MM-DD');
+    cleanObject[modelName].createTimeTableQuery.date_start = moment().format('YYYY-MM-DD');
   });
 
   return cleanObject;
-}
+};
