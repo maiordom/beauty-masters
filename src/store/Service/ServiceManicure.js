@@ -108,7 +108,7 @@ const moonManicure = (isActive: boolean) => ({
 const reverseMoonManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
-  dictionaryKey: 'ManicureReverseMoon',
+  dictionaryKey: 'ManicReverseMoon',
   title: i18n.filters.reverseMoon,
 }: TServiceManicure);
 
