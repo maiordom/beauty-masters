@@ -3,7 +3,7 @@ import find from 'lodash/find';
 import { makeReducer, groupServices, deepUpdate } from '../utils';
 import { intervalGroup } from '../store/Interval';
 
-import type { TProfileData } from '../types/ProfileData';
+import type { TProfileData, TMasterCard, TMasterAddress } from '../types/ProfileData';
 
 import c from '../constants/Profile';
 
@@ -21,16 +21,24 @@ export default makeReducer(() => ({
       userId,
     };
 
-    masterCards.forEach((card) => {
-      const profileCard = find(state.profile.masterCards, { id: card.id });
+    masterCards.forEach((card: TMasterCard) => {
+      const profileCard: TMasterCard = find(state.profile.masterCards, { id: card.id });
 
       if (profileCard) {
         card.addresses = profileCard.addresses;
         card.masterServices = profileCard.masterServices;
+
+        if (profileCard.status.addressesUploaded) {
+          card.status.addressesUploaded = true;
+        }
+
+        if (profileCard.status.masterServicesUploaded) {
+          card.status.masterServicesUploaded = true;
+        }
       }
     });
 
-    const mainCard = find(masterCards, { isMain: true });
+    const mainCard: TMasterCard = find(masterCards, { isMain: true });
 
     state.masterEditor.masterCardId = mainCard && mainCard.id || null;
     state.profile = profile;
@@ -41,7 +49,7 @@ export default makeReducer(() => ({
   [c.PROFILE_MAIN_SET]: (state, { payload: { index } }) => {
     const { masterCards } = state.profile;
 
-    masterCards.forEach((card, masterIndex) => {
+    masterCards.forEach((card: TMasterCard, masterIndex: number) => {
       card.isMain = masterIndex === index;
     });
 
@@ -52,13 +60,13 @@ export default makeReducer(() => ({
   },
 
   [c.PROFILE_ADDRESSES_SET]: (state, { payload: { addresses, masterCardId } }) => {
-    const masterCard = find(state.profile.masterCards, { id: masterCardId });
+    const masterCard: TMasterCard = find(state.profile.masterCards, { id: masterCardId });
 
     if (masterCard) {
       masterCard.addresses = addresses;
       masterCard.status.addressesUploaded = true;
 
-      addresses.forEach(address => {
+      addresses.forEach((address: TMasterAddress) => {
         const interval = find(intervalModel.items, { id: address.timeTable.intervalType });
 
         address.timeTable.intervalKey = interval.key;
@@ -69,7 +77,7 @@ export default makeReducer(() => ({
   },
 
   [c.PROFILE_MASTER_SERVICES_SET]: (state, { payload: { masterServices, masterCardId } }) => {
-    const masterCard = find(state.profile.masterCards, { id: masterCardId });
+    const masterCard: TMasterCard = find(state.profile.masterCards, { id: masterCardId });
 
     masterCard.masterServices = groupServices(masterServices, state.dictionaries);
     masterCard.status.masterServicesUploaded = true;

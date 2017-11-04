@@ -63,6 +63,8 @@ export const getServices = () => (dispatch: Function, getState: Function) => {
       return res;
     });
   }
+
+  return Promise.resolve({});
 };
 
 export const getCalendars = () => (dispatch: Function, getState: Function) => {
