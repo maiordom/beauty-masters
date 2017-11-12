@@ -12,10 +12,14 @@ const mapStateToProps = (state) => {
   if (card) {
     return {
       username: card.username,
+      avatar: card.avatar,
+      isAuthorized: true,
     };
   }
 
-  return {};
+  return {
+    isAuthorized: false,
+  };
 };
 
 const mapDispatchToProps = () => ({

@@ -99,6 +99,11 @@ const Scene = (component) => class SceneComponent extends Component {
       return drawerOpen({
         contentKey: 'SideBar',
         currentScene: sceneKey,
+        ...Platform.select({
+          ios: {
+            openDrawerOffset: 0.125,
+          },
+        }),
       });
     }
 
