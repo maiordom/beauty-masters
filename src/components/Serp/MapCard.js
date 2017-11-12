@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
       android: {
         shadowRadius: 10,
         shadowOpacity: 0.8,
-        shadowColor: '#000000',
+        shadowColor: vars.color.black,
         shadowOffset: {
           width: 0,
           height: 3,
