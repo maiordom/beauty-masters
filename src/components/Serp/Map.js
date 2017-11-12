@@ -91,7 +91,10 @@ type Cluster = {
   },
 };
 
-const SNIPPET_HEIGHT = 204;
+const SNIPPET_HEIGHT = Platform.select({
+  ios: 190,
+  android: 204,
+});
 
 const convertToGeoPoints = points => points.map(point => ({
   type: 'Feature',
@@ -182,12 +185,20 @@ export default class Map extends Component<TProps, TState> {
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (gestureState.dy > 35) {
-        Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+        this.hideSnippet();
       } else if (gestureState.dy < 35) {
-        Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 500 }).start();
+        this.showSnippet();
       }
     },
   });
+
+  showSnippet = () => {
+    Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 500 }).start();
+  }
+
+  hideSnippet = () => {
+    Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+  }
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
@@ -200,8 +211,7 @@ export default class Map extends Component<TProps, TState> {
     this.map = ref;
   };
 
-  onMarkerPress = (event: any, index: number) => {
-    const { coordinate } = event.nativeEvent;
+  onMarkerPress = (event: any, index: number, coordinate: LatLngType) => {
     const region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
     const { cluster, clusters } = this.state;
     const point = clusters[index];
@@ -232,13 +242,15 @@ export default class Map extends Component<TProps, TState> {
       region,
     });
 
-    Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 200 }).start();
+    this.showSnippet();
   };
 
-  onMapPress = () => {
+  onMapPress = (event: any) => {
     this.setState({ activePin: null, region: this.state.initialRegion });
 
-    Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+    if (event.nativeEvent.action !== 'marker-press') {
+      this.hideSnippet();
+    }
   };
 
   onLocationPress = () => {
@@ -310,7 +322,7 @@ export default class Map extends Component<TProps, TState> {
                 <MapView.Marker
                   coordinate={coordinate}
                   key={Math.random()}
-                  onPress={event => this.onMarkerPress(event, index)}
+                  onPress={event => this.onMarkerPress(event, index, coordinate)}
                   image={isEqual(coordinate, activePin)
                     ? icons.pinGreen
                     : icons.pinRed
@@ -357,12 +369,9 @@ export default class Map extends Component<TProps, TState> {
   }
 }
 
-const NAV_BAR_WIDTH = 70;
-
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - NAV_BAR_WIDTH,
+    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

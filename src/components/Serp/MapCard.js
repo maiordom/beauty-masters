@@ -18,6 +18,11 @@ const icons = {
       calendar: require('../../icons/android/calendar.png'),
       ticket: require('../../icons/android/ticket.png'),
     },
+    ios: {
+      pin: require('../../icons/ios/pin-small.png'),
+      calendar: require('../../icons/ios/calendar-small.png'),
+      ticket: require('../../icons/ios/ticket-small.png'),
+    },
   }),
 };
 
@@ -70,9 +75,9 @@ export default class MapCard extends Component<TProps, TState> {
                 ? <Image style={styles.photo} source={{ uri }} />
                 : <Image style={styles.photo} source={icons.photoEmpty} />}
             </View>
-            <View>
+            <View style={styles.titlesContainer}>
               <Text style={styles.title}>{username}</Text>
-              <Text>{subtitle}</Text>
+              <Text style={styles.subtitle}>{subtitle}</Text>
             </View>
           </View>
           <View style={[styles.row, styles.rowTitle]}>
@@ -112,14 +117,21 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     backgroundColor: vars.color.white,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
     padding: 16,
-    shadowRadius: 10,
-    shadowOpacity: 0.8,
+    ...Platform.select({
+      ios: {
+        height: 190,
+      },
+      android: {
+        shadowRadius: 10,
+        shadowOpacity: 0.8,
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+      },
+    }),
   },
   modMap: {
     paddingRight: 0,
@@ -137,23 +149,60 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   photo: {
-    width: 48,
-    height: 48,
-    borderRadius: 50,
+    ...Platform.select({
+      ios: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+      },
+      android: {
+        width: 48,
+        height: 48,
+        borderRadius: 50,
+      },
+    }),
   },
   rowTitle: {
     paddingRight: 16,
   },
+  titlesContainer: {
+    ...Platform.select({
+      ios: {
+        justifyContent: 'space-between',
+      },
+    }),
+  },
   title: {
-    fontSize: 16,
     color: vars.color.black,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+      },
+      android: {
+        fontSize: 16,
+      },
+    }),
   },
   subtitle: {
-    fontSize: 14,
     color: vars.color.grey,
+    ...Platform.select({
+      ios: {
+        fontSize: 12,
+      },
+      android: {
+        fontSize: 14,
+      },
+    }),
   },
   icon: {
-    marginRight: 8,
+    ...Platform.select({
+      ios: {
+        marginRight: 10,
+      },
+      android: {
+        marginRight: 8,
+      },
+    }),
   },
   text: {
     fontSize: 14,
@@ -164,12 +213,18 @@ const styles = StyleSheet.create({
   },
   distanceText: {
     textAlign: 'right',
+    ...Platform.select({
+      ios: {
+        color: vars.color.grey,
+      },
+    }),
   },
   metroWrapper: {
     flexDirection: 'row',
   },
   servicesRow: {
     alignItems: 'flex-start',
+    marginBottom: 0,
   },
   services: {
     marginTop: -3,
