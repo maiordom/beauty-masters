@@ -15,8 +15,8 @@ const getPhotos = (included, type) =>
 
 const getServices = (included) =>
   included.filter(item => item.type === 'master-service').map(service => ({
-    duration: service.attributes.duration,
-    price: service.attributes.price,
+    duration: Number(service.attributes.duration),
+    price: Number(service.attributes.price),
     serviceId: service.attributes.service_id,
   }));
 

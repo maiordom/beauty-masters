@@ -13,6 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		43A566189D29BB6117FE6CC6 /* libPods-pilochkaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */; };
+		884A0F681FB73CDF005B134C /* ReactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 884A0F671FB73CDF005B134C /* ReactViewController.m */; };
 		A191F626EB9D1A14D158DA82 /* libPods-pilochka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,8 @@
 		57EE60A4B755495591A35264 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.debug.xcconfig"; sourceTree = "<group>"; };
 		7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		884A0F661FB73CDF005B134C /* ReactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReactViewController.h; path = pilochka/ReactViewController.h; sourceTree = "<group>"; };
+		884A0F671FB73CDF005B134C /* ReactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ReactViewController.m; path = pilochka/ReactViewController.m; sourceTree = "<group>"; };
 		8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				884A0F661FB73CDF005B134C /* ReactViewController.h */,
+				884A0F671FB73CDF005B134C /* ReactViewController.m */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -529,9 +534,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pilochka/Pods-pilochka-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -554,6 +562,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				884A0F681FB73CDF005B134C /* ReactViewController.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,6 +662,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.relak;
 				PRODUCT_NAME = pilochka;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -672,6 +682,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.relak;
 				PRODUCT_NAME = pilochka;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
