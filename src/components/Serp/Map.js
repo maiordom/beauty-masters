@@ -14,7 +14,7 @@ import {
   View,
 } from 'react-native';
 import supercluster from 'supercluster';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 import debounce from 'lodash/debounce';
@@ -300,6 +300,7 @@ export default class Map extends Component<TProps, TState> {
             style={styles.map}
             onPress={this.onMapPress}
             initialRegion={region}
+            provider={PROVIDER_GOOGLE}
             onRegionChange={debounce(this.onRegionChange, 300)}
             ref={this.setMapRef}
           >
