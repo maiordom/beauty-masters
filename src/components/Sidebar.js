@@ -112,6 +112,8 @@ export default class Sidebar extends Component<TProps, TState> {
   };
 
   onLogoutPress = () => {
+    this.props.actions.drawerClose();
+    this.props.actions.logout();
   };
 
   render() {
