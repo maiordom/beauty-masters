@@ -13,11 +13,13 @@ const icons = {
     android: {
       back: require('../../icons/android/back-arrow.png'),
     },
-    ios: {},
+    ios: {
+      back: require('../../icons/ios/back-arrow.png'),
+    },
   }),
 };
 
-type Props = {
+type TProps = {
   actions: {
     addToFavorites: (snippet: TMapCard) => void,
     removeFromFavorites: (id: number) => void,
@@ -27,7 +29,7 @@ type Props = {
   snippet: TMapCard,
 }
 
-export default class MasterCardNavBar extends Component<void, Props, void> {
+export default class MasterCardNavBar extends Component<TProps, void> {
   onFavPress = () => {
     const { actions, id, snippet, isFavorite } = this.props;
 
@@ -43,7 +45,7 @@ export default class MasterCardNavBar extends Component<void, Props, void> {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={Actions.pop}>
+        <TouchableOpacity onPress={Actions.pop} hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}>
           <Image source={icons.back} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.onFavPress} >
@@ -58,13 +60,27 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    margin: 16,
     flex: 1,
     justifyContent: 'space-between',
     flexDirection: 'row',
+    ...Platform.select({
+      android: {
+        margin: 16,
+      },
+      ios: {
+        paddingTop: 34,
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingBottom: 16,
+      },
+    }),
   },
   icon: {
-    width: 24,
-    height: 24,
+    ...Platform.select({
+      android: {
+        width: 24,
+        height: 24,
+      },
+    }),
   },
 });
