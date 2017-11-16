@@ -28,6 +28,9 @@ const icons = {
     android: {
       calendar: require('../../icons/android/calendar.png'),
     },
+    ios: {
+      calendar: require('../../icons/ios/calendar-none.png'),
+    },
   }),
 };
 
@@ -165,7 +168,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
           </Text>
           <View style={styles.metro}>
             <Image source={icons.location} style={styles.location} />
-            <Text>{i18n.metroShort}. {subwayStation}</Text>
+            <Text style={styles.metroTitle}>{i18n.metroShort}. {subwayStation}</Text>
           </View>
         </View>
         <TouchableOpacity onPress={this.onMapPress}>
@@ -296,9 +299,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   addressTitle: {
-    fontSize: 16,
     color: vars.color.black,
     marginBottom: 6,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+      },
+      android: {
+        fontSize: 16,
+      },
+    }),
   },
   location: {
     width: 10,
@@ -308,6 +318,14 @@ const styles = StyleSheet.create({
   metro: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  metroTitle: {
+    ...Platform.select({
+      ios: {
+        color: vars.color.grey,
+        fontSize: 12,
+      },
+    }),
   },
   map: {
     width: 40,
