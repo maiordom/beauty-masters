@@ -35,7 +35,9 @@ const icons = Platform.select({
   android: {
     back: require('../../icons/android/back-arrow.png'),
   },
-  ios: {},
+  ios: {
+    back: require('../../icons/ios/back-arrow.png'),
+  },
 });
 
 type TProps = MasterCardType & {
@@ -141,7 +143,7 @@ export default class MasterCard extends Component<TProps, TState> {
               <ImagePlaceholder
                 source={{ uri: masterPhoto }}
                 placeholder={require('../../icons/android/master-empty.png')}
-                style={{ height: 260, width: Dimensions.get('window').width }}
+                style={styles.masterPhoto}
               />
               <MasterCardNavBar
                 id={id}
@@ -211,6 +213,13 @@ const styles = StyleSheet.create({
   content: {
     alignSelf: 'stretch',
     backgroundColor: vars.color.white,
+  },
+  masterPhoto: {
+    width: Dimensions.get('window').width,
+    ...Platform.select({
+      android: { height: 260 },
+      ios: { height: 240 },
+    }),
   },
   gallery: {
     position: 'absolute',
