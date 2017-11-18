@@ -11,8 +11,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Linking,
 } from 'react-native';
 import Gallery from 'react-native-gallery';
+
+import isEmpty from 'lodash/isEmpty';
 
 import ImagePlaceholder from '../ImagePlaceholder';
 import Fade from '../Fade';
@@ -97,6 +100,10 @@ export default class MasterCard extends Component<TProps, TState> {
     this.scrollViewRef.scrollTo({ y: bottomOfList, animated: true });
   });
 
+  makeCall = (phone: string) => {
+    Linking.openURL(`tel:${phone}`).catch(error => console.log(`MasterCard::makeCall::${error}`));
+  };
+
   renderComponents = () => {
     const components = ['showFirstGroup', 'showSecondGroup'];
 
@@ -119,6 +126,7 @@ export default class MasterCard extends Component<TProps, TState> {
       snippet,
       username,
       workPhotos,
+      phone,
     } = this.props;
 
     const {
@@ -179,12 +187,12 @@ export default class MasterCard extends Component<TProps, TState> {
             )}
           </Fade>
         </ScrollView>
-        <ButtonControl
+        {!isEmpty(phone) && <ButtonControl
           label={i18n.call}
           type="green"
           customStyles={{ nextButton: styles.callButton }}
-          onPress={() => {}}
-        />
+          onPress={() => { this.makeCall(phone); }}
+        />}
         {showWorksGallery && (
           <View style={styles.gallery}>
             <Gallery
