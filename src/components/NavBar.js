@@ -99,6 +99,7 @@ const Scene = (component) => class SceneComponent extends Component {
       return drawerOpen({
         contentKey: 'SideBar',
         currentScene: sceneKey,
+        openDrawerOffset: 0.125,
       });
     }
 

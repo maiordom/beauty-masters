@@ -1,5 +1,6 @@
 import * as AuthService from '../services/Auth';
 import actions from '../constants/Auth';
+import profileActions from '../constants/Profile';
 
 import { setActivityIndicator } from './Common';
 
@@ -48,6 +49,26 @@ export const userLogin = ({ username, password }) => (dispatch) => {
   return AuthService.userLogin(params)
     .then((res) => handleAuth(res, dispatch, actions.AUTH_SET_LOGIN_ERROR))
     .catch(() => dispatch(setActivityIndicator(false)));
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: actions.AUTH_SET_DATA,
+    payload: {
+      accessToken: null,
+      refreshToken: null,
+      tokenType: null,
+    },
+  });
+
+  dispatch({
+    type: profileActions.PROFILE_DATA_SET,
+    payload: {
+      email: null,
+      masterCards: [],
+      userId: null,
+    },
+  });
 };
 
 export const refreshToken = (token) => (dispatch) => {
