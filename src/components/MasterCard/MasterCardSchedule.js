@@ -150,6 +150,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
     const selectedAddressIndex = Math.round(xOffset / clientWidth);
 
     if (this.state.selectedAddressIndex !== selectedAddressIndex) {
+      this.eventDates = null;
       this.setState({ selectedAddressIndex });
     }
   };
