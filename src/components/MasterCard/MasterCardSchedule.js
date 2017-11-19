@@ -54,7 +54,7 @@ type TProps = {
 
 type TState = {
   addresses: any,
-  selectedAddress: number,
+  selectedAddressIndex: number,
   selectedDate: string,
 };
 
@@ -70,7 +70,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
     this.state = {
       addresses: ds.cloneWithRows(props.addresses),
       scheduleShow: true,
-      selectedAddress: 0,
+      selectedAddressIndex: 0,
       selectedDate: moment().format('YYYY-MM-DD'),
       today: moment().format('YYYY-MM-DD'),
     };
@@ -104,10 +104,10 @@ export default class MasterCardShedule extends Component<TProps, TState> {
   };
 
   getSelectedAddress = (index: ?number): Address => {
-    const { selectedAddress } = this.state;
+    const { selectedAddressIndex } = this.state;
     const { addresses } = this.props;
 
-    return addresses[index || selectedAddress];
+    return addresses[index || selectedAddressIndex];
   };
 
   getDateStart() {
@@ -147,10 +147,10 @@ export default class MasterCardShedule extends Component<TProps, TState> {
   onAddressesSwipe = (event: any) => {
     const clientWidth = Dimensions.get('window').width;
     const xOffset = event.nativeEvent.contentOffset.x;
-    const selectedAddress = Math.round(xOffset / clientWidth);
+    const selectedAddressIndex = Math.round(xOffset / clientWidth);
 
-    if (this.state.selectedAddress !== selectedAddress) {
-      this.setState({ selectedAddress });
+    if (this.state.selectedAddressIndex !== selectedAddressIndex) {
+      this.setState({ selectedAddressIndex });
     }
   };
 
@@ -193,7 +193,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
         {this.props.addresses.map((address, index) => (
           <View
             key={address.id}
-            style={[styles.dot, this.state.selectedAddress === index ? styles.dotActive : {}]}
+            style={[styles.dot, this.state.selectedAddressIndex === index ? styles.dotActive : {}]}
           />
         ))}
       </View>
@@ -209,6 +209,7 @@ export default class MasterCardShedule extends Component<TProps, TState> {
         <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
         <Calendar
           interval={{ key: intervalKey }}
+          key={address.id}
           onDateSelect={this.onDateSelect}
           onMonthChange={this.onMonthChange}
           selectedDate={this.state.selectedDate}
