@@ -37,7 +37,12 @@ const icons = Platform.select({
     pinGreen: require('../../icons/pin-green.png'),
     pinRed: require('../../icons/pin-red.png'),
   },
-  ios: {},
+  ios: {
+    filter: require('../../icons/ios/filters.png'),
+    location: require('../../icons/ios/location.png'),
+    pinGreen: require('../../icons/ios/pin-green.png'),
+    pinRed: require('../../icons/ios/pin-red.png'),
+  },
 });
 
 type LatLngType = {
