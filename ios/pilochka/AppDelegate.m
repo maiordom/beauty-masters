@@ -9,6 +9,7 @@
 
 #import "AppDelegate.h"
 #import "ReactViewController.h"
+#import <React/RCTLinkingManager.h>
 @import GoogleMaps;
 
 static NSString *const kGoogleMapsAPIKey = @"AIzaSyD7u--7uoorLS369FEIpdwjxB5fMPjrrnU";
@@ -24,6 +25,15 @@ static NSString *const kGoogleMapsAPIKey = @"AIzaSyD7u--7uoorLS369FEIpdwjxB5fMPj
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+#pragma mark - Linking
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application openURL:url
+                      sourceApplication:sourceApplication annotation:annotation];
 }
 
 #pragma mark - Setup

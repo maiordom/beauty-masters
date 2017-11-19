@@ -31,11 +31,6 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>api.pilochki.demostage.ru</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
 			<key>api.relak.me</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -48,6 +43,8 @@
 			</dict>
 			<key>pilochki.demostage.ru</key>
 			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>

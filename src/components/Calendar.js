@@ -11,10 +11,16 @@ import { prepareEventDates } from '../utils/Calendar';
 import { shouldComponentUpdate } from '../utils';
 import vars from '../vars';
 
-const icons = {
-  arrowRight: require('../icons/android/arrow-right-red.png'),
-  arrowLeft: require('../icons/android/arrow-left-red.png'),
-};
+const icons = Platform.select({
+  android: {
+    arrowRight: require('../icons/android/arrow-right-red.png'),
+    arrowLeft: require('../icons/android/arrow-left-red.png'),
+  },
+  ios: {
+    arrowRight: require('../icons/ios/arrow-right-red.png'),
+    arrowLeft: require('../icons/ios/arrow-left-red.png'),
+  },
+});
 
 export default class Calendar extends Component {
   static defaultProps = {
