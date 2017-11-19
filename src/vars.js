@@ -19,5 +19,6 @@ export default {
     underlineColorAndroid: '#E4E6E8',
 
     cellSeparatorColorIOS: '#E4E6E8',
+    buttonBlue: '#298CD7',
   },
 };
