@@ -104,6 +104,10 @@ export default class MasterCard extends Component<TProps, TState> {
     Linking.openURL(`tel:${phone}`).catch(error => console.log(`MasterCard::makeCall::${error}`));
   };
 
+  onSocialIconTap = (url: string) => {
+    Linking.openURL(url);
+  };
+
   renderComponents = () => {
     const components = ['showFirstGroup', 'showSecondGroup'];
 
@@ -159,7 +163,7 @@ export default class MasterCard extends Component<TProps, TState> {
                 snippet={snippet}
                 isFavorite={isFavorite}
               />
-              <MasterCardHeader {...this.props} />
+              <MasterCardHeader {...this.props} onSocialIconTap={this.onSocialIconTap} />
             </View>
             {workPhotos && workPhotos.length > 0 && (
               <MasterCardWorks
