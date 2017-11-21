@@ -96,11 +96,13 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   render() {
     const {
-      serviceManicure,
-      servicePedicure,
       general,
       searchQuery,
+      serviceManicure,
+      servicePedicure,
     } = this.props;
+
+    const { place } = this.props.general;
 
     const {
       showShortForm,
@@ -154,7 +156,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <FilterTab
             onChange={Actions.searchAddress}
             title={i18n.search.nearWith}
-            subtitle={i18n.location.here}
+            subtitle={place.label || i18n.location.here}
           />
           <FilterCheckBox
             title={i18n.search.masterToHome}

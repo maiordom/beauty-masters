@@ -155,7 +155,6 @@ export default {
   },
   list: 'Список',
   location: {
-    distance: (dist, isMeters) => `До ${dist} ${isMeters ? 'м' : 'км'} от моего местоположения`,
     here: 'Мое текущее месторасположение',
   },
   manicure: 'Маникюр',

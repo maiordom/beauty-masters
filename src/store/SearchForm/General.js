@@ -9,15 +9,6 @@ const masterType = () => ({
   ],
 });
 
-const distances = () => ({
-  items: [
-    { label: i18n.location.here, meters: 400 },
-    { label: i18n.location.distance(500, true), meters: 500 },
-    { label: i18n.location.distance(1), meters: 1000 },
-    { label: i18n.location.distance(2), meters: 2000 },
-  ],
-});
-
 const kladdrs = [
   { label: 'Москва и область' },
 ];
@@ -27,8 +18,12 @@ const cities = () => ({
   items: kladdrs,
 });
 
+const place = () => ({
+  label: null
+});
+
 export default {
   cities,
-  distances,
   masterType,
+  place,
 };

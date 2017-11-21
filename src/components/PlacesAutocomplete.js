@@ -21,25 +21,23 @@ type TProps = {
     searchPlace: (value: string) => void,
     selectPlace: (place: Object) => void,
   },
-  distances: Array<{ label: string }>,
-  places: Array<{ label: string }>,
+  places: Array<{ label: string }>
 };
 
 type TState = {
-  dataSource: Object,
+  dataSource: Object
 };
 
 export default class PlacesAutocomplete extends Component<TProps, TState> {
   static defaultProps = {
     places: [],
-    distances: [],
   };
 
   onChange = (value: string) => this.searchPlace(value);
 
   ds: Object;
 
-  searchPlace = debounce(value => this.props.actions.searchPlace(value), 300);
+  searchPlace = debounce((value) => this.props.actions.searchPlace(value), 300);
 
   constructor(props: TProps) {
     super(props);
@@ -68,7 +66,7 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
   };
 
   render() {
-    const { distances, places } = this.props;
+    const { places } = this.props;
 
     return (
       <View style={styles.container}>
@@ -79,18 +77,7 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
             onChange={this.onChange}
             placeholder={i18n.enterAddress}
           />
-          {places.length === 0 &&
-            distances.map(location => (
-              <TouchableWithoutFeedback
-                key={location.label}
-                onPress={() => {}}
-              >
-                <View style={styles.tab}>
-                  <Text style={styles.tabText}>{location.label}</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            ))}
-          {places.length > 0 &&
+          {places.length > 0 && (
             <ListView
               dataSource={this.state.dataSource}
               renderRow={place => (
@@ -103,7 +90,8 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
                   </View>
                 </TouchableWithoutFeedback>
               )}
-            />}
+            />
+          )}
         </View>
       </View>
     );
