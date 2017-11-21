@@ -61,10 +61,6 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
     this.props.actions.placesReset();
   }
 
-  onChange = (input: string) => {
-    this.props.actions.searchPlace(input);
-  };
-
   onPlaceSelect = (place: Object) => {
     this.props.actions.selectPlace(place);
   };
