@@ -100,8 +100,3 @@ export const citiesReset = () => ({
   modelName: 'cities',
   sectionName: 'general',
 });
-
-export const setSearchRadius = (radius: number) => ({
-  type: actions.SEARCH_RADIUS_SET,
-  payload: { radius },
-});
