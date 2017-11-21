@@ -28,7 +28,6 @@ each({
 
 const searchQuery: TSearchQuery = {
   category_service_ids: [],
-  city: 'RU-MOW',
   dates: [moment(new Date()).add(1, 'd').format('YYYY-MM-DD')],
   is_salon: 0,
   lat: 55.76,

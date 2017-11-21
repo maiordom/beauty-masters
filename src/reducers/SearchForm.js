@@ -138,7 +138,7 @@ export default makeReducer((state, action) => ({
     }),
 
   [actions.SEARCH_LOCATION_NAME_SET]: (state, { payload: { label } }) =>
-    deepUpdate(state, 'searchForm.place', {
+    deepUpdate(state, 'searchForm.general.place', {
       label,
     }),
 
@@ -154,10 +154,4 @@ export default makeReducer((state, action) => ({
     deepUpdate(state, 'searchForm.searchQuery', { cityId: action.id });
     return deepUpdate(state, 'searchForm.general.cities', { selected });
   },
-
-  [actions.SEARCH_RADIUS_SET]: (state, { payload: { radius } }) => deepUpdate(
-    state,
-    'searchForm.searchQuery',
-    { radius },
-  ),
 }));

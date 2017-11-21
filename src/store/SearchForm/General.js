@@ -18,7 +18,12 @@ const cities = () => ({
   items: kladdrs,
 });
 
+const place = () => ({
+  label: null
+});
+
 export default {
   cities,
   masterType,
+  place,
 };

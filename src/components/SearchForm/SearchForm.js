@@ -37,9 +37,6 @@ type TProps = {
   servicePedicure: Object,
   general: Object,
   searchQuery: Object,
-  place: ?{
-    label: ?string
-  },
 };
 
 type TState = {
@@ -99,12 +96,13 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   render() {
     const {
-      serviceManicure,
-      servicePedicure,
       general,
       searchQuery,
-      place = {},
+      serviceManicure,
+      servicePedicure,
     } = this.props;
+
+    const { place } = this.props.general;
 
     const {
       showShortForm,

@@ -10,9 +10,6 @@ import {
   View,
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
-import { getPlaceDetails } from '../actions/Geo';
-
 import Input from './Input';
 
 import vars from '../vars';
@@ -21,9 +18,8 @@ import i18n from '../i18n';
 type TProps = {
   actions: {
     placesReset: () => void,
-    searchPlace: ({ input: string }) => void,
-    setSearchLocation: (lat: number, lng: number) => void,
-    setSearchLocationName: (label: string) => void,
+    searchPlace: (value: string) => void,
+    selectPlace: (place: Object) => void,
   },
   places: Array<{ label: string }>
 };
@@ -41,7 +37,7 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
 
   ds: Object;
 
-  searchPlace = debounce(value => this.props.actions.searchPlace(value), 300);
+  searchPlace = debounce((value) => this.props.actions.searchPlace(value), 300);
 
   constructor(props: TProps) {
     super(props);
@@ -66,22 +62,11 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
   }
 
   onChange = (input: string) => {
-    this.props.actions.searchPlace({ input });
+    this.props.actions.searchPlace(input);
   };
 
   onPlaceSelect = (place: Object) => {
-    getPlaceDetails(place).then(res => {
-      this.props.actions.setSearchLocation(
-        res.location.lat,
-        res.location.lng,
-      );
-
-      this.props.actions.setSearchLocationName(
-        place.label,
-      );
-
-      Actions.pop();
-    });
+    this.props.actions.selectPlace(place);
   };
 
   render() {
