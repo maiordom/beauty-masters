@@ -13,7 +13,8 @@ const ActivityIndicatorComponent = ({
       ? styles.positionAbsolute
       : null
     : styles.hidden
-  }>
+  }
+  >
     <ActivityIndicator
       animating={animating}
       size={size}

@@ -9,12 +9,14 @@ import NavBar from '../../components/NavBar';
 
 const mapStateToProps = state => ({
   ...state.masterEditor.generalSection,
+  cardType: state.masterEditor.cardType,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: {
     ...bindActionCreators({ setGeneralParam, createMaster }, dispatch),
-    next: Actions.masterEditorService,
+    routeToProfile: Actions.masterProfile,
+    routeToServices: Actions.masterEditorService,
   },
 });
 

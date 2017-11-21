@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, Platform } from 'react-native';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -31,9 +31,9 @@ export default class MasterCardHeader extends Component<TProps, void> {
 
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.titleContainer}>
           <View style={styles.titleWrapper}>
-            <Text style={styles.title}>{username}</Text>
+            <Text style={styles.title} numberOfLines={1}>{username}</Text>
           </View>
           {isSalon && (
             <Text style={styles.subtitle}>{i18n.salon} «{salonName}»</Text>
@@ -53,29 +53,54 @@ export default class MasterCardHeader extends Component<TProps, void> {
 }
 const styles = StyleSheet.create({
   container: {
-    margin: 16,
-    paddingBottom: 16,
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: vars.color.lightGrey,
+    ...Platform.select({
+      ios: {
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 16,
+        paddingRight: 16,
+      },
+      android: {
+        margin: 16,
+        paddingBottom: 16,
+      },
+    }),
   },
-  content: {
-    alignSelf: 'stretch',
-    backgroundColor: vars.color.white,
+  titleContainer: {
+    flex: 1,
   },
   titleWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    flex: 1,
     color: vars.color.black,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+      },
+      android: {
+        fontSize: 20,
+      },
+    }),
   },
   subtitle: {
-    fontSize: 16,
+    ...Platform.select({
+      ios: {
+        fontSize: 12,
+        color: vars.color.grey,
+      },
+      android: {
+        fontSize: 16,
+      },
+    }),
   },
   socials: {
     flexDirection: 'row',

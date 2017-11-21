@@ -25,11 +25,7 @@ export default makeReducer((state, action) => ({
       const service = {
         attributes: {
           category_service_id: modelInfo.categoryId,
-          description: null,
-          duration: null,
-          price: null,
           service_id: modelInfo.id,
-          title: null,
         },
       };
       masterServicesQuery.push(service);
@@ -59,11 +55,7 @@ export default makeReducer((state, action) => ({
       service = {
         attributes: {
           category_service_id: modelInfo.categoryId,
-          description: null,
-          duration: null,
-          price: null,
           service_id: modelInfo.id,
-          title: null,
         },
       };
       masterServicesQuery.push(service);
@@ -90,10 +82,6 @@ export default makeReducer((state, action) => ({
       customServicesQuery.push({
         attributes: {
           category_service_id: modelInfo.id,
-          description: null,
-          duration: null,
-          price: null,
-          title: null,
         },
       });
     } else {

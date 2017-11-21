@@ -11,8 +11,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Linking,
 } from 'react-native';
 import Gallery from 'react-native-gallery';
+
+import isEmpty from 'lodash/isEmpty';
 
 import ImagePlaceholder from '../ImagePlaceholder';
 import Fade from '../Fade';
@@ -35,7 +38,9 @@ const icons = Platform.select({
   android: {
     back: require('../../icons/android/back-arrow.png'),
   },
-  ios: {},
+  ios: {
+    back: require('../../icons/ios/back-arrow.png'),
+  },
 });
 
 type TProps = MasterCardType & {
@@ -95,6 +100,10 @@ export default class MasterCard extends Component<TProps, TState> {
     this.scrollViewRef.scrollTo({ y: bottomOfList, animated: true });
   });
 
+  makeCall = (phone: string) => {
+    Linking.openURL(`tel:${phone}`).catch(error => console.log(`MasterCard::makeCall::${error}`));
+  };
+
   renderComponents = () => {
     const components = ['showFirstGroup', 'showSecondGroup'];
 
@@ -117,6 +126,7 @@ export default class MasterCard extends Component<TProps, TState> {
       snippet,
       username,
       workPhotos,
+      phone,
     } = this.props;
 
     const {
@@ -141,7 +151,7 @@ export default class MasterCard extends Component<TProps, TState> {
               <ImagePlaceholder
                 source={{ uri: masterPhoto }}
                 placeholder={require('../../icons/android/master-empty.png')}
-                style={{ height: 260, width: Dimensions.get('window').width }}
+                style={styles.masterPhoto}
               />
               <MasterCardNavBar
                 id={id}
@@ -177,12 +187,12 @@ export default class MasterCard extends Component<TProps, TState> {
             )}
           </Fade>
         </ScrollView>
-        <ButtonControl
+        {!isEmpty(phone) && <ButtonControl
           label={i18n.call}
           type="green"
           customStyles={{ nextButton: styles.callButton }}
-          onPress={() => {}}
-        />
+          onPress={() => { this.makeCall(phone); }}
+        />}
         {showWorksGallery && (
           <View style={styles.gallery}>
             <Gallery
@@ -211,6 +221,13 @@ const styles = StyleSheet.create({
   content: {
     alignSelf: 'stretch',
     backgroundColor: vars.color.white,
+  },
+  masterPhoto: {
+    width: Dimensions.get('window').width,
+    ...Platform.select({
+      android: { height: 260 },
+      ios: { height: 240 },
+    }),
   },
   gallery: {
     position: 'absolute',

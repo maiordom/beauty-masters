@@ -5,13 +5,13 @@ import i18n from '../../i18n';
 import type { TCustomService } from '../../types/CreateService';
 
 const manicureCustomServices = (customServices: Array<TCustomService> = []) => ({
-  dictionaryKey: 'Manicure',
+  dictionaryKey: 'ManicureOther',
   items: customServices,
   queryParam: 'manicureCustomServicesQuery',
 });
 
 const pedicureCustomServices = (customServices: Array<TCustomService> = []) => ({
-  dictionaryKey: 'Pedicure',
+  dictionaryKey: 'PedicureOther',
   items: customServices,
   queryParam: 'pedicureCustomServicesQuery',
 });

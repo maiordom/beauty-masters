@@ -1,0 +1,157 @@
+{
+  "data": [
+    {
+      "type": "category-service",
+      "id": "1",
+      "attributes": {
+        "parent_id": null,
+        "key": "Manicure",
+        "title": "Маникюр"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "2",
+      "attributes": {
+        "parent_id": null,
+        "key": "Pedicure",
+        "title": "Педикюр"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "3",
+      "attributes": {
+        "parent_id": null,
+        "key": "HandlingTools",
+        "title": "Инструменты для обработки"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "4",
+      "attributes": {
+        "parent_id": 1,
+        "key": "ManicureOther",
+        "title": "Другие"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "5",
+      "attributes": {
+        "parent_id": 1,
+        "key": "ManicureTreatment",
+        "title": "Обработка"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "6",
+      "attributes": {
+        "parent_id": 1,
+        "key": "ManicureCoating",
+        "title": "Покрытие"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "7",
+      "attributes": {
+        "parent_id": 1,
+        "key": "ManicureDesign",
+        "title": "Дизайн ногтей"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "8",
+      "attributes": {
+        "parent_id": 1,
+        "key": "ManicureExtension",
+        "title": "Наращивание ногтей"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "9",
+      "attributes": {
+        "parent_id": 1,
+        "key": "ManicureRemoving",
+        "title": "Снятие"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "10",
+      "attributes": {
+        "parent_id": 2,
+        "key": "PedicureOther",
+        "title": "Другие"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "11",
+      "attributes": {
+        "parent_id": 2,
+        "key": "PedicureTreatment",
+        "title": "Обработка"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "12",
+      "attributes": {
+        "parent_id": 2,
+        "key": "PedicureCoating",
+        "title": "Покрытие"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "13",
+      "attributes": {
+        "parent_id": 2,
+        "key": "PedicureDesign",
+        "title": "Дизайн ногтей"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "14",
+      "attributes": {
+        "parent_id": 2,
+        "key": "PedicureExtension",
+        "title": "Наращивание ногтей"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "15",
+      "attributes": {
+        "parent_id": 2,
+        "key": "PedicureRemoving",
+        "title": "Снятие"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "16",
+      "attributes": {
+        "parent_id": 3,
+        "key": "Disinfection",
+        "title": "Дезинфекция"
+      }
+    },
+    {
+      "type": "category-service",
+      "id": "17",
+      "attributes": {
+        "parent_id": 3,
+        "key": "Sterilization",
+        "title": "Стерилизация"
+      }
+    }
+  ]
+}

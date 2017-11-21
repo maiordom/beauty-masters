@@ -19,8 +19,15 @@ type TRecipientFieldModel = {
   value: string | null,
 };
 
+type TCustomDate = {
+  date: string,
+  timeStart: string,
+  timeEnd: string,
+  workInThisDay: boolean,
+};
+
 type TCustomDatesModel = {
-  items: Array<any>,
+  items: Array<TCustomDate>,
   timeEndDefault: string,
   timeStartDefault: string,
 };

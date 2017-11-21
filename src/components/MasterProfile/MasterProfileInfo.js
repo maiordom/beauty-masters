@@ -5,6 +5,7 @@ import {
   Image,
   StyleSheet,
   Text,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -28,6 +29,10 @@ export default class MasterProfileInfo extends Component<TProps, void> {
     this.props.actions.selectAnotherMaster();
   };
 
+  onEditPress = () => {
+    this.props.actions.routeToEdit();
+  };
+
   render() {
     const {
       masterPhotos,
@@ -42,7 +47,11 @@ export default class MasterProfileInfo extends Component<TProps, void> {
       <View style={styles.container}>
         <View style={styles.content}>
           <Image style={styles.photo} source={photoSrc} />
-          <Text style={styles.edit}>{i18n.editProfile}</Text>
+          <TouchableWithoutFeedback onPress={this.onEditPress}>
+            <View>
+              <Text style={styles.edit}>{i18n.editProfile}</Text>
+            </View>
+          </TouchableWithoutFeedback>
           <View style={styles.inputs}>
             <View style={styles.row}>
               <View style={styles.label}>

@@ -1,24 +1,44 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 import ButtonControl from '../ButtonControl';
+import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
 
 type TProps = {
   actions: Object,
+  cardType: string,
   addressValues: Array<string>,
 };
 
 export default class MasterEditorCalendar extends Component<TProps, void> {
-  onNextPress = () => this.props.actions.next();
-  onCalendarPress = (modelName: string) => this.props.actions.selectCalendar(modelName);
+  componentDidMount() {
+    if (this.props.cardType === 'edit') {
+      this.props.actions.getCalendars();
+    }
+  }
+
+  onNextPress = () => {
+    this.props.actions.routeToInfo();
+  };
+
+  onSavePress = () => {
+    this.props.actions.routeToProfile();
+  };
+
+  onCalendarPress = (modelName: string) => {
+    this.props.actions.selectCalendar({ modelName });
+  };
 
   render() {
-    const { addressValues } = this.props;
+    const {
+      addressValues,
+      cardType,
+    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -45,7 +65,13 @@ export default class MasterEditorCalendar extends Component<TProps, void> {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <ButtonControl onPress={this.onNextPress} />
+        {cardType === 'create'
+          ? <ButtonControl onPress={this.onNextPress} />
+          : <EditControl
+            onNextPress={this.onNextPress}
+            onSavePress={this.onSavePress}
+          />
+        }
       </View>
     );
   }

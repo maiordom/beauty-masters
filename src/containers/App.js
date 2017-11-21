@@ -13,34 +13,45 @@ import {
   getCategoryServices,
   getServices,
   setCategoryServices,
+  setCategoryServicesFromSources,
   setServices,
+  setServicesFromSources,
 } from '../actions/Dictionaries';
+
+import categoriesData from '../data/Categories.json';
+import servicesData from '../data/Services.json';
 
 const store = configureStore();
 
 export default class App extends Component {
   readServices() {
-    AsyncStorage.getItem('services').then(res => {
+    AsyncStorage.getItem('services').then((res) => {
       const result = JSON.parse(res);
+      console.log(`AsyncStorage::read::services::${res && result.length}`);
 
       if (!isEmpty(result)) {
         setServices(store.dispatch, result);
+      } else {
+        setServicesFromSources(servicesData.data)(store.dispatch);
       }
     });
   }
 
   readCategoryServices() {
-    AsyncStorage.getItem('categoryServices').then(res => {
+    AsyncStorage.getItem('categoryServices').then((res) => {
       const result = JSON.parse(res);
+      console.log(`AsyncStorage::read:categoryServices::${res && result.length}`);
 
       if (!isEmpty(result)) {
         setCategoryServices(store.dispatch, result);
+      } else {
+        setCategoryServicesFromSources(categoriesData.data)(store.dispatch);
       }
     });
   }
 
   readStorage() {
-    AsyncStorage.getItem('auth').then(res => {
+    AsyncStorage.getItem('auth').then((res) => {
       console.log(`AsyncStorage::read::auth::${res}`);
 
       const result = JSON.parse(res);

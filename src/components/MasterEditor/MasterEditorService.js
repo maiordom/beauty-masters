@@ -22,22 +22,25 @@ import ServicesListManicure from '../ServicesListManicure';
 import ServicesListPedicure from '../ServicesListPedicure';
 import StateMachine from '../StateMachine';
 import Tabs from '../Tabs';
+import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-const i18nContinue = Platform.select({
-  ios: i18n.continue,
-  android: i18n.continue.toUpperCase(),
-});
-
-const i18nFill = Platform.select({
-  ios: i18n.fill,
-  android: i18n.fill.toUpperCase(),
-});
+const localization = {
+  continue: Platform.select({
+    ios: i18n.continue,
+    android: i18n.continue.toUpperCase(),
+  }),
+  fill: Platform.select({
+    ios: i18n.fill,
+    android: i18n.fill.toUpperCase(),
+  }),
+};
 
 type TProps = {
   actions: Object,
+  cardType: string,
   homeAllowanceField: Object,
   serviceManicure: Object,
   servicePedicure: Object,
@@ -67,7 +70,15 @@ export default class MasterEditorService extends Component<TProps, TState> {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ renderLoader: false });
+      if (this.props.cardType === 'edit') {
+        this.props.actions.getServices().then((res) => {
+          if (!res.error) {
+            this.setState({ renderLoader: false });
+          }
+        });
+      } else {
+        this.setState({ renderLoader: false });
+      }
     });
   }
 
@@ -91,16 +102,38 @@ export default class MasterEditorService extends Component<TProps, TState> {
     this.props.actions.setServiceParam(modelName, 'duration', duration, this.state.tabActiveKey);
   };
 
-  onPressNext = () => {
-    this.props.actions.validateServices().catch(({ type }) => {
-      if (type === 'VALIDATION_ERRORS') {
-        this.setState({ showAllFieldsRequiredModal: true });
-      }
+  onValidationError = ({ type }) => {
+    if (type === 'VALIDATION_ERRORS') {
+      this.setState({ showAllFieldsRequiredModal: true });
+    }
 
-      if (type === 'FILL_PEDICURE_SECTION') {
-        this.setState({ showFillPedicureSectionModal: true });
+    if (type === 'FILL_PEDICURE_SECTION') {
+      this.setState({ showFillPedicureSectionModal: true });
+    }
+  };
+
+  onNextPress = () => {
+    this.props.actions.validateServices()
+      .then(this.props.actions.routeToHandlingTools)
+      .catch(this.onValidationError);
+  };
+
+  createServices = () => {
+    this.props.actions.createMasterServices().then((res) => {
+      if (res.result === 'success') {
+        if (this.props.cardType === 'create') {
+          this.props.actions.routeToHandlingTools();
+        } else {
+          this.props.actions.routeToProfile();
+        }
       }
     });
+  }
+
+  onSavePress = () => {
+    this.props.actions.validateServices()
+      .then(this.createServices)
+      .catch(this.onValidationError);
   };
 
   onValidationModalClose = () => {
@@ -109,7 +142,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
 
   onPedicureAttentionContinue = () => {
     this.setState({ showFillPedicureSectionModal: false });
-    this.props.actions.next();
+    this.createServices();
   };
 
   onPedicureAttentionFill = () => {
@@ -133,10 +166,15 @@ export default class MasterEditorService extends Component<TProps, TState> {
     } = this.state;
 
     if (renderLoader) {
-      return null;
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator animating position="absolute" />
+        </View>
+      );
     }
 
     const {
+      cardType,
       serviceManicure,
       servicePedicure,
       homeAllowanceField,
@@ -170,12 +208,12 @@ export default class MasterEditorService extends Component<TProps, TState> {
           <View style={pedicureModalStyles.row}>
             <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>
               <View style={pedicureModalStyles.button}>
-                <Text style={pedicureModalStyles.text}>{i18nContinue}</Text>
+                <Text style={pedicureModalStyles.text}>{localization.continue}</Text>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback onPress={this.onPedicureAttentionFill}>
               <View style={pedicureModalStyles.button}>
-                <Text style={pedicureModalStyles.text}>{i18nFill}</Text>
+                <Text style={pedicureModalStyles.text}>{localization.fill}</Text>
               </View>
             </TouchableWithoutFeedback>
           </View>
@@ -202,7 +240,13 @@ export default class MasterEditorService extends Component<TProps, TState> {
             <CustomServices key="manicure" type="manicure" />
           </StateMachine>
         </ScrollView>
-        <ButtonControl onPress={this.onPressNext} />
+        {cardType === 'create'
+          ? <ButtonControl onPress={this.onNextPress} />
+          : <EditControl
+            onNextPress={this.onNextPress}
+            onSavePress={this.onSavePress}
+          />
+        }
       </View>
     );
   }

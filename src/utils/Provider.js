@@ -16,6 +16,14 @@ const handleFetchResponse = (
     console.log(res);
   }
 
+  if (__DEV__ && method === 'GET') {
+    console.log(`${path}::${method}::response`);
+
+    if (res.errors) {
+      console.log(res.errors);
+    }
+  }
+
   if (res.errors) {
     const { code, title, detail } = res.errors[0];
 
@@ -47,8 +55,10 @@ const baseFetch = (fetchMethod: string) => (
     : method.path.apply(null, [pathParams]);
   const url = `${host}${path}`;
 
-  console.log(`${path}::${method.method}::params`);
-  console.log(params);
+  if (__DEV__) {
+    console.log(`${path}::${method.method}::params`);
+    console.log(params);
+  }
 
   return fetch(url, {
     headers: {
@@ -68,7 +78,10 @@ const baseFetch = (fetchMethod: string) => (
   })
   .then((res: Object) => handleFetchResponse(res, path, method.method))
   .catch((res: Object) => {
-    console.log(`${path}::${method.method}::exx`, res);
+    if (__DEV__) {
+      console.log(`${path}::${method.method}::exx`, res);
+    }
+
     return res;
   });
 };
@@ -135,6 +148,13 @@ export const geo = (method: string, params: Object) => {
     return {
       ...res,
       status: 'ok',
+    };
+  })
+  .catch((exx) => {
+    console.log('googlePlaces::exx', exx);
+
+    return {
+      error: {},
     };
   });
 };

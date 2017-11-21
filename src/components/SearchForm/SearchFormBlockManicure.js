@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Animated, Easing } from 'react-native';
+import { View, TouchableOpacity, Text, Animated, Easing, Platform } from 'react-native';
 
 import FilterSubLabel from '../../components/FilterSubLabel';
 import FilterCheckBox from '../../components/FilterCheckBox';
@@ -43,11 +43,16 @@ export default class SearchFormBlockManicure extends Component {
       outputRange: ['0deg', '180deg'],
     });
 
+    const title = Platform.select({
+      ios: i18n.manicure.toUpperCase(),
+      android: i18n.manicure,
+    });
+
     return (
       <View>
         <TouchableOpacity activeOpacity={1} onPress={this.toggleBlock}>
           <View style={switchStyles.container}>
-            <Text style={switchStyles.title}>{i18n.manicure}</Text>
+            <Text style={switchStyles.title}>{title}</Text>
             <Animated.Image
               style={[switchStyles.icon, { transform: [{ rotate: spin }] }]}
               source={arrowIcon}
@@ -62,7 +67,7 @@ export default class SearchFormBlockManicure extends Component {
             <FilterCheckBox {...service.europeanManicure} onChange={onChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.coverage} />
-            {/* {любой гель-лак}*/}
+            {/* {любой гель-лак} */}
             <FilterCheckBox {...service.applyingShellacManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingBioGelManicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingNailPolishManicure} onChange={onChange} withInput={false} />
@@ -81,7 +86,12 @@ export default class SearchFormBlockManicure extends Component {
               onChange={onChange}
               withInput={false}
             />
-            <FilterCheckBox {...service.extensionManicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox
+              {...service.extensionManicure}
+              onChange={onChange}
+              withInput={false}
+              shouldShowSeparator={false}
+            />
           </View>
         }
       </View>

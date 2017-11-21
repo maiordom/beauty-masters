@@ -1,8 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, Modal } from 'react-native';
-import type { TSearchFormMasterTypeProps } from './SearchFormMasterType.types';
+import { View, TouchableWithoutFeedback, StyleSheet, Modal } from 'react-native';
+import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
 import PopupHeader from '../PopupHeader.ios';
 import PickerList from '../PickerList.ios';
 
@@ -23,16 +23,17 @@ export default class SearchFormMasterType extends Component<TProps, void> {
 
     return (
       <Modal animationType={'fade'} transparent visible={showMasterTypeModal} onRequestClose={toggleMasterTypeModal}>
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.dismissButton} onPress={toggleMasterTypeModal} />
-          <View style={styles.modalContainer}>
-            <PopupHeader
-              title={i18n.filters.masterType.title}
-              hasCloseButton onCloseButtonPress={toggleMasterTypeModal}
-            />
-            <PickerList {...masterType} onChange={onMasterTypeSelect} />
+        <TouchableWithoutFeedback style={styles.dismissButton} onPress={toggleMasterTypeModal}>
+          <View style={styles.container}>
+            <View style={styles.modalContainer}>
+              <PopupHeader
+                title={i18n.filters.masterType.title}
+                hasCloseButton onCloseButtonPress={toggleMasterTypeModal}
+              />
+              <PickerList {...masterType} onChange={onMasterTypeSelect} />
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     );
   }

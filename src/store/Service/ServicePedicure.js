@@ -87,7 +87,7 @@ const applyingNailPolishPedicure = (isActive: boolean) => ({
 const applyingOfAnotherNailGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
-  dictionaryKey: 'PedicureOtherGel',
+  dictionaryKey: 'PedicureGelNailPolish',
   title: i18n.filters.applyingOfAnotherNailGel,
 }: ServicePedicure);
 

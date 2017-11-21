@@ -7,28 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* pilochkaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* pilochkaTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		43A566189D29BB6117FE6CC6 /* libPods-pilochkaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */; };
+		884A0F681FB73CDF005B134C /* ReactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 884A0F671FB73CDF005B134C /* ReactViewController.m */; };
 		A191F626EB9D1A14D158DA82 /* libPods-pilochka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+		1D5227741FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = pilochka;
+			containerPortal = AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
+		};
+		1D5227781FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
+		1D52277A1FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64AA15081EF7F30100718508;
+			remoteInfo = "BVLinearGradient-tvOS";
+		};
+		1D52277D1FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A15C300E1CD25C330074CB35;
+			remoteInfo = RNFetchBlob;
+		};
+		1D5227841FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
+		1D5227871FA5FAD500C67B82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8D9DB831C6D03DB009FBC0E;
+			remoteInfo = SMXCrashlytics;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* pilochkaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pilochkaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* pilochkaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pilochkaTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* pilochka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pilochka.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,23 +71,27 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = pilochka/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = pilochka/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = pilochka/main.m; sourceTree = "<group>"; };
+		20836BF3E9594F128E0F4415 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		3B51D562BAFB41C9FE0BF6E5 /* Pods-pilochkaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pilochkaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57EE60A4B755495591A35264 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.debug.xcconfig"; sourceTree = "<group>"; };
+		7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		884A0F661FB73CDF005B134C /* ReactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReactViewController.h; path = pilochka/ReactViewController.h; sourceTree = "<group>"; };
+		884A0F671FB73CDF005B134C /* ReactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ReactViewController.m; path = pilochka/ReactViewController.m; sourceTree = "<group>"; };
+		8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.release.xcconfig"; sourceTree = "<group>"; };
+		C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
+		C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		CE52678CC8A778B618A6FB4C /* Pods-pilochka.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.release.xcconfig"; sourceTree = "<group>"; };
+		D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSMXCrashlytics.a; sourceTree = "<group>"; };
+		E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 		ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pilochka.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				43A566189D29BB6117FE6CC6 /* libPods-pilochkaTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				884A0F661FB73CDF005B134C /* ReactViewController.h */,
+				884A0F671FB73CDF005B134C /* ReactViewController.m */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -95,6 +134,59 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = pilochka;
+			sourceTree = "<group>";
+		};
+		1D52276C1FA5FAD500C67B82 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D59C9A8FE00148A891A274A8 /* libSMXCrashlytics.a */,
+				C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */,
+				57EE60A4B755495591A35264 /* libRNImagePicker.a */,
+				7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */,
+				20836BF3E9594F128E0F4415 /* libAirMaps.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		1D52276D1FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227791FA5FAD500C67B82 /* libBVLinearGradient.a */,
+				1D52277B1FA5FAD500C67B82 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D52276F1FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227751FA5FAD500C67B82 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D5227711FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D52277E1FA5FAD500C67B82 /* libRNFetchBlob.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D52277F1FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227851FA5FAD500C67B82 /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D5227811FA5FAD500C67B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5227881FA5FAD500C67B82 /* libSMXCrashlytics.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		31312C652E57F0C211FB820C /* Frameworks */ = {
@@ -114,6 +206,8 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				EF428379603AC6CA9E624540 /* Pods */,
 				31312C652E57F0C211FB820C /* Frameworks */,
+				89567E703C9548B28276FB1B /* Libraries */,
+				1D52276C1FA5FAD500C67B82 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,9 +217,20 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* pilochka.app */,
-				00E356EE1AD99517003FC87E /* pilochkaTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		89567E703C9548B28276FB1B /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */,
+				C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */,
+				8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */,
+				439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */,
+				AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		EF428379603AC6CA9E624540 /* Pods */ = {
@@ -142,27 +247,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* pilochkaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "pilochkaTests" */;
-			buildPhases = (
-				D0672AF31B7A9F908C49A0AC /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-				631D084461732B3890421417 /* [CP] Embed Pods Frameworks */,
-				40F844680E4003C9538245AA /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
-			);
-			name = pilochkaTests;
-			productName = pilochkaTests;
-			productReference = 00E356EE1AD99517003FC87E /* pilochkaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		13B07F861A680F5B00A75B9A /* pilochka */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "pilochka" */;
@@ -193,9 +277,8 @@
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 4L8B29FM92;
 					};
 				};
 			};
@@ -210,22 +293,81 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1D52276F1FA5FAD500C67B82 /* Products */;
+					ProjectRef = AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D52276D1FA5FAD500C67B82 /* Products */;
+					ProjectRef = 439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D5227711FA5FAD500C67B82 /* Products */;
+					ProjectRef = C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D52277F1FA5FAD500C67B82 /* Products */;
+					ProjectRef = 8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D5227811FA5FAD500C67B82 /* Products */;
+					ProjectRef = E4A6515E2701457494CF2C30 /* SMXCrashlytics.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* pilochka */,
-				00E356ED1AD99517003FC87E /* pilochkaTests */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+/* Begin PBXReferenceProxy section */
+		1D5227751FA5FAD500C67B82 /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = 1D5227741FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1D5227791FA5FAD500C67B82 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 1D5227781FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D52277B1FA5FAD500C67B82 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 1D52277A1FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D52277E1FA5FAD500C67B82 /* libRNFetchBlob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFetchBlob.a;
+			remoteRef = 1D52277D1FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D5227851FA5FAD500C67B82 /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 1D5227841FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D5227881FA5FAD500C67B82 /* libSMXCrashlytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSMXCrashlytics.a;
+			remoteRef = 1D5227871FA5FAD500C67B82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -251,36 +393,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
-		};
-		40F844680E4003C9538245AA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		631D084461732B3890421417 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		92034472C4F29368595C29D2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -315,33 +427,18 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D0672AF31B7A9F908C49A0AC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-pilochkaTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D3186E43B1FBD7ECA8469F05 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pilochka/Pods-pilochka-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -351,32 +448,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00E356F31AD99517003FC87E /* pilochkaTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				884A0F681FB73CDF005B134C /* ReactViewController.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* pilochka */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
@@ -391,51 +473,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B51D562BAFB41C9FE0BF6E5 /* Pods-pilochkaTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = pilochkaTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pilochka.app/pilochka";
-			};
-			name = Debug;
-		};
-		00E356F71AD99517003FC87E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = pilochkaTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pilochka.app/pilochka";
-			};
-			name = Release;
-		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */;
@@ -443,6 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 4L8B29FM92;
 				INFOPLIST_FILE = pilochka/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -450,6 +488,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = pilochka;
 				PRODUCT_NAME = pilochka;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -461,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4L8B29FM92;
 				INFOPLIST_FILE = pilochka/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -468,6 +508,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = pilochka;
 				PRODUCT_NAME = pilochka;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -552,15 +593,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "pilochkaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "pilochka" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

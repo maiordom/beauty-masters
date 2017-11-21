@@ -4,12 +4,16 @@ import { Actions } from 'react-native-router-flux';
 
 import { drawerOpen } from '../../actions/Drawer';
 import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
+import { getPhotos } from '../../actions/MasterEdit';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
 import NavBar from '../../components/NavBar';
 
 const mapStateToProps = state => ({
   ...state.masterEditor.info,
+  cardType: state.masterEditor.cardType,
+  editStatus: state.masterEditor.editStatus,
+  masterCardId: state.masterEditor.masterCardId,
   sectionName: 'info',
 });
 
@@ -17,11 +21,13 @@ const mapDispatchToProps = dispatch => ({
   actions: {
     ...bindActionCreators({
       createMaster,
+      getPhotos,
       removePhoto,
       setGeneralParam,
     }, dispatch),
     drawerOpen,
-    next: Actions.createMasterSuccess,
+    routeToProfile: Actions.masterProfile,
+    routeToSuccess: Actions.createMasterSuccess,
   },
 });
 

@@ -1,6 +1,7 @@
 // @flow
 
 import each from 'lodash/each';
+import moment from 'moment';
 
 import CalendarSettings from './MasterEditorCalendarSettings';
 import GeneralFields from './MasterEditorGeneral';
@@ -16,7 +17,16 @@ import constants from '../../constants/Master';
 import type { TCreateMaster } from '../../types/CreateMaster';
 import type { TCustomService, TMasterService } from '../../types/CreateService';
 
-const params = {};
+const params = {
+  cardType: 'create',
+  editStatus: {
+    general: 'required',
+    services: 'required',
+    addresses: 'required',
+    photos: 'required',
+  },
+  masterCardId: null,
+};
 
 each({
   calendarSettingsOne: CalendarSettings,
@@ -53,12 +63,16 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
   object.timeTableId = null;
   object.addressId = null;
   object.cityField.value = Geo.city.name;
+  object.startDateField.value = moment().format('YYYY-MM-DD');
+
   object.createAddressQuery.city = Geo.city.name;
   object.createAddressQuery.lat = Geo.city.location.lat;
   object.createAddressQuery.lon = Geo.city.location.lng;
 
   object.createTimeTableQuery.time_start = object.timeStartField.value;
   object.createTimeTableQuery.time_end = object.timeEndField.value;
+  object.createTimeTableQuery.interval_type = object.intervalGroup.selected.id;
+  object.createTimeTableQuery.date_start = moment().format('YYYY-MM-DD');
 
   [
     object.createAddressQuery,
@@ -77,10 +91,29 @@ const manicureCustomServicesQuery: Array<TCustomService> = [];
 const masterServicesQuery: Array<TMasterService> = [];
 const pedicureCustomServicesQuery: Array<TCustomService> = [];
 
-export default {
+const masterEditorObject = {
   ...params,
   createMasterQuery,
   manicureCustomServicesQuery,
   masterServicesQuery,
   pedicureCustomServicesQuery,
+};
+
+const masterEditorJSONString = JSON.stringify(masterEditorObject);
+
+export default JSON.parse(masterEditorJSONString);
+
+export const getCleanMasterEditorObject = () => {
+  const cleanObject = JSON.parse(masterEditorJSONString);
+
+  [
+    'calendarSettingsOne',
+    'calendarSettingsThree',
+    'calendarSettingsTwo',
+  ].forEach((modelName) => {
+    cleanObject[modelName].startDateField.value = moment().format('YYYY-MM-DD');
+    cleanObject[modelName].createTimeTableQuery.date_start = moment().format('YYYY-MM-DD');
+  });
+
+  return cleanObject;
 };

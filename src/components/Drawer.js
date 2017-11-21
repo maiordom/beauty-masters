@@ -31,21 +31,22 @@ export default class Drawer extends Component {
 
     return (
       <RNDrawer
-        type="overlay"
-        styles={{ drawer: {
-          backgroundColor: hexToRgba(vars.color.black, 40),
-        } }}
-        captureGestures="closed"
+        type={'overlay'}
+        captureGestures={'open'}
         open={state.open}
         content={content}
         openDrawerOffset={openDrawerOffset || 0}
-        panCloseMask={0.7}
+        panCloseMask={0.2}
         negotiatePan
         tweenDuration={100}
         onClose={this.onClose}
         tweenHandler={ratio => ({
           main: {
-            opacity: Math.max(0.54, 1 - ratio),
+            opacity: 1,
+          },
+          mainOverlay: {
+            opacity: ratio / 2,
+            backgroundColor: vars.color.black,
           },
         })}
       >

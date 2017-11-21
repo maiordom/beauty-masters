@@ -12,9 +12,9 @@ const IOSScreen = {
       return o.small;
     } else if (screenHeight <= MEDIUM_SCREEN_HEIGHT) {
       return o.medium;
-    } else {
-      return o.large;
     }
+
+    return o.large;
   },
 };
 

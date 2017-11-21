@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Animated, Easing } from 'react-native';
+import { View, TouchableOpacity, Text, Animated, Easing, Platform } from 'react-native';
 
 import type { ServiceToggleType } from '../../types/SearchFormTypes';
 
@@ -43,17 +43,22 @@ export default class SearchFormBlockPedicure extends Component {
       outputRange: ['0deg', '180deg'],
     });
 
+    const title = Platform.select({
+      ios: i18n.pedicure.toUpperCase(),
+      android: i18n.pedicure,
+    });
+
     return (
       <View>
-        <View style={switchStyles.container}>
-          <Text style={switchStyles.title}>{i18n.pedicure}</Text>
-          <TouchableOpacity onPress={this.toggleBlock}>
+        <TouchableOpacity activeOpacity={1} onPress={this.toggleBlock}>
+          <View style={switchStyles.container}>
+            <Text style={switchStyles.title}>{title}</Text>
             <Animated.Image
               style={[switchStyles.icon, { transform: [{ rotate: spin }] }]}
               source={arrowIcon}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
         {showBlock &&
           <View>
             <FilterSubLabel title={i18n.filters.nailProcessingMethod} />
@@ -62,7 +67,7 @@ export default class SearchFormBlockPedicure extends Component {
             <FilterCheckBox {...service.europeanPedicure} onChange={onChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.coverage} />
-            {/* {любой гель-лак}*/}
+            {/* {любой гель-лак} */}
             <FilterCheckBox {...service.applyingShellacPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingBioGelPedicure} onChange={onChange} withInput={false} />
             <FilterCheckBox {...service.applyingNailPolishPedicure} onChange={onChange} withInput={false} />
@@ -81,7 +86,12 @@ export default class SearchFormBlockPedicure extends Component {
               onChange={onChange}
               withInput={false}
             />
-            <FilterCheckBox {...service.extensionPedicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox
+              {...service.extensionPedicure}
+              onChange={onChange}
+              withInput={false}
+              shouldShowSeparator={false}
+            />
           </View>}
       </View>
     );
