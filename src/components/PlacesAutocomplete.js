@@ -24,10 +24,7 @@ type TProps = {
     searchPlace: ({ input: string }) => void,
     setSearchLocation: (lat: number, lng: number) => void,
     setSearchLocationName: (label: string) => void,
-    setSearchRadius: (radius: number) => void,
-    getLocation: (updateSearchQuery: boolean) => void
   },
-  distances: Array<{ label: string, meters: number }>,
   places: Array<{ label: string }>
 };
 
@@ -38,7 +35,6 @@ type TState = {
 export default class PlacesAutocomplete extends Component<TProps, TState> {
   static defaultProps = {
     places: [],
-    distances: [],
   };
 
   onChange = (value: string) => this.searchPlace(value);
@@ -73,16 +69,6 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
     this.props.actions.searchPlace({ input });
   };
 
-  onDistanceSelect = (distance: { label: string, meters: number }) => {
-    const { setSearchLocationName, getLocation, setSearchRadius } = this.props.actions;
-
-    setSearchLocationName(distance.label);
-    getLocation(true);
-    setSearchRadius(distance.meters);
-
-    Actions.pop();
-  }
-
   onPlaceSelect = (place: Object) => {
     getPlaceDetails(place).then(res => {
       this.props.actions.setSearchLocation(
@@ -99,7 +85,7 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
   };
 
   render() {
-    const { distances, places } = this.props;
+    const { places } = this.props;
 
     return (
       <View style={styles.container}>
@@ -110,14 +96,6 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
             onChange={this.onChange}
             placeholder={i18n.enterAddress}
           />
-          {places.length === 0 &&
-            distances.map(location => (
-              <TouchableWithoutFeedback key={location.label} onPress={() => this.onDistanceSelect(location)}>
-                <View style={styles.tab}>
-                  <Text style={styles.tabText}>{location.label}</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            ))}
           {places.length > 0 && (
             <ListView
               dataSource={this.state.dataSource}
