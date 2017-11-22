@@ -40,12 +40,12 @@ export default class MasterCardHeader extends Component<TProps, void> {
           )}
         </View>
         <View style={styles.socials}>
-          {vkProfile && (
+          {vkProfile ? (
             <Image source={icons.vk} style={[styles.socialIcon, styles.socialIconMargin]} />
-          )}
-          {inProfile && (
+          ) : null}
+          {inProfile ? (
             <Image source={icons.inst} style={styles.socialIcon} />
-          )}
+          ) : null}
         </View>
       </View>
     );
