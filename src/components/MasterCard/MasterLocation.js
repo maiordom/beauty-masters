@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import vars from '../../vars';
 import MapCard from '../Serp/MapCard';
@@ -16,7 +16,9 @@ const icons = Platform.select({
   android: {
     pinRed: require('../../icons/pin-red.png'),
   },
-  ios: {},
+  ios: {
+    pinRed: require('../../icons/ios/pin-red.png'),
+  },
 });
 
 export default class MasterLocation extends Component {
@@ -35,6 +37,7 @@ export default class MasterLocation extends Component {
         {sceneKey === 'masterLocation' && (
           <MapView
             style={styles.map}
+            provider={PROVIDER_GOOGLE}
             region={{
               latitude: lat,
               longitude: lng,
