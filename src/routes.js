@@ -25,8 +25,8 @@ const methods = [
   { userCreate: '/user/registration', method: 'POST' },
   { userFavorites: '/favorites', method: 'GET' },
   { userLogin: '/token', method: 'POST' },
-  { sendResetPwdLink: '/user/request-password-reset', method: 'POST' },
-  { setNewPwd: '/user/password-reset', method: 'POST' },
+  { sendResetPasswordLink: '/user/request-password-reset', method: 'POST' },
+  { setNewPassword: '/user/password-reset', method: 'POST' },
 ];
 
 methods.forEach((methodObj) => {

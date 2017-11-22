@@ -23,40 +23,40 @@ const icons = {
 type TProps = {
   token: string,
   actions: {
-    setNewPwd: (string, token) => Promise<*>
+    setNewPassword: (string, token) => Promise<*>
   }
 }
 
 type TState = {
-  pwd1: string,
-  pwd2: string,
+  password1: string,
+  password2: string,
   showModal: boolean,
   error: boolean,
 }
 
-export default class RecoverPwd extends Component<void, TProps, TState> {
+export default class RecoverPassword extends Component<void, TProps, TState> {
   state: TState = {
-    pwd1: '',
-    pwd2: '',
+    password1: '',
+    password2: '',
     showModal: false,
     error: false,
     errorText: '',
   };
 
-  onEnterPwd = (key: string) => (pwd: string) => {
-    this.setState({ [key]: pwd });
+  onEnterPassword = (key: string) => (password: string) => {
+    this.setState({ [key]: password });
   };
 
   onPress = () => {
     const { token = 'todo-remove-test-token' } = this.props
-    const { pwd1, pwd2 } = this.state;
+    const { password1, password2 } = this.state;
 
-    if (pwd1 !== pwd2) {
+    if (password1 !== password2) {
       return;
     }
 
     this.props.actions
-      .setNewPwd(pwd1, token)
+      .setNewPassword(password1, token)
       .then((response) => {
         if (response.error) {
           return this.setState({ error: true, showModal: true });
@@ -82,7 +82,7 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
   };
 
   render() {
-    const { pwd1, pwd2, showModal, error } = this.state;
+    const { password1, password2, showModal, error } = this.state;
 
     return (
       <View style={styles.container}>
@@ -95,7 +95,7 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
             icon={icons.password}
             placeholder={i18n.passwordTip}
             secureTextEntry
-            onChange={this.onEnterPwd('pwd1')}
+            onChange={this.onEnterPassword('password1')}
           />
           <Input
             debounce
@@ -104,20 +104,20 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
             icon={icons.password}
             placeholder={i18n.passwordRepeat}
             secureTextEntry
-            onChange={this.onEnterPwd('pwd2')}
+            onChange={this.onEnterPassword('password2')}
           />
         </View>
         <ButtonControl
-          type={pwd1 !== pwd2 && 'disabled'}
-          label={i18n.setNewPwd.set}
+          type={password1 !== password2 && 'disabled'}
+          label={i18n.setNewPassword.set}
           onPress={this.onPress}
         />
         <ModalComponent animationType="fade" transparent isVisible={showModal} onRequestClose={() => {}}>
           <View>
             <Text style={styles.success}>
               {error
-                ? i18n.setNewPwd.error
-                : i18n.setNewPwd.success
+                ? i18n.setNewPassword.error
+                : i18n.setNewPassword.success
               }
             </Text>
             <TouchableOpacity onPress={this.onBack}>

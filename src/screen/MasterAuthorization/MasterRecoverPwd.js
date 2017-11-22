@@ -1,15 +1,15 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import RecoverPwd from '../../components/RecoverPwd';
+import RecoverPassword from '../../components/RecoverPassword';
 import NavBar from '../../components/NavBar';
 
-import { recoverPwd } from '../../actions/Profile';
+import { recoverPassword } from '../../actions/Profile';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    recoverPwd,
+    recoverPassword,
   }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(NavBar(RecoverPwd));
+export default connect(null, mapDispatchToProps)(NavBar(RecoverPassword));

@@ -100,8 +100,8 @@ export const getAddresses = (params: Object) =>
       });
     });
 
-export const sendResetPwdLink = (params: Object) => post(routes.sendResetPwdLink, params);
+export const sendResetPasswordLink = (params: Object) => post(routes.sendResetPasswordLink, params);
 
-export const setNewPwd = (params: Object) => post(routes.setNewPwd, params);
+export const setNewPassword = (params: Object) => post(routes.setNewPassword, params);
 
 export default null;

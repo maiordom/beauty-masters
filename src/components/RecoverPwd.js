@@ -20,7 +20,7 @@ const icons = {
 
 type TProps = {
   actions: {
-    recoverPwd: (string) => Promise<*>
+    recoverPassword: (string) => Promise<*>
   }
 }
 
@@ -30,7 +30,7 @@ type TState = {
   error: boolean,
 }
 
-export default class RecoverPwd extends Component<void, TProps, TState> {
+export default class RecoverPassword extends Component<void, TProps, TState> {
   state: TState = {
     email: '',
     showModal: false,
@@ -50,7 +50,7 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
     }
 
     this.props.actions
-      .recoverPwd(this.state.email)
+      .recoverPassword(this.state.email)
       .then((response) => {
         if (response.error) {
           return this.setState({ showModal: true, error: true, errorText: response.error.detail });
@@ -72,7 +72,7 @@ export default class RecoverPwd extends Component<void, TProps, TState> {
         return Actions.pop();
       }
 
-      Actions.masterSetNewPwd();
+      Actions.masterSetNewPassword();
     });
   };
 

@@ -236,7 +236,7 @@ export default {
   salon: 'Салон',
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
-  setNewPwd: {
+  setNewPassword: {
     error: 'Не удалось установить новый пароль, попробуйте еще раз',
     set: 'Установить',
     success: 'Пароль был успешно изменен',

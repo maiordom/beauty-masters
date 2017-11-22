@@ -107,7 +107,7 @@ export default class Login extends Component<TProps, TState> {
   };
 
   render() {
-    const { recoverPwd } = this.props.actions;
+    const { recoverPassword } = this.props.actions;
     const { validationStatus, responseError } = this.state;
 
     return (
@@ -138,7 +138,7 @@ export default class Login extends Component<TProps, TState> {
         </View>
         <TouchableHighlight
           activeOpacity={1}
-          onPress={recoverPwd}
+          onPress={recoverPassword}
           style={styles.recoveryButton}
         >
           <Text style={styles.recoveryButtonText}>{i18nRecovery}</Text>

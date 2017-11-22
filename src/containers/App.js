@@ -91,8 +91,8 @@ export default class App extends Component {
     const token = route.match(/\/([^/]+)\/?$/)[1];
     const routeName = route.split('/')[1];
 
-    if (routeName === 'reset-pwd') {
-      Actions.masterSetNewPwd({ token });
+    if (routeName === 'password-reset') {
+      Actions.masterSetNewPassword({ token });
     }
   }
 

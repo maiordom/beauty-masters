@@ -69,7 +69,7 @@ export const selectProfileSection = (sectionKey: string) => ({
   payload: { sectionKey },
 });
 
-export const recoverPwd = (email) => dispatch => {
+export const recoverPassword = (email) => dispatch => {
   dispatch(setActivityIndicator(true));
 
   const params = {
@@ -80,7 +80,7 @@ export const recoverPwd = (email) => dispatch => {
     },
   };
 
-  return ProfileService.sendResetPwdLink(params)
+  return ProfileService.sendResetPasswordLink(params)
     .then(res => {
       dispatch(setActivityIndicator(false));
 
@@ -88,7 +88,7 @@ export const recoverPwd = (email) => dispatch => {
     });
 };
 
-export const setNewPwd = (password, token) => dispatch => {
+export const setNewPassword = (password, token) => dispatch => {
   dispatch(setActivityIndicator(true));
 
   const params = {
@@ -100,7 +100,7 @@ export const setNewPwd = (password, token) => dispatch => {
     },
   };
 
-  return ProfileService.setNewPwd(params)
+  return ProfileService.setNewPassword(params)
     .then(res => {
       dispatch(setActivityIndicator(false));
 
