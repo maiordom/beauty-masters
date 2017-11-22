@@ -31,9 +31,7 @@ const mapDispatchToProps = (dispatch) => {
           }
         });
       },
-      recoverPassword() {
-        Actions.masterRecoverPassword();
-      },
+      routeToRecoverPassword: Actions.masterRecoverPassword,
     },
   };
 };

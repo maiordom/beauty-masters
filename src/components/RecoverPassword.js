@@ -20,7 +20,7 @@ const icons = {
 
 type TProps = {
   actions: {
-    recoverPassword: (string) => Promise<*>
+    recoverPassword: (email: string) => Promise<*>
   }
 }
 
@@ -30,7 +30,7 @@ type TState = {
   error: boolean,
 }
 
-export default class RecoverPassword extends Component<void, TProps, TState> {
+export default class RecoverPassword extends Component<TProps, TState> {
   state: TState = {
     email: '',
     showModal: false,

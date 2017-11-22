@@ -15,15 +15,16 @@ import Input from '../components/Input';
 import i18n from '../i18n';
 import vars from '../vars';
 
-const i18nEnter = Platform.select({
-  ios: i18n.enterTo,
-  android: i18n.enterTo.toUpperCase(),
-});
-
-const i18nRecovery = Platform.select({
-  ios: i18n.forgotPassword.question,
-  android: i18n.forgotPassword.question.toUpperCase(),
-});
+const localization = {
+  enter: Platform.select({
+    ios: i18n.enterTo,
+    android: i18n.enterTo.toUpperCase(),
+  }),
+  recovery: Platform.select({
+    ios: i18n.forgotPassword.question,
+    android: i18n.forgotPassword.question.toUpperCase(),
+  }),
+};
 
 const icons = {
   ...Platform.select({
@@ -106,7 +107,7 @@ export default class Login extends Component<TProps, TState> {
   };
 
   render() {
-    const { recoverPassword } = this.props.actions;
+    const { routeToRecoverPassword } = this.props.actions;
     const { validationStatus, responseError } = this.state;
 
     return (
@@ -132,15 +133,16 @@ export default class Login extends Component<TProps, TState> {
             style={styles.input}
           />
           {validationStatus === ALL_FIELDS_REQUIRED &&
-            this.error(i18n.errors.allFieldsRequired)}
+            this.error(i18n.errors.allFieldsRequired)
+          }
           {responseError && this.error(responseError.detail, false)}
         </View>
         <TouchableHighlight
           activeOpacity={1}
-          onPress={recoverPassword}
+          onPress={routeToRecoverPassword}
           style={styles.recoveryButton}
         >
-          <Text style={styles.recoveryButtonText}>{i18nRecovery}</Text>
+          <Text style={styles.recoveryButtonText}>{localization.recovery}</Text>
         </TouchableHighlight>
         <TouchableHighlight
           activeOpacity={1}
@@ -148,7 +150,7 @@ export default class Login extends Component<TProps, TState> {
           style={styles.enterButton}
           underlayColor={vars.color.red}
         >
-          <Text style={styles.enterButtonText}>{i18nEnter}</Text>
+          <Text style={styles.enterButtonText}>{localization.enter}</Text>
         </TouchableHighlight>
       </View>
     );

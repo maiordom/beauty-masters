@@ -34,7 +34,7 @@ type TState = {
   error: boolean,
 }
 
-export default class RecoverPassword extends Component<void, TProps, TState> {
+export default class RecoverPassword extends Component<TProps, TState> {
   state: TState = {
     password1: '',
     password2: '',

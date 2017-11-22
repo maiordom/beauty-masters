@@ -18,6 +18,8 @@ const methods = [
   { getUserProfile: '/user/profile', method: 'GET' },
   { refreshToken: '/refresh-token', method: 'POST' },
   { searchMasters: '/search-master', method: 'GET' },
+  { sendResetPasswordLink: '/user/request-password-reset', method: 'POST' },
+  { setNewPassword: '/user/password-reset', method: 'POST' },
   { updateAddress: ({ id }) => `/address/${id}`, method: 'PATCH' },
   { updateMaster: ({ id }) => `/master-card/${id}`, method: 'PATCH' },
   { updateTimeTable: ({ id }) => `/timetable/${id}`, method: 'PATCH' },
@@ -25,8 +27,6 @@ const methods = [
   { userCreate: '/user/registration', method: 'POST' },
   { userFavorites: '/favorites', method: 'GET' },
   { userLogin: '/token', method: 'POST' },
-  { sendResetPasswordLink: '/user/request-password-reset', method: 'POST' },
-  { setNewPassword: '/user/password-reset', method: 'POST' },
 ];
 
 methods.forEach((methodObj) => {
