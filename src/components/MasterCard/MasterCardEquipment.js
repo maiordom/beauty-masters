@@ -75,6 +75,12 @@ export default class MasterCardEquipment extends Component {
             title={i18n.masterCard.ok}
             color={vars.color.buttonBlue}
           />}
+          {Platform.OS === 'android' && <TouchableOpacity
+            style={styles.closeButton}
+            onPress={this.onInfoToggle}
+          >
+            <Text style={styles.closeButtonTitle}>{i18n.masterCard.ok}</Text>
+          </TouchableOpacity>}
         </ModalComponent>
       </View>
     );
@@ -87,8 +93,24 @@ const styles = StyleSheet.create({
     width: 10,
   },
   closeButton: {
-    flex: 1,
-    padding: 12,
+    ...Platform.select({
+      ios: {
+        flex: 1,
+        padding: 12,
+      },
+      android: {
+        alignSelf: 'flex-end',
+      },
+    }),
+  },
+  closeButtonTitle: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontWeight: '600',
+    fontSize: 14,
+    color: vars.color.red,
   },
   container: {
     flex: 1,
