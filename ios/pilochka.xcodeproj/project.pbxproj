@@ -488,7 +488,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.relak;
+				PRODUCT_BUNDLE_IDENTIFIER = pilochka;
 				PRODUCT_NAME = pilochka;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -508,7 +508,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.relak;
+				PRODUCT_BUNDLE_IDENTIFIER = pilochka;
 				PRODUCT_NAME = pilochka;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

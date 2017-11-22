@@ -48,16 +48,16 @@ export default class MasterCardHeader extends Component<TProps, void> {
           )}
         </View>
         <View style={styles.socials}>
-          {vkProfile && (
+          {vkProfile ? (
             <TouchableOpacity onPress={() => this.onSocialIconTap(vkProfile)}>
               <Image source={icons.vk} style={[styles.socialIcon, styles.socialIconMargin]} />
             </TouchableOpacity>
-          )}
-          {inProfile && (
+          ) : null}
+          {inProfile ? (
             <TouchableOpacity onPress={() => this.onSocialIconTap(inProfile)}>
               <Image source={icons.inst} style={styles.socialIcon} />
             </TouchableOpacity>
-          )}
+          ) : null}
         </View>
       </View>
     );

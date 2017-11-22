@@ -88,6 +88,11 @@ export const setSearchLocation = (lat: number, lon: number) => ({
   payload: { lat, lon },
 });
 
+export const setSearchLocationName = (label: string) => ({
+  type: actions.SEARCH_LOCATION_NAME_SET,
+  payload: { label },
+});
+
 export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });
 
 export const citiesReset = () => ({

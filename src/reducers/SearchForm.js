@@ -137,6 +137,11 @@ export default makeReducer((state, action) => ({
       lon,
     }),
 
+  [actions.SEARCH_LOCATION_NAME_SET]: (state, { payload: { label } }) =>
+    deepUpdate(state, 'searchForm.general.place', {
+      label,
+    }),
+
   [actions.SEARCH_DEPARTURE_TOGGLE]: () => deepUpdate(
     state,
     'searchForm.searchQuery',
