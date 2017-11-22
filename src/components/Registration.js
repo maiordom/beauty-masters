@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   input: {
     ...Platform.select({
       android: {
-        marginLeft: 16,
+        marginLeft: 15,
       },
     }),
   },

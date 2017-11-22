@@ -137,6 +137,13 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     marginTop: 16,
   },
+  input: {
+    ...Platform.select({
+      android: {
+        marginLeft: 15,
+      },
+    }),
+  },
   success: {
     fontSize: 16,
   },

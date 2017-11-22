@@ -141,6 +141,13 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
   },
+  input: {
+    ...Platform.select({
+      android: {
+        marginLeft: 15,
+      },
+    }),
+  },
   text: {
     color: vars.color.grey,
     textAlign: Platform.select({

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { AsyncStorage, Linking } from 'react-native';
+import { AsyncStorage, Linking, Platform } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Actions } from 'react-native-router-flux';
+import URL from 'url-parse';
+import queryString from 'query-string';
 
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
@@ -78,24 +80,37 @@ export default class App extends Component {
       getLocation(true)(store.dispatch);
     }, 50);
 
-    Linking.getInitialURL().then(url => {
-      if (!url) {
-        return;
-      }
-      this.navigate(url);
-    });
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then(url => {
+        console.log('Linking::getInitialURL', url);
+
+        if (!url) {
+          return;
+        }
+        this.navigate(url);
+      });
+    } else {
+      Linking.addEventListener('url', this.handleOpenURL);
+    }
+  }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.handleOpenURL);
   }
 
   navigate = (url) => {
-    const route = url.replace(/.*?:\/\//g, '');
-    const token = route.match(/\/([^/]+)\/?$/)[1];
-    const routeName = route.split('/')[1];
+    const route = new URL(url);
 
-    if (routeName === 'password-reset') {
+    if (route.pathname === '/password-reset') {
+      const { token } = queryString.parse(route.query);
       Actions.masterSetNewPassword({ token });
     }
   }
 
+  handleOpenURL = (event) => {
+    console.log('Linking::handleOpenURL', event.url);
+    this.navigate(event.url);
+  }
 
   render() {
     return (
