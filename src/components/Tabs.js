@@ -13,7 +13,9 @@ export default class Tabs extends Component {
     this.state = { tabs };
 
     if (Platform.OS === 'android') {
-      _.each(tabs, tab => (tab.title = tab.title.toUpperCase()));
+      _.each(tabs, (tab) => {
+        tab.title = tab.title.toUpperCase();
+      });
     }
 
     if (!_.find(tabs, { active: true })) {

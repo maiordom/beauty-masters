@@ -1,0 +1,562 @@
+{
+  "data": [
+    {
+      "type": "service",
+      "id": "1",
+      "attributes": {
+        "category_id": 5,
+        "key": "ClassicManicure",
+        "title": "Обрезной/классический"
+      }
+    },
+    {
+      "type": "service",
+      "id": "2",
+      "attributes": {
+        "category_id": 5,
+        "key": "HardwareManicure",
+        "title": "Аппаратный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "3",
+      "attributes": {
+        "category_id": 5,
+        "key": "EuropeanManicure",
+        "title": "Европейский/необрезной"
+      }
+    },
+    {
+      "type": "service",
+      "id": "4",
+      "attributes": {
+        "category_id": 5,
+        "key": "CombinedManicure",
+        "title": "Комбинированный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "5",
+      "attributes": {
+        "category_id": 5,
+        "key": "ExpressManicure",
+        "title": "Экспресс"
+      }
+    },
+    {
+      "type": "service",
+      "id": "6",
+      "attributes": {
+        "category_id": 5,
+        "key": "HotManicure",
+        "title": "Горячий маникюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "7",
+      "attributes": {
+        "category_id": 5,
+        "key": "SPAManicure",
+        "title": "SPA-маникюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "8",
+      "attributes": {
+        "category_id": 6,
+        "key": "ManicureNailPolish",
+        "title": "Лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "9",
+      "attributes": {
+        "category_id": 6,
+        "key": "ManicureShellac",
+        "title": "Шеллак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "10",
+      "attributes": {
+        "category_id": 6,
+        "key": "ManicureBiogel",
+        "title": "Биогель"
+      }
+    },
+    {
+      "type": "service",
+      "id": "11",
+      "attributes": {
+        "category_id": 6,
+        "key": "ManicureOtherGel",
+        "title": "Другой гель-лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "12",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureFrench",
+        "title": "Французский"
+      }
+    },
+    {
+      "type": "service",
+      "id": "13",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureReverseFrench",
+        "title": "Лунный/обратный френч"
+      }
+    },
+    {
+      "type": "service",
+      "id": "14",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicReverseMoon",
+        "title": "Обратный лунный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "15",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureStencil",
+        "title": "Трафаретный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "16",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureArtDesign",
+        "title": "Художественный дизайн"
+      }
+    },
+    {
+      "type": "service",
+      "id": "17",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureGradient",
+        "title": "Градиентный маникюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "18",
+      "attributes": {
+        "category_id": 8,
+        "key": "ManicureExtensionTipsAcrilyc",
+        "title": "Акрилом на типсы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "19",
+      "attributes": {
+        "category_id": 8,
+        "key": "ManicureExtensionFormsAcrilyc",
+        "title": "Акрилом на формы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "20",
+      "attributes": {
+        "category_id": 8,
+        "key": "ManicureExtensionTipsGel",
+        "title": "Гелем на типсы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "21",
+      "attributes": {
+        "category_id": 8,
+        "key": "ManicureExtensionAcrilycGel",
+        "title": "Гелем на формы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "22",
+      "attributes": {
+        "category_id": 9,
+        "key": "ManicureRemovingNailPolish",
+        "title": "Лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "23",
+      "attributes": {
+        "category_id": 9,
+        "key": "ManicureRemovingShellac",
+        "title": "Шеллак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "24",
+      "attributes": {
+        "category_id": 9,
+        "key": "ManicureRemovingBioGel",
+        "title": "Биогель"
+      }
+    },
+    {
+      "type": "service",
+      "id": "25",
+      "attributes": {
+        "category_id": 9,
+        "key": "ManicureRemovingGel",
+        "title": "Другой гель-лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "26",
+      "attributes": {
+        "category_id": 9,
+        "key": "ManicureRemovingNails",
+        "title": "Нарощенных ногтей"
+      }
+    },
+    {
+      "type": "service",
+      "id": "27",
+      "attributes": {
+        "category_id": 11,
+        "key": "ClassicPedicure",
+        "title": "Обрезной/классический"
+      }
+    },
+    {
+      "type": "service",
+      "id": "28",
+      "attributes": {
+        "category_id": 11,
+        "key": "HardwarePedicure",
+        "title": "Аппаратный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "29",
+      "attributes": {
+        "category_id": 11,
+        "key": "EuropeanPedicure",
+        "title": "Европейский/необрезной"
+      }
+    },
+    {
+      "type": "service",
+      "id": "30",
+      "attributes": {
+        "category_id": 11,
+        "key": "CombinedPedicure",
+        "title": "Комбинированный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "31",
+      "attributes": {
+        "category_id": 11,
+        "key": "ExpressPedicure",
+        "title": "Экспресс"
+      }
+    },
+    {
+      "type": "service",
+      "id": "32",
+      "attributes": {
+        "category_id": 11,
+        "key": "HotPedicure",
+        "title": "Горячий педикюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "33",
+      "attributes": {
+        "category_id": 11,
+        "key": "SPAPedicure",
+        "title": "SPA-педикюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "34",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureNailPolish",
+        "title": "Лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "35",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureShellac",
+        "title": "Шеллак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "36",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureBiogel",
+        "title": "Биогель"
+      }
+    },
+    {
+      "type": "service",
+      "id": "37",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureGelNailPolish",
+        "title": "Другой гель-лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "38",
+      "attributes": {
+        "category_id": 13,
+        "key": "PedicureFrench",
+        "title": "Французский"
+      }
+    },
+    {
+      "type": "service",
+      "id": "39",
+      "attributes": {
+        "category_id": 13,
+        "key": "PedicureReverseFrench",
+        "title": "Лунный/обратный френч"
+      }
+    },
+    {
+      "type": "service",
+      "id": "40",
+      "attributes": {
+        "category_id": 13,
+        "key": "PedicureReverseMoon",
+        "title": "Обратный лунный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "41",
+      "attributes": {
+        "category_id": 13,
+        "key": "PedicureStencil",
+        "title": "Трафаретный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "42",
+      "attributes": {
+        "category_id": 13,
+        "key": "PedicureArtDesign",
+        "title": "Художественный дизайн"
+      }
+    },
+    {
+      "type": "service",
+      "id": "43",
+      "attributes": {
+        "category_id": 13,
+        "key": "PedicureGradient",
+        "title": "Градиентный маникюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "44",
+      "attributes": {
+        "category_id": 14,
+        "key": "PedicureExtensionTipsAcrilyc",
+        "title": "Акрилом на типсы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "45",
+      "attributes": {
+        "category_id": 14,
+        "key": "PedicureExtensionFormsAcrilyc",
+        "title": "Акрилом формы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "46",
+      "attributes": {
+        "category_id": 14,
+        "key": "PedicureExtensionTipsGel",
+        "title": "Гелем на типсы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "47",
+      "attributes": {
+        "category_id": 14,
+        "key": "PedicureExtensionAcrilycGel",
+        "title": "Гелем на формы"
+      }
+    },
+    {
+      "type": "service",
+      "id": "48",
+      "attributes": {
+        "category_id": 15,
+        "key": "PedicureRemovingNailPolish",
+        "title": "Лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "49",
+      "attributes": {
+        "category_id": 15,
+        "key": "PedicureRemovingBioGel",
+        "title": "Биогель"
+      }
+    },
+    {
+      "type": "service",
+      "id": "50",
+      "attributes": {
+        "category_id": 15,
+        "key": "PedicureRemovingShellac",
+        "title": "Шеллак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "51",
+      "attributes": {
+        "category_id": 15,
+        "key": "PedicureRemovingGel",
+        "title": "Другой гель-лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "52",
+      "attributes": {
+        "category_id": 15,
+        "key": "PedicureRemovingNails",
+        "title": "Нарощенных ногтей"
+      }
+    },
+    {
+      "type": "service",
+      "id": "53",
+      "attributes": {
+        "category_id": 16,
+        "key": "UltraSound",
+        "title": "Ультразвук"
+      }
+    },
+    {
+      "type": "service",
+      "id": "54",
+      "attributes": {
+        "category_id": 16,
+        "key": "UltraViolet",
+        "title": "Ультрафиолет"
+      }
+    },
+    {
+      "type": "service",
+      "id": "55",
+      "attributes": {
+        "category_id": 16,
+        "key": "Disinfection",
+        "title": "Дезинфекция раствором / спиртом"
+      }
+    },
+    {
+      "type": "service",
+      "id": "56",
+      "attributes": {
+        "category_id": 17,
+        "key": "Glasperlen",
+        "title": "Гласперленовый стерилизатор"
+      }
+    },
+    {
+      "type": "service",
+      "id": "57",
+      "attributes": {
+        "category_id": 17,
+        "key": "HotSteam",
+        "title": "Горячий пар"
+      }
+    },
+    {
+      "type": "service",
+      "id": "58",
+      "attributes": {
+        "category_id": 17,
+        "key": "DryHot",
+        "title": "Сухожаровой метод (в т.ч. в духовке)"
+      }
+    },
+    {
+      "type": "service",
+      "id": "59",
+      "attributes": {
+        "category_id": 17,
+        "key": "Boiling",
+        "title": "Кипячение"
+      }
+    },
+    {
+      "type": "service",
+      "id": "60",
+      "attributes": {
+        "category_id": 17,
+        "key": "Other",
+        "title": "Другой способ"
+      }
+    },
+    {
+      "type": "service",
+      "id": "61",
+      "attributes": {
+        "category_id": 4,
+        "key": "AtHome",
+        "title": "Выезд на дом"
+      }
+    },
+    {
+      "type": "service",
+      "id": "62",
+      "attributes": {
+        "category_id": 10,
+        "key": "AtHome",
+        "title": "Выезд на дом"
+      }
+    }
+  ]
+}

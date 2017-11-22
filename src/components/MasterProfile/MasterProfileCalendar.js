@@ -2,13 +2,14 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  Modal,
   Image,
+  Modal,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import moment from 'moment';
 import find from 'lodash/find';
@@ -167,44 +168,46 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
 
     return (
       <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={styles.subtitle}>{i18n.schedule.schedule}</Text>
-          <View style={styles.calendar}>
-            <Calendar
-              events={schedules}
-              interval={{ key: intervalKey }}
-              onDateSelect={this.onDateSelect}
-              onMonthChange={this.onMonthChange}
-              selectedDate={selectedDate}
-              startDate={dateStart}
+        <ScrollView style={styles.inner}>
+          <View style={styles.content}>
+            <Text style={styles.subtitle}>{i18n.schedule.schedule}</Text>
+            <View style={styles.calendar}>
+              <Calendar
+                events={schedules}
+                interval={{ key: intervalKey }}
+                onDateSelect={this.onDateSelect}
+                onMonthChange={this.onMonthChange}
+                selectedDate={selectedDate}
+                startDate={dateStart}
+              />
+            </View>
+            {selectedDay
+              ? (
+                <View style={styles.salon}>
+                  <Text style={styles.salonText}>
+                    {i18n.accept} {i18n.from.toLowerCase()}{' '}
+                    {selectedDay.timeStart} {i18n.to.toLowerCase()} {selectedDay.timeEnd}
+                  </Text>
+                  <Text style={styles.salonText}>{i18n.name} {name}</Text>
+                  <Text style={styles.salonText}>{i18n.onAddress} {address}</Text>
+                </View>
+              )
+              : diffMonths
+                ? null
+                : (
+                  <View style={styles.scheduleEmpty}>
+                    <Image source={icons.calendar} style={styles.calendarIcon} />
+                    <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
+                  </View>
+                )}
+            <Switch
+              title={i18n.temporarilyDontWork}
+              customStyles={{ container: styles.switchContainer }}
+              onChange={this.onSwitchToggle}
+              value={disableCalendar}
             />
           </View>
-          {selectedDay
-            ? (
-              <View style={styles.salon}>
-                <Text style={styles.salonText}>
-                  {i18n.accept} {i18n.from.toLowerCase()}{' '}
-                  {selectedDay.timeStart} {i18n.to.toLowerCase()} {selectedDay.timeEnd}
-                </Text>
-                <Text style={styles.salonText}>{i18n.name} {name}</Text>
-                <Text style={styles.salonText}>{i18n.onAddress} {address}</Text>
-              </View>
-            )
-            : diffMonths
-              ? null
-              : (
-                <View style={styles.scheduleEmpty}>
-                  <Image source={icons.calendar} style={styles.calendarIcon} />
-                  <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
-                </View>
-              )}
-          <Switch
-            title={i18n.temporarilyDontWork}
-            customStyles={{ container: styles.switchContainer }}
-            onChange={this.onSwitchToggle}
-            value={disableCalendar}
-          />
-        </View>
+        </ScrollView>
         <Modal
           animationType={'fade'}
           transparent
@@ -234,7 +237,9 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+  },
+  inner: {
+    flex: 1,
   },
   content: {
     flex: 1,

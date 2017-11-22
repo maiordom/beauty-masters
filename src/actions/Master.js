@@ -16,20 +16,21 @@ export const createMaster = () => (dispatch, getState) => {
   const params = {
     data: {
       attributes: {
-        user_id: state.profile.userId,
         ...createMasterQuery,
+        status: 0,
+        user_id: state.profile.userId,
       },
     },
   };
 
-  const handleResponse = (res) => {
+  const handleResponse = ({ masterCardId }) => {
     dispatch(setActivityIndicator(false));
     dispatch({
-      type: actions.MASTER_CARD_SET_ID,
-      ...res,
+      type: actions.MASTER_CARD_ID_SET,
+      payload: { masterCardId },
     });
 
-    if (res.masterCardId) {
+    if (masterCardId) {
       return { result: 'success' };
     }
   };
@@ -101,7 +102,6 @@ export const validateServices = () => (dispatch, getState) => {
       return Promise.reject({ type: 'FILL_PEDICURE_SECTION' });
     }
 
-    Actions.masterEditorHandlingTools();
     return Promise.resolve();
   }
 
@@ -180,6 +180,10 @@ export const setAddressField = (modelName, paramName, paramValue, sectionName) =
 export const setTimeTableField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_TIME_TABLE_SET_PARAM,
   payload: { modelName, paramName, paramValue, sectionName },
+});
+
+export const refreshEditor = () => ({
+  type: actions.MASTER_EDITOR_REFRESH,
 });
 
 export {

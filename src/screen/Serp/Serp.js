@@ -3,13 +3,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Platform } from 'react-native';
+import get from 'lodash/get';
 
 import SerpNavBar from '../../components/Serp/SerpNavBar';
 import Map from '../../containers/Map';
 import SerpList from '../../containers/SerpList';
 
 const mapStateToProps = state => ({
-  sceneKey: state.scene.sceneKey,
+  sceneKey: get(state, 'scene.sceneKey'),
 });
 
 type TProps = {
@@ -21,7 +22,7 @@ type TState = {
 };
 
 class Serp extends Component<TProps, TState> {
-  props: Props;
+  props: TProps;
 
   state = {
     activeView: 'map',

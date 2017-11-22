@@ -36,6 +36,7 @@ export default class MasterProfileSelectProfile extends Component<TProps, void> 
   };
 
   onAddMasterCardPress = () => {
+    this.props.actions.refreshEditor();
     this.props.actions.routeToCreateMasterCard();
   }
 

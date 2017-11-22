@@ -69,8 +69,9 @@ export default class Registration extends Component<TProps, TState> {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
       return false;
     }
-    this.setState({ validationStatus: null, hasError: false });
-    return true;
+      this.setState({ validationStatus: null, hasError: false });
+      return true;
+
   }
 
   onChangeInput = () => {

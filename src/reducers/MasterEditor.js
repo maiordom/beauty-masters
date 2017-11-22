@@ -3,6 +3,7 @@ import assign from 'lodash/assign';
 import reject from 'lodash/reject';
 
 import { makeReducer, deepUpdate } from '../utils';
+import { getCleanMasterEditorObject } from '../store/MasterEditor';
 
 import actions from '../constants/Master';
 
@@ -14,8 +15,13 @@ import {
 } from './MasterEditorHelpers';
 
 export default makeReducer((state, action) => ({
-  [actions.MASTER_CARD_SET_ID]: () => {
-    state.masterEditor.masterCardId = action.masterCardId;
+  [actions.MASTER_EDITOR_REFRESH]: (state) => {
+    state.masterEditor = getCleanMasterEditorObject();
+    return state;
+  },
+
+  [actions.MASTER_CARD_ID_SET]: (state, { payload: { masterCardId } }) => {
+    state.masterEditor.masterCardId = masterCardId;
 
     return state;
   },

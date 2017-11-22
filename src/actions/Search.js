@@ -59,28 +59,6 @@ type ActionSetItems = {
   }>
 };
 
-// mock addresses
-const addresses = [
-  { label: 'Московская', id: 1 },
-  { label: 'Петровская', id: 2 },
-  { label: 'Васильевская', id: 3 },
-  { label: 'Крутовская', id: 4 },
-  { label: 'Змеевская', id: 5 },
-  { label: 'Путевская', id: 6 },
-  { label: 'Бульонская', id: 7 },
-  { label: 'Макаронская', id: 8 },
-  { label: 'Крашовская', id: 9 },
-  { label: 'Питерская', id: 10 },
-  { label: 'Ростовская', id: 11 },
-  { label: 'Бельгийская', id: 12 },
-  { label: 'Парийская', id: 13 },
-  { label: 'Американская', id: 14 },
-  { label: 'Бразильская', id: 15 },
-  { label: 'Курская', id: 16 },
-  { label: 'Буржская', id: 17 },
-  { label: 'Кружская', id: 18 },
-];
-
 export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
   const { searchQuery } = getState().searchForm;
 
@@ -108,6 +86,11 @@ export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function,
 export const setSearchLocation = (lat: number, lon: number) => ({
   type: actions.SEARCH_LOCATION_SET,
   payload: { lat, lon },
+});
+
+export const setSearchLocationName = (label: string) => ({
+  type: actions.SEARCH_LOCATION_NAME_SET,
+  payload: { label },
 });
 
 export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });

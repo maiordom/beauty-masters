@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import NavBar from '../../components/NavBar';
 import MasterProfileSelectProfile from '../../components/MasterProfile/MasterProfileSelectProfile';
 
+import { refreshEditor } from '../../actions/Master';
 import { selectMainMaster } from '../../actions/Profile';
 
 const mapStateToProps = (state) => ({
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: {
-    ...bindActionCreators({ selectMainMaster }, dispatch),
+    ...bindActionCreators({ selectMainMaster, refreshEditor }, dispatch),
     routeToCreateMasterCard: Actions.masterEditorGeneral,
   },
 });

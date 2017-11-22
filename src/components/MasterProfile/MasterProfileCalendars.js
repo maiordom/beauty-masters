@@ -26,22 +26,11 @@ type TProps = {
 
 export default class MasterProfileCalendars extends Component<TProps, void> {
   componentDidMount() {
-    if (!this.props.uploaded) {
-      this.props.actions.getAddresses();
-    }
+    this.props.actions.getAddresses();
   }
 
   render() {
-    const { addresses, uploaded } = this.props;
-
-    if (!uploaded) {
-      return (
-        <ActivityIndicator
-          animating
-          position="absolute"
-        />
-      );
-    }
+    const { addresses = [], uploaded } = this.props;
 
     return (
       <View style={styles.container}>
@@ -59,6 +48,12 @@ export default class MasterProfileCalendars extends Component<TProps, void> {
             </TouchableOpacity>
           ))}
         </View>
+        {!uploaded && (
+          <ActivityIndicator
+            animating
+            position="absolute"
+          />
+        )}
       </View>
     );
   }

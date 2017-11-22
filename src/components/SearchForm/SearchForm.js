@@ -96,11 +96,13 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   render() {
     const {
-      serviceManicure,
-      servicePedicure,
       general,
       searchQuery,
+      serviceManicure,
+      servicePedicure,
     } = this.props;
+
+    const { place } = this.props.general;
 
     const {
       showShortForm,
@@ -133,11 +135,16 @@ export default class SearchFormShort extends Component<TProps, TState> {
       <View style={styles.container}>
         <ScrollView style={styles.content}>
           <FilterLabel text={i18n.search.vacantDays} />
-          <FilterTab title={this.getSelectedDateTitle()} onChange={this.toggleCalendarModal} />
+          <FilterTab
+            title={this.getSelectedDateTitle()}
+            onChange={this.toggleCalendarModal}
+            shouldShowSeparator={false}
+          />
           <SearchFormCalendar
             showCalendar={showMasterCalendarModal}
             selectedDate={selectedDate}
             onDateSelect={this.onSelectCalendarDate}
+            toggleCalendarModal={this.toggleCalendarModal}
             containerWidth={170}
           />
           <FilterLabel text={i18n.search.masterPlace} />
@@ -149,19 +156,21 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <FilterTab
             onChange={Actions.searchAddress}
             title={i18n.search.nearWith}
-            subtitle={i18n.location.here}
+            subtitle={place.label || i18n.location.here}
           />
           <FilterCheckBox
             title={i18n.search.masterToHome}
             active={searchQuery.isDeparture}
             onChange={this.onDepartureToggle}
             withInput={false}
+            shouldShowSeparator={false}
           />
           <FilterLabel text={i18n.search.generalInfo} />
           <FilterTab
             title={i18n.filters.masterType.title}
             subtitle={masterTypeSubtitle}
             onChange={this.toggleMasterTypeModal}
+            shouldShowSeparator={showShortForm}
           />
           <SearchFormMasterType
             showMasterTypeModal={showMasterTypeModal}
@@ -195,6 +204,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
                 active={isWithdrawalActive}
                 onChange={this.onWithdrawalToggle}
                 withInput={false}
+                shouldShowSeparator={false}
               />
             </View>
           </StateMachine>
@@ -262,6 +272,13 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     backgroundColor: vars.color.lightGrey,
+    ...Platform.select({
+      ios: {
+        height: 50,
+        borderTopColor: vars.color.cellSeparatorColorIOS,
+        borderTopWidth: 1,
+      },
+    }),
   },
   nextText: {
     color: vars.color.red,

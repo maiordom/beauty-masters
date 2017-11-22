@@ -7,6 +7,7 @@ import { formatNumber, shouldComponentUpdate } from '../utils';
 
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
+import Separator from '../components/Separator.ios';
 
 import vars from '../vars';
 import i18n from '../i18n';
@@ -29,6 +30,7 @@ type TProps = {
   titlePlaceholder?: string,
   titleType?: string,
   withInput?: boolean,
+  shouldShowSeparator: boolean,
 };
 
 const icons = {
@@ -104,6 +106,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
       titlePlaceholder,
       titleType = 'text',
       withInput = true,
+      shouldShowSeparator = true,
     } = this.props;
 
     const requiredText = required && (
@@ -167,6 +170,9 @@ export default class FilterCheckBox extends Component<TProps, void> {
             </View>
           </View>
         )}
+        {shouldShowSeparator && Platform.OS === 'ios' && (
+          <Separator />
+        )}
       </View>
     );
   }
@@ -197,6 +203,9 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         fontSize: 16,
+      },
+      ios: {
+        fontSize: 17,
       },
     }),
   },

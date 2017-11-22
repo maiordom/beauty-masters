@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PanResponder, View, TouchableHighlight, Animated, Text } from 'react-native';
+import { View, TouchableHighlight, Animated, Text } from 'react-native';
 
 export default class SwitchBase extends Component {
   constructor(props) {
@@ -13,95 +13,6 @@ export default class SwitchBase extends Component {
     this.state.position = new Animated.Value(this.props.active ? this.state.width : 0);
     this.start = {};
   }
-
-  componentWillMount = () => {
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
-      onPanResponderGrant: (evt, gestureState) => {
-        if (!this.props.enableSlide) return;
-
-        this.setState({ pressed: true });
-        this.start.x0 = gestureState.x0;
-        this.start.pos = this.state.position._value;
-        this.start.moved = false;
-        this.start.state = this.state.state;
-        this.start.stateChanged = false;
-      },
-      onPanResponderMove: (evt, gestureState) => {
-        if (!this.props.enableSlide) return;
-
-        this.start.moved = true;
-        if (this.start.pos == 0) {
-          if (gestureState.dx <= this.state.width && gestureState.dx >= 0) {
-            this.state.position.setValue(gestureState.dx);
-          }
-          if (gestureState.dx > this.state.width) {
-            this.state.position.setValue(this.state.width);
-          }
-          if (gestureState.dx < 0) {
-            this.state.position.setValue(0);
-          }
-        }
-        if (this.start.pos == this.state.width) {
-          if (gestureState.dx >= -this.state.width && gestureState.dx <= 0) {
-            this.state.position.setValue(this.state.width + gestureState.dx);
-          }
-          if (gestureState.dx > 0) {
-            this.state.position.setValue(this.state.width);
-          }
-          if (gestureState.dx < -this.state.width) {
-            this.state.position.setValue(0);
-          }
-        }
-        const currentPos = this.state.position._value;
-        this.onSwipe(currentPos, this.start.pos,
-          () => {
-            if (!this.start.state) this.start.stateChanged = true;
-            this.setState({ state: true });
-          },
-          () => {
-            if (this.start.state) this.start.stateChanged = true;
-            this.setState({ state: false });
-          });
-      },
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
-      onPanResponderRelease: (evt, gestureState) => {
-        this.setState({ pressed: false });
-        const currentPos = this.state.position._value;
-        if (!this.start.moved || (Math.abs(currentPos - this.start.pos) < 5 && !this.start.stateChanged)) {
-          this.toggle();
-          return;
-        }
-        this.onSwipe(currentPos, this.start.pos, this.activate, this.deactivate);
-      },
-      onPanResponderTerminate: (evt, gestureState) => {
-        const currentPos = this.state.position._value;
-        this.setState({ pressed: false });
-        this.onSwipe(currentPos, this.start.pos, this.activate, this.deactivate);
-      },
-      onShouldBlockNativeResponder: (evt, gestureState) => true,
-    });
-  };
-
-  onSwipe = (currentPosition, startingPosition, onChange, onTerminate) => {
-    if (currentPosition - startingPosition >= 0) {
-      if (currentPosition - startingPosition > this.state.width / 2
-        || startingPosition == this.state.width
-      ) {
-        onChange();
-      } else {
-        onTerminate();
-      }
-    } else if (currentPosition - startingPosition < -this.state.width / 2) {
-      onTerminate();
-    } else {
-      onChange();
-    }
-  };
 
   activate = () => {
     Animated.timing(
@@ -148,7 +59,7 @@ export default class SwitchBase extends Component {
   };
 
   changeState = (state) => {
-    const callHandlers = this.start.state != state;
+    const callHandlers = this.state.state != state;
     setTimeout(() => {
       this.setState({ state });
       if (callHandlers) {
@@ -177,12 +88,15 @@ export default class SwitchBase extends Component {
     }
   };
 
+  onPress = () => {
+    this.toggle();
+  }
+
   render() {
     const padding = this.padding;
 
     return (
       <View
-        {...this._panResponder.panHandlers}
         style={{ padding: this.padding, position: 'relative' }}
       >
         <View
@@ -197,6 +111,7 @@ export default class SwitchBase extends Component {
           }}
         />
         <TouchableHighlight
+          onPress={this.onPress}
           underlayColor="transparent"
           activeOpacity={1}
           style={{
@@ -243,7 +158,7 @@ SwitchBase.defaultProps = {
   switchHeight: 20,
   buttonContent: null,
   enableSlide: true,
-  switchAnimationTime: 200,
+  switchAnimationTime: 100,
   borderWidth: 1,
   borderColor: '#ddd',
   onActivate: () => {},

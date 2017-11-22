@@ -38,6 +38,12 @@ export const uploadFileAction = (fileData, modelName, photoId, dispatch, getStat
         type: actions.MASTER_PHOTO_REMOVE_QUEUE,
         id: photoId,
       });
+      dispatch({
+        type: actions.MASTER_PHOTO_SET_MOCK,
+        id: photoId,
+        modelName,
+        status: actions.UPLOAD_STATUS.ERROR,
+      });
     })
     .then(() => {
       const queue = getState().masterEditor.info.photosQueue.items;

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import MasterLocation from '../../components/MasterCard/MasterLocation';
 import NavBar from '../../components/NavBar';
 
-const mapStateToProps = (_, ownProps) => ({
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({

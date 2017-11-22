@@ -13,10 +13,12 @@ export type ServicePedicure = {
   title: string,
 };
 
-export type ServiceManicure = {
+export type TServiceManicure = {
   active: boolean,
   categoryKey?: string,
   dictionaryKey: string,
+  duration?: number,
+  price?: string,
   required?: boolean,
   title: string,
 };

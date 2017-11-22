@@ -80,12 +80,12 @@ export default class MasterEditorCustomServices extends Component<TProps, void> 
       <View>
         {items.map((item, index) =>
           <FilterCheckBox
+            {...handlers}
+            {...item}
             index={index}
             key={index}
             titlePlaceholder={i18n.customService.name}
             titleType="input"
-            {...handlers}
-            {...item}
           />,
         )}
         <TouchableWithoutFeedback onPress={this.addCustomService}>

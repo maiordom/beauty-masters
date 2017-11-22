@@ -6,6 +6,7 @@ import android.util.Log;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.smixx.fabric.FabricPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new LinearGradientPackage(),
           new RNFetchBlobPackage(),
           new FabricPackage(),
           new ImagePickerPackage(),

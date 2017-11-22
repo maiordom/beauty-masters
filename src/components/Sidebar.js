@@ -16,15 +16,23 @@ import { Actions } from 'react-native-router-flux';
 import i18n from '../i18n';
 import vars from '../vars';
 
-const icons = {
-  photoEmpty: require('../icons/photo-empty-white.png'),
-};
+const icons = Platform.select({
+  ios: {
+    photoEmpty: require('../icons/ios/empty-avatar.png'),
+    logout: require('../icons/logout-icon.png'),
+  },
+  android: {
+    photoEmpty: require('../icons/photo-empty-white.png'),
+    logout: require('../icons/logout-icon.png'),
+  },
+});
 
 type TProps = {
   avatar?: string,
   actions: Object,
   currentScene: ?string,
   username?: string,
+  isAuthorized: boolean,
 };
 
 type TState = {
@@ -95,34 +103,55 @@ export default class Sidebar extends Component<TProps, TState> {
     this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
-      this.props.actions.routeToMasterProfile();
+      if (this.props.isAuthorized) {
+        this.props.actions.routeToMasterProfile();
+      } else {
+        this.props.actions.routeToAuthorization();
+      }
     });
+  };
+
+  onLogoutPress = () => {
+    this.props.actions.drawerClose();
+    this.props.actions.logout();
   };
 
   render() {
     const {
       avatar,
       username,
+      isAuthorized,
     } = this.props;
 
     const { currentScene } = this.state;
 
     return (
       <View style={styles.sidebar}>
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={this.onAvatarPress}
-          style={styles.header}
-        >
-          <View style={styles.photoWrapper}>
-            <Image style={styles.photo} source={avatar || icons.photoEmpty} />
+        <View style={styles.header}>
+          <TouchableOpacity onPress={this.onAvatarPress}>
+            <View style={styles.photoWrapper}>
+              <Image style={styles.photo} source={avatar || icons.photoEmpty} />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.titleContainer}>
+            <TouchableOpacity style={styles.titleTouchable} onPress={this.onAvatarPress}>
+              <Text style={[styles.title, isAuthorized ? styles.authorizedTitle : null]} numberOfLines={1}>
+                {username || i18n.authAsMaster}
+              </Text>
+            </TouchableOpacity>
+            {isAuthorized && (<TouchableOpacity
+              style={styles.logoutButton}
+              onPress={this.onLogoutPress}
+              hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+            >
+              <Image source={icons.logout} />
+            </TouchableOpacity>)}
           </View>
-          <Text style={styles.title}>{username || i18n.authAsMaster}</Text>
-        </TouchableOpacity>
+        </View>
         <View style={styles.menu}>
           {this.menuButtons.map(button => (
             <TouchableOpacity onPress={button.onPress} key={button.title}>
-              <View style={styles.button}>
+              <View style={[styles.button, currentScene === button.key ? styles.selectedButton : null]}>
                 {Platform.OS === 'android' && (
                   <View style={styles.iconWrapper}>
                     <Image
@@ -133,12 +162,7 @@ export default class Sidebar extends Component<TProps, TState> {
                     />
                   </View>
                 )}
-                <Text
-                  style={[
-                    styles.text,
-                    { color: currentScene === button.key ? vars.color.blue : null },
-                  ]}
-                >
+                <Text style={[styles.text, currentScene === button.key ? styles.selectedText : null]}>
                   {button.title}
                 </Text>
               </View>
@@ -153,11 +177,18 @@ const styles = StyleSheet.create({
   sidebar: {
     flex: 1,
     backgroundColor: vars.color.white,
-    width: Dimensions.get('window').width,
   },
   header: {
-    backgroundColor: vars.color.red,
-    paddingLeft: 16,
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.black,
+        paddingLeft: 24,
+      },
+      android: {
+        backgroundColor: vars.color.red,
+        paddingLeft: 16,
+      },
+    }),
   },
   photoWrapper: {
     marginTop: 40,
@@ -166,24 +197,94 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleTouchable: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   title: {
-    marginTop: 36,
-    marginBottom: 16,
+    flex: 1,
     color: vars.color.white,
+    ...Platform.select({
+      ios: {
+        fontSize: 14,
+        marginTop: 30,
+        marginBottom: 30,
+      },
+      android: {
+        marginTop: 36,
+        marginBottom: 16,
+      },
+    }),
+  },
+  authorizedTitle: {
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+      },
+    }),
+  },
+  logoutButton: {
+    marginRight: 10,
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        justifyContent: 'center',
+      },
+      android: {
+        justifyContent: 'flex-end',
+        paddingBottom: 2,
+      },
+    }),
   },
   button: {
     flexDirection: 'row',
     height: 48,
     alignItems: 'center',
   },
+  selectedButton: {
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.lightGrey,
+      },
+    }),
+  },
   iconWrapper: {
     width: 25,
     marginLeft: 16,
   },
   text: {
-    marginLeft: 20,
+    ...Platform.select({
+      ios: {
+        marginLeft: 24,
+        fontSize: 17,
+        color: vars.color.black,
+      },
+      android: {
+        marginLeft: 20,
+      },
+    }),
+  },
+  selectedText: {
+    ...Platform.select({
+      android: {
+        color: vars.color.blue,
+      },
+    }),
   },
   menu: {
-    paddingTop: 10,
+    ...Platform.select({
+      ios: {
+        paddingTop: 24,
+      },
+      android: {
+        paddingTop: 10,
+      },
+    }),
   },
 });

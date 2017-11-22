@@ -5,14 +5,10 @@ import { deepUpdate } from '../utils';
 
 export const setParam = (action, state) => {
   const { sectionName, modelName, paramValue, paramName } = action;
-  const section = state.masterEditor[sectionName];
-  const model = section[modelName];
 
-  model[paramName] = paramValue;
-
-  state.masterEditor = { ...state.masterEditor };
-  state.masterEditor[sectionName] = { ...section };
-  state.masterEditor[sectionName][modelName] = { ...model };
+  return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, {
+    [paramName]: paramValue,
+  });
 };
 
 export const setItemById = (action, state) => {

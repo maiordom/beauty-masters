@@ -8,6 +8,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 
 import ModalComponent from '../Modal';
@@ -63,36 +64,74 @@ export default class MasterCardEquipment extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: 16,
-    marginLeft: 16,
-    paddingBottom: 16,
     flex: 1,
-    borderBottomWidth: 1,
-    borderColor: vars.color.lightGrey,
-  },
-  content: {
-    alignSelf: 'stretch',
-    backgroundColor: vars.color.white,
+    ...Platform.select({
+      android: {
+        borderBottomWidth: 1,
+        borderColor: vars.color.lightGrey,
+        marginRight: 16,
+        marginLeft: 16,
+        paddingBottom: 16,
+      },
+      ios: {
+        paddingTop: 30,
+      },
+    }),
   },
   titleWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    ...Platform.select({
+      ios: {
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingBottom: 16,
+      },
+      android: {
+        marginBottom: 16,
+      },
+    }),
   },
   title: {
-    fontSize: 20,
     color: vars.color.black,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+        fontWeight: '600',
+      },
+      android: {
+        fontSize: 20,
+      },
+    }),
   },
   info: {
-    height: 24,
-    width: 24,
+    ...Platform.select({
+      ios: {
+        height: 20,
+        width: 20,
+      },
+      android: {
+        height: 24,
+        width: 24,
+      },
+    }),
   },
   equipment: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    ...Platform.select({
+      ios: {
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingTop: 5,
+        paddingBottom: 5,
+      },
+      android: {
+        marginBottom: 16,
+      },
+    }),
   },
   check: {
     height: 8,
@@ -100,6 +139,11 @@ const styles = StyleSheet.create({
   },
   name: {
     marginLeft: 6,
+    ...Platform.select({
+      ios: {
+        color: vars.color.grey,
+      },
+    }),
   },
   modalWrapper: {
     flex: 1,

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
 
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -20,10 +20,20 @@ const PHOTO_INNER_SPACE = 6;
 const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3;
 const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
+const localization = {
+  save: Platform.select({
+    ios: i18n.save,
+    android: i18n.save.toUpperCase(),
+  }),
+};
+
 type TProps = {
   aboutField: Object,
   actions: Object,
+  cardType: string,
   certificatePhotos: Object,
+  editStatus: Object,
+  masterCardId: number | null,
   personalPhotos: Object,
   sectionName: string,
   workPhotos: Object,
@@ -35,6 +45,12 @@ type TState = {
 
 export default class MasterEditorInfo extends Component<TProps, TState> {
   state = { certificatesShow: false };
+
+  componentDidMount() {
+    if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
+      this.props.actions.getPhotos(this.props.masterCardId);
+    }
+  }
 
   onPhotoSelectPress = (modelName: string) => {
     this.props.actions.drawerOpen({ contentKey: 'PhotoMaster', name: modelName });
@@ -50,19 +66,28 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
 
   onChangeAbout = (value: string, modelName: string) => {
     this.props.actions.setGeneralParam(modelName, value, this.props.sectionName);
-  }
+  };
 
   onNextPress = () => {
     this.props.actions.createMaster().then((res) => {
       if (res.result === 'success') {
-        this.props.actions.next();
+        this.props.actions.routeToSuccess();
       }
     });
-  }
+  };
+
+  onSavePress = () => {
+    this.props.actions.createMaster().then((res) => {
+      if (res.result === 'success') {
+        this.props.actions.routeToProfile();
+      }
+    });
+  };
 
   render() {
     const {
       aboutField,
+      cardType,
       certificatePhotos,
       personalPhotos,
       workPhotos,
@@ -129,7 +154,13 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
             </View>
           </View>
         </ScrollView>
-        <ButtonControl onPress={this.onNextPress} />
+        {cardType === 'create'
+          ? <ButtonControl onPress={this.onNextPress} />
+          : <ButtonControl
+            label={localization.save}
+            onPress={this.onSavePress}
+          />
+        }
       </View>
     );
   }

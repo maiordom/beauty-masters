@@ -7,6 +7,7 @@ export type TCreateMaster = {
   is_salon?: boolean,
   phone?: string,
   salon_name?: string,
+  status?: number;
   user_id?: number,
   vk_profile?: string,
 };

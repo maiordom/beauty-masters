@@ -5,6 +5,7 @@ import { get } from '../utils/Provider';
 
 const getPhotos = (included, type) =>
   included.filter(item => item.type === type).map(photo => ({
+    mediaFileId: photo.attributes.media_file_id,
     sizes: {
       l: photo.attributes.image.l,
       m: photo.attributes.image.m,
@@ -14,8 +15,8 @@ const getPhotos = (included, type) =>
 
 const getServices = (included) =>
   included.filter(item => item.type === 'master-service').map(service => ({
-    duration: service.attributes.duration,
-    price: service.attributes.price,
+    duration: Number(service.attributes.duration),
+    price: Number(service.attributes.price),
     serviceId: service.attributes.service_id,
   }));
 
@@ -24,6 +25,7 @@ export const getMasterById = (id: number) =>
     include: 'addresses,master_services,master_photos,certificate_photos,portfolio_photos',
   }, null, { id }).then((res: Object) => (res.error ? res : {
     addresses: [],
+    certificatePhotos: res.included ? getPhotos(res.included, 'certificate-photo') : [],
     id: res.data.id,
     inProfile: res.data.attributes.in_profile,
     isSalon: Boolean(res.data.attributes.is_salon),

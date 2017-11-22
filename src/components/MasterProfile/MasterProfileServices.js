@@ -23,22 +23,11 @@ type TProps = {
 
 export default class MasterProfileServices extends Component<TProps, void> {
   componentDidMount() {
-    if (!this.props.uploaded) {
-      this.props.actions.getMasterServices();
-    }
+    this.props.actions.getMasterServices();
   }
 
   render() {
-    const { services, uploaded } = this.props;
-
-    if (!uploaded) {
-      return (
-        <ActivityIndicator
-          animating
-          position="absolute"
-        />
-      );
-    }
+    const { services = [], uploaded } = this.props;
 
     return (
       <View style={styles.container}>
@@ -49,23 +38,27 @@ export default class MasterProfileServices extends Component<TProps, void> {
                 <Text>{serviceGroup.title}</Text>
               </View>
               {serviceGroup.services.map(service => (
-                <View style={styles.service} key={service.serviceId}>
+                <View style={styles.service} key={service.serviceId + service.categoryId + service.title}>
                   <Text>{service.title}</Text>
-                  {!isEmpty(service.price) && !isEmpty(service.duration) && (
-                    <Text style={styles.price}>
-                      {service.price} р, {service.duration} {i18n.time.minuteShort}.
-                    </Text>
-                  )}
-                  {!isEmpty(service.price) && isEmpty(service.duration) && (
-                    <Text style={styles.price}>
-                      {service.price} р
-                    </Text>
-                  )}
+                  <Text style={styles.serviceInfo}>
+                    {!isEmpty(service.price) && (
+                      <Text>{service.price} р</Text>
+                    )}
+                    {service.duration > 0 && (
+                      <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
+                    )}
+                  </Text>
                 </View>
               ))}
             </View>
           ))}
         </ScrollView>
+        {!uploaded && (
+          <ActivityIndicator
+            animating
+            position="absolute"
+          />
+        )}
       </View>
     );
   }
@@ -93,7 +86,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     backgroundColor: vars.color.white,
   },
-  price: {
+  serviceInfo: {
     color: vars.color.black,
   },
 });

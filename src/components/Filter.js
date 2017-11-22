@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 
+import Separator from './Separator.ios';
+
 import vars from '../vars';
 import { shouldComponentUpdate } from '../utils';
 
@@ -20,6 +22,7 @@ type TProps = {
   spacing?: boolean,
   subtitle?: string,
   title: string,
+  shouldShowSeparator?: boolean,
 };
 
 export default class Filter extends PureComponent<TProps, void> {
@@ -48,6 +51,7 @@ export default class Filter extends PureComponent<TProps, void> {
       spacing = true,
       subtitle,
       title,
+      shouldShowSeparator = true,
     } = this.props;
 
     return (
@@ -69,6 +73,9 @@ export default class Filter extends PureComponent<TProps, void> {
               )}
           </View>
         </TouchableHighlight>
+        {shouldShowSeparator && Platform.OS === 'ios' && (
+          <Separator />
+        )}
       </View>
     );
   }
@@ -91,6 +98,9 @@ const styles = StyleSheet.create({
       android: {
         fontSize: 16,
       },
+      ios: {
+        fontSize: 17,
+      },
     }),
   },
   subtitle: {
@@ -99,6 +109,9 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         fontSize: 14,
+      },
+      ios: {
+        fontSize: 12,
       },
     }),
   },
