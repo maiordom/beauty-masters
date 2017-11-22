@@ -39,8 +39,8 @@ export default class MasterCardServices extends Component {
                 <Text style={styles.price}>
                   <Text>{`${service.price} \u20BD`}</Text>
                   {service.duration > 0 && (
-                  <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
-                    )}
+                    <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
+                  )}
                 </Text>
               </View>
             ))}

@@ -43,7 +43,7 @@ export default class RecoverPassword extends Component<TProps, TState> {
     errorText: '',
   };
 
-  onEnterPassword = (key: string) => (password: string) => {
+  onPasswordEnter = (key: string) => (password: string) => {
     this.setState({ [key]: password });
   };
 
@@ -95,7 +95,7 @@ export default class RecoverPassword extends Component<TProps, TState> {
             icon={icons.password}
             placeholder={i18n.passwordTip}
             secureTextEntry
-            onChange={this.onEnterPassword('password1')}
+            onChange={this.onPasswordEnter('password1')}
           />
           <Input
             debounce
@@ -104,7 +104,7 @@ export default class RecoverPassword extends Component<TProps, TState> {
             icon={icons.password}
             placeholder={i18n.passwordRepeat}
             secureTextEntry
-            onChange={this.onEnterPassword('password2')}
+            onChange={this.onPasswordEnter('password2')}
           />
         </View>
         <ButtonControl
