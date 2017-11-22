@@ -7,6 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import MapCard from './MapCard';
 
 import vars from '../../vars';
+import getDistance from '../../utils/Geo';
 
 import type { TMapCard } from '../../types/MasterTypes';
 
@@ -15,6 +16,7 @@ type TState = {
 };
 
 type TProps = {
+  initialRegion: { lat?: number, lon?: number },
   points: Array<TMapCard>,
 };
 
@@ -29,7 +31,18 @@ export default class SerpList extends Component<TProps, TState> {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.points),
+      dataSource: ds.cloneWithRows(this.props.points.map((point: TMapCard) => {
+        const distance = getDistance(
+          point.coordinates.latitude,
+          point.coordinates.longitude,
+          this.props.initialRegion.lat,
+          this.props.initialRegion.lon,
+        ).toFixed(2);
+        return {
+          ...point,
+          distance,
+        };
+      })),
     };
   }
 
