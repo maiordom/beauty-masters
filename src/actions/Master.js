@@ -1,5 +1,3 @@
-import { Actions } from 'react-native-router-flux';
-
 import * as MasterService from '../services/Master';
 
 import actions from '../constants/Master';

@@ -43,8 +43,8 @@ export default class MasterCardEquipment extends Component {
             <Image source={icons.info} style={styles.info} />
           </TouchableOpacity>
         </View>
-        {services.map((service, key) => (
-          <View style={styles.equipment} key={key}>
+        {services.map((service, index) => (
+          <View style={styles.equipment} key={service.title + index}>
             <Image source={icons.check} style={styles.check} />
             <Text style={styles.name}>{service.title}</Text>
           </View>

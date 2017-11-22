@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import PlacesAutocomplete from '../../components/PlacesAutocomplete';
 import NavBar from '../../components/NavBar';
 import { getPlaceDetails, searchPlace, placesReset } from '../../actions/Geo';
-import { getLocation } from '../../actions/Common';
 import { setSearchLocation, setSearchLocationName } from '../../actions/Search';
 
 const mapStateToProps = (state) => ({

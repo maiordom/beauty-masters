@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { AsyncStorage, Platform, Linking } from 'react-native';
+import { AsyncStorage, Linking } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Actions } from 'react-native-router-flux';
 

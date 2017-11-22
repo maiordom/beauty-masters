@@ -23,7 +23,7 @@ const icons = {
 type TProps = {
   token: string,
   actions: {
-    setNewPassword: (string, token) => Promise<*>
+    setNewPassword: (password: string, token: string) => Promise<*>
   }
 }
 
@@ -48,7 +48,7 @@ export default class RecoverPassword extends Component<void, TProps, TState> {
   };
 
   onPress = () => {
-    const { token = 'todo-remove-test-token' } = this.props
+    const { token = 'todo-remove-test-token' } = this.props;
     const { password1, password2 } = this.state;
 
     if (password1 !== password2) {

@@ -1,12 +1,12 @@
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
+import { bindActionCreators } from 'redux';
 
 import { drawerClose } from '../actions/Drawer';
 import { logout } from '../actions/Auth';
 
 import Sidebar from '../components/Sidebar';
-import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
   const card = find(state.profile.masterCards, { isMain: true });

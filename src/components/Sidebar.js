@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import {
-  Dimensions,
   Image,
   InteractionManager,
   Platform,

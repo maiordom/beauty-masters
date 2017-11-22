@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Animated, Text } from 'react-native';
+import { View, TouchableHighlight, Animated } from 'react-native';
 
 export default class SwitchBase extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ export default class SwitchBase extends Component {
   };
 
   changeState = (state) => {
-    const callHandlers = this.state.state != state;
+    const callHandlers = this.state.state !== state;
     setTimeout(() => {
       this.setState({ state });
       if (callHandlers) {

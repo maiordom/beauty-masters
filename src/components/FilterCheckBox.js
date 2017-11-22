@@ -91,8 +91,13 @@ export default class FilterCheckBox extends Component<TProps, void> {
     </View>
   );
 
-  setPriceRef = (ref: any) => (this.priceRef = ref);
-  setDurationRef = (ref: any) => (this.durationRef = ref);
+  setPriceRef = (ref: any) => {
+    this.priceRef = ref;
+  };
+
+  setDurationRef = (ref: any) => {
+    this.durationRef = ref;
+  };
 
   render() {
     const {

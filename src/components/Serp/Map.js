@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import {
   Animated,
-  Dimensions,
   Image,
   InteractionManager,
   PanResponder,
@@ -142,7 +141,7 @@ const getClusters = (cluster: ClusterInterface, region: RegionType) => {
 };
 
 export default class Map extends Component<TProps, TState> {
-  constructor(props: Props) {
+  constructor(props: TProps) {
     super();
 
     this.state = {
@@ -287,7 +286,7 @@ export default class Map extends Component<TProps, TState> {
     }
   };
 
-  componentWillReceiveProps({ points }: Props) {
+  componentWillReceiveProps({ points }: TProps) {
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);

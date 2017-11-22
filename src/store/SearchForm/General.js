@@ -19,7 +19,7 @@ const cities = () => ({
 });
 
 const place = () => ({
-  label: null
+  label: null,
 });
 
 export default {

@@ -5,14 +5,14 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/MasterEdit';
 
-const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
-
 import {
   setCreateQueryParam,
   setItemById,
   setParam,
   setScheduleQuery,
 } from './MasterEditorHelpers';
+
+const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
 
 const setPhotos = ({
   model,
@@ -95,7 +95,7 @@ const setServices = ({
   });
 };
 
-export default makeReducer((state) => ({
+export default makeReducer(() => ({
   [actions.MASTER_EDIT_CALENDARS_SET]: (state, { payload: { masterCard } }) => {
     const calendarsMapping = [
       {

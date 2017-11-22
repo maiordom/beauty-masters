@@ -20,7 +20,7 @@ export const prepareCategoryServices = (data) => data.map((categoryService) => (
 export function getServices() {
   return get(routes.getServices)
     .then(res => (res.data && {
-      services: prepareServices(res.data)
+      services: prepareServices(res.data),
     } || {
       services: [],
     }));

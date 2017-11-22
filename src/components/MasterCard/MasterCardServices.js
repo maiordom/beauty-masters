@@ -36,12 +36,12 @@ export default class MasterCardServices extends Component {
                 key={service.serviceId}
               >
                 <Text style={styles.name}>{service.title}</Text>
-                  <Text style={styles.price}>
-                    <Text>{`${service.price} \u20BD`}</Text>
-                    {service.duration> 0 && (
-                      <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
+                <Text style={styles.price}>
+                  <Text>{`${service.price} \u20BD`}</Text>
+                  {service.duration > 0 && (
+                  <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
                     )}
-                  </Text>
+                </Text>
               </View>
             ))}
           </View>
