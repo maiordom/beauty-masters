@@ -30,8 +30,8 @@
           <action android:name="android.intent.action.VIEW" />
           <category android:name="android.intent.category.DEFAULT" />
           <category android:name="android.intent.category.BROWSABLE" />
-          <data android:scheme="http" android:host="www.pilochka.demostage.ru" />
-          <data android:scheme="http" android:host="pilochka.demostage.ru" />
+          <data android:scheme="http" android:host="www.pilochki.demostage.ru" />
+          <data android:scheme="http" android:host="pilochki.demostage.ru" />
           <data android:scheme="pilochka" android:host="pilochka" />
         </intent-filter>
         <intent-filter>
