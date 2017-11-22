@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   Modal,
+  Platform,
 } from 'react-native';
 
 import type { Children } from 'react';
@@ -28,7 +29,7 @@ export default class ModalComponent extends Component<TProps, void> {
 
     return (
       <Modal
-        animationType="fade"
+        animationType={'fade'}
         transparent
         visible={isVisible}
         onRequestClose={onRequestClose}
@@ -50,14 +51,20 @@ const styles = StyleSheet.create({
     backgroundColor: hexToRgba(vars.color.black, 40),
   },
   modalContainer: {
-    marginLeft: 40,
-    marginRight: 40,
-    padding: 24,
-    backgroundColor: vars.color.white,
-    borderRadius: 2,
-  },
-  modalTitle: {
-    fontSize: 20,
-    color: vars.color.black,
+    ...Platform.select({
+      android: {
+        backgroundColor: vars.color.white,
+        borderRadius: 2,
+        marginLeft: 40,
+        marginRight: 40,
+        padding: 24,
+      },
+      ios: {
+        backgroundColor: hexToRgba(vars.color.white, 90),
+        borderRadius: 12,
+        marginLeft: 28,
+        marginRight: 28,
+      },
+    }),
   },
 });

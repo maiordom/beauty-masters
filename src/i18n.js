@@ -159,6 +159,9 @@ export default {
   },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
+  masterCard: {
+    ok: 'OK',
+  },
   masterEditor: {
     aboutDescription: 'Чем больше информации вы укажите, тем выше будет уровень доверия клиентов к вам',
     aboutExample: 'Например, маникюр+шеллак = скидка 15%',
