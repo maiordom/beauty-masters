@@ -58,11 +58,7 @@ class NavBar extends Component {
             />
           </TouchableOpacity>)}
         <Text
-          style={[
-            styles.title,
-            leftButtonHidden && { marginLeft: 16 },
-            !rightButtonImage && { marginRight: 16 },
-          ]}
+          style={styles.title}
           lineBreakMode="tail"
           numberOfLines={1}
         >{title}</Text>
@@ -165,15 +161,21 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   title: {
-    flex: 1,
-    color: vars.color.white,
     backgroundColor: 'transparent',
-    alignSelf: 'center',
-    fontSize: 20,
+    color: vars.color.white,
     ...Platform.select({
       ios: {
         textAlign: 'center',
         fontSize: 17,
+        position: 'absolute',
+        top: 32,
+        left: 44,
+        right: 44,
+      },
+      android: {
+        flex: 1,
+        alignSelf: 'center',
+        fontSize: 20,
       },
     }),
   },
