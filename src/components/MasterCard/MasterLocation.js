@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import {
-  Dimensions,
   Platform,
   StyleSheet,
   View,
@@ -63,12 +62,9 @@ export default class MasterLocation extends Component {
   }
 }
 
-const NAV_BAR_WIDTH = 78;
-
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - NAV_BAR_WIDTH,
+    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     zIndex: 100,
@@ -77,7 +73,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   snippet: {
-    minHeight: 101,
     backgroundColor: vars.color.white,
     alignSelf: 'stretch',
     padding: 16,
