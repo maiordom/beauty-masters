@@ -119,9 +119,6 @@ const styles = StyleSheet.create({
     backgroundColor: vars.color.white,
     padding: 16,
     ...Platform.select({
-      ios: {
-        height: 190,
-      },
       android: {
         shadowRadius: 10,
         shadowOpacity: 0.8,
