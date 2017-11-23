@@ -10,6 +10,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import vars from '../../vars';
 import MapCard from '../Serp/MapCard';
+import getDistance from '../../utils/Geo';
 
 const icons = Platform.select({
   android: {
@@ -23,6 +24,7 @@ const icons = Platform.select({
 export default class MasterLocation extends Component {
   render() {
     const {
+      initialRegion,
       address,
       isSalon,
       location: { lat, lng },
@@ -30,6 +32,12 @@ export default class MasterLocation extends Component {
       sceneKey,
       username,
     } = this.props;
+    const distance = getDistance(
+      lat,
+      lng,
+      initialRegion.lat,
+      initialRegion.lon,
+    ).toFixed(2);
 
     return (
       <View style={styles.container}>
@@ -52,7 +60,7 @@ export default class MasterLocation extends Component {
         )}
         <MapCard
           address={address}
-          distance="222"
+          distance={distance}
           isSalon={isSalon}
           photo={photo}
           username={username}
