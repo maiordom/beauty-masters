@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import {
   Animated,
-  Dimensions,
   Image,
   InteractionManager,
   PanResponder,
@@ -29,6 +28,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 
 import type { TMapCard } from '../../types/MasterTypes';
+import type { TRegionType } from '../../types/RegionType';
 
 const icons = Platform.select({
   android: {
@@ -50,35 +50,26 @@ type LatLngType = {
   longitude: number,
 }
 
-type RegionType = {
-  latitude: number,
-  longitude: number,
-  latitudeDelta: number,
-  longitudeDelta: number,
-}
-
 type TState = {
   activePin: ?LatLngType,
   activePoint: TMapCard | null,
   cluster: ClusterInterface,
   clusters: Array<Cluster>,
   distanceToPin: number,
-  initialRegion?: RegionType,
-  region?: RegionType,
+  initialRegion?: TRegionType,
+  region?: TRegionType,
   renderLoader: boolean,
   showSnippet: boolean,
   snippetTranslateY: Animated.Value,
 }
 
 type TProps = {
-  initialRegion: {
-    lat: number,
-    lon: number,
-  },
+  initialRegion: TRegionType,
   points: Array<TMapCard>,
   sceneKey: string,
   actions: {
     searchMasters: Function,
+    setLastMapLocation: Function,
   },
 };
 
@@ -124,7 +115,7 @@ const createCluster = geoPoints => {
   return index;
 };
 
-const getZoomLevel = (region: RegionType) => {
+const getZoomLevel = (region: TRegionType) => {
   const angle = region.longitudeDelta;
 
   return Math.round(Math.log(360 / angle) / Math.LN2);
@@ -135,7 +126,7 @@ const getLatLng = (cluster: Cluster) => ({
   longitude: cluster.geometry.coordinates[0],
 });
 
-const getClusters = (cluster: ClusterInterface, region: RegionType) => {
+const getClusters = (cluster: ClusterInterface, region: TRegionType) => {
   const padding = 0;
 
   return cluster.getClusters([
@@ -147,22 +138,18 @@ const getClusters = (cluster: ClusterInterface, region: RegionType) => {
 };
 
 export default class Map extends Component<TProps, TState> {
-  constructor(props: Props) {
+  constructor(props: TProps) {
     super();
 
+    const initialRegion = {
+      ...props.initialRegion,
+      latitudeDelta: props.initialRegion.latitudeDelta || 0.05, // 1 delata degree = 111 km, 0.04 = 5km
+      longitudeDelta: props.initialRegion.longitudeDelta || 0.05,
+    };
+
     this.state = {
-      initialRegion: {
-        latitude: props.initialRegion.lat,
-        longitude: props.initialRegion.lon || props.initialRegion.lng,
-        latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
-        longitudeDelta: 0.05,
-      },
-      region: {
-        latitude: props.initialRegion.lat,
-        longitude: props.initialRegion.lon || props.initialRegion.lng,
-        latitudeDelta: 0.05, // 1 delata degree = 111 km, 0.04 = 5km
-        longitudeDelta: 0.05,
-      },
+      initialRegion,
+      region: initialRegion,
       renderLoader: true,
       showSnippet: false,
       snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
@@ -208,7 +195,7 @@ export default class Map extends Component<TProps, TState> {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderLoader: false });
-      this.props.actions.searchMasters();
+      this.searchMasters();
     });
   }
 
@@ -236,7 +223,7 @@ export default class Map extends Component<TProps, TState> {
       coordinate.latitude,
       coordinate.longitude,
       this.props.initialRegion.lat,
-      this.props.initialRegion.lon || this.props.initialRegion.lng,
+      this.props.initialRegion.lon,
     ).toFixed(2);
 
     this.map.animateToRegion(region, 450);
@@ -262,15 +249,25 @@ export default class Map extends Component<TProps, TState> {
     this.map.animateToRegion(this.state.initialRegion, 300);
   };
 
-  onRegionChange = (region: RegionType) => {
-    console.log('Map::RegionChange', region);
+  searchMasters = () => {
+    const region = this.state.region;
+    if (!region) {
+      return;
+    }
 
-    this.setState({ region });
     this.props.actions.searchMasters({
       lat: region.latitude,
       lon: region.longitude,
       radius: Number(((5 * Math.max(region.latitudeDelta, region.longitudeDelta)) / 0.04).toFixed(2)) * 1000,
     });
+  }
+
+  onRegionChange = (region: TRegionType) => {
+    console.log('Map::RegionChange', region);
+
+    this.setState({ region });
+    this.searchMasters();
+    this.props.actions.setLastMapLocation(region);
   };
 
   onMapCardPress = () => {
@@ -292,7 +289,7 @@ export default class Map extends Component<TProps, TState> {
     }
   };
 
-  componentWillReceiveProps({ points }: Props) {
+  componentWillReceiveProps({ points }: TProps) {
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);

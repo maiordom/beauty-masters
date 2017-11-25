@@ -1,0 +1,3 @@
+export default {
+  LAST_MAP_LOCATION_SET: 'LAST_MAP_LOCATION_SET',
+};
