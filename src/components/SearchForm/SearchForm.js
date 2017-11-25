@@ -31,7 +31,9 @@ type TProps = {
     setItemById: Function,
     setDay: Function,
     toggleExtension: Function,
-    toggleWithdrawal: Function
+    toggleWithdrawal: Function,
+    toggleManicure: Function,
+    togglePedicure: Function,
   },
   serviceManicure: Object,
   servicePedicure: Object,
@@ -58,7 +60,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
     this.setState({ showShortForm: !this.state.showShortForm });
   };
 
-  onServiceToggle = (sectionName) => (value, modelName) => {
+  onServiceToggle = (sectionName: string) => (value: boolean, modelName: string) => {
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
@@ -76,12 +78,12 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
-  onMasterTypeSelect = (value, id, modelName) => {
+  onMasterTypeSelect = (value: string, id: number, modelName: string) => {
     this.props.actions.setItemById(modelName, id, 'general');
     this.toggleMasterTypeModal();
   };
 
-  onSelectCalendarDate = selectedDate => {
+  onSelectCalendarDate = (selectedDate: string) => {
     this.setState({ selectedDate });
     this.props.actions.setDay(selectedDate);
     this.toggleCalendarModal();
