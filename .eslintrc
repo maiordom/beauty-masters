@@ -17,6 +17,13 @@
   "extends": [
     "airbnb"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ios.js", ".android.js"]
+      }
+    }
+  },
   "rules": {
     "arrow-parens": "off",
     "camelcase": 0,
