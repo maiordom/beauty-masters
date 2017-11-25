@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Animated, Easing, Platform } from 'react-native';
 
@@ -15,7 +17,7 @@ type TProps = {
 
 type TState = {
   showBlock: boolean,
-  spinValue: Object,
+  spinValue: Animated,
 }
 
 export default class SearchFormBlockPedicure extends Component<TProps, TState> {

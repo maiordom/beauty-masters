@@ -17,7 +17,7 @@ type TProps = {
 
 type TState = {
   showBlock: boolean,
-  spinValue: Object,
+  spinValue: Animated,
 }
 
 export default class SearchFormBlockManicure extends Component<TProps, TState> {
