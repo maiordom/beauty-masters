@@ -22,22 +22,33 @@ const icons = Platform.select({
 });
 
 export default class MasterLocation extends Component {
+  constructor(props) {
+    super(props);
+
+    const { initialRegion, location } = props;
+
+    this.state = {
+      distance: getDistance(
+        location.lat,
+        location.lng,
+        initialRegion.lat,
+        initialRegion.lon,
+      ).toFixed(2),
+    };
+  }
+
   render() {
     const {
-      initialRegion,
       address,
+      initialRegion,
       isSalon,
       location: { lat, lng },
       photo,
       sceneKey,
       username,
     } = this.props;
-    const distance = getDistance(
-      lat,
-      lng,
-      initialRegion.lat,
-      initialRegion.lon,
-    ).toFixed(2);
+
+    const { distance } = this.state;
 
     return (
       <View style={styles.container}>
