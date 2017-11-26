@@ -7,6 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import MapCard from './MapCard';
 
 import vars from '../../vars';
+import getDistance from '../../utils/Geo';
 
 import type { TMapCard } from '../../types/MasterTypes';
 
@@ -15,6 +16,10 @@ type TState = {
 };
 
 type TProps = {
+  initialRegion: {
+    lat: number,
+    lon: number,
+  },
   points: Array<TMapCard>,
 };
 
@@ -57,7 +62,21 @@ export default class SerpList extends Component<TProps, TState> {
           initialListSize={3}
           pageSize={3}
           dataSource={dataSource}
-          renderRow={data => <MapCard onPress={this.onMapCardPress} {...data} />}
+          renderRow={item => {
+            const { initialRegion } = this.props;
+            const { coordinates } = item;
+
+            const distance = getDistance(
+              coordinates.latitude,
+              coordinates.longitude,
+              initialRegion.lat,
+              initialRegion.lon,
+            ).toFixed(2);
+
+            return (
+              <MapCard onPress={this.onMapCardPress} distance={distance} {...item} />
+            );
+          }}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
         />
       </View>

@@ -60,8 +60,10 @@ class NavBar extends Component {
         <Text
           style={[
             styles.title,
-            leftButtonHidden && { marginLeft: 16 },
-            !rightButtonImage && { marginRight: 16 },
+            Platform.OS === 'android' && [
+              leftButtonHidden && { marginLeft: 16 },
+              !rightButtonImage && { marginRight: 16 },
+            ]
           ]}
           lineBreakMode="tail"
           numberOfLines={1}
@@ -165,15 +167,21 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   title: {
-    flex: 1,
-    color: vars.color.white,
     backgroundColor: 'transparent',
-    alignSelf: 'center',
-    fontSize: 20,
+    color: vars.color.white,
+    flex: 1,
     ...Platform.select({
       ios: {
         textAlign: 'center',
         fontSize: 17,
+        position: 'absolute',
+        top: 32,
+        left: 44,
+        right: 44,
+      },
+      android: {
+        alignSelf: 'center',
+        fontSize: 20,
       },
     }),
   },

@@ -19,4 +19,5 @@ export type TMapCard = {
     title: string,
   },
   username: string,
+  distance: ?number,
 };

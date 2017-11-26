@@ -30,11 +30,7 @@ type TProps = TMapCard & {
   type?: string,
 };
 
-type TState = {
-  distance: number,
-};
-
-export default class MapCard extends Component<TProps, TState> {
+export default class MapCard extends Component<TProps, void> {
   getDate = () => {
     const { closestDate } = this.props;
 
@@ -86,7 +82,7 @@ export default class MapCard extends Component<TProps, TState> {
             {type !== 'favorites' && (
               <View style={styles.distanceView}>
                 <Text style={styles.distanceText}>
-                  {i18n.fromYou.toLowerCase()} {distance} {i18n.km}
+                  {distance === null ? '' : `${i18n.fromYou.toLowerCase()} ${distance} ${i18n.km}`}
                 </Text>
               </View>
             )}
@@ -119,9 +115,6 @@ const styles = StyleSheet.create({
     backgroundColor: vars.color.white,
     padding: 16,
     ...Platform.select({
-      ios: {
-        height: 190,
-      },
       android: {
         shadowRadius: 10,
         shadowOpacity: 0.8,
