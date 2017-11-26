@@ -12,4 +12,4 @@ IOS developer menu
 ```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d app://pilochka```
 
 Ссылки для тестирования deep linking:
-```https://jsfiddle.net/xddpv6so/14/```
+```https://jsfiddle.net/xddpv6so/23/```
