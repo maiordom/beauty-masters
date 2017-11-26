@@ -77,7 +77,7 @@ export default () => (
         <Scene
           key="masterLocation"
           component={MasterLocation}
-          title="Место приема мастера"
+          title={i18n.location.receiveMasterLocation}
         />
         <Scene
           key="masterAuthorization"
