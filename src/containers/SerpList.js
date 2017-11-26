@@ -19,6 +19,7 @@ const mapStateToProps = state => {
       ? state.geo.userLocation
       : { lat: state.geo.city.location.lat, lon: state.geo.city.location.lng };
   })();
+
   return {
     points: state.searchForm.searchResult.items.map((point: TMapCard) => {
       const distance = getDistance(
@@ -27,6 +28,7 @@ const mapStateToProps = state => {
         initialRegion.lat,
         initialRegion.lon,
       ).toFixed(2);
+
       return {
         ...point,
         distance,
