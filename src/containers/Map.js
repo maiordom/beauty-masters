@@ -22,8 +22,8 @@ const mapStateToProps = (state, ownProps) => ({
     }
 
     return state.geo.userLocation.lat
-    ? { latitude: state.geo.userLocation.lat, longitude: state.geo.userLocation.lon }
-    : { latitude: state.geo.city.location.lat, longitude: state.geo.city.location.lng };
+      ? { latitude: state.geo.userLocation.lat, longitude: state.geo.userLocation.lon }
+      : { latitude: state.geo.city.location.lat, longitude: state.geo.city.location.lng };
   })(),
   points: state.searchForm.searchResult.items,
   sceneKey: ownProps.sceneKey,

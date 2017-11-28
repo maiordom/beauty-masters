@@ -4,7 +4,7 @@ import type { TRegionType } from '../types/RegionType';
 
 export const setLastMapLocation = (location: TRegionType) => (dispatch: Function) => {
   dispatch({
-    type: actions.LAST_MAP_LOCATION_SET,
-    payload: location,
+    type: actions.MAP_LAST_LOCATION_SET,
+    payload: { location },
   });
 };
