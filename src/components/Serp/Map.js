@@ -61,6 +61,7 @@ type TState = {
   renderLoader: boolean,
   showSnippet: boolean,
   snippetTranslateY: Animated.Value,
+  snippetHeight: ?number,
 }
 
 type TProps = {
@@ -86,11 +87,6 @@ type Cluster = {
     cluster_id: number,
   },
 };
-
-const SNIPPET_HEIGHT = Platform.select({
-  ios: 190,
-  android: 204,
-});
 
 const convertToGeoPoints = points => points.map(point => ({
   type: 'Feature',
@@ -152,7 +148,7 @@ export default class Map extends Component<TProps, TState> {
       region: initialRegion,
       renderLoader: true,
       showSnippet: false,
-      snippetTranslateY: new Animated.Value(SNIPPET_HEIGHT),
+      snippetTranslateY: new Animated.Value(Dimensions.get('window').height),
       activePin: null,
       activePoint: null,
       clusters: [],
@@ -160,6 +156,7 @@ export default class Map extends Component<TProps, TState> {
         getLeaves: () => [],
         getClusters: () => [],
       },
+      snippetHeight: null,
     };
   }
 
@@ -189,7 +186,10 @@ export default class Map extends Component<TProps, TState> {
   }
 
   hideSnippet = () => {
-    Animated.timing(this.state.snippetTranslateY, { toValue: SNIPPET_HEIGHT, duration: 500 }).start();
+    Animated.timing(this.state.snippetTranslateY, {
+      toValue: this.state.snippetHeight,
+      duration: 500,
+    }).start();
   }
 
   componentDidMount() {
@@ -358,6 +358,10 @@ export default class Map extends Component<TProps, TState> {
             transform: [{ translateY: this.state.snippetTranslateY }],
           }}
           {...this.snippetPanResponder.panHandlers}
+          onLayout={(event) => {
+            const snippetHeight = event.nativeEvent.layout.height;
+            this.state.snippetHeight = snippetHeight;
+          }}
         >
           {activePoint && <MapCard
             {...activePoint}

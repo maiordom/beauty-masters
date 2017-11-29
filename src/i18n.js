@@ -156,6 +156,7 @@ export default {
   list: 'Список',
   location: {
     here: 'Мое текущее месторасположение',
+    receiveMasterLocation: 'Место приема мастера',
   },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
