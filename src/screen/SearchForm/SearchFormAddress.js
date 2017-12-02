@@ -5,8 +5,8 @@ import { Actions } from 'react-native-router-flux';
 import PlacesAutocomplete from '../../components/PlacesAutocomplete';
 import NavBar from '../../components/NavBar';
 import { getPlaceDetails, searchPlace, placesReset } from '../../actions/Geo';
-import { getLocation } from '../../actions/Common';
 import { setSearchLocation, setSearchLocationName } from '../../actions/Search';
+import { setLastMapLocation } from '../../actions/Map';
 
 const mapStateToProps = (state) => ({
   places: state.geo.places,
@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     selectPlace: (place) => () => {
       getPlaceDetails(place).then((res) => {
+        dispatch(setLastMapLocation(null));
         dispatch(setSearchLocation(res.location.lat, res.location.lng));
         dispatch(setSearchLocationName(place.label));
         Actions.pop();
