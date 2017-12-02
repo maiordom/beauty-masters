@@ -6,6 +6,13 @@ import SerpList from '../components/Serp/SerpList';
 
 const mapStateToProps = state => {
   const initialRegion = (() => {
+    if (state.map.lastLocation != null) {
+      return {
+        lat: state.map.lastLocation.latitude,
+        lon: state.map.lastLocation.longitude,
+      };
+    }
+
     if (state.searchForm.general.place.label) {
       return {
         lat: state.searchForm.searchQuery.lat,
