@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import {
   Animated,
+  Dimensions,
   Image,
   InteractionManager,
   PanResponder,
