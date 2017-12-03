@@ -1,5 +1,6 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 import { stringify } from 'qs';
+import { Crashlytics } from 'react-native-fabric';
 
 import config from '../config';
 
@@ -26,6 +27,8 @@ const handleFetchResponse = (
 
   if (res.errors) {
     const { code, title, detail } = res.errors[0];
+
+    Crashlytics.logException(JSON.stringify(res.errors));
 
     return {
       status: 'error',
