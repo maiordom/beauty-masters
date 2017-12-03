@@ -27,6 +27,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({ getUserProfile, selectProfileSection }, dispatch),
+  onLeftButtonPress: () => {
+    Actions.searchForm();
+  },
   onRightButtonPress: () => dispatch((dispatch, getState) => {
     const { sectionKey } = getState().profile;
     const masterCard = find(getState().profile.masterCards, { isMain: true });

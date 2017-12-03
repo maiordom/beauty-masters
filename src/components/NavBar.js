@@ -94,7 +94,7 @@ const Scene = (component) => class SceneComponent extends Component {
     } = this.props;
 
     if (onLeftButtonPress) {
-      onLeftButtonPress();
+      return onLeftButtonPress();
     }
 
     if (leftButtonMenu) {
