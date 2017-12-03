@@ -37,7 +37,8 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
           debounce
           debounceTimer={200}
           onChange={this.onChange}
-          placeholder={i18n.specify}
+          placeholder={i18n.specifyAddressName}
+          required
         />
         <TouchableWithoutFeedback>
           <View style={[styles.label, styles.labelCity]}>
@@ -47,7 +48,10 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={onAddressChange}>
           <View style={[styles.label, styles.labelAddress]}>
-            <Text style={styles.labelText}>{addressField.label}</Text>
+            <Text style={styles.labelText}>
+              {addressField.label}
+              <Text style={styles.required}> *</Text>
+            </Text>
             {addressField.value ? (
               <Text style={styles.labelValue}>{addressField.value}</Text>
             ) : (
@@ -96,4 +100,7 @@ const styles = StyleSheet.create({
   labelDefaultValue: {
     color: vars.color.grey,
   },
+  required: {
+    color: vars.color.red,
+  }
 });

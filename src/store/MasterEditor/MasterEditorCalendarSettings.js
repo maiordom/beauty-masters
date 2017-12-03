@@ -33,7 +33,7 @@ type TCustomDatesModel = {
 };
 
 const salonTitleField = (salonTitle: string) => ({
-  label: i18n.name,
+  label: i18n.addressName,
   queryParam: 'name',
   value: salonTitle || null,
 }: TCalendarFieldModel);
