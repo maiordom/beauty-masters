@@ -62,6 +62,9 @@ export default class SearchFormShort extends Component<TProps, TState> {
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
+  onCategoryToggle = (sectionName) => (value, modelName) => {
+  };
+
   onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
   onWithdrawalToggle = (value: boolean) => this.props.actions.toggleWithdrawal(value);
   onManicureToggle = (value: boolean) => this.props.actions.toggleManicure(value);
@@ -211,13 +214,15 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <StateMachine visible={!showShortForm}>
             <SearchFormBlockManicure
               service={serviceManicure}
-              onChange={this.onServiceToggle('serviceManicure')}
+              onServiceChange={this.onServiceToggle('serviceManicure')}
+              onCategoryChange={this.onCategoryToggle('serviceManicure')}
             />
           </StateMachine>
           <StateMachine visible={!showShortForm}>
             <SearchFormBlockPedicure
               service={servicePedicure}
-              onChange={this.onServiceToggle('servicePedicure')}
+              onServiceChange={this.onServiceToggle('servicePedicure')}
+              onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />
           </StateMachine>
           <ButtonControl

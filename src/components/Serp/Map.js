@@ -340,7 +340,7 @@ export default class Map extends Component<TProps, TState> {
         )}
         <TouchableOpacity
           style={styles.filterButtonWrapper}
-          onPress={Actions.pop}
+          onPress={Actions.searchForm}
         >
           <View style={styles.filterButton}>
             <Image source={icons.filter} />
