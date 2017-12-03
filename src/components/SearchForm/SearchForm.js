@@ -225,7 +225,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
             onPress={this.toggleForm}
           />
-          <ButtonControl label={i18n.findMaster} onPress={Actions.Serp} />
+          <ButtonControl label={i18n.findMaster} onPress={Actions.serp} />
         </ScrollView>
       </View>
     );

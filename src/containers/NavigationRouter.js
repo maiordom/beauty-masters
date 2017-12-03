@@ -66,7 +66,7 @@ export default () => (
           component={SearchFormAddress}
         />
         <Scene
-          key="Serp"
+          key="serp"
           title={i18n.search.search}
           component={Serp}
         />
