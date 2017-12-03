@@ -48,7 +48,11 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
         <TouchableWithoutFeedback onPress={onAddressChange}>
           <View style={[styles.label, styles.labelAddress]}>
             <Text style={styles.labelText}>{addressField.label}</Text>
-            <Text style={styles.labelValue}>{addressField.value || i18n.specify}</Text>
+            {addressField.value ? (
+              <Text style={styles.labelValue}>{addressField.value}</Text>
+            ) : (
+              <Text style={styles.labelDefaultValue}>{i18n.specify}</Text>
+            )}
           </View>
         </TouchableWithoutFeedback>
         <InputWithLabel
@@ -88,5 +92,8 @@ const styles = StyleSheet.create({
   labelValue: {
     fontSize: 16,
     color: vars.color.black,
+  },
+  labelDefaultValue: {
+    color: vars.color.grey,
   },
 });
