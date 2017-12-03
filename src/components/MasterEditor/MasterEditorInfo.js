@@ -53,7 +53,13 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 
   onPhotoSelectPress = (modelName: string) => {
-    this.props.actions.drawerOpen({ contentKey: 'PhotoMaster', name: modelName });
+    this.props.actions.drawerOpen({
+      contentKey: 'PhotoMaster',
+      drawerParams: {
+        panCloseMask: 0,
+      },
+      name: modelName,
+    });
   };
 
   onCertificatesChange = (state: boolean) => {
