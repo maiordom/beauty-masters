@@ -23,7 +23,7 @@ export function hexToRgba(hex: string, opacity: number = 100) {
  *     [SHOW_FAVORITES]: () => changeModel(state, 'favorites', {isShow: true})
  * }));
  */
-export function makeReducer(handler: Function, beforeHandler: Function, afterHandler: Function) {
+export function makeReducer(handler: Function, beforeHandler?: Function, afterHandler?: Function) {
   return (state: Object, action: Object) => {
     const items = handler(state, action);
 
