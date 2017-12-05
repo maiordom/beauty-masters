@@ -2,6 +2,10 @@
 
 import { AsyncStorage } from 'react-native';
 
+import groupBy from 'lodash/groupBy';
+import mapValues from 'lodash/mapValues';
+import map from 'lodash/map';
+
 import { makeReducer, deepUpdate } from '../utils';
 
 import a from '../constants/Common';
@@ -51,6 +55,9 @@ export default makeReducer((state, action) => ({
 
     state.dictionaries.serviceById = serviceById;
     state.dictionaries.serviceByKey = serviceByKey;
+
+    const servicesByParentCategory = groupBy(services, 'categoryId');
+    state.dictionaries.parentCategoryToServices = mapValues(servicesByParentCategory, services => map(services, 'id'));
 
     return state;
   },
