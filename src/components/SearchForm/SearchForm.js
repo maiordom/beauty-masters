@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
-import filter from 'lodash/filter';
-import every from 'lodash/every';
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -34,6 +32,12 @@ type TProps = {
     toggleWithdrawal: Function,
     toggleManicure: Function,
     togglePedicure: Function,
+  },
+  categorySelectionFlags: {
+    manicure: boolean,
+    pedicure: boolean,
+    extension: boolean,
+    removing: boolean,
   },
   serviceManicure: Object,
   servicePedicure: Object,
@@ -101,6 +105,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   render() {
     const {
+      categorySelectionFlags,
       general,
       searchQuery,
       serviceManicure,
@@ -117,24 +122,6 @@ export default class SearchFormShort extends Component<TProps, TState> {
     } = this.state;
 
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
-
-    const isManicureActive = every(filter(
-      serviceManicure, service => service.categoryKey === 'manicure',
-    ), { active: true });
-
-    const isPedicureActive = every(filter(
-      servicePedicure, service => service.categoryKey === 'pedicure',
-    ), { active: true });
-
-    const isExtensionActive = every(filter(
-      { ...servicePedicure, ...serviceManicure },
-      service => service.categoryKey === 'extension',
-    ), { active: true });
-
-    const isWithdrawalActive = every(filter(
-      { ...servicePedicure, ...serviceManicure },
-      service => service.categoryKey === 'removing',
-    ), { active: true });
 
     return (
       <View style={styles.container}>
@@ -187,26 +174,26 @@ export default class SearchFormShort extends Component<TProps, TState> {
             <View>
               <FilterCheckBox
                 {...serviceManicure.manicure}
-                active={isManicureActive}
+                active={categorySelectionFlags.manicure}
                 onChange={this.onManicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 {...servicePedicure.pedicure}
-                active={isPedicureActive}
+                active={categorySelectionFlags.pedicure}
                 onChange={this.onPedicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
-                active={isExtensionActive}
+                active={categorySelectionFlags.extension}
                 modelName="extensionShort"
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.withdrawal}
-                active={isWithdrawalActive}
+                active={categorySelectionFlags.removing}
                 onChange={this.onWithdrawalToggle}
                 withInput={false}
                 shouldShowSeparator={false}
