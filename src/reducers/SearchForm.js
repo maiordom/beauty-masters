@@ -52,6 +52,26 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.SEARCH_SERVICE_CATEGORY_TOGGLE]: (state, { payload }) => {
+    const { sectionName, modelName, id } = payload;
+    const model = state.searchForm[sectionName][modelName];
+
+    setParam(payload, state);
+    updateSections(payload, id, state);
+
+    const searchQuery: TSearchQuery = state.searchForm.searchQuery;
+    const { categoryServiceByKey } = state.dictionaries;
+
+    if (payload.paramValue) {
+      const id = categoryServiceByKey[model.dictionaryKey].id;
+      searchQuery.category_service_ids.push(id);
+    } else {
+      searchQuery.category_service_ids = reject(searchQuery.category_service_ids, { id });
+    }
+
+    return state;
+  },
+
   [actions.SEARCH_MANICURE_TOGGLE]: (state, { payload: { paramValue } }) => {
     const categoryKey = 'manicure';
     const serviceManicure = { sectionName: 'serviceManicure', paramValue };

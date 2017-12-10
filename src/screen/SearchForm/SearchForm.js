@@ -19,6 +19,7 @@ import {
   toggleManicure,
   togglePedicure,
   toggleService,
+  toggleServiceCategory,
   toggleWithdrawal,
 } from '../../actions/Search';
 
@@ -130,6 +131,7 @@ const mapDispatchToProps = dispatch => ({
     toggleManicure,
     togglePedicure,
     toggleService,
+    toggleServiceCategory,
     toggleWithdrawal,
   }, dispatch),
 });

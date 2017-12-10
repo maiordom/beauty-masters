@@ -26,6 +26,7 @@ import type { TSearchFormCategorySection } from '../../types/SearchFormCategorie
 type TProps = {
   actions: {
     toggleService: Function,
+    toggleServiceCategory: Function,
     toggleDeparture: Function,
     setItemById: Function,
     setDay: Function,
@@ -69,7 +70,8 @@ export default class SearchFormShort extends Component<TProps, TState> {
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
-  onCategoryToggle = (sectionName) => (value, modelName) => {
+  onCategoryToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    this.props.actions.toggleServiceCategory(modelName, 'active', value, sectionName);
   };
 
   onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
