@@ -9,8 +9,7 @@ import 'moment/locale/ru';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
-import SearchFormBlockManicure from './SearchFormBlockManicure';
-import SearchFormBlockPedicure from './SearchFormBlockPedicure';
+import SearchFormCategoryBlock from './SearchFormCategoryBlock';
 
 import StateMachine from '../../components/StateMachine';
 import { FilterLabel } from '../../components/FilterLabel';
@@ -21,6 +20,8 @@ import ButtonControl from '../../components/ButtonControl';
 import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
+
+import type { TSearchFormCategorySection } from '../../types/SearchFormCategories';
 
 type TProps = {
   actions: {
@@ -39,8 +40,8 @@ type TProps = {
     extension: boolean,
     removing: boolean,
   },
-  serviceManicure: Object,
-  servicePedicure: Object,
+  manicureSearchFormSections: Array<TSearchFormCategorySection>,
+  pedicureSearchformSections: Array<TSearchFormCategorySection>,
   general: Object,
   searchQuery: Object,
 };
@@ -107,9 +108,9 @@ export default class SearchFormShort extends Component<TProps, TState> {
     const {
       categorySelectionFlags,
       general,
+      manicureSearchFormSections,
+      pedicureSearchformSections,
       searchQuery,
-      serviceManicure,
-      servicePedicure,
     } = this.props;
 
     const { place } = this.props.general;
@@ -173,13 +174,13 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <StateMachine visible={showShortForm}>
             <View>
               <FilterCheckBox
-                {...serviceManicure.manicure}
+                title={i18n.manicure}
                 active={categorySelectionFlags.manicure}
                 onChange={this.onManicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
-                {...servicePedicure.pedicure}
+                title={i18n.pedicure}
                 active={categorySelectionFlags.pedicure}
                 onChange={this.onPedicureToggle}
                 withInput={false}
@@ -187,7 +188,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
                 active={categorySelectionFlags.extension}
-                modelName="extensionShort"
+                modelName={'extensionShort'}
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />
@@ -201,15 +202,17 @@ export default class SearchFormShort extends Component<TProps, TState> {
             </View>
           </StateMachine>
           <StateMachine visible={!showShortForm}>
-            <SearchFormBlockManicure
-              service={serviceManicure}
+            <SearchFormCategoryBlock
+              title={i18n.manicure}
+              sections={manicureSearchFormSections}
               onServiceChange={this.onServiceToggle('serviceManicure')}
               onCategoryChange={this.onCategoryToggle('serviceManicure')}
             />
           </StateMachine>
           <StateMachine visible={!showShortForm}>
-            <SearchFormBlockPedicure
-              service={servicePedicure}
+            <SearchFormCategoryBlock
+              title={i18n.pedicure}
+              sections={pedicureSearchformSections}
               onServiceChange={this.onServiceToggle('servicePedicure')}
               onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />
