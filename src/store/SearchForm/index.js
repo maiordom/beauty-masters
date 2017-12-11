@@ -11,8 +11,36 @@ import General from './General';
 const params = {};
 
 each({
-  serviceManicure: ServiceManicure,
-  servicePedicure: ServicePedicure,
+  serviceManicure: {
+    classicManicure: ServiceManicure.classicManicure,
+    hardwareManicure: ServiceManicure.hardwareManicure,
+    europeanManicure: ServiceManicure.europeanManicure,
+    applyingShellacManicure: ServiceManicure.applyingShellacManicure,
+    applyingBioGelManicure: ServiceManicure.applyingBioGelManicure,
+    applyingNailPolishManicure: ServiceManicure.applyingNailPolishManicure,
+    removingNailPolishManicure: ServiceManicure.removingNailPolishManicure,
+    removingBioGelManicure: ServiceManicure.removingBioGelManicure,
+    removingShellacManicure: ServiceManicure.removingShellacManicure,
+    removingGelManicure: ServiceManicure.removingGelManicure,
+    removingNailsManicure: ServiceManicure.removingNailsManicure,
+    designManicure: ServiceManicure.designManicure,
+    extensionManicure: ServiceManicure.extensionManicure,
+  },
+  servicePedicure: {
+    classicPedicure: ServicePedicure.classicPedicure,
+    hardwarePedicure: ServicePedicure.hardwarePedicure,
+    europeanPedicure: ServicePedicure.europeanPedicure,
+    applyingShellacPedicure: ServicePedicure.applyingShellacPedicure,
+    applyingBioGelPedicure: ServicePedicure.applyingBioGelPedicure,
+    applyingNailPolishPedicure: ServicePedicure.applyingNailPolishPedicure,
+    removingNailPolishPedicure: ServicePedicure.removingNailPolishPedicure,
+    removingBioGelPedicure: ServicePedicure.removingBioGelPedicure,
+    removingShellacPedicure: ServicePedicure.removingShellacPedicure,
+    removingGelPedicure: ServicePedicure.removingGelPedicure,
+    removingNailsPedicure: ServicePedicure.removingNailsPedicure,
+    designPedicure: ServicePedicure.designPedicure,
+    extensionPedicure: ServicePedicure.extensionPedicure,
+  },
   general: General,
 }, (fields, sectionName) => {
   params[sectionName] = {};
