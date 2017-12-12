@@ -42,7 +42,7 @@ type TProps = {
     removing: boolean,
   },
   manicureSearchFormSections: Array<TSearchFormCategorySection>,
-  pedicureSearchformSections: Array<TSearchFormCategorySection>,
+  pedicureSearchFormSections: Array<TSearchFormCategorySection>,
   general: Object,
   searchQuery: Object,
 };
@@ -111,7 +111,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
       categorySelectionFlags,
       general,
       manicureSearchFormSections,
-      pedicureSearchformSections,
+      pedicureSearchFormSections,
       searchQuery,
     } = this.props;
 
@@ -214,7 +214,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <StateMachine visible={!showShortForm}>
             <SearchFormCategoryBlock
               title={i18n.pedicure}
-              sections={pedicureSearchformSections}
+              sections={pedicureSearchFormSections}
               onServiceChange={this.onServiceToggle('servicePedicure')}
               onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />
