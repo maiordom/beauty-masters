@@ -35,31 +35,25 @@ const getServicesCategoriesIds = (state) => {
   const serviceIds = [];
   const categoryIds = [];
 
-  const categoryLocalToDictionaryKeyMapping = {
-    manicure: ['Manicure'],
-    pedicure: ['Pedicure'],
-    extension: ['ManicureExtension', 'PedicureExtension'],
-    removing: ['ManicureRemoving', 'PedicureRemoving'],
-  };
-  const allServices = values({
+  const allServicesWithSubcategories = values({
     ...state.searchForm.serviceManicure,
     ...state.searchForm.servicePedicure,
   });
-  const servicesByCategory = groupBy(allServices, 'categoryKey');
+
+  const allSubcategories = filter(allServicesWithSubcategories, { isCategory: true, active: true });
+  each(allSubcategories, subcategory => {
+    categoryIds.push(categoryServiceByKey[subcategory.dictionaryKey].id);
+  });
+
+  const allServices = filter(allServicesWithSubcategories, (item) => (!item.isCategory));
+  const servicesByCategory = groupBy(allServices, 'categoryDictionaryKey');
   each(servicesByCategory, (services, categoryKey) => {
     if (every(services, { active: true })) {
-      const categoryDictKeys = categoryLocalToDictionaryKeyMapping[categoryKey];
-      each(categoryDictKeys, dictKey => {
-        categoryIds.push(categoryServiceByKey[dictKey].id);
-      });
+      categoryIds.push(categoryServiceByKey[categoryKey].id);
     } else {
       const activeServices = filter(services, { active: true });
       each(activeServices, service => {
-        if (service.isCategory) {
-          categoryIds.push(categoryServiceByKey[service.dictionaryKey].id);
-        } else {
-          serviceIds.push(serviceByKey[service.dictionaryKey].id);
-        }
+        serviceIds.push(serviceByKey[service.dictionaryKey].id);
       });
     }
   });
