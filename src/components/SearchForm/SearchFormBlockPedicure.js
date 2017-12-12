@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Animated, Easing, Platform } from 'react-native';
 
-import type { ServiceToggleType } from '../../types/SearchFormTypes';
-
 import FilterSubLabel from '../../components/FilterSubLabel';
 import FilterCheckBox from '../../components/FilterCheckBox';
 import switchStyles, { arrowIcon } from './SearchFormSwitchStyles';
 
 import i18n from '../../i18n';
 
-export default class SearchFormBlockPedicure extends Component {
-  props: {
-    service: Object,
-    onChange: ServiceToggleType
-  };
+type TProps = {
+  onCategoryChange: (value: boolean, modelName: string) => void,
+  onServiceChange: (value: boolean, modelName: string) => void,
+  service: Object,
+}
 
+type TState = {
+  showBlock: boolean,
+  spinValue: Object,
+}
+
+export default class SearchFormBlockPedicure extends Component<TProps, TState> {
   state = {
     showBlock: true,
     spinValue: new Animated.Value(0),
@@ -35,7 +39,7 @@ export default class SearchFormBlockPedicure extends Component {
   };
 
   render() {
-    const { onChange, service } = this.props;
+    const { onServiceChange, onCategoryChange, service } = this.props;
     const { showBlock, spinValue } = this.state;
 
     const spin = spinValue.interpolate({
@@ -62,33 +66,32 @@ export default class SearchFormBlockPedicure extends Component {
         {showBlock &&
           <View>
             <FilterSubLabel title={i18n.filters.nailProcessingMethod} />
-            <FilterCheckBox {...service.classicPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.hardwarePedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.europeanPedicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.classicPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.hardwarePedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.europeanPedicure} onChange={onServiceChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.coverage} />
             {/* {любой гель-лак} */}
-            <FilterCheckBox {...service.applyingShellacPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.applyingBioGelPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.applyingNailPolishPedicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.applyingShellacPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.applyingBioGelPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.applyingNailPolishPedicure} onChange={onServiceChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.withdrawal} />
-            <FilterCheckBox {...service.removingNailPolishPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingBioGelPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingShellacPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingGelPedicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingNailsPedicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.removingNailPolishPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingBioGelPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingShellacPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingGelPedicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingNailsPedicure} onChange={onServiceChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.otherServices} />
             <FilterCheckBox
-              {...service.artDesignPedicure}
-              title={i18n.filters.nailDesign}
-              onChange={onChange}
+              {...service.designPedicure}
+              onChange={onCategoryChange}
               withInput={false}
             />
             <FilterCheckBox
               {...service.extensionPedicure}
-              onChange={onChange}
+              onChange={onCategoryChange}
               withInput={false}
               shouldShowSeparator={false}
             />

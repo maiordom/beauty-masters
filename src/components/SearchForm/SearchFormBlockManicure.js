@@ -9,12 +9,18 @@ import switchStyles, { arrowIcon } from './SearchFormSwitchStyles';
 
 import i18n from '../../i18n';
 
-export default class SearchFormBlockManicure extends Component {
-  props: {
-    service: Object,
-    onChange: ServiceToggleType,
-  };
+type TProps = {
+  onCategoryChange: (value: boolean, modelName: string) => void,
+  onServiceChange: (value: boolean, modelName: string) => void,
+  service: Object,
+}
 
+type TState = {
+  showBlock: boolean,
+  spinValue: Object,
+}
+
+export default class SearchFormBlockManicure extends Component<TProps, TState> {
   state = {
     showBlock: true,
     spinValue: new Animated.Value(0),
@@ -35,7 +41,7 @@ export default class SearchFormBlockManicure extends Component {
   };
 
   render() {
-    const { onChange, service } = this.props;
+    const { onServiceChange, onCategoryChange, service } = this.props;
     const { showBlock, spinValue } = this.state;
 
     const spin = spinValue.interpolate({
@@ -62,33 +68,31 @@ export default class SearchFormBlockManicure extends Component {
         {showBlock &&
           <View>
             <FilterSubLabel title={i18n.filters.nailProcessingMethod} />
-            <FilterCheckBox {...service.classicManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.hardwareManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.europeanManicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.classicManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.hardwareManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.europeanManicure} onChange={onServiceChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.coverage} />
-            {/* {любой гель-лак} */}
-            <FilterCheckBox {...service.applyingShellacManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.applyingBioGelManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.applyingNailPolishManicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.applyingShellacManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.applyingBioGelManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.applyingNailPolishManicure} onChange={onServiceChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.withdrawal} />
-            <FilterCheckBox {...service.removingNailPolishManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingBioGelManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingShellacManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingGelManicure} onChange={onChange} withInput={false} />
-            <FilterCheckBox {...service.removingNailsManicure} onChange={onChange} withInput={false} />
+            <FilterCheckBox {...service.removingNailPolishManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingBioGelManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingShellacManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingGelManicure} onChange={onServiceChange} withInput={false} />
+            <FilterCheckBox {...service.removingNailsManicure} onChange={onServiceChange} withInput={false} />
 
             <FilterSubLabel title={i18n.filters.otherServices} />
             <FilterCheckBox
-              {...service.artDesignManicure}
-              title={i18n.filters.nailDesign}
-              onChange={onChange}
+              {...service.designManicure}
+              onChange={onCategoryChange}
               withInput={false}
             />
             <FilterCheckBox
               {...service.extensionManicure}
-              onChange={onChange}
+              onChange={onCategoryChange}
               withInput={false}
               shouldShowSeparator={false}
             />

@@ -10,6 +10,7 @@ export default {
     'Добавить адрес 3'
   ],
   addMasterCard: 'Добавить еще карточку мастера',
+  addressName: 'Название адреса (видно только вам)',
   authAsMaster: 'Авторизоваться как мастер услуг',
   calendar: 'Календарь',
   call: 'Позвонить',
@@ -258,6 +259,7 @@ export default {
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
+  specifyAddressName: 'Укажите название, например Дом',
   specifyHowYouSterilizeTools: 'Укажите, как вы стерилизуете инструменты',
   startWorkOnThisSchedule: 'С какого числа начнете работать по этому графику',
   sterilization: {

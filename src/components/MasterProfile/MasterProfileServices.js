@@ -42,7 +42,7 @@ export default class MasterProfileServices extends Component<TProps, void> {
                   <Text>{service.title}</Text>
                   <Text style={styles.serviceInfo}>
                     {!isEmpty(service.price) && (
-                      <Text>{service.price} р</Text>
+                      <Text>{`${service.price} \u20BD`}</Text>
                     )}
                     {service.duration > 0 && (
                       <Text>, {service.duration} {i18n.time.minuteShort}.</Text>

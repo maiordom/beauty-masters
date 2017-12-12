@@ -1,15 +1,10 @@
 // @flow
 
-export type CustomService = {
-  description: string,
-  duration: string,
-  price: number,
-};
-
-export type ServicePedicure = {
+export type TServicePedicure = {
   active: boolean,
   categoryKey?: string,
   dictionaryKey: string,
+  isCategory?: boolean,
   title: string,
 };
 
@@ -18,12 +13,13 @@ export type TServiceManicure = {
   categoryKey?: string,
   dictionaryKey: string,
   duration?: number,
+  isCategory?: boolean,
   price?: string,
   required?: boolean,
   title: string,
 };
 
-export type HandlingTools = {
+export type THandlingTools = {
   dictionaryKey: string,
   placeholder?: string,
   title: string,

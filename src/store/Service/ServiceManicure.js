@@ -11,6 +11,7 @@ const manicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'Manicure',
+  isCategory: true,
   title: i18n.manicure,
 }: TServiceManicure);
 
@@ -91,6 +92,14 @@ const applyingOfAnotherNailGelManicure = (isActive: boolean) => ({
   title: i18n.filters.applyingOfAnotherNailGel,
 }: TServiceManicure);
 
+const designManicure = (isActive: boolean) => ({
+  active: Boolean(isActive),
+  categoryKey: commonCategoryKey,
+  dictionaryKey: 'ManicureDesign',
+  isCategory: true,
+  title: i18n.filters.nailDesign,
+}: TServiceManicure);
+
 const frenchManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
@@ -137,6 +146,7 @@ const extensionManicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'ManicureExtension',
+  isCategory: true,
   title: i18n.filters.nailExtension,
 }: TServiceManicure);
 
@@ -216,6 +226,7 @@ export default {
   applyingBioGelManicure,
   applyingNailPolishManicure,
   applyingOfAnotherNailGelManicure,
+  designManicure,
   frenchManicure,
   moonManicure,
   reverseMoonManicure,
