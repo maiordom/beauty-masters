@@ -12,6 +12,7 @@ const methods = [
   { geoAutoComplete: '/geo/autocomplete', method: 'GET' },
   { getAddress: '/address', method: 'GET' },
   { getCategoryServices: '/category-service', method: 'GET' },
+  { getCities: '/city', method: 'GET' },
   { getMasterById: ({ id }) => `/master-card/${id}`, method: 'GET' },
   { getMasterServices: '/master-service', method: 'GET' },
   { getServices: '/service', method: 'GET' },
