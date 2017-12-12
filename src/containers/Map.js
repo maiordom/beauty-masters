@@ -10,15 +10,15 @@ import Map from '../components/Serp/Map';
 
 const mapStateToProps = (state, ownProps) => ({
   initialRegion: (() => {
-    if (state.map.lastLocation != null) {
-      return state.map.lastLocation;
-    }
-
     if (state.searchForm.general.place.label) {
       return {
         latitude: state.searchForm.searchQuery.lat,
         longitude: state.searchForm.searchQuery.lon,
       };
+    }
+    
+    if (state.map.lastLocation != null) {
+      return state.map.lastLocation;
     }
 
     return state.geo.userLocation.lat
