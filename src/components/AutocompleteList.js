@@ -17,27 +17,27 @@ import i18n from '../i18n';
 
 type TProps = {
   actions: {
-    placesReset: () => void,
-    searchPlace: (value: string) => void,
-    selectPlace: (place: Object) => void,
+    resetItems: () => void,
+    searchItemsForText: (text: string) => void,
+    selectItem: (item: { label: string }) => void,
   },
-  places: Array<{ label: string }>
+  items: Array<{ label: string }>
 };
 
 type TState = {
   dataSource: Object
 };
 
-export default class PlacesAutocomplete extends Component<TProps, TState> {
+export default class AutocompleteList extends Component<TProps, TState> {
   static defaultProps = {
-    places: [],
+    items: [],
   };
 
-  onChange = (value: string) => this.searchPlace(value);
+  onChange = (value: string) => this.searchItem(value);
 
   ds: Object;
 
-  searchPlace = debounce((value) => this.props.actions.searchPlace(value), 300);
+  searchItem = debounce((value) => this.props.actions.searchItemsForText(value), 300);
 
   constructor(props: TProps) {
     super(props);
@@ -45,28 +45,28 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: this.ds.cloneWithRows(props.places),
+      dataSource: this.ds.cloneWithRows(props.items),
     };
   }
 
   componentWillReceiveProps(nextProps: TProps) {
-    if (this.props.places !== nextProps.places) {
+    if (this.props.items !== nextProps.items) {
       this.setState({
-        dataSource: this.ds.cloneWithRows(nextProps.places),
+        dataSource: this.ds.cloneWithRows(nextProps.items),
       });
     }
   }
 
   componentWillUnmount() {
-    this.props.actions.placesReset();
+    this.props.actions.resetItems();
   }
 
-  onPlaceSelect = (place: Object) => {
-    this.props.actions.selectPlace(place);
+  onItemsSelect = (item: Object) => {
+    this.props.actions.selectItem(item);
   };
 
   render() {
-    const { places } = this.props;
+    const { items } = this.props;
 
     return (
       <View style={styles.container}>
@@ -77,16 +77,16 @@ export default class PlacesAutocomplete extends Component<TProps, TState> {
             onChange={this.onChange}
             placeholder={i18n.enterAddress}
           />
-          {places.length > 0 && (
+          {items.length > 0 && (
             <ListView
               dataSource={this.state.dataSource}
-              renderRow={place => (
+              renderRow={item => (
                 <TouchableWithoutFeedback
-                  onPress={() => this.onPlaceSelect(place)}
-                  key={place.label}
+                  onPress={() => this.onItemsSelect(item)}
+                  key={item.label}
                 >
                   <View style={styles.tab}>
-                    <Text style={styles.tabText}>{place.label}</Text>
+                    <Text style={styles.tabText}>{item.label}</Text>
                   </View>
                 </TouchableWithoutFeedback>
               )}

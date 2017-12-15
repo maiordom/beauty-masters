@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
 import NavBar from '../components/NavBar';
-import PlacesAutocomplete from '../components/PlacesAutocomplete';
+import AutocompleteList from '../components/AutocompleteList';
 import {
   getPlaceDetails,
   placesReset,
@@ -13,15 +13,15 @@ import {
 import { setPlaceDetail, setPlaceLocation } from '../actions/Master';
 
 const mapStateToProps = (state) => ({
-  places: state.geo.places,
+  items: state.geo.places,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: {
     ...bindActionCreators({
-      placesReset,
-      searchPlace: (value) => searchPlace({ input: value }),
-      selectPlace: (place) => () => {
+      resetItems: placesReset,
+      searchItemsForText: (value) => searchPlace({ input: value }),
+      selectItem: (place) => () => {
         getPlaceDetails(place).then(res => {
           dispatch(setPlaceLocation(res.location, ownProps.modelName));
         });
@@ -32,4 +32,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar(PlacesAutocomplete));
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(AutocompleteList));
