@@ -12,10 +12,10 @@ const mapResponse = (data): Array<TCity> => data.map(city => ({
   lon: city.attributes.lon,
 }: TCity));
 
-export function getCities(): Array<TCity> {
+export function getCities() {
   return get(routes.getCities)
     .then(res => (res.data && {
-      citites: mapResponse(res.data),
+      cities: mapResponse(res.data),
     } || {
       cities: [],
     }));
