@@ -43,6 +43,8 @@ const icons = Platform.select({
     location: require('../../icons/ios/location.png'),
     pinGreen: require('../../icons/ios/pin-green.png'),
     pinRed: require('../../icons/ios/pin-red.png'),
+    clusterPinRed: require('../../icons/ios/cluster-pin-red.png'),
+    clusterPinGreen: require('../../icons/ios/cluster-pin-green.png'),
   },
 });
 
@@ -53,10 +55,10 @@ type LatLngType = {
 
 type TState = {
   activePin: ?LatLngType,
-  activePoint: TMapCard | null,
+  activePoint: ?TMapCard,
   cluster: ClusterInterface,
   clusters: Array<Cluster>,
-  distanceToPin: number,
+  distanceToPin?: number,
   initialRegion?: TRegionType,
   region?: TRegionType,
   renderLoader: boolean,
@@ -86,6 +88,7 @@ type Cluster = {
   },
   properties: {
     cluster_id: number,
+    point_count?: number,
   },
 };
 
@@ -322,20 +325,38 @@ export default class Map extends Component<TProps, TState> {
             onRegionChange={debounce(this.onRegionChange, 300)}
             ref={this.setMapRef}
           >
-            {clusters.map((cluster, index) => {
-              const coordinate = getLatLng(cluster);
+            {clusters.map((pin, index) => {
+              const coordinate = getLatLng(pin);
 
-              return (
-                <MapView.Marker
-                  coordinate={coordinate}
-                  key={Math.random()}
-                  onPress={event => this.onMarkerPress(event, index, coordinate)}
-                  image={isEqual(coordinate, activePin)
-                    ? icons.pinGreen
-                    : icons.pinRed
+              if (pin.properties.cluster) {
+                return (
+                  <MapView.Marker
+                    coordinate={coordinate}
+                    key={Math.random()}
+                    onPress={event => this.onMarkerPress(event, index, coordinate)}
+                    image={isEqual(coordinate, activePin)
+                    ? icons.clusterPinGreen
+                    : icons.clusterPinRed
                   }
-                />
-              );
+                  >
+                    <View style={styles.clusterMarker}>
+                      <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
+                    </View>
+                  </MapView.Marker>
+                );
+              } else {
+                return (
+                  <MapView.Marker
+                    coordinate={coordinate}
+                    key={Math.random()}
+                    onPress={event => this.onMarkerPress(event, index, coordinate)}
+                    image={isEqual(coordinate, activePin)
+                      ? icons.pinGreen
+                      : icons.pinRed
+                    }
+                  />
+                );
+              }
             })}
           </MapView>
         )}
@@ -381,6 +402,17 @@ export default class Map extends Component<TProps, TState> {
 }
 
 const styles = StyleSheet.create({
+  clusterMarkerTitle: {
+    color: vars.color.white,
+    fontSize: 14.0,
+    marginTop: 6,
+  },
+  clusterMarker: {
+    flex: 1,
+    alignItems: 'center',
+    width: 24,
+    height: 32,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-end',
