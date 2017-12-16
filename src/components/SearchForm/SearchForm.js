@@ -154,7 +154,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <FilterTab
             onChange={Actions.searchCity}
             title={i18n.city}
-            subtitle={general.cities.selected.label}
+            subtitle={general.cities.selected != null ? general.cities.selected.name : undefined}
           />
           <FilterTab
             onChange={Actions.searchAddress}

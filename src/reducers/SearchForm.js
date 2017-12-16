@@ -1,6 +1,9 @@
 import reject from 'lodash/reject';
 import each from 'lodash/each';
 import map from 'lodash/map';
+import startsWith from 'lodash/startsWith';
+import lowerCase from 'lodash/lowerCase';
+import filter from 'lodash/filter';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -148,10 +151,18 @@ export default makeReducer((state, action) => ({
     { isDeparture: !state.searchForm.searchQuery.isDeparture },
   ),
 
-  [actions.SEARCH_CITY_ADD]: () => {
+  [actions.SEARCH_CITY_SET]: () => {
     const selected = state.searchForm.general.cities.items.find(city => city.id === action.id);
-
     deepUpdate(state, 'searchForm.searchQuery', { cityId: action.id });
     return deepUpdate(state, 'searchForm.general.cities', { selected });
   },
+
+  [actions.SEARCH_CITY_FIND]: (state, { payload: { text } }) => {
+    const filtered = filter(state.searchForm.general.cities.items, city => startsWith(lowerCase(city.name), lowerCase(text)));
+    return deepUpdate(state, 'searchForm.general.cities', { filtered });
+  },
+
+  [actions.SEARCH_CITY_RESET]: (state, { payload: { cities } }) => (
+    deepUpdate(state, 'searchForm.general.cities', { items: cities, filtered: null })
+  ),
 }));

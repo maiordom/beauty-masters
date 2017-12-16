@@ -57,6 +57,10 @@ export default class AutocompleteList extends Component<TProps, TState> {
     }
   }
 
+  componentWillMount() {
+    this.props.actions.resetItems();
+  }
+
   componentWillUnmount() {
     this.props.actions.resetItems();
   }
