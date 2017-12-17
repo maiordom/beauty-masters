@@ -6,6 +6,7 @@ import AutocompleteList from '../../components/AutocompleteList';
 import NavBar from '../../components/NavBar';
 import { getPlaceDetails, searchPlace, placesReset } from '../../actions/Geo';
 import { setSearchLocation, setSearchLocationName } from '../../actions/Search';
+import { setLastMapLocation } from '../../actions/Map';
 
 const mapStateToProps = (state) => ({
   items: state.geo.places,
@@ -15,6 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     selectItem: (place) => () => {
       getPlaceDetails(place).then((res) => {
+        dispatch(setLastMapLocation(null));
         dispatch(setSearchLocation(res.location.lat, res.location.lng));
         dispatch(setSearchLocationName(place.label));
         Actions.pop();

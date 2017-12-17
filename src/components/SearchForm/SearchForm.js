@@ -4,15 +4,12 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
-import filter from 'lodash/filter';
-import every from 'lodash/every';
 import moment from 'moment';
 import 'moment/locale/ru';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
-import SearchFormBlockManicure from './SearchFormBlockManicure';
-import SearchFormBlockPedicure from './SearchFormBlockPedicure';
+import SearchFormCategoryBlock from './SearchFormCategoryBlock';
 
 import StateMachine from '../../components/StateMachine';
 import { FilterLabel } from '../../components/FilterLabel';
@@ -24,17 +21,28 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
 
+import type { TSearchFormCategorySection } from '../../types/SearchFormCategories';
+
 type TProps = {
   actions: {
     toggleService: Function,
+    toggleServiceCategory: Function,
     toggleDeparture: Function,
     setItemById: Function,
     setDay: Function,
     toggleExtension: Function,
-    toggleWithdrawal: Function
+    toggleWithdrawal: Function,
+    toggleManicure: Function,
+    togglePedicure: Function,
   },
-  serviceManicure: Object,
-  servicePedicure: Object,
+  categorySelectionFlags: {
+    manicure: boolean,
+    pedicure: boolean,
+    extension: boolean,
+    removing: boolean,
+  },
+  manicureSearchFormSections: Array<TSearchFormCategorySection>,
+  pedicureSearchFormSections: Array<TSearchFormCategorySection>,
   general: Object,
   searchQuery: Object,
 };
@@ -58,11 +66,12 @@ export default class SearchFormShort extends Component<TProps, TState> {
     this.setState({ showShortForm: !this.state.showShortForm });
   };
 
-  onServiceToggle = (sectionName) => (value, modelName) => {
+  onServiceToggle = (sectionName: string) => (value: boolean, modelName: string) => {
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
-  onCategoryToggle = (sectionName) => (value, modelName) => {
+  onCategoryToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    this.props.actions.toggleServiceCategory(modelName, 'active', value, sectionName);
   };
 
   onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
@@ -76,12 +85,12 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
-  onMasterTypeSelect = (value, id, modelName) => {
+  onMasterTypeSelect = (value: string, id: number, modelName: string) => {
     this.props.actions.setItemById(modelName, id, 'general');
     this.toggleMasterTypeModal();
   };
 
-  onSelectCalendarDate = selectedDate => {
+  onSelectCalendarDate = (selectedDate: string) => {
     this.setState({ selectedDate });
     this.props.actions.setDay(selectedDate);
     this.toggleCalendarModal();
@@ -99,10 +108,11 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   render() {
     const {
+      categorySelectionFlags,
       general,
+      manicureSearchFormSections,
+      pedicureSearchFormSections,
       searchQuery,
-      serviceManicure,
-      servicePedicure,
     } = this.props;
 
     const { place } = this.props.general;
@@ -115,24 +125,6 @@ export default class SearchFormShort extends Component<TProps, TState> {
     } = this.state;
 
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
-
-    const isManicureActive = every(filter(
-      serviceManicure, service => service.categoryKey === 'manicure',
-    ), { active: true });
-
-    const isPedicureActive = every(filter(
-      servicePedicure, service => service.categoryKey === 'pedicure',
-    ), { active: true });
-
-    const isExtensionActive = every(filter(
-      { ...servicePedicure, ...serviceManicure },
-      service => service.categoryKey === 'extension',
-    ), { active: true });
-
-    const isWithdrawalActive = every(filter(
-      { ...servicePedicure, ...serviceManicure },
-      service => service.categoryKey === 'removing',
-    ), { active: true });
 
     return (
       <View style={styles.container}>
@@ -184,27 +176,27 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <StateMachine visible={showShortForm}>
             <View>
               <FilterCheckBox
-                {...serviceManicure.manicure}
-                active={isManicureActive}
+                title={i18n.manicure}
+                active={categorySelectionFlags.manicure}
                 onChange={this.onManicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
-                {...servicePedicure.pedicure}
-                active={isPedicureActive}
+                title={i18n.pedicure}
+                active={categorySelectionFlags.pedicure}
                 onChange={this.onPedicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
-                active={isExtensionActive}
-                modelName="extensionShort"
+                active={categorySelectionFlags.extension}
+                modelName={'extensionShort'}
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.withdrawal}
-                active={isWithdrawalActive}
+                active={categorySelectionFlags.removing}
                 onChange={this.onWithdrawalToggle}
                 withInput={false}
                 shouldShowSeparator={false}
@@ -212,15 +204,17 @@ export default class SearchFormShort extends Component<TProps, TState> {
             </View>
           </StateMachine>
           <StateMachine visible={!showShortForm}>
-            <SearchFormBlockManicure
-              service={serviceManicure}
+            <SearchFormCategoryBlock
+              title={i18n.manicure}
+              sections={manicureSearchFormSections}
               onServiceChange={this.onServiceToggle('serviceManicure')}
               onCategoryChange={this.onCategoryToggle('serviceManicure')}
             />
           </StateMachine>
           <StateMachine visible={!showShortForm}>
-            <SearchFormBlockPedicure
-              service={servicePedicure}
+            <SearchFormCategoryBlock
+              title={i18n.pedicure}
+              sections={pedicureSearchFormSections}
               onServiceChange={this.onServiceToggle('servicePedicure')}
               onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />

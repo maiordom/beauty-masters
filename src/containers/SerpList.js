@@ -12,6 +12,13 @@ const mapStateToProps = state => {
         lon: state.searchForm.searchQuery.lon,
       };
     }
+    
+    if (state.map.lastLocation != null) {
+      return {
+        lat: state.map.lastLocation.latitude,
+        lon: state.map.lastLocation.longitude,
+      };
+    }
 
     return state.geo.userLocation.lat
       ? state.geo.userLocation
