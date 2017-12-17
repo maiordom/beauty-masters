@@ -10,13 +10,18 @@ const masterType = () => ({
 });
 
 const cities = () => ({
-  selected: null,
+  selected: {
+    id: 1,
+    name: 'Москва',
+    lat: 55.753994,
+    lon: 37.622093,
+  },
   items: [],
   filtered: null,
 });
 
 const place = () => ({
-  label: null
+  label: null,
 });
 
 export default {
