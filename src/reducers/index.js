@@ -1,6 +1,7 @@
 import Auth from './Auth';
 import Common from './Common';
 import Favorites from './Favorites';
+import Map from './Map';
 import MasterCard from './MasterCard';
 import MasterEdit from './MasterEdit';
 import MasterEditor from './MasterEditor';
@@ -15,6 +16,7 @@ export default function rootReducer(state, action = {}) {
   state = Auth(state, action);
   state = Common(state, action);
   state = Favorites(state, action);
+  state = Map(state, action);
   state = MasterCard(state, action);
   state = MasterEdit(state, action);
   state = MasterEditor(state, action);

@@ -7,6 +7,7 @@ import rootReducer from '../reducers';
 import MasterEditor from './MasterEditor';
 import Geo from './Geo';
 import SearchForm from './SearchForm';
+import Map from './Map';
 
 const initialState = {
   activityIndicator: { animating: false },
@@ -18,6 +19,7 @@ const initialState = {
   masterEditor: MasterEditor,
   profile: { masterCards: [], sectionKey: 'info' },
   searchForm: SearchForm,
+  map: Map,
 };
 
 export default function configureStore() {
