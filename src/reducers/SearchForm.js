@@ -1,6 +1,10 @@
 import reject from 'lodash/reject';
 import each from 'lodash/each';
 import map from 'lodash/map';
+import groupBy from 'lodash/groupBy';
+import values from 'lodash/values';
+import every from 'lodash/every';
+import filter from 'lodash/filter';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -19,11 +23,6 @@ const setParam = (action, state) => {
 };
 
 const updateSections = (action, categoryKey, state) => {
-  const section = state.searchForm[action.sectionName];
-
-  state.searchForm = { ...state.searchForm };
-  state.searchForm[action.sectionName] = { ...section };
-
   map(state.searchForm[action.sectionName], sectionModel => {
     if (sectionModel.categoryKey === categoryKey) {
       sectionModel.active = action.paramValue;
@@ -31,23 +30,65 @@ const updateSections = (action, categoryKey, state) => {
   });
 };
 
+const getServicesCategoriesIds = (state) => {
+  const { serviceByKey, categoryServiceByKey } = state.dictionaries;
+  const serviceIds = [];
+  const categoryIds = [];
+
+  const allServicesWithSubcategories = values({
+    ...state.searchForm.serviceManicure,
+    ...state.searchForm.servicePedicure,
+  });
+
+  const allSubcategories = filter(allServicesWithSubcategories, { isCategory: true, active: true });
+  each(allSubcategories, subcategory => {
+    categoryIds.push(categoryServiceByKey[subcategory.dictionaryKey].id);
+  });
+
+  const allServices = filter(allServicesWithSubcategories, (item) => (!item.isCategory));
+  const servicesByCategory = groupBy(allServices, 'categoryDictionaryKey');
+  each(servicesByCategory, (services, categoryKey) => {
+    if (every(services, { active: true })) {
+      categoryIds.push(categoryServiceByKey[categoryKey].id);
+    } else {
+      const activeServices = filter(services, { active: true });
+      each(activeServices, service => {
+        serviceIds.push(serviceByKey[service.dictionaryKey].id);
+      });
+    }
+  });
+
+  return {
+    serviceIds,
+    categoryIds,
+  };
+};
+
+const updateSearchQueryWithServicesCategoriesIds = (state) => {
+  const { serviceIds, categoryIds } = getServicesCategoriesIds(state);
+
+  const searchQuery: TSearchQuery = state.searchForm.searchQuery;
+  searchQuery.service_ids = serviceIds;
+  searchQuery.category_service_ids = categoryIds;
+};
+
 export default makeReducer((state, action) => ({
   [actions.SEARCH_SERVICE_TOGGLE]: (state, { payload }) => {
-    const { sectionName, modelName, id } = payload;
-    const model = state.searchForm[sectionName][modelName];
+    const { id } = payload;
 
     setParam(payload, state);
     updateSections(payload, id, state);
+    updateSearchQueryWithServicesCategoriesIds(state);
 
-    const searchQuery: TSearchQuery = state.searchForm.searchQuery;
-    const { serviceByKey } = state.dictionaries;
+    return state;
+  },
 
-    if (payload.paramValue) {
-      const id = serviceByKey[model.dictionaryKey].id;
-      searchQuery.service_ids.push(id);
-    } else {
-      searchQuery.service_ids = reject(searchQuery.service_ids, { id });
-    }
+  [actions.SEARCH_SERVICE_CATEGORY_TOGGLE]: (state, { payload }) => {
+    const { id } = payload;
+
+    setParam(payload, state);
+    updateSections(payload, id, state);
+    updateSearchQueryWithServicesCategoriesIds(state);
 
     return state;
   },
@@ -57,6 +98,7 @@ export default makeReducer((state, action) => ({
     const serviceManicure = { sectionName: 'serviceManicure', paramValue };
 
     updateSections(serviceManicure, categoryKey, state);
+    updateSearchQueryWithServicesCategoriesIds(state);
 
     return state;
   },
@@ -66,6 +108,7 @@ export default makeReducer((state, action) => ({
     const serviceManicure = { sectionName: 'servicePedicure', paramValue };
 
     updateSections(serviceManicure, categoryKey, state);
+    updateSearchQueryWithServicesCategoriesIds(state);
 
     return state;
   },
@@ -77,6 +120,7 @@ export default makeReducer((state, action) => ({
 
     updateSections(servicePedicure, categoryKey, state);
     updateSections(serviceManicure, categoryKey, state);
+    updateSearchQueryWithServicesCategoriesIds(state);
 
     return state;
   },
@@ -88,6 +132,7 @@ export default makeReducer((state, action) => ({
 
     updateSections(servicePedicure, categoryKey, state);
     updateSections(serviceManicure, categoryKey, state);
+    updateSearchQueryWithServicesCategoriesIds(state);
 
     return state;
   },
