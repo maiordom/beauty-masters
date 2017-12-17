@@ -165,8 +165,11 @@ export default makeReducer((state, action) => ({
   [actions.SEARCH_MASTERS_ITEMS_SET]: () => {
     const { items } = action;
 
-    items.forEach(item => {
-      item.services.forEach(service => {
+    items.forEach((item) => {
+      item.services = reject(item.services, (service) =>
+        service.id === null || service.id === undefined
+      );
+      item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;
       });
     });

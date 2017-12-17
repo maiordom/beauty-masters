@@ -43,6 +43,8 @@ const icons = Platform.select({
   },
 });
 
+icons.masterEmptyPhoto = require('../../icons/android/master-empty.png');
+
 type TProps = MasterCardType & {
   actions: Object,
   addresses?: Array<*>,
@@ -140,7 +142,9 @@ export default class MasterCard extends Component<TProps, TState> {
       showSecondGroup,
     } = this.state;
 
-    const masterPhoto = masterPhotos && masterPhotos.length > 0 && masterPhotos[0].sizes.m;
+    const masterPhoto = (masterPhotos && masterPhotos.length > 0)
+      ? { uri : masterPhotos[0].sizes.m }
+      : icons.masterEmptyPhoto;
 
     return (
       <View style={styles.container}>
@@ -153,8 +157,8 @@ export default class MasterCard extends Component<TProps, TState> {
           <Fade visible={showFirstGroup}>
             <View>
               <ImagePlaceholder
-                source={{ uri: masterPhoto }}
-                placeholder={require('../../icons/android/master-empty.png')}
+                source={masterPhoto}
+                placeholder={icons.masterEmptyPhoto}
                 style={styles.masterPhoto}
               />
               <MasterCardNavBar

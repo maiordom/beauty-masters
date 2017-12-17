@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => ({
         longitude: state.searchForm.searchQuery.lon,
       };
     }
-    
+
     if (state.map.lastLocation != null) {
       return state.map.lastLocation;
     }

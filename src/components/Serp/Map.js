@@ -223,8 +223,8 @@ export default class Map extends Component<TProps, TState> {
     const distanceToPin = getDistance(
       coordinate.latitude,
       coordinate.longitude,
-      this.props.initialRegion.lat,
-      this.props.initialRegion.lon,
+      this.props.initialRegion.latitude,
+      this.props.initialRegion.longitude,
     ).toFixed(2);
 
     this.map.animateToRegion(region, 450);
@@ -268,7 +268,10 @@ export default class Map extends Component<TProps, TState> {
 
     this.setState({ region });
     this.searchMasters();
-    this.props.actions.setLastMapLocation(region);
+    this.props.actions.setLastMapLocation({
+      latitude: region.latitude,
+      longitude: region.longitude,
+    });
   };
 
   onMapCardPress = () => {
