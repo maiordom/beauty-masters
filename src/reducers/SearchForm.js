@@ -169,7 +169,7 @@ export default makeReducer((state, action) => ({
 
     items.forEach((item) => {
       item.services = reject(item.services, (service) =>
-        service.id === null || service.id === undefined
+        service.id === null || service.id === undefined,
       );
       item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;

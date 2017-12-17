@@ -8,6 +8,7 @@ import AutocompleteList from '../../components/AutocompleteList';
 import NavBar from '../../components/NavBar';
 
 import { searchCitySelect, searchCityForText, citiesReset } from '../../actions/Search';
+import { setLastMapLocation } from '../../actions/Map';
 
 const mapStateToProps = state => {
   const cities = state.searchForm.general.cities;
@@ -19,6 +20,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     selectItem: (city) => () => {
       dispatch(searchCitySelect(city.id));
+      dispatch(setLastMapLocation({ latitude: city.lat, longitude: city.lon }));
       Actions.pop();
     },
     searchItemsForText: (value) => searchCityForText(value),
