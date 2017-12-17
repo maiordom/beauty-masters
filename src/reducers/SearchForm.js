@@ -153,7 +153,7 @@ export default makeReducer((state, action) => ({
 
   [actions.SEARCH_CITY_SET]: () => {
     const selected = state.searchForm.general.cities.items.find(city => city.id === action.id);
-    deepUpdate(state, 'searchForm.searchQuery', { cityId: action.id });
+    deepUpdate(state, 'searchForm.searchQuery', { lat: selected.lat, lon: selected.lon });
     return deepUpdate(state, 'searchForm.general.cities', { selected });
   },
 
