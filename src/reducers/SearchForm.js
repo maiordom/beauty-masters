@@ -1,6 +1,8 @@
 import reject from 'lodash/reject';
 import each from 'lodash/each';
 import map from 'lodash/map';
+import startsWith from 'lodash/startsWith';
+import lowerCase from 'lodash/lowerCase';
 import groupBy from 'lodash/groupBy';
 import values from 'lodash/values';
 import every from 'lodash/every';
@@ -167,7 +169,7 @@ export default makeReducer((state, action) => ({
 
     items.forEach((item) => {
       item.services = reject(item.services, (service) =>
-        service.id === null || service.id === undefined
+        service.id === null || service.id === undefined,
       );
       item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;
@@ -196,10 +198,18 @@ export default makeReducer((state, action) => ({
     { isDeparture: !state.searchForm.searchQuery.isDeparture },
   ),
 
-  [actions.SEARCH_CITY_ADD]: () => {
+  [actions.SEARCH_CITY_SET]: () => {
     const selected = state.searchForm.general.cities.items.find(city => city.id === action.id);
-
-    deepUpdate(state, 'searchForm.searchQuery', { cityId: action.id });
+    deepUpdate(state, 'searchForm.searchQuery', { lat: selected.lat, lon: selected.lon });
     return deepUpdate(state, 'searchForm.general.cities', { selected });
   },
+
+  [actions.SEARCH_CITY_FIND]: (state, { payload: { text } }) => {
+    const filtered = filter(state.searchForm.general.cities.items, city => startsWith(lowerCase(city.name), lowerCase(text)));
+    return deepUpdate(state, 'searchForm.general.cities', { filtered });
+  },
+
+  [actions.SEARCH_CITY_RESET]: (state, { payload: { cities } }) => (
+    deepUpdate(state, 'searchForm.general.cities', { items: cities, filtered: null })
+  ),
 }));

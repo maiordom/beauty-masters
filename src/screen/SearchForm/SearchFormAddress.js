@@ -2,19 +2,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import PlacesAutocomplete from '../../components/PlacesAutocomplete';
+import AutocompleteList from '../../components/AutocompleteList';
 import NavBar from '../../components/NavBar';
 import { getPlaceDetails, searchPlace, placesReset } from '../../actions/Geo';
 import { setSearchLocation, setSearchLocationName } from '../../actions/Search';
 import { setLastMapLocation } from '../../actions/Map';
 
 const mapStateToProps = (state) => ({
-  places: state.geo.places,
+  items: state.geo.places,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    selectPlace: (place) => () => {
+    selectItem: (place) => () => {
       getPlaceDetails(place).then((res) => {
         dispatch(setLastMapLocation(null));
         dispatch(setSearchLocation(res.location.lat, res.location.lng));
@@ -22,9 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
         Actions.pop();
       });
     },
-    searchPlace: (value) => searchPlace({ input: value }),
-    placesReset,
+    searchItemsForText: (value) => searchPlace({ input: value }),
+    resetItems: placesReset,
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar(PlacesAutocomplete));
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(AutocompleteList));

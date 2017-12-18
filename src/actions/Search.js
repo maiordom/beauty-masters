@@ -4,6 +4,7 @@ import pickBy from 'lodash/pickBy';
 
 import actions from '../constants/Search';
 import * as SearchService from '../services/Search';
+import * as CitiesService from '../services/City';
 
 import type { TSearchQuery } from '../types/CreateSearchQuery';
 
@@ -103,10 +104,17 @@ export const setSearchLocationName = (label: string) => ({
   payload: { label },
 });
 
-export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });
+export const searchCitySelect = (id: number) => ({ type: actions.SEARCH_CITY_SET, id });
 
-export const citiesReset = () => ({
-  type: actions.SEARCH_ITEMS_RESET,
-  modelName: 'cities',
-  sectionName: 'general',
-});
+export const citiesReset = () => (dispatch: Function) => {
+  CitiesService.getCities().then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.SEARCH_CITY_RESET,
+        payload: { cities: res.cities },
+      });
+    }
+  });
+};
+
+export const searchCityForText = (text: string) => ({ type: actions.SEARCH_CITY_FIND, payload: { text } });

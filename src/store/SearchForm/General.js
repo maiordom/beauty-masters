@@ -9,17 +9,19 @@ const masterType = () => ({
   ],
 });
 
-const kladdrs = [
-  { label: 'Москва и область' },
-];
-
 const cities = () => ({
-  selected: kladdrs[0],
-  items: kladdrs,
+  selected: {
+    id: 1,
+    name: 'Москва',
+    lat: 55.753994,
+    lon: 37.622093,
+  },
+  items: [],
+  filtered: null,
 });
 
 const place = () => ({
-  label: null
+  label: null,
 });
 
 export default {

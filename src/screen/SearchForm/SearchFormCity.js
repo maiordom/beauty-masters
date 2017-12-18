@@ -1,21 +1,31 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
-import SearchFormCity from '../../components/SearchForm/SearchFormCity';
+import map from 'lodash/map';
+
+import AutocompleteList from '../../components/AutocompleteList';
 import NavBar from '../../components/NavBar';
 
-import { searchCities, citiesReset, citiesAdd } from '../../actions/Search';
+import { searchCitySelect, searchCityForText, citiesReset } from '../../actions/Search';
+import { setLastMapLocation } from '../../actions/Map';
 
-const mapStateToProps = state => ({
-  cities: state.searchForm.general.cities,
-});
+const mapStateToProps = state => {
+  const cities = state.searchForm.general.cities;
+  const source = cities.filtered !== null ? cities.filtered : cities.items;
+  return { items: map(source, city => ({ label: city.name, ...city })) };
+};
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    citiesAdd,
-    searchCities,
-    citiesReset,
+    selectItem: (city) => () => {
+      dispatch(searchCitySelect(city.id));
+      dispatch(setLastMapLocation({ latitude: city.lat, longitude: city.lon }));
+      Actions.pop();
+    },
+    searchItemsForText: (value) => searchCityForText(value),
+    resetItems: citiesReset,
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar(SearchFormCity));
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(AutocompleteList));
