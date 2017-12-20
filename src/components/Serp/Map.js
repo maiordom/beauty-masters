@@ -320,6 +320,7 @@ export default class Map extends Component<TProps, TState> {
           <MapView
             style={styles.map}
             onPress={this.onMapPress}
+            onMarkerPress={this.onMarkerPress}
             initialRegion={region}
             provider={PROVIDER_GOOGLE}
             onRegionChange={debounce(this.onRegionChange, 300)}
@@ -333,7 +334,7 @@ export default class Map extends Component<TProps, TState> {
                   <MapView.Marker
                     coordinate={coordinate}
                     key={Math.random()}
-                    onPress={event => this.onMarkerPress(event, index, coordinate)}
+                    identifier={index.toString()}
                     image={isEqual(coordinate, activePin)
                     ? icons.clusterPinGreen
                     : icons.clusterPinRed
@@ -349,7 +350,7 @@ export default class Map extends Component<TProps, TState> {
                   <MapView.Marker
                     coordinate={coordinate}
                     key={Math.random()}
-                    onPress={event => this.onMarkerPress(event, index, coordinate)}
+                    identifier={index.toString()}
                     image={isEqual(coordinate, activePin)
                       ? icons.pinGreen
                       : icons.pinRed
