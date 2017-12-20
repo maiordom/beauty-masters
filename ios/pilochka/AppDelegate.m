@@ -11,6 +11,8 @@
 #import "ReactViewController.h"
 #import <React/RCTLinkingManager.h>
 @import GoogleMaps;
+@import Fabric;
+@import Crashlytics;
 
 static NSString *const kGoogleMapsAPIKey = @"AIzaSyD7u--7uoorLS369FEIpdwjxB5fMPjrrnU";
 
@@ -19,11 +21,12 @@ static NSString *const kGoogleMapsAPIKey = @"AIzaSyD7u--7uoorLS369FEIpdwjxB5fMPj
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [self setupGoogleMaps];
-  
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [[ReactViewController alloc] initWithLaunchOptions:launchOptions];
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [Fabric with:@[[Crashlytics class]]];
   return YES;
 }
 
