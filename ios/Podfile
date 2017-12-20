@@ -28,10 +28,6 @@ target 'pilochka' do
     'RCTWebSocket'
   ]
 
-  target 'pilochkaTests' do
-    inherit! :search_paths
-  end
-
 end
 
 def fix_loader_bug()
