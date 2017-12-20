@@ -28,7 +28,11 @@ const handleFetchResponse = (
   if (res.errors) {
     const { code, title, detail } = res.errors[0];
 
-    Crashlytics.logException(JSON.stringify(res.errors));
+    try {
+      Crashlytics.logException(JSON.stringify(res.errors));
+    } catch (exx) {
+      console.log(`Crashlytics::exx::${exx}`);
+    }
 
     return {
       status: 'error',
