@@ -29,6 +29,7 @@ const icons = {
 type TMapCardView = {
   type?: string,
   location: string,
+  onPress: Function,
 };
 
 type TProps = TMapCard & TMapCardView;
