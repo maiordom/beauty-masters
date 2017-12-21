@@ -207,20 +207,23 @@ export default class Map extends Component<TProps, TState> {
     this.map = ref;
   };
 
-  onMarkerPress = (event: any, index: number, coordinate: LatLngType) => {
-    const region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
+  onMarkerPress = (event: any) => {
     const { cluster, clusters } = this.state;
+    const index = parseInt(event.nativeEvent.id, 10);
+    if (isNaN(index)) {
+      return;
+    }
     const point = clusters[index];
-    let activePoint = null;
+    const coordinate = getLatLng(point);
 
+    let activePoint = null;
+    let region = null;
     if (point.properties.cluster) {
-      const leaves = cluster.getLeaves(
-        point.properties.cluster_id,
-        getZoomLevel(this.state.region),
-      );
-      activePoint = leaves[0] && leaves[0].properties;
+      activePoint = point.properties;
+      region = { ...this.state.region, ...coordinate };
     } else {
       activePoint = point.properties;
+      region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
     }
 
     const distanceToPin = getDistance(
