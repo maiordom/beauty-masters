@@ -38,6 +38,8 @@ const icons = Platform.select({
     location: require('../../icons/location.png'),
     pinGreen: require('../../icons/pin-green.png'),
     pinRed: require('../../icons/pin-red.png'),
+    clusterPinRed: require('../../icons/android/cluster-pin-red.png'),
+    clusterPinGreen: require('../../icons/android/cluster-pin-green.png'),
   },
   ios: {
     filter: require('../../icons/ios/filters.png'),
