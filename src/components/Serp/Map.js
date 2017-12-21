@@ -137,6 +137,8 @@ const getClusters = (cluster: ClusterInterface, region: TRegionType) => {
   ], getZoomLevel(region));
 };
 
+const MAX_CURRENT_MAP_CARDS = 10;
+
 export default class Map extends Component<TProps, TState> {
   constructor(props: TProps) {
     super();
@@ -223,7 +225,7 @@ export default class Map extends Component<TProps, TState> {
       const leaves = take(supercluster.getLeaves(
         point.properties.cluster_id,
         getZoomLevel(this.state.region),
-      ), 10);
+      ), MAX_CURRENT_MAP_CARDS);
       
       currentMapCards = leaves.map(leave => {
         const pointCoordinates = leave.properties.coordinates;
