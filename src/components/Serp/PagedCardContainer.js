@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import Swiper from 'react-native-swiper';
 import MapCard from './MapCard';
 
@@ -62,6 +62,11 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   swiper: {
+    ...Platform.select({
+      android: {
+        width: Dimensions.get('window').width,
+      },
+    }),
     backgroundColor: vars.color.white,
   },
 });
