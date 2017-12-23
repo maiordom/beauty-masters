@@ -172,9 +172,11 @@ const styles = StyleSheet.create({
   },
   registrationText: {
     color: vars.color.grey,
+    textAlign: 'center',
   },
   agreementText: {
     color: vars.color.red,
+    textAlign: 'center',
   },
   manifestText: {
     ...Platform.select({
@@ -192,13 +194,17 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     height: 44,
     alignItems: 'center',
-    alignSelf: 'center',
     justifyContent: 'center',
     ...Platform.select({
       android: {
         height: 48,
         width: 240,
         borderRadius: 24,
+        alignSelf: 'center',
+      },
+      ios: {
+        paddingTop: 12,
+        paddingBottom: 12,
       },
     }),
   },
