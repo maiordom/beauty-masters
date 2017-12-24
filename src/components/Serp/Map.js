@@ -420,11 +420,19 @@ const styles = StyleSheet.create({
   clusterMarkerTitle: {
     color: vars.color.white,
     fontSize: 14,
+    flex: 1,
     marginTop: 6,
+    textAlign: 'center',
+    ...Platform.select({
+      android: {
+        marginLeft: 3,
+      },
+    }),
   },
   clusterMarker: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     width: 24,
     height: 32,
   },
