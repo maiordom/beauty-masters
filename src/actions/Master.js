@@ -3,6 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { TCreateMaster } from '../types/CreateMaster';
 
 import * as MasterService from '../services/Master';
+import * as PhotoService from '../services/Photo';
 
 import actions from '../constants/Master';
 
@@ -112,11 +113,25 @@ export const validateServices = () => (dispatch, getState) => {
   return Promise.reject({ type: 'VALIDATION_ERRORS' });
 };
 
-export const removePhoto = (itemId, modelName) => ({
-  type: actions.MASTER_PHOTO_REMOVE,
-  itemId,
-  modelName,
-});
+export const removePhoto = (id, modelName, mediaType) => (dispatch, getState) => {
+  const state = getState();
+  const auth = state.auth;
+  const headers = {
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  };
+
+  PhotoService.deletePhoto({ id }, headers, mediaType).then((res) => {
+    if (res.status === 'success') {
+      dispatch({
+        type: actions.MASTER_PHOTO_REMOVE,
+        payload: {
+          id,
+          modelName,
+        }
+      });
+    }
+  });
+};
 
 export const setGeneralParam = (modelName, value, sectionName) => ({
   type: actions.MASTER_GENERAL_SET_PARAM,

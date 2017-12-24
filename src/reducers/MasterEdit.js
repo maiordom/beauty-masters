@@ -20,6 +20,7 @@ const setPhotos = ({
 }) => {
   data.forEach((item) => {
     model.items.push({
+      id: item.id,
       mediaFileId: item.mediaFileId,
       sizes: item.sizes,
       status: 'uploaded',

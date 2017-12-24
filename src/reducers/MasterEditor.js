@@ -67,16 +67,18 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_PHOTO_SET]: () => {
-    const { modelName, id, sizes, mediaFileId } = action;
+  [actions.MASTER_PHOTO_SET]: (state, { payload: {
+    modelName, id, originalId, sizes, mediaFileId
+  }}) => {
     const { items } = state.masterEditor.info[modelName];
     const item = find(items, { id });
 
     assign(item, {
+      id: originalId,
       mediaFileId,
       sizes,
-      type: 'photo',
       status: 'uploaded',
+      type: 'photo',
     });
 
     return deepUpdate(state, `masterEditor.info.${modelName}`, {
@@ -84,11 +86,10 @@ export default makeReducer((state, action) => ({
     });
   },
 
-  [actions.MASTER_PHOTO_REMOVE]: () => {
-    const { itemId, modelName } = action;
+  [actions.MASTER_PHOTO_REMOVE]: (state, { payload: { id, modelName } }) => {
     let { items } = state.masterEditor.info[modelName];
 
-    items = reject(items, { id: itemId });
+    items = reject(items, { id });
 
     return deepUpdate(state, `masterEditor.info.${modelName}`, {
       items: [...items],

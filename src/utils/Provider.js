@@ -95,6 +95,7 @@ const baseFetch = (fetchMethod: string) => (
 
 export const post = baseFetch('POST');
 export const patch = baseFetch('PATCH');
+export const deleteMethod = baseFetch('DELETE');
 
 export const get = (
   method: Object,
