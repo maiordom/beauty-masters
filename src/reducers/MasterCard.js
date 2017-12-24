@@ -19,7 +19,7 @@ export default makeReducer(() => ({
     let groupedServices = groupServices(
       payload.services,
       state.dictionaries,
-    );
+    ).groupedServicesByCategories;
 
     const handlingToolsId = state.dictionaries.categoryServiceByKey.HandlingTools.id;
     const handlingTools = find(groupedServices, { id: handlingToolsId });

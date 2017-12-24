@@ -138,15 +138,35 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
     service.parentCategoryKey = parentCategory.key;
   });
 
-  const groupedService = groupBy(
+  const groupedServices = groupBy(
     services,
     'parentCategoryKey',
   );
 
-  return Object.keys(groupedService)
-    .map(groupKey => ({
-      id: dictionaries.categoryServiceByKey[groupKey].id,
-      title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
-      services: groupedService[groupKey],
-    }));
+  return {
+    groupedServicesByCategories: Object.keys(groupedServices)
+      .map((groupKey) => ({
+        id: dictionaries.categoryServiceByKey[groupKey].id,
+        title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
+        services: groupedServices[groupKey],
+      })),
+    groupedServicesBySubCategories: Object.keys({
+      Manicure: groupedServices.Manicure,
+      Pedicure: groupedServices.Pedicure,
+      HandlingTools: groupedServices.HandlingTools
+    })
+      .map((groupKey) => ({
+        id: dictionaries.categoryServiceByKey[groupKey].id,
+        title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
+        services: (() => {
+          const subGroup = groupBy(groupedServices[groupKey], 'categoryId');
+
+          return Object.keys(subGroup).map((categoryId) => ({
+            id: dictionaries.categoryServiceById[categoryId].id,
+            title: dictionaries.categoryServiceById[categoryId].title,
+            services: subGroup[categoryId],
+          }));
+        })(),
+      }))
+  };
 }
