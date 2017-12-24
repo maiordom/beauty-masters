@@ -419,7 +419,7 @@ export default class Map extends Component<TProps, TState> {
 const styles = StyleSheet.create({
   clusterMarkerTitle: {
     color: vars.color.white,
-    fontSize: 14.0,
+    fontSize: 14,
     marginTop: 6,
   },
   clusterMarker: {
