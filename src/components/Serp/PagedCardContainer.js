@@ -4,6 +4,8 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 import Swiper from 'react-native-swiper';
 import MapCard from './MapCard';
 
+import max from 'lodash/max';
+
 import vars from '../../vars';
 
 import type { TMapCard } from '../../types/MasterTypes';
@@ -14,34 +16,37 @@ type TProps = {
 };
 
 type TState = {
-  cardHeight: number,
+  cardHeight: ?number,
 }
 
 export default class PagedCardContainer extends Component<TProps, TState> {
   constructor(props: TProps) {
     super(props);
     this.state = {
-      cardHeight: 190,
+      cardHeight: null,
     };
   }
 
   render() {
     const { items, onMapCardPress } = this.props;
     const { cardHeight } = this.state;
+    const heightProps = cardHeight === null ? {} : { height: cardHeight };
 
     return (<Swiper
-      onLayout={(event) => {
-        const cardHeight = event.nativeEvent.layout.height;
-        this.state.cardHeight = cardHeight;
-      }}
       dotColor={vars.color.buttonDisabled}
       activeDotColor={vars.color.red}
       paginationStyle={styles.pagination}
-      height={cardHeight}
       style={styles.swiper}
+      {...heightProps}
     >
       {items.map(item => (
         <MapCard
+          onLayout={(event) => {
+            const cardHeight = max([event.nativeEvent.layout.height, this.state.cardHeight]);
+            if (cardHeight !== this.state.cardHeight) {
+              this.setState({ cardHeight });
+            }
+          }}
           style={styles.card}
           {...item}
           key={item.id}
@@ -65,6 +70,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         width: Dimensions.get('window').width,
+        height: 210,
       },
     }),
     backgroundColor: vars.color.white,

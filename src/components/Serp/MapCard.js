@@ -30,6 +30,7 @@ type TMapCardView = {
   type?: string,
   location: string,
   onPress: Function,
+  onLayout: Function,
 };
 
 type TProps = TMapCard & TMapCardView;
@@ -67,7 +68,7 @@ export default class MapCard extends Component<TProps, void> {
     const subtitle = isSalon ? i18n.card.salon : i18n.card.privateMaster;
 
     return (
-      <TouchableWithoutFeedback onPress={this.onPress}>
+      <TouchableWithoutFeedback onPress={this.onPress} onLayout={this.props.onLayout}>
         <View elevation={5} style={[styles.container, location === 'map' && styles.modMap]}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
