@@ -1,12 +1,14 @@
 import { Actions } from 'react-native-router-flux';
 
+import { TCreateMaster } from '../types/CreateMaster';
+
 import * as MasterService from '../services/Master';
 
 import actions from '../constants/Master';
 
 import { setActivityIndicator } from './Common';
 
-export const createMaster = () => (dispatch, getState) => {
+export const createMaster = (customCreateMasterQuery?: TCreateMaster) => (dispatch, getState) => {
   const state = getState();
   const auth = state.auth;
   const { masterCardId, createMasterQuery } = state.masterEditor;
@@ -22,6 +24,8 @@ export const createMaster = () => (dispatch, getState) => {
       },
     },
   };
+
+  Object.assign(params.data.attributes, customCreateMasterQuery);
 
   const handleResponse = ({ masterCardId }) => {
     dispatch(setActivityIndicator(false));

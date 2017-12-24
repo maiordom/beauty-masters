@@ -27,3 +27,9 @@ export default {
     INACTIVE: 'INACTIVE',
   },
 };
+
+export const MASTER_CARD_STATUS = {
+  APPROVED: 1,
+  CREATE: 0,
+  MODERATION: 2,
+};
