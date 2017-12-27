@@ -1,7 +1,6 @@
 import find from 'lodash/find';
 import assign from 'lodash/assign';
 import reject from 'lodash/reject';
-import each from 'lodash/each';
 
 import { makeReducer, deepUpdate } from '../utils';
 import { getCleanMasterEditorObject } from '../store/MasterEditor';
@@ -19,7 +18,7 @@ export default makeReducer((state, action) => ({
   [actions.MASTER_EDITOR_REFRESH]: (state) => {
     const cleanMasterEditorObject = getCleanMasterEditorObject();
 
-    each(cleanMasterEditorObject, (key: string) => {
+    Object.keys(cleanMasterEditorObject).forEach((key: string) => {
       state.masterEditor[key] = cleanMasterEditorObject[key];
     });
 
