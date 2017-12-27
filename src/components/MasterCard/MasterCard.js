@@ -128,7 +128,7 @@ export default class MasterCard extends Component<TProps, TState> {
       isSalon,
       masterPhotos,
       salonName,
-      services,
+      groupedServices,
       snippet,
       username,
       workPhotos,
@@ -175,8 +175,8 @@ export default class MasterCard extends Component<TProps, TState> {
                 workPhotos={workPhotos}
               />
             )}
-            {services && services.length > 0 && (
-              <MasterCardServices services={services} />
+            {groupedServices && groupedServices.length > 0 && (
+              <MasterCardServices services={groupedServices} />
             )}
           </Fade>
           <Fade visible={showSecondGroup}>

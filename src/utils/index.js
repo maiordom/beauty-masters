@@ -143,6 +143,14 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
     'parentCategoryKey',
   );
 
+  const groupedServicesBySubCategories = {};
+
+  Object.keys(groupedServices).forEach((key: string) => {
+    if (groupedServices[key].length) {
+      groupedServicesBySubCategories[key] = groupedServices[key];
+    }
+  });
+
   return {
     groupedServicesByCategories: Object.keys(groupedServices)
       .map((groupKey) => ({
@@ -150,11 +158,7 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
         title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
         services: groupedServices[groupKey],
       })),
-    groupedServicesBySubCategories: Object.keys({
-      Manicure: groupedServices.Manicure,
-      Pedicure: groupedServices.Pedicure,
-      HandlingTools: groupedServices.HandlingTools
-    })
+    groupedServicesBySubCategories: Object.keys(groupedServicesBySubCategories)
       .map((groupKey) => ({
         id: dictionaries.categoryServiceByKey[groupKey].id,
         title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),

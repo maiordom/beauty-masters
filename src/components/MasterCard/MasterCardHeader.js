@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
       },
       android: {
         margin: 16,
-        paddingBottom: 16,
+        marginBottom: 0,
+        paddingBottom: 12,
       },
     }),
   },
