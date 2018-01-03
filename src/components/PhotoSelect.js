@@ -26,7 +26,6 @@ const icons = {
 
 export default class PhotoSelect extends Component {
   onClosePress = () => {
-    console.log('onClosePress');
     this.props.actions.drawerClose();
   };
 

@@ -25,6 +25,7 @@ const icons = Platform.select({
 export default class Calendar extends Component {
   static defaultProps = {
     format: 'YYYY-MM-DD',
+    multiSelect: false,
     workDays: [],
   };
 
@@ -97,7 +98,9 @@ export default class Calendar extends Component {
       containerWidth,
       disableSelectDate,
       events = [],
+      multiSelect,
       selectedDate,
+      selectedDates,
       workDays,
     } = this.props;
 
@@ -118,12 +121,14 @@ export default class Calendar extends Component {
           eventDates={eventDates}
           events={eventsCalendar}
           monthNames={i18n.monthNames}
+          multiSelect={multiSelect}
           nextButtonImage={icons.arrowRight}
           onDateSelect={this.onDateSelect}
           onTouchNext={this.onMonthChange}
           onTouchPrev={this.onMonthChange}
           prevButtonImage={icons.arrowLeft}
           selectedDate={selectedDate}
+          selectedDates={selectedDates}
           showControls
           showEventIndicators
           width={containerWidth}

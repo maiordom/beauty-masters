@@ -48,7 +48,6 @@ type TProps = {
 };
 
 type TState = {
-  selectedDate: string,
   showMasterCalendarModal: boolean,
   showMasterTypeModal: boolean,
   showShortForm: boolean,
@@ -56,11 +55,15 @@ type TState = {
 
 export default class SearchFormShort extends Component<TProps, TState> {
   state = {
-    selectedDate: this.props.searchQuery.dates[0],
+    selectedDates: this.props.searchQuery.dates.slice(),
     showShortForm: true,
     showMasterCalendarModal: false,
     showMasterTypeModal: false,
   };
+
+  componentWillReceiveProps(props) {
+    this.setState({ selectedDates: this.props.searchQuery.dates.slice() });
+  }
 
   toggleForm = () => {
     this.setState({ showShortForm: !this.state.showShortForm });
@@ -91,20 +94,19 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   onSelectCalendarDate = (selectedDate: string) => {
-    this.setState({ selectedDate });
     this.props.actions.setDay(selectedDate);
-    this.toggleCalendarModal();
   };
 
-  getSelectedDateTitle = () => capitalizeFirstLetter(
-    moment(this.state.selectedDate).calendar(null, {
-      sameDay: `[${i18n.days.sameDay}]`,
-      nextDay: `[${i18n.days.nextDay}]`,
-      lastWeek: '[last] dddd',
-      nextWeek: 'dddd',
-      sameElse: 'L',
-    }),
-  );
+  getSelectedDateTitle = () => this.state.selectedDates.map((date: string) =>
+    capitalizeFirstLetter(
+      moment(date).calendar(null, {
+        sameDay: `[${i18n.days.sameDay}]`,
+        nextDay: `[${i18n.days.nextDay}]`,
+        lastWeek: '[last] dddd',
+        nextWeek: 'dddd',
+        sameElse: 'L',
+      })
+    )).join(', ');
 
   render() {
     const {
@@ -121,7 +123,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
       showShortForm,
       showMasterTypeModal,
       showMasterCalendarModal,
-      selectedDate,
+      selectedDates,
     } = this.state;
 
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
@@ -131,16 +133,16 @@ export default class SearchFormShort extends Component<TProps, TState> {
         <ScrollView style={styles.content}>
           <FilterLabel text={i18n.search.vacantDays} />
           <FilterTab
-            title={this.getSelectedDateTitle()}
             onChange={this.toggleCalendarModal}
             shouldShowSeparator={false}
+            title={this.getSelectedDateTitle()}
           />
           <SearchFormCalendar
-            showCalendar={showMasterCalendarModal}
-            selectedDate={selectedDate}
-            onDateSelect={this.onSelectCalendarDate}
-            toggleCalendarModal={this.toggleCalendarModal}
             containerWidth={170}
+            onDateSelect={this.onSelectCalendarDate}
+            selectedDates={selectedDates}
+            showCalendar={showMasterCalendarModal}
+            toggleCalendarModal={this.toggleCalendarModal}
           />
           <FilterLabel text={i18n.search.masterPlace} />
           <FilterTab

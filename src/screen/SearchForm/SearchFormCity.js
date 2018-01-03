@@ -10,10 +10,16 @@ import NavBar from '../../components/NavBar';
 import { searchCitySelect, searchCityForText, citiesReset } from '../../actions/Search';
 import { setLastMapLocation } from '../../actions/Map';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const cities = state.searchForm.general.cities;
   const source = cities.filtered !== null ? cities.filtered : cities.items;
-  return { items: map(source, city => ({ label: city.name, ...city })) };
+
+  return {
+    items: map(source, (city) => ({
+      ...city,
+      label: city.name,
+    })),
+  };
 };
 
 const mapDispatchToProps = dispatch => ({

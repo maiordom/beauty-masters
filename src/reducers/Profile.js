@@ -1,6 +1,10 @@
 import find from 'lodash/find';
 
-import { makeReducer, groupServices, deepUpdate } from '../utils';
+import {
+  deepUpdate,
+  groupServices,
+  makeReducer,
+} from '../utils';
 import { intervalGroup } from '../store/Interval';
 
 import type { TProfileData, TMasterCard, TMasterAddress } from '../types/ProfileData';
@@ -27,6 +31,7 @@ export default makeReducer(() => ({
       if (profileCard) {
         card.addresses = profileCard.addresses;
         card.masterServices = profileCard.masterServices;
+        card.groupedMasterServices = profileCard.groupedMasterServices;
 
         if (profileCard.status.addressesUploaded) {
           card.status.addressesUploaded = true;
@@ -79,7 +84,9 @@ export default makeReducer(() => ({
   [c.PROFILE_MASTER_SERVICES_SET]: (state, { payload: { masterServices, masterCardId } }) => {
     const masterCard: TMasterCard = find(state.profile.masterCards, { id: masterCardId });
 
-    masterCard.masterServices = groupServices(masterServices, state.dictionaries);
+    const groupedServices = groupServices(masterServices, state.dictionaries);
+    masterCard.masterServices = groupedServices.groupedServicesByCategories;
+    masterCard.groupedMasterServices = groupedServices.groupedServicesBySubCategories;
     masterCard.status.masterServicesUploaded = true;
 
     return state;

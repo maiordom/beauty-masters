@@ -139,8 +139,14 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_SET_DAY]: () => {
-    state.searchForm.searchQuery.schedule = [action.day];
+  [actions.SEARCH_SET_DAY]: (state, { day }) => {
+    const { dates } = state.searchForm.searchQuery;
+
+    if (dates.includes(day)) {
+      state.searchForm.searchQuery.dates = dates.filter((date) => date !== day);
+    } else {
+      dates.push(day);
+    }
 
     return state;
   },
@@ -199,17 +205,28 @@ export default makeReducer((state, action) => ({
   ),
 
   [actions.SEARCH_CITY_SET]: () => {
-    const selected = state.searchForm.general.cities.items.find(city => city.id === action.id);
-    deepUpdate(state, 'searchForm.searchQuery', { lat: selected.lat, lon: selected.lon });
+    const { cities } = state.searchForm.general;
+    const selected = cities.items.find((city) => city.id === action.id);
+
+    deepUpdate(state, 'searchForm.searchQuery', {
+      lat: selected.lat,
+      lon: selected.lon,
+    });
+
     return deepUpdate(state, 'searchForm.general.cities', { selected });
   },
 
   [actions.SEARCH_CITY_FIND]: (state, { payload: { text } }) => {
-    const filtered = filter(state.searchForm.general.cities.items, city => startsWith(lowerCase(city.name), lowerCase(text)));
+    const cities = state.searchForm.general.cities;
+    const filtered = filter(cities.items, (city) => (
+      startsWith(lowerCase(city.name), lowerCase(text)))
+    );
     return deepUpdate(state, 'searchForm.general.cities', { filtered });
   },
 
-  [actions.SEARCH_CITY_RESET]: (state, { payload: { cities } }) => (
-    deepUpdate(state, 'searchForm.general.cities', { items: cities, filtered: null })
-  ),
+  [actions.SEARCH_CITY_RESET]: (state, { payload: { cities } }) =>
+    deepUpdate(state, 'searchForm.general.cities', {
+      items: cities,
+      filtered: null
+    }),
 }));

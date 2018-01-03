@@ -66,8 +66,8 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
     this.setState({ certificatesShow: Boolean(state) });
   };
 
-  onPhotoRemovePress = (itemId: number, modelName: string) => {
-    this.props.actions.removePhoto(itemId, modelName);
+  onPhotoRemovePress = (id: number, modelName: string, type: string) => {
+    this.props.actions.removePhoto(id, modelName, type);
   };
 
   onChangeAbout = (value: string, modelName: string) => {

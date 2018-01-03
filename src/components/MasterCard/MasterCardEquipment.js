@@ -104,13 +104,17 @@ const styles = StyleSheet.create({
     }),
   },
   closeButtonTitle: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    fontWeight: '600',
     fontSize: 14,
     color: vars.color.red,
+    ...Platform.select({
+      ios: {
+        fontWeight: '600',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+      },
+    }),
   },
   container: {
     flex: 1,

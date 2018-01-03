@@ -65,18 +65,20 @@ type TState = {
   region?: TRegionType,
   renderLoader: boolean,
   showSnippet: boolean,
-  snippetTranslateY: Animated.Value,
   snippetHeight: ?number,
+  snippetTranslateY: Animated.Value,
 }
 
 type TProps = {
-  initialRegion: TRegionType,
-  points: Array<TMapCard>,
-  sceneKey: string,
   actions: {
+    getLocation: () => void,
     searchMasters: Function,
     setLastMapLocation: Function,
   },
+  initialRegion: TRegionType,
+  points: Array<TMapCard>,
+  sceneKey: string,
+  userLocation: TRegionType,
 };
 
 type ClusterInterface = {
@@ -269,11 +271,18 @@ export default class Map extends Component<TProps, TState> {
   };
 
   onLocationPress = () => {
-    this.map.animateToRegion(this.state.initialRegion, 300);
+    this.props.actions.getLocation().then((userLocation) => {
+      this.map.animateToRegion({
+        ...userLocation,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }, 300);
+    });
   };
 
   searchMasters = () => {
     const region = this.state.region;
+
     if (!region) {
       return;
     }

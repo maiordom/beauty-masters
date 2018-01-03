@@ -31,8 +31,8 @@ export default class MasterLocation extends Component {
       distance: getDistance(
         location.lat,
         location.lng,
-        initialRegion.lat,
-        initialRegion.lon,
+        initialRegion.latitude,
+        initialRegion.longitude,
       ).toFixed(2),
     };
   }
@@ -40,7 +40,6 @@ export default class MasterLocation extends Component {
   render() {
     const {
       address,
-      initialRegion,
       isSalon,
       location: { lat, lng },
       photo,

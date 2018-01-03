@@ -5,8 +5,18 @@ import { bindActionCreators } from 'redux';
 
 import { searchMasters } from '../actions/Search';
 import { setLastMapLocation } from '../actions/Map';
+import { getLocation } from '../actions/Common';
 
 import Map from '../components/Serp/Map';
+
+const userLocationSelector = (state) => {
+  const city = state.searchForm.general.cities.selected;
+  const userLocation = state.geo.userLocation;
+
+  return userLocation.lat
+    ? { latitude: userLocation.lat, longitude: userLocation.lon }
+    : { latitude: city.lat, longitude: city.lon };
+}
 
 const mapStateToProps = (state, ownProps) => ({
   initialRegion: (() => {
@@ -21,16 +31,19 @@ const mapStateToProps = (state, ownProps) => ({
       return state.map.lastLocation;
     }
 
-    return state.geo.userLocation.lat
-      ? { latitude: state.geo.userLocation.lat, longitude: state.geo.userLocation.lon }
-      : { latitude: state.geo.city.location.lat, longitude: state.geo.city.location.lng };
+    return userLocationSelector(state);
   })(),
   points: state.searchForm.searchResult.items,
   sceneKey: ownProps.sceneKey,
+  userLocation: userLocationSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({ searchMasters, setLastMapLocation }, dispatch),
+  actions: bindActionCreators({
+    getLocation,
+    searchMasters,
+    setLastMapLocation,
+  }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

@@ -8,20 +8,18 @@ const mapStateToProps = (state) => ({
   initialRegion: (() => {
     if (state.searchForm.general.place.label) {
       return {
-        lat: state.searchForm.searchQuery.lat,
-        lon: state.searchForm.searchQuery.lon,
+        latitude: state.searchForm.searchQuery.lat,
+        longitude: state.searchForm.searchQuery.lon,
       };
     }
 
-    return state.geo.userLocation.lat
-      ? state.geo.userLocation
-      : { lat: state.geo.city.location.lat, lon: state.geo.city.location.lng };
+    const city = state.searchForm.general.cities.selected;
+    const userLocation = state.geo.userLocation;
+
+    return userLocation.lat
+      ? { latitude: userLocation.lat, longitude: userLocation.lon }
+      : { latitude: city.lat, longitude: city.lon };
   })(),
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-  }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterLocation));
+export default connect(mapStateToProps, null)(NavBar(MasterLocation));

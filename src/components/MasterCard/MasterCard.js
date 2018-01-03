@@ -128,7 +128,7 @@ export default class MasterCard extends Component<TProps, TState> {
       isSalon,
       masterPhotos,
       salonName,
-      services,
+      groupedServices,
       snippet,
       username,
       workPhotos,
@@ -142,9 +142,11 @@ export default class MasterCard extends Component<TProps, TState> {
       showSecondGroup,
     } = this.state;
 
-    const masterPhoto = (masterPhotos && masterPhotos.length > 0)
+    const masterPhotoUri = (masterPhotos && masterPhotos.length > 0)
       ? { uri : masterPhotos[0].sizes.m }
-      : icons.masterEmptyPhoto;
+      : null;
+
+    const masterPhoto = masterPhotoUri || icons.masterEmptyPhoto;
 
     return (
       <View style={styles.container}>
@@ -175,8 +177,8 @@ export default class MasterCard extends Component<TProps, TState> {
                 workPhotos={workPhotos}
               />
             )}
-            {services && services.length > 0 && (
-              <MasterCardServices services={services} />
+            {groupedServices && groupedServices.length > 0 && (
+              <MasterCardServices services={groupedServices} />
             )}
           </Fade>
           <Fade visible={showSecondGroup}>
@@ -187,7 +189,7 @@ export default class MasterCard extends Component<TProps, TState> {
               <MasterCardSchedule
                 addresses={addresses}
                 isSalon={isSalon}
-                masterPhoto={masterPhoto}
+                masterPhoto={masterPhotoUri}
                 salonName={salonName}
                 scrollToEnd={this.scrollToEnd}
                 username={username}

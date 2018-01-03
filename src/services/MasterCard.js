@@ -5,6 +5,7 @@ import { get } from '../utils/Provider';
 
 const getPhotos = (included, type) =>
   included.filter(item => item.type === type).map(photo => ({
+    id: photo.id,
     mediaFileId: photo.attributes.media_file_id,
     sizes: {
       l: photo.attributes.image.l,

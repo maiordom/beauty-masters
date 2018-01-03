@@ -10,26 +10,32 @@ const intervalModel = intervalGroup();
 
 export default makeReducer(() => ({
   [c.MASTER_CARD_SET]: (state, { payload }) => {
-    state.masterCards[payload.id] = payload;
+    const card = payload;
+    state.masterCards[card.id] = card;
 
-    payload.services.forEach((service) => {
+    card.services.forEach((service) => {
       service.categoryId = state.dictionaries.serviceById[service.serviceId].categoryId;
     });
 
-    let groupedServices = groupServices(
-      payload.services,
+    let {
+      groupedServicesByCategories,
+      groupedServicesBySubCategories
+    } = groupServices(
+      card.services,
       state.dictionaries,
     );
 
     const handlingToolsId = state.dictionaries.categoryServiceByKey.HandlingTools.id;
-    const handlingTools = find(groupedServices, { id: handlingToolsId });
+    const handlingTools = find(groupedServicesByCategories, { id: handlingToolsId });
 
     if (handlingTools) {
-      payload.handlingTools = handlingTools.services;
-      groupedServices = reject(groupedServices, { id: handlingToolsId });
+      card.handlingTools = handlingTools.services;
+      groupedServicesByCategories = reject(groupedServicesByCategories, { id: handlingToolsId });
+      groupedServicesBySubCategories = reject(groupedServicesBySubCategories, { id: handlingToolsId });
     }
 
-    payload.services = groupedServices;
+    card.services = groupedServicesByCategories;
+    card.groupedServices = groupedServicesBySubCategories;
 
     return state;
   },

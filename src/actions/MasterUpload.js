@@ -1,4 +1,6 @@
 import * as UploadService from '../services/Upload';
+import * as PhotoService from '../services/Photo';
+
 import actions from '../constants/Master';
 
 let photoIndex = 0;
@@ -18,7 +20,7 @@ export const uploadFileAction = (fileData, modelName, photoId, dispatch, getStat
     .then((res) => {
       if (res.status === 'success') {
         const params = { mediaFileId: res.mediaFileId, masterCardId };
-        return UploadService.createPhoto(params, headers, mediaType);
+        return PhotoService.createPhoto(params, headers, mediaType);
       }
 
       return Promise.reject();
@@ -26,10 +28,13 @@ export const uploadFileAction = (fileData, modelName, photoId, dispatch, getStat
     .then((res) => {
       dispatch({
         type: actions.MASTER_PHOTO_SET,
-        id: photoId,
-        mediaFileId: res.data.attributes.media_file_id,
-        modelName,
-        sizes: res.data.attributes.image,
+        payload: {
+          id: photoId,
+          mediaFileId: res.data.attributes.media_file_id,
+          modelName,
+          originalId: res.data.id,
+          sizes: res.data.attributes.image,
+        },
       });
     })
     .catch(err => {
