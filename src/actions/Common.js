@@ -3,6 +3,7 @@
 import actions from '../constants/Common';
 
 import { setSearchLocation } from './Search';
+import { defer } from '../utils/Defer';
 
 export const setActivityIndicator = (animating: boolean) => ({
   type: actions.ACTIVITY_INDICATOR_ANIMATING,
@@ -10,6 +11,8 @@ export const setActivityIndicator = (animating: boolean) => ({
 });
 
 export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) => {
+  const deferred = defer();
+
   navigator.geolocation.getCurrentPosition((position) => {
     if (position && position.coords) {
       const lat = position.coords.latitude;
@@ -17,7 +20,7 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
 
       dispatch({
         type: actions.USER_LOCATION_SET,
-        payload: { lon, lat },
+        payload: { lat, lon },
       });
 
       console.log('geo::location::', position.coords);
@@ -25,10 +28,15 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
       if (updateSearchQuery) {
         dispatch(setSearchLocation(lat, lon));
       }
+
+      deferred.resolve(position.coords);
     }
   }, (err) => {
     console.log('geo::location::', err);
+    deferred.reject();
   });
+
+  return deferred.promise;
 };
 
 export default null;

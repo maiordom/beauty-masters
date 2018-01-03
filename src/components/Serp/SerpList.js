@@ -17,8 +17,8 @@ type TState = {
 
 type TProps = {
   initialRegion: {
-    lat: number,
-    lon: number,
+    latitude: number,
+    longitude: number,
   },
   points: Array<TMapCard>,
 };
@@ -69,8 +69,8 @@ export default class SerpList extends Component<TProps, TState> {
             const distance = getDistance(
               coordinates.latitude,
               coordinates.longitude,
-              initialRegion.lat,
-              initialRegion.lon,
+              initialRegion.latitude,
+              initialRegion.longitude,
             ).toFixed(2);
 
             return (

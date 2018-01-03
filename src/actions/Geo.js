@@ -9,13 +9,13 @@ export const searchPlace = ({
   location,
   radius = 30000,
 }) => (dispatch, getState) => {
-  const cityLocation = getState().geo.city.location;
-  const { lat, lng } = (location || cityLocation);
+  const cityLocation = getState().searchForm.general.cities.selected;
+  const { lat, lon } = (location || cityLocation);
   const params = {
     input,
     key: config.googlePlacesKey,
     language,
-    location: `${lat},${lng}`,
+    location: `${lat},${lon}`,
     radius,
   };
 

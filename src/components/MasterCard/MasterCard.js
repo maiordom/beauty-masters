@@ -142,9 +142,11 @@ export default class MasterCard extends Component<TProps, TState> {
       showSecondGroup,
     } = this.state;
 
-    const masterPhoto = (masterPhotos && masterPhotos.length > 0)
+    const masterPhotoUri = (masterPhotos && masterPhotos.length > 0)
       ? { uri : masterPhotos[0].sizes.m }
-      : icons.masterEmptyPhoto;
+      : null;
+
+    const masterPhoto = masterPhotoUri || icons.masterEmptyPhoto;
 
     return (
       <View style={styles.container}>
@@ -187,7 +189,7 @@ export default class MasterCard extends Component<TProps, TState> {
               <MasterCardSchedule
                 addresses={addresses}
                 isSalon={isSalon}
-                masterPhoto={masterPhoto}
+                masterPhoto={masterPhotoUri}
                 salonName={salonName}
                 scrollToEnd={this.scrollToEnd}
                 username={username}
