@@ -19,7 +19,7 @@ type TState = {
 }
 
 export default class PagedCardContainer extends Component<TProps, TState> {
-  listView = null;
+  listView: ?ListView = null;
 
   constructor(props: TProps) {
     super(props);
@@ -38,7 +38,7 @@ export default class PagedCardContainer extends Component<TProps, TState> {
       currentCardIndex: 0,
     });
 
-    if (this.listView !== null) {
+    if (this.listView != null) {
       this.listView.scrollTo({ x: 0, y: 0, animated: false });
     }
   }
