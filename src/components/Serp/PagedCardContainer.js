@@ -1,10 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, Platform } from 'react-native';
-import Swiper from 'react-native-swiper';
-import MapCard from './MapCard';
+import { StyleSheet, Dimensions, Platform, View, ListView } from 'react-native';
 
-import max from 'lodash/max';
+import MapCard from './MapCard';
 
 import vars from '../../vars';
 
@@ -16,63 +14,104 @@ type TProps = {
 };
 
 type TState = {
-  cardHeight: ?number,
+  items: any,
+  currentCardIndex: number,
 }
 
 export default class PagedCardContainer extends Component<TProps, TState> {
+  listView = null;
+
   constructor(props: TProps) {
     super(props);
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
+
     this.state = {
-      cardHeight: null,
+      items: ds.cloneWithRows(props.items),
+      currentCardIndex: 0,
     };
   }
 
-  render() {
-    const { items, onMapCardPress } = this.props;
-    const { cardHeight } = this.state;
-    const heightProps = cardHeight === null ? {} : { height: cardHeight };
+  componentWillReceiveProps(nextProps: TProps) {
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
+    this.setState({
+      items: ds.cloneWithRows(nextProps.items),
+      currentCardIndex: 0,
+    });
 
-    return (<Swiper
-      dotColor={vars.color.buttonDisabled}
-      activeDotColor={vars.color.red}
-      paginationStyle={styles.pagination}
-      style={styles.swiper}
-      {...heightProps}
-    >
-      {items.map(item => (
-        <MapCard
-          onLayout={(event) => {
-            const cardHeight = max([event.nativeEvent.layout.height, this.state.cardHeight]);
-            if (cardHeight !== this.state.cardHeight) {
-              this.setState({ cardHeight });
-            }
-          }}
-          style={styles.card}
-          {...item}
-          key={item.id}
-          onPress={() => onMapCardPress(item)}
-          location={'map'}
-        />
-      ))}
-    </Swiper>);
+    if (this.listView !== null) {
+      this.listView.scrollTo({ x: 0, y: 0, animated: false });
+    }
+  }
+
+  onCardSwipe = (event: any) => {
+    const clientWidth = Dimensions.get('window').width;
+    const xOffset = event.nativeEvent.contentOffset.x;
+    const currentCardIndex = Math.round(xOffset / clientWidth);
+
+    if (this.state.currentCardIndex !== currentCardIndex) {
+      this.setState({ currentCardIndex });
+    }
+  };
+
+  renderCard = (card: TMapCard) => {
+    const { onMapCardPress } = this.props;
+
+    return (
+      <MapCard
+        {...card}
+        key={card.id}
+        onPress={() => onMapCardPress(card)}
+        location={'map'}
+      />
+    );
+  };
+
+  render() {
+    return (<View style={styles.container}>
+      <ListView
+        dataSource={this.state.items}
+        horizontal
+        onScroll={this.onCardSwipe}
+        pagingEnabled
+        ref={(component) => { this.listView = component; }}
+        renderRow={(card) => this.renderCard(card)}
+        scrollEventThrottle={200}
+        showsHorizontalScrollIndicator={false}
+      />
+      {this.props.items.length > 1 && <View style={styles.dots}>
+        {this.props.items.map((card, index) => (
+          <View
+            key={card.id}
+            style={[styles.dot, this.state.currentCardIndex === index ? styles.dotActive : {}]}
+          />
+        ))}
+      </View>}
+    </View>);
   }
 }
 
 const styles = StyleSheet.create({
-  card: {
-    position: 'absolute',
-    bottom: 0,
-  },
-  pagination: {
-    bottom: 4,
-  },
-  swiper: {
+  container: {
     ...Platform.select({
       android: {
         width: Dimensions.get('window').width,
-        height: 210,
       },
     }),
     backgroundColor: vars.color.white,
+  },
+  dots: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 6,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    backgroundColor: vars.color.grey,
+    borderRadius: 50,
+    marginRight: 6,
+  },
+  dotActive: {
+    backgroundColor: vars.color.red,
   },
 });
