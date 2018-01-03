@@ -21,10 +21,12 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const VIEW_INDEX = 2;
 
 type TProps = {
+  activeFrom: moment,
   dayHeadings: Array<string>,
   disableSelectDate: boolean,
   eventDates: Array<string>,
   monthNames: Array<string>,
+  multiSelect: boolean,
   nextButtonText: string | object,
   onDateSelect: (date: string | null) => void,
   onSwipeNext: () => void,
@@ -37,7 +39,6 @@ type TProps = {
   showControls: boolean,
   showEventIndicators: Pboolean,
   startDate: any,
-  activeFrom: moment,
   titleFormat: string,
   today: any,
   weekStart: number,
@@ -70,7 +71,9 @@ export default class Calendar extends Component<TProps, void> {
 
   state = {
     currentMonthMoment: moment(this.props.startDate),
-    selectedMoment: moment(this.props.selectedDate),
+    selectedMoments: this.props.selectedDates.length > 0
+      ? this.props.selectedDates.slice()
+      : [moment(this.props.selectedDate).format()],
   };
 
   static defaultProps = {
@@ -78,9 +81,11 @@ export default class Calendar extends Component<TProps, void> {
     disableSelectDate: false,
     eventDates: [],
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    multiSelect: false,
     nextButtonText: 'Next',
     prevButtonText: 'Prev',
     scrollEnabled: false,
+    selectedDates: [],
     showControls: false,
     showEventIndicators: false,
     startDate: moment().format('YYYY-MM-DD'),
@@ -100,8 +105,10 @@ export default class Calendar extends Component<TProps, void> {
   }
 
   componentWillReceiveProps(props) {
-    if (props.selectedDate) {
-      this.setState({ selectedMoment: props.selectedDate });
+    if (props.selectedDates.length > 0) {
+      this.setState({ selectedMoments: props.selectedDates.slice() });
+    } else if (props.selectedDate) {
+      this.setState({ selectedMoments: [props.selectedDate] });
     }
   }
 
@@ -120,7 +127,7 @@ export default class Calendar extends Component<TProps, void> {
     const parsedDates = {};
 
     // Dates without any custom properties
-    eventDates.forEach(event => {
+    eventDates.forEach((event) => {
       const date = moment(event);
       const month = moment(date).startOf('month').format();
 
@@ -130,7 +137,7 @@ export default class Calendar extends Component<TProps, void> {
 
     // Dates with custom properties
     if (events) {
-      events.forEach(event => {
+      events.forEach((event) => {
         if (event.date) {
           const date = moment(event.date);
           const month = moment(date).startOf('month').format();
@@ -146,7 +153,12 @@ export default class Calendar extends Component<TProps, void> {
 
   selectDate(date) {
     if (!this.props.disableSelectDate) {
-      this.setState({ selectedMoment: date });
+      if (this.props.multiSelect) {
+        this.state.selectedMoments.push(date.format());
+        this.setState({ selectedMoments: this.state.selectedMoments });
+      } else {
+        this.setState({ selectedMoments: [date.format()] });
+      }
     }
 
     this.props.onDateSelect && this.props.onDateSelect(date ? date.format() : null);
@@ -195,17 +207,25 @@ export default class Calendar extends Component<TProps, void> {
     let days = [];
     const startOfArgMonthMoment = argMoment.startOf('month');
 
-    const selectedMoment = moment(this.state.selectedMoment);
     const weekStart = this.props.weekStart;
     const todayMoment = moment(this.props.today);
     const todayIndex = todayMoment.date() - 1;
     const argMonthDaysCount = argMoment.daysInMonth();
     const offset = (startOfArgMonthMoment.isoWeekday() - weekStart + 7) % 7;
     const argMonthIsToday = argMoment.isSame(todayMoment, 'month');
-    const selectedIndex = moment(selectedMoment).date() - 1;
-    const selectedMonthIsArg = selectedMoment.isSame(argMoment, 'month');
 
     const events = eventsMap !== null ? eventsMap[argMoment.startOf('month').format()] : null;
+
+    const selectedMoments = this.state.selectedMoments.reduce((object, date: string) => {
+      const momentDate = moment(date);
+      const isSameMonth = momentDate.isSame(argMoment, 'month');
+
+      if (isSameMonth) {
+        object[momentDate.date() - 1] = date;
+      }
+
+      return object;
+    }, {});
 
     do {
       const dayIndex = renderIndex - offset;
@@ -235,9 +255,9 @@ export default class Calendar extends Component<TProps, void> {
             onPress={isDisable ? null : () => this.selectDate(currentDate)}
             caption={`${dayIndex + 1}`}
             isToday={argMonthIsToday && dayIndex === todayIndex}
-            isSelected={selectedMonthIsArg && dayIndex === selectedIndex}
+            isSelected={Boolean(selectedMoments[dayIndex])}
             isDotted={isDotted}
-            event={events && dayIndex === selectedIndex ? null : events && events[dayIndex]}
+            event={events && selectedMoments[dayIndex] ? null : events && events[dayIndex]}
             showEventIndicators={this.props.showEventIndicators}
           />,
         );

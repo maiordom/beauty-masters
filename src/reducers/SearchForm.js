@@ -139,8 +139,14 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_SET_DAY]: () => {
-    state.searchForm.searchQuery.schedule = [action.day];
+  [actions.SEARCH_SET_DAY]: (state, { day }) => {
+    const { dates } = state.searchForm.searchQuery;
+
+    if (dates.includes(day)) {
+      state.searchForm.searchQuery.dates = dates.filter((date) => date !== day);
+    } else {
+      dates.push(day);
+    }
 
     return state;
   },

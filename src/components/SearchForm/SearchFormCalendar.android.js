@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Text, View, StyleSheet, Modal } from 'react-native';
+import { Text, View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
 import type { TSearchFormCalendar } from '../../types/SearchFormCalendar';
@@ -15,17 +15,34 @@ import { hexToRgba } from '../../utils';
 type TProps = TSearchFormCalendar;
 
 const SearchFormCalendar = ({
-  showCalendar,
-  selectedDate,
   onDateSelect,
+  selectedDates,
+  showCalendar,
+  toggleCalendarModal,
 }: TProps) => (
-  <Modal animationType="fade" transparent visible={showCalendar} onRequestClose={() => {}}>
+  <Modal
+    animationType="fade"
+    onRequestClose={() => {}}
+    transparent
+    visible={showCalendar}
+  >
     <View style={styles.container}>
       <View style={styles.modalContainer}>
         <Text style={styles.title}>
           {i18n.filters.availableDays}
         </Text>
-        <Calendar activeFrom={moment()} selectedDate={selectedDate} onDateSelect={onDateSelect} containerWidth={328} />
+        <Calendar
+          containerWidth={328}
+          multiSelect
+          onDateSelect={onDateSelect}
+          selectedDates={selectedDates}
+        />
+        <TouchableOpacity
+          onPress={toggleCalendarModal}
+          style={styles.closeButton}
+        >
+          <Text style={styles.closeButtonTitle}>{i18n.masterCard.ok}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </Modal>
@@ -52,5 +69,14 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
     fontSize: 20,
     color: vars.color.black,
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+    padding: 14,
+    paddingTop: 0,
+  },
+  closeButtonTitle: {
+    fontSize: 14,
+    color: vars.color.red,
   },
 });
