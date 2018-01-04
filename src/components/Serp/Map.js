@@ -230,7 +230,7 @@ export default class Map extends Component<TProps, TState> {
         point.properties.cluster_id,
         getZoomLevel(this.state.region),
       ), MAX_CURRENT_MAP_CARDS);
-      
+
       currentMapCards = leaves.map(leave => {
         const pointCoordinates = leave.properties.coordinates;
         const distance = getDistance(
@@ -362,9 +362,9 @@ export default class Map extends Component<TProps, TState> {
                     key={Math.random()}
                     identifier={index.toString()}
                     image={isEqual(coordinate, activePin)
-                    ? icons.clusterPinGreen
-                    : icons.clusterPinRed
-                  }
+                      ? icons.clusterPinGreen
+                      : icons.clusterPinRed
+                    }
                   >
                     <View style={styles.clusterMarker}>
                       <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
