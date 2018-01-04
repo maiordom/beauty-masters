@@ -54,6 +54,11 @@ type TState = {
   tabs: Array<{ title: string, key: string, }>,
 };
 
+const sections = {
+  serviceManicure: 'serviceManicure',
+  servicePedicure: 'servicePedicure',
+};
+
 export default class MasterEditorService extends Component<TProps, TState> {
   state = {
     renderLoader: true,
@@ -61,8 +66,8 @@ export default class MasterEditorService extends Component<TProps, TState> {
     showFillPedicureSectionModal: false,
     tabActiveKey: 'serviceManicure',
     tabs: [
-      { title: i18n.manicure, key: 'serviceManicure' },
-      { title: i18n.pedicure, key: 'servicePedicure' },
+      { title: i18n.manicure, key: sections.serviceManicure },
+      { title: i18n.pedicure, key: sections.servicePedicure },
     ],
   };
 
@@ -148,7 +153,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
   onPedicureAttentionFill = () => {
     this.setState({
       showFillPedicureSectionModal: false,
-      tabActiveKey: 'servicePedicure',
+      tabActiveKey: sections.servicePedicure,
     }, () => {
       this.scrollViewRef.scrollTo({ y: 0, animated: false });
     });
@@ -221,10 +226,10 @@ export default class MasterEditorService extends Component<TProps, TState> {
         <ScrollView ref={this.setScrollViewRef} style={styles.inner}>
           <Label text={i18n.yourServices} spacing />
           <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
-          <StateMachine visible={tabActiveKey === 'servicePedicure'}>
+          <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <ServicesListPedicure models={servicePedicure} {...filterHandlers} />
           </StateMachine>
-          <StateMachine visible={tabActiveKey === 'serviceManicure'}>
+          <StateMachine visible={tabActiveKey === sections.serviceManicure}>
             <ServicesListManicure models={serviceManicure} {...filterHandlers} />
           </StateMachine>
           <Input
@@ -233,10 +238,10 @@ export default class MasterEditorService extends Component<TProps, TState> {
             onBlur={this.onChangeAtHome}
           />
           <FilterLabel text={i18n.filters.otherServices} />
-          <StateMachine visible={tabActiveKey === 'servicePedicure'}>
+          <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <CustomServices key="pedicure" type="pedicure" />
           </StateMachine>
-          <StateMachine visible={tabActiveKey === 'serviceManicure'}>
+          <StateMachine visible={tabActiveKey === sections.serviceManicure}>
             <CustomServices key="manicure" type="manicure" />
           </StateMachine>
         </ScrollView>
