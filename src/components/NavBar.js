@@ -15,12 +15,24 @@ import vars from '../vars';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
+const icons = {
+  menu: require('../icons/menu.png'),
+  ...Platform.select({
+    ios: {
+      backArrow: require('../icons/ios/back-arrow.png'),
+    },
+    android: {
+      backArrow: require('../icons/android/back-arrow.png'),
+    },
+  }),
+};
+
 const getBackButtonImage = (leftButtonMenu) => {
   if (leftButtonMenu) {
-    return require('../icons/menu.png');
+    return icons.menu;
   }
 
-  return require('../icons/android/back-arrow.png');
+  return icons.backArrow;
 };
 
 class NavBar extends Component {
