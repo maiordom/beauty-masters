@@ -5,11 +5,14 @@ import {
   InteractionManager,
   Platform,
   ScrollView,
+  SegmentedControlIOS,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
+import findIndex from 'lodash/findIndex';
 
 import { FilterLabel } from '../FilterLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -224,8 +227,23 @@ export default class MasterEditorService extends Component<TProps, TState> {
           </View>
         </Modal>
         <ScrollView ref={this.setScrollViewRef} style={styles.inner}>
-          <Label text={i18n.yourServices} spacing />
-          <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
+          {Platform.select({
+            android: (<View>
+              <Label text={i18n.yourServices} spacing />
+              <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
+            </View>),
+            ios: (<View style={styles.segmentContainer}>
+              <SegmentedControlIOS
+                values={tabs.map(tab => tab.title)}
+                selectedIndex={findIndex(tabs, tab => tab.key === tabActiveKey)}
+                onChange={(event) => {
+                  const activeTab = this.state.tabs[event.nativeEvent.selectedSegmentIndex];
+                  this.setState({ tabActiveKey: activeTab.key });
+                }}
+                tintColor={vars.color.red}
+              />
+            </View>),
+          })}
           <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <ServicesListPedicure models={servicePedicure} {...filterHandlers} />
           </StateMachine>
@@ -267,6 +285,9 @@ const styles = StyleSheet.create({
   homeAllowance: {
     paddingLeft: 11,
     marginBottom: 4,
+  },
+  segmentContainer: {
+    padding: 8,
   },
 });
 
