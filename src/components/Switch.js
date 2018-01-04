@@ -99,6 +99,10 @@ const styles = StyleSheet.create({
       android: {
         height: 48,
       },
+      ios: {
+        borderBottomWidth: 1,
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
+      },
     }),
   },
   title: {
