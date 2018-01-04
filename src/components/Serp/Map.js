@@ -18,12 +18,13 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 import debounce from 'lodash/debounce';
+import take from 'lodash/take';
 
 import getDistance from '../../utils/Geo';
 
 import { shouldComponentUpdate } from '../../utils';
 
-import MapCard from './MapCard';
+import PagedCardContainer from './PagedCardContainer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -37,12 +38,16 @@ const icons = Platform.select({
     location: require('../../icons/location.png'),
     pinGreen: require('../../icons/pin-green.png'),
     pinRed: require('../../icons/pin-red.png'),
+    clusterPinRed: require('../../icons/android/cluster-pin-red.png'),
+    clusterPinGreen: require('../../icons/android/cluster-pin-green.png'),
   },
   ios: {
     filter: require('../../icons/ios/filters.png'),
     location: require('../../icons/ios/location.png'),
     pinGreen: require('../../icons/ios/pin-green.png'),
     pinRed: require('../../icons/ios/pin-red.png'),
+    clusterPinRed: require('../../icons/ios/cluster-pin-red.png'),
+    clusterPinGreen: require('../../icons/ios/cluster-pin-green.png'),
   },
 });
 
@@ -53,10 +58,9 @@ type LatLngType = {
 
 type TState = {
   activePin: ?LatLngType,
-  activePoint: TMapCard | null,
-  cluster: ClusterInterface,
+  supercluster: ClusterInterface,
   clusters: Array<Cluster>,
-  distanceToPin: number,
+  currentMapCards: Array<TMapCard>,
   initialRegion?: TRegionType,
   region?: TRegionType,
   renderLoader: boolean,
@@ -88,6 +92,7 @@ type Cluster = {
   },
   properties: {
     cluster_id: number,
+    point_count?: number,
   },
 };
 
@@ -136,6 +141,8 @@ const getClusters = (cluster: ClusterInterface, region: TRegionType) => {
   ], getZoomLevel(region));
 };
 
+const MAX_CURRENT_MAP_CARDS = 10;
+
 export default class Map extends Component<TProps, TState> {
   constructor(props: TProps) {
     super();
@@ -159,6 +166,7 @@ export default class Map extends Component<TProps, TState> {
         getLeaves: () => [],
         getClusters: () => [],
       },
+      currentMapCards: [],
       snippetHeight: null,
     };
   }
@@ -206,34 +214,49 @@ export default class Map extends Component<TProps, TState> {
     this.map = ref;
   };
 
-  onMarkerPress = (event: any, index: number, coordinate: LatLngType) => {
-    const region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
-    const { cluster, clusters } = this.state;
+  onMarkerPress = (event: any) => {
+    const { supercluster, clusters } = this.state;
+    const index = parseInt(event.nativeEvent.id, 10);
+    if (isNaN(index)) {
+      return;
+    }
     const point = clusters[index];
-    let activePoint = null;
+    const coordinate = getLatLng(point);
 
+    let currentMapCards = [];
+    let region = null;
     if (point.properties.cluster) {
-      const leaves = cluster.getLeaves(
+      const leaves = take(supercluster.getLeaves(
         point.properties.cluster_id,
         getZoomLevel(this.state.region),
-      );
-      activePoint = leaves[0] && leaves[0].properties;
-    } else {
-      activePoint = point.properties;
-    }
+      ), MAX_CURRENT_MAP_CARDS);
 
-    const distanceToPin = getDistance(
-      coordinate.latitude,
-      coordinate.longitude,
-      this.props.initialRegion.latitude,
-      this.props.initialRegion.longitude,
-    ).toFixed(2);
+      currentMapCards = leaves.map(leave => {
+        const pointCoordinates = leave.properties.coordinates;
+        const distance = getDistance(
+          pointCoordinates.latitude,
+          pointCoordinates.longitude,
+          this.props.initialRegion.latitude,
+          this.props.initialRegion.longitude,
+        ).toFixed(2);
+        return { ...leave.properties, distance };
+      });
+      region = { ...this.state.region, ...coordinate };
+    } else {
+      const distance = getDistance(
+        coordinate.latitude,
+        coordinate.longitude,
+        this.props.initialRegion.latitude,
+        this.props.initialRegion.longitude,
+      ).toFixed(2);
+      currentMapCards = [{ ...point.properties, distance }];
+      region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
+    }
 
     this.map.animateToRegion(region, 450);
     this.setState({
       activePin: coordinate,
-      activePoint,
-      distanceToPin,
+      currentMapCards,
       region,
     });
 
@@ -241,10 +264,9 @@ export default class Map extends Component<TProps, TState> {
   };
 
   onMapPress = (event: any) => {
-    this.setState({ activePin: null, region: this.state.initialRegion });
-
     if (event.nativeEvent.action !== 'marker-press') {
       this.hideSnippet();
+      this.setState({ activePin: null });
     }
   };
 
@@ -283,20 +305,18 @@ export default class Map extends Component<TProps, TState> {
     });
   };
 
-  onMapCardPress = () => {
-    const { activePoint } = this.state;
-
-    if (activePoint) {
+  onMapCardPress = (card: TMapCard) => {
+    if (card) {
       const {
         id,
         photo,
         username,
-      } = activePoint;
+      } = card;
 
       Actions.card({
         id,
         photo,
-        snippet: activePoint,
+        snippet: card,
         username,
       });
     }
@@ -306,15 +326,15 @@ export default class Map extends Component<TProps, TState> {
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);
-    const cluster = createCluster(geoPoints);
-    const clusters = getClusters(cluster, region);
+    const supercluster = createCluster(geoPoints);
+    const clusters = getClusters(supercluster, region);
 
-    this.setState({ cluster, clusters });
+    this.setState({ supercluster, clusters });
   }
 
   render() {
     const { sceneKey } = this.props;
-    const { region, activePin, activePoint, renderLoader, clusters } = this.state;
+    const { region, activePin, currentMapCards, renderLoader, clusters } = this.state;
 
     if (renderLoader) {
       return null;
@@ -326,25 +346,44 @@ export default class Map extends Component<TProps, TState> {
           <MapView
             style={styles.map}
             onPress={this.onMapPress}
+            onMarkerPress={this.onMarkerPress}
             initialRegion={region}
             provider={PROVIDER_GOOGLE}
             onRegionChange={debounce(this.onRegionChange, 300)}
             ref={this.setMapRef}
           >
-            {clusters.map((cluster, index) => {
-              const coordinate = getLatLng(cluster);
+            {clusters.map((pin, index) => {
+              const coordinate = getLatLng(pin);
 
-              return (
-                <MapView.Marker
-                  coordinate={coordinate}
-                  key={Math.random()}
-                  onPress={event => this.onMarkerPress(event, index, coordinate)}
-                  image={isEqual(coordinate, activePin)
-                    ? icons.pinGreen
-                    : icons.pinRed
-                  }
-                />
-              );
+              if (pin.properties.cluster) {
+                return (
+                  <MapView.Marker
+                    coordinate={coordinate}
+                    key={Math.random()}
+                    identifier={index.toString()}
+                    image={isEqual(coordinate, activePin)
+                      ? icons.clusterPinGreen
+                      : icons.clusterPinRed
+                    }
+                  >
+                    <View style={styles.clusterMarker}>
+                      <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
+                    </View>
+                  </MapView.Marker>
+                );
+              } else {
+                return (
+                  <MapView.Marker
+                    coordinate={coordinate}
+                    key={Math.random()}
+                    identifier={index.toString()}
+                    image={isEqual(coordinate, activePin)
+                      ? icons.pinGreen
+                      : icons.pinRed
+                    }
+                  />
+                );
+              }
             })}
           </MapView>
         )}
@@ -376,12 +415,9 @@ export default class Map extends Component<TProps, TState> {
             this.state.snippetHeight = snippetHeight;
           }}
         >
-          {activePoint && <MapCard
-            {...activePoint}
-            location="map"
-            distance={this.state.distanceToPin}
-            onPress={this.onMapCardPress}
-            region={region}
+          {currentMapCards.length > 0 && <PagedCardContainer
+            items={currentMapCards}
+            onMapCardPress={this.onMapCardPress}
           />}
         </Animated.View>
       </View>
@@ -390,6 +426,25 @@ export default class Map extends Component<TProps, TState> {
 }
 
 const styles = StyleSheet.create({
+  clusterMarkerTitle: {
+    color: vars.color.white,
+    fontSize: 14,
+    flex: 1,
+    marginTop: 6,
+    textAlign: 'center',
+    ...Platform.select({
+      android: {
+        marginLeft: 3,
+      },
+    }),
+  },
+  clusterMarker: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 24,
+    height: 32,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-end',

@@ -26,9 +26,14 @@ const icons = {
   }),
 };
 
-type TProps = TMapCard & {
+type TMapCardView = {
   type?: string,
+  location: string,
+  onPress: Function,
+  onLayout: Function,
 };
+
+type TProps = TMapCard & TMapCardView;
 
 export default class MapCard extends Component<TProps, void> {
   getDate = () => {
@@ -63,7 +68,7 @@ export default class MapCard extends Component<TProps, void> {
     const subtitle = isSalon ? i18n.card.salon : i18n.card.privateMaster;
 
     return (
-      <TouchableWithoutFeedback onPress={this.onPress}>
+      <TouchableWithoutFeedback onPress={this.onPress} onLayout={this.props.onLayout}>
         <View elevation={5} style={[styles.container, location === 'map' && styles.modMap]}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
@@ -78,13 +83,11 @@ export default class MapCard extends Component<TProps, void> {
           </View>
           <View style={[styles.row, styles.rowTitle]}>
             <Image style={styles.icon} source={icons.pin} />
-            <Text style={styles.text}>{address}</Text>
+            <Text style={styles.addressText} numberOfLines={1}>{address}</Text>
             {type !== 'favorites' && (
-              <View style={styles.distanceView}>
-                <Text style={styles.distanceText}>
-                  {distance === null ? '' : `${i18n.fromYou.toLowerCase()} ${distance} ${i18n.km}`}
-                </Text>
-              </View>
+              <Text style={styles.distanceText}>
+                {distance === null ? '' : `${i18n.fromYou.toLowerCase()} ${distance} ${i18n.km}`}
+              </Text>
             )}
           </View>
           {closestDate && (
@@ -110,6 +113,12 @@ export default class MapCard extends Component<TProps, void> {
 }
 
 const styles = StyleSheet.create({
+  addressText: {
+    fontSize: 14,
+    color: vars.color.black,
+    flex: 1,
+    flexShrink: 1,
+  },
   container: {
     width: Dimensions.get('window').width,
     backgroundColor: vars.color.white,
@@ -200,9 +209,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     color: vars.color.black,
-  },
-  distanceView: {
-    flexGrow: 2,
   },
   distanceText: {
     textAlign: 'right',
