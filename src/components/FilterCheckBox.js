@@ -152,6 +152,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
                 replaceReg={/[^0-9.]/g}
                 sign={` ${i18n.currency.roubleSign}`}
                 value={price}
+                style={styles.priceInput}
               />
               {errorFillPrice && this.errorView()}
             </View>
@@ -166,6 +167,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
                 replaceReg={/[^0-9.]/g}
                 sign={` ${i18n.time.minuteShort}`}
                 value={duration}
+                style={styles.durationInput}
               />
             </View>
           </View>
@@ -211,6 +213,13 @@ const styles = StyleSheet.create({
   },
   fields: {
     flexDirection: 'row',
+    ...Platform.select({
+      ios: {
+        borderColor: vars.color.cellSeparatorColorIOS,
+        borderTopWidth: 1,
+        marginLeft: 16,
+      },
+    }),
   },
   titleInput: {
     flex: 1,
@@ -220,8 +229,31 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    paddingLeft: 11,
-    paddingRight: 11,
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 0,
+        paddingRight: 10,
+      },
+      android: {
+        paddingLeft: 11,
+        paddingRight: 11,
+      },
+    }),
+  },
+  priceInput: {
+    ...Platform.select({
+      ios: {
+        borderColor: vars.color.cellSeparatorColorIOS,
+        borderRightWidth: 1,
+      },
+    }),
+  },
+  durationInput: {
+    ...Platform.select({
+      ios: {
+        paddingLeft: 10,
+      },
+    }),
   },
   required: {
     color: vars.color.red,

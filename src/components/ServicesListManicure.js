@@ -1,12 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
 
 import i18n from '../i18n';
+import vars from '../vars';
 
 type onChange = (active: boolean, modelName: string) => void;
 type onChangeDuration = (duration: string, modelName: string) => void;
@@ -110,60 +111,70 @@ export default class ServicesListManicure extends Component<TProps, TState> {
       <View>
         {this.state.nailProcessingMethod && (
           <View>
-            <FilterLabel text={i18n.filters.nailProcessingMethod} />
+            <FilterLabel text={i18n.filters.nailProcessingMethod} style={styles.sectionTitle} />
             <FilterCheckBox {...classicManicure} {...filterHandlers} />
             <FilterCheckBox {...hardwareManicure} {...filterHandlers} />
             <FilterCheckBox {...europeanManicure} {...filterHandlers} />
             <FilterCheckBox {...combinedManicure} {...filterHandlers} />
             <FilterCheckBox {...expressManicure} {...filterHandlers} />
             <FilterCheckBox {...hotManicure} {...filterHandlers} />
-            <FilterCheckBox {...spaManicure} {...filterHandlers} />
+            <FilterCheckBox {...spaManicure} {...filterHandlers} shouldShowSeparator={false} />
           </View>
         )}
 
         {this.state.coverage && (
           <View>
-            <FilterLabel text={i18n.filters.coverage} />
+            <FilterLabel text={i18n.filters.coverage} style={styles.sectionTitle} />
             <FilterCheckBox {...applyingNailPolishManicure} {...filterHandlers} />
             <FilterCheckBox {...applyingShellacManicure} {...filterHandlers} />
             <FilterCheckBox {...applyingBioGelManicure} {...filterHandlers} />
-            <FilterCheckBox {...applyingOfAnotherNailGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingOfAnotherNailGelManicure} {...filterHandlers} shouldShowSeparator={false} />
           </View>
         )}
 
         {this.state.nailDesign && (
           <View>
-            <FilterLabel text={i18n.filters.nailDesign} />
+            <FilterLabel text={i18n.filters.nailDesign} style={styles.sectionTitle} />
             <FilterCheckBox {...frenchManicure} {...filterHandlers} />
             <FilterCheckBox {...moonManicure} {...filterHandlers} />
             <FilterCheckBox {...reverseMoonManicure} {...filterHandlers} />
             <FilterCheckBox {...stencilManicure} {...filterHandlers} />
             <FilterCheckBox {...artDesignManicure} {...filterHandlers} />
-            <FilterCheckBox {...gradientManicure} {...filterHandlers} />
+            <FilterCheckBox {...gradientManicure} {...filterHandlers} shouldShowSeparator={false} />
           </View>
         )}
 
         {this.state.nailExtension && (
           <View>
-            <FilterLabel text={i18n.filters.nailExtension} />
+            <FilterLabel text={i18n.filters.nailExtension} style={styles.sectionTitle} />
             <FilterCheckBox {...extensionTipsAcrilycManicure} {...filterHandlers} />
             <FilterCheckBox {...extensionFormsAcrilycManicure} {...filterHandlers} />
             <FilterCheckBox {...extensionTipsGelManicure} {...filterHandlers} />
-            <FilterCheckBox {...extensionAcrilycGelManicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionAcrilycGelManicure} {...filterHandlers} shouldShowSeparator={false} />
           </View>
         )}
 
         {this.state.withdrawal && (
           <View>
-            <FilterLabel text={i18n.filters.withdrawal} />
+            <FilterLabel text={i18n.filters.withdrawal} style={styles.sectionTitle} />
             <FilterCheckBox {...removingNailPolishManicure} {...filterHandlers} />
             <FilterCheckBox {...removingShellacManicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
             <FilterCheckBox {...removingGelManicure} {...filterHandlers} />
-            <FilterCheckBox {...removingNailsManicure} {...filterHandlers} />
+            <FilterCheckBox {...removingNailsManicure} {...filterHandlers} shouldShowSeparator={false} />
           </View>
         )}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  sectionTitle: {
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.white,
+      },
+    }),
+  },
+});
