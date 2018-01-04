@@ -77,7 +77,6 @@ type TProps = {
   },
   initialRegion: TRegionType,
   points: Array<TMapCard>,
-  sceneKey: string,
   userLocation: TRegionType,
 };
 
@@ -193,13 +192,16 @@ export default class Map extends Component<TProps, TState> {
   });
 
   showSnippet = () => {
-    Animated.timing(this.state.snippetTranslateY, { toValue: 0, duration: 500 }).start();
+    Animated.timing(this.state.snippetTranslateY, {
+      duration: 500,
+      toValue: 0,
+    }).start();
   }
 
   hideSnippet = () => {
     Animated.timing(this.state.snippetTranslateY, {
-      toValue: this.state.snippetHeight,
       duration: 500,
+      toValue: this.state.snippetHeight,
     }).start();
   }
 
@@ -213,6 +215,17 @@ export default class Map extends Component<TProps, TState> {
   setMapRef = (ref: MapView) => {
     this.map = ref;
   };
+
+  getClusterId(point) {
+    const { supercluster } = this.state;
+
+    const leaves = take(supercluster.getLeaves(
+      point.properties.cluster_id,
+      getZoomLevel(this.state.region),
+    ), MAX_CURRENT_MAP_CARDS);
+
+    return leaves.map((leave) => leave.properties.id).join(',');
+  }
 
   onMarkerPress = (event: any) => {
     const { supercluster, clusters } = this.state;
@@ -231,7 +244,7 @@ export default class Map extends Component<TProps, TState> {
         getZoomLevel(this.state.region),
       ), MAX_CURRENT_MAP_CARDS);
 
-      currentMapCards = leaves.map(leave => {
+      currentMapCards = leaves.map((leave) => {
         const pointCoordinates = leave.properties.coordinates;
         const distance = getDistance(
           pointCoordinates.latitude,
@@ -333,8 +346,13 @@ export default class Map extends Component<TProps, TState> {
   }
 
   render() {
-    const { sceneKey } = this.props;
-    const { region, activePin, currentMapCards, renderLoader, clusters } = this.state;
+    const {
+      activePin,
+      clusters,
+      currentMapCards,
+      region,
+      renderLoader,
+    } = this.state;
 
     if (renderLoader) {
       return null;
@@ -342,51 +360,49 @@ export default class Map extends Component<TProps, TState> {
 
     return (
       <View style={styles.container}>
-        {sceneKey !== 'masterLocation' && (
-          <MapView
-            style={styles.map}
-            onPress={this.onMapPress}
-            onMarkerPress={this.onMarkerPress}
-            initialRegion={region}
-            provider={PROVIDER_GOOGLE}
-            onRegionChange={debounce(this.onRegionChange, 300)}
-            ref={this.setMapRef}
-          >
-            {clusters.map((pin, index) => {
-              const coordinate = getLatLng(pin);
+        <MapView
+          style={styles.map}
+          onPress={this.onMapPress}
+          onMarkerPress={this.onMarkerPress}
+          initialRegion={region}
+          provider={PROVIDER_GOOGLE}
+          onRegionChange={debounce(this.onRegionChange, 300)}
+          ref={this.setMapRef}
+        >
+          {clusters.map((pin, index) => {
+            const coordinate = getLatLng(pin);
 
-              if (pin.properties.cluster) {
-                return (
-                  <MapView.Marker
-                    coordinate={coordinate}
-                    key={Math.random()}
-                    identifier={index.toString()}
-                    image={isEqual(coordinate, activePin)
-                      ? icons.clusterPinGreen
-                      : icons.clusterPinRed
-                    }
-                  >
-                    <View style={styles.clusterMarker}>
-                      <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
-                    </View>
-                  </MapView.Marker>
-                );
-              } else {
-                return (
-                  <MapView.Marker
-                    coordinate={coordinate}
-                    key={Math.random()}
-                    identifier={index.toString()}
-                    image={isEqual(coordinate, activePin)
-                      ? icons.pinGreen
-                      : icons.pinRed
-                    }
-                  />
-                );
-              }
-            })}
-          </MapView>
-        )}
+            if (pin.properties.cluster) {
+              return (
+                <MapView.Marker
+                  key={this.getClusterId(pin) + pin.geometry.coordinates.join(',')}
+                  coordinate={coordinate}
+                  identifier={index.toString()}
+                  image={isEqual(coordinate, activePin)
+                    ? icons.clusterPinGreen
+                    : icons.clusterPinRed
+                  }
+                >
+                  <View style={styles.clusterMarker}>
+                    <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
+                  </View>
+                </MapView.Marker>
+              );
+            } else {
+              return (
+                <MapView.Marker
+                  coordinate={coordinate}
+                  key={pin.properties.id + pin.geometry.coordinates.join(',')}
+                  identifier={index.toString()}
+                  image={isEqual(coordinate, activePin)
+                    ? icons.pinGreen
+                    : icons.pinRed
+                  }
+                />
+              );
+            }
+          })}
+        </MapView>
         <TouchableOpacity
           style={styles.filterButtonWrapper}
           onPress={Actions.searchForm}
@@ -430,13 +446,8 @@ const styles = StyleSheet.create({
     color: vars.color.white,
     fontSize: 14,
     flex: 1,
-    marginTop: 6,
+    marginTop: 4,
     textAlign: 'center',
-    ...Platform.select({
-      android: {
-        marginLeft: 3,
-      },
-    }),
   },
   clusterMarker: {
     flex: 1,

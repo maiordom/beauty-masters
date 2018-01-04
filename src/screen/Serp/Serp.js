@@ -48,7 +48,7 @@ class Serp extends Component<TProps, TState> {
           onListPress={this.onListPress}
         />
         {activeView === 'map'
-          ? <Map sceneKey={sceneKey} />
+          ? <Map key={sceneKey} />
           : <SerpList />}
       </View>
     );
