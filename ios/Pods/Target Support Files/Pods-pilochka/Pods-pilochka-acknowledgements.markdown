@@ -36,7 +36,7 @@ Fabric: Copyright 2017 Google, Inc. All Rights Reserved. Use of this software is
 
 ## GoogleMaps
 
-Copyright 2016 Google
+Copyright 2017 Google
 
 ## React
 
