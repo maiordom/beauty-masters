@@ -66,9 +66,11 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_PHOTO_SET]: (state, { payload: {
-    modelName, id, originalId, sizes, mediaFileId
-  }}) => {
+  [actions.MASTER_PHOTO_SET]: (state, {
+    payload: {
+      modelName, id, originalId, sizes, mediaFileId,
+    },
+  }) => {
     const { items } = state.masterEditor.info[modelName];
     const item = find(items, { id });
 

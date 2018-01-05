@@ -63,11 +63,12 @@ class NavBar extends Component {
             Platform.OS === 'android' && [
               leftButtonHidden && { marginLeft: 16 },
               !rightButtonImage && { marginRight: 16 },
-            ]
+            ],
           ]}
           lineBreakMode="tail"
           numberOfLines={1}
-        >{title}</Text>
+        >{title}
+        </Text>
         {rightButtonImage && (
           <TouchableOpacity
             style={styles.rightButton}

@@ -142,7 +142,9 @@ export default class Sidebar extends Component<TProps, TState> {
             {isAuthorized && (<TouchableOpacity
               style={styles.logoutButton}
               onPress={this.onLogoutPress}
-              hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+              hitSlop={{
+                top: 10, left: 10, right: 10, bottom: 10,
+              }}
             >
               <Image source={icons.logout} />
             </TouchableOpacity>)}

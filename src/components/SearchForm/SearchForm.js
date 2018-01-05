@@ -98,15 +98,13 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   getSelectedDateTitle = () => this.state.selectedDates.map((date: string) =>
-    capitalizeFirstLetter(
-      moment(date).calendar(null, {
-        sameDay: `[${i18n.days.sameDay}]`,
-        nextDay: `[${i18n.days.nextDay}]`,
-        lastWeek: '[last] dddd',
-        nextWeek: 'dddd',
-        sameElse: 'L',
-      })
-    )).join(', ');
+    capitalizeFirstLetter(moment(date).calendar(null, {
+      sameDay: `[${i18n.days.sameDay}]`,
+      nextDay: `[${i18n.days.nextDay}]`,
+      lastWeek: '[last] dddd',
+      nextWeek: 'dddd',
+      sameElse: 'L',
+    }))).join(', ');
 
   render() {
     const {
@@ -192,7 +190,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
                 active={categorySelectionFlags.extension}
-                modelName={'extensionShort'}
+                modelName="extensionShort"
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />

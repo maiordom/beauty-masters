@@ -27,7 +27,9 @@ export const toggleService = (
   sectionName: string,
 ) => ({
   type: actions.SEARCH_SERVICE_TOGGLE,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const toggleServiceCategory = (
@@ -37,7 +39,9 @@ export const toggleServiceCategory = (
   sectionName: string,
 ) => ({
   type: actions.SEARCH_SERVICE_CATEGORY_TOGGLE,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const toggleManicure = (paramValue: boolean) => ({

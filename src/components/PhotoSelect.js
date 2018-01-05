@@ -15,13 +15,13 @@ import vars from '../vars';
 import { hexToRgba } from '../utils';
 
 const icons = {
-    close: require('../icons/close.png'),
-    take: Platform.select({
-      android: require('../icons/android/photo-take.png'),
-    }),
-    select: Platform.select({
-      android: require('../icons/android/photo-select.png'),
-    }),
+  close: require('../icons/close.png'),
+  take: Platform.select({
+    android: require('../icons/android/photo-take.png'),
+  }),
+  select: Platform.select({
+    android: require('../icons/android/photo-select.png'),
+  }),
 };
 
 export default class PhotoSelect extends Component {
@@ -36,7 +36,9 @@ export default class PhotoSelect extends Component {
         cameraRoll: true,
         waitUntilSaved: true,
       },
-    }, ({ uri, type, didCancel, error }) => {
+    }, ({
+      uri, type, didCancel, error,
+    }) => {
       if (didCancel) {
         console.log('ImagePicker::launchCamera cancel');
         return;
@@ -57,7 +59,9 @@ export default class PhotoSelect extends Component {
       storageOptions: {
         waitUntilSaved: true,
       },
-    }, ({ uri, type, didCancel, error }) => {
+    }, ({
+      uri, type, didCancel, error,
+    }) => {
       if (didCancel) {
         console.log('ImagePicker::launchImageLibrary cancel');
         return;
@@ -75,11 +79,11 @@ export default class PhotoSelect extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <TouchableWithoutFeedback onPress={this.onClosePress}>
-            <View style={styles.close}>
-              <Image source={icons.close} />
-            </View>
-          </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={this.onClosePress}>
+          <View style={styles.close}>
+            <Image source={icons.close} />
+          </View>
+        </TouchableWithoutFeedback>
         <View style={styles.inner}>
           <TouchableWithoutFeedback onPress={this.onPhotoTakePress}>
             <View style={styles.button}>

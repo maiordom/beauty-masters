@@ -61,7 +61,7 @@ export default class Tabs extends Component {
 
     return (
       <View style={styles.tabs}>
-        {_.map(tabs, (tab, index) => <TouchableHighlight
+        {_.map(tabs, (tab, index) => (<TouchableHighlight
           key={index}
           style={[styles.tab, tab.active && styles.tabActive]}
           onPress={() => onPress(index)}
@@ -72,7 +72,7 @@ export default class Tabs extends Component {
             <Text style={[styles.tabText, tab.active && styles.tabTextActive]}>{tab.title}</Text>
             <View style={tab.active && styles.border} />
           </View>
-        </TouchableHighlight>)}
+                                      </TouchableHighlight>))}
       </View>
     );
   }

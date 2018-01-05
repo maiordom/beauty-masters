@@ -118,17 +118,17 @@ export default class Registration extends Component<TProps, TState> {
             style={styles.input}
           />
           {Platform.OS === 'android'
-          ? <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>
-              {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
-            </Text>
-            <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
-          </View>
-          : <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
-            <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
-          </View>}
+            ? <View style={styles.manifest}>
+              <Text style={[styles.registrationText, styles.manifestText]}>
+                {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
+              </Text>
+              <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+              </View>
+            : <View style={styles.manifest}>
+              <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
+              <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
+              <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+              </View>}
           {validationStatus === ALL_FIELDS_REQUIRED && (
             this.error(i18n.errors.allFieldsRequired)
           )}

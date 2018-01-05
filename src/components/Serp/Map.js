@@ -388,19 +388,18 @@ export default class Map extends Component<TProps, TState> {
                   </View>
                 </MapView.Marker>
               );
-            } else {
-              return (
-                <MapView.Marker
-                  coordinate={coordinate}
-                  key={pin.properties.id + pin.geometry.coordinates.join(',')}
-                  identifier={index.toString()}
-                  image={isEqual(coordinate, activePin)
-                    ? icons.pinGreen
-                    : icons.pinRed
-                  }
-                />
-              );
             }
+            return (
+              <MapView.Marker
+                coordinate={coordinate}
+                key={pin.properties.id + pin.geometry.coordinates.join(',')}
+                identifier={index.toString()}
+                image={isEqual(coordinate, activePin)
+                  ? icons.pinGreen
+                  : icons.pinRed
+                }
+              />
+            );
           })}
         </MapView>
         <TouchableOpacity

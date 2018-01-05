@@ -9,7 +9,7 @@ import PhotoSelect from '../components/PhotoSelect';
 const mapDispatchToProps = dispatch => ({
   actions: {
     drawerClose,
-    ...bindActionCreators({ uploadMasterPhoto }, dispatch)
+    ...bindActionCreators({ uploadMasterPhoto }, dispatch),
   },
 });
 

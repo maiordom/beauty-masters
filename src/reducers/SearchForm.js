@@ -15,7 +15,9 @@ import actions from '../constants/Search';
 import { TSearchQuery } from '../types/CreateSearchQuery';
 
 const setParam = (action, state) => {
-  const { sectionName, modelName, paramValue, paramName } = action;
+  const {
+    sectionName, modelName, paramValue, paramName,
+  } = action;
   const section = state.searchForm[sectionName];
   const model = section[modelName];
 
@@ -175,8 +177,7 @@ export default makeReducer((state, action) => ({
 
     items.forEach((item) => {
       item.services = reject(item.services, (service) =>
-        service.id === null || service.id === undefined,
-      );
+        service.id === null || service.id === undefined);
       item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;
       });
@@ -219,14 +220,13 @@ export default makeReducer((state, action) => ({
   [actions.SEARCH_CITY_FIND]: (state, { payload: { text } }) => {
     const cities = state.searchForm.general.cities;
     const filtered = filter(cities.items, (city) => (
-      startsWith(lowerCase(city.name), lowerCase(text)))
-    );
+      startsWith(lowerCase(city.name), lowerCase(text))));
     return deepUpdate(state, 'searchForm.general.cities', { filtered });
   },
 
   [actions.SEARCH_CITY_RESET]: (state, { payload: { cities } }) =>
     deepUpdate(state, 'searchForm.general.cities', {
       items: cities,
-      filtered: null
+      filtered: null,
     }),
 }));

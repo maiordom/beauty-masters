@@ -16,7 +16,7 @@ const userLocationSelector = (state) => {
   return userLocation.lat
     ? { latitude: userLocation.lat, longitude: userLocation.lon }
     : { latitude: city.lat, longitude: city.lon };
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
   initialRegion: (() => {

@@ -59,7 +59,9 @@ const setServices = ({
   customServicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId, price, duration, title }) => {
+  servicesData.forEach(({
+    categoryId, serviceId, price, duration, title,
+  }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });

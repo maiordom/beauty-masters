@@ -82,7 +82,7 @@ export default class MasterAuthorization extends Component {
         </View>
         <Image style={styles.logo} source={logoIcon} />
         <View style={styles.tabs}>
-          {_.map(tabs, (tab, index) => <TouchableHighlight
+          {_.map(tabs, (tab, index) => (<TouchableHighlight
             key={index}
             style={styles.tabItem}
             onPress={tab.action}
@@ -95,7 +95,7 @@ export default class MasterAuthorization extends Component {
                 {tab.active && (<Image source={switchArrowIcon} />)}
               </View>
             </View>
-          </TouchableHighlight>)}
+                                        </TouchableHighlight>))}
         </View>
         <View style={styles.tabContent}>
           {TabItem}

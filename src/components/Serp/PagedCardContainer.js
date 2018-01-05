@@ -61,7 +61,7 @@ export default class PagedCardContainer extends Component<TProps, TState> {
         {...card}
         key={card.id}
         onPress={() => onMapCardPress(card)}
-        location={'map'}
+        location="map"
       />
     );
   };

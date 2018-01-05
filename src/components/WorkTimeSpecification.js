@@ -57,7 +57,9 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
   };
 
   onApplyPress = () => {
-    const { timeStart, timeEnd, workInThisDay, date } = this.state;
+    const {
+      timeStart, timeEnd, workInThisDay, date,
+    } = this.state;
     const { timeStartDefault, timeEndDefault, workInThisDay: workInThisDayDefault } = this.props;
 
     const diff = difference(
@@ -93,7 +95,9 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
   }
 
   render() {
-    const { workInThisDay, dateFormatted, timeStart, timeEnd } = this.state;
+    const {
+      workInThisDay, dateFormatted, timeStart, timeEnd,
+    } = this.state;
 
     return (
       <View style={styles.wrapper}>

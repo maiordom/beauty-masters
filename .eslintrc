@@ -25,6 +25,7 @@
     }
   },
   "rules": {
+    "indent": ["error", 2],
     "arrow-parens": "off",
     "camelcase": 0,
     "class-methods-use-this": 0,

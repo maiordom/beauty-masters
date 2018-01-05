@@ -53,13 +53,13 @@ export default class CustomSwitch extends Component<TProps, void> {
           <SwitchBase
             active={value}
             activeBackgroundColor={hexToRgba('#F65F6E', 50)}
-            activeButtonColor={'#F65F6E'}
-            activeButtonPressedColor={'#F65F6E'}
+            activeButtonColor="#F65F6E"
+            activeButtonPressedColor="#F65F6E"
             borderWidth={0}
             buttonRadius={11}
             inactiveBackgroundColor={hexToRgba('#374650', 40)}
-            inactiveButtonColor={'#E8E8E8'}
-            inactiveButtonPressedColor={'#E8E8E8'}
+            inactiveButtonColor="#E8E8E8"
+            inactiveButtonPressedColor="#E8E8E8"
             onChangeState={this.onChange}
             ref={this.setRef}
             switchHeight={14}

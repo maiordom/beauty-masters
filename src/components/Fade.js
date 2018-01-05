@@ -24,7 +24,9 @@ export default class Fade extends Component {
   }
 
   render() {
-    const { visible, style, children, ...rest } = this.props;
+    const {
+      visible, style, children, ...rest
+    } = this.props;
 
     const containerStyle = {
       opacity: this.visibility.interpolate({

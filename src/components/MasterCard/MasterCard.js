@@ -143,7 +143,7 @@ export default class MasterCard extends Component<TProps, TState> {
     } = this.state;
 
     const masterPhotoUri = (masterPhotos && masterPhotos.length > 0)
-      ? { uri : masterPhotos[0].sizes.m }
+      ? { uri: masterPhotos[0].sizes.m }
       : null;
 
     const masterPhoto = masterPhotoUri || icons.masterEmptyPhoto;

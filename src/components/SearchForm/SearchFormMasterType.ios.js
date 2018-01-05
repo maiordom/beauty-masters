@@ -22,13 +22,14 @@ export default class SearchFormMasterType extends Component<TProps, void> {
     } = this.props;
 
     return (
-      <Modal animationType={'fade'} transparent visible={showMasterTypeModal} onRequestClose={toggleMasterTypeModal}>
+      <Modal animationType="fade" transparent visible={showMasterTypeModal} onRequestClose={toggleMasterTypeModal}>
         <TouchableWithoutFeedback style={styles.dismissButton} onPress={toggleMasterTypeModal}>
           <View style={styles.container}>
             <View style={styles.modalContainer}>
               <PopupHeader
                 title={i18n.filters.masterType.title}
-                hasCloseButton onCloseButtonPress={toggleMasterTypeModal}
+                hasCloseButton
+                onCloseButtonPress={toggleMasterTypeModal}
               />
               <PickerList {...masterType} onChange={onMasterTypeSelect} />
             </View>

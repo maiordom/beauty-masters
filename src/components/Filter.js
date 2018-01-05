@@ -70,7 +70,7 @@ export default class Filter extends PureComponent<TProps, void> {
             <Text style={styles.title}>{title}</Text>
             {subtitle && (
               <Text style={styles.subtitle}>{subtitle}</Text>
-              )}
+            )}
           </View>
         </TouchableHighlight>
         {shouldShowSeparator && Platform.OS === 'ios' && (

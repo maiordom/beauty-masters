@@ -71,7 +71,9 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_CUSTOM_SERVICE_TOGGLE]: () => {
-    const { sectionName, modelName, active, index } = action;
+    const {
+      sectionName, modelName, active, index,
+    } = action;
     const model = state.masterEditor[sectionName][modelName];
     const customServicesQuery = state.masterEditor[model.queryParam];
     const modelInfo = state.dictionaries.categoryServiceByKey[model.dictionaryKey];
@@ -93,7 +95,9 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_CUSTOM_SERVICE_SET_PARAM]: () => {
-    const { sectionName, modelName, changes, index } = action;
+    const {
+      sectionName, modelName, changes, index,
+    } = action;
     const model = state.masterEditor[sectionName][modelName];
     const items = model.items;
     const item = items[index];

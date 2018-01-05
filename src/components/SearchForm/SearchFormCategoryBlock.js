@@ -42,7 +42,9 @@ export default class SearchFormCategoryBlock extends Component<TProps, TState> {
   };
 
   render() {
-    const { onServiceChange, onCategoryChange, sections, title } = this.props;
+    const {
+      onServiceChange, onCategoryChange, sections, title,
+    } = this.props;
     const { showBlock, spinValue } = this.state;
 
     const spin = spinValue.interpolate({

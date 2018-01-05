@@ -5,7 +5,9 @@ import vars from '../vars';
 
 export default class Label extends Component {
   render() {
-    const { text, subText, spacing, customStyle } = this.props;
+    const {
+      text, subText, spacing, customStyle,
+    } = this.props;
 
     return (
       <View style={[styles.container, spacing && styles.spacing, customStyle]}>

@@ -127,7 +127,7 @@ export const removePhoto = (id, modelName, mediaType) => (dispatch, getState) =>
         payload: {
           id,
           modelName,
-        }
+        },
       });
     }
   });
@@ -158,7 +158,9 @@ export const toggleService = (modelName, paramName, paramValue, sectionName) => 
 
 export const setCalendarInterval = (modelName, id, sectionName) => ({
   type: actions.MASTER_CALENDAR_INTERVAL_SET,
-  payload: { modelName, id, sectionName, paramValue: id },
+  payload: {
+    modelName, id, sectionName, paramValue: id,
+  },
 });
 
 export const setCalendarSchedule = (modelName, changes, sectionName) => ({
@@ -183,7 +185,9 @@ export const setCustomServiceParam = (modelName, changes, index, sectionName) =>
 
 export const setPlaceDetail = (place, sectionName) => ({
   type: actions.MASTER_PLACE_SET,
-  payload: { modelName: 'addressField', paramName: 'value', paramValue: place, sectionName },
+  payload: {
+    modelName: 'addressField', paramName: 'value', paramValue: place, sectionName,
+  },
 });
 
 export const setPlaceLocation = (location, sectionName) => ({
@@ -193,17 +197,23 @@ export const setPlaceLocation = (location, sectionName) => ({
 
 export const setAddressField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_ADDRESS_SET_PARAM,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const setTimeTableField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_TIME_TABLE_SET_PARAM,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const setCustomDatesField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_CUSTOM_DATES_SET_PARAM,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const refreshEditor = () => ({

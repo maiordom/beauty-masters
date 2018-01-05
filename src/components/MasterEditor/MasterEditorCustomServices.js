@@ -68,7 +68,9 @@ export default class MasterEditorCustomServices extends Component<TProps, void> 
 
   render() {
     const { items } = this.props;
-    const { onChange, onChangePrice, onChangeDuration, onChangeTitle } = this;
+    const {
+      onChange, onChangePrice, onChangeDuration, onChangeTitle,
+    } = this;
     const handlers = {
       onChange,
       onChangeDuration,
@@ -79,15 +81,14 @@ export default class MasterEditorCustomServices extends Component<TProps, void> 
     return (
       <View>
         {items.map((item, index) =>
-          <FilterCheckBox
+          (<FilterCheckBox
             {...handlers}
             {...item}
             index={index}
             key={index}
             titlePlaceholder={i18n.customService.name}
             titleType="input"
-          />,
-        )}
+          />))}
         <TouchableWithoutFeedback onPress={this.addCustomService}>
           <View style={styles.addService}>
             <Text style={styles.addServiceText}>{i18nAddService}</Text>
