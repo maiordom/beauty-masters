@@ -25,7 +25,8 @@
     }
   },
   "rules": {
-    "indent": ["error", 2],
+    "default-case": 0,
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "arrow-parens": "off",
     "camelcase": 0,
     "class-methods-use-this": 0,

@@ -30,10 +30,10 @@ export default class Drawer extends Component {
     let content;
 
     switch (contentKey) {
-    case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
-    case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
-    case 'IntervalStartDate': content = <IntervalStartDate {...this.props} />; break;
-    default: content = <Sidebar {...this.props} />;
+      case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
+      case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
+      case 'IntervalStartDate': content = <IntervalStartDate {...this.props} />; break;
+      default: content = <Sidebar {...this.props} />;
     }
 
     return (

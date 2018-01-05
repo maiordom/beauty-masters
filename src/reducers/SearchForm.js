@@ -70,8 +70,8 @@ const getServicesCategoriesIds = (state) => {
 
 const updateSearchQueryWithServicesCategoriesIds = (state) => {
   const { serviceIds, categoryIds } = getServicesCategoriesIds(state);
+  const { searchQuery } = state.searchForm;
 
-  const searchQuery: TSearchQuery = state.searchForm.searchQuery;
   searchQuery.service_ids = serviceIds;
   searchQuery.category_service_ids = categoryIds;
 };

@@ -389,6 +389,7 @@ export default class Map extends Component<TProps, TState> {
                 </MapView.Marker>
               );
             }
+
             return (
               <MapView.Marker
                 coordinate={coordinate}

@@ -35,26 +35,26 @@ const mapDispatchToProps = (dispatch) => ({
     const masterCard = find(getState().profile.masterCards, { isMain: true });
 
     switch (sectionKey) {
-    case 'info': {
-      dispatch(refreshEditor());
-      dispatch(setStatus(masterCard.id));
-      dispatch(setGeneralInfo(masterCard));
-      Actions.masterEditorGeneral();
-    } break;
-    case 'calendars': {
-      dispatch(refreshEditor());
-      dispatch(setStatus(masterCard.id));
-      dispatch(setCalendars(masterCard));
-      Actions.masterEditorCalendar();
-    } break;
-    case 'services': {
-      dispatch(refreshEditor());
-      dispatch(setStatus(masterCard.id));
-      dispatch(setManicureServices(masterCard));
-      dispatch(setPedicureServices(masterCard));
-      dispatch(setHandlingTools(masterCard));
-      Actions.masterEditorService();
-    } break;
+      case 'info': {
+        dispatch(refreshEditor());
+        dispatch(setStatus(masterCard.id));
+        dispatch(setGeneralInfo(masterCard));
+        Actions.masterEditorGeneral();
+      } break;
+      case 'calendars': {
+        dispatch(refreshEditor());
+        dispatch(setStatus(masterCard.id));
+        dispatch(setCalendars(masterCard));
+        Actions.masterEditorCalendar();
+      } break;
+      case 'services': {
+        dispatch(refreshEditor());
+        dispatch(setStatus(masterCard.id));
+        dispatch(setManicureServices(masterCard));
+        dispatch(setPedicureServices(masterCard));
+        dispatch(setHandlingTools(masterCard));
+        Actions.masterEditorService();
+      } break;
     }
   }),
 });
