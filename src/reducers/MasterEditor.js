@@ -162,6 +162,11 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.MASTER_CUSTOM_DATES_SET_PARAM]: (state, { payload }) => {
+    setParam(payload, state);
+    return state;
+  },
+
   [actions.MASTER_ADDRESS_SET_ID]: (state, { payload: { sectionName, addressId } }) =>
     deepUpdate(state, `masterEditor.${sectionName}`, { addressId }),
 

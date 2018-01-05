@@ -205,6 +205,10 @@ export default class MasterCardShedule extends Component<TProps, TState> {
     const address = this.getSelectedAddress();
     const { intervalKey } = address.timeTable;
 
+    if (intervalKey === undefined) {
+      return null;
+    }
+
     return (
       <View style={styles.calendar}>
         <Text style={styles.calendarTitle}>{i18n.schedule.schedule}</Text>
@@ -229,10 +233,14 @@ export default class MasterCardShedule extends Component<TProps, TState> {
   ].join(' ');
 
   renderSchedule = () => {
-    const { address } = this.getSelectedAddress();
+    const { address, timeTable } = this.getSelectedAddress();
     const { isSalon, salonName } = this.props;
     const { selectedDate, scheduleShow } = this.state;
     const schedule = this.getSelectedDay(selectedDate);
+
+    if (timeTable.intervalKey === undefined) {
+      return null;
+    }
 
     return (
       <View style={styles.scheduleWrapper}>

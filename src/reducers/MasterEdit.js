@@ -153,6 +153,13 @@ export default makeReducer((state) => ({
         setCreateQueryParam(payload, state, 'createTimeTableQuery');
       });
 
+      [
+        createPayload(sectionName, 'customDates', address.timeTable.timeStart, 'timeStartDefault'),
+        createPayload(sectionName, 'customDates', address.timeTable.timeEnd, 'timeEndDefault'),
+      ].forEach((payload) => {
+        setParam(payload, state);
+      });
+
       calendarModel.customDates.items = address.schedules.map((schedule) => {
         const scheduleObject = {
           date: schedule.date,

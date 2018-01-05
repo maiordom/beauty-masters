@@ -64,11 +64,9 @@ export default class MasterCardWorks extends Component {
 }
 const styles = StyleSheet.create({
   container: {
+    marginTop: 15,
     flex: 1,
     ...Platform.select({
-      ios: {
-        paddingTop: 18,
-      },
       android: {
         marginLeft: 16,
         marginRight: 16,

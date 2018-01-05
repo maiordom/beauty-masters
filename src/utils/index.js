@@ -171,6 +171,6 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
             services: subGroup[categoryId],
           }));
         })(),
-      }))
+      })),
   };
 }

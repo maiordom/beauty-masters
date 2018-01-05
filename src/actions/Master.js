@@ -201,6 +201,11 @@ export const setTimeTableField = (modelName, paramName, paramValue, sectionName)
   payload: { modelName, paramName, paramValue, sectionName },
 });
 
+export const setCustomDatesField = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_CUSTOM_DATES_SET_PARAM,
+  payload: { modelName, paramName, paramValue, sectionName },
+});
+
 export const refreshEditor = () => ({
   type: actions.MASTER_EDITOR_REFRESH,
 });
