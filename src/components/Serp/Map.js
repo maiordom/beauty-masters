@@ -22,7 +22,7 @@ import take from 'lodash/take';
 
 import getDistance from '../../utils/Geo';
 
-import { shouldComponentUpdate } from '../../utils';
+import { shouldComponentUpdate, hexToRgba } from '../../utils';
 
 import PagedCardContainer from './PagedCardContainer';
 
@@ -62,7 +62,6 @@ type TState = {
   clusters: Array<Cluster>,
   currentMapCards: Array<TMapCard>,
   region?: TRegionType,
-  renderLoader: boolean,
   snippetHeight: ?number,
   snippetTranslateY: Animated.Value,
 }
@@ -139,15 +138,17 @@ const getClusters = (cluster: ClusterInterface, region: TRegionType) => {
 };
 
 const MAX_CURRENT_MAP_CARDS = 10;
+const DEFAULT_LATITUDE_DELTA = 0.05;
+const DEFAULT_LONGITUDE_DELTA = 0.05;
 
 export default class Map extends Component<TProps, TState> {
   constructor(props: TProps) {
-    super();
+    super(props);
 
     const initialRegion = {
       ...props.initialRegion,
-      latitudeDelta: props.initialRegion.latitudeDelta || 0.05, // 1 delata degree = 111 km, 0.04 = 5km
-      longitudeDelta: props.initialRegion.longitudeDelta || 0.05,
+      latitudeDelta: props.initialRegion.latitudeDelta || DEFAULT_LATITUDE_DELTA, // 1 delata degree = 111 km, 0.04 = 5km
+      longitudeDelta: props.initialRegion.longitudeDelta || DEFAULT_LONGITUDE_DELTA,
     };
 
     this.state = {
@@ -155,7 +156,6 @@ export default class Map extends Component<TProps, TState> {
       clusters: [],
       currentMapCards: [],
       region: initialRegion,
-      renderLoader: true,
       snippetHeight: null,
       snippetTranslateY: new Animated.Value(Dimensions.get('window').height),
     };
@@ -198,7 +198,6 @@ export default class Map extends Component<TProps, TState> {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ renderLoader: false });
       this.searchMasters();
     });
   }
@@ -256,7 +255,11 @@ export default class Map extends Component<TProps, TState> {
         this.props.initialRegion.longitude,
       ).toFixed(2);
       currentMapCards = [{ ...point.properties, distance }];
-      region = { ...coordinate, latitudeDelta: 0.05, longitudeDelta: 0.05 };
+      region = {
+        ...coordinate,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
+      };
     }
 
     this.map.animateToRegion(region, 450);
@@ -280,8 +283,8 @@ export default class Map extends Component<TProps, TState> {
     this.props.actions.getLocation().then((userLocation) => {
       this.map.animateToRegion({
         ...userLocation,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
       }, 300);
     });
   };
@@ -347,20 +350,20 @@ export default class Map extends Component<TProps, TState> {
       renderLoader,
     } = this.state;
 
-    if (renderLoader) {
-      return null;
-    }
-
     return (
       <View style={styles.container}>
         <MapView
-          style={styles.map}
-          onPress={this.onMapPress}
-          onMarkerPress={this.onMarkerPress}
           initialRegion={region}
-          provider={PROVIDER_GOOGLE}
+          loadingBackgroundColor={hexToRgba(vars.color.black, 0)}
+          loadingEnabled
+          loadingIndicatorColor={vars.color.red}
+          onMapReady={this.onMapReady}
+          onMarkerPress={this.onMarkerPress}
+          onPress={this.onMapPress}
           onRegionChange={debounce(this.onRegionChange, 300)}
+          provider={PROVIDER_GOOGLE}
           ref={this.setMapRef}
+          style={styles.map}
         >
           {clusters.map((pin, index) => {
             const coordinate = getLatLng(pin);
