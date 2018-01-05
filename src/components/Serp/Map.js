@@ -61,10 +61,8 @@ type TState = {
   supercluster: ClusterInterface,
   clusters: Array<Cluster>,
   currentMapCards: Array<TMapCard>,
-  initialRegion?: TRegionType,
   region?: TRegionType,
   renderLoader: boolean,
-  showSnippet: boolean,
   snippetHeight: ?number,
   snippetTranslateY: Animated.Value,
 }
@@ -153,20 +151,13 @@ export default class Map extends Component<TProps, TState> {
     };
 
     this.state = {
-      initialRegion,
+      activePin: null,
+      clusters: [],
+      currentMapCards: [],
       region: initialRegion,
       renderLoader: true,
-      showSnippet: false,
-      snippetTranslateY: new Animated.Value(Dimensions.get('window').height),
-      activePin: null,
-      activePoint: null,
-      clusters: [],
-      cluster: {
-        getLeaves: () => [],
-        getClusters: () => [],
-      },
-      currentMapCards: [],
       snippetHeight: null,
+      snippetTranslateY: new Animated.Value(Dimensions.get('window').height),
     };
   }
 
@@ -230,9 +221,11 @@ export default class Map extends Component<TProps, TState> {
   onMarkerPress = (event: any) => {
     const { supercluster, clusters } = this.state;
     const index = parseInt(event.nativeEvent.id, 10);
+
     if (isNaN(index)) {
       return;
     }
+
     const point = clusters[index];
     const coordinate = getLatLng(point);
 
@@ -294,7 +287,7 @@ export default class Map extends Component<TProps, TState> {
   };
 
   searchMasters = () => {
-    const region = this.state.region;
+    const { region } = this.state;
 
     if (!region) {
       return;

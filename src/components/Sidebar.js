@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import {
-  Dimensions,
   Image,
   InteractionManager,
   Platform,
@@ -139,19 +138,21 @@ export default class Sidebar extends Component<TProps, TState> {
                 {username || i18n.authAsMaster}
               </Text>
             </TouchableOpacity>
-            {isAuthorized && (<TouchableOpacity
-              style={styles.logoutButton}
-              onPress={this.onLogoutPress}
-              hitSlop={{
-                top: 10, left: 10, right: 10, bottom: 10,
-              }}
-            >
-              <Image source={icons.logout} />
-            </TouchableOpacity>)}
+            {isAuthorized && (
+              <TouchableOpacity
+                style={styles.logoutButton}
+                onPress={this.onLogoutPress}
+                hitSlop={{
+                  top: 10, left: 10, right: 10, bottom: 10,
+                }}
+              >
+                <Image source={icons.logout} />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <View style={styles.menu}>
-          {this.menuButtons.map(button => (
+          {this.menuButtons.map((button) => (
             <TouchableOpacity onPress={button.onPress} key={button.title}>
               <View style={[styles.button, currentScene === button.key ? styles.selectedButton : null]}>
                 {Platform.OS === 'android' && (

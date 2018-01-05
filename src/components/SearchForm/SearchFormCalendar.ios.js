@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Modal,
 } from 'react-native';
-import moment from 'moment';
 
 import type { TSearchFormCalendar } from '../../types/SearchFormCalendar';
 

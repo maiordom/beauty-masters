@@ -1,5 +1,3 @@
-import { Actions } from 'react-native-router-flux';
-
 import { TCreateMaster } from '../types/CreateMaster';
 
 import * as MasterService from '../services/Master';
@@ -11,7 +9,7 @@ import { setActivityIndicator } from './Common';
 
 export const createMaster = (customCreateMasterQuery?: TCreateMaster) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { masterCardId, createMasterQuery } = state.masterEditor;
 
   dispatch(setActivityIndicator(true));
@@ -57,7 +55,7 @@ export const createMaster = (customCreateMasterQuery?: TCreateMaster) => (dispat
 
 export const createMasterServices = () => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const masterServices = [
     ...state.masterEditor.manicureCustomServicesQuery,
     ...state.masterEditor.masterServicesQuery,
@@ -115,7 +113,7 @@ export const validateServices = () => (dispatch, getState) => {
 
 export const removePhoto = (id, modelName, mediaType) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const headers = {
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
   };

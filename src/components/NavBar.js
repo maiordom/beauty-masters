@@ -6,14 +6,12 @@ import {
   Text,
   StyleSheet,
   Platform,
-  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
+
 import { drawerOpen } from '../actions/Drawer';
 import vars from '../vars';
-
-const DEVICE_WIDTH = Dimensions.get('window').width;
 
 const getBackButtonImage = (leftButtonMenu) => {
   if (leftButtonMenu) {

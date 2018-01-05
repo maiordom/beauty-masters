@@ -7,6 +7,7 @@ const live = {
   host: 'http://api.relak.me',
 };
 
+/* eslint-disable no-unused-vars */
 const qa = {
   host: 'http://api.pilochki.demostage.ru',
 };

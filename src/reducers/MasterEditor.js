@@ -119,7 +119,7 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_CALENDAR_SCHEDULE_SET]: (state, { payload: { modelName, changes, sectionName } }) => {
-    const items = state.masterEditor[sectionName][modelName].items;
+    const { items } = state.masterEditor[sectionName][modelName];
     const item = find(items, { date: changes.date });
 
     if (item) {

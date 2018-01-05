@@ -12,8 +12,6 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/Search';
 
-import { TSearchQuery } from '../types/CreateSearchQuery';
-
 const setParam = (action, state) => {
   const {
     sectionName, modelName, paramValue, paramName,
@@ -218,9 +216,10 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.SEARCH_CITY_FIND]: (state, { payload: { text } }) => {
-    const cities = state.searchForm.general.cities;
+    const { cities } = state.searchForm.general;
     const filtered = filter(cities.items, (city) => (
       startsWith(lowerCase(city.name), lowerCase(text))));
+
     return deepUpdate(state, 'searchForm.general.cities', { filtered });
   },
 

@@ -62,7 +62,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   componentWillReceiveProps(props) {
-    this.setState({ selectedDates: this.props.searchQuery.dates.slice() });
+    this.setState({ selectedDates: props.searchQuery.dates.slice() });
   }
 
   toggleForm = () => {

@@ -78,14 +78,16 @@ export default class PagedCardContainer extends Component<TProps, TState> {
         scrollEventThrottle={200}
         showsHorizontalScrollIndicator={false}
       />
-      {this.props.items.length > 1 && <View style={styles.dots}>
-        {this.props.items.map((card, index) => (
-          <View
-            key={card.id}
-            style={[styles.dot, this.state.currentCardIndex === index ? styles.dotActive : {}]}
-          />
-        ))}
-      </View>}
+      {this.props.items.length > 1 && (
+        <View style={styles.dots}>
+          {this.props.items.map((card, index) => (
+            <View
+              key={card.id}
+              style={[styles.dot, this.state.currentCardIndex === index ? styles.dotActive : {}]}
+            />
+          ))}
+        </View>
+      )}
     </View>);
   }
 }
