@@ -53,8 +53,8 @@ export default class Registration extends Component<TProps, TState> {
   }
 
   onUserCreatePress = () => {
-    const email = this.emailRef.getValue();
-    const password = this.passwordRef.getValue();
+    const email = this.emailRef.getValue().trim().toLowerCase();
+    const password = this.passwordRef.getValue().trim().toLowerCase();
 
     if (this.validate()) {
       this.props.actions.userCreate({ email, password });
@@ -62,8 +62,8 @@ export default class Registration extends Component<TProps, TState> {
   };
 
   validate() {
-    const email = this.emailRef.getValue();
-    const password = this.passwordRef.getValue();
+    const email = this.emailRef.getValue().trim();
+    const password = this.passwordRef.getValue().trim();
 
     if (email.length === 0 || password.length === 0) {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
