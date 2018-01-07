@@ -48,6 +48,7 @@ icons.masterEmptyPhoto = require('../../icons/android/master-empty.png');
 type TProps = MasterCardType & {
   actions: Object,
   addresses?: Array<*>,
+  from: 'map' | 'serp',
   snippet: TMapCard,
 };
 
@@ -103,7 +104,16 @@ export default class MasterCard extends Component<TProps, TState> {
   });
 
   makeCall = (phone: string) => {
-    Linking.openURL(`tel:${phone}`).catch(error => console.log(`MasterCard::makeCall::${error}`));
+    switch (this.props.from) {
+      case 'map': { trackEvent('callPhoneFromMap'); break; }
+      case 'serp': { trackEvent('callPhoneFromSerp'); break; }
+    }
+
+    Linking
+      .openURL(`tel:${phone}`)
+      .catch((error) => {
+        console.log(`MasterCard::makeCall::${error}`);
+      });
   };
 
   onSocialIconTap = (url: string) => {

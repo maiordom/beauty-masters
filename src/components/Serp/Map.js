@@ -23,6 +23,7 @@ import take from 'lodash/take';
 import getDistance from '../../utils/Geo';
 
 import { shouldComponentUpdate, hexToRgba } from '../../utils';
+import { trackEvent } from '../../utils/Tracker';
 
 import PagedCardContainer from './PagedCardContainer';
 
@@ -197,6 +198,7 @@ export default class Map extends Component<TProps, TState> {
   }
 
   componentDidMount() {
+    trackEvent('viewMap');
     InteractionManager.runAfterInteractions(() => {
       this.searchMasters();
     });
@@ -322,7 +324,10 @@ export default class Map extends Component<TProps, TState> {
         username,
       } = card;
 
+      trackEvent('navigateFromMapToCard', { value: Number(id) });
+
       Actions.card({
+        from: 'map',
         id,
         photo,
         snippet: card,

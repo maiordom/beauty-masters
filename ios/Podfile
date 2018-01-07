@@ -8,6 +8,7 @@ target 'pilochka' do
   # Pods for pilochka
 
   pod 'GoogleMaps', '~> 2.5.0'
+  pod 'react-native-google-analytics-bridge', :path => File.join(NODE_MODULES_PATH, 'react-native-google-analytics-bridge')
   pod 'react-native-google-maps', :path => File.join(NODE_MODULES_PATH, 'react-native-maps')
   pod 'react-native-image-picker', :path => File.join(NODE_MODULES_PATH, 'react-native-image-picker')
   pod 'react-native-maps', :path => File.join(NODE_MODULES_PATH, 'react-native-maps')

@@ -20,6 +20,7 @@ import ButtonControl from '../../components/ButtonControl';
 import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
+import { trackEvent } from '../../utils/Tracker';
 
 import type { TSearchFormCategorySection } from '../../types/SearchFormCategories';
 
@@ -41,6 +42,8 @@ type TProps = {
     extension: boolean,
     removing: boolean,
   },
+  hasAddressLocation: boolean,
+  hasUserLocation: boolean,
   manicureSearchFormSections: Array<TSearchFormCategorySection>,
   pedicureSearchFormSections: Array<TSearchFormCategorySection>,
   general: Object,
@@ -105,6 +108,18 @@ export default class SearchFormShort extends Component<TProps, TState> {
       nextWeek: 'dddd',
       sameElse: 'L',
     }))).join(', ');
+
+  onSerpPress = () => {
+    if (this.props.hasAddressLocation) {
+      trackEvent('hasSearchAddress');
+    } else if (this.props.hasUserLocation) {
+      trackEvent('availableUserLocation');
+    } else {
+      trackEvent('notAvailableUserLocation');
+    }
+
+    Actions.serp();
+  };
 
   render() {
     const {
@@ -224,7 +239,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
             onPress={this.toggleForm}
           />
-          <ButtonControl label={i18n.findMaster} onPress={Actions.serp} />
+          <ButtonControl label={i18n.findMaster} onPress={this.onSerpPress} />
         </ScrollView>
       </View>
     );
