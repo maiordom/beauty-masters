@@ -1,12 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
 
 import i18n from '../i18n';
+import vars from '../vars';
 
 type onChange = (active: boolean, modelName: string) => void;
 type onChangeDuration = (duration: string, modelName: string) => void;
@@ -110,7 +111,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
       <View>
         {this.state.nailProcessingMethod && (
           <View>
-            <FilterLabel text={i18n.filters.nailProcessingMethod} />
+            <FilterLabel text={i18n.filters.nailProcessingMethod} style={styles.sectionTitle} />
             <FilterCheckBox {...classicPedicure} {...filterHandlers} />
             <FilterCheckBox {...hardwarePedicure} {...filterHandlers} />
             <FilterCheckBox {...europeanPedicure} {...filterHandlers} />
@@ -123,7 +124,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.coverage && (
           <View>
-            <FilterLabel text={i18n.filters.coverage} />
+            <FilterLabel text={i18n.filters.coverage} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...applyingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...applyingBioGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...applyingNailPolishPedicure} {...filterHandlers} />
@@ -133,7 +134,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.nailDesign && (
           <View>
-            <FilterLabel text={i18n.filters.nailDesign} />
+            <FilterLabel text={i18n.filters.nailDesign} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...frenchPedicure} {...filterHandlers} />
             <FilterCheckBox {...moonPedicure} {...filterHandlers} />
             <FilterCheckBox {...reverseMoonPedicure} {...filterHandlers} />
@@ -145,7 +146,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.nailExtension && (
           <View>
-            <FilterLabel text={i18n.filters.nailExtension} />
+            <FilterLabel text={i18n.filters.nailExtension} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...extensionTipsAcrilycPedicure} {...filterHandlers} />
             <FilterCheckBox {...extensionFormsAcrilycPedicure} {...filterHandlers} />
             <FilterCheckBox {...extensionTipsGelPedicure} {...filterHandlers} />
@@ -155,7 +156,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.withdrawal && (
           <View>
-            <FilterLabel text={i18n.filters.withdrawal} />
+            <FilterLabel text={i18n.filters.withdrawal} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...removingNailPolishPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelPedicure} {...filterHandlers} />
@@ -167,3 +168,21 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  sectionTitle: {
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.white,
+      },
+    }),
+  },
+  sectionPadding: {
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 10,
+        borderColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
+  },
+});

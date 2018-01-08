@@ -141,7 +141,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
         </TouchableHighlight>
         {active && withInput && (
           <View style={styles.fields}>
-            <View style={styles.inputWrapper}>
+            <View style={[styles.inputWrapper, styles.rightBar]}>
               <Input
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
       ios: {
         borderColor: vars.color.cellSeparatorColorIOS,
         borderTopWidth: 1,
-        marginLeft: 16,
+        marginLeft: 12,
       },
     }),
   },
@@ -226,13 +226,18 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     flex: 1,
+    ...Platform.select({
+      ios: {
+        marginTop: 8,
+        marginBottom: 8,
+      },
+    }),
   },
   input: {
     flex: 1,
     ...Platform.select({
       ios: {
         borderBottomWidth: 0,
-        paddingRight: 10,
       },
       android: {
         paddingLeft: 11,
@@ -240,7 +245,25 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  durationInput: {
+    ...Platform.select({
+      ios: {
+        marginLeft: 5,
+        paddingRight: 16,
+      },
+    }),
+  },
   priceInput: {
+    ...Platform.select({
+      ios: {
+        marginRight: 5,
+      },
+    }),
+  },
+  required: {
+    color: vars.color.red,
+  },
+  rightBar: {
     ...Platform.select({
       ios: {
         borderColor: vars.color.cellSeparatorColorIOS,
@@ -248,20 +271,19 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  durationInput: {
+  error: {
     ...Platform.select({
+      android: {
+        marginTop: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
+      },
       ios: {
-        paddingLeft: 10,
+        paddingLeft: 4,
+        paddingRight: 4,
+        paddingBottom: 8,
       },
     }),
-  },
-  required: {
-    color: vars.color.red,
-  },
-  error: {
-    marginTop: 3,
-    paddingLeft: 15,
-    paddingRight: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -269,6 +291,11 @@ const styles = StyleSheet.create({
   errorText: {
     color: vars.color.red,
     marginRight: 10,
+    ...Platform.select({
+      ios: {
+        fontSize: 12,
+      },
+    }),
   },
   titleError: {
     paddingLeft: 0,

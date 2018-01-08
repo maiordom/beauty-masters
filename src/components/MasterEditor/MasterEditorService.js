@@ -255,7 +255,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
             inputWrapperStyle={styles.homeAllowance}
             onBlur={this.onChangeAtHome}
           />
-          <FilterLabel text={i18n.filters.otherServices} />
+          <FilterLabel text={i18n.filters.otherServices} style={[styles.sectionTitle, styles.sectionPadding]} />
           <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <CustomServices key="pedicure" type="pedicure" />
           </StateMachine>
@@ -284,7 +284,31 @@ const styles = StyleSheet.create({
   },
   homeAllowance: {
     paddingLeft: 11,
-    marginBottom: 4,
+    ...Platform.select({
+      android: {
+        marginBottom: 4,
+      },
+      ios: {
+        borderTopWidth: 10,
+        borderColor: vars.color.cellSeparatorColorIOS,
+        borderBottomWidth: 0,
+      },
+    }),
+  },
+  sectionTitle: {
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.white,
+      },
+    }),
+  },
+  sectionPadding: {
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 10,
+        borderColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
   },
   segmentContainer: {
     padding: 8,
