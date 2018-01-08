@@ -124,7 +124,7 @@ export default class ServicesListManicure extends Component<TProps, TState> {
 
         {this.state.coverage && (
           <View>
-            <FilterLabel text={i18n.filters.coverage} style={styles.sectionTitle} />
+            <FilterLabel text={i18n.filters.coverage} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...applyingNailPolishManicure} {...filterHandlers} />
             <FilterCheckBox {...applyingShellacManicure} {...filterHandlers} />
             <FilterCheckBox {...applyingBioGelManicure} {...filterHandlers} />
@@ -134,7 +134,7 @@ export default class ServicesListManicure extends Component<TProps, TState> {
 
         {this.state.nailDesign && (
           <View>
-            <FilterLabel text={i18n.filters.nailDesign} style={styles.sectionTitle} />
+            <FilterLabel text={i18n.filters.nailDesign} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...frenchManicure} {...filterHandlers} />
             <FilterCheckBox {...moonManicure} {...filterHandlers} />
             <FilterCheckBox {...reverseMoonManicure} {...filterHandlers} />
@@ -146,7 +146,7 @@ export default class ServicesListManicure extends Component<TProps, TState> {
 
         {this.state.nailExtension && (
           <View>
-            <FilterLabel text={i18n.filters.nailExtension} style={styles.sectionTitle} />
+            <FilterLabel text={i18n.filters.nailExtension} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...extensionTipsAcrilycManicure} {...filterHandlers} />
             <FilterCheckBox {...extensionFormsAcrilycManicure} {...filterHandlers} />
             <FilterCheckBox {...extensionTipsGelManicure} {...filterHandlers} />
@@ -156,7 +156,7 @@ export default class ServicesListManicure extends Component<TProps, TState> {
 
         {this.state.withdrawal && (
           <View>
-            <FilterLabel text={i18n.filters.withdrawal} style={styles.sectionTitle} />
+            <FilterLabel text={i18n.filters.withdrawal} style={[styles.sectionTitle, styles.sectionPadding]} />
             <FilterCheckBox {...removingNailPolishManicure} {...filterHandlers} />
             <FilterCheckBox {...removingShellacManicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
@@ -174,6 +174,14 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         backgroundColor: vars.color.white,
+      },
+    }),
+  },
+  sectionPadding: {
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 10,
+        borderColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },

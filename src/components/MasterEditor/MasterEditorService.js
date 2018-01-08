@@ -204,10 +204,10 @@ export default class MasterEditorService extends Component<TProps, TState> {
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
         <Modal isVisible={showAllFieldsRequiredModal}>
-          <Text>{i18n.fillAllRequiredFields}</Text>
+          <Text style={validationStyles.alertText}>{i18n.fillAllRequiredFields}</Text>
           <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
             <View style={validationStyles.button}>
-              <Text style={validationStyles.text}>OK</Text>
+              <Text style={validationStyles.text}>{i18n.ok}</Text>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
@@ -226,24 +226,24 @@ export default class MasterEditorService extends Component<TProps, TState> {
             </TouchableWithoutFeedback>
           </View>
         </Modal>
+        {Platform.select({
+          android: (<View>
+            <Label text={i18n.yourServices} spacing />
+            <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
+          </View>),
+          ios: (<View style={styles.segmentContainer}>
+            <SegmentedControlIOS
+              values={tabs.map(tab => tab.title)}
+              selectedIndex={findIndex(tabs, tab => tab.key === tabActiveKey)}
+              onChange={(event) => {
+                const activeTab = this.state.tabs[event.nativeEvent.selectedSegmentIndex];
+                this.setState({ tabActiveKey: activeTab.key });
+              }}
+              tintColor={vars.color.red}
+            />
+          </View>),
+        })}
         <ScrollView ref={this.setScrollViewRef} style={styles.inner}>
-          {Platform.select({
-            android: (<View>
-              <Label text={i18n.yourServices} spacing />
-              <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
-            </View>),
-            ios: (<View style={styles.segmentContainer}>
-              <SegmentedControlIOS
-                values={tabs.map(tab => tab.title)}
-                selectedIndex={findIndex(tabs, tab => tab.key === tabActiveKey)}
-                onChange={(event) => {
-                  const activeTab = this.state.tabs[event.nativeEvent.selectedSegmentIndex];
-                  this.setState({ tabActiveKey: activeTab.key });
-                }}
-                tintColor={vars.color.red}
-              />
-            </View>),
-          })}
           <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <ServicesListPedicure models={servicePedicure} {...filterHandlers} />
           </StateMachine>
@@ -292,12 +292,36 @@ const styles = StyleSheet.create({
 });
 
 const validationStyles = StyleSheet.create({
+  alertText: {
+    ...Platform.select({
+      ios: {
+        padding: 16,
+      },
+    }),
+  },
   button: {
-    marginTop: 15,
-    alignItems: 'flex-end',
+    ...Platform.select({
+      android: {
+        marginTop: 15,
+        alignItems: 'flex-end',
+      },
+      ios: {
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
+        alignItems: 'center',
+        padding: 12,
+      },
+    }),
   },
   text: {
-    color: vars.color.red,
+    ...Platform.select({
+      android: {
+        color: vars.color.red,
+      },
+      ios: {
+        color: vars.color.blue,
+      },
+    }),
   },
 });
 

@@ -165,7 +165,7 @@ export default {
     ok: 'OK',
   },
   masterEditor: {
-    aboutDescription: 'Чем больше информации вы укажите, тем выше будет уровень доверия клиентов к вам',
+    aboutDescription: 'Чем больше информации вы укажете, тем выше будет уровень доверия клиентов к вам',
     aboutExample: 'Например, маникюр+шеллак = скидка 15%',
     additionalInformation: 'Шаг 5/5: Дополнительная информация',
     attachPhotosOfYourWork: 'Приложите фотографии ваших работ (максимум 15 фото)',
@@ -219,6 +219,7 @@ export default {
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
   profile: 'Профиль',
+  ok: 'OK',
   onAddress: 'По адресу',
   ready: 'Готово',
   registration: 'Регистрация',
