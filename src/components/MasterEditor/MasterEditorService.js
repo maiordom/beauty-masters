@@ -213,7 +213,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
         </Modal>
         <Modal isVisible={showFillPedicureSectionModal}>
           <Text style={pedicureModalStyles.title}>{i18n.fillPedicureSection}</Text>
-          <View style={pedicureModalStyles.row}>
+          <View style={pedicureModalStyles.buttonsContainer}>
             <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>
               <View style={pedicureModalStyles.button}>
                 <Text style={pedicureModalStyles.text}>{localization.continue}</Text>
@@ -351,17 +351,45 @@ const validationStyles = StyleSheet.create({
 
 const pedicureModalStyles = StyleSheet.create({
   title: {
-    lineHeight: 25,
+    ...Platform.select({
+      android: {
+        lineHeight: 25,
+      },
+      ios: {
+        padding: 16,
+      },
+    }),
   },
   button: {
-    marginTop: 15,
-    marginLeft: 15,
+    ...Platform.select({
+      android: {
+        marginTop: 15,
+        marginLeft: 15,
+      },
+      ios: {
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
+        alignItems: 'center',
+        padding: 12,
+      },
+    }),
   },
   text: {
-    color: vars.color.red,
+    ...Platform.select({
+      android: {
+        color: vars.color.red,
+      },
+      ios: {
+        color: vars.color.blue,
+      },
+    }),
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  buttonsContainer: {
+    ...Platform.select({
+      android: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+      },
+    }),
   },
 });
