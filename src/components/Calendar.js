@@ -54,7 +54,7 @@ export default class Calendar extends Component {
 
   onDateSelect = (date) => {
     const formatedDate = moment(date).format(this.props.format);
-    const hasEvent = this.eventDates.includes(formatedDate);
+    const hasEvent = (this.eventDates || []).includes(formatedDate);
 
     this.props.onDateSelect(formatedDate, hasEvent);
   };
