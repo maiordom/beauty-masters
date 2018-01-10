@@ -52,13 +52,16 @@ export default class Calendar extends Component {
 
   shouldComponentUpdate = shouldComponentUpdate();
 
-  onDateSelect = date => {
-    this.props.onDateSelect(moment(date).format(this.props.format));
+  onDateSelect = (date) => {
+    const formatedDate = moment(date).format(this.props.format);
+    const hasEvent = (this.eventDates || []).includes(formatedDate);
+
+    this.props.onDateSelect(formatedDate, hasEvent);
   };
 
   getEventDates = () => this.eventDates;
 
-  onMonthChange = date => {
+  onMonthChange = (date) => {
     const momentDate = moment(date.format());
     let diffMonths = false;
     let startDate = this.state.originStartDate;
@@ -98,6 +101,8 @@ export default class Calendar extends Component {
       containerWidth,
       disableSelectDate,
       events = [],
+      eventTimeEndDefault,
+      eventTimeStartDefault,
       multiSelect,
       selectedDate,
       selectedDates,
@@ -105,12 +110,27 @@ export default class Calendar extends Component {
     } = this.props;
 
     const eventDates = this.eventDates;
-    const eventsCalendar = events.map(event => ({
-      date: event.date,
-      eventIndicator: {
-        backgroundColor: vars.color.blue,
-      },
-    }));
+    const eventsCalendar = events.map((event) => {
+      let backgroundColor = vars.color.white;
+
+      if (event.workInThisDay) {
+        if (
+          event.timeEnd === eventTimeEndDefault &&
+          event.timeStart === eventTimeStartDefault
+        ) {
+          backgroundColor = vars.color.black;
+        } else {
+          backgroundColor = vars.color.blue;
+        }
+      }
+
+      return {
+        date: event.date,
+        eventIndicator: {
+          backgroundColor,
+        },
+      };
+    });
 
     return (
       <View style={styles.container}>

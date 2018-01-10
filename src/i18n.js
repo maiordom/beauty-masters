@@ -201,7 +201,7 @@ export default {
   next: 'Далее',
   nextStep: 'След. шаг',
   no: 'Нет',
-  passwordTip: 'Пароль (не менее 6 символов)',
+  passwordTip: 'Пароль (не менее 8 символов)',
   pedicure: 'Педикюр',
   phone: 'Телефон (для звонков клиентов)',
   phoneShort: 'Телефон',

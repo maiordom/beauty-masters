@@ -66,9 +66,11 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_PHOTO_SET]: (state, { payload: {
-    modelName, id, originalId, sizes, mediaFileId
-  }}) => {
+  [actions.MASTER_PHOTO_SET]: (state, {
+    payload: {
+      modelName, id, originalId, sizes, mediaFileId,
+    },
+  }) => {
     const { items } = state.masterEditor.info[modelName];
     const item = find(items, { id });
 
@@ -117,7 +119,7 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_CALENDAR_SCHEDULE_SET]: (state, { payload: { modelName, changes, sectionName } }) => {
-    const items = state.masterEditor[sectionName][modelName].items;
+    const { items } = state.masterEditor[sectionName][modelName];
     const item = find(items, { date: changes.date });
 
     if (item) {
@@ -159,6 +161,11 @@ export default makeReducer((state, action) => ({
     setParam(action.payload, state);
     setCreateQueryParam(action.payload, state, 'createTimeTableQuery');
 
+    return state;
+  },
+
+  [actions.MASTER_CUSTOM_DATES_SET_PARAM]: (state, { payload }) => {
+    setParam(payload, state);
     return state;
   },
 

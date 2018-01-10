@@ -4,7 +4,7 @@ import actions from '../constants/Master';
 
 export const createSchedules = (sectionName) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { createSchedulesQuery, timeTableId } = state.masterEditor[sectionName];
 
   const params = {
@@ -23,7 +23,7 @@ export const createSchedules = (sectionName) => (dispatch, getState) => {
 
 export const handleTimeTable = (sectionName) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { createTimeTableQuery, timeTableId, addressId } = state.masterEditor[sectionName];
 
   const params = {
@@ -63,7 +63,7 @@ export const handleTimeTable = (sectionName) => (dispatch, getState) => {
 
 export const handleAddress = (sectionName) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { createAddressQuery, addressId } = state.masterEditor[sectionName];
 
   const params = {

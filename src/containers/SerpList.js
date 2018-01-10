@@ -18,7 +18,7 @@ const mapStateToProps = state => {
     }
 
     const city = state.searchForm.general.cities.selected;
-    const userLocation = state.geo.userLocation;
+    const { userLocation } = state.geo;
 
     return userLocation.lat
       ? { latitude: userLocation.lat, longitude: userLocation.lon }

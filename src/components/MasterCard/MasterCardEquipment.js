@@ -58,7 +58,8 @@ export default class MasterCardEquipment extends Component {
             <Text style={styles.descriptionTitle}>{join([
               i18n.handlingToolMethods.ultrasound,
               i18n.handlingToolMethods.ultraviolet,
-              i18n.handlingToolMethods.disinfectionWithAlcohol], ', ')}</Text>
+              i18n.handlingToolMethods.disinfectionWithAlcohol], ', ')}
+            </Text>
             <Text style={styles.descriptionText}>{i18n.sterilization.disinfection}</Text>
             <Text style={styles.descriptionTitle}>{i18n.handlingToolMethods.glasperlenovySterilizer}</Text>
             <Text style={styles.descriptionText}>{i18n.sterilization.glasperlen}</Text>

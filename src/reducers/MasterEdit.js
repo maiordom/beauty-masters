@@ -5,14 +5,14 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/MasterEdit';
 
-const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
-
 import {
   setCreateQueryParam,
   setItemById,
   setParam,
   setScheduleQuery,
 } from './MasterEditorHelpers';
+
+const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
 
 const setPhotos = ({
   model,
@@ -59,7 +59,9 @@ const setServices = ({
   customServicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId, price, duration, title }) => {
+  servicesData.forEach(({
+    categoryId, serviceId, price, duration, title,
+  }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });
@@ -96,7 +98,7 @@ const setServices = ({
   });
 };
 
-export default makeReducer((state) => ({
+export default makeReducer(() => ({
   [actions.MASTER_EDIT_CALENDARS_SET]: (state, { payload: { masterCard } }) => {
     const calendarsMapping = [
       {
@@ -153,6 +155,13 @@ export default makeReducer((state) => ({
         setCreateQueryParam(payload, state, 'createTimeTableQuery');
       });
 
+      [
+        createPayload(sectionName, 'customDates', address.timeTable.timeStart, 'timeStartDefault'),
+        createPayload(sectionName, 'customDates', address.timeTable.timeEnd, 'timeEndDefault'),
+      ].forEach((payload) => {
+        setParam(payload, state);
+      });
+
       calendarModel.customDates.items = address.schedules.map((schedule) => {
         const scheduleObject = {
           date: schedule.date,
@@ -182,7 +191,7 @@ export default makeReducer((state) => ({
   },
 
   [actions.MASTER_EDIT_GENERAL_INFO_SET]: (state, { payload: { masterCard } }) => {
-    const generalSection = state.masterEditor.generalSection;
+    const { generalSection } = state.masterEditor;
     const infoSection = state.masterEditor.info;
 
     generalSection.isSalonField.value = masterCard.isSalon;

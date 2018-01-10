@@ -209,7 +209,7 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
           </View>
         </ScrollView>
         <Modal
-          animationType={'fade'}
+          animationType="fade"
           transparent
           visible={showDeactivateModal}
           onRequestClose={() => {}}

@@ -45,9 +45,9 @@ export default class Drawer extends Component {
         openDrawerOffset={openDrawerOffset || 0}
         panCloseMask={panCloseMask}
         negotiatePan
-        tweenDuration={100}
+        tweenDuration={200}
         onClose={this.onClose}
-        tweenHandler={ratio => ({
+        tweenHandler={(ratio) => ({
           main: {
             opacity: 1,
           },

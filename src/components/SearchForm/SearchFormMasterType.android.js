@@ -20,7 +20,7 @@ export default class SearchFormMasterType extends Component<TSearchFormMasterTyp
     } = this.props;
 
     return (
-      <Modal animationType={'fade'} transparent visible={showMasterTypeModal} onRequestClose={toggleMasterTypeModal}>
+      <Modal animationType="fade" transparent visible={showMasterTypeModal} onRequestClose={toggleMasterTypeModal}>
         <View style={styles.container}>
           <View style={styles.modalContainer}>
             <Text style={styles.title}>

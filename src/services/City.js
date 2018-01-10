@@ -17,6 +17,6 @@ export function getCities() {
     .then(res => (res.data && {
       cities: mapResponse(res.data),
     } || {
-      cities: [],
-    }));
+        cities: [],
+      }));
 }

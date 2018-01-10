@@ -22,26 +22,26 @@ export const uploadFile = ({ uri, type }, headers, mediaType) => {
       type,
     },
   ])
-  .then(res => res.json())
-  .then((res) => {
-    if (res.errors) {
-      const { code, title, detail } = res.errors[0];
+    .then(res => res.json())
+    .then((res) => {
+      if (res.errors) {
+        const { code, title, detail } = res.errors[0];
+
+        return {
+          status: 'error',
+          error: {
+            code,
+            detail,
+            title,
+          },
+        };
+      }
 
       return {
-        status: 'error',
-        error: {
-          code,
-          detail,
-          title,
-        },
+        status: 'success',
+        mediaFileId: res.data.id,
       };
-    }
-
-    return {
-      status: 'success',
-      mediaFileId: res.data.id,
-    };
-  });
+    });
 };
 
 export default null;

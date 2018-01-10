@@ -24,7 +24,13 @@ const mapStateToProps = (state, ownProps) => {
     timeEndDefault,
     timeStart: dateCurrent.timeStart,
     timeStartDefault,
-    workInThisDay: dateCurrent.workInThisDay,
+    workInThisDay: (() => {
+      if (dateCurrent && typeof dateCurrent.workInThisDay === 'boolean') {
+        return dateCurrent.workInThisDay;
+      }
+
+      return ownProps.hasEvent;
+    })(),
   };
 };
 

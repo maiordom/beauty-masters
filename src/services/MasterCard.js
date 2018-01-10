@@ -31,7 +31,9 @@ export const getMasterById = (id: number) =>
     inProfile: res.data.attributes.in_profile,
     isSalon: Boolean(res.data.attributes.is_salon),
     masterPhotos: res.included ? getPhotos(res.included, 'master-photo') : [],
-    phone: res.data.attributes.phone,
+    phone: /\d/.test(res.data.attributes.phone[0])
+      ? '+' + res.data.attributes.phone
+      : res.data.attributes.phone,
     salonName: res.data.attributes.salon_name,
     services: res.included ? getServices(res.included) : [],
     username: res.data.attributes.full_name,
