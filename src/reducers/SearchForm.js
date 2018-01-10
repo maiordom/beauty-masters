@@ -151,12 +151,11 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.SEARCH_SET_MASTER_TYPE]: () => {
+  [actions.SEARCH_MASTER_TYPE_SET]: () => {
     const { modelName, id, sectionName } = action;
-    const section = state.searchForm[sectionName];
-    const model = section[modelName];
+    const model = state.searchForm[sectionName][modelName];
 
-    each(model.items, item => {
+    each(model.items, (item) => {
       item.active = item.id === id;
 
       if (item.active) {
@@ -165,7 +164,12 @@ export default makeReducer((state, action) => ({
     });
 
     deepUpdate(state, `searchForm.${sectionName}.${modelName}`, { items: [...model.items] });
-    deepUpdate(state, 'searchForm.searchQuery', { master_type: model.selected.id });
+
+    if (model.selected.value) {
+      state.searchForm.searchQuery.is_salon = model.selected.value;
+    } else {
+      delete state.searchForm.searchQuery.is_salon;
+    }
 
     return state;
   },
@@ -174,8 +178,10 @@ export default makeReducer((state, action) => ({
     const { items } = action;
 
     items.forEach((item) => {
-      item.services = reject(item.services, (service) =>
-        service.id === null || service.id === undefined);
+      item.services = reject(item.services, (service) => {
+        return service.id === null || service.id === undefined;
+      });
+
       item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;
       });

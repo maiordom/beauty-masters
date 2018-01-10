@@ -13,8 +13,8 @@ export const setDay = (day: string) => ({
   day,
 });
 
-export const setItemById = (modelName: string, id: number, sectionName: string) => ({
-  type: actions.SEARCH_SET_MASTER_TYPE,
+export const setMasterType = (modelName: string, id: number, sectionName: string) => ({
+  type: actions.SEARCH_MASTER_TYPE_SET,
   modelName,
   id,
   sectionName,

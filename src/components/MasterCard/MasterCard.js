@@ -31,6 +31,7 @@ import ButtonControl from '../ButtonControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 import type { MasterCardType, TMapCard } from '../../types/MasterTypes';
 

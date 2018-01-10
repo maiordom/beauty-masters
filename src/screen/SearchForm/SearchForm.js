@@ -11,7 +11,7 @@ import mapValues from 'lodash/mapValues';
 
 import {
   setDay,
-  setItemById,
+  setMasterType,
   toggleDeparture,
   toggleExtension,
   toggleManicure,
@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     onSearchLocation: Actions.masterLocation,
     setDay,
-    setItemById,
+    setMasterType,
     toggleDeparture,
     toggleExtension,
     toggleManicure,

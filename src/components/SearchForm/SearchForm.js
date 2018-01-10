@@ -28,15 +28,15 @@ import type { TSearchFormCategorySection } from '../../types/SearchFormCategorie
 
 type TProps = {
   actions: {
-    toggleService: Function,
-    toggleServiceCategory: Function,
-    toggleDeparture: Function,
-    setItemById: Function,
     setDay: Function,
+    setMasterType: Function,
+    toggleDeparture: Function,
     toggleExtension: Function,
-    toggleWithdrawal: Function,
     toggleManicure: Function,
     togglePedicure: Function,
+    toggleService: Function,
+    toggleServiceCategory: Function,
+    toggleWithdrawal: Function,
   },
   categorySelectionFlags: {
     manicure: boolean,
@@ -129,7 +129,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
   toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
   onMasterTypeSelect = (value: string, id: number, modelName: string) => {
-    this.props.actions.setItemById(modelName, id, 'general');
+    this.props.actions.setMasterType(modelName, id, 'general');
     this.toggleMasterTypeModal();
   };
 
