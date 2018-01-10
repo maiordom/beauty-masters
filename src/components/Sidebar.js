@@ -48,8 +48,10 @@ export default class Sidebar extends Component<TProps, TState> {
     this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
-      Actions[key](nextScene);
-      this.setState(nextScene);
+      setTimeout(() => {
+        Actions[key](nextScene);
+        this.setState(nextScene);
+      }, 150);
     });
   };
 
@@ -102,11 +104,13 @@ export default class Sidebar extends Component<TProps, TState> {
     this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
-      if (this.props.isAuthorized) {
-        this.props.actions.routeToMasterProfile();
-      } else {
-        this.props.actions.routeToAuthorization();
-      }
+      setTimeout(() => {
+        if (this.props.isAuthorized) {
+          this.props.actions.routeToMasterProfile();
+        } else {
+          this.props.actions.routeToAuthorization();
+        }
+      }, 150);
     });
   };
 

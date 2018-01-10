@@ -5,6 +5,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Platform } from 'react-nativ
 import { Actions } from 'react-native-router-flux';
 
 import type { TMapCard } from '../../types/MasterTypes';
+import { trackEvent } from '../../utils/Tracker';
 
 const icons = {
   favs: require('../../icons/favs.png'),
@@ -38,6 +39,7 @@ export default class MasterCardNavBar extends Component<TProps, void> {
     if (isFavorite) {
       actions.removeFromFavorites(id);
     } else {
+      trackEvent('addToFavorites');
       actions.addToFavorites(snippet);
     }
   };

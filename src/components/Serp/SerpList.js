@@ -50,7 +50,7 @@ export default class SerpList extends Component<TProps, TState> {
       username,
     } = card;
 
-    trackEvent('navigateFromSerpToCard', { value: Number(id) });
+    trackEvent('navigateFromSerpToCard');
 
     Actions.card({
       from: 'serp',

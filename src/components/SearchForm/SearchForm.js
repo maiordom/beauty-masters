@@ -4,8 +4,10 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
+import each from 'lodash/each';
 import moment from 'moment';
 import 'moment/locale/ru';
+import snakeCase from 'lodash/snakeCase';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
@@ -73,17 +75,52 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   onServiceToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    if (value) {
+      trackEvent('selectService', { label: `_filters_minor_${snakeCase(modelName)}` });
+    }
+
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
   onCategoryToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    if (value) {
+      trackEvent('selectService', { label: `_filters_minor_${snakeCase(modelName)}` });
+    }
+
     this.props.actions.toggleServiceCategory(modelName, 'active', value, sectionName);
   };
 
-  onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
-  onWithdrawalToggle = (value: boolean) => this.props.actions.toggleWithdrawal(value);
-  onManicureToggle = (value: boolean) => this.props.actions.toggleManicure(value);
-  onPedicureToggle = (value: boolean) => this.props.actions.togglePedicure(value);
+  onExtensionToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterExtension');
+    }
+
+    this.props.actions.toggleExtension(value);
+  };
+
+  onWithdrawalToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterRemove');
+    }
+
+    this.props.actions.toggleWithdrawal(value);
+  }
+
+  onManicureToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterManicure');
+    }
+
+    this.props.actions.toggleManicure(value);
+  }
+
+  onPedicureToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterPedicure');
+    }
+
+    this.props.actions.togglePedicure(value);
+  }
 
   onDepartureToggle = () => this.props.actions.toggleDeparture();
 

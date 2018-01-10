@@ -324,7 +324,7 @@ export default class Map extends Component<TProps, TState> {
         username,
       } = card;
 
-      trackEvent('navigateFromMapToCard', { value: Number(id) });
+      trackEvent('navigateFromMapToCard');
 
       Actions.card({
         from: 'map',
