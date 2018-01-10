@@ -244,32 +244,28 @@ export default class Calendar extends Component<TProps, void> {
           isDotted = workDays.find(day => day === currentDate.format('YYYY-MM-DD'));
         }
 
-        days.push(
-          <Day
-            dayStyles={this.styles}
-            isDisable={isDisable}
-            styles={this.styles}
-            startOfMonth={startOfArgMonthMoment}
-            isWeekend={isoWeekday === 5 || isoWeekday === 6}
-            key={`${renderIndex}`}
-            onPress={isDisable ? null : () => this.selectDate(currentDate)}
-            caption={`${dayIndex + 1}`}
-            isToday={argMonthIsToday && dayIndex === todayIndex}
-            isSelected={Boolean(selectedMoments[dayIndex])}
-            isDotted={isDotted}
-            event={events && selectedMoments[dayIndex] ? null : events && events[dayIndex]}
-            showEventIndicators={this.props.showEventIndicators}
-          />,
-        );
+        days.push(<Day
+          dayStyles={this.styles}
+          isDisable={isDisable}
+          styles={this.styles}
+          startOfMonth={startOfArgMonthMoment}
+          isWeekend={isoWeekday === 5 || isoWeekday === 6}
+          key={`${renderIndex}`}
+          onPress={isDisable ? null : () => this.selectDate(currentDate)}
+          caption={`${dayIndex + 1}`}
+          isToday={argMonthIsToday && dayIndex === todayIndex}
+          isSelected={Boolean(selectedMoments[dayIndex])}
+          isDotted={isDotted}
+          event={events && selectedMoments[dayIndex] ? null : events && events[dayIndex]}
+          showEventIndicators={this.props.showEventIndicators}
+        />);
       } else {
         days.push(<Day dayStyles={this.styles} key={`${renderIndex}`} filler />);
       }
       if (renderIndex % 7 === 6) {
-        weekRows.push(
-          <View key={weekRows.length} style={styles.weekRow}>
-            {days}
-          </View>,
-        );
+        weekRows.push(<View key={weekRows.length} style={styles.weekRow}>
+          {days}
+        </View>);
         days = [];
         if (dayIndex + 1 >= argMonthDaysCount) {
           break;
@@ -292,11 +288,9 @@ export default class Calendar extends Component<TProps, void> {
     const headings = [];
 
     for (let i = 0; i < 7; i++) {
-      headings.push(
-        <Text key={i} style={i === 5 || i === 6 ? styles.weekendHeading : styles.dayHeading}>
-          {this.props.dayHeadings[i]}
-        </Text>,
-      );
+      headings.push(<Text key={i} style={i === 5 || i === 6 ? styles.weekendHeading : styles.dayHeading}>
+        {this.props.dayHeadings[i]}
+      </Text>);
     }
 
     return (
@@ -314,9 +308,9 @@ export default class Calendar extends Component<TProps, void> {
       ? <View style={styles.calendarControls}>
         <TouchableOpacity style={styles.controlButton} onPress={this.onPrev}>
           {prevButtonImage
-              ? <Image source={prevButtonImage} />
-              : <Text style={styles.controlButtonText}>
-                {this.props.prevButtonText}
+            ? <Image source={prevButtonImage} />
+            : <Text style={styles.controlButtonText}>
+              {this.props.prevButtonText}
               </Text>
           }
         </TouchableOpacity>
@@ -325,9 +319,9 @@ export default class Calendar extends Component<TProps, void> {
         </Text>
         <TouchableOpacity style={styles.controlButton} onPress={this.onNext}>
           {nextButtonImage
-              ? <Image source={nextButtonImage} />
-              : <Text style={styles.controlButtonText}>
-                {this.props.nextButtonText}
+            ? <Image source={nextButtonImage} />
+            : <Text style={styles.controlButtonText}>
+              {this.props.nextButtonText}
               </Text>
           }
         </TouchableOpacity>
@@ -384,33 +378,33 @@ const Day = ({
   isDisable,
   isDotted,
 }) => filler
-    ? (
-      <TouchableWithoutFeedback>
-        <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
-          <Text style={styles.day} />
+  ? (
+    <TouchableWithoutFeedback>
+      <View style={dayStyles.dayButtonFiller || styles.dayButtonFiller}>
+        <Text style={styles.day} />
+      </View>
+    </TouchableWithoutFeedback>
+  )
+  : (
+    <TouchableOpacity onPress={onPress}>
+      <View style={dayStyles.dayButton || styles.dayButton}>
+        <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
+          <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
         </View>
-      </TouchableWithoutFeedback>
-    )
-    : (
-      <TouchableOpacity onPress={onPress}>
-        <View style={dayStyles.dayButton || styles.dayButton}>
-          <View style={Day.dayCircleStyle(isWeekend, isSelected, isToday, event)}>
-            <Text style={Day.dayTextStyle(isWeekend, isSelected, isToday, event, isDisable)}>{caption}</Text>
-          </View>
-          {showEventIndicators && (
-            <View style={[
-              styles.eventIndicatorFiller,
-              event && styles.eventIndicator,
-              event && event.eventIndicator,
-            ]}
-            />
-          )}
-          {isDotted && (
-            <View style={[styles.dot, isSelected ? styles.dotSelected : null]} />
-          )}
-        </View>
-      </TouchableOpacity>
-    );
+        {showEventIndicators && (
+          <View style={[
+            styles.eventIndicatorFiller,
+            event && styles.eventIndicator,
+            event && event.eventIndicator,
+          ]}
+          />
+        )}
+        {isDotted && (
+          <View style={[styles.dot, isSelected ? styles.dotSelected : null]} />
+        )}
+      </View>
+    </TouchableOpacity>
+  );
 
 Day.dayCircleStyle = (isWeekend, isSelected, isToday, event) => {
   const dayCircleStyle = [styles.dayCircleFiller];

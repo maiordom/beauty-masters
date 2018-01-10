@@ -75,22 +75,22 @@ const baseFetch = (fetchMethod: string) => (
     method: fetchMethod,
     body,
   })
-  .then((res: Object) => {
+    .then((res: Object) => {
     /* eslint-disable no-underscore-dangle */
-    if (!res._bodyText) {
-      return {};
-    }
+      if (!res._bodyText) {
+        return {};
+      }
 
-    return res.json();
-  })
-  .then((res: Object) => handleFetchResponse(res, path, method.method))
-  .catch((res: Object) => {
-    if (__DEV__) {
-      console.log(`${path}::${method.method}::exx`, res);
-    }
+      return res.json();
+    })
+    .then((res: Object) => handleFetchResponse(res, path, method.method))
+    .catch((res: Object) => {
+      if (__DEV__) {
+        console.log(`${path}::${method.method}::exx`, res);
+      }
 
-    return res;
-  });
+      return res;
+    });
 };
 
 export const post = baseFetch('POST');
@@ -121,12 +121,12 @@ export const get = (
     'Content-Type': 'application/json',
     ...headers,
   })
-  .then((res: Object) => res.json())
-  .then((res: Object) => handleFetchResponse(res, path, method.method))
-  .catch((res: Object) => {
-    console.log(`${location}::GET::exx`, res);
-    return res;
-  });
+    .then((res: Object) => res.json())
+    .then((res: Object) => handleFetchResponse(res, path, method.method))
+    .catch((res: Object) => {
+      console.log(`${location}::GET::exx`, res);
+      return res;
+    });
 };
 
 export const geo = (method: string, params: Object) => {
@@ -139,30 +139,30 @@ export const geo = (method: string, params: Object) => {
   return RNFetchBlob.fetch('GET', url, {
     'Content-Type': 'application/json',
   })
-  .then((res: Object) => res.json())
-  .then((res: Object) => {
-    if (__DEV__) {
-      console.log('googlePlaces::response');
-      console.log(res);
-    }
+    .then((res: Object) => res.json())
+    .then((res: Object) => {
+      if (__DEV__) {
+        console.log('googlePlaces::response');
+        console.log(res);
+      }
 
-    if (res.status !== 'OK') {
+      if (res.status !== 'OK') {
+        return {
+          error: {},
+          status: 'error',
+        };
+      }
+
+      return {
+        ...res,
+        status: 'ok',
+      };
+    })
+    .catch((exx) => {
+      console.log('googlePlaces::exx', exx);
+
       return {
         error: {},
-        status: 'error',
       };
-    }
-
-    return {
-      ...res,
-      status: 'ok',
-    };
-  })
-  .catch((exx) => {
-    console.log('googlePlaces::exx', exx);
-
-    return {
-      error: {},
-    };
-  });
+    });
 };

@@ -11,7 +11,7 @@ import { searchCitySelect, searchCityForText, citiesReset } from '../../actions/
 import { setLastMapLocation } from '../../actions/Map';
 
 const mapStateToProps = (state) => {
-  const cities = state.searchForm.general.cities;
+  const { cities } = state.searchForm.general;
   const source = cities.filtered !== null ? cities.filtered : cities.items;
 
   return {

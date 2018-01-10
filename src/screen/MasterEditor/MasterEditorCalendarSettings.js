@@ -8,6 +8,7 @@ import {
   handleTimeTable,
   setAddressField,
   setCalendarInterval,
+  setCustomDatesField,
   setTimeTableField,
 } from '../../actions/Master';
 import { drawerOpen } from '../../actions/Drawer';
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
     handleTimeTable,
     setAddressField,
     setCalendarInterval,
+    setCustomDatesField,
     setTimeTableField,
   }, dispatch);
 

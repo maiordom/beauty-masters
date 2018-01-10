@@ -11,7 +11,7 @@ import mapValues from 'lodash/mapValues';
 
 import {
   setDay,
-  setItemById,
+  setMasterType,
   toggleDeparture,
   toggleExtension,
   toggleManicure,
@@ -36,13 +36,17 @@ const mapStateToProps = (state, ownProps) => {
   const categorySelectionFlags = mapValues(servicesByCategoryKey, (categoryServices) => (
     every(categoryServices, { active: true })
   ));
+  const hasUserLocation = state.geo.userLocation.lat !== null;
+  const hasAddressLocation = Boolean(state.searchForm.general.place.label);
 
   return {
+    ...state.searchForm,
     categorySelectionFlags,
+    hasAddressLocation,
+    hasUserLocation,
+    leftButtonMenu: true,
     manicureSearchFormSections,
     pedicureSearchFormSections,
-    ...state.searchForm,
-    leftButtonMenu: true,
     sceneKey: ownProps.currentScene || state.scene.sceneKey,
   };
 };
@@ -51,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     onSearchLocation: Actions.masterLocation,
     setDay,
-    setItemById,
+    setMasterType,
     toggleDeparture,
     toggleExtension,
     toggleManicure,

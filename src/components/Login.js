@@ -63,8 +63,8 @@ export default class Login extends Component<TProps, TState> {
   }
 
   validate() {
-    const username = this.usernameRef.getValue();
-    const password = this.passwordRef.getValue();
+    const username = this.usernameRef.getValue().trim();
+    const password = this.passwordRef.getValue().trim();
 
     if (username.length === 0 || password.length === 0) {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
@@ -91,8 +91,8 @@ export default class Login extends Component<TProps, TState> {
   );
 
   onLoginUserPress = () => {
-    const username = this.usernameRef.getValue();
-    const password = this.passwordRef.getValue();
+    const username = this.usernameRef.getValue().trim().toLowerCase();
+    const password = this.passwordRef.getValue().trim().toLowerCase();
 
     if (this.validate()) {
       this.props.actions.userLogin({ username, password });

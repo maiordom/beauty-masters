@@ -6,14 +6,12 @@ import {
   Text,
   StyleSheet,
   Platform,
-  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
+
 import { drawerOpen } from '../actions/Drawer';
 import vars from '../vars';
-
-const DEVICE_WIDTH = Dimensions.get('window').width;
 
 const icons = {
   menu: require('../icons/menu.png'),
@@ -75,11 +73,12 @@ class NavBar extends Component {
             Platform.OS === 'android' && [
               leftButtonHidden && { marginLeft: 16 },
               !rightButtonImage && { marginRight: 16 },
-            ]
+            ],
           ]}
           lineBreakMode="tail"
           numberOfLines={1}
-        >{title}</Text>
+        >{title}
+        </Text>
         {rightButtonImage && (
           <TouchableOpacity
             style={styles.rightButton}

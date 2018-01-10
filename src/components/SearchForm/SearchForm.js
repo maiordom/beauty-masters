@@ -4,8 +4,10 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
+import each from 'lodash/each';
 import moment from 'moment';
 import 'moment/locale/ru';
+import snakeCase from 'lodash/snakeCase';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
@@ -20,20 +22,21 @@ import ButtonControl from '../../components/ButtonControl';
 import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
+import { trackEvent } from '../../utils/Tracker';
 
 import type { TSearchFormCategorySection } from '../../types/SearchFormCategories';
 
 type TProps = {
   actions: {
-    toggleService: Function,
-    toggleServiceCategory: Function,
-    toggleDeparture: Function,
-    setItemById: Function,
     setDay: Function,
+    setMasterType: Function,
+    toggleDeparture: Function,
     toggleExtension: Function,
-    toggleWithdrawal: Function,
     toggleManicure: Function,
     togglePedicure: Function,
+    toggleService: Function,
+    toggleServiceCategory: Function,
+    toggleWithdrawal: Function,
   },
   categorySelectionFlags: {
     manicure: boolean,
@@ -41,6 +44,8 @@ type TProps = {
     extension: boolean,
     removing: boolean,
   },
+  hasAddressLocation: boolean,
+  hasUserLocation: boolean,
   manicureSearchFormSections: Array<TSearchFormCategorySection>,
   pedicureSearchFormSections: Array<TSearchFormCategorySection>,
   general: Object,
@@ -62,7 +67,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   componentWillReceiveProps(props) {
-    this.setState({ selectedDates: this.props.searchQuery.dates.slice() });
+    this.setState({ selectedDates: props.searchQuery.dates.slice() });
   }
 
   toggleForm = () => {
@@ -70,17 +75,52 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   onServiceToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    if (value) {
+      trackEvent('selectService', { label: `_filters_minor_${snakeCase(modelName)}` });
+    }
+
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
   onCategoryToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    if (value) {
+      trackEvent('selectService', { label: `_filters_minor_${snakeCase(modelName)}` });
+    }
+
     this.props.actions.toggleServiceCategory(modelName, 'active', value, sectionName);
   };
 
-  onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
-  onWithdrawalToggle = (value: boolean) => this.props.actions.toggleWithdrawal(value);
-  onManicureToggle = (value: boolean) => this.props.actions.toggleManicure(value);
-  onPedicureToggle = (value: boolean) => this.props.actions.togglePedicure(value);
+  onExtensionToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterExtension');
+    }
+
+    this.props.actions.toggleExtension(value);
+  };
+
+  onWithdrawalToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterRemove');
+    }
+
+    this.props.actions.toggleWithdrawal(value);
+  }
+
+  onManicureToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterManicure');
+    }
+
+    this.props.actions.toggleManicure(value);
+  }
+
+  onPedicureToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterPedicure');
+    }
+
+    this.props.actions.togglePedicure(value);
+  }
 
   onDepartureToggle = () => this.props.actions.toggleDeparture();
 
@@ -89,7 +129,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
   toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
   onMasterTypeSelect = (value: string, id: number, modelName: string) => {
-    this.props.actions.setItemById(modelName, id, 'general');
+    this.props.actions.setMasterType(modelName, id, 'general');
     this.toggleMasterTypeModal();
   };
 
@@ -98,15 +138,25 @@ export default class SearchFormShort extends Component<TProps, TState> {
   };
 
   getSelectedDateTitle = () => this.state.selectedDates.map((date: string) =>
-    capitalizeFirstLetter(
-      moment(date).calendar(null, {
-        sameDay: `[${i18n.days.sameDay}]`,
-        nextDay: `[${i18n.days.nextDay}]`,
-        lastWeek: '[last] dddd',
-        nextWeek: 'dddd',
-        sameElse: 'L',
-      })
-    )).join(', ');
+    capitalizeFirstLetter(moment(date).calendar(null, {
+      sameDay: `[${i18n.days.sameDay}]`,
+      nextDay: `[${i18n.days.nextDay}]`,
+      lastWeek: '[last] dddd',
+      nextWeek: 'dddd',
+      sameElse: 'L',
+    }))).join(', ');
+
+  onSerpPress = () => {
+    if (this.props.hasAddressLocation) {
+      trackEvent('hasSearchAddress');
+    } else if (this.props.hasUserLocation) {
+      trackEvent('availableUserLocation');
+    } else {
+      trackEvent('notAvailableUserLocation');
+    }
+
+    Actions.serp();
+  };
 
   render() {
     const {
@@ -192,7 +242,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
                 active={categorySelectionFlags.extension}
-                modelName={'extensionShort'}
+                modelName="extensionShort"
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />
@@ -226,7 +276,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
             onPress={this.toggleForm}
           />
-          <ButtonControl label={i18n.findMaster} onPress={Actions.serp} />
+          <ButtonControl label={i18n.findMaster} onPress={this.onSerpPress} />
         </ScrollView>
       </View>
     );

@@ -73,16 +73,19 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
 
   onTimeEndChange = (timeEnd: string, modelName: string) => {
     this.props.actions.setTimeTableField(modelName, 'value', timeEnd, this.props.sectionName);
+    this.props.actions.setCustomDatesField('customDates', 'timeEndDefault', timeEnd, this.props.sectionName);
   };
 
   onTimeStartChange = (timeStart: string, modelName: string) => {
     this.props.actions.setTimeTableField(modelName, 'value', timeStart, this.props.sectionName);
+    this.props.actions.setCustomDatesField('customDates', 'timeStartDefault', timeStart, this.props.sectionName);
   };
 
-  onDateSelect = (date: string) => {
+  onDateSelect = (date: string, hasEvent: boolean) => {
     this.props.actions.drawerOpen({
-      date,
       contentKey: 'WorkTimeSpecification',
+      date,
+      hasEvent,
       sectionName: this.props.sectionName,
     });
   };
@@ -147,6 +150,8 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
               <Calendar
                 disableSelectDate
                 events={customDates.items}
+                eventTimeEndDefault={customDates.timeEndDefault}
+                eventTimeStartDefault={customDates.timeStartDefault}
                 interval={intervalGroup.selected}
                 onDateSelect={this.onDateSelect}
                 startDate={startDateField.value}

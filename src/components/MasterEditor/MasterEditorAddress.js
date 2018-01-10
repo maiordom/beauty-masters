@@ -102,5 +102,5 @@ const styles = StyleSheet.create({
   },
   required: {
     color: vars.color.red,
-  }
+  },
 });

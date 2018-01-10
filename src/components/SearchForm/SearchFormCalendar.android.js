@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Text, View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import moment from 'moment';
 
 import type { TSearchFormCalendar } from '../../types/SearchFormCalendar';
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
 import {
-  Dimensions,
   Image,
   Platform,
   StyleSheet,

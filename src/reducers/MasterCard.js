@@ -19,7 +19,7 @@ export default makeReducer(() => ({
 
     let {
       groupedServicesByCategories,
-      groupedServicesBySubCategories
+      groupedServicesBySubCategories,
     } = groupServices(
       card.services,
       state.dictionaries,

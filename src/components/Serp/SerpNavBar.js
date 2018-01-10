@@ -1,7 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
-import { drawerOpen } from '../../actions/Drawer';
 import LinearGradient from 'react-native-linear-gradient';
+
+import { drawerOpen } from '../../actions/Drawer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -28,7 +29,6 @@ const SerpNavBar = ({
     <TouchableOpacity
       style={[styles.leftButton]}
       onPress={onPress}
-      activeOpacity={1}
       underlayColor
     >
       <Image source={menuIcon} />
@@ -58,7 +58,6 @@ const SerpNavBar = ({
   </View>
 );
 
-
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -86,8 +85,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   leftButton: {
-    paddingLeft: 16,
-    paddingRight: 16,
+    padding: 16,
     justifyContent: 'center',
   },
   buttonsWrapper: {

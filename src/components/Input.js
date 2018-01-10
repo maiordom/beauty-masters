@@ -249,5 +249,5 @@ const inputWithLabelStyle = StyleSheet.create({
   },
   required: {
     color: vars.color.red,
-  }
+  },
 });

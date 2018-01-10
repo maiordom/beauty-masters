@@ -29,7 +29,7 @@ export default class ModalComponent extends Component<TProps, void> {
 
     return (
       <Modal
-        animationType={'fade'}
+        animationType="fade"
         transparent
         visible={isVisible}
         onRequestClose={onRequestClose}

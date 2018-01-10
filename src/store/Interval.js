@@ -19,7 +19,9 @@ export const intervalGroup = () => ({
   items: [
     { label: i18n.schedule.wholeWeek, id: 1, key: 'wholeWeek' },
     { label: i18n.schedule.twoAfterTwo, id: 4, key: 'twoAfterTwo' },
-    { label: i18n.schedule.onWeekdays, id: 2, key: 'onWeekdays', active: true },
+    {
+      label: i18n.schedule.onWeekdays, id: 2, key: 'onWeekdays', active: true,
+    },
     { label: i18n.schedule.onWeekends, id: 3, key: 'onWeekends' },
   ],
   selected: {

@@ -53,8 +53,8 @@ export default class Registration extends Component<TProps, TState> {
   }
 
   onUserCreatePress = () => {
-    const email = this.emailRef.getValue();
-    const password = this.passwordRef.getValue();
+    const email = this.emailRef.getValue().trim().toLowerCase();
+    const password = this.passwordRef.getValue().trim().toLowerCase();
 
     if (this.validate()) {
       this.props.actions.userCreate({ email, password });
@@ -62,8 +62,8 @@ export default class Registration extends Component<TProps, TState> {
   };
 
   validate() {
-    const email = this.emailRef.getValue();
-    const password = this.passwordRef.getValue();
+    const email = this.emailRef.getValue().trim();
+    const password = this.passwordRef.getValue().trim();
 
     if (email.length === 0 || password.length === 0) {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
@@ -89,8 +89,8 @@ export default class Registration extends Component<TProps, TState> {
     </View>
   );
 
-  setEmailRef = (ref: Object) => this.emailRef = ref;
-  setPasswordRef = (ref: Object) => this.passwordRef = ref;
+  setEmailRef = (ref: Object) => { this.emailRef = ref; };
+  setPasswordRef = (ref: Object) => { this.passwordRef = ref; };
 
   render() {
     const { validationStatus, responseError } = this.state;
@@ -118,17 +118,22 @@ export default class Registration extends Component<TProps, TState> {
             style={styles.input}
           />
           {Platform.OS === 'android'
-          ? <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>
-              {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
-            </Text>
-            <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
-          </View>
-          : <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
-            <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
-          </View>}
+            ? (
+              <View style={styles.manifest}>
+                <Text style={[styles.registrationText, styles.manifestText]}>
+                  {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
+                </Text>
+                <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+              </View>
+            )
+            : (
+              <View style={styles.manifest}>
+                <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
+                <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
+                <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+              </View>
+            )
+          }
           {validationStatus === ALL_FIELDS_REQUIRED && (
             this.error(i18n.errors.allFieldsRequired)
           )}

@@ -4,7 +4,9 @@ import find from 'lodash/find';
 import { deepUpdate } from '../utils';
 
 export const setParam = (action, state) => {
-  const { sectionName, modelName, paramValue, paramName } = action;
+  const {
+    sectionName, modelName, paramValue, paramName,
+  } = action;
 
   return deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, {
     [paramName]: paramValue,

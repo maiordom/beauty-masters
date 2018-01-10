@@ -29,7 +29,7 @@ const localization = {
   authAsMaster: Platform.select({
     ios: i18n.authAsMaster,
     android: i18n.authAsMaster.toUpperCase(),
-  })
+  }),
 };
 
 export default class Presentation extends Component {

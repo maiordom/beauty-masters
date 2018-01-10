@@ -8,6 +8,7 @@ import MapCard from './MapCard';
 
 import vars from '../../vars';
 import getDistance from '../../utils/Geo';
+import { trackEvent } from '../../utils/Tracker';
 
 import type { TMapCard } from '../../types/MasterTypes';
 
@@ -38,6 +39,10 @@ export default class SerpList extends Component<TProps, TState> {
     };
   }
 
+  componentDidMount() {
+    trackEvent('viewSerp');
+  }
+
   onMapCardPress = (card: TMapCard) => {
     const {
       id,
@@ -45,7 +50,10 @@ export default class SerpList extends Component<TProps, TState> {
       username,
     } = card;
 
+    trackEvent('navigateFromSerpToCard');
+
     Actions.card({
+      from: 'serp',
       id,
       photo,
       snippet: card,
