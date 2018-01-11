@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, ScrollView } from 'react-native';
+import { View, StyleSheet, Platform, ScrollView, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
 import each from 'lodash/each';
@@ -53,6 +53,7 @@ type TProps = {
 };
 
 type TState = {
+  renderContent: boolean,
   showMasterCalendarModal: boolean,
   showMasterTypeModal: boolean,
   showShortForm: boolean,
@@ -60,11 +61,18 @@ type TState = {
 
 export default class SearchFormShort extends Component<TProps, TState> {
   state = {
+    renderContent: false,
     selectedDates: this.props.searchQuery.dates.slice(),
     showShortForm: true,
     showMasterCalendarModal: false,
     showMasterTypeModal: false,
   };
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderContent: true });
+    });
+  }
 
   componentWillReceiveProps(props) {
     this.setState({ selectedDates: props.searchQuery.dates.slice() });
@@ -170,11 +178,16 @@ export default class SearchFormShort extends Component<TProps, TState> {
     const { place } = this.props.general;
 
     const {
+      renderContent,
       showShortForm,
       showMasterTypeModal,
       showMasterCalendarModal,
       selectedDates,
     } = this.state;
+
+    if (!renderContent) {
+      return null;
+    }
 
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
 
