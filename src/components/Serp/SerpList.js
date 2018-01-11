@@ -14,6 +14,7 @@ import type { TMapCard } from '../../types/MasterTypes';
 
 type TState = {
   dataSource: Array<*>,
+  renderContent: boolean,
 };
 
 type TProps = {
@@ -36,11 +37,13 @@ export default class SerpList extends Component<TProps, TState> {
 
     this.state = {
       dataSource: ds.cloneWithRows(this.props.points),
+      renderContent: false,
     };
   }
 
   componentDidMount() {
     trackEvent('viewSerp');
+    this.setState({ renderContent: true });
   }
 
   onMapCardPress = (card: TMapCard) => {
@@ -62,7 +65,11 @@ export default class SerpList extends Component<TProps, TState> {
   };
 
   render() {
-    const { dataSource } = this.state;
+    const { dataSource, renderContent } = this.state;
+
+    if (!renderContent) {
+      return null;
+    }
 
     return (
       <View>

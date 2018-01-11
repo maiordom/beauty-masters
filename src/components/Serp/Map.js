@@ -35,20 +35,20 @@ import type { TRegionType } from '../../types/RegionType';
 
 const icons = Platform.select({
   android: {
+    clusterPinGreen: require('../../icons/android/cluster-pin-green.png'),
+    clusterPinRed: require('../../icons/android/cluster-pin-red.png'),
     filter: require('../../icons/filter.png'),
     location: require('../../icons/location.png'),
     pinGreen: require('../../icons/pin-green.png'),
     pinRed: require('../../icons/pin-red.png'),
-    clusterPinRed: require('../../icons/android/cluster-pin-red.png'),
-    clusterPinGreen: require('../../icons/android/cluster-pin-green.png'),
   },
   ios: {
+    clusterPinGreen: require('../../icons/ios/cluster-pin-green.png'),
+    clusterPinRed: require('../../icons/ios/cluster-pin-red.png'),
     filter: require('../../icons/ios/filters.png'),
     location: require('../../icons/ios/location.png'),
     pinGreen: require('../../icons/ios/pin-green.png'),
     pinRed: require('../../icons/ios/pin-red.png'),
-    clusterPinRed: require('../../icons/ios/cluster-pin-red.png'),
-    clusterPinGreen: require('../../icons/ios/cluster-pin-green.png'),
   },
 });
 
@@ -59,12 +59,13 @@ type LatLngType = {
 
 type TState = {
   activePin: ?LatLngType,
-  supercluster: ClusterInterface,
   clusters: Array<Cluster>,
   currentMapCards: Array<TMapCard>,
   region?: TRegionType,
+  renderContent: boolean,
   snippetHeight: ?number,
   snippetTranslateY: Animated.Value,
+  supercluster: ClusterInterface,
 }
 
 type TProps = {
@@ -157,6 +158,7 @@ export default class Map extends Component<TProps, TState> {
       clusters: [],
       currentMapCards: [],
       region: initialRegion,
+      renderContent: false,
       snippetHeight: null,
       snippetTranslateY: new Animated.Value(Dimensions.get('window').height),
     };
@@ -200,6 +202,7 @@ export default class Map extends Component<TProps, TState> {
   componentDidMount() {
     trackEvent('viewMap');
     InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderContent: true });
       this.searchMasters();
     });
   }
@@ -352,8 +355,12 @@ export default class Map extends Component<TProps, TState> {
       clusters,
       currentMapCards,
       region,
-      renderLoader,
+      renderContent,
     } = this.state;
+
+    if (!renderContent) {
+      return null;
+    }
 
     return (
       <View style={styles.container}>

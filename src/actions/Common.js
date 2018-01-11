@@ -32,8 +32,7 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
       deferred.resolve(position.coords);
     }
   }, (err) => {
-    console.log('geo::location::', err);
-    deferred.reject();
+    deferred.reject(err);
   });
 
   return deferred.promise;
