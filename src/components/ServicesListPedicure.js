@@ -5,6 +5,7 @@ import { View, StyleSheet, Platform } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
+import Separator from './Separator.ios';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -118,7 +119,10 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
             <FilterCheckBox {...combinedPedicure} {...filterHandlers} />
             <FilterCheckBox {...expressPedicure} {...filterHandlers} />
             <FilterCheckBox {...hotPedicure} {...filterHandlers} />
-            <FilterCheckBox {...spaPedicure} {...filterHandlers} />
+            <FilterCheckBox {...spaPedicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -128,7 +132,10 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
             <FilterCheckBox {...applyingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...applyingBioGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...applyingNailPolishPedicure} {...filterHandlers} />
-            <FilterCheckBox {...applyingOfAnotherNailGelPedicure} {...filterHandlers} />
+            <FilterCheckBox {...applyingOfAnotherNailGelPedicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -140,7 +147,10 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
             <FilterCheckBox {...reverseMoonPedicure} {...filterHandlers} />
             <FilterCheckBox {...stencilPedicure} {...filterHandlers} />
             <FilterCheckBox {...artDesignPedicure} {...filterHandlers} />
-            <FilterCheckBox {...gradientPedicure} {...filterHandlers} />
+            <FilterCheckBox {...gradientPedicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -150,7 +160,10 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
             <FilterCheckBox {...extensionTipsAcrilycPedicure} {...filterHandlers} />
             <FilterCheckBox {...extensionFormsAcrilycPedicure} {...filterHandlers} />
             <FilterCheckBox {...extensionTipsGelPedicure} {...filterHandlers} />
-            <FilterCheckBox {...extensionAcrilycGelPedicure} {...filterHandlers} />
+            <FilterCheckBox {...extensionAcrilycGelPedicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -161,7 +174,7 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
             <FilterCheckBox {...removingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingGelPedicure} {...filterHandlers} />
-            <FilterCheckBox {...removingNailsPedicure} {...filterHandlers} />
+            <FilterCheckBox {...removingNailsPedicure} {...filterHandlers} shouldShowSeparator={false} />
           </View>
         )}
       </View>
@@ -181,7 +194,14 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderTopWidth: 10,
-        borderColor: vars.color.cellSeparatorColorIOS,
+        borderColor: vars.color.lightGrey,
+      },
+    }),
+  },
+  separator: {
+    ...Platform.select({
+      ios: {
+        marginLeft: 0,
       },
     }),
   },

@@ -5,6 +5,7 @@ import { View, StyleSheet, Platform } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
 import FilterCheckBox from './FilterCheckBox';
+import Separator from './Separator.ios';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -119,6 +120,9 @@ export default class ServicesListManicure extends Component<TProps, TState> {
             <FilterCheckBox {...expressManicure} {...filterHandlers} />
             <FilterCheckBox {...hotManicure} {...filterHandlers} />
             <FilterCheckBox {...spaManicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -129,6 +133,9 @@ export default class ServicesListManicure extends Component<TProps, TState> {
             <FilterCheckBox {...applyingShellacManicure} {...filterHandlers} />
             <FilterCheckBox {...applyingBioGelManicure} {...filterHandlers} />
             <FilterCheckBox {...applyingOfAnotherNailGelManicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -141,6 +148,9 @@ export default class ServicesListManicure extends Component<TProps, TState> {
             <FilterCheckBox {...stencilManicure} {...filterHandlers} />
             <FilterCheckBox {...artDesignManicure} {...filterHandlers} />
             <FilterCheckBox {...gradientManicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -151,6 +161,9 @@ export default class ServicesListManicure extends Component<TProps, TState> {
             <FilterCheckBox {...extensionFormsAcrilycManicure} {...filterHandlers} />
             <FilterCheckBox {...extensionTipsGelManicure} {...filterHandlers} />
             <FilterCheckBox {...extensionAcrilycGelManicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
 
@@ -162,6 +175,9 @@ export default class ServicesListManicure extends Component<TProps, TState> {
             <FilterCheckBox {...removingBioGelManicure} {...filterHandlers} />
             <FilterCheckBox {...removingGelManicure} {...filterHandlers} />
             <FilterCheckBox {...removingNailsManicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
       </View>
@@ -181,7 +197,14 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderTopWidth: 10,
-        borderColor: vars.color.cellSeparatorColorIOS,
+        borderColor: vars.color.lightGrey,
+      },
+    }),
+  },
+  separator: {
+    ...Platform.select({
+      ios: {
+        marginLeft: 0,
       },
     }),
   },
