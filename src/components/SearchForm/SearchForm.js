@@ -39,16 +39,16 @@ type TProps = {
     toggleWithdrawal: Function,
   },
   categorySelectionFlags: {
+    extension: boolean,
     manicure: boolean,
     pedicure: boolean,
-    extension: boolean,
     removing: boolean,
   },
+  general: Object,
   hasAddressLocation: boolean,
   hasUserLocation: boolean,
   manicureSearchFormSections: Array<TSearchFormCategorySection>,
   pedicureSearchFormSections: Array<TSearchFormCategorySection>,
-  general: Object,
   searchQuery: Object,
 };
 
@@ -84,7 +84,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   onServiceToggle = (sectionName: string) => (value: boolean, modelName: string) => {
     if (value) {
-      trackEvent('selectService', { label: `_filters_minor_${snakeCase(modelName)}` });
+      trackEvent('selectService', { labelValue: snakeCase(modelName) });
     }
 
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
@@ -92,7 +92,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   onCategoryToggle = (sectionName: string) => (value: boolean, modelName: string) => {
     if (value) {
-      trackEvent('selectService', { label: `_filters_minor_${snakeCase(modelName)}` });
+      trackEvent('selectService', { labelValue: snakeCase(modelName) });
     }
 
     this.props.actions.toggleServiceCategory(modelName, 'active', value, sectionName);

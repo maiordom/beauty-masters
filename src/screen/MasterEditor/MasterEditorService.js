@@ -14,8 +14,11 @@ import { getServices } from '../../actions/MasterEdit';
 import MasterEditorService from '../../components/MasterEditor/MasterEditorService';
 import NavBar from '../../components/NavBar';
 
+import { isSalon } from '../../utils/isSalon';
+
 const mapStateToProps = (state) => ({
   cardType: state.masterEditor.cardType,
+  isSalon: isSalon(state),
   homeAllowanceField: state.masterEditor.services.homeAllowanceField,
   serviceManicure: state.masterEditor.serviceManicure,
   servicePedicure: state.masterEditor.servicePedicure,

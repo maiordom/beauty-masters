@@ -11,6 +11,8 @@ import {
   View,
 } from 'react-native';
 
+import each from 'lodash/each';
+
 import { FilterLabel } from '../FilterLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
@@ -42,6 +44,7 @@ type TProps = {
   actions: Object,
   cardType: string,
   homeAllowanceField: Object,
+  isSalon: boolean,
   serviceManicure: Object,
   servicePedicure: Object,
 };
@@ -80,6 +83,18 @@ export default class MasterEditorService extends Component<TProps, TState> {
         this.setState({ renderLoader: false });
       }
     });
+  }
+
+  getActiveModelsCount = (modelsCollection) => {
+    const activeCount = 0;
+
+    each(modelsCollection, (model) => {
+      if (model.active) {
+        activeCount++;
+      }
+    });
+
+    return activeCount;
   }
 
   onServicesPress = (item: Object) => {
@@ -122,9 +137,19 @@ export default class MasterEditorService extends Component<TProps, TState> {
     this.props.actions.createMasterServices().then((res) => {
       if (res.result === 'success') {
         if (this.props.cardType === 'create') {
+          if (this.props.isSalon) {
+            trackEvent('step2Salon');
+            trackEvent('step2SalonManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
+            trackEvent('step2SalonPedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
+          } else {
+            trackEvent('step2Private');
+            trackEvent('step2PrivateManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
+            trackEvent('step2PrivatePedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
+          }
           this.props.actions.routeToHandlingTools();
         } else {
           this.props.actions.routeToProfile();
+          trackEvent('changeServices');
         }
       }
     });
