@@ -223,6 +223,11 @@ const styles = StyleSheet.create({
   },
   titleInput: {
     flex: 1,
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 0,
+      },
+    }),
   },
   inputWrapper: {
     flex: 1,
