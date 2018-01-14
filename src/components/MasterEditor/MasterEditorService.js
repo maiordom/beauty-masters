@@ -250,12 +250,14 @@ export default class MasterEditorService extends Component<TProps, TState> {
           <StateMachine visible={tabActiveKey === sections.serviceManicure}>
             <ServicesListManicure models={serviceManicure} {...filterHandlers} />
           </StateMachine>
+          <View style={styles.sectionPadding} />
           <Input
             {...homeAllowanceField}
             inputWrapperStyle={styles.homeAllowance}
             onBlur={this.onChangeAtHome}
           />
-          <FilterLabel text={i18n.filters.otherServices} style={[styles.sectionTitle, styles.sectionPadding]} />
+          <View style={styles.sectionPadding} />
+          <FilterLabel text={i18n.filters.otherServices} style={styles.sectionTitle} />
           <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <CustomServices key="pedicure" type="pedicure" />
           </StateMachine>
@@ -289,9 +291,9 @@ const styles = StyleSheet.create({
         marginBottom: 4,
       },
       ios: {
-        borderTopWidth: 10,
+        borderTopWidth: 1,
         borderColor: vars.color.cellSeparatorColorIOS,
-        borderBottomWidth: 0,
+        borderBottomWidth: 1,
       },
     }),
   },
@@ -299,6 +301,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         backgroundColor: vars.color.white,
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },
@@ -306,7 +310,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderTopWidth: 10,
-        borderColor: vars.color.cellSeparatorColorIOS,
+        borderColor: vars.color.lightGrey,
       },
     }),
   },

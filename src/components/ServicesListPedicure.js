@@ -128,7 +128,8 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.coverage && (
           <View>
-            <FilterLabel text={i18n.filters.coverage} style={[styles.sectionTitle, styles.sectionPadding]} />
+            <View style={styles.sectionPadding} />
+            <FilterLabel text={i18n.filters.coverage} style={styles.sectionTitle} />
             <FilterCheckBox {...applyingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...applyingBioGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...applyingNailPolishPedicure} {...filterHandlers} />
@@ -141,7 +142,8 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.nailDesign && (
           <View>
-            <FilterLabel text={i18n.filters.nailDesign} style={[styles.sectionTitle, styles.sectionPadding]} />
+            <View style={styles.sectionPadding} />
+            <FilterLabel text={i18n.filters.nailDesign} style={styles.sectionTitle} />
             <FilterCheckBox {...frenchPedicure} {...filterHandlers} />
             <FilterCheckBox {...moonPedicure} {...filterHandlers} />
             <FilterCheckBox {...reverseMoonPedicure} {...filterHandlers} />
@@ -156,7 +158,8 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.nailExtension && (
           <View>
-            <FilterLabel text={i18n.filters.nailExtension} style={[styles.sectionTitle, styles.sectionPadding]} />
+            <View style={styles.sectionPadding} />
+            <FilterLabel text={i18n.filters.nailExtension} style={styles.sectionTitle} />
             <FilterCheckBox {...extensionTipsAcrilycPedicure} {...filterHandlers} />
             <FilterCheckBox {...extensionFormsAcrilycPedicure} {...filterHandlers} />
             <FilterCheckBox {...extensionTipsGelPedicure} {...filterHandlers} />
@@ -169,12 +172,16 @@ export default class ServicesListPedicure extends Component<TProps, TState> {
 
         {this.state.withdrawal && (
           <View>
-            <FilterLabel text={i18n.filters.withdrawal} style={[styles.sectionTitle, styles.sectionPadding]} />
+            <View style={styles.sectionPadding} />
+            <FilterLabel text={i18n.filters.withdrawal} style={styles.sectionTitle} />
             <FilterCheckBox {...removingNailPolishPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingShellacPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingBioGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingGelPedicure} {...filterHandlers} />
             <FilterCheckBox {...removingNailsPedicure} {...filterHandlers} shouldShowSeparator={false} />
+            {Platform.OS === 'ios' && (
+              <Separator style={styles.separator} />
+            )}
           </View>
         )}
       </View>
@@ -187,6 +194,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         backgroundColor: vars.color.white,
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },
