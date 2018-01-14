@@ -55,6 +55,7 @@ type TProps = MasterCardType & {
 
 type TState = {
   listHeight: 0,
+  renderContent: boolean,
   scrollViewHeight: 0,
   showFirstGroup: boolean,
   showSecondGroup: boolean,
@@ -69,12 +70,13 @@ export default class MasterCard extends Component<TProps, TState> {
   };
 
   state = {
-    showWorksGallery: false,
-    showWorksIndex: 0,
-    scrollViewHeight: 0,
     listHeight: 0,
+    renderContent: false,
+    scrollViewHeight: 0,
     showFirstGroup: false,
     showSecondGroup: false,
+    showWorksGallery: false,
+    showWorksIndex: 0,
   };
 
   scrollViewRef: ScrollView;
@@ -86,7 +88,10 @@ export default class MasterCard extends Component<TProps, TState> {
       }
     });
 
-    InteractionManager.runAfterInteractions(() => this.renderComponents());
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderContent: true });
+      this.renderComponents();
+    });
   }
 
   onWorksShow = (index: string) => {
@@ -147,11 +152,16 @@ export default class MasterCard extends Component<TProps, TState> {
     } = this.props;
 
     const {
+      renderContent,
       showWorksGallery,
       showWorksIndex,
       showFirstGroup,
       showSecondGroup,
     } = this.state;
+
+    if (!renderContent) {
+      return null;
+    }
 
     const masterPhotoUri = (masterPhotos && masterPhotos.length > 0)
       ? { uri: masterPhotos[0].sizes.m }
