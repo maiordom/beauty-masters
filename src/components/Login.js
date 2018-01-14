@@ -14,6 +14,7 @@ import Input from '../components/Input';
 
 import i18n from '../i18n';
 import vars from '../vars';
+import { trackEvent } from '../utils/Tracker';
 
 const i18nEnter = Platform.select({
   ios: i18n.enterTo,
@@ -55,6 +56,10 @@ export default class Login extends Component<TProps, TState> {
 
   setUsernameRef = (ref: Object) => this.usernameRef = ref;
   setPasswordRef = (ref: Object) => this.passwordRef = ref;
+
+  componentDidMount() {
+    trackEvent('viewAuth');
+  }
 
   componentWillReceiveProps(nextProps: Object) {
     if (nextProps.error !== this.state.responseError) {

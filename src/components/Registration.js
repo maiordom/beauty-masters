@@ -7,6 +7,7 @@ import Input from '../components/Input';
 
 import i18n from '../i18n';
 import vars from '../vars';
+import { trackEvent } from '../utils/Tracker';
 
 const i18nSignUp = Platform.select({
   ios: i18n.signUp,
@@ -50,6 +51,10 @@ export default class Registration extends Component<TProps, TState> {
     if (nextProps.error !== this.state.responseError) {
       this.setState({ responseError: nextProps.error });
     }
+  }
+
+  componentDidMount() {
+    trackEvent('viewReg');
   }
 
   onUserCreatePress = () => {

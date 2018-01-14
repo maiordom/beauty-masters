@@ -28,6 +28,7 @@ import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 const localization = {
   continue: Platform.select({
@@ -45,6 +46,8 @@ type TProps = {
   cardType: string,
   homeAllowanceField: Object,
   isSalon: boolean,
+  manicureCustomServices: Object,
+  pedicureCustomServices: Object,
   serviceManicure: Object,
   servicePedicure: Object,
 };
@@ -86,7 +89,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
   }
 
   getActiveModelsCount = (modelsCollection) => {
-    const activeCount = 0;
+    let activeCount = 0;
 
     each(modelsCollection, (model) => {
       if (model.active) {
@@ -141,10 +144,14 @@ export default class MasterEditorService extends Component<TProps, TState> {
             trackEvent('step2Salon');
             trackEvent('step2SalonManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
             trackEvent('step2SalonPedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
+            trackEvent('step2SalonManicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.manicureCustomServices.items) });
+            trackEvent('step2SalonPedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.pedicureCustomServices.items) });
           } else {
             trackEvent('step2Private');
             trackEvent('step2PrivateManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
             trackEvent('step2PrivatePedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
+            trackEvent('step2PrivateManicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.manicureCustomServices.items) });
+            trackEvent('step2PrivatePedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.services.pedicureCustomServices.items) });
           }
           this.props.actions.routeToHandlingTools();
         } else {

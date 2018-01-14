@@ -18,8 +18,10 @@ import { isSalon } from '../../utils/isSalon';
 
 const mapStateToProps = (state) => ({
   cardType: state.masterEditor.cardType,
-  isSalon: isSalon(state),
   homeAllowanceField: state.masterEditor.services.homeAllowanceField,
+  isSalon: isSalon(state),
+  manicureCustomServices: state.masterEditor.services.manicureCustomServices,
+  pedicureCustomServices: state.masterEditor.services.pedicureCustomServices,
   serviceManicure: state.masterEditor.serviceManicure,
   servicePedicure: state.masterEditor.servicePedicure,
 });

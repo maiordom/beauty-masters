@@ -89,7 +89,6 @@ export default () => (
           component={MasterEditorGeneral}
         />
         <Scene
-          initial
           key="masterEditorService"
           title={i18n.masterEditor.services}
           component={MasterEditorService}

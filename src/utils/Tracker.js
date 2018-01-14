@@ -44,10 +44,14 @@ const accountsEvents = each({
   step2PrivateSelectPedicure: { label: 'step_2_private_pedicure_visit' },
   step2PrivateManicureServicesCount: { label: (count) => `step_2_private_manicure_services_${count}` },
   step2PrivatePedicureServicesCount: { label: (count) => `step_2_private_pedicure_services_${count}` },
+  step2PrivateManicureCustomServicesCount: { label: (count) => `step_2_private_manicure_custom_services_${count}`, },
+  step2PrivatePedicureCustomServicesCount: { label: (count) => `step_2_private_pedicure_custom_services_${count}` },
   step2Salon: { label: 'step_2_salon' },
   step2SalonSelectPedicure: { label: 'step_2_salon_pedicure_visit' },
   step2SalonManicureServicesCount: { label: (count) => `step_2_salon_manicure_services_${count}` },
   step2SalonPedicureServicesCount: { label: (count) => `step_2_salon_pedicure_services_${count}` },
+  step2SalonManicureCustomServicesCount: { label: (count) => `step_2_salon_manicure_custom_services_${count}` },
+  step2SalonPedicureCustomServicesCount: { label: (count) => `step_2_salon_pedicure_custom_services_${count}` },
   step3Salon: { label: 'step_3_salon' },
   step3Private: { label: 'step_3_private' },
   step4Salon: { label: 'step_4_salon' },
@@ -103,7 +107,7 @@ export const trackEvent = (eventName, option = {}) => {
     'Tracker::Event',
     category,
     action,
-    { label, ...options },
+    { label },
   );
 
   tracker.trackEvent(
