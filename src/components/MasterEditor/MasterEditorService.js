@@ -311,7 +311,10 @@ const styles = StyleSheet.create({
     }),
   },
   segmentContainer: {
-    padding: 8,
+    paddingTop: 8,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 8,
   },
 });
 
