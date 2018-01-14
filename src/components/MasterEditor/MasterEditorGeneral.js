@@ -142,7 +142,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
   error = (text: string) => (
     <View style={styles.error}>
       <Text style={styles.errorText}>{text}</Text>
-      <Image style={styles.errorImage} source={icons.warning} />
+      {Platform.OS === 'android' && <Image style={styles.errorImage} source={icons.warning} />}
     </View>
   );
 

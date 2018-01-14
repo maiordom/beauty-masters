@@ -205,7 +205,7 @@ const inputStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderBottomWidth: 1,
-        borderBottomColor: '#E4E6E8',
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },
