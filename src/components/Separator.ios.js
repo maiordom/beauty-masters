@@ -5,9 +5,15 @@ import { View, StyleSheet } from 'react-native';
 
 import vars from '../vars';
 
-const Separator = () => (
-  <View style={styles.separator} />
+type TProps = {
+  style?: StyleSheet,
+};
+
+const Separator = (props: TProps) => (
+  <View style={[styles.separator, props.style]} />
 );
+
+Separator.defaultProps = { style: null };
 
 const styles = StyleSheet.create({
   separator: {

@@ -5,12 +5,14 @@ import {
   InteractionManager,
   Platform,
   ScrollView,
+  SegmentedControlIOS,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
+import findIndex from 'lodash/findIndex';
 import each from 'lodash/each';
 
 import { FilterLabel } from '../FilterLabel';
@@ -60,6 +62,11 @@ type TState = {
   tabs: Array<{ title: string, key: string, }>,
 };
 
+const sections = {
+  serviceManicure: 'serviceManicure',
+  servicePedicure: 'servicePedicure',
+};
+
 export default class MasterEditorService extends Component<TProps, TState> {
   state = {
     renderLoader: true,
@@ -67,8 +74,8 @@ export default class MasterEditorService extends Component<TProps, TState> {
     showFillPedicureSectionModal: false,
     tabActiveKey: 'serviceManicure',
     tabs: [
-      { title: i18n.manicure, key: 'serviceManicure' },
-      { title: i18n.pedicure, key: 'servicePedicure' },
+      { title: i18n.manicure, key: sections.serviceManicure },
+      { title: i18n.pedicure, key: sections.servicePedicure },
     ],
   };
 
@@ -180,7 +187,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
   onPedicureAttentionFill = () => {
     this.setState({
       showFillPedicureSectionModal: false,
-      tabActiveKey: 'servicePedicure',
+      tabActiveKey: sections.servicePedicure,
     }, () => {
       this.scrollViewRef.scrollTo({ y: 0, animated: false });
     });
@@ -228,16 +235,16 @@ export default class MasterEditorService extends Component<TProps, TState> {
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
         <Modal isVisible={showAllFieldsRequiredModal}>
-          <Text>{i18n.fillAllRequiredFields}</Text>
+          <Text style={validationStyles.alertText}>{i18n.fillAllRequiredFields}</Text>
           <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
             <View style={validationStyles.button}>
-              <Text style={validationStyles.text}>OK</Text>
+              <Text style={validationStyles.text}>{i18n.ok}</Text>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
         <Modal isVisible={showFillPedicureSectionModal}>
           <Text style={pedicureModalStyles.title}>{i18n.fillPedicureSection}</Text>
-          <View style={pedicureModalStyles.row}>
+          <View style={pedicureModalStyles.buttonsContainer}>
             <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>
               <View style={pedicureModalStyles.button}>
                 <Text style={pedicureModalStyles.text}>{localization.continue}</Text>
@@ -250,25 +257,42 @@ export default class MasterEditorService extends Component<TProps, TState> {
             </TouchableWithoutFeedback>
           </View>
         </Modal>
+        {Platform.select({
+          android: (<View>
+            <Label text={i18n.yourServices} spacing />
+            <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
+          </View>),
+          ios: (<View style={styles.segmentContainer}>
+            <SegmentedControlIOS
+              values={tabs.map(tab => tab.title)}
+              selectedIndex={findIndex(tabs, tab => tab.key === tabActiveKey)}
+              onChange={(event) => {
+                const activeTab = this.state.tabs[event.nativeEvent.selectedSegmentIndex];
+                this.setState({ tabActiveKey: activeTab.key });
+              }}
+              tintColor={vars.color.red}
+            />
+          </View>),
+        })}
         <ScrollView ref={this.setScrollViewRef} style={styles.inner}>
-          <Label text={i18n.yourServices} spacing />
-          <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
-          <StateMachine visible={tabActiveKey === 'servicePedicure'}>
+          <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <ServicesListPedicure models={servicePedicure} {...filterHandlers} />
           </StateMachine>
-          <StateMachine visible={tabActiveKey === 'serviceManicure'}>
+          <StateMachine visible={tabActiveKey === sections.serviceManicure}>
             <ServicesListManicure models={serviceManicure} {...filterHandlers} />
           </StateMachine>
+          <View style={styles.sectionPadding} />
           <Input
             {...homeAllowanceField}
             inputWrapperStyle={styles.homeAllowance}
             onBlur={this.onChangeAtHome}
           />
-          <FilterLabel text={i18n.filters.otherServices} />
-          <StateMachine visible={tabActiveKey === 'servicePedicure'}>
+          <View style={styles.sectionPadding} />
+          <FilterLabel text={i18n.filters.otherServices} style={styles.sectionTitle} />
+          <StateMachine visible={tabActiveKey === sections.servicePedicure}>
             <CustomServices key="pedicure" type="pedicure" />
           </StateMachine>
-          <StateMachine visible={tabActiveKey === 'serviceManicure'}>
+          <StateMachine visible={tabActiveKey === sections.serviceManicure}>
             <CustomServices key="manicure" type="manicure" />
           </StateMachine>
         </ScrollView>
@@ -293,33 +317,117 @@ const styles = StyleSheet.create({
   },
   homeAllowance: {
     paddingLeft: 11,
-    marginBottom: 4,
+    ...Platform.select({
+      android: {
+        marginBottom: 4,
+      },
+      ios: {
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
+        borderBottomWidth: 1,
+      },
+    }),
+  },
+  sectionTitle: {
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.white,
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
+  },
+  sectionPadding: {
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 10,
+        borderColor: vars.color.lightGrey,
+      },
+    }),
+  },
+  segmentContainer: {
+    paddingTop: 8,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 8,
   },
 });
 
 const validationStyles = StyleSheet.create({
+  alertText: {
+    ...Platform.select({
+      ios: {
+        padding: 16,
+      },
+    }),
+  },
   button: {
-    marginTop: 15,
-    alignItems: 'flex-end',
+    ...Platform.select({
+      android: {
+        marginTop: 15,
+        alignItems: 'flex-end',
+      },
+      ios: {
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
+        alignItems: 'center',
+        padding: 12,
+      },
+    }),
   },
   text: {
-    color: vars.color.red,
+    ...Platform.select({
+      android: {
+        color: vars.color.red,
+      },
+      ios: {
+        color: vars.color.blue,
+      },
+    }),
   },
 });
 
 const pedicureModalStyles = StyleSheet.create({
   title: {
-    lineHeight: 25,
+    ...Platform.select({
+      android: {
+        lineHeight: 25,
+      },
+      ios: {
+        padding: 16,
+      },
+    }),
   },
   button: {
-    marginTop: 15,
-    marginLeft: 15,
+    ...Platform.select({
+      android: {
+        marginTop: 15,
+        marginLeft: 15,
+      },
+      ios: {
+        borderTopWidth: 1,
+        borderColor: vars.color.cellSeparatorColorIOS,
+        alignItems: 'center',
+        padding: 12,
+      },
+    }),
   },
   text: {
-    color: vars.color.red,
+    ...Platform.select({
+      android: {
+        color: vars.color.red,
+      },
+      ios: {
+        color: vars.color.blue,
+      },
+    }),
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  buttonsContainer: {
+    ...Platform.select({
+      android: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+      },
+    }),
   },
 });

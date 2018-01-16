@@ -25,12 +25,12 @@ export default {
   chooseAddress: 'Выберите адрес',
   closestDate: 'Ближайшая дата приема',
   currency: {
-    roubleSign: 'р',
+    roubleSign: '\u20BD',
   },
   customService: {
-    duration: 'Длительность, мин',
+    duration: 'Время, мин',
     name: 'Введите название услуги',
-    price: 'Стоимость, р',
+    price: 'Стоимость, \u20BD',
   },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   days: {
@@ -89,7 +89,7 @@ export default {
     classic: 'Обрезной/классический',
     combined: 'Комбинированный',
     coverage: 'Покрытие',
-    duration: 'Длительность, мин',
+    duration: 'Время, мин',
     european: 'Европейский/необрезной',
     express: 'Экспресс',
     extensionAcrilycGel: 'Гелем на формы',
@@ -101,7 +101,7 @@ export default {
     gradientManicure: 'Градиентный маникюр',
     gradientPedicure: 'Градиентный педикюр',
     hardware: 'Аппаратный',
-    homeAllowance: 'Надбавка за выезд на дом, р',
+    homeAllowance: 'Надбавка за выезд на дом, \u20BD',
     hot: 'Горячий маникюр',
     masterType: {
       all: 'Все',
@@ -116,7 +116,7 @@ export default {
     nailProcessingMethod: 'Способ обработки ногтей (без покрытия)',
     naroshchennyhNails: 'Нарощенных ногтей',
     otherServices: 'Другие услуги',
-    price: 'Стоимость, р',
+    price: 'Стоимость, \u20BD',
     removingGel: 'Другого геля-лака',
     removingNailPolish: 'Лака',
     removingNails: {
@@ -165,7 +165,7 @@ export default {
     ok: 'OK',
   },
   masterEditor: {
-    aboutDescription: 'Чем больше информации вы укажите, тем выше будет уровень доверия клиентов к вам',
+    aboutDescription: 'Чем больше информации вы укажете, тем выше будет уровень доверия клиентов к вам',
     aboutExample: 'Например, маникюр+шеллак = скидка 15%',
     additionalInformation: 'Шаг 5/5: Дополнительная информация',
     attachPhotosOfYourWork: 'Приложите фотографии ваших работ (максимум 15 фото)',
@@ -219,6 +219,7 @@ export default {
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
   profile: 'Профиль',
+  ok: 'OK',
   onAddress: 'По адресу',
   ready: 'Готово',
   registration: 'Регистрация',

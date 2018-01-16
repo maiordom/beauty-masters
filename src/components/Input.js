@@ -213,11 +213,14 @@ const inputStyle = StyleSheet.create({
     paddingLeft: 4,
     flex: 1,
     alignSelf: 'stretch',
-    height: 44,
     ...Platform.select({
       android: {
         height: 48,
         fontSize: 16,
+      },
+      ios: {
+        height: 44,
+        fontSize: 17,
       },
     }),
   },
