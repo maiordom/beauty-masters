@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Platform } from 'react-native';
 import get from 'lodash/get';
@@ -21,7 +21,7 @@ type TState = {
   activeView: 'map' | 'list',
 };
 
-class Serp extends Component<TProps, TState> {
+class Serp extends PureComponent<TProps, TState> {
   props: TProps;
 
   state = {
@@ -38,7 +38,12 @@ class Serp extends Component<TProps, TState> {
 
   render() {
     const { activeView } = this.state;
-    const { sceneKey } = this.props;
+    let { sceneKey } = this.props;
+    const { sceneKey: prevSceneKey } = this.props.navigationState;
+
+    if (sceneKey === 'serp' || prevSceneKey === 'serp' && sceneKey === 'drawer') {
+      sceneKey = 'serp';
+    }
 
     return (
       <View style={styles.scene}>
@@ -48,7 +53,7 @@ class Serp extends Component<TProps, TState> {
           onListPress={this.onListPress}
         />
         {activeView === 'map'
-          ? <Map key={sceneKey} />
+          ? sceneKey === 'serp' && <Map key={sceneKey} />
           : <SerpList />}
       </View>
     );

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import findIndex from 'lodash/findIndex';
+import each from 'lodash/each';
 
 import { FilterLabel } from '../FilterLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -29,6 +30,7 @@ import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 const localization = {
   continue: Platform.select({
@@ -45,6 +47,9 @@ type TProps = {
   actions: Object,
   cardType: string,
   homeAllowanceField: Object,
+  isSalon: boolean,
+  manicureCustomServices: Object,
+  pedicureCustomServices: Object,
   serviceManicure: Object,
   servicePedicure: Object,
 };
@@ -90,8 +95,30 @@ export default class MasterEditorService extends Component<TProps, TState> {
     });
   }
 
+  getActiveModelsCount = (modelsCollection) => {
+    let activeCount = 0;
+
+    each(modelsCollection, (model) => {
+      if (model.active) {
+        activeCount++;
+      }
+    });
+
+    return activeCount;
+  }
+
   onServicesPress = (item: Object) => {
     this.setState({ tabActiveKey: item.key });
+
+    if (item.key === sections.serviceManicure) {
+      return;
+    }
+
+    if (this.props.isSalon) {
+      trackEvent('step2SalonSelectPedicure');
+    } else {
+      trackEvent('step2PrivateSelectPedicure');
+    }
   };
 
   onChange = (active: boolean, modelName: string) => {
@@ -130,9 +157,23 @@ export default class MasterEditorService extends Component<TProps, TState> {
     this.props.actions.createMasterServices().then((res) => {
       if (res.result === 'success') {
         if (this.props.cardType === 'create') {
+          if (this.props.isSalon) {
+            trackEvent('step2Salon');
+            trackEvent('step2SalonManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
+            trackEvent('step2SalonPedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
+            trackEvent('step2SalonManicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.manicureCustomServices.items) });
+            trackEvent('step2SalonPedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.pedicureCustomServices.items) });
+          } else {
+            trackEvent('step2Private');
+            trackEvent('step2PrivateManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
+            trackEvent('step2PrivatePedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
+            trackEvent('step2PrivateManicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.manicureCustomServices.items) });
+            trackEvent('step2PrivatePedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.pedicureCustomServices.items) });
+          }
           this.props.actions.routeToHandlingTools();
         } else {
           this.props.actions.routeToProfile();
+          trackEvent('changeServices');
         }
       }
     });

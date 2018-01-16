@@ -11,8 +11,11 @@ import {
   toggleService,
 } from '../../actions/Master';
 
+import { isSalon } from '../../utils/isSalon';
+
 const mapStateToProps = (state) => ({
   cardType: state.masterEditor.cardType,
+  isSalon: isSalon(state),
   modelParamName: 'value',
   models: state.masterEditor.handlingTools,
   queryParamName: 'price',

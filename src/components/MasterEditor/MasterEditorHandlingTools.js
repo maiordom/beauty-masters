@@ -12,10 +12,12 @@ import Switch from '../Switch';
 import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
+import { trackEvent } from '../../utils/Tracker';
 
 type TProps = {
   actions: Object,
   cardType: string,
+  isSalon: boolean,
   modelParamName: string,
   models: Object,
   queryParamName: string,
@@ -48,6 +50,16 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
   onNextPress = () => {
     this.props.actions.createMasterServices().then((res) => {
       if (res.result === 'success') {
+        if (this.props.cardType === 'create') {
+          if (this.props.isSalon) {
+            trackEvent('step3Salon');
+          } else {
+            trackEvent('step3Private');
+          }
+        } else {
+          trackEvent('changeHandlingTools');
+        }
+
         this.props.actions.routeToCalendars();
       }
     });
@@ -57,6 +69,7 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
     this.props.actions.createMasterServices().then((res) => {
       if (res.result === 'success') {
         this.props.actions.routeToProfile();
+        trackEvent('changeHandlingTools');
       }
     });
   };

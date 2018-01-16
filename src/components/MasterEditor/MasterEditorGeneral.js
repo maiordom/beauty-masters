@@ -13,6 +13,7 @@ import Switch from '../Switch';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 const icons = Platform.select({
   android: {
@@ -88,6 +89,18 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
+          const isSalon = this.props.isSalonField.value;
+
+          if (this.props.cardType === 'create') {
+            if (isSalon) {
+              trackEvent('step1Salon');
+            } else {
+              trackEvent('step1Private');
+            }
+          } else {
+            trackEvent('changeProfile');
+          }
+
           this.props.actions.routeToServices();
         }
       });
@@ -98,6 +111,10 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
+          if (this.props.cardType === 'edit') {
+            trackEvent('changeProfile');
+          }
+
           this.props.actions.routeToProfile();
         }
       });

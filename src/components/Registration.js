@@ -7,6 +7,7 @@ import Input from '../components/Input';
 
 import i18n from '../i18n';
 import vars from '../vars';
+import { trackEvent } from '../utils/Tracker';
 
 const i18nSignUp = Platform.select({
   ios: i18n.signUp,
@@ -52,12 +53,20 @@ export default class Registration extends Component<TProps, TState> {
     }
   }
 
+  componentDidMount() {
+    trackEvent('viewReg');
+  }
+
   onUserCreatePress = () => {
     const email = this.emailRef.getValue().trim().toLowerCase();
     const password = this.passwordRef.getValue().trim().toLowerCase();
 
     if (this.validate()) {
-      this.props.actions.userCreate({ email, password });
+      this.props.actions.userCreate({ email, password }).then((res) => {
+        if (res.result === 'success') {
+          trackEvent('step0');
+        }
+      });
     }
   };
 

@@ -18,7 +18,16 @@ export const createSchedules = (sectionName) => (dispatch, getState) => {
 
   return MasterService.createSchedules(params, {
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
-  });
+  }).then((res) => {
+    if (res.status === 'success') {
+      dispatch({
+        type: actions.MASTER_CALENDAR_SCHEDULE_STATUS_SET,
+        payload: { sectionName, status: true }
+      });
+    }
+
+    return res;
+  })
 };
 
 export const handleTimeTable = (sectionName) => (dispatch, getState) => {
@@ -79,7 +88,7 @@ export const handleAddress = (sectionName) => (dispatch, getState) => {
     if (!res.error) {
       dispatch({
         type: actions.MASTER_ADDRESS_SET_ID,
-        payload: { addressId: res.addressId, sectionName },
+        payload: { addressId: res.data.id, sectionName },
       });
     }
 

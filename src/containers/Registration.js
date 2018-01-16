@@ -17,11 +17,13 @@ const mapDispatchToProps = dispatch => {
   return {
     actions: {
       userCreate(params) {
-        actions.userCreate(params).then((res) => {
+        return actions.userCreate(params).then((res) => {
           if (res.result === 'success') {
             actions.getUserProfile();
             Actions.masterEditorGeneral();
           }
+
+          return res;
         });
       },
     },

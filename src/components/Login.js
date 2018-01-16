@@ -14,6 +14,7 @@ import Input from '../components/Input';
 
 import i18n from '../i18n';
 import vars from '../vars';
+import { trackEvent } from '../utils/Tracker';
 
 const i18nEnter = Platform.select({
   ios: i18n.enterTo,
@@ -56,6 +57,10 @@ export default class Login extends Component<TProps, TState> {
   setUsernameRef = (ref: Object) => this.usernameRef = ref;
   setPasswordRef = (ref: Object) => this.passwordRef = ref;
 
+  componentDidMount() {
+    trackEvent('viewAuth');
+  }
+
   componentWillReceiveProps(nextProps: Object) {
     if (nextProps.error !== this.state.responseError) {
       this.setState({ responseError: nextProps.error });
@@ -95,7 +100,11 @@ export default class Login extends Component<TProps, TState> {
     const password = this.passwordRef.getValue().trim().toLowerCase();
 
     if (this.validate()) {
-      this.props.actions.userLogin({ username, password });
+      this.props.actions.userLogin({ username, password }).then((res) => {
+        if (res.result === 'success') {
+          trackEvent('authByEmail');
+        }
+      });
     }
   };
 
