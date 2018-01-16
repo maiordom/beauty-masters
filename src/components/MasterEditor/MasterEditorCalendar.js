@@ -8,11 +8,13 @@ import EditControl from '../EditControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 type TProps = {
   actions: Object,
-  cardType: string,
   addressValues: Array<string>,
+  cardType: string,
+  isSalon: boolean,
 };
 
 export default class MasterEditorCalendar extends Component<TProps, void> {
@@ -23,6 +25,18 @@ export default class MasterEditorCalendar extends Component<TProps, void> {
   }
 
   onNextPress = () => {
+    if (this.props.cardType === 'create') {
+      const createdCalendarsCount = this.props.actions.selectorGetCreatedCalendarsCount();
+
+      if (this.props.isSalon) {
+        trackEvent('step4Salon');
+        trackEvent('step4SalonCalendarsCount', { labelValue: createdCalendarsCount });
+      } else {
+        trackEvent('step4Private');
+        trackEvent('step4PrivateCalendarsCount', { labelValue: createdCalendarsCount });
+      }
+    }
+
     this.props.actions.routeToInfo();
   };
 

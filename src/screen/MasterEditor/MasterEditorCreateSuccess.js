@@ -7,6 +7,12 @@ import { createMaster } from '../../actions/Master';
 import MasterEditorCreateSuccess from '../../components/MasterEditor/MasterEditorCreateSuccess';
 import NavBar from '../../components/NavBar';
 
+import { isSalon } from '../../utils/isSalon';
+
+const mapStateToProps = (state) => ({
+  isSalon: isSalon(state),
+});
+
 const mapDispatchToProps = (dispatch) => ({
   actions: {
     ...bindActionCreators({ createMaster }, dispatch),
@@ -14,4 +20,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(NavBar(MasterEditorCreateSuccess));
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorCreateSuccess));

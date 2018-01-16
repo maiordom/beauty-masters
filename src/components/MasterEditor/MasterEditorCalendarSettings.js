@@ -18,10 +18,12 @@ import RadioGroup from '../RadioGroup';
 import RangeTime from '../RangeTime';
 
 import i18n from '../../i18n';
+import { trackEvent } from '../../utils/Tracker';
 
 type TProps = {
   actions: Object,
   calendarSettings: Object,
+  cardType: string,
   sectionName: string,
 };
 
@@ -91,7 +93,11 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
   };
 
   onReadyPress = () => {
-    this.props.actions.next();
+    this.props.actions.next().then(() => {
+      if (this.props.cardType === 'edit') {
+        trackEvent('changeCalendar');
+      }
+    });
   };
 
   onAddressChange = () => {

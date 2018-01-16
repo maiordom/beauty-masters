@@ -78,7 +78,7 @@ const accountsEvents = each({
   changeServices: { label: 'change_services', action: 'account' },
   changeHandlingTools: { label: 'change_handling_tools', action: 'account' },
   changePhoto: { label: 'change_photo', action: 'account' },
-  authByemail: { action: 'auth_by_email' },
+  authByEmail: { action: 'auth_by_email' },
   viewAuth: { action: 'auth_view' },
   viewReg: { action: 'reg_view' }
 }, (event) => {

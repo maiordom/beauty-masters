@@ -12,6 +12,7 @@ import MasterPhotoList from '../MasterEditor/MasterPhotoList';
 import Switch from '../Switch';
 
 import i18n from '../../i18n';
+import { trackEvent } from '../../utils/Tracker';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
@@ -33,6 +34,7 @@ type TProps = {
   cardType: string,
   certificatePhotos: Object,
   editStatus: Object,
+  isSalon: boolean,
   masterCardId: number | null,
   personalPhotos: Object,
   sectionName: string,
@@ -74,9 +76,30 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
     this.props.actions.setGeneralParam(modelName, value, this.props.sectionName);
   };
 
+  getPhotosCount = (model) =>
+    model.items.filter((item) => item.status === 'uploaded').length;
+
   onNextPress = () => {
+    const {
+      certificatePhotos,
+      personalPhotos,
+      workPhotos,
+    } = this.props;
+
     this.props.actions.createMaster().then((res) => {
       if (res.result === 'success') {
+        if (this.props.isSalon) {
+          trackEvent('step5Salon');
+          trackEvent('step5SalonMasterPhotoCount', { labelValue: this.getPhotosCount(personalPhotos) });
+          trackEvent('step5SalonCertificatePhotoCount', { labelValue: this.getPhotosCount(certificatePhotos) });
+          trackEvent('step5SalonPortfolioPhotoCount', { labelValue: this.getPhotosCount(workPhotos) });
+        } else {
+          trackEvent('step5Private');
+          trackEvent('step5PrivateMasterPhotoCount', { labelValue: this.getPhotosCount(personalPhotos) });
+          trackEvent('step5PrivateCertificatePhotoCount', { labelValue: this.getPhotosCount(certificatePhotos) });
+          trackEvent('step5PrivatePortfolioPhotoCount', { labelValue: this.getPhotosCount(workPhotos) });
+        }
+
         this.props.actions.routeToSuccess();
       }
     });
@@ -85,6 +108,7 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   onSavePress = () => {
     this.props.actions.createMaster().then((res) => {
       if (res.result === 'success') {
+        trackEvent('changePhoto');
         this.props.actions.routeToProfile();
       }
     });

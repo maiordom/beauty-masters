@@ -162,7 +162,7 @@ export default makeReducer(() => ({
         setParam(payload, state);
       });
 
-      calendarModel.customDates.items = address.schedules.map((schedule) => {
+      state.masterEditor[sectionName].customDates.items = address.schedules.map((schedule) => {
         const scheduleObject = {
           date: schedule.date,
           timeStart: schedule.timeStart,

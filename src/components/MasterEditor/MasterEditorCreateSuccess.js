@@ -11,6 +11,8 @@ import { shouldComponentUpdate } from '../../utils';
 import { MASTER_CARD_STATUS } from '../../constants/Master';
 import { TCreateMaster } from '../../types/CreateMaster';
 
+import { trackEvent } from '../../utils/Tracker';
+
 const icons = {
   success: Platform.select({
     android: require('../../icons/android/success.png'),
@@ -22,6 +24,7 @@ type TProps = {
     createMaster: (createMasterQuery: TCreateMaster) => Promise<any>;
     routeToPresentation: () => void;
   },
+  isSalon: boolean,
 };
 
 export default class MasterEditorCreateSuccess extends Component<void, TProps> {
@@ -29,6 +32,14 @@ export default class MasterEditorCreateSuccess extends Component<void, TProps> {
 
   onCompletePress = () => {
     this.props.actions.createMaster({ status: MASTER_CARD_STATUS.MODERATION }).then(() => {
+      if (this.props.isSalon) {
+        trackEvent('step6Salon');
+        trackEvent('step6SalonSuccess');
+      } else {
+        trackEvent('step6Private');
+        trackEvent('step6PrivateSuccess');
+      }
+
       this.props.actions.routeToPresentation();
     });
   };

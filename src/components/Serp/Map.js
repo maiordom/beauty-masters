@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Animated,
   Dimensions,
@@ -22,7 +22,7 @@ import take from 'lodash/take';
 
 import getDistance from '../../utils/Geo';
 
-import { shouldComponentUpdate, hexToRgba } from '../../utils';
+import { hexToRgba } from '../../utils';
 import { trackEvent } from '../../utils/Tracker';
 
 import PagedCardContainer from './PagedCardContainer';
@@ -143,7 +143,7 @@ const MAX_CURRENT_MAP_CARDS = 10;
 const DEFAULT_LATITUDE_DELTA = 0.05;
 const DEFAULT_LONGITUDE_DELTA = 0.05;
 
-export default class Map extends Component<TProps, TState> {
+export default class Map extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
     super(props);
 
@@ -163,8 +163,6 @@ export default class Map extends Component<TProps, TState> {
       snippetTranslateY: new Animated.Value(Dimensions.get('window').height),
     };
   }
-
-  shouldComponentUpdate = shouldComponentUpdate;
 
   map: MapView;
 

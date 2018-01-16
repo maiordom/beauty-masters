@@ -89,17 +89,6 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
-          this.props.actions.routeToServices();
-          trackEvent('changeProfile');
-        }
-      });
-    }
-  };
-
-  onSavePress = () => {
-    if (this.validate()) {
-      this.props.actions.createMaster().then((res) => {
-        if (res.result === 'success') {
           const isSalon = this.props.isSalonField.value;
 
           if (this.props.cardType === 'create') {
@@ -109,6 +98,20 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
               trackEvent('step1Private');
             }
           } else {
+            trackEvent('changeProfile');
+          }
+
+          this.props.actions.routeToServices();
+        }
+      });
+    }
+  };
+
+  onSavePress = () => {
+    if (this.validate()) {
+      this.props.actions.createMaster().then((res) => {
+        if (res.result === 'success') {
+          if (this.props.cardType === 'edit') {
             trackEvent('changeProfile');
           }
 

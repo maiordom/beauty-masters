@@ -174,4 +174,7 @@ export default makeReducer((state, action) => ({
 
   [actions.MASTER_TIME_TABLE_SET_ID]: (state, { payload: { sectionName, timeTableId } }) =>
     deepUpdate(state, `masterEditor.${sectionName}`, { timeTableId }),
+
+  [actions.MASTER_CALENDAR_SCHEDULE_STATUS_SET]: (state, { payload: { sectionName, status } }) =>
+    deepUpdate(state, `masterEditor.${sectionName}`, { schedulesCreated: status }),
 }));

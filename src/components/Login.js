@@ -100,7 +100,11 @@ export default class Login extends Component<TProps, TState> {
     const password = this.passwordRef.getValue().trim().toLowerCase();
 
     if (this.validate()) {
-      this.props.actions.userLogin({ username, password });
+      this.props.actions.userLogin({ username, password }).then((res) => {
+        if (res.result === 'success') {
+          trackEvent('authByEmail');
+        }
+      });
     }
   };
 

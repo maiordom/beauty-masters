@@ -19,6 +19,7 @@ import NavBar from '../../components/NavBar';
 
 const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
   calendarSettings: state.masterEditor[modelName],
+  cardType: state.masterEditor.cardType,
   sectionName: modelName,
 });
 

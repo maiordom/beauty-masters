@@ -72,6 +72,7 @@ Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: tru
   const cities = citiesModel();
 
   object.index = index;
+  object.schedulesCreated = false;
   object.timeTableId = null;
   object.addressId = null;
   object.cityField.value = cities.selected.name;

@@ -109,6 +109,16 @@ export default class MasterEditorService extends Component<TProps, TState> {
 
   onServicesPress = (item: Object) => {
     this.setState({ tabActiveKey: item.key });
+
+    if (item.key === sections.serviceManicure) {
+      return;
+    }
+
+    if (this.props.isSalon) {
+      trackEvent('step2SalonSelectPedicure');
+    } else {
+      trackEvent('step2PrivateSelectPedicure');
+    }
   };
 
   onChange = (active: boolean, modelName: string) => {
@@ -158,7 +168,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
             trackEvent('step2PrivateManicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.serviceManicure) });
             trackEvent('step2PrivatePedicureServicesCount', { labelValue: this.getActiveModelsCount(this.props.servicePedicure) });
             trackEvent('step2PrivateManicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.manicureCustomServices.items) });
-            trackEvent('step2PrivatePedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.services.pedicureCustomServices.items) });
+            trackEvent('step2PrivatePedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.pedicureCustomServices.items) });
           }
           this.props.actions.routeToHandlingTools();
         } else {

@@ -9,10 +9,13 @@ import { getPhotos } from '../../actions/MasterEdit';
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
 import NavBar from '../../components/NavBar';
 
+import { isSalon } from '../../utils/isSalon';
+
 const mapStateToProps = state => ({
   ...state.masterEditor.info,
   cardType: state.masterEditor.cardType,
   editStatus: state.masterEditor.editStatus,
+  isSalon: isSalon(state),
   masterCardId: state.masterEditor.masterCardId,
   sectionName: 'info',
 });
