@@ -60,10 +60,6 @@ each({
   });
 });
 
-Object.assign(params.serviceManicure.classicManicure, { required: true, active: true });
-Object.assign(params.serviceManicure.removingNailPolishManicure, { required: true, active: true });
-Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: true, active: true });
-
 [
   params.calendarSettingsOne,
   params.calendarSettingsTwo,

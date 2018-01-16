@@ -62,6 +62,10 @@ export const createMasterServices = () => (dispatch, getState) => {
     ...state.masterEditor.pedicureCustomServicesQuery,
   ];
 
+  if (!masterServices.length) {
+    return Promise.resolve({ result: 'success' });
+  }
+
   const params = {
     data: masterServices,
     master_card_id: state.masterEditor.masterCardId,
