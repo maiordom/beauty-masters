@@ -59,7 +59,7 @@ export default class Registration extends Component<TProps, TState> {
 
   onUserCreatePress = () => {
     const email = this.emailRef.getValue().trim().toLowerCase();
-    const password = this.passwordRef.getValue().trim().toLowerCase();
+    const password = this.passwordRef.getValue().trim();
 
     if (this.validate()) {
       this.props.actions.userCreate({ email, password }).then((res) => {

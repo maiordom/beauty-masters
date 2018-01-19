@@ -1,8 +1,9 @@
 /* @flow */
 
 export type TMasterCard = {
+    about: string,
     addresses: Array<TMasterAddress>,
-    city: string,
+    avatar: string,
     email: string,
     id: number,
     isMain: boolean,

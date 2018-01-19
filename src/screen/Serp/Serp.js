@@ -38,12 +38,6 @@ class Serp extends PureComponent<TProps, TState> {
 
   render() {
     const { activeView } = this.state;
-    let { sceneKey } = this.props;
-    const { sceneKey: prevSceneKey } = this.props.navigationState;
-
-    if (sceneKey === 'serp' || prevSceneKey === 'serp' && sceneKey === 'drawer') {
-      sceneKey = 'serp';
-    }
 
     return (
       <View style={styles.scene}>
@@ -53,8 +47,9 @@ class Serp extends PureComponent<TProps, TState> {
           onListPress={this.onListPress}
         />
         {activeView === 'map'
-          ? sceneKey === 'serp' && <Map key={sceneKey} />
-          : <SerpList />}
+          ? <Map />
+          : <SerpList />
+        }
       </View>
     );
   }

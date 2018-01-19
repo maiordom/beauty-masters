@@ -128,13 +128,14 @@ export default class Sidebar extends Component<TProps, TState> {
     } = this.props;
 
     const { currentScene } = this.state;
+    const avatarSource = avatar ? { uri: avatar } : icons.photoEmpty;
 
     return (
       <View style={styles.sidebar}>
         <View style={styles.header}>
           <TouchableOpacity onPress={this.onAvatarPress}>
             <View style={styles.photoWrapper}>
-              <Image style={styles.photo} source={avatar || icons.photoEmpty} />
+              <Image style={styles.photo} source={avatarSource} />
             </View>
           </TouchableOpacity>
           <View style={styles.titleContainer}>
@@ -204,6 +205,8 @@ const styles = StyleSheet.create({
   photo: {
     width: 64,
     height: 64,
+    borderRadius: 50,
+
   },
   titleContainer: {
     flexDirection: 'row',

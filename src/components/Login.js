@@ -97,7 +97,7 @@ export default class Login extends Component<TProps, TState> {
 
   onLoginUserPress = () => {
     const username = this.usernameRef.getValue().trim().toLowerCase();
-    const password = this.passwordRef.getValue().trim().toLowerCase();
+    const password = this.passwordRef.getValue().trim()
 
     if (this.validate()) {
       this.props.actions.userLogin({ username, password }).then((res) => {

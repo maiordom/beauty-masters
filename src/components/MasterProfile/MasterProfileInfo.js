@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   StyleSheet,
@@ -18,13 +18,13 @@ const photoEmpty = require('../../icons/photo-empty.png');
 
 type TProps = {
   actions: Object,
+  avatar: string,
   email: string,
-  masterPhotos: Array<string>,
   phone: string,
   username: string,
 }
 
-export default class MasterProfileInfo extends Component<TProps, void> {
+export default class MasterProfileInfo extends PureComponent<TProps, void> {
   onSelectAnotherMaster = () => {
     this.props.actions.selectAnotherMaster();
   };
@@ -35,18 +35,18 @@ export default class MasterProfileInfo extends Component<TProps, void> {
 
   render() {
     const {
-      masterPhotos,
-      username,
-      phone,
+      avatar,
       email,
+      phone,
+      username,
     } = this.props;
 
-    const photoSrc = masterPhotos[0] ? { uri: masterPhotos[0] } : photoEmpty;
+    const avatarSource = avatar ? { uri: avatar } : photoEmpty;
 
     return (
       <View style={styles.container}>
         <View style={styles.content}>
-          <Image style={styles.photo} source={photoSrc} />
+          <Image style={styles.photo} source={avatarSource} />
           <TouchableWithoutFeedback onPress={this.onEditPress}>
             <View>
               <Text style={styles.edit}>{i18n.editProfile}</Text>

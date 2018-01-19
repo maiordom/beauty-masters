@@ -85,8 +85,13 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
       personalPhotos,
       workPhotos,
     } = this.props;
+    const customCreateMasterQuery = { avatar: '' };
 
-    this.props.actions.createMaster().then((res) => {
+    if (personalPhotos.items.length) {
+      customCreateMasterQuery.avatar = personalPhotos.items[0].sizes.s;
+    }
+
+    this.props.actions.createMaster(customCreateMasterQuery).then((res) => {
       if (res.result === 'success') {
         if (this.props.isSalon) {
           trackEvent('step5Salon');
@@ -106,7 +111,14 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   };
 
   onSavePress = () => {
-    this.props.actions.createMaster().then((res) => {
+    const { personalPhotos } = this.props;
+    const customCreateMasterQuery = { avatar: '' };
+
+    if (personalPhotos.items.length) {
+      customCreateMasterQuery.avatar = personalPhotos.items[0].sizes.s;
+    }
+
+    this.props.actions.createMaster(customCreateMasterQuery).then((res) => {
       if (res.result === 'success') {
         trackEvent('changePhoto');
         this.props.actions.routeToProfile();

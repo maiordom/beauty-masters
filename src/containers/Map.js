@@ -34,7 +34,6 @@ const mapStateToProps = (state, ownProps) => ({
     return userLocationSelector(state);
   })(),
   points: state.searchForm.searchResult.items,
-  sceneKey: ownProps.sceneKey,
   userLocation: userLocationSelector(state),
 });
 

@@ -13,6 +13,7 @@ export const getUserProfile = (headers: Object, params: Object) =>
       masterCards: res.included ? res.included.map((card) => ({
         about: card.attributes.about,
         addresses: [],
+        avatar: card.attributes.avatar,
         email: res.data.attributes.email,
         id: Number(card.id),
         isMain: Boolean(card.attributes.is_main),
