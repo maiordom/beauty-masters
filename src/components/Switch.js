@@ -94,12 +94,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 44,
     ...Platform.select({
       android: {
         height: 48,
       },
       ios: {
+        paddingTop: 8,
+        paddingBottom: 8,
         borderBottomWidth: 1,
         borderBottomColor: vars.color.cellSeparatorColorIOS,
       },
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
       },
       ios: {
+        flex: 1,
         fontSize: 17,
       },
     }),
