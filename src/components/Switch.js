@@ -62,6 +62,7 @@ export default class CustomSwitch extends Component<TProps, void> {
           <Text style={[styles.title, customStyles.title]}>{title}</Text>
           {Platform.select({
             ios: (<Switch
+              style={styles.switch}
               value={value}
               ref={this.setRef}
               onValueChange={this.onChange}
@@ -103,6 +104,13 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         borderBottomWidth: 1,
         borderBottomColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
+  },
+  switch: {
+    ...Platform.select({
+      ios: {
+        marginRight: 16,
       },
     }),
   },

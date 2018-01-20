@@ -27,8 +27,15 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   text: {
-    lineHeight: 20,
-    fontSize: 14,
     color: vars.color.grey,
+    ...Platform.select({
+      android: {
+        fontSize: 14,
+        lineHeight: 20,
+      },
+      ios: {
+        fontSize: 12,
+      },
+    }),
   },
 });
