@@ -11,7 +11,6 @@ import {
   setCustomDatesField,
   setTimeTableField,
 } from '../../actions/Master';
-import { drawerOpen } from '../../actions/Drawer';
 import { setActivityIndicator } from '../../actions/Common';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
@@ -37,7 +36,6 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
   return {
     actions: {
       ...actions,
-      drawerOpen,
       next() {
         dispatch(setActivityIndicator(true));
 

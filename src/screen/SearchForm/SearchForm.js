@@ -47,7 +47,7 @@ const mapStateToProps = (state, ownProps) => {
     leftButtonMenu: true,
     manicureSearchFormSections,
     pedicureSearchFormSections,
-    sceneKey: ownProps.currentScene || state.scene.sceneKey,
+    sceneKey: ownProps.currentScene || state.scene && state.scene.sceneKey,
   };
 };
 

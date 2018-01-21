@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import find from 'lodash/find';
 
-import { drawerClose } from '../actions/Drawer';
 import { setCalendarSchedule } from '../actions/Master';
 
 import WorkTimeSpecification from '../components/WorkTimeSpecification';
@@ -19,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     date: ownProps.date,
     modelName,
+    onRequestClose: ownProps.onRequestClose,
     sectionName: ownProps.sectionName,
     timeEnd: dateCurrent.timeEnd,
     timeEndDefault,
@@ -37,8 +37,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
   actions: {
     applyChanges: (modelName, changes, sectionName) => {
-      drawerClose();
-
       if (changes) {
         dispatch(setCalendarSchedule(modelName, changes, sectionName));
       }
