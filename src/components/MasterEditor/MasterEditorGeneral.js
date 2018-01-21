@@ -66,22 +66,18 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
 
     value = value.replace(/[^0-9]+/g, '');
 
-    this.props.actions.setGeneralParam(modelName, upperFirst(value), sectionName);
+    this.props.actions.setGeneralPhone(modelName, upperFirst(value), sectionName);
+
+    if (this.state.hasError) {
+      this.validate();
+    }
   };
 
   formatPhone = (value: string) => {
     let rawValue = value.replace(/[^0-9]+/g, '');
 
-    if (rawValue.length > 1 && rawValue[0] === '7') {
-      rawValue = rawValue.slice(1);
-    }
-
-    if (value === '+7 (') {
-      rawValue = '';
-    }
-
     return toPattern(rawValue, {
-      pattern: '+7 (999) 999 99 99',
+      pattern: '(999) 999 99 99',
     });
   };
 
@@ -132,7 +128,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     let validation = true;
     const state = {};
 
-    if (!phoneField.value || phoneField.value && phoneField.value.length < 11) {
+    if (!phoneField.value || phoneField.value && phoneField.value.length < 10) {
       validation = false;
       state.errorFillPhoneNumber = true;
     } else {
@@ -192,13 +188,19 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
           {errorFillUsername && (
             this.error(i18n.fillField)
           )}
-          <Input
-            {...phoneField}
-            debounce
-            formatValue={this.formatPhone}
-            keyboardType="phone-pad"
-            onChange={this.onPhoneChange}
-          />
+          <View style={styles.phoneWrapper}>
+            <View>
+              <Text style={styles.phoneCountryCode}>+7</Text>
+            </View>
+            <Input
+              {...phoneField}
+              debounce
+              formatValue={this.formatPhone}
+              inputWrapperStyle={styles.phoneInputWrapper}
+              keyboardType="phone-pad"
+              onChange={this.onPhoneChange}
+            />
+          </View>
           {errorFillPhoneNumber && (
             this.error(i18n.fillPhoneNumber)
           )}
@@ -235,6 +237,17 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  phoneInputWrapper: {
+    flex: 1,
+  },
+  phoneCountryCode: {
+    fontSize: 15,
+    top: -1,
+  },
+  phoneWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   switcher: {
     paddingLeft: 4,

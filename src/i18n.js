@@ -203,7 +203,7 @@ export default {
   no: 'Нет',
   passwordTip: 'Пароль (не менее 8 символов)',
   pedicure: 'Педикюр',
-  phone: 'Телефон (для звонков клиентов)',
+  phone: '(XXX) XXX-XX-XX',
   phoneShort: 'Телефон',
   photo: {
     photo: 'Фото',

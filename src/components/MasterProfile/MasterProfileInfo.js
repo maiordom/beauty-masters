@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { toPattern } from 'vanilla-masker';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -62,7 +63,7 @@ export default class MasterProfileInfo extends PureComponent<TProps, void> {
             <View style={styles.row}>
               <View style={styles.label}>
                 <Text style={styles.labelText}>{i18n.phoneShort}</Text>
-                <Text style={styles.labelValue}>{phone}</Text>
+                <Text style={styles.labelValue}>{toPattern(phone, { pattern: '+9 (999) 999 99 99' })}</Text>
               </View>
               <View style={styles.label}>
                 <Text style={styles.labelText}>{i18n.email}</Text>

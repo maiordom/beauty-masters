@@ -97,8 +97,7 @@ export default makeReducer((state, action) => ({
     });
   },
 
-  [actions.MASTER_GENERAL_SET_PARAM]: () => {
-    const { sectionName, modelName, value } = action;
+  [actions.MASTER_GENERAL_PARAM_SET]: (state, { sectionName, modelName, value }) => {
     const model = state.masterEditor[sectionName][modelName];
 
     state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
@@ -109,6 +108,16 @@ export default makeReducer((state, action) => ({
     }
 
     return state;
+  },
+
+  [actions.MASTER_GENERAL_PHONE_SET]: (state, { payload: { sectionName, modelName, value } }) => {
+    const model = state.masterEditor[sectionName][modelName];
+
+    state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
+
+    return deepUpdate(state, `masterEditor.createMasterQuery`, {
+      [model.queryParam]: '7' + value
+    });
   },
 
   [actions.MASTER_CALENDAR_INTERVAL_SET]: () => {
