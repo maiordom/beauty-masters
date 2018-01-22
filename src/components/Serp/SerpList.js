@@ -7,43 +7,67 @@ import { Actions } from 'react-native-router-flux';
 import MapCard from './MapCard';
 
 import vars from '../../vars';
-import getDistance from '../../utils/Geo';
 import { trackEvent } from '../../utils/Tracker';
 
 import type { TMapCard } from '../../types/MasterTypes';
 
 type TState = {
   dataSource: Array<*>,
-  renderContent: boolean,
 };
 
 type TProps = {
-  initialRegion: {
-    latitude: number,
-    longitude: number,
+  actions: {
+    searchMastersList: Function,
   },
-  points: Array<TMapCard>,
+  initialRegion: TRegionType,
+  userLocation: TRegionType,
+  points: Array<TMapCard & { distance: number }>,
 };
+
+const DEFAULT_LIST_SEARCH_RADIUS = 10000;
 
 export default class SerpList extends Component<TProps, TState> {
   state = {
     dataSource: [],
   };
 
+  ds: ListView.DataSource;
+
   constructor(props: TProps) {
     super(props);
 
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.points),
-      renderContent: false,
+      dataSource: this.ds.cloneWithRows(this.props.points),
     };
   }
 
   componentDidMount() {
     trackEvent('viewSerp');
-    this.setState({ renderContent: true });
+    this.searchMasters();
+  }
+
+  componentWillReceiveProps(nextProps: TProps) {
+    if (this.props.items !== nextProps.points) {
+      this.setState({
+        dataSource: this.ds.cloneWithRows(nextProps.points),
+      });
+    }
+  }
+
+  searchMasters = () => {
+    const { userLocation } = this.props;
+
+    if (!userLocation) {
+      return;
+    }
+
+    this.props.actions.searchMastersList({
+      lat: userLocation.latitude,
+      lon: userLocation.longitude,
+      radius: DEFAULT_LIST_SEARCH_RADIUS,
+    });
   }
 
   onMapCardPress = (card: TMapCard) => {
@@ -65,11 +89,7 @@ export default class SerpList extends Component<TProps, TState> {
   };
 
   render() {
-    const { dataSource, renderContent } = this.state;
-
-    if (!renderContent) {
-      return null;
-    }
+    const { dataSource } = this.state;
 
     return (
       <View>
@@ -77,21 +97,9 @@ export default class SerpList extends Component<TProps, TState> {
           initialListSize={3}
           pageSize={3}
           dataSource={dataSource}
-          renderRow={item => {
-            const { initialRegion } = this.props;
-            const { coordinates } = item;
-
-            const distance = getDistance(
-              coordinates.latitude,
-              coordinates.longitude,
-              initialRegion.latitude,
-              initialRegion.longitude,
-            ).toFixed(2);
-
-            return (
-              <MapCard onPress={this.onMapCardPress} distance={distance} {...item} />
-            );
-          }}
+          renderRow={item => (
+            <MapCard onPress={this.onMapCardPress} distance={item.distance} {...item} />
+          )}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
         />
       </View>
