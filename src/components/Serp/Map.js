@@ -246,8 +246,8 @@ export default class Map extends PureComponent<TProps, TState> {
         const distance = getDistance(
           pointCoordinates.latitude,
           pointCoordinates.longitude,
-          this.props.initialRegion.latitude,
-          this.props.initialRegion.longitude,
+          this.props.userLocation.latitude,
+          this.props.userLocation.longitude,
         ).toFixed(2);
         return { ...leave.properties, distance };
       });
@@ -256,8 +256,8 @@ export default class Map extends PureComponent<TProps, TState> {
       const distance = getDistance(
         coordinate.latitude,
         coordinate.longitude,
-        this.props.initialRegion.latitude,
-        this.props.initialRegion.longitude,
+        this.props.userLocation.latitude,
+        this.props.userLocation.longitude,
       ).toFixed(2);
       currentMapCards = [{ ...point.properties, distance }];
       region = {
