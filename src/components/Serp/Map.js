@@ -41,6 +41,7 @@ const icons = Platform.select({
     location: require('../../icons/location.png'),
     pinGreen: require('../../icons/pin-green.png'),
     pinRed: require('../../icons/pin-red.png'),
+    userLocation: require('../../icons/android/my-location-pin.png'),
   },
   ios: {
     clusterPinGreen: require('../../icons/ios/cluster-pin-green.png'),
@@ -49,6 +50,7 @@ const icons = Platform.select({
     location: require('../../icons/ios/location.png'),
     pinGreen: require('../../icons/ios/pin-green.png'),
     pinRed: require('../../icons/ios/pin-red.png'),
+    userLocation: require('../../icons/ios/my-location-pin.png'),
   },
 });
 
@@ -355,6 +357,7 @@ export default class Map extends PureComponent<TProps, TState> {
       region,
       renderContent,
     } = this.state;
+    const { userLocation } = this.props;
 
     if (!renderContent) {
       return null;
@@ -375,6 +378,12 @@ export default class Map extends PureComponent<TProps, TState> {
           ref={this.setMapRef}
           style={styles.map}
         >
+          {userLocation && <MapView.Marker
+            key={`me.${userLocation.latitude},${userLocation.longitude}`}
+            image={icons.userLocation}
+            coordinate={userLocation}
+            identifier="me"
+          /> }
           {clusters.map((pin, index) => {
             const coordinate = getLatLng(pin);
 
