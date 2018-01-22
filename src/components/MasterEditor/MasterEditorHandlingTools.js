@@ -122,6 +122,7 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
               modelName={sterileOtherMethod.modelName}
               editable={sterileOtherMethod.value}
               onChange={this.onChangeOtherMethod}
+              inputWrapperStyle={styles.otherMethodInput}
             />
           </View>
         </ScrollView>
@@ -151,6 +152,13 @@ const styles = StyleSheet.create({
     }),
   },
   lastSwitch: {
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 0,
+      },
+    }),
+  },
+  otherMethodInput: {
     ...Platform.select({
       ios: {
         borderBottomWidth: 0,
