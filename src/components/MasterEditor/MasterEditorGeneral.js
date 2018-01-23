@@ -254,8 +254,15 @@ const styles = StyleSheet.create({
   },
   inner: {
     flex: 1,
-    paddingLeft: 12,
-    paddingRight: 12,
+    ...Platform.select({
+      android: {
+        paddingLeft: 12,
+        paddingRight: 12,
+      },
+      ios: {
+        paddingLeft: 16,
+      },
+    }),
   },
   error: {
     paddingLeft: 4,
