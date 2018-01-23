@@ -11,6 +11,7 @@ export default class IntervalStartDate extends Component {
 
   onApplyPress = () => {
     this.props.actions.applyDate(this.state.selectedDate, this.props.sectionName);
+    this.props.onRequestClose();
   };
 
   onDateSelect = selectedDate => {

@@ -3,8 +3,6 @@ import RNDrawer from 'react-native-drawer';
 import { DefaultRenderer } from 'react-native-router-flux';
 
 import PhotoMaster from '../containers/PhotoMaster';
-import WorkTimeSpecification from '../containers/WorkTimeSpecification';
-import IntervalStartDate from '../containers/IntervalStartDate';
 import Sidebar from '../containers/Sidebar';
 
 import { drawerClose } from '../actions/Drawer';
@@ -31,8 +29,6 @@ export default class Drawer extends Component {
 
     switch (contentKey) {
       case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
-      case 'WorkTimeSpecification': content = <WorkTimeSpecification {...this.props} />; break;
-      case 'IntervalStartDate': content = <IntervalStartDate {...this.props} />; break;
       default: content = <Sidebar {...this.props} />;
     }
 

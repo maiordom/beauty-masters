@@ -136,10 +136,15 @@ export const removePhoto = (id, modelName, mediaType) => (dispatch, getState) =>
 };
 
 export const setGeneralParam = (modelName, value, sectionName) => ({
-  type: actions.MASTER_GENERAL_SET_PARAM,
+  type: actions.MASTER_GENERAL_PARAM_SET,
   modelName,
   sectionName,
   value,
+});
+
+export const setGeneralPhone = (modelName, value, sectionName) => ({
+  type: actions.MASTER_GENERAL_PHONE_SET,
+  payload: { modelName, value, sectionName },
 });
 
 export const setServiceParam = (modelName, paramName, paramValue, sectionName) => ({

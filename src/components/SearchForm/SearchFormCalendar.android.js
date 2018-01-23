@@ -70,9 +70,11 @@ const styles = StyleSheet.create({
     color: vars.color.black,
   },
   closeButton: {
-    alignSelf: 'flex-end',
-    padding: 14,
-    paddingTop: 0,
+    alignSelf: 'stretch',
+    paddingRight: 14,
+    height: 38,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   closeButtonTitle: {
     fontSize: 14,

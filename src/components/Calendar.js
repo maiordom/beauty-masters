@@ -83,9 +83,12 @@ export default class Calendar extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.startDate && this.props.startDate !== nextProps.startDate) {
-      if (this.props.interval) {
-        this.eventDates = prepareEventDates(this.props.interval.key, nextProps.startDate);
+    if (
+      nextProps.startDate && this.props.startDate !== nextProps.startDate
+      || nextProps.interval && this.props.interval && nextProps.interval.key !== this.props.interval.key
+    ) {
+      if (nextProps.interval) {
+        this.eventDates = prepareEventDates(nextProps.interval.key, nextProps.startDate);
       }
 
       this.setState({

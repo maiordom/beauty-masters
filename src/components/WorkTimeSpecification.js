@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import difference from 'lodash/difference';
 
@@ -17,6 +17,7 @@ type TProps = {
   actions: Object,
   date: string,
   modelName: string,
+  onRequestClose: () => void,
   sectionName: string,
   timeEndDefault: string,
   timeStartDefault: string,
@@ -91,6 +92,8 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
     } else {
       this.props.actions.applyChanges(this.props.modelName, changes, this.props.sectionName);
     }
+
+    this.props.onRequestClose();
   };
 
   onStatusChange = (workInThisDay: boolean) => {
@@ -122,14 +125,12 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
             onTimeStartChange={this.onTimeStartChange}
             onTimeEndChange={this.onTimeEndChange}
           />
-          <TouchableHighlight
-            activeOpacity={1}
-            underlayColor="transparent"
+          <TouchableOpacity
             style={styles.button}
             onPress={this.onApplyPress}
           >
             <Text style={styles.buttonText}>OK</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -140,6 +141,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'center',
+    alignSelf: 'stretch',
+    margin: 40,
   },
   switch: {
     paddingLeft: 16,
@@ -153,8 +156,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 25,
     backgroundColor: vars.color.white,
-    marginLeft: 40,
-    marginRight: 40,
   },
   button: {
     marginTop: 12,

@@ -195,7 +195,7 @@ export default makeReducer(() => ({
     const infoSection = state.masterEditor.info;
 
     generalSection.isSalonField.value = masterCard.isSalon;
-    generalSection.phoneField.value = masterCard.phone;
+    generalSection.phoneField.value = masterCard.phone.slice(1);
     generalSection.salonNameField.value = masterCard.salonName;
     generalSection.usernameField.value = masterCard.username;
     infoSection.aboutField.value = masterCard.about;
