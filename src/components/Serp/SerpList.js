@@ -4,10 +4,14 @@ import React, { Component } from 'react';
 import { View, ListView, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import sortBy from 'lodash/sortBy';
+import isEqual from 'lodash/isEqual';
+
 import MapCard from './MapCard';
 
 import vars from '../../vars';
 import { trackEvent } from '../../utils/Tracker';
+import getDistance from '../../utils/Geo';
 
 import type { TMapCard } from '../../types/MasterTypes';
 
@@ -21,7 +25,7 @@ type TProps = {
   },
   initialRegion: TRegionType,
   userLocation: TRegionType,
-  points: Array<TMapCard & { distance: number }>,
+  points: Array<TMapCard>,
 };
 
 const DEFAULT_LIST_SEARCH_RADIUS = 10000;
@@ -49,11 +53,27 @@ export default class SerpList extends Component<TProps, TState> {
   }
 
   componentWillReceiveProps(nextProps: TProps) {
-    if (this.props.items !== nextProps.points) {
-      this.setState({
-        dataSource: this.ds.cloneWithRows(nextProps.points),
-      });
+    if (!isEqual(this.props.points, nextProps.points)) {
+      this.updateDataSourceWithPoints(nextProps.points);
     }
+  }
+
+  updateDataSourceWithPoints(points: Array<TMapCard>) {
+    const sortedPoints = sortBy(points.map(item => {
+      const { coordinates } = item;
+      const { userLocation } = this.props;
+      const distance = getDistance(
+        coordinates.latitude,
+        coordinates.longitude,
+        userLocation.latitude,
+        userLocation.longitude,
+      ).toFixed(2);
+      return { ...item, distance };
+    }), (point) => (Number(point.distance)));
+
+    this.setState({
+      dataSource: this.ds.cloneWithRows(sortedPoints),
+    });
   }
 
   searchMasters = () => {
