@@ -72,7 +72,7 @@ type TState = {
 
 type TProps = {
   actions: {
-    getLocation: () => void,
+    getLocation: () => Promise<TRegionType>,
     searchMasters: Function,
     setLastMapLocation: Function,
   },
@@ -288,6 +288,12 @@ export default class Map extends PureComponent<TProps, TState> {
     this.props.actions.getLocation().then((userLocation) => {
       this.map.animateToRegion({
         ...userLocation,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
+      }, 300);
+    }).catch(() => {
+      this.map.animateToRegion({
+        ...this.props.userLocation,
         latitudeDelta: DEFAULT_LATITUDE_DELTA,
         longitudeDelta: DEFAULT_LONGITUDE_DELTA,
       }, 300);
