@@ -29,6 +29,7 @@ import PagedCardContainer from './PagedCardContainer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
+import { log } from '../../utils/Log';
 
 import type { TMapCard } from '../../types/MasterTypes';
 import type { TRegionType } from '../../types/RegionType';
@@ -315,7 +316,7 @@ export default class Map extends PureComponent<TProps, TState> {
   }
 
   onRegionChange = (region: TRegionType) => {
-    console.log('Map::RegionChange', region);
+    log('Map::RegionChange', region);
 
     this.setState({ region });
     this.searchMasters();
