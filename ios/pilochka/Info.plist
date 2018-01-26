@@ -47,6 +47,11 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+            <key>static.relak.me</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
 			<key>api.relak.me</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
