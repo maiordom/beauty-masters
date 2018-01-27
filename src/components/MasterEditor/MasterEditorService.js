@@ -295,6 +295,7 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
           <Input
             {...homeDepartureField}
             inputWrapperStyle={styles.homeAllowance}
+            keyboardType="numeric"
             onBlur={this.onChangeAtHome}
           />
           <View style={styles.sectionPadding} />
