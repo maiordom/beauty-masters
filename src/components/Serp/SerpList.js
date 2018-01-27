@@ -11,6 +11,7 @@ import getDistance from '../../utils/Geo';
 import { trackEvent } from '../../utils/Tracker';
 
 import type { TMapCard } from '../../types/MasterTypes';
+import type { TRegionType } from '../../types/RegionType';
 
 type TState = {
   dataSource: Array<*>,
@@ -18,10 +19,8 @@ type TState = {
 };
 
 type TProps = {
-  initialRegion: {
-    latitude: number,
-    longitude: number,
-  },
+  initialRegion: TRegionType,
+  userLocation: TRegionType,
   points: Array<TMapCard>,
 };
 
@@ -78,14 +77,14 @@ export default class SerpList extends Component<TProps, TState> {
           pageSize={3}
           dataSource={dataSource}
           renderRow={item => {
-            const { initialRegion } = this.props;
+            const { userLocation } = this.props;
             const { coordinates } = item;
 
             const distance = getDistance(
               coordinates.latitude,
               coordinates.longitude,
-              initialRegion.latitude,
-              initialRegion.longitude,
+              userLocation.latitude,
+              userLocation.longitude,
             ).toFixed(2);
 
             return (

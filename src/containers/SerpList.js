@@ -4,6 +4,15 @@ import { connect } from 'react-redux';
 
 import SerpList from '../components/Serp/SerpList';
 
+const userLocationSelector = (state) => {
+  const city = state.searchForm.general.cities.selected;
+  const { userLocation } = state.geo;
+
+  return userLocation.lat
+    ? { latitude: userLocation.lat, longitude: userLocation.lon }
+    : { latitude: city.lat, longitude: city.lon };
+};
+
 const mapStateToProps = state => {
   const initialRegion = (() => {
     if (state.searchForm.general.place.label) {
@@ -28,6 +37,7 @@ const mapStateToProps = state => {
   return {
     initialRegion,
     points: state.searchForm.searchResult.items,
+    userLocation: userLocationSelector(state),
   };
 };
 
