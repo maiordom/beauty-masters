@@ -14,6 +14,7 @@ import { trackEvent } from '../../utils/Tracker';
 import getDistance from '../../utils/Geo';
 
 import type { TMapCard } from '../../types/MasterTypes';
+import type { TRegionType } from '../../types/RegionType';
 
 type TState = {
   dataSource: Array<*>,

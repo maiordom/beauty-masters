@@ -4,6 +4,7 @@ import actions from '../constants/Common';
 
 import { setSearchLocation } from './Search';
 import { defer } from '../utils/Defer';
+import { log } from '../utils/Log';
 
 export const setActivityIndicator = (animating: boolean) => ({
   type: actions.ACTIVITY_INDICATOR_ANIMATING,
@@ -23,16 +24,22 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
         payload: { lat, lon },
       });
 
-      console.log('geo::location::', position.coords);
-
       if (updateSearchQuery) {
         dispatch(setSearchLocation(lat, lon));
       }
 
-      deferred.resolve(position.coords);
+      deferred.resolve({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
     }
-  }, (err) => {
-    deferred.reject(err);
+
+    log('geo::location', position);
+  }, (exx) => {
+    log('geo::location::exx', exx);
+    deferred.reject(exx);
+  }, {
+    timeout: 1000,
   });
 
   return deferred.promise;

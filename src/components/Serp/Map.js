@@ -29,6 +29,7 @@ import PagedCardContainer from './PagedCardContainer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
+import { log } from '../../utils/Log';
 
 import type { TMapCard } from '../../types/MasterTypes';
 import type { TRegionType } from '../../types/RegionType';
@@ -41,6 +42,7 @@ const icons = Platform.select({
     location: require('../../icons/location.png'),
     pinGreen: require('../../icons/pin-green.png'),
     pinRed: require('../../icons/pin-red.png'),
+    userLocation: require('../../icons/android/my-location-pin.png'),
   },
   ios: {
     clusterPinGreen: require('../../icons/ios/cluster-pin-green.png'),
@@ -49,6 +51,7 @@ const icons = Platform.select({
     location: require('../../icons/ios/location.png'),
     pinGreen: require('../../icons/ios/pin-green.png'),
     pinRed: require('../../icons/ios/pin-red.png'),
+    userLocation: require('../../icons/ios/my-location-pin.png'),
   },
 });
 
@@ -70,7 +73,7 @@ type TState = {
 
 type TProps = {
   actions: {
-    getLocation: () => void,
+    getLocation: () => Promise<TRegionType>,
     searchMasters: Function,
     setLastMapLocation: Function,
   },
@@ -244,8 +247,8 @@ export default class Map extends PureComponent<TProps, TState> {
         const distance = getDistance(
           pointCoordinates.latitude,
           pointCoordinates.longitude,
-          this.props.initialRegion.latitude,
-          this.props.initialRegion.longitude,
+          this.props.userLocation.latitude,
+          this.props.userLocation.longitude,
         ).toFixed(2);
         return { ...leave.properties, distance };
       });
@@ -254,8 +257,8 @@ export default class Map extends PureComponent<TProps, TState> {
       const distance = getDistance(
         coordinate.latitude,
         coordinate.longitude,
-        this.props.initialRegion.latitude,
-        this.props.initialRegion.longitude,
+        this.props.userLocation.latitude,
+        this.props.userLocation.longitude,
       ).toFixed(2);
       currentMapCards = [{ ...point.properties, distance }];
       region = {
@@ -289,6 +292,12 @@ export default class Map extends PureComponent<TProps, TState> {
         latitudeDelta: DEFAULT_LATITUDE_DELTA,
         longitudeDelta: DEFAULT_LONGITUDE_DELTA,
       }, 300);
+    }).catch(() => {
+      this.map.animateToRegion({
+        ...this.props.userLocation,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
+      }, 300);
     });
   };
 
@@ -307,7 +316,7 @@ export default class Map extends PureComponent<TProps, TState> {
   }
 
   onRegionChange = (region: TRegionType) => {
-    console.log('Map::RegionChange', region);
+    log('Map::RegionChange', region);
 
     this.setState({ region });
     this.searchMasters();
@@ -355,6 +364,7 @@ export default class Map extends PureComponent<TProps, TState> {
       region,
       renderContent,
     } = this.state;
+    const { userLocation } = this.props;
 
     if (!renderContent) {
       return null;
@@ -375,6 +385,12 @@ export default class Map extends PureComponent<TProps, TState> {
           ref={this.setMapRef}
           style={styles.map}
         >
+          {userLocation && <MapView.Marker
+            key={`me.${userLocation.latitude},${userLocation.longitude}`}
+            image={icons.userLocation}
+            coordinate={userLocation}
+            identifier="me"
+          /> }
           {clusters.map((pin, index) => {
             const coordinate = getLatLng(pin);
 

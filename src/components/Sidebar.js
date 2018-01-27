@@ -134,8 +134,8 @@ export default class Sidebar extends Component<TProps, TState> {
       <View style={styles.sidebar}>
         <View style={styles.header}>
           <TouchableOpacity onPress={this.onAvatarPress}>
-            <View style={styles.photoWrapper}>
-              <Image style={styles.photo} source={avatarSource} />
+            <View style={styles.avatarWrapper}>
+              <Image style={styles.avatar} source={avatarSource} />
             </View>
           </TouchableOpacity>
           <View style={styles.titleContainer}>
@@ -199,14 +199,25 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  photoWrapper: {
+  avatarWrapper: {
     marginTop: 40,
-  },
-  photo: {
     width: 64,
     height: 64,
-    borderRadius: 50,
-
+    ...Platform.select({
+      ios: {
+        borderRadius: 50,
+        overflow: 'hidden',
+      },
+    }),
+  },
+  avatar: {
+    width: 64,
+    height: 64,
+    ...Platform.select({
+      android: {
+        borderRadius: 50,
+      },
+    }),
   },
   titleContainer: {
     flexDirection: 'row',

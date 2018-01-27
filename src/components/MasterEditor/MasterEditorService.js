@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   InteractionManager,
   Platform,
@@ -46,7 +46,7 @@ const localization = {
 type TProps = {
   actions: Object,
   cardType: string,
-  homeAllowanceField: Object,
+  homeDepartureField: Object,
   isSalon: boolean,
   manicureCustomServices: Object,
   pedicureCustomServices: Object,
@@ -67,7 +67,7 @@ const sections = {
   servicePedicure: 'servicePedicure',
 };
 
-export default class MasterEditorService extends Component<TProps, TState> {
+export default class MasterEditorService extends PureComponent<TProps, TState> {
   state = {
     renderLoader: true,
     showAllFieldsRequiredModal: false,
@@ -226,7 +226,7 @@ export default class MasterEditorService extends Component<TProps, TState> {
       cardType,
       serviceManicure,
       servicePedicure,
-      homeAllowanceField,
+      homeDepartureField,
     } = this.props;
 
     const {
@@ -293,8 +293,9 @@ export default class MasterEditorService extends Component<TProps, TState> {
           </StateMachine>
           <View style={styles.sectionPadding} />
           <Input
-            {...homeAllowanceField}
+            {...homeDepartureField}
             inputWrapperStyle={styles.homeAllowance}
+            keyboardType="numeric"
             onBlur={this.onChangeAtHome}
           />
           <View style={styles.sectionPadding} />
