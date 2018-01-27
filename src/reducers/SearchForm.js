@@ -192,6 +192,24 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.SEARCH_MASTERS_LIST_ITEMS_SET]: () => {
+    const { items } = action;
+
+    items.forEach((item) => {
+      item.services = reject(item.services, (service) => {
+        return service.id === null || service.id === undefined;
+      });
+
+      item.services.forEach((service) => {
+        service.title = state.dictionaries.serviceById[service.id].title;
+      });
+    });
+
+    deepUpdate(state, 'searchForm.searchListResult', { items });
+
+    return state;
+  },
+
   [actions.SEARCH_LOCATION_SET]: (state, { payload: { lat, lon } }) =>
     deepUpdate(state, 'searchForm.searchQuery', {
       lat,

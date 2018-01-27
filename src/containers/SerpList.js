@@ -1,6 +1,9 @@
 // @flow
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { searchMastersList } from '../actions/Search';
 
 import SerpList from '../components/Serp/SerpList';
 
@@ -36,9 +39,15 @@ const mapStateToProps = state => {
 
   return {
     initialRegion,
-    points: state.searchForm.searchResult.items,
+    points: state.searchForm.searchListResult.items,
     userLocation: userLocationSelector(state),
   };
 };
 
-export default connect(mapStateToProps, null)(SerpList);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    searchMastersList,
+  }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SerpList);

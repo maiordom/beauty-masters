@@ -74,7 +74,7 @@ type ActionSetItems = {
   }>
 };
 
-export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
+const searchMastersWithAction = (action: string) => (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
   const { searchQuery } = getState().searchForm;
 
   params = Object.assign({}, searchQuery, params);
@@ -91,12 +91,15 @@ export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function,
     .then((res: Object) => {
       if (!res.error) {
         dispatch({
-          type: actions.SEARCH_MASTERS_ITEMS_SET,
+          type: action,
           items: res,
         });
       }
     });
 };
+
+export const searchMasters = searchMastersWithAction(actions.SEARCH_MASTERS_ITEMS_SET);
+export const searchMastersList = searchMastersWithAction(actions.SEARCH_MASTERS_LIST_ITEMS_SET);
 
 export const setSearchLocation = (lat: number, lon: number) => ({
   type: actions.SEARCH_LOCATION_SET,

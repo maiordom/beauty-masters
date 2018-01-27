@@ -142,9 +142,11 @@ const searchQuery: TSearchQuery = {
 };
 
 const searchResult = { items: [] };
+const searchListResult = { items: [] };
 
 export default {
   ...params,
   searchQuery,
   searchResult,
+  searchListResult,
 };
