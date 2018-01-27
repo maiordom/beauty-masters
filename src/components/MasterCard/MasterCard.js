@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Dimensions,
   Image,
@@ -63,7 +63,7 @@ type TState = {
   showWorksIndex: number,
 };
 
-export default class MasterCard extends Component<TProps, TState> {
+export default class MasterCard extends PureComponent<TProps, TState> {
   static defaultProps = {
     addresses: [],
     workPhoto: [],
@@ -200,7 +200,10 @@ export default class MasterCard extends Component<TProps, TState> {
               />
             )}
             {groupedServices && groupedServices.length > 0 && (
-              <MasterCardServices services={groupedServices} homeDepartureService={homeDepartureService} />
+              <MasterCardServices
+                homeDepartureService={homeDepartureService}
+                services={groupedServices}
+              />
             )}
           </Fade>
           <Fade visible={showSecondGroup}>

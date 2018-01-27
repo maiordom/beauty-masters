@@ -313,6 +313,14 @@ export default makeReducer(() => ({
     });
   },
 
+  [actions.MASTER_EDIT_HOME_ALLOWANCE_SET]: (state, { payload: { masterCard } }) => {
+    if (masterCard.homeDepartureService) {
+      state.masterEditor.services.homeDepartureField.value = masterCard.homeDepartureService.price;
+    }
+
+    return state;
+  },
+
   [actions.MASTER_EDIT_PHOTOS_SET]: (state, { payload: { masterCard } }) => {
     const { masterPhotos, certificatePhotos, workPhotos } = masterCard;
 
