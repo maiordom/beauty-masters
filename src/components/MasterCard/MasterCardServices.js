@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  Image,
   Text,
   Platform,
 } from 'react-native';
@@ -14,15 +15,31 @@ import {
 import vars from '../../vars';
 import i18n from '../../i18n';
 
+const icons = Platform.select({
+  android: {
+    homeIcon: require('../../icons/android/home-icon.png'),
+  },
+  ios: {
+    homeIcon: require('../../icons/ios/home-icon.png'),
+  },
+});
+
 export default class MasterCardServices extends Component {
   render() {
-    const { services } = this.props;
+    const { services, homeDepartureService } = this.props;
 
     return (
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{i18n.myServices}</Text>
         </View>
+        {homeDepartureService && (
+          <View style={styles.homeDepartureContainer}>
+            <Image source={icons.homeIcon} />
+            <Text style={styles.homeDepartureTitle}>{i18n.homeDeparture}</Text>
+            <Text style={styles.homeDeparturePrice}>{`+ ${homeDepartureService.price} \u20BD`}</Text>
+          </View>
+        )}
         {services.map((serviceGroup) => (
           <View key={serviceGroup.id}>
             <View style={Platform.OS === 'android' ? styles.service : null}>
@@ -73,6 +90,30 @@ const styles = StyleSheet.create({
   content: {
     alignSelf: 'stretch',
     backgroundColor: vars.color.white,
+  },
+  homeDepartureContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingTop: 8,
+      },
+      android: {
+        marginTop: -6,
+        marginBottom: 10,
+      },
+    }),
+  },
+  homeDepartureTitle: {
+    fontSize: 14,
+    color: vars.color.grey,
+    flex: 1,
+    marginLeft: 6,
+  },
+  homeDeparturePrice: {
+    fontSize: 14,
   },
   title: {
     color: vars.color.black,

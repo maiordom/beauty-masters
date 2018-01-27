@@ -201,14 +201,23 @@ const styles = StyleSheet.create({
   },
   avatarWrapper: {
     marginTop: 40,
-    borderRadius: 50,
     width: 64,
     height: 64,
-    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        borderRadius: 50,
+        overflow: 'hidden',
+      },
+    }),
   },
   avatar: {
     width: 64,
     height: 64,
+    ...Platform.select({
+      android: {
+        borderRadius: 50,
+      },
+    }),
   },
   titleContainer: {
     flexDirection: 'row',

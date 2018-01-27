@@ -11,6 +11,7 @@ import {
   setCalendars,
   setGeneralInfo,
   setHandlingTools,
+  setHomeAllowance,
   setManicureServices,
   setPedicureServices,
   setStatus,
@@ -50,6 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
       case 'services': {
         dispatch(refreshEditor());
         dispatch(setStatus(masterCard.id));
+        dispatch(setHomeAllowance(masterCard));
         dispatch(setManicureServices(masterCard));
         dispatch(setPedicureServices(masterCard));
         dispatch(setHandlingTools(masterCard));

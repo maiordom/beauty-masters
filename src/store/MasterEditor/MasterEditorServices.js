@@ -16,15 +16,15 @@ const pedicureCustomServices = (customServices: Array<TCustomService> = []) => (
   queryParam: 'pedicureCustomServicesQuery',
 });
 
-const homeAllowanceField = (homeAllowance: number) => ({
+const homeDepartureField = (homeDeparture: number) => ({
   dictionaryKey: 'AtHome',
   placeholder: i18n.filters.homeAllowance,
   queryParam: 'home_allowance',
-  value: homeAllowance || null,
+  value: homeDeparture || null,
 });
 
 export default {
   manicureCustomServices,
   pedicureCustomServices,
-  homeAllowanceField,
+  homeDepartureField,
 };

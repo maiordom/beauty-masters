@@ -11,6 +11,11 @@ export const setGeneralInfo = (masterCard) => ({
   payload: { masterCard },
 });
 
+export const setHomeAllowance = (masterCard) => ({
+  type: actions.MASTER_EDIT_HOME_ALLOWANCE_SET,
+  payload: { masterCard },
+});
+
 export const setManicureServices = (masterCard) => ({
   type: actions.MASTER_EDIT_MANICURE_SERVICES_SET,
   payload: { masterCard },
@@ -57,6 +62,7 @@ export const getServices = () => (dispatch: Function, getState: Function) => {
       if (!res.error) {
         dispatch(refreshEditor());
         dispatch(setStatus(masterCard.id));
+        dispatch(setHomeAllowance(masterCard));
         dispatch(setManicureServices(masterCard));
         dispatch(setPedicureServices(masterCard));
         dispatch(setHandlingTools(masterCard));

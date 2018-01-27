@@ -197,6 +197,7 @@ export default {
     'Декабрь',
   ],
   myServices: 'Мои услуги',
+  homeDeparture: 'Выезд на дом',
   name: 'Название',
   next: 'Далее',
   nextStep: 'След. шаг',
