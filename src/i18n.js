@@ -210,7 +210,6 @@ export default {
   nextStep: 'След. шаг',
   no: 'Нет',
   passwordTip: 'Пароль (не менее 8 символов)',
-  passwordRepeat: 'Повторите пароль',
   pedicure: 'Педикюр',
   phone: '(XXX) XXX-XX-XX',
   phoneShort: 'Телефон',
