@@ -5,11 +5,11 @@
 IOS developer menu
 ```ctrl + cmd + z```
 
-```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d http://pilochki.demostage.ru/password-reset\?token\=token```
+```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d http://relak.me/```
 
-```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d http://www.pilochki.demostage.ru/password-reset\?token\=token```
+```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d http://www.relak.me/```
 
-```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d app://pilochka```
+```adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d app://relakme```
 
 Ссылки для тестирования deep linking:
-```https://jsfiddle.net/xddpv6so/23/```
+```https://jsfiddle.net/xddpv6so/24/```
