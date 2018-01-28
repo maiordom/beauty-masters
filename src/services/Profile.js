@@ -103,6 +103,4 @@ export const getAddresses = (params: Object) =>
 
 export const sendResetPasswordLink = (params: Object) => post(routes.sendResetPasswordLink, params);
 
-export const setNewPassword = (params: Object) => post(routes.setNewPassword, params);
-
 export default null;

@@ -243,11 +243,6 @@ export default {
   salon: 'Салон',
   salonMaster: 'Я мастер в салоне',
   salonName: 'Название салона',
-  setNewPassword: {
-    error: 'Не удалось установить новый пароль, попробуйте еще раз',
-    set: 'Установить',
-    success: 'Пароль был успешно изменен',
-  },
   schedule: {
     schedule: 'Расписание',
     wholeWeek: '7 дней в неделю',

@@ -23,7 +23,6 @@ const methods = [
   { refreshToken: '/refresh-token', method: 'POST' },
   { searchMasters: '/search-master', method: 'GET' },
   { sendResetPasswordLink: '/user/request-password-reset', method: 'POST' },
-  { setNewPassword: '/user/password-reset', method: 'POST' },
   { updateAddress: ({ id }) => `/address/${id}`, method: 'PATCH' },
   { updateMaster: ({ id }) => `/master-card/${id}`, method: 'PATCH' },
   { updateTimeTable: ({ id }) => `/timetable/${id}`, method: 'PATCH' },

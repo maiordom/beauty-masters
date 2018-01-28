@@ -87,23 +87,3 @@ export const recoverPassword = (email) => dispatch => {
       return res;
     });
 };
-
-export const setNewPassword = (password, token) => dispatch => {
-  dispatch(setActivityIndicator(true));
-
-  const params = {
-    data: {
-      attributes: {
-        token,
-        password,
-      },
-    },
-  };
-
-  return ProfileService.setNewPassword(params)
-    .then(res => {
-      dispatch(setActivityIndicator(false));
-
-      return res;
-    });
-};
