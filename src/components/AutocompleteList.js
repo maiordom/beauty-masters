@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
 import {
   ListView,
   StyleSheet,
@@ -14,6 +15,12 @@ import Input from './Input';
 
 import vars from '../vars';
 import i18n from '../i18n';
+import { hexToRgba } from '../utils';
+
+type TPlace = {
+  label: string,
+  description: string,
+};
 
 type TProps = {
   actions: {
@@ -21,11 +28,13 @@ type TProps = {
     searchItemsForText: (text: string) => void,
     selectItem: (item: { label: string }) => void,
   },
-  items: Array<{ label: string }>
+  items: Array<TPlace>,
+  selected: TPlace,
 };
 
 type TState = {
-  dataSource: Object
+  dataSource: Object,
+  selected: TPlace,
 };
 
 export default class AutocompleteList extends Component<TProps, TState> {
@@ -46,14 +55,23 @@ export default class AutocompleteList extends Component<TProps, TState> {
 
     this.state = {
       dataSource: this.ds.cloneWithRows(props.items),
+      selected: props.selected,
     };
   }
 
   componentWillReceiveProps(nextProps: TProps) {
+    const nextState = {};
+
     if (this.props.items !== nextProps.items) {
-      this.setState({
-        dataSource: this.ds.cloneWithRows(nextProps.items),
-      });
+      nextState.dataSource = this.ds.cloneWithRows(nextProps.items);
+    }
+
+    if (this.props.selected !== nextProps.selected) {
+      nextState.selected = nextProps.selected;
+    }
+
+    if (!isEmpty(nextState)) {
+      this.setState(nextState);
     }
   }
 
@@ -65,12 +83,20 @@ export default class AutocompleteList extends Component<TProps, TState> {
     this.props.actions.resetItems();
   }
 
-  onItemsSelect = (item: Object) => {
-    this.props.actions.selectItem(item);
+  onItemSelect = (item: Object) => {
+    const { selected } = this.state;
+
+    if (selected && selected.label === item.label) {
+      this.props.actions.selectItem(item);
+    } else {
+      this.setState({ selected: item });
+      this.props.actions.searchItemsForText(item.label);
+    }
   };
 
   render() {
     const { items } = this.props;
+    const { selected } = this.state;
 
     return (
       <View style={styles.container}>
@@ -80,17 +106,23 @@ export default class AutocompleteList extends Component<TProps, TState> {
             debounceTimer={1000}
             onChange={this.onChange}
             placeholder={i18n.enterAddress}
+            value={selected && selected.label}
           />
           {items.length > 0 && (
             <ListView
               dataSource={this.state.dataSource}
-              renderRow={item => (
+              renderRow={(item) => (
                 <TouchableWithoutFeedback
-                  onPress={() => this.onItemsSelect(item)}
+                  onPress={() => this.onItemSelect(item)}
                   key={item.label}
                 >
                   <View style={styles.tab}>
-                    <Text style={styles.tabText}>{item.label}</Text>
+                    <Text style={styles.label}>{item.label}</Text>
+                    {item.description && (
+                      <View>
+                        <Text style={styles.description}>{item.description}</Text>
+                      </View>
+                    )}
                   </View>
                 </TouchableWithoutFeedback>
               )}
@@ -113,12 +145,17 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   tab: {
-    height: 48,
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingLeft: 5,
     justifyContent: 'center',
   },
-  tabText: {
+  label: {
     fontSize: 16,
     color: vars.color.black,
+  },
+  description: {
+    fontSize: 13,
+    color: hexToRgba(vars.color.black, 50),
   },
 });

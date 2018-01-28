@@ -1,5 +1,8 @@
 export default {
-  places: [],
+  places: {
+    items: [],
+    selected: null,
+  },
   userLocation: {
     lat: null,
     lon: null,

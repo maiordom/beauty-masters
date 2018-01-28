@@ -13,7 +13,7 @@ import {
 import { setPlaceDetail, setPlaceLocation } from '../actions/Master';
 
 const mapStateToProps = (state) => ({
-  items: state.geo.places,
+  items: state.geo.places.items,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

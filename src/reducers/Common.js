@@ -13,12 +13,17 @@ export default makeReducer((state, action) => ({
       lat,
     }),
 
-  [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo', {
-    places: action.places,
+  [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo.places', {
+    items: action.places,
   }),
 
-  [a.GEO_DATA_CLEAR]: () => deepUpdate(state, 'geo', {
-    places: [],
+  [a.GEO_DATA_CLEAR]: () => deepUpdate(state, 'geo.places', {
+    items: [],
+    selected: null,
+  }),
+
+  [a.GEO_PLACE_SET]: (state, { payload: { place } }) => deepUpdate(state, 'geo.places', {
+    selected: place,
   }),
 
   [a.DICTIONARIES_CATEGORY_SERVICES_SET]: (state, { payload: { categoryServices = [] } }) => {
