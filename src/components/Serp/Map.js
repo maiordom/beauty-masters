@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react';
 import {
   Animated,
+  Dimensions,
   Image,
   InteractionManager,
   PanResponder,

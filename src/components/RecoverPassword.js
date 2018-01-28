@@ -53,7 +53,12 @@ export default class RecoverPassword extends Component<TProps, TState> {
       .recoverPassword(this.state.email)
       .then((response) => {
         if (response.error) {
-          return this.setState({ showModal: true, error: true, errorText: response.error.detail });
+          this.setState({
+            error: true,
+            errorText: response.error.detail,
+            showModal: true,
+          });
+          return null;
         }
         this.setState({ showModal: true });
       })
@@ -63,16 +68,12 @@ export default class RecoverPassword extends Component<TProps, TState> {
   };
 
   onBack = () => {
-    this.setState({
-      showModal: false,
-    }, () => {
+    this.setState({ showModal: false }, () => {
       const { error } = this.state;
 
       if (!error) {
         return Actions.pop();
       }
-
-      Actions.masterSetNewPassword();
     });
   };
 
