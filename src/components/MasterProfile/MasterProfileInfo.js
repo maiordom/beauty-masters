@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { toPattern } from 'vanilla-masker';
@@ -34,6 +34,10 @@ export default class MasterProfileInfo extends PureComponent<TProps, void> {
     this.props.actions.routeToEdit();
   };
 
+  onResetPasswordPress = () => {
+    this.props.actions.routeToRecoverPassword();
+  };
+
   render() {
     const {
       avatar,
@@ -48,11 +52,11 @@ export default class MasterProfileInfo extends PureComponent<TProps, void> {
       <View style={styles.container}>
         <View style={styles.content}>
           <Image style={styles.photo} source={avatarSource} />
-          <TouchableWithoutFeedback onPress={this.onEditPress}>
+          <TouchableOpacity onPress={this.onEditPress}>
             <View>
               <Text style={styles.edit}>{i18n.editProfile}</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
           <View style={styles.inputs}>
             <View style={styles.row}>
               <View style={styles.label}>
@@ -70,7 +74,11 @@ export default class MasterProfileInfo extends PureComponent<TProps, void> {
                 <Text style={styles.labelValue}>{email}</Text>
               </View>
             </View>
-            <Text style={styles.changePassword}>{i18n.changePassword}</Text>
+            <TouchableOpacity onPress={this.onResetPasswordPress}>
+              <View>
+                <Text style={styles.resetPassword}>{i18n.resetPassword}</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <ButtonPanel
@@ -115,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  changePassword: {
+  resetPassword: {
     marginLeft: 4,
     color: vars.color.black,
     fontSize: 16,
