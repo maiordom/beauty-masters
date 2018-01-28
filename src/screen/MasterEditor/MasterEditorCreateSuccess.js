@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import { createMaster } from '../../actions/Master';
+import { createMaster, refreshEditor } from '../../actions/Master';
 
 import MasterEditorCreateSuccess from '../../components/MasterEditor/MasterEditorCreateSuccess';
 import NavBar from '../../components/NavBar';
@@ -15,8 +15,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: {
-    ...bindActionCreators({ createMaster }, dispatch),
+    ...bindActionCreators({ createMaster, refreshEditor }, dispatch),
     routeToPresentation: Actions.presentation,
+    routeToCreateMasterCard: Actions.masterEditorGeneral,
   },
 });
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Platform, Image } from 'react-native';
+import { View, StyleSheet, Text, Platform, Image, TouchableOpacity } from 'react-native';
+
+import toUpper from 'lodash/toUpper';
 
 import ButtonControl from '../ButtonControl';
 
@@ -21,8 +23,10 @@ const icons = {
 
 type TProps = {
   actions: {
-    createMaster: (createMasterQuery: TCreateMaster) => Promise<any>;
-    routeToPresentation: () => void;
+    createMaster: (createMasterQuery: TCreateMaster) => Promise<any>,
+    routeToPresentation: () => void,
+    routeToCreateMasterCard: () => void,
+    refreshEditor: () => void,
   },
   isSalon: boolean,
 };
@@ -44,6 +48,21 @@ export default class MasterEditorCreateSuccess extends Component<void, TProps> {
     });
   };
 
+  onAddCardPress = () => {
+    this.props.actions.createMaster({ status: MASTER_CARD_STATUS.MODERATION }).then(() => {
+      if (this.props.isSalon) {
+        trackEvent('step6Salon');
+        trackEvent('step6SalonSuccess');
+      } else {
+        trackEvent('step6Private');
+        trackEvent('step6PrivateSuccess');
+      }
+
+      this.props.actions.refreshEditor();
+      this.props.actions.routeToCreateMasterCard();
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -60,12 +79,42 @@ export default class MasterEditorCreateSuccess extends Component<void, TProps> {
           onPress={this.onCompletePress}
           label={i18n.registrationComplete.ok}
         />
+        <TouchableOpacity style={styles.addCardTouchable} onPress={this.onAddCardPress}>
+          <Text style={styles.addCardTitle}>
+            {Platform.select({
+              android: toUpper(i18n.registrationComplete.addCard),
+              ios: i18n.registrationComplete.addCard,
+            })}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  addCardTouchable: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 16,
+    paddingBottom: 16,
+    ...Platform.select({
+      android: {
+        borderTopWidth: 1,
+        borderTopColor: vars.color.borderColorAndroid,
+      },
+    }),
+  },
+  addCardTitle: {
+    color: vars.color.red,
+    ...Platform.select({
+      android: {
+        fontSize: 14,
+        fontWeight: '600',
+        textDecorationLine: 'underline',
+      },
+    }),
+  },
   container: {
     flex: 1,
   },
