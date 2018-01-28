@@ -16,6 +16,8 @@ export const FilterLabel = ({ text, style }) => {
   );
 };
 
+export default null;
+
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 15,

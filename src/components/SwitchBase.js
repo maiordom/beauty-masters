@@ -60,7 +60,6 @@ export default class SwitchBase extends Component {
 
   changeState = (state) => {
     const callHandlers = this.state.state !== state;
-
     setTimeout(() => {
       this.setState({ state });
       if (callHandlers) {

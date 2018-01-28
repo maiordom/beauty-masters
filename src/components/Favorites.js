@@ -55,7 +55,7 @@ export default class Favorites extends Component<TProps, TState> {
     });
   }
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillReceiveProps(nextProps: TProps) {
     if (this.props.cards !== nextProps.cards) {
       this.setState({
         dataSource: this.ds.cloneWithRows(nextProps.cards),
