@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Dimensions,
   Image,
@@ -31,6 +31,7 @@ import ButtonControl from '../ButtonControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 import type { MasterCardType, TMapCard } from '../../types/MasterTypes';
 
@@ -43,14 +44,18 @@ const icons = Platform.select({
   },
 });
 
+icons.masterEmptyPhoto = require('../../icons/android/master-empty.png');
+
 type TProps = MasterCardType & {
   actions: Object,
   addresses?: Array<*>,
+  from: 'map' | 'serp',
   snippet: TMapCard,
 };
 
 type TState = {
   listHeight: 0,
+  renderContent: boolean,
   scrollViewHeight: 0,
   showFirstGroup: boolean,
   showSecondGroup: boolean,
@@ -58,19 +63,20 @@ type TState = {
   showWorksIndex: number,
 };
 
-export default class MasterCard extends Component<TProps, TState> {
+export default class MasterCard extends PureComponent<TProps, TState> {
   static defaultProps = {
     addresses: [],
     workPhoto: [],
   };
 
   state = {
-    showWorksGallery: false,
-    showWorksIndex: 0,
-    scrollViewHeight: 0,
     listHeight: 0,
+    renderContent: false,
+    scrollViewHeight: 0,
     showFirstGroup: false,
     showSecondGroup: false,
+    showWorksGallery: false,
+    showWorksIndex: 0,
   };
 
   scrollViewRef: ScrollView;
@@ -82,7 +88,10 @@ export default class MasterCard extends Component<TProps, TState> {
       }
     });
 
-    InteractionManager.runAfterInteractions(() => this.renderComponents());
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderContent: true });
+      this.renderComponents();
+    });
   }
 
   onWorksShow = (index: string) => {
@@ -101,7 +110,20 @@ export default class MasterCard extends Component<TProps, TState> {
   });
 
   makeCall = (phone: string) => {
-    Linking.openURL(`tel:${phone}`).catch(error => console.log(`MasterCard::makeCall::${error}`));
+    switch (this.props.from) {
+      case 'map': { trackEvent('callPhoneFromMap'); break; }
+      case 'serp': { trackEvent('callPhoneFromSerp'); break; }
+    }
+
+    Linking
+      .openURL(`tel:${phone}`)
+      .catch((error) => {
+        console.log(`MasterCard::makeCall::${error}`);
+      });
+  };
+
+  onSocialIconTap = (url: string) => {
+    Linking.openURL(url);
   };
 
   renderComponents = () => {
@@ -126,7 +148,8 @@ export default class MasterCard extends Component<TProps, TState> {
       isSalon,
       masterPhotos,
       salonName,
-      services,
+      groupedServices,
+      homeDepartureService,
       snippet,
       username,
       workPhotos,
@@ -134,13 +157,22 @@ export default class MasterCard extends Component<TProps, TState> {
     } = this.props;
 
     const {
+      renderContent,
       showWorksGallery,
       showWorksIndex,
       showFirstGroup,
       showSecondGroup,
     } = this.state;
 
-    const masterPhoto = masterPhotos && masterPhotos.length > 0 && masterPhotos[0].sizes.m;
+    if (!renderContent) {
+      return null;
+    }
+
+    const masterPhotoUri = (masterPhotos && masterPhotos.length > 0)
+      ? { uri: masterPhotos[0].sizes.m }
+      : null;
+
+    const masterPhoto = masterPhotoUri || icons.masterEmptyPhoto;
 
     return (
       <View style={styles.container}>
@@ -153,8 +185,8 @@ export default class MasterCard extends Component<TProps, TState> {
           <Fade visible={showFirstGroup}>
             <View>
               <ImagePlaceholder
-                source={{ uri: masterPhoto }}
-                placeholder={require('../../icons/android/master-empty.png')}
+                source={masterPhoto}
+                placeholder={icons.masterEmptyPhoto}
                 style={styles.masterPhoto}
               />
               <MasterCardNavBar
@@ -163,7 +195,7 @@ export default class MasterCard extends Component<TProps, TState> {
                 snippet={snippet}
                 isFavorite={isFavorite}
               />
-              <MasterCardHeader {...this.props} />
+              <MasterCardHeader {...this.props} onSocialIconTap={this.onSocialIconTap} />
             </View>
             {workPhotos && workPhotos.length > 0 && (
               <MasterCardWorks
@@ -171,8 +203,11 @@ export default class MasterCard extends Component<TProps, TState> {
                 workPhotos={workPhotos}
               />
             )}
-            {services && services.length > 0 && (
-              <MasterCardServices services={services} />
+            {groupedServices && groupedServices.length > 0 && (
+              <MasterCardServices
+                homeDepartureService={homeDepartureService}
+                services={groupedServices}
+              />
             )}
           </Fade>
           <Fade visible={showSecondGroup}>
@@ -183,7 +218,7 @@ export default class MasterCard extends Component<TProps, TState> {
               <MasterCardSchedule
                 addresses={addresses}
                 isSalon={isSalon}
-                masterPhoto={masterPhoto}
+                masterPhoto={masterPhotoUri}
                 salonName={salonName}
                 scrollToEnd={this.scrollToEnd}
                 username={username}

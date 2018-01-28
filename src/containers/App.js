@@ -77,7 +77,9 @@ export default class App extends Component {
     getCategoryServices()(store.dispatch);
 
     setTimeout(() => {
-      getLocation(true)(store.dispatch);
+      getLocation(true)(store.dispatch).catch((err) => {
+        console.log('geo::location::', err);
+      })
     }, 50);
 
     if (Platform.OS === 'android') {

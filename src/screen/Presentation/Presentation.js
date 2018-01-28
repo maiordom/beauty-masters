@@ -21,15 +21,16 @@ const icons = Platform.select({
   },
 });
 
-const i18nContinue = Platform.select({
-  ios: i18n.continue,
-  android: i18n.continue.toUpperCase(),
-});
-
-const i18nAuthAsMaster = Platform.select({
-  ios: i18n.authAsMaster,
-  android: i18n.authAsMaster.toUpperCase(),
-});
+const localization = {
+  continue: Platform.select({
+    ios: i18n.continue,
+    android: i18n.continue.toUpperCase(),
+  }),
+  authAsMaster: Platform.select({
+    ios: i18n.authAsMaster,
+    android: i18n.authAsMaster.toUpperCase(),
+  }),
+};
 
 export default class Presentation extends Component {
   render() {
@@ -60,11 +61,11 @@ export default class Presentation extends Component {
         <View style={styles.bottomContainer}>
           <TouchableHighlight
             activeOpacity={1}
-            onPress={Actions.searchForm}
+            onPress={Actions.serp}
             style={styles.continueButton}
             underlayColor={vars.color.white}
           >
-            <Text style={styles.continueText}>{i18nContinue}</Text>
+            <Text style={styles.continueText}>{localization.continue}</Text>
           </TouchableHighlight>
           <TouchableHighlight
             activeOpacity={1}
@@ -72,7 +73,7 @@ export default class Presentation extends Component {
             style={styles.authButton}
             underlayColor="transparent"
           >
-            <Text style={styles.authText}>{i18nAuthAsMaster}</Text>
+            <Text style={styles.authText}>{localization.authAsMaster}</Text>
           </TouchableHighlight>
         </View>
       </View>

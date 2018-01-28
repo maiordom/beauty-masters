@@ -29,7 +29,6 @@ const SerpNavBar = ({
     <TouchableOpacity
       style={[styles.leftButton]}
       onPress={onPress}
-      activeOpacity={1}
       underlayColor
     >
       <Image source={menuIcon} />
@@ -59,7 +58,6 @@ const SerpNavBar = ({
   </View>
 );
 
-
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -87,8 +85,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   leftButton: {
-    paddingLeft: 16,
-    paddingRight: 16,
+    padding: 16,
     justifyContent: 'center',
   },
   buttonsWrapper: {

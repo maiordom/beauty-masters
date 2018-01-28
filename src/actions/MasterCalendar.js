@@ -4,7 +4,7 @@ import actions from '../constants/Master';
 
 export const createSchedules = (sectionName) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { createSchedulesQuery, timeTableId } = state.masterEditor[sectionName];
 
   const params = {
@@ -18,12 +18,21 @@ export const createSchedules = (sectionName) => (dispatch, getState) => {
 
   return MasterService.createSchedules(params, {
     Authorization: `${auth.tokenType} ${auth.accessToken}`,
-  });
+  }).then((res) => {
+    if (res.status === 'success') {
+      dispatch({
+        type: actions.MASTER_CALENDAR_SCHEDULE_STATUS_SET,
+        payload: { sectionName, status: true }
+      });
+    }
+
+    return res;
+  })
 };
 
 export const handleTimeTable = (sectionName) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { createTimeTableQuery, timeTableId, addressId } = state.masterEditor[sectionName];
 
   const params = {
@@ -63,7 +72,7 @@ export const handleTimeTable = (sectionName) => (dispatch, getState) => {
 
 export const handleAddress = (sectionName) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { createAddressQuery, addressId } = state.masterEditor[sectionName];
 
   const params = {
@@ -79,7 +88,7 @@ export const handleAddress = (sectionName) => (dispatch, getState) => {
     if (!res.error) {
       dispatch({
         type: actions.MASTER_ADDRESS_SET_ID,
-        payload: { addressId: res.addressId, sectionName },
+        payload: { addressId: res.data.id, sectionName },
       });
     }
 

@@ -68,7 +68,7 @@ export default () => (
           component={SearchFormAddress}
         />
         <Scene
-          key="Serp"
+          key="serp"
           title={i18n.search.search}
           component={Serp}
         />
@@ -79,7 +79,7 @@ export default () => (
         <Scene
           key="masterLocation"
           component={MasterLocation}
-          title="Место приема мастера"
+          title={i18n.location.receiveMasterLocation}
         />
         <Scene
           key="masterAuthorization"

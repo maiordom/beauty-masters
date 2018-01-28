@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import difference from 'lodash/difference';
 
@@ -15,12 +15,13 @@ import i18n from '../i18n';
 
 type TProps = {
   actions: Object,
-  timeStartDefault: string,
-  timeEndDefault: string,
   date: string,
-  workInThisDay: boolean,
   modelName: string,
+  onRequestClose: () => void,
   sectionName: string,
+  timeEndDefault: string,
+  timeStartDefault: string,
+  workInThisDay: boolean,
 };
 
 type TState = {
@@ -58,9 +59,14 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
 
   onApplyPress = () => {
     const { timeStart, timeEnd, workInThisDay, date } = this.state;
-    const { timeStartDefault, timeEndDefault, workInThisDay: workInThisDayDefault } = this.props;
 
-    const diff = difference(
+    const {
+      timeEndDefault,
+      timeStartDefault,
+      workInThisDay: workInThisDayDefault
+    } = this.props;
+
+    const diffWithDefaultParams = difference(
       [timeStart, timeEnd, workInThisDay],
       [
         timeStartDefault,
@@ -69,10 +75,10 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
       ],
     );
 
-    if (!diff.length) {
-      this.props.actions.applyChanges(null);
-      return;
-    }
+    const diffWithParams = difference(
+      [timeStart, timeEnd],
+      [this.props.timeStart, this.props.timeEnd]
+    );
 
     const changes = {
       date,
@@ -81,7 +87,13 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
       workInThisDay,
     };
 
-    this.props.actions.applyChanges(this.props.modelName, changes, this.props.sectionName);
+    if (!diffWithDefaultParams.length && !diffWithParams.length) {
+      this.props.actions.applyChanges(null);
+    } else {
+      this.props.actions.applyChanges(this.props.modelName, changes, this.props.sectionName);
+    }
+
+    this.props.onRequestClose();
   };
 
   onStatusChange = (workInThisDay: boolean) => {
@@ -93,7 +105,9 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
   }
 
   render() {
-    const { workInThisDay, dateFormatted, timeStart, timeEnd } = this.state;
+    const {
+      workInThisDay, dateFormatted, timeStart, timeEnd,
+    } = this.state;
 
     return (
       <View style={styles.wrapper}>
@@ -111,14 +125,12 @@ export default class WorkTimeSpecification extends Component<TProps, TState> {
             onTimeStartChange={this.onTimeStartChange}
             onTimeEndChange={this.onTimeEndChange}
           />
-          <TouchableHighlight
-            activeOpacity={1}
-            underlayColor="transparent"
+          <TouchableOpacity
             style={styles.button}
             onPress={this.onApplyPress}
           >
             <Text style={styles.buttonText}>OK</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -129,6 +141,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'center',
+    alignSelf: 'stretch',
+    margin: 40,
   },
   switch: {
     paddingLeft: 16,
@@ -142,8 +156,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 25,
     backgroundColor: vars.color.white,
-    marginLeft: 40,
-    marginRight: 40,
   },
   button: {
     marginTop: 12,

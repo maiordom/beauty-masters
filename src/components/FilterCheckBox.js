@@ -146,7 +146,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
         </TouchableHighlight>
         {active && withInput && (
           <View style={styles.fields}>
-            <View style={styles.inputWrapper}>
+            <View style={[styles.inputWrapper, styles.rightBar]}>
               <Input
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
@@ -157,6 +157,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
                 replaceReg={/[^0-9.]/g}
                 sign={` ${i18n.currency.roubleSign}`}
                 value={price}
+                style={styles.priceInput}
               />
               {errorFillPrice && this.errorView()}
             </View>
@@ -171,6 +172,7 @@ export default class FilterCheckBox extends Component<TProps, void> {
                 replaceReg={/[^0-9.]/g}
                 sign={` ${i18n.time.minuteShort}`}
                 value={duration}
+                style={styles.durationInput}
               />
             </View>
           </View>
@@ -216,25 +218,82 @@ const styles = StyleSheet.create({
   },
   fields: {
     flexDirection: 'row',
+    ...Platform.select({
+      ios: {
+        borderColor: vars.color.cellSeparatorColorIOS,
+        borderTopWidth: 1,
+        marginLeft: 12,
+      },
+    }),
   },
   titleInput: {
     flex: 1,
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 0,
+      },
+    }),
   },
   inputWrapper: {
     flex: 1,
+    ...Platform.select({
+      ios: {
+        marginTop: 8,
+        marginBottom: 8,
+      },
+    }),
   },
   input: {
     flex: 1,
-    paddingLeft: 11,
-    paddingRight: 11,
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 0,
+      },
+      android: {
+        paddingLeft: 11,
+        paddingRight: 11,
+      },
+    }),
+  },
+  durationInput: {
+    ...Platform.select({
+      ios: {
+        marginLeft: 5,
+        paddingRight: 16,
+      },
+    }),
+  },
+  priceInput: {
+    ...Platform.select({
+      ios: {
+        marginRight: 5,
+      },
+    }),
   },
   required: {
     color: vars.color.red,
   },
+  rightBar: {
+    ...Platform.select({
+      ios: {
+        borderColor: vars.color.cellSeparatorColorIOS,
+        borderRightWidth: 1,
+      },
+    }),
+  },
   error: {
-    marginTop: 3,
-    paddingLeft: 15,
-    paddingRight: 15,
+    ...Platform.select({
+      android: {
+        marginTop: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
+      },
+      ios: {
+        paddingLeft: 4,
+        paddingRight: 4,
+        paddingBottom: 8,
+      },
+    }),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -242,6 +301,11 @@ const styles = StyleSheet.create({
   errorText: {
     color: vars.color.red,
     marginRight: 10,
+    ...Platform.select({
+      ios: {
+        fontSize: 12,
+      },
+    }),
   },
   titleError: {
     paddingLeft: 0,

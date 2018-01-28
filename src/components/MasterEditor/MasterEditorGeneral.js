@@ -13,6 +13,7 @@ import Switch from '../Switch';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
+import { trackEvent } from '../../utils/Tracker';
 
 const icons = Platform.select({
   android: {
@@ -65,22 +66,18 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
 
     value = value.replace(/[^0-9]+/g, '');
 
-    this.props.actions.setGeneralParam(modelName, upperFirst(value), sectionName);
+    this.props.actions.setGeneralPhone(modelName, upperFirst(value), sectionName);
+
+    if (this.state.hasError) {
+      this.validate();
+    }
   };
 
   formatPhone = (value: string) => {
     let rawValue = value.replace(/[^0-9]+/g, '');
 
-    if (rawValue.length > 1 && rawValue[0] === '7') {
-      rawValue = rawValue.slice(1);
-    }
-
-    if (value === '+7 (') {
-      rawValue = '';
-    }
-
     return toPattern(rawValue, {
-      pattern: '+7 (999) 999 99 99',
+      pattern: '(999) 999 99 99',
     });
   };
 
@@ -88,6 +85,18 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
+          const isSalon = this.props.isSalonField.value;
+
+          if (this.props.cardType === 'create') {
+            if (isSalon) {
+              trackEvent('step1Salon');
+            } else {
+              trackEvent('step1Private');
+            }
+          } else {
+            trackEvent('changeProfile');
+          }
+
           this.props.actions.routeToServices();
         }
       });
@@ -98,6 +107,10 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     if (this.validate()) {
       this.props.actions.createMaster().then((res) => {
         if (res.result === 'success') {
+          if (this.props.cardType === 'edit') {
+            trackEvent('changeProfile');
+          }
+
           this.props.actions.routeToProfile();
         }
       });
@@ -115,7 +128,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
     let validation = true;
     const state = {};
 
-    if (!phoneField.value || phoneField.value && phoneField.value.length < 11) {
+    if (!phoneField.value || phoneField.value && phoneField.value.length < 10) {
       validation = false;
       state.errorFillPhoneNumber = true;
     } else {
@@ -142,7 +155,7 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
   error = (text: string) => (
     <View style={styles.error}>
       <Text style={styles.errorText}>{text}</Text>
-      <Image style={styles.errorImage} source={icons.warning} />
+      {Platform.OS === 'android' && <Image style={styles.errorImage} source={icons.warning} />}
     </View>
   );
 
@@ -175,13 +188,19 @@ export default class MasterEditorGeneral extends Component<TProps, TState> {
           {errorFillUsername && (
             this.error(i18n.fillField)
           )}
-          <Input
-            {...phoneField}
-            debounce
-            formatValue={this.formatPhone}
-            keyboardType="phone-pad"
-            onChange={this.onPhoneChange}
-          />
+          <View style={styles.phoneWrapper}>
+            <View>
+              <Text style={styles.phoneCountryCode}>+7</Text>
+            </View>
+            <Input
+              {...phoneField}
+              debounce
+              formatValue={this.formatPhone}
+              inputWrapperStyle={styles.phoneInputWrapper}
+              keyboardType="phone-pad"
+              onChange={this.onPhoneChange}
+            />
+          </View>
           {errorFillPhoneNumber && (
             this.error(i18n.fillPhoneNumber)
           )}
@@ -219,13 +238,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  phoneInputWrapper: {
+    flex: 1,
+  },
+  phoneCountryCode: {
+    fontSize: 15,
+    top: -1,
+  },
+  phoneWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   switcher: {
     paddingLeft: 4,
   },
   inner: {
     flex: 1,
-    paddingLeft: 12,
-    paddingRight: 12,
+    ...Platform.select({
+      android: {
+        paddingLeft: 12,
+        paddingRight: 12,
+      },
+      ios: {
+        paddingLeft: 16,
+      },
+    }),
   },
   error: {
     paddingLeft: 4,

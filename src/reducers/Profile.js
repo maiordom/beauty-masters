@@ -1,6 +1,12 @@
 import find from 'lodash/find';
+import reject from 'lodash/reject';
+import includes from 'lodash/includes';
 
-import { makeReducer, groupServices, deepUpdate } from '../utils';
+import {
+  deepUpdate,
+  groupServices,
+  makeReducer,
+} from '../utils';
 import { intervalGroup } from '../store/Interval';
 
 import type { TProfileData, TMasterCard, TMasterAddress } from '../types/ProfileData';
@@ -8,6 +14,29 @@ import type { TProfileData, TMasterCard, TMasterAddress } from '../types/Profile
 import c from '../constants/Profile';
 
 const intervalModel = intervalGroup();
+
+const HOME_DEPARTURE_MANICURE_SERVICE_ID = 61;
+const HOME_DEPARTURE_PEDICURE_SERVICE_ID = 62;
+const HOME_DEPARTURE_SERVICE_IDS = [
+  HOME_DEPARTURE_MANICURE_SERVICE_ID,
+  HOME_DEPARTURE_PEDICURE_SERVICE_ID,
+];
+
+const filterHomeDepartureService = (masterServices) => {
+  const filteredMasterServices = reject(masterServices, (service) =>
+    includes(HOME_DEPARTURE_SERVICE_IDS, service.serviceId)
+  );
+
+  const homeDepartureService = find(masterServices, (service) =>
+    service.serviceId === HOME_DEPARTURE_MANICURE_SERVICE_ID ||
+    service.serviceId === HOME_DEPARTURE_PEDICURE_SERVICE_ID
+  );
+
+  return {
+    filteredMasterServices,
+    homeDepartureService,
+  };
+}
 
 export default makeReducer(() => ({
   [c.PROFILE_SECTION_SET]: (state, { payload: { sectionKey } }) =>
@@ -27,6 +56,7 @@ export default makeReducer(() => ({
       if (profileCard) {
         card.addresses = profileCard.addresses;
         card.masterServices = profileCard.masterServices;
+        card.groupedMasterServices = profileCard.groupedMasterServices;
 
         if (profileCard.status.addressesUploaded) {
           card.status.addressesUploaded = true;
@@ -78,8 +108,16 @@ export default makeReducer(() => ({
 
   [c.PROFILE_MASTER_SERVICES_SET]: (state, { payload: { masterServices, masterCardId } }) => {
     const masterCard: TMasterCard = find(state.profile.masterCards, { id: masterCardId });
+    const {
+      filteredMasterServices,
+      homeDepartureService,
+    } = filterHomeDepartureService(masterServices);
 
-    masterCard.masterServices = groupServices(masterServices, state.dictionaries);
+    const groupedServices = groupServices(filteredMasterServices, state.dictionaries);
+
+    masterCard.homeDepartureService = homeDepartureService;
+    masterCard.masterServices = groupedServices.groupedServicesByCategories;
+    masterCard.groupedMasterServices = groupedServices.groupedServicesBySubCategories;
     masterCard.status.masterServicesUploaded = true;
 
     return state;

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image, Platform } from 'react-native';
+import { View, StyleSheet, Text, Image, Platform, TouchableOpacity } from 'react-native';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
@@ -17,9 +17,17 @@ type TProps = {
   salonName?: string,
   vkProfile?: string,
   inProfile?: string,
+  onSocialIconTap?: (url: String) => void,
 }
 
 export default class MasterCardHeader extends Component<TProps, void> {
+  onSocialIconTap = (url?: string) => {
+    const callback = this.props.onSocialIconTap;
+    if (url !== undefined && callback) {
+      callback(url);
+    }
+  };
+
   render() {
     const {
       inProfile,
@@ -41,10 +49,14 @@ export default class MasterCardHeader extends Component<TProps, void> {
         </View>
         <View style={styles.socials}>
           {vkProfile ? (
-            <Image source={icons.vk} style={[styles.socialIcon, styles.socialIconMargin]} />
+            <TouchableOpacity onPress={() => this.onSocialIconTap(vkProfile)}>
+              <Image source={icons.vk} style={[styles.socialIcon, styles.socialIconMargin]} />
+            </TouchableOpacity>
           ) : null}
           {inProfile ? (
-            <Image source={icons.inst} style={styles.socialIcon} />
+            <TouchableOpacity onPress={() => this.onSocialIconTap(inProfile)}>
+              <Image source={icons.inst} style={styles.socialIcon} />
+            </TouchableOpacity>
           ) : null}
         </View>
       </View>
@@ -68,7 +80,8 @@ const styles = StyleSheet.create({
       },
       android: {
         margin: 16,
-        paddingBottom: 16,
+        marginBottom: 0,
+        paddingBottom: 12,
       },
     }),
   },

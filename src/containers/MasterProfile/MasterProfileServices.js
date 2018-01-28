@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 
   return {
     uploaded: card.status.masterServicesUploaded,
-    services: card.masterServices,
+    services: card.groupedMasterServices,
   };
 };
 

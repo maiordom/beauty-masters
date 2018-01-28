@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
   InteractionManager,
   ScrollView,
+  Modal,
   StyleSheet,
   View,
 } from 'react-native';
@@ -16,18 +17,34 @@ import Label from '../Label';
 import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
 import RadioGroup from '../RadioGroup';
 import RangeTime from '../RangeTime';
+import WorkTimeSpecification from '../../containers/WorkTimeSpecification';
+import IntervalStartDate from '../../containers/IntervalStartDate';
 
 import i18n from '../../i18n';
+import { trackEvent } from '../../utils/Tracker';
+import { hexToRgba } from '../../utils';
+import vars from '../../vars';
 
 type TProps = {
   actions: Object,
   calendarSettings: Object,
+  cardType: string,
   sectionName: string,
 };
 
 type TState = {
   automate: string[],
+  intervalStartDateVisible: boolean,
+  intervalStartDateParams: {
+    sectionName: string,
+  },
   show: Object,
+  workTimeSpecificationVisibile: boolean,
+  workTimeSpecificationParams: {
+    date?: string,
+    hasEvent?: boolean,
+    sectionName: string,
+  },
 };
 
 export default class MasterEditorCalendarSettings extends Component<TProps, TState> {
@@ -37,7 +54,15 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
       'schedule',
       'calendar',
     ],
+    intervalStartDateVisible: false,
+    intervalStartDateParams: {
+      sectionName: this.props.sectionName,
+    },
     show: {},
+    workTimeSpecificationVisibile: false,
+    workTimeSpecificationParams: {
+      sectionName: this.props.sectionName,
+    },
   };
 
   componentDidMount() {
@@ -65,39 +90,68 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
 
   onIntervalChange = (value: string, id: number, modelName: string) => {
     this.props.actions.setCalendarInterval(modelName, id, this.props.sectionName);
-    this.props.actions.drawerOpen({
-      contentKey: 'IntervalStartDate',
-      sectionName: this.props.sectionName,
+    this.setState({
+      intervalStartDateVisible: true,
+      intervalStartDateParams: {
+        sectionName: this.props.sectionName,
+      },
     });
   };
 
   onTimeEndChange = (timeEnd: string, modelName: string) => {
     this.props.actions.setTimeTableField(modelName, 'value', timeEnd, this.props.sectionName);
+    this.props.actions.setCustomDatesField('customDates', 'timeEndDefault', timeEnd, this.props.sectionName);
   };
 
   onTimeStartChange = (timeStart: string, modelName: string) => {
     this.props.actions.setTimeTableField(modelName, 'value', timeStart, this.props.sectionName);
+    this.props.actions.setCustomDatesField('customDates', 'timeStartDefault', timeStart, this.props.sectionName);
   };
 
-  onDateSelect = (date: string) => {
-    this.props.actions.drawerOpen({
-      date,
-      contentKey: 'WorkTimeSpecification',
-      sectionName: this.props.sectionName,
+  onDateSelect = (date: string, hasEvent: boolean) => {
+    this.setState({
+      workTimeSpecificationVisibile: true,
+      workTimeSpecificationParams: {
+        date,
+        hasEvent,
+        sectionName: this.props.sectionName,
+      },
     });
   };
 
   onReadyPress = () => {
-    this.props.actions.next();
+    this.props.actions.next().then(() => {
+      if (this.props.cardType === 'edit') {
+        trackEvent('changeCalendar');
+      }
+    });
   };
 
   onAddressChange = () => {
     this.props.actions.selectAddress(this.props.sectionName);
   };
 
+  toggleWorkTimeSpecificationModal = () => {
+    this.setState({
+      workTimeSpecificationVisibile: false,
+    });
+  };
+
+  toggleIntervalStartDateModal = () => {
+    this.setState({
+      intervalStartDateVisible: false,
+    });
+  };
+
   render() {
     const { calendarSettings } = this.props;
-    const { show } = this.state;
+    const {
+      show,
+      intervalStartDateVisible,
+      intervalStartDateParams,
+      workTimeSpecificationParams,
+      workTimeSpecificationVisibile,
+    } = this.state;
     const {
       intervalGroup,
       timeStartField,
@@ -117,6 +171,16 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
         <ScrollView style={styles.inner}>
+          <WorkTimeSpecificationModal
+            props={workTimeSpecificationParams}
+            visible={workTimeSpecificationVisibile}
+            onRequestClose={this.toggleWorkTimeSpecificationModal}
+          />
+          <IntervalStartDateModal
+            props={intervalStartDateParams}
+            visible={intervalStartDateVisible}
+            onRequestClose={this.toggleIntervalStartDateModal}
+          />
           {show.address && (
             <View>
               <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
@@ -147,6 +211,8 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
               <Calendar
                 disableSelectDate
                 events={customDates.items}
+                eventTimeEndDefault={customDates.timeEndDefault}
+                eventTimeStartDefault={customDates.timeStartDefault}
                 interval={intervalGroup.selected}
                 onDateSelect={this.onDateSelect}
                 startDate={startDateField.value}
@@ -160,7 +226,53 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
   }
 }
 
+const WorkTimeSpecificationModal = ({
+  onRequestClose,
+  props,
+  visible,
+}) => (
+  <Modal
+    animationType="fade"
+    onRequestClose={onRequestClose}
+    transparent
+    visible={visible}
+  >
+    <View style={styles.modalContainer}>
+      <WorkTimeSpecification
+        {...props}
+        onRequestClose={onRequestClose}
+      />
+    </View>
+  </Modal>
+);
+
+const IntervalStartDateModal = ({
+  onRequestClose,
+  props,
+  visible
+}) => (
+  <Modal
+    animationType="fade"
+    onRequestClose={onRequestClose}
+    transparent
+    visible={visible}
+  >
+    <View style={styles.modalContainer}>
+      <IntervalStartDate
+        {...props}
+        onRequestClose={onRequestClose}
+      />
+    </View>
+  </Modal>
+);
+
 const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: hexToRgba(vars.color.black, 40),
+  },
   container: {
     flex: 1,
   },

@@ -1,11 +1,23 @@
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+
+import { createMaster } from '../../actions/Master';
 
 import MasterEditorCreateSuccess from '../../components/MasterEditor/MasterEditorCreateSuccess';
 import NavBar from '../../components/NavBar';
 
-const mapDispatchToProps = () => ({
-  onNextPress: Actions.presentation,
+import { isSalon } from '../../utils/isSalon';
+
+const mapStateToProps = (state) => ({
+  isSalon: isSalon(state),
 });
 
-export default connect(null, mapDispatchToProps)(NavBar(MasterEditorCreateSuccess));
+const mapDispatchToProps = (dispatch) => ({
+  actions: {
+    ...bindActionCreators({ createMaster }, dispatch),
+    routeToPresentation: Actions.presentation,
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorCreateSuccess));

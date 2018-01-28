@@ -16,7 +16,12 @@ import {
 
 export default makeReducer((state, action) => ({
   [actions.MASTER_EDITOR_REFRESH]: (state) => {
-    state.masterEditor = getCleanMasterEditorObject();
+    const cleanMasterEditorObject = getCleanMasterEditorObject();
+
+    Object.keys(cleanMasterEditorObject).forEach((key: string) => {
+      state.masterEditor[key] = cleanMasterEditorObject[key];
+    });
+
     return state;
   },
 
@@ -61,16 +66,20 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
-  [actions.MASTER_PHOTO_SET]: () => {
-    const { modelName, id, sizes, mediaFileId } = action;
+  [actions.MASTER_PHOTO_SET]: (state, {
+    payload: {
+      modelName, id, originalId, sizes, mediaFileId,
+    },
+  }) => {
     const { items } = state.masterEditor.info[modelName];
     const item = find(items, { id });
 
     assign(item, {
+      id: originalId,
       mediaFileId,
       sizes,
-      type: 'photo',
       status: 'uploaded',
+      type: 'photo',
     });
 
     return deepUpdate(state, `masterEditor.info.${modelName}`, {
@@ -78,19 +87,17 @@ export default makeReducer((state, action) => ({
     });
   },
 
-  [actions.MASTER_PHOTO_REMOVE]: () => {
-    const { itemId, modelName } = action;
+  [actions.MASTER_PHOTO_REMOVE]: (state, { payload: { id, modelName } }) => {
     let { items } = state.masterEditor.info[modelName];
 
-    items = reject(items, { id: itemId });
+    items = reject(items, { id });
 
     return deepUpdate(state, `masterEditor.info.${modelName}`, {
       items: [...items],
     });
   },
 
-  [actions.MASTER_GENERAL_SET_PARAM]: () => {
-    const { sectionName, modelName, value } = action;
+  [actions.MASTER_GENERAL_PARAM_SET]: (state, { sectionName, modelName, value }) => {
     const model = state.masterEditor[sectionName][modelName];
 
     state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
@@ -103,6 +110,16 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.MASTER_GENERAL_PHONE_SET]: (state, { payload: { sectionName, modelName, value } }) => {
+    const model = state.masterEditor[sectionName][modelName];
+
+    state = deepUpdate(state, `masterEditor.${sectionName}.${modelName}`, { value });
+
+    return deepUpdate(state, `masterEditor.createMasterQuery`, {
+      [model.queryParam]: '7' + value
+    });
+  },
+
   [actions.MASTER_CALENDAR_INTERVAL_SET]: () => {
     setItemById(action.payload, state);
     setCreateQueryParam(action.payload, state, 'createTimeTableQuery');
@@ -111,7 +128,7 @@ export default makeReducer((state, action) => ({
   },
 
   [actions.MASTER_CALENDAR_SCHEDULE_SET]: (state, { payload: { modelName, changes, sectionName } }) => {
-    const items = state.masterEditor[sectionName][modelName].items;
+    const { items } = state.masterEditor[sectionName][modelName];
     const item = find(items, { date: changes.date });
 
     if (item) {
@@ -156,9 +173,17 @@ export default makeReducer((state, action) => ({
     return state;
   },
 
+  [actions.MASTER_CUSTOM_DATES_SET_PARAM]: (state, { payload }) => {
+    setParam(payload, state);
+    return state;
+  },
+
   [actions.MASTER_ADDRESS_SET_ID]: (state, { payload: { sectionName, addressId } }) =>
     deepUpdate(state, `masterEditor.${sectionName}`, { addressId }),
 
   [actions.MASTER_TIME_TABLE_SET_ID]: (state, { payload: { sectionName, timeTableId } }) =>
     deepUpdate(state, `masterEditor.${sectionName}`, { timeTableId }),
+
+  [actions.MASTER_CALENDAR_SCHEDULE_STATUS_SET]: (state, { payload: { sectionName, status } }) =>
+    deepUpdate(state, `masterEditor.${sectionName}`, { schedulesCreated: status }),
 }));

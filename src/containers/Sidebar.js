@@ -1,4 +1,5 @@
 import { Actions } from 'react-native-router-flux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
 import { bindActionCreators } from 'redux';

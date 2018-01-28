@@ -32,22 +32,29 @@ export default class MasterProfileServices extends Component<TProps, void> {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.content}>
-          {services.map(serviceGroup => (
+          {services.map((serviceGroup) => (
             <View key={serviceGroup.id}>
-              <View style={styles.serviceTitle}>
-                <Text>{serviceGroup.title}</Text>
+              <View style={styles.serviceGroup}>
+                <Text style={styles.serviceGroupText}>{serviceGroup.title}</Text>
               </View>
-              {serviceGroup.services.map(service => (
-                <View style={styles.service} key={service.serviceId + service.categoryId + service.title}>
-                  <Text>{service.title}</Text>
-                  <Text style={styles.serviceInfo}>
-                    {!isEmpty(service.price) && (
-                      <Text>{service.price} р</Text>
-                    )}
-                    {service.duration > 0 && (
-                      <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
-                    )}
-                  </Text>
+              {serviceGroup.services.map((subGroup) => (
+                <View key={subGroup.id}>
+                  <View style={styles.serviceSubGroup}>
+                    <Text>{subGroup.title}</Text>
+                  </View>
+                  {subGroup.services.map((service) => (
+                    <View style={styles.service} key={service.serviceId + service.categoryId}>
+                      <Text>{service.title}</Text>
+                      <Text style={styles.serviceInfo}>
+                        {!isEmpty(service.price) && (
+                          <Text>{`${service.price} \u20BD`}</Text>
+                        )}
+                        {service.duration > 0 && (
+                          <Text>, {service.duration} {i18n.time.minuteShort}.</Text>
+                        )}
+                      </Text>
+                    </View>
+                  ))}
                 </View>
               ))}
             </View>
@@ -74,7 +81,17 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: vars.color.lightGrey,
   },
-  serviceTitle: {
+  serviceGroup: {
+    paddingTop: 26,
+    padding: 16,
+    paddingBottom: 0,
+  },
+  serviceGroupText: {
+    color: vars.color.black,
+    fontSize: 15,
+  },
+  serviceSubGroup: {
+    paddingBottom: 10,
     padding: 16,
   },
   service: {

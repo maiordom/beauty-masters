@@ -8,9 +8,9 @@ import {
   handleTimeTable,
   setAddressField,
   setCalendarInterval,
+  setCustomDatesField,
   setTimeTableField,
 } from '../../actions/Master';
-import { drawerOpen } from '../../actions/Drawer';
 import { setActivityIndicator } from '../../actions/Common';
 
 import MasterEditorCalendarSettings from '../../components/MasterEditor/MasterEditorCalendarSettings';
@@ -18,6 +18,7 @@ import NavBar from '../../components/NavBar';
 
 const mapStateToProps = (state, { modelName = 'calendarSettingsOne' }) => ({
   calendarSettings: state.masterEditor[modelName],
+  cardType: state.masterEditor.cardType,
   sectionName: modelName,
 });
 
@@ -28,13 +29,13 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
     handleTimeTable,
     setAddressField,
     setCalendarInterval,
+    setCustomDatesField,
     setTimeTableField,
   }, dispatch);
 
   return {
     actions: {
       ...actions,
-      drawerOpen,
       next() {
         dispatch(setActivityIndicator(true));
 

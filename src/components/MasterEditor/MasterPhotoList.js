@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
 import {
-  Dimensions,
   Image,
   Platform,
   StyleSheet,
@@ -29,12 +28,19 @@ export default class MasterPhotoList extends Component {
     this.props.onPhotoSelectPress(this.props.modelName);
   };
 
-  onPhotoRemovePress = itemId => {
-    this.props.onPhotoRemovePress(itemId, this.props.modelName);
+  onPhotoRemovePress = (id, type) => {
+    this.props.onPhotoRemovePress(id, this.props.modelName, type);
   };
 
   render() {
-    const { items, limit, photoSize, wrapperPhotoSize } = this.props;
+    const {
+      items,
+      limit,
+      photoSize,
+      type,
+      wrapperPhotoSize,
+    } = this.props;
+
     const photoUploadSelect = items.length < limit ? { type: 'select' } : null;
     const photosArray = compact([...items, photoUploadSelect]);
     const photosChunks = chunk(photosArray, CHUNK_SIZE);
@@ -87,7 +93,7 @@ export default class MasterPhotoList extends Component {
                   source={{ uri: item.sizes.s }}
                   style={{ width: photoSize, height: photoSize }}
                 />
-                <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id)}>
+                <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id, type)}>
                   <Image source={icons.remove} style={styles.icon} />
                 </TouchableWithoutFeedback>
               </View>);

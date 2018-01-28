@@ -23,7 +23,7 @@ export function hexToRgba(hex: string, opacity: number = 100) {
  *     [SHOW_FAVORITES]: () => changeModel(state, 'favorites', {isShow: true})
  * }));
  */
-export function makeReducer(handler: Function, beforeHandler: Function, afterHandler: Function) {
+export function makeReducer(handler: Function, beforeHandler?: Function, afterHandler?: Function) {
   return (state: Object, action: Object) => {
     const items = handler(state, action);
 
@@ -124,7 +124,7 @@ export function deepUpdate(obj: Object, path: string, changes: Object) {
 export function groupServices(services: Array<any>, dictionaries: Object) {
   services.forEach((service) => {
     let parentCategory;
-    let categoryId = service.categoryId;
+    let { categoryId } = service;
 
     if (!service.title) {
       service.title = dictionaries.serviceById[service.serviceId].title;
@@ -138,15 +138,39 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
     service.parentCategoryKey = parentCategory.key;
   });
 
-  const groupedService = groupBy(
+  const groupedServices = groupBy(
     services,
     'parentCategoryKey',
   );
 
-  return Object.keys(groupedService)
-    .map(groupKey => ({
-      id: dictionaries.categoryServiceByKey[groupKey].id,
-      title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
-      services: groupedService[groupKey],
-    }));
+  const groupedServicesBySubCategories = {};
+
+  Object.keys(groupedServices).forEach((key: string) => {
+    if (groupedServices[key].length) {
+      groupedServicesBySubCategories[key] = groupedServices[key];
+    }
+  });
+
+  return {
+    groupedServicesByCategories: Object.keys(groupedServices)
+      .map((groupKey) => ({
+        id: dictionaries.categoryServiceByKey[groupKey].id,
+        title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
+        services: groupedServices[groupKey],
+      })),
+    groupedServicesBySubCategories: Object.keys(groupedServicesBySubCategories)
+      .map((groupKey) => ({
+        id: dictionaries.categoryServiceByKey[groupKey].id,
+        title: capitalize(dictionaries.categoryServiceByKey[groupKey].title),
+        services: (() => {
+          const subGroup = groupBy(groupedServices[groupKey], 'categoryId');
+
+          return Object.keys(subGroup).map((categoryId) => ({
+            id: dictionaries.categoryServiceById[categoryId].id,
+            title: dictionaries.categoryServiceById[categoryId].title,
+            services: subGroup[categoryId],
+          }));
+        })(),
+      })),
+  };
 }

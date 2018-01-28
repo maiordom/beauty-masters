@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, ListView, StyleSheet, Platform, Image } from 'react-native';
+import { View, Text, ListView, StyleSheet, Platform, Image, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import type { TMapCard } from '../types/MasterTypes';
 
@@ -13,8 +13,9 @@ import vars from '../vars';
 import i18n from '../i18n';
 
 type TState = {
-  refreshing: boolean,
   dataSource: Array<*>,
+  refreshing: boolean,
+  renderContent: boolean,
 };
 
 type TProps = {
@@ -40,6 +41,7 @@ export default class Favorites extends Component<TProps, TState> {
     this.state = {
       dataSource: this.ds.cloneWithRows(props.cards),
       refreshing: false,
+      renderContent: false,
     };
   }
 
@@ -47,6 +49,10 @@ export default class Favorites extends Component<TProps, TState> {
 
   componentDidMount() {
     this.props.actions.getFavorites();
+
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderContent: true });
+    });
   }
 
   componentWillReceiveProps(nextProps: TProps) {
@@ -80,7 +86,12 @@ export default class Favorites extends Component<TProps, TState> {
   );
 
   render() {
+    const { renderContent } = this.state;
     const { isLoaded, cards } = this.props;
+
+    if (!renderContent) {
+      return null;
+    }
 
     if (!isLoaded) {
       return (

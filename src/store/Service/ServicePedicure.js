@@ -1,7 +1,7 @@
 // @flow
 
 import i18n from '../../i18n';
-import type { ServicePedicure } from '../../types/MasterEditor';
+import type { TServicePedicure } from '../../types/MasterEditor';
 
 const commonCategoryKey = 'pedicure';
 const extensionCategoryKey = 'extension';
@@ -11,197 +11,233 @@ const pedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'Pedicure',
+  isCategory: true,
   title: i18n.pedicure,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const classicPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ClassicPedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.classic,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const hardwarePedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'HardwarePedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.hardware,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const europeanPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'EuropeanPedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.european,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const combinedPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'CombinedPedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.combined,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const expressPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'ExpressPedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.express,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const hotPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'HotPedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.hot,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const spaPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'SPAPedicure',
+  categoryDictionaryKey: 'PedicureTreatment',
   title: i18n.filters.spa,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const applyingShellacPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureShellac',
+  categoryDictionaryKey: 'PedicureCoating',
   title: i18n.filters.applyingShellac,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const applyingBioGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureBiogel',
+  categoryDictionaryKey: 'PedicureCoating',
   title: i18n.filters.applyingBioGel,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const applyingNailPolishPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureNailPolish',
+  categoryDictionaryKey: 'PedicureCoating',
   title: i18n.filters.applyingNailPolish,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const applyingOfAnotherNailGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureGelNailPolish',
+  categoryDictionaryKey: 'PedicureCoating',
   title: i18n.filters.applyingOfAnotherNailGel,
-}: ServicePedicure);
+}: TServicePedicure);
+
+const designPedicure = (isActive: boolean) => ({
+  active: Boolean(isActive),
+  categoryKey: commonCategoryKey,
+  dictionaryKey: 'PedicureDesign',
+  isCategory: true,
+  title: i18n.filters.nailDesign,
+}: TServicePedicure);
 
 const frenchPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureFrench',
+  categoryDictionaryKey: 'PedicureDesign',
   title: i18n.filters.french,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const moonPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureReverseFrench',
+  categoryDictionaryKey: 'PedicureDesign',
   title: i18n.filters.moon,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const reverseMoonPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureReverseMoon',
+  categoryDictionaryKey: 'PedicureDesign',
   title: i18n.filters.reverseMoon,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const stencilPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureStencil',
+  categoryDictionaryKey: 'PedicureDesign',
   title: i18n.filters.stencil,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const artDesignPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureArtDesign',
+  categoryDictionaryKey: 'PedicureDesign',
   title: i18n.filters.artDesign,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const gradientPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: commonCategoryKey,
   dictionaryKey: 'PedicureGradient',
+  categoryDictionaryKey: 'PedicureDesign',
   title: i18n.filters.gradientPedicure,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const extensionPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'PedicureExtension',
+  isCategory: true,
   title: i18n.filters.nailExtension,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const extensionTipsAcrilycPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'PedicureExtensionTipsAcrilyc',
+  categoryDictionaryKey: 'PedicureExtension',
   title: i18n.filters.extensionTipsAcrilyc,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const extensionFormsAcrilycPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'PedicureExtensionFormsAcrilyc',
+  categoryDictionaryKey: 'PedicureExtension',
   title: i18n.filters.extensionFormsAcrilyc,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const extensionTipsGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'PedicureExtensionTipsGel',
+  categoryDictionaryKey: 'PedicureExtension',
   title: i18n.filters.extensionTipsGel,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const extensionAcrilycGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: extensionCategoryKey,
   dictionaryKey: 'PedicureExtensionAcrilycGel',
+  categoryDictionaryKey: 'PedicureExtension',
   title: i18n.filters.extensionAcrilycGel,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const removingNailPolishPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'PedicureRemovingNailPolish',
+  categoryDictionaryKey: 'PedicureRemoving',
   title: i18n.filters.removingNailPolish,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const removingShellacPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'PedicureRemovingShellac',
+  categoryDictionaryKey: 'PedicureRemoving',
   title: i18n.filters.removingShellac,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const removingBioGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'PedicureRemovingBioGel',
+  categoryDictionaryKey: 'PedicureRemoving',
   title: i18n.filters.bioGel.gen,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const removingGelPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'PedicureRemovingGel',
+  categoryDictionaryKey: 'PedicureRemoving',
   title: i18n.filters.removingGel,
-}: ServicePedicure);
+}: TServicePedicure);
 
 const removingNailsPedicure = (isActive: boolean) => ({
   active: Boolean(isActive),
   categoryKey: removingCategoryKey,
   dictionaryKey: 'PedicureRemovingNails',
+  categoryDictionaryKey: 'PedicureRemoving',
   title: i18n.filters.removingNails.gen,
-}: ServicePedicure);
+}: TServicePedicure);
 
 export default {
   pedicure,
@@ -216,6 +252,7 @@ export default {
   applyingBioGelPedicure,
   applyingNailPolishPedicure,
   applyingOfAnotherNailGelPedicure,
+  designPedicure,
   frenchPedicure,
   moonPedicure,
   reverseMoonPedicure,

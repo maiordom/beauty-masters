@@ -4,9 +4,15 @@ import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
 
 import { getMasterServices, getAddresses } from './Profile';
+import { refreshEditor } from './Master';
 
 export const setGeneralInfo = (masterCard) => ({
   type: actions.MASTER_EDIT_GENERAL_INFO_SET,
+  payload: { masterCard },
+});
+
+export const setHomeAllowance = (masterCard) => ({
+  type: actions.MASTER_EDIT_HOME_ALLOWANCE_SET,
   payload: { masterCard },
 });
 
@@ -54,7 +60,9 @@ export const getServices = () => (dispatch: Function, getState: Function) => {
 
     return dispatch(getMasterServices(masterCard.id)).then((res) => {
       if (!res.error) {
+        dispatch(refreshEditor());
         dispatch(setStatus(masterCard.id));
+        dispatch(setHomeAllowance(masterCard));
         dispatch(setManicureServices(masterCard));
         dispatch(setPedicureServices(masterCard));
         dispatch(setHandlingTools(masterCard));
@@ -75,6 +83,7 @@ export const getCalendars = () => (dispatch: Function, getState: Function) => {
 
     dispatch(getAddresses(masterCard.id)).then((res) => {
       if (!res.error) {
+        dispatch(refreshEditor());
         dispatch(setStatus(masterCard.id));
         dispatch(setCalendars(masterCard));
       }

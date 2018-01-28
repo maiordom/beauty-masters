@@ -20,6 +20,7 @@ const setPhotos = ({
 }) => {
   data.forEach((item) => {
     model.items.push({
+      id: item.id,
       mediaFileId: item.mediaFileId,
       sizes: item.sizes,
       status: 'uploaded',
@@ -58,7 +59,9 @@ const setServices = ({
   customServicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId, price, duration, title }) => {
+  servicesData.forEach(({
+    categoryId, serviceId, price, duration, title,
+  }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });
@@ -152,7 +155,14 @@ export default makeReducer(() => ({
         setCreateQueryParam(payload, state, 'createTimeTableQuery');
       });
 
-      calendarModel.customDates.items = address.schedules.map((schedule) => {
+      [
+        createPayload(sectionName, 'customDates', address.timeTable.timeStart, 'timeStartDefault'),
+        createPayload(sectionName, 'customDates', address.timeTable.timeEnd, 'timeEndDefault'),
+      ].forEach((payload) => {
+        setParam(payload, state);
+      });
+
+      state.masterEditor[sectionName].customDates.items = address.schedules.map((schedule) => {
         const scheduleObject = {
           date: schedule.date,
           timeStart: schedule.timeStart,
@@ -181,11 +191,11 @@ export default makeReducer(() => ({
   },
 
   [actions.MASTER_EDIT_GENERAL_INFO_SET]: (state, { payload: { masterCard } }) => {
-    const generalSection = state.masterEditor.generalSection;
+    const { generalSection } = state.masterEditor;
     const infoSection = state.masterEditor.info;
 
     generalSection.isSalonField.value = masterCard.isSalon;
-    generalSection.phoneField.value = masterCard.phone;
+    generalSection.phoneField.value = masterCard.phone.slice(1);
     generalSection.salonNameField.value = masterCard.salonName;
     generalSection.usernameField.value = masterCard.username;
     infoSection.aboutField.value = masterCard.about;
@@ -301,6 +311,14 @@ export default makeReducer(() => ({
       },
       masterCardId,
     });
+  },
+
+  [actions.MASTER_EDIT_HOME_ALLOWANCE_SET]: (state, { payload: { masterCard } }) => {
+    if (masterCard.homeDepartureService) {
+      state.masterEditor.services.homeDepartureField.value = masterCard.homeDepartureService.price;
+    }
+
+    return state;
   },
 
   [actions.MASTER_EDIT_PHOTOS_SET]: (state, { payload: { masterCard } }) => {

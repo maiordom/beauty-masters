@@ -37,6 +37,7 @@ type TProps = {
 type TState = {
   currentScene: ?string,
 }
+
 export default class Sidebar extends Component<TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
@@ -48,8 +49,10 @@ export default class Sidebar extends Component<TProps, TState> {
     this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
-      Actions[key](nextScene);
-      this.setState(nextScene);
+      setTimeout(() => {
+        Actions[key](nextScene);
+        this.setState(nextScene);
+      }, 150);
     });
   };
 
@@ -102,11 +105,13 @@ export default class Sidebar extends Component<TProps, TState> {
     this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
-      if (this.props.isAuthorized) {
-        this.props.actions.routeToMasterProfile();
-      } else {
-        this.props.actions.routeToAuthorization();
-      }
+      setTimeout(() => {
+        if (this.props.isAuthorized) {
+          this.props.actions.routeToMasterProfile();
+        } else {
+          this.props.actions.routeToAuthorization();
+        }
+      }, 150);
     });
   };
 
@@ -123,13 +128,14 @@ export default class Sidebar extends Component<TProps, TState> {
     } = this.props;
 
     const { currentScene } = this.state;
+    const avatarSource = avatar ? { uri: avatar } : icons.photoEmpty;
 
     return (
       <View style={styles.sidebar}>
         <View style={styles.header}>
           <TouchableOpacity onPress={this.onAvatarPress}>
-            <View style={styles.photoWrapper}>
-              <Image style={styles.photo} source={avatar || icons.photoEmpty} />
+            <View style={styles.avatarWrapper}>
+              <Image style={styles.avatar} source={avatarSource} />
             </View>
           </TouchableOpacity>
           <View style={styles.titleContainer}>
@@ -138,17 +144,21 @@ export default class Sidebar extends Component<TProps, TState> {
                 {username || i18n.authAsMaster}
               </Text>
             </TouchableOpacity>
-            {isAuthorized && (<TouchableOpacity
-              style={styles.logoutButton}
-              onPress={this.onLogoutPress}
-              hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
-            >
-              <Image source={icons.logout} />
-            </TouchableOpacity>)}
+            {isAuthorized && (
+              <TouchableOpacity
+                style={styles.logoutButton}
+                onPress={this.onLogoutPress}
+                hitSlop={{
+                  top: 10, left: 10, right: 10, bottom: 10,
+                }}
+              >
+                <Image source={icons.logout} />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <View style={styles.menu}>
-          {this.menuButtons.map(button => (
+          {this.menuButtons.map((button) => (
             <TouchableOpacity onPress={button.onPress} key={button.title}>
               <View style={[styles.button, currentScene === button.key ? styles.selectedButton : null]}>
                 {Platform.OS === 'android' && (
@@ -189,12 +199,25 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  photoWrapper: {
+  avatarWrapper: {
     marginTop: 40,
-  },
-  photo: {
     width: 64,
     height: 64,
+    ...Platform.select({
+      ios: {
+        borderRadius: 50,
+        overflow: 'hidden',
+      },
+    }),
+  },
+  avatar: {
+    width: 64,
+    height: 64,
+    ...Platform.select({
+      android: {
+        borderRadius: 50,
+      },
+    }),
   },
   titleContainer: {
     flexDirection: 'row',

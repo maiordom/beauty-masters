@@ -25,6 +25,7 @@ const icons = Platform.select({
 export default class Calendar extends Component {
   static defaultProps = {
     format: 'YYYY-MM-DD',
+    multiSelect: false,
     workDays: [],
   };
 
@@ -51,13 +52,16 @@ export default class Calendar extends Component {
 
   shouldComponentUpdate = shouldComponentUpdate();
 
-  onDateSelect = date => {
-    this.props.onDateSelect(moment(date).format(this.props.format));
+  onDateSelect = (date) => {
+    const formatedDate = moment(date).format(this.props.format);
+    const hasEvent = (this.eventDates || []).includes(formatedDate);
+
+    this.props.onDateSelect(formatedDate, hasEvent);
   };
 
   getEventDates = () => this.eventDates;
 
-  onMonthChange = date => {
+  onMonthChange = (date) => {
     const momentDate = moment(date.format());
     let diffMonths = false;
     let startDate = this.state.originStartDate;
@@ -79,9 +83,12 @@ export default class Calendar extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.startDate && this.props.startDate !== nextProps.startDate) {
-      if (this.props.interval) {
-        this.eventDates = prepareEventDates(this.props.interval.key, nextProps.startDate);
+    if (
+      nextProps.startDate && this.props.startDate !== nextProps.startDate
+      || nextProps.interval && this.props.interval && nextProps.interval.key !== this.props.interval.key
+    ) {
+      if (nextProps.interval) {
+        this.eventDates = prepareEventDates(nextProps.interval.key, nextProps.startDate);
       }
 
       this.setState({
@@ -97,17 +104,36 @@ export default class Calendar extends Component {
       containerWidth,
       disableSelectDate,
       events = [],
+      eventTimeEndDefault,
+      eventTimeStartDefault,
+      multiSelect,
       selectedDate,
+      selectedDates,
       workDays,
     } = this.props;
 
     const eventDates = this.eventDates;
-    const eventsCalendar = events.map(event => ({
-      date: event.date,
-      eventIndicator: {
-        backgroundColor: vars.color.blue,
-      },
-    }));
+    const eventsCalendar = events.map((event) => {
+      let backgroundColor = vars.color.white;
+
+      if (event.workInThisDay) {
+        if (
+          event.timeEnd === eventTimeEndDefault &&
+          event.timeStart === eventTimeStartDefault
+        ) {
+          backgroundColor = vars.color.black;
+        } else {
+          backgroundColor = vars.color.blue;
+        }
+      }
+
+      return {
+        date: event.date,
+        eventIndicator: {
+          backgroundColor,
+        },
+      };
+    });
 
     return (
       <View style={styles.container}>
@@ -118,12 +144,14 @@ export default class Calendar extends Component {
           eventDates={eventDates}
           events={eventsCalendar}
           monthNames={i18n.monthNames}
+          multiSelect={multiSelect}
           nextButtonImage={icons.arrowRight}
           onDateSelect={this.onDateSelect}
           onTouchNext={this.onMonthChange}
           onTouchPrev={this.onMonthChange}
           prevButtonImage={icons.arrowLeft}
           selectedDate={selectedDate}
+          selectedDates={selectedDates}
           showControls
           showEventIndicators
           width={containerWidth}

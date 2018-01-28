@@ -4,6 +4,7 @@ import pickBy from 'lodash/pickBy';
 
 import actions from '../constants/Search';
 import * as SearchService from '../services/Search';
+import * as CitiesService from '../services/City';
 
 import type { TSearchQuery } from '../types/CreateSearchQuery';
 
@@ -12,8 +13,8 @@ export const setDay = (day: string) => ({
   day,
 });
 
-export const setItemById = (modelName: string, id: number, sectionName: string) => ({
-  type: actions.SEARCH_SET_MASTER_TYPE,
+export const setMasterType = (modelName: string, id: number, sectionName: string) => ({
+  type: actions.SEARCH_MASTER_TYPE_SET,
   modelName,
   id,
   sectionName,
@@ -26,7 +27,21 @@ export const toggleService = (
   sectionName: string,
 ) => ({
   type: actions.SEARCH_SERVICE_TOGGLE,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
+});
+
+export const toggleServiceCategory = (
+  modelName: string,
+  paramName: string,
+  paramValue: boolean,
+  sectionName: string,
+) => ({
+  type: actions.SEARCH_SERVICE_CATEGORY_TOGGLE,
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const toggleManicure = (paramValue: boolean) => ({
@@ -51,7 +66,15 @@ export const toggleWithdrawal = (paramValue: boolean) => ({
 
 export const toggleDeparture = () => ({ type: actions.SEARCH_DEPARTURE_TOGGLE });
 
-export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
+type ActionSetItems = {
+  type: string,
+  items: Array<{
+    label: string,
+    id: number
+  }>
+};
+
+const searchMastersWithAction = (action: string) => (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
   const { searchQuery } = getState().searchForm;
 
   params = Object.assign({}, searchQuery, params);
@@ -68,12 +91,15 @@ export const searchMasters = (params: TSearchQuery = {}) => (dispatch: Function,
     .then((res: Object) => {
       if (!res.error) {
         dispatch({
-          type: actions.SEARCH_MASTERS_ITEMS_SET,
+          type: action,
           items: res,
         });
       }
     });
 };
+
+export const searchMasters = searchMastersWithAction(actions.SEARCH_MASTERS_ITEMS_SET);
+export const searchMastersList = searchMastersWithAction(actions.SEARCH_MASTERS_LIST_ITEMS_SET);
 
 export const setSearchLocation = (lat: number, lon: number) => ({
   type: actions.SEARCH_LOCATION_SET,
@@ -85,10 +111,17 @@ export const setSearchLocationName = (label: string) => ({
   payload: { label },
 });
 
-export const citiesAdd = (id: number) => ({ type: actions.SEARCH_CITY_ADD, id });
+export const searchCitySelect = (id: number) => ({ type: actions.SEARCH_CITY_SET, id });
 
-export const citiesReset = () => ({
-  type: actions.SEARCH_ITEMS_RESET,
-  modelName: 'cities',
-  sectionName: 'general',
-});
+export const citiesReset = () => (dispatch: Function) => {
+  CitiesService.getCities().then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.SEARCH_CITY_RESET,
+        payload: { cities: res.cities },
+      });
+    }
+  });
+};
+
+export const searchCityForText = (text: string) => ({ type: actions.SEARCH_CITY_FIND, payload: { text } });

@@ -6,21 +6,31 @@ import {
   Text,
   StyleSheet,
   Platform,
-  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
+
 import { drawerOpen } from '../actions/Drawer';
 import vars from '../vars';
 
-const DEVICE_WIDTH = Dimensions.get('window').width;
+const icons = {
+  menu: require('../icons/menu.png'),
+  ...Platform.select({
+    ios: {
+      backArrow: require('../icons/ios/back-arrow.png'),
+    },
+    android: {
+      backArrow: require('../icons/android/back-arrow.png'),
+    },
+  }),
+};
 
 const getBackButtonImage = (leftButtonMenu) => {
   if (leftButtonMenu) {
-    return require('../icons/menu.png');
+    return icons.menu;
   }
 
-  return require('../icons/android/back-arrow.png');
+  return icons.backArrow;
 };
 
 class NavBar extends Component {
@@ -60,12 +70,15 @@ class NavBar extends Component {
         <Text
           style={[
             styles.title,
-            leftButtonHidden && { marginLeft: 16 },
-            !rightButtonImage && { marginRight: 16 },
+            Platform.OS === 'android' && [
+              leftButtonHidden && { marginLeft: 16 },
+              !rightButtonImage && { marginRight: 16 },
+            ],
           ]}
           lineBreakMode="tail"
           numberOfLines={1}
-        >{title}</Text>
+        >{title}
+        </Text>
         {rightButtonImage && (
           <TouchableOpacity
             style={styles.rightButton}
@@ -92,7 +105,7 @@ const Scene = (component) => class SceneComponent extends Component {
     } = this.props;
 
     if (onLeftButtonPress) {
-      onLeftButtonPress();
+      return onLeftButtonPress();
     }
 
     if (leftButtonMenu) {
@@ -165,15 +178,21 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   title: {
-    flex: 1,
-    color: vars.color.white,
     backgroundColor: 'transparent',
-    alignSelf: 'center',
-    fontSize: 20,
+    color: vars.color.white,
+    flex: 1,
     ...Platform.select({
       ios: {
         textAlign: 'center',
         fontSize: 17,
+        position: 'absolute',
+        top: 32,
+        left: 44,
+        right: 44,
+      },
+      android: {
+        alignSelf: 'center',
+        fontSize: 20,
       },
     }),
   },

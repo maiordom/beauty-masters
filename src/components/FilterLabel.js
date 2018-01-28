@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, Platform } from 'react-native';
 
 import vars from '../vars';
 
-export const FilterLabel = ({ text }) => {
+export const FilterLabel = ({ text, style }) => {
   const title = Platform.select({
     ios: text.toUpperCase(),
     android: text,
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.text}>{title}</Text>
     </View>
   );
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     backgroundColor: vars.color.lightGrey,
     justifyContent: 'center',
-    height: 44,
     borderBottomWidth: 1,
     borderTopWidth: 1,
     ...Platform.select({
@@ -33,6 +32,7 @@ const styles = StyleSheet.create({
         borderTopColor: vars.color.borderColorAndroid,
       },
       ios: {
+        height: 44,
         borderBottomColor: vars.color.cellSeparatorColorIOS,
         borderTopColor: vars.color.cellSeparatorColorIOS,
       },

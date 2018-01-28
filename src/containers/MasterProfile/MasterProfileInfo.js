@@ -11,8 +11,8 @@ import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo'
 
 const mapStateToProps = (state) => ({
   ...find(state.profile.masterCards, { isMain: true }) || {
+    avatar: null,
     email: null,
-    masterPhotos: [],
     phone: null,
     username: null,
   },

@@ -11,11 +11,21 @@ import ServiceManicure from '../Service/ServiceManicure';
 import ServicePedicure from '../Service/ServicePedicure';
 import Services from './MasterEditorServices';
 
-import Geo from '../Geo';
 import constants from '../../constants/Master';
 
 import type { TCreateMaster } from '../../types/CreateMaster';
 import type { TCustomService, TMasterService } from '../../types/CreateService';
+
+const citiesModel = () => ({
+  selected: {
+    id: 1,
+    name: 'Москва',
+    lat: 55.753994,
+    lon: 37.622093,
+  },
+  items: [],
+  filtered: null,
+});
 
 const params = {
   cardType: 'create',
@@ -50,24 +60,23 @@ each({
   });
 });
 
-Object.assign(params.serviceManicure.classicManicure, { required: true, active: true });
-Object.assign(params.serviceManicure.removingNailPolishManicure, { required: true, active: true });
-Object.assign(params.serviceManicure.applyingNailPolishManicure, { required: true, active: true });
-
 [
   params.calendarSettingsOne,
   params.calendarSettingsTwo,
   params.calendarSettingsThree,
 ].forEach((object, index) => {
+  const cities = citiesModel();
+
   object.index = index;
+  object.schedulesCreated = false;
   object.timeTableId = null;
   object.addressId = null;
-  object.cityField.value = Geo.city.name;
+  object.cityField.value = cities.selected.name;
   object.startDateField.value = moment().format('YYYY-MM-DD');
 
-  object.createAddressQuery.city = Geo.city.name;
-  object.createAddressQuery.lat = Geo.city.location.lat;
-  object.createAddressQuery.lon = Geo.city.location.lng;
+  object.createAddressQuery.city = cities.selected.name;
+  object.createAddressQuery.lat = cities.selected.lat;
+  object.createAddressQuery.lon = cities.selected.lon;
 
   object.createTimeTableQuery.time_start = object.timeStartField.value;
   object.createTimeTableQuery.time_end = object.timeEndField.value;

@@ -5,6 +5,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Platform } from 'react-nativ
 import { Actions } from 'react-native-router-flux';
 
 import type { TMapCard } from '../../types/MasterTypes';
+import { trackEvent } from '../../utils/Tracker';
 
 const icons = {
   favs: require('../../icons/favs.png'),
@@ -31,11 +32,14 @@ type TProps = {
 
 export default class MasterCardNavBar extends Component<TProps, void> {
   onFavPress = () => {
-    const { actions, id, snippet, isFavorite } = this.props;
+    const {
+      actions, id, snippet, isFavorite,
+    } = this.props;
 
     if (isFavorite) {
       actions.removeFromFavorites(id);
     } else {
+      trackEvent('addToFavorites');
       actions.addToFavorites(snippet);
     }
   };
@@ -45,7 +49,11 @@ export default class MasterCardNavBar extends Component<TProps, void> {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={Actions.pop} hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}>
+        <TouchableOpacity onPress={Actions.pop}
+          hitSlop={{
+            top: 10, left: 10, right: 10, bottom: 10,
+          }}
+        >
           <Image source={icons.back} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.onFavPress} >

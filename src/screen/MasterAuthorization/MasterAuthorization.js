@@ -82,20 +82,22 @@ export default class MasterAuthorization extends Component {
         </View>
         <Image style={styles.logo} source={logoIcon} />
         <View style={styles.tabs}>
-          {_.map(tabs, (tab, index) => <TouchableHighlight
-            key={index}
-            style={styles.tabItem}
-            onPress={tab.action}
-            activeOpacity={1}
-            underlayColor="transparent"
-          >
-            <View>
-              <Text style={tab.style}>{tab.title}</Text>
-              <View style={styles.switchArrow}>
-                {tab.active && (<Image source={switchArrowIcon} />)}
+          {_.map(tabs, (tab, index) => (
+            <TouchableHighlight
+              key={index}
+              style={styles.tabItem}
+              onPress={tab.action}
+              activeOpacity={1}
+              underlayColor="transparent"
+            >
+              <View>
+                <Text style={tab.style}>{tab.title}</Text>
+                <View style={styles.switchArrow}>
+                  {tab.active && (<Image source={switchArrowIcon} />)}
+                </View>
               </View>
-            </View>
-          </TouchableHighlight>)}
+            </TouchableHighlight>
+          ))}
         </View>
         <View style={styles.tabContent}>
           {TabItem}

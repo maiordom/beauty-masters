@@ -69,7 +69,8 @@ export default class SwitchBase extends Component {
   };
 
   callback = () => {
-    const state = this.state.state;
+    const { state } = this.state;
+
     if (state) {
       this.props.onActivate();
     } else {
@@ -93,7 +94,7 @@ export default class SwitchBase extends Component {
   }
 
   render() {
-    const padding = this.padding;
+    const { padding } = this;
 
     return (
       <View

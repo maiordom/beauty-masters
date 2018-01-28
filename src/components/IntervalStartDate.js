@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
 import Calendar from './Calendar';
 
@@ -11,6 +11,7 @@ export default class IntervalStartDate extends Component {
 
   onApplyPress = () => {
     this.props.actions.applyDate(this.state.selectedDate, this.props.sectionName);
+    this.props.onRequestClose();
   };
 
   onDateSelect = selectedDate => {
@@ -30,13 +31,12 @@ export default class IntervalStartDate extends Component {
             onDateSelect={this.onDateSelect}
             containerWidth={containerWidth}
           />
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={this.onApplyPress}
             style={styles.button}
-            underlayColor="transparent"
           >
             <Text style={styles.buttonText}>OK</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );

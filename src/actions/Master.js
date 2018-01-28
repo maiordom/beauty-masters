@@ -1,12 +1,15 @@
+import { TCreateMaster } from '../types/CreateMaster';
+
 import * as MasterService from '../services/Master';
+import * as PhotoService from '../services/Photo';
 
 import actions from '../constants/Master';
 
 import { setActivityIndicator } from './Common';
 
-export const createMaster = () => (dispatch, getState) => {
+export const createMaster = (customCreateMasterQuery?: TCreateMaster) => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const { masterCardId, createMasterQuery } = state.masterEditor;
 
   dispatch(setActivityIndicator(true));
@@ -20,6 +23,8 @@ export const createMaster = () => (dispatch, getState) => {
       },
     },
   };
+
+  Object.assign(params.data.attributes, customCreateMasterQuery);
 
   const handleResponse = ({ masterCardId }) => {
     dispatch(setActivityIndicator(false));
@@ -50,12 +55,16 @@ export const createMaster = () => (dispatch, getState) => {
 
 export const createMasterServices = () => (dispatch, getState) => {
   const state = getState();
-  const auth = state.auth;
+  const { auth } = state;
   const masterServices = [
     ...state.masterEditor.manicureCustomServicesQuery,
     ...state.masterEditor.masterServicesQuery,
     ...state.masterEditor.pedicureCustomServicesQuery,
   ];
+
+  if (!masterServices.length) {
+    return Promise.resolve({ result: 'success' });
+  }
 
   const params = {
     data: masterServices,
@@ -106,17 +115,36 @@ export const validateServices = () => (dispatch, getState) => {
   return Promise.reject({ type: 'VALIDATION_ERRORS' });
 };
 
-export const removePhoto = (itemId, modelName) => ({
-  type: actions.MASTER_PHOTO_REMOVE,
-  itemId,
-  modelName,
-});
+export const removePhoto = (id, modelName, mediaType) => (dispatch, getState) => {
+  const state = getState();
+  const { auth } = state;
+  const headers = {
+    Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  };
+
+  PhotoService.deletePhoto({ id }, headers, mediaType).then((res) => {
+    if (res.status === 'success') {
+      dispatch({
+        type: actions.MASTER_PHOTO_REMOVE,
+        payload: {
+          id,
+          modelName,
+        },
+      });
+    }
+  });
+};
 
 export const setGeneralParam = (modelName, value, sectionName) => ({
-  type: actions.MASTER_GENERAL_SET_PARAM,
+  type: actions.MASTER_GENERAL_PARAM_SET,
   modelName,
   sectionName,
   value,
+});
+
+export const setGeneralPhone = (modelName, value, sectionName) => ({
+  type: actions.MASTER_GENERAL_PHONE_SET,
+  payload: { modelName, value, sectionName },
 });
 
 export const setServiceParam = (modelName, paramName, paramValue, sectionName) => ({
@@ -137,7 +165,9 @@ export const toggleService = (modelName, paramName, paramValue, sectionName) => 
 
 export const setCalendarInterval = (modelName, id, sectionName) => ({
   type: actions.MASTER_CALENDAR_INTERVAL_SET,
-  payload: { modelName, id, sectionName, paramValue: id },
+  payload: {
+    modelName, id, sectionName, paramValue: id,
+  },
 });
 
 export const setCalendarSchedule = (modelName, changes, sectionName) => ({
@@ -162,7 +192,9 @@ export const setCustomServiceParam = (modelName, changes, index, sectionName) =>
 
 export const setPlaceDetail = (place, sectionName) => ({
   type: actions.MASTER_PLACE_SET,
-  payload: { modelName: 'addressField', paramName: 'value', paramValue: place, sectionName },
+  payload: {
+    modelName: 'addressField', paramName: 'value', paramValue: place, sectionName,
+  },
 });
 
 export const setPlaceLocation = (location, sectionName) => ({
@@ -172,12 +204,23 @@ export const setPlaceLocation = (location, sectionName) => ({
 
 export const setAddressField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_ADDRESS_SET_PARAM,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const setTimeTableField = (modelName, paramName, paramValue, sectionName) => ({
   type: actions.MASTER_TIME_TABLE_SET_PARAM,
-  payload: { modelName, paramName, paramValue, sectionName },
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
+});
+
+export const setCustomDatesField = (modelName, paramName, paramValue, sectionName) => ({
+  type: actions.MASTER_CUSTOM_DATES_SET_PARAM,
+  payload: {
+    modelName, paramName, paramValue, sectionName,
+  },
 });
 
 export const refreshEditor = () => ({

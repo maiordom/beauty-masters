@@ -7,6 +7,7 @@ import Input from '../components/Input';
 
 import i18n from '../i18n';
 import vars from '../vars';
+import { trackEvent } from '../utils/Tracker';
 
 const i18nSignUp = Platform.select({
   ios: i18n.signUp,
@@ -52,18 +53,26 @@ export default class Registration extends Component<TProps, TState> {
     }
   }
 
+  componentDidMount() {
+    trackEvent('viewReg');
+  }
+
   onUserCreatePress = () => {
-    const email = this.emailRef.getValue();
-    const password = this.passwordRef.getValue();
+    const email = this.emailRef.getValue().trim().toLowerCase();
+    const password = this.passwordRef.getValue().trim();
 
     if (this.validate()) {
-      this.props.actions.userCreate({ email, password });
+      this.props.actions.userCreate({ email, password }).then((res) => {
+        if (res.result === 'success') {
+          trackEvent('step0');
+        }
+      });
     }
   };
 
   validate() {
-    const email = this.emailRef.getValue();
-    const password = this.passwordRef.getValue();
+    const email = this.emailRef.getValue().trim();
+    const password = this.passwordRef.getValue().trim();
 
     if (email.length === 0 || password.length === 0) {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
@@ -88,8 +97,8 @@ export default class Registration extends Component<TProps, TState> {
     </View>
   );
 
-  setEmailRef = (ref: Object) => this.emailRef = ref;
-  setPasswordRef = (ref: Object) => this.passwordRef = ref;
+  setEmailRef = (ref: Object) => { this.emailRef = ref; };
+  setPasswordRef = (ref: Object) => { this.passwordRef = ref; };
 
   render() {
     const { validationStatus, responseError } = this.state;
@@ -117,17 +126,22 @@ export default class Registration extends Component<TProps, TState> {
             style={styles.input}
           />
           {Platform.OS === 'android'
-          ? <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>
-              {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
-            </Text>
-            <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
-          </View>
-          : <View style={styles.manifest}>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
-            <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
-            <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
-          </View>}
+            ? (
+              <View style={styles.manifest}>
+                <Text style={[styles.registrationText, styles.manifestText]}>
+                  {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
+                </Text>
+                <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+              </View>
+            )
+            : (
+              <View style={styles.manifest}>
+                <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
+                <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
+                <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+              </View>
+            )
+          }
           {validationStatus === ALL_FIELDS_REQUIRED && (
             this.error(i18n.errors.allFieldsRequired)
           )}
@@ -171,9 +185,11 @@ const styles = StyleSheet.create({
   },
   registrationText: {
     color: vars.color.grey,
+    textAlign: 'center',
   },
   agreementText: {
     color: vars.color.red,
+    textAlign: 'center',
   },
   manifestText: {
     ...Platform.select({
@@ -191,13 +207,17 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     height: 44,
     alignItems: 'center',
-    alignSelf: 'center',
     justifyContent: 'center',
     ...Platform.select({
       android: {
         height: 48,
         width: 240,
         borderRadius: 24,
+        alignSelf: 'center',
+      },
+      ios: {
+        paddingTop: 12,
+        paddingBottom: 12,
       },
     }),
   },

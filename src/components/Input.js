@@ -119,6 +119,7 @@ export class InputWithLabel extends InputBase {
       label,
       placeholder,
       placeholderTextColor,
+      required,
       style: customInputStyle,
       underlineColorAndroid,
     } = this.props;
@@ -127,7 +128,12 @@ export class InputWithLabel extends InputBase {
 
     return (
       <View style={[inputWithLabelStyle.container, customInputStyle]}>
-        <Text style={inputWithLabelStyle.label}>{label}</Text>
+        <Text style={inputWithLabelStyle.label}>
+          {label}
+          {required && (
+            <Text style={inputWithLabelStyle.required}> *</Text>
+          )}
+        </Text>
         <TextInput
           editable={editable !== undefined ? editable : true}
           keyboardType={keyboardType}
@@ -199,7 +205,7 @@ const inputStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderBottomWidth: 1,
-        borderBottomColor: '#E4E6E8',
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
       },
     }),
   },
@@ -207,11 +213,14 @@ const inputStyle = StyleSheet.create({
     paddingLeft: 4,
     flex: 1,
     alignSelf: 'stretch',
-    height: 44,
     ...Platform.select({
       android: {
         height: 48,
         fontSize: 16,
+      },
+      ios: {
+        height: 44,
+        fontSize: 17,
       },
     }),
   },
@@ -240,5 +249,8 @@ const inputWithLabelStyle = StyleSheet.create({
         fontSize: 16,
       },
     }),
+  },
+  required: {
+    color: vars.color.red,
   },
 });

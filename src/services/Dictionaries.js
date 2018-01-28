@@ -22,8 +22,8 @@ export function getServices() {
     .then(res => (res.data && {
       services: prepareServices(res.data),
     } || {
-      services: [],
-    }));
+        services: [],
+      }));
 }
 
 export function getCategoryServices() {
@@ -31,8 +31,8 @@ export function getCategoryServices() {
     .then(res => (res.data && {
       categoryServices: prepareCategoryServices(res.data),
     } || {
-      categoryServices: [],
-    }));
+        categoryServices: [],
+      }));
 }
 
 export default null;

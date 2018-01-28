@@ -1,9 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback, Switch } from 'react-native';
 
 import { hexToRgba, shouldComponentUpdate } from '../utils';
+import vars from '../vars';
 import SwitchBase from './SwitchBase';
 
 type TProps = {
@@ -23,6 +24,7 @@ export default class CustomSwitch extends Component<TProps, void> {
   ref = {
     toggle() { },
     changeStateImmediately(value: boolean) { },
+    value: false,
   };
 
   onChange = (state: boolean) => {
@@ -34,12 +36,20 @@ export default class CustomSwitch extends Component<TProps, void> {
   };
 
   onPress = () => {
-    this.ref.toggle();
+    if (Platform.OS === 'android') {
+      this.ref.toggle();
+    } else {
+      this.onChange(!this.ref.value);
+    }
   };
 
   componentWillReceiveProps(nextProps: TProps) {
-    if (typeof nextProps.value === 'boolean') {
-      this.ref && this.ref.changeStateImmediately(nextProps.value);
+    if (typeof nextProps.value === 'boolean' && this.ref != null) {
+      if (Platform.OS === 'android') {
+        this.ref.changeStateImmediately(nextProps.value);
+      } else {
+        this.ref.value = nextProps.value;
+      }
     }
   }
 
@@ -50,21 +60,30 @@ export default class CustomSwitch extends Component<TProps, void> {
       <TouchableWithoutFeedback onPress={this.onPress}>
         <View style={[styles.container, customStyles.container]}>
           <Text style={[styles.title, customStyles.title]}>{title}</Text>
-          <SwitchBase
-            active={value}
-            activeBackgroundColor={hexToRgba('#F65F6E', 50)}
-            activeButtonColor={'#F65F6E'}
-            activeButtonPressedColor={'#F65F6E'}
-            borderWidth={0}
-            buttonRadius={11}
-            inactiveBackgroundColor={hexToRgba('#374650', 40)}
-            inactiveButtonColor={'#E8E8E8'}
-            inactiveButtonPressedColor={'#E8E8E8'}
-            onChangeState={this.onChange}
-            ref={this.setRef}
-            switchHeight={14}
-            switchWidth={38}
-          />
+          {Platform.select({
+            ios: (<Switch
+              style={styles.switch}
+              value={value}
+              ref={this.setRef}
+              onValueChange={this.onChange}
+              onTintColor={vars.color.red}
+            />),
+            android: (<SwitchBase
+              active={value}
+              activeBackgroundColor={hexToRgba('#F65F6E', 50)}
+              activeButtonColor={'#F65F6E'}
+              activeButtonPressedColor={'#F65F6E'}
+              borderWidth={0}
+              buttonRadius={11}
+              inactiveBackgroundColor={hexToRgba('#374650', 40)}
+              inactiveButtonColor={'#E8E8E8'}
+              inactiveButtonPressedColor={'#E8E8E8'}
+              onChangeState={this.onChange}
+              ref={this.setRef}
+              switchHeight={14}
+              switchWidth={38}
+            />),
+          })}
         </View>
       </TouchableWithoutFeedback>
     );
@@ -76,18 +95,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 44,
     ...Platform.select({
       android: {
         height: 48,
       },
+      ios: {
+        paddingTop: 8,
+        paddingBottom: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
+  },
+  switch: {
+    ...Platform.select({
+      ios: {
+        marginRight: 16,
+      },
     }),
   },
   title: {
-    color: '#283741',
+    color: vars.color.black,
     ...Platform.select({
       android: {
         fontSize: 16,
+      },
+      ios: {
+        flex: 1,
+        fontSize: 17,
       },
     }),
   },

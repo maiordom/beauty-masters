@@ -1,18 +1,17 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, ScrollView } from 'react-native';
+import { View, StyleSheet, Platform, ScrollView, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
-import filter from 'lodash/filter';
-import every from 'lodash/every';
+import each from 'lodash/each';
 import moment from 'moment';
 import 'moment/locale/ru';
+import snakeCase from 'lodash/snakeCase';
 
 import SearchFormCalendar from './SearchFormCalendar';
 import SearchFormMasterType from './SearchFormMasterType';
-import SearchFormBlockManicure from './SearchFormBlockManicure';
-import SearchFormBlockPedicure from './SearchFormBlockPedicure';
+import SearchFormCategoryBlock from './SearchFormCategoryBlock';
 
 import StateMachine from '../../components/StateMachine';
 import { FilterLabel } from '../../components/FilterLabel';
@@ -23,24 +22,38 @@ import ButtonControl from '../../components/ButtonControl';
 import vars from '../../vars';
 import i18n from '../../i18n';
 import { capitalizeFirstLetter } from '../../utils';
+import { trackEvent } from '../../utils/Tracker';
+
+import type { TSearchFormCategorySection } from '../../types/SearchFormCategories';
 
 type TProps = {
   actions: {
-    toggleService: Function,
-    toggleDeparture: Function,
-    setItemById: Function,
     setDay: Function,
+    setMasterType: Function,
+    toggleDeparture: Function,
     toggleExtension: Function,
-    toggleWithdrawal: Function
+    toggleManicure: Function,
+    togglePedicure: Function,
+    toggleService: Function,
+    toggleServiceCategory: Function,
+    toggleWithdrawal: Function,
   },
-  serviceManicure: Object,
-  servicePedicure: Object,
+  categorySelectionFlags: {
+    extension: boolean,
+    manicure: boolean,
+    pedicure: boolean,
+    removing: boolean,
+  },
   general: Object,
+  hasAddressLocation: boolean,
+  hasUserLocation: boolean,
+  manicureSearchFormSections: Array<TSearchFormCategorySection>,
+  pedicureSearchFormSections: Array<TSearchFormCategorySection>,
   searchQuery: Object,
 };
 
 type TState = {
-  selectedDate: string,
+  renderContent: boolean,
   showMasterCalendarModal: boolean,
   showMasterTypeModal: boolean,
   showShortForm: boolean,
@@ -48,24 +61,74 @@ type TState = {
 
 export default class SearchFormShort extends Component<TProps, TState> {
   state = {
-    selectedDate: this.props.searchQuery.dates[0],
+    renderContent: false,
+    selectedDates: this.props.searchQuery.dates.slice(),
     showShortForm: true,
     showMasterCalendarModal: false,
     showMasterTypeModal: false,
   };
 
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderContent: true });
+    });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ selectedDates: props.searchQuery.dates.slice() });
+  }
+
   toggleForm = () => {
     this.setState({ showShortForm: !this.state.showShortForm });
   };
 
-  onServiceToggle = (sectionName) => (value, modelName) => {
+  onServiceToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    if (value) {
+      trackEvent('selectService', { labelValue: snakeCase(modelName) });
+    }
+
     this.props.actions.toggleService(modelName, 'active', value, sectionName);
   };
 
-  onExtensionToggle = (value: boolean) => this.props.actions.toggleExtension(value);
-  onWithdrawalToggle = (value: boolean) => this.props.actions.toggleWithdrawal(value);
-  onManicureToggle = (value: boolean) => this.props.actions.toggleManicure(value);
-  onPedicureToggle = (value: boolean) => this.props.actions.togglePedicure(value);
+  onCategoryToggle = (sectionName: string) => (value: boolean, modelName: string) => {
+    if (value) {
+      trackEvent('selectService', { labelValue: snakeCase(modelName) });
+    }
+
+    this.props.actions.toggleServiceCategory(modelName, 'active', value, sectionName);
+  };
+
+  onExtensionToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterExtension');
+    }
+
+    this.props.actions.toggleExtension(value);
+  };
+
+  onWithdrawalToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterRemove');
+    }
+
+    this.props.actions.toggleWithdrawal(value);
+  }
+
+  onManicureToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterManicure');
+    }
+
+    this.props.actions.toggleManicure(value);
+  }
+
+  onPedicureToggle = (value: boolean) => {
+    if (value) {
+      trackEvent('selectFilterPedicure');
+    }
+
+    this.props.actions.togglePedicure(value);
+  }
 
   onDepartureToggle = () => this.props.actions.toggleDeparture();
 
@@ -73,85 +136,82 @@ export default class SearchFormShort extends Component<TProps, TState> {
 
   toggleCalendarModal = () => this.setState({ showMasterCalendarModal: !this.state.showMasterCalendarModal });
 
-  onMasterTypeSelect = (value, id, modelName) => {
-    this.props.actions.setItemById(modelName, id, 'general');
+  onMasterTypeSelect = (value: string, id: number, modelName: string) => {
+    this.props.actions.setMasterType(modelName, id, 'general');
     this.toggleMasterTypeModal();
   };
 
-  onSelectCalendarDate = selectedDate => {
-    this.setState({ selectedDate });
+  onSelectCalendarDate = (selectedDate: string) => {
     this.props.actions.setDay(selectedDate);
-    this.toggleCalendarModal();
   };
 
-  getSelectedDateTitle = () => capitalizeFirstLetter(
-    moment(this.state.selectedDate).calendar(null, {
+  getSelectedDateTitle = () => this.state.selectedDates.map((date: string) =>
+    capitalizeFirstLetter(moment(date).calendar(null, {
       sameDay: `[${i18n.days.sameDay}]`,
       nextDay: `[${i18n.days.nextDay}]`,
       lastWeek: '[last] dddd',
       nextWeek: 'dddd',
       sameElse: 'L',
-    }),
-  );
+    }))).join(', ');
+
+  onSerpPress = () => {
+    if (this.props.hasAddressLocation) {
+      trackEvent('hasSearchAddress');
+    } else if (this.props.hasUserLocation) {
+      trackEvent('availableUserLocation');
+    } else {
+      trackEvent('notAvailableUserLocation');
+    }
+
+    Actions.serp();
+  };
 
   render() {
     const {
+      categorySelectionFlags,
       general,
+      manicureSearchFormSections,
+      pedicureSearchFormSections,
       searchQuery,
-      serviceManicure,
-      servicePedicure,
     } = this.props;
 
     const { place } = this.props.general;
 
     const {
+      renderContent,
       showShortForm,
       showMasterTypeModal,
       showMasterCalendarModal,
-      selectedDate,
+      selectedDates,
     } = this.state;
 
+    if (!renderContent) {
+      return null;
+    }
+
     const masterTypeSubtitle = find(general.masterType.items, { active: true }).label;
-
-    const isManicureActive = every(filter(
-      serviceManicure, service => service.categoryKey === 'manicure',
-    ), { active: true });
-
-    const isPedicureActive = every(filter(
-      servicePedicure, service => service.categoryKey === 'pedicure',
-    ), { active: true });
-
-    const isExtensionActive = every(filter(
-      { ...servicePedicure, ...serviceManicure },
-      service => service.categoryKey === 'extension',
-    ), { active: true });
-
-    const isWithdrawalActive = every(filter(
-      { ...servicePedicure, ...serviceManicure },
-      service => service.categoryKey === 'removing',
-    ), { active: true });
 
     return (
       <View style={styles.container}>
         <ScrollView style={styles.content}>
           <FilterLabel text={i18n.search.vacantDays} />
           <FilterTab
-            title={this.getSelectedDateTitle()}
             onChange={this.toggleCalendarModal}
             shouldShowSeparator={false}
+            title={this.getSelectedDateTitle()}
           />
           <SearchFormCalendar
-            showCalendar={showMasterCalendarModal}
-            selectedDate={selectedDate}
-            onDateSelect={this.onSelectCalendarDate}
-            toggleCalendarModal={this.toggleCalendarModal}
             containerWidth={170}
+            onDateSelect={this.onSelectCalendarDate}
+            selectedDates={selectedDates}
+            showCalendar={showMasterCalendarModal}
+            toggleCalendarModal={this.toggleCalendarModal}
           />
           <FilterLabel text={i18n.search.masterPlace} />
           <FilterTab
             onChange={Actions.searchCity}
             title={i18n.city}
-            subtitle={general.cities.selected.label}
+            subtitle={general.cities.selected != null ? general.cities.selected.name : undefined}
           />
           <FilterTab
             onChange={Actions.searchAddress}
@@ -181,27 +241,27 @@ export default class SearchFormShort extends Component<TProps, TState> {
           <StateMachine visible={showShortForm}>
             <View>
               <FilterCheckBox
-                {...serviceManicure.manicure}
-                active={isManicureActive}
+                title={i18n.manicure}
+                active={categorySelectionFlags.manicure}
                 onChange={this.onManicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
-                {...servicePedicure.pedicure}
-                active={isPedicureActive}
+                title={i18n.pedicure}
+                active={categorySelectionFlags.pedicure}
                 onChange={this.onPedicureToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.nailExtensionShort}
-                active={isExtensionActive}
+                active={categorySelectionFlags.extension}
                 modelName="extensionShort"
                 onChange={this.onExtensionToggle}
                 withInput={false}
               />
               <FilterCheckBox
                 title={i18n.filters.withdrawal}
-                active={isWithdrawalActive}
+                active={categorySelectionFlags.removing}
                 onChange={this.onWithdrawalToggle}
                 withInput={false}
                 shouldShowSeparator={false}
@@ -209,15 +269,19 @@ export default class SearchFormShort extends Component<TProps, TState> {
             </View>
           </StateMachine>
           <StateMachine visible={!showShortForm}>
-            <SearchFormBlockManicure
-              service={serviceManicure}
-              onChange={this.onServiceToggle('serviceManicure')}
+            <SearchFormCategoryBlock
+              title={i18n.manicure}
+              sections={manicureSearchFormSections}
+              onServiceChange={this.onServiceToggle('serviceManicure')}
+              onCategoryChange={this.onCategoryToggle('serviceManicure')}
             />
           </StateMachine>
           <StateMachine visible={!showShortForm}>
-            <SearchFormBlockPedicure
-              service={servicePedicure}
-              onChange={this.onServiceToggle('servicePedicure')}
+            <SearchFormCategoryBlock
+              title={i18n.pedicure}
+              sections={pedicureSearchFormSections}
+              onServiceChange={this.onServiceToggle('servicePedicure')}
+              onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />
           </StateMachine>
           <ButtonControl
@@ -225,7 +289,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
             customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
             onPress={this.toggleForm}
           />
-          <ButtonControl label={i18n.findMaster} onPress={Actions.Serp} />
+          <ButtonControl label={i18n.findMaster} onPress={this.onSerpPress} />
         </ScrollView>
       </View>
     );

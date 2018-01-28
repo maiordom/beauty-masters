@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
       userLogin(params) {
-        actions.userLogin(params).then((res) => {
+        return actions.userLogin(params).then((res) => {
           if (res.result === 'success') {
             actions.getUserProfile().then((res) => {
               if (res.error) {
@@ -29,6 +29,8 @@ const mapDispatchToProps = (dispatch) => {
                 : Actions.masterEditorGeneral();
             });
           }
+
+          return res;
         });
       },
       routeToRecoverPassword: Actions.masterRecoverPassword,

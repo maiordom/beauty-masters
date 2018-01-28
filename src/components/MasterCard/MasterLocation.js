@@ -2,24 +2,41 @@
 
 import React, { Component } from 'react';
 import {
-  Dimensions,
   Platform,
   StyleSheet,
   View,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import vars from '../../vars';
 import MapCard from '../Serp/MapCard';
+import getDistance from '../../utils/Geo';
 
 const icons = Platform.select({
   android: {
     pinRed: require('../../icons/pin-red.png'),
   },
-  ios: {},
+  ios: {
+    pinRed: require('../../icons/ios/pin-red.png'),
+  },
 });
 
 export default class MasterLocation extends Component {
+  constructor(props) {
+    super(props);
+
+    const { initialRegion, location } = props;
+
+    this.state = {
+      distance: getDistance(
+        location.lat,
+        location.lng,
+        initialRegion.latitude,
+        initialRegion.longitude,
+      ).toFixed(2),
+    };
+  }
+
   render() {
     const {
       address,
@@ -30,11 +47,14 @@ export default class MasterLocation extends Component {
       username,
     } = this.props;
 
+    const { distance } = this.state;
+
     return (
       <View style={styles.container}>
         {sceneKey === 'masterLocation' && (
           <MapView
             style={styles.map}
+            provider={PROVIDER_GOOGLE}
             region={{
               latitude: lat,
               longitude: lng,
@@ -50,7 +70,7 @@ export default class MasterLocation extends Component {
         )}
         <MapCard
           address={address}
-          distance="222"
+          distance={distance}
           isSalon={isSalon}
           photo={photo}
           username={username}
@@ -60,12 +80,9 @@ export default class MasterLocation extends Component {
   }
 }
 
-const NAV_BAR_WIDTH = 78;
-
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - NAV_BAR_WIDTH,
+    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     zIndex: 100,
@@ -74,7 +91,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   snippet: {
-    minHeight: 101,
     backgroundColor: vars.color.white,
     alignSelf: 'stretch',
     padding: 16,

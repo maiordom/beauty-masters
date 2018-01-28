@@ -10,6 +10,7 @@ export default {
     'Добавить адрес 3'
   ],
   addMasterCard: 'Добавить еще карточку мастера',
+  addressName: 'Название адреса (видно только вам)',
   authAsMaster: 'Авторизоваться как мастер услуг',
   calendar: 'Календарь',
   call: 'Позвонить',
@@ -24,12 +25,12 @@ export default {
   chooseAddress: 'Выберите адрес',
   closestDate: 'Ближайшая дата приема',
   currency: {
-    roubleSign: 'р',
+    roubleSign: '\u20BD',
   },
   customService: {
-    duration: 'Длительность, мин',
+    duration: 'Время, мин',
     name: 'Введите название услуги',
-    price: 'Стоимость, р',
+    price: 'Стоимость, \u20BD',
   },
   dayHeadings: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   days: {
@@ -88,7 +89,7 @@ export default {
     classic: 'Обрезной/классический',
     combined: 'Комбинированный',
     coverage: 'Покрытие',
-    duration: 'Длительность, мин',
+    duration: 'Время, мин',
     european: 'Европейский/необрезной',
     express: 'Экспресс',
     extensionAcrilycGel: 'Гелем на формы',
@@ -100,7 +101,7 @@ export default {
     gradientManicure: 'Градиентный маникюр',
     gradientPedicure: 'Градиентный педикюр',
     hardware: 'Аппаратный',
-    homeAllowance: 'Надбавка за выезд на дом, р',
+    homeAllowance: 'Надбавка за выезд на дом, \u20BD',
     hot: 'Горячий маникюр',
     masterType: {
       all: 'Все',
@@ -115,7 +116,7 @@ export default {
     nailProcessingMethod: 'Способ обработки ногтей (без покрытия)',
     naroshchennyhNails: 'Нарощенных ногтей',
     otherServices: 'Другие услуги',
-    price: 'Стоимость, р',
+    price: 'Стоимость, \u20BD',
     removingGel: 'Другого геля-лака',
     removingNailPolish: 'Лака',
     removingNails: {
@@ -164,11 +165,15 @@ export default {
   list: 'Список',
   location: {
     here: 'Мое текущее месторасположение',
+    receiveMasterLocation: 'Место приема мастера',
   },
   manicure: 'Маникюр',
   masterAuthorization: 'Авторизация мастера',
+  masterCard: {
+    ok: 'OK',
+  },
   masterEditor: {
-    aboutDescription: 'Чем больше информации вы укажите, тем выше будет уровень доверия клиентов к вам',
+    aboutDescription: 'Чем больше информации вы укажете, тем выше будет уровень доверия клиентов к вам',
     aboutExample: 'Например, маникюр+шеллак = скидка 15%',
     additionalInformation: 'Шаг 5/5: Дополнительная информация',
     attachPhotosOfYourWork: 'Приложите фотографии ваших работ (максимум 15 фото)',
@@ -200,14 +205,15 @@ export default {
     'Декабрь',
   ],
   myServices: 'Мои услуги',
+  homeDeparture: 'Выезд на дом',
   name: 'Название',
   next: 'Далее',
   nextStep: 'След. шаг',
   no: 'Нет',
-  passwordTip: 'Пароль (не менее 6 символов)',
+  passwordTip: 'Пароль (не менее 8 символов)',
   passwordRepeat: 'Повторите пароль',
   pedicure: 'Педикюр',
-  phone: 'Телефон (для звонков клиентов)',
+  phone: '(XXX) XXX-XX-XX',
   phoneShort: 'Телефон',
   photo: {
     photo: 'Фото',
@@ -223,6 +229,7 @@ export default {
   },
   pressOnRegistration: ['Нажимая «Зарегистрироваться»,', 'вы принимаете'],
   profile: 'Профиль',
+  ok: 'OK',
   onAddress: 'По адресу',
   ready: 'Готово',
   registration: 'Регистрация',
@@ -268,6 +275,7 @@ export default {
   selectYoutSchedule: 'Выберите график и укажите время работы',
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
+  specifyAddressName: 'Укажите название, например Дом',
   specifyHowYouSterilizeTools: 'Укажите, как вы стерилизуете инструменты',
   startWorkOnThisSchedule: 'С какого числа начнете работать по этому графику',
   sterilization: {

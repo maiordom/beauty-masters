@@ -5,11 +5,14 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  Button,
   Text,
   Image,
   TouchableOpacity,
   Platform,
 } from 'react-native';
+
+import join from 'lodash/join';
 
 import ModalComponent from '../Modal';
 
@@ -51,11 +54,34 @@ export default class MasterCardEquipment extends Component {
         ))}
         <ModalComponent isVisible={showInfo} onRequestClose={this.onInfoToggle}>
           <Text style={styles.modalTitle}>{i18n.handlingTool}</Text>
-          <Text style={styles.modalText}>{i18n.sterilization.disinfection}</Text>
-          <Text style={styles.modalText}>{i18n.sterilization.glasperlen}</Text>
-          <Text style={styles.modalText}>{i18n.sterilization.hotSteam}</Text>
-          <Text style={styles.modalText}>{i18n.sterilization.dryhot}</Text>
-          <Text style={styles.modalText}>{i18n.sterilization.boiling}</Text>
+          <View style={styles.descriptionsContainer}>
+            <Text style={styles.descriptionTitle}>{join([
+              i18n.handlingToolMethods.ultrasound,
+              i18n.handlingToolMethods.ultraviolet,
+              i18n.handlingToolMethods.disinfectionWithAlcohol], ', ')}
+            </Text>
+            <Text style={styles.descriptionText}>{i18n.sterilization.disinfection}</Text>
+            <Text style={styles.descriptionTitle}>{i18n.handlingToolMethods.glasperlenovySterilizer}</Text>
+            <Text style={styles.descriptionText}>{i18n.sterilization.glasperlen}</Text>
+            <Text style={styles.descriptionTitle}>{i18n.handlingToolMethods.hotSteam}</Text>
+            <Text style={styles.descriptionText}>{i18n.sterilization.hotSteam}</Text>
+            <Text style={styles.descriptionTitle}>{i18n.handlingToolMethods.dryHeatMethod}</Text>
+            <Text style={styles.descriptionText}>{i18n.sterilization.dryhot}</Text>
+            <Text style={styles.descriptionTitle}>{i18n.handlingToolMethods.boiling}</Text>
+            <Text style={styles.descriptionText}>{i18n.sterilization.boiling}</Text>
+          </View>
+          {Platform.OS === 'ios' && <Button
+            style={styles.closeButton}
+            onPress={this.onInfoToggle}
+            title={i18n.masterCard.ok}
+            color={vars.color.buttonBlue}
+          />}
+          {Platform.OS === 'android' && <TouchableOpacity
+            style={styles.closeButton}
+            onPress={this.onInfoToggle}
+          >
+            <Text style={styles.closeButtonTitle}>{i18n.masterCard.ok}</Text>
+          </TouchableOpacity>}
         </ModalComponent>
       </View>
     );
@@ -63,6 +89,34 @@ export default class MasterCardEquipment extends Component {
 }
 
 const styles = StyleSheet.create({
+  check: {
+    height: 8,
+    width: 10,
+  },
+  closeButton: {
+    ...Platform.select({
+      ios: {
+        flex: 1,
+        padding: 12,
+      },
+      android: {
+        alignSelf: 'flex-end',
+      },
+    }),
+  },
+  closeButtonTitle: {
+    fontSize: 14,
+    color: vars.color.red,
+    ...Platform.select({
+      ios: {
+        fontWeight: '600',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+      },
+    }),
+  },
   container: {
     flex: 1,
     ...Platform.select({
@@ -78,42 +132,32 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  titleWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  descriptionsContainer: {
     ...Platform.select({
       ios: {
-        paddingLeft: 16,
-        paddingRight: 16,
-        paddingBottom: 16,
-      },
-      android: {
-        marginBottom: 16,
+        paddingRight: 15,
+        paddingLeft: 15,
+        borderBottomWidth: 1,
+        borderColor: vars.color.darkGrey,
       },
     }),
   },
-  title: {
-    color: vars.color.black,
+  descriptionText: {
+    marginBottom: 10,
+    ...Platform.select({
+      android: {
+        fontSize: 16,
+      },
+      ios: {
+        fontSize: 13,
+      },
+    }),
+  },
+  descriptionTitle: {
     ...Platform.select({
       ios: {
-        fontSize: 17,
+        fontSize: 14,
         fontWeight: '600',
-      },
-      android: {
-        fontSize: 20,
-      },
-    }),
-  },
-  info: {
-    ...Platform.select({
-      ios: {
-        height: 20,
-        width: 20,
-      },
-      android: {
-        height: 24,
-        width: 24,
       },
     }),
   },
@@ -133,9 +177,34 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  check: {
-    height: 8,
-    width: 10,
+  info: {
+    ...Platform.select({
+      ios: {
+        height: 20,
+        width: 20,
+      },
+      android: {
+        height: 24,
+        width: 24,
+      },
+    }),
+  },
+  modalTitle: {
+    color: vars.color.black,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+        alignSelf: 'center',
+        paddingTop: 20,
+        paddingLeft: 15,
+        paddingRight: 15,
+        marginBottom: 13,
+      },
+      android: {
+        fontSize: 20,
+        marginBottom: 10,
+      },
+    }),
   },
   name: {
     marginLeft: 6,
@@ -145,26 +214,31 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  modalWrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: hexToRgba(vars.color.black, 40),
-  },
-  modalContainer: {
-    marginLeft: 40,
-    marginRight: 40,
-    padding: 24,
-    backgroundColor: vars.color.white,
-    borderRadius: 2,
-  },
-  modalTitle: {
-    fontSize: 20,
+  title: {
     color: vars.color.black,
-    marginBottom: 13,
+    ...Platform.select({
+      ios: {
+        fontSize: 17,
+        fontWeight: '600',
+      },
+      android: {
+        fontSize: 20,
+      },
+    }),
   },
-  modalText: {
-    fontSize: 16,
-    marginBottom: 10,
+  titleWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingBottom: 16,
+      },
+      android: {
+        marginBottom: 16,
+      },
+    }),
   },
 });

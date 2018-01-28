@@ -1,5 +1,6 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 import { stringify } from 'qs';
+import { Crashlytics } from 'react-native-fabric';
 
 import config from '../config';
 
@@ -26,6 +27,12 @@ const handleFetchResponse = (
 
   if (res.errors) {
     const { code, title, detail } = res.errors[0];
+
+    try {
+      Crashlytics.logException(JSON.stringify(res.errors));
+    } catch (exx) {
+      console.log(`Crashlytics::exx::${exx}`);
+    }
 
     return {
       status: 'error',
@@ -68,26 +75,27 @@ const baseFetch = (fetchMethod: string) => (
     method: fetchMethod,
     body,
   })
-  .then((res: Object) => {
+    .then((res: Object) => {
     /* eslint-disable no-underscore-dangle */
-    if (!res._bodyText) {
-      return {};
-    }
+      if (!res._bodyText) {
+        return {};
+      }
 
-    return res.json();
-  })
-  .then((res: Object) => handleFetchResponse(res, path, method.method))
-  .catch((res: Object) => {
-    if (__DEV__) {
-      console.log(`${path}::${method.method}::exx`, res);
-    }
+      return res.json();
+    })
+    .then((res: Object) => handleFetchResponse(res, path, method.method))
+    .catch((res: Object) => {
+      if (__DEV__) {
+        console.log(`${path}::${method.method}::exx`, res);
+      }
 
-    return res;
-  });
+      return res;
+    });
 };
 
 export const post = baseFetch('POST');
 export const patch = baseFetch('PATCH');
+export const deleteMethod = baseFetch('DELETE');
 
 export const get = (
   method: Object,
@@ -113,12 +121,12 @@ export const get = (
     'Content-Type': 'application/json',
     ...headers,
   })
-  .then((res: Object) => res.json())
-  .then((res: Object) => handleFetchResponse(res, path, method.method))
-  .catch((res: Object) => {
-    console.log(`${location}::GET::exx`, res);
-    return res;
-  });
+    .then((res: Object) => res.json())
+    .then((res: Object) => handleFetchResponse(res, path, method.method))
+    .catch((res: Object) => {
+      console.log(`${location}::GET::exx`, res);
+      return res;
+    });
 };
 
 export const geo = (method: string, params: Object) => {
@@ -131,30 +139,30 @@ export const geo = (method: string, params: Object) => {
   return RNFetchBlob.fetch('GET', url, {
     'Content-Type': 'application/json',
   })
-  .then((res: Object) => res.json())
-  .then((res: Object) => {
-    if (__DEV__) {
-      console.log('googlePlaces::response');
-      console.log(res);
-    }
+    .then((res: Object) => res.json())
+    .then((res: Object) => {
+      if (__DEV__) {
+        console.log('googlePlaces::response');
+        console.log(res);
+      }
 
-    if (res.status !== 'OK') {
+      if (res.status !== 'OK') {
+        return {
+          error: {},
+          status: 'error',
+        };
+      }
+
+      return {
+        ...res,
+        status: 'ok',
+      };
+    })
+    .catch((exx) => {
+      console.log('googlePlaces::exx', exx);
+
       return {
         error: {},
-        status: 'error',
       };
-    }
-
-    return {
-      ...res,
-      status: 'ok',
-    };
-  })
-  .catch((exx) => {
-    console.log('googlePlaces::exx', exx);
-
-    return {
-      error: {},
-    };
-  });
+    });
 };

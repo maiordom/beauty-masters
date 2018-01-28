@@ -45,7 +45,11 @@ export default class MasterCardWorks extends Component {
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.photos}
-          contentInset={Platform.select({ ios: { left: 16, top: 0, right: 0, bottom: 0 } })}
+          contentInset={Platform.select({
+            ios: {
+              left: 16, top: 0, right: 0, bottom: 0,
+            },
+          })}
           contentOffset={Platform.select({ ios: { x: -16, y: 0 } })}
           dataSource={dataSource}
           renderRow={(photo, sectionID, rowID) => (
@@ -64,11 +68,9 @@ export default class MasterCardWorks extends Component {
 }
 const styles = StyleSheet.create({
   container: {
+    marginTop: 15,
     flex: 1,
     ...Platform.select({
-      ios: {
-        paddingTop: 18,
-      },
       android: {
         marginLeft: 16,
         marginRight: 16,
