@@ -89,7 +89,7 @@ const baseFetch = (fetchMethod: string) => (
         console.log(`${path}::${method.method}::exx`, res);
       }
 
-      return res;
+      return Promise.reject(res);
     });
 };
 
@@ -125,7 +125,7 @@ export const get = (
     .then((res: Object) => handleFetchResponse(res, path, method.method))
     .catch((res: Object) => {
       console.log(`${location}::GET::exx`, res);
-      return res;
+      return Promise.reject(res);
     });
 };
 
