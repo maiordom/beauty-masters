@@ -259,6 +259,7 @@ export default {
   },
   services: 'Услуги',
   selectYoutSchedule: 'Выберите график и укажите время работы',
+  showMore: 'Показать больше',
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
   specifyAddressName: 'Укажите название, например Дом',
