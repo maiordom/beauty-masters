@@ -9,6 +9,7 @@
     "flow": "node_modules/.bin/flow",
     "lint:fix": "node_modules/.bin/eslint --fix src",
     "lint": "node_modules/.bin/eslint src",
+    "lint:fix": "node_modules/.bin/eslint src --fix",
     "precommit": "lint-staged",
     "rndebugger:open": "rndebugger-open",
     "start": "node node_modules/react-native/local-cli/cli.js start",

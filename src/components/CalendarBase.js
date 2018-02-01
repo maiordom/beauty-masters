@@ -27,17 +27,17 @@ type TProps = {
   eventDates: Array<string>,
   monthNames: Array<string>,
   multiSelect: boolean,
-  nextButtonText: string | object,
+  nextButtonText: string,
   onDateSelect: (date: string | null) => void,
   onSwipeNext: () => void,
   onSwipePrev: () => void,
   onTouchNext: () => void,
   onTouchPrev: () => void,
-  prevButtonText: string | object,
+  prevButtonText: string,
   scrollEnabled: boolean,
   selectedDate: any,
   showControls: boolean,
-  showEventIndicators: Pboolean,
+  showEventIndicators: boolean,
   startDate: any,
   titleFormat: string,
   today: any,
@@ -231,7 +231,6 @@ export default class Calendar extends Component<TProps, void> {
       const dayIndex = renderIndex - offset;
       const isoWeekday = renderIndex % 7;
       let isDotted;
-
       let isDisable;
 
       if (activeFrom) {
@@ -262,6 +261,7 @@ export default class Calendar extends Component<TProps, void> {
       } else {
         days.push(<Day dayStyles={this.styles} key={`${renderIndex}`} filler />);
       }
+
       if (renderIndex % 7 === 6) {
         weekRows.push(<View key={weekRows.length} style={styles.weekRow}>
           {days}

@@ -7,7 +7,8 @@ export const searchPlace = ({
   input,
   language = 'ru',
   location,
-  radius = 30000,
+  radius = 10000,
+  type = 'address',
 }) => (dispatch, getState) => {
   const cityLocation = getState().searchForm.general.cities.selected;
   const { lat, lon } = (location || cityLocation);
@@ -17,6 +18,7 @@ export const searchPlace = ({
     language,
     location: `${lat},${lon}`,
     radius,
+    type,
   };
 
   return GeoServices.placesAutocomplete(params).then(res => {
@@ -31,6 +33,11 @@ export const searchPlace = ({
     });
   });
 };
+
+export const placeSet = (place) => ({
+  type: actions.GEO_PLACE_SET,
+  payload: { place },
+});
 
 export const placesReset = () => ({
   type: actions.GEO_DATA_CLEAR,

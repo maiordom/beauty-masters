@@ -134,6 +134,10 @@ export default class MasterCard extends PureComponent<TProps, TState> {
     }
   };
 
+  setContainerRef = (ref: any) => {
+    this.scrollViewRef = ref;
+  };
+
   render() {
     const {
       actions,
@@ -173,7 +177,7 @@ export default class MasterCard extends PureComponent<TProps, TState> {
     return (
       <View style={styles.container}>
         <ScrollView
-          ref={component => (this.scrollViewRef = component)}
+          ref={this.setContainerRef}
           style={styles.content}
           onContentSizeChange={(_, contentHeight) => this.setState({ listHeight: contentHeight })}
           onLayout={e => this.setState({ scrollViewHeight: e.nativeEvent.layout.height })}

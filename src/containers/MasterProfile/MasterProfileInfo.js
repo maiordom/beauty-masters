@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
 
       Actions.masterEditorGeneral();
     }),
+    routeToRecoverPassword: Actions.masterRecoverPassword,
   },
 });
 

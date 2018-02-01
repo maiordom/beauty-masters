@@ -6,7 +6,6 @@ import PhotoMaster from '../containers/PhotoMaster';
 import Sidebar from '../containers/Sidebar';
 
 import { drawerClose } from '../actions/Drawer';
-import { hexToRgba } from '../utils';
 import vars from '../vars';
 
 export default class Drawer extends Component {
