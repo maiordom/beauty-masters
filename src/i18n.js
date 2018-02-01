@@ -252,9 +252,9 @@ export default {
   search: {
     full: 'Расширенный поиск',
     generalInfo: 'Основные параметры',
-    nearWith: 'Искать рядом с',
     masterPlace: 'Где принимает мастер',
     masterToHome: 'Мастер выезжает на дом',
+    nearWith: 'Искать рядом с',
     search: 'Поиск',
     searchParams: 'Параметры поиска',
     short: 'Сокращенный поиск',
@@ -267,6 +267,7 @@ export default {
   },
   services: 'Услуги',
   selectYoutSchedule: 'Выберите график и укажите время работы',
+  showMore: 'Показать больше',
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
   specifyAddressName: 'Укажите название, например Дом',

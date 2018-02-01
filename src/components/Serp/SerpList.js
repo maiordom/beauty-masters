@@ -1,7 +1,7 @@
 // @flow
 
-import React, { Component } from 'react';
-import { View, ListView, StyleSheet } from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, ListView, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import sortBy from 'lodash/sortBy';
@@ -10,6 +10,7 @@ import isEqual from 'lodash/isEqual';
 import MapCard from './MapCard';
 
 import vars from '../../vars';
+import i18n from '../../i18n';
 import { trackEvent } from '../../utils/Tracker';
 import getDistance from '../../utils/Geo';
 
@@ -17,7 +18,8 @@ import type { TMapCard } from '../../types/MasterTypes';
 import type { TRegionType } from '../../types/RegionType';
 
 type TState = {
-  dataSource: Array<*>,
+  dataSource: ListView.DataSource,
+  isExtendedSetLoaded: boolean,
 };
 
 type TProps = {
@@ -30,31 +32,29 @@ type TProps = {
 };
 
 const DEFAULT_LIST_SEARCH_RADIUS = 10000;
+const EXTENDED_LIST_SEARCH_RADIUS = 50000;
 
-export default class SerpList extends Component<TProps, TState> {
-  state = {
-    dataSource: [],
-  };
-
+export default class SerpList extends PureComponent<TProps, TState> {
   ds: ListView.DataSource;
 
   constructor(props: TProps) {
     super(props);
 
-    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
 
     this.state = {
       dataSource: this.ds.cloneWithRows(this.props.points),
+      isExtendedSetLoaded: false,
     };
   }
 
   componentDidMount() {
     trackEvent('viewSerp');
-    this.searchMasters();
+    this.searchMasters(DEFAULT_LIST_SEARCH_RADIUS);
   }
 
   componentWillReceiveProps(nextProps: TProps) {
-    if (!isEqual(this.props.points, nextProps.points)) {
+    if (this.props.points !== nextProps.points) {
       this.updateDataSourceWithPoints(nextProps.points);
     }
   }
@@ -69,15 +69,16 @@ export default class SerpList extends Component<TProps, TState> {
         userLocation.latitude,
         userLocation.longitude,
       ).toFixed(2);
+
       return { ...item, distance };
-    }), (point) => (Number(point.distance)));
+    }), (point) => Number(point.distance));
 
     this.setState({
       dataSource: this.ds.cloneWithRows(sortedPoints),
     });
   }
 
-  searchMasters = () => {
+  searchMasters = (radius: number) => {
     const { userLocation } = this.props;
 
     if (!userLocation) {
@@ -87,7 +88,7 @@ export default class SerpList extends Component<TProps, TState> {
     this.props.actions.searchMastersList({
       lat: userLocation.latitude,
       lon: userLocation.longitude,
-      radius: DEFAULT_LIST_SEARCH_RADIUS,
+      radius,
     });
   }
 
@@ -110,18 +111,30 @@ export default class SerpList extends Component<TProps, TState> {
   };
 
   render() {
-    const { dataSource } = this.state;
+    const { dataSource, isExtendedSetLoaded } = this.state;
 
     return (
       <View>
         <ListView style={styles.list}
-          initialListSize={3}
           pageSize={3}
           dataSource={dataSource}
           renderRow={item => (
             <MapCard onPress={this.onMapCardPress} distance={item.distance} {...item} />
           )}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          renderFooter={() => {
+            const shouldShowLoadMoreButton = dataSource.getRowCount() > 0 && !isExtendedSetLoaded;
+            return shouldShowLoadMoreButton ? (
+              <TouchableOpacity
+                style={styles.loadMoreButton}
+                onPress={() => {
+                  this.searchMasters(EXTENDED_LIST_SEARCH_RADIUS);
+                  this.setState({ ...this.state, isExtendedSetLoaded: true });
+                }}
+              >
+                <Text style={styles.loadMoreTitle}>{i18n.showMore}</Text>
+              </TouchableOpacity>) : null;
+          }}
         />
       </View>
     );
@@ -132,6 +145,17 @@ export const styles = StyleSheet.create({
   list: {
     padding: 8,
     backgroundColor: vars.color.darkGrey,
+  },
+  loadMoreButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginBottom: 10,
+  },
+  loadMoreTitle: {
+    color: vars.color.red,
+    fontSize: 16,
   },
   separator: {
     height: 8,
