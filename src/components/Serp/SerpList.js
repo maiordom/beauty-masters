@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, ListView, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -34,7 +34,7 @@ type TProps = {
 const DEFAULT_LIST_SEARCH_RADIUS = 10000;
 const EXTENDED_LIST_SEARCH_RADIUS = 50000;
 
-export default class SerpList extends Component<TProps, TState> {
+export default class SerpList extends PureComponent<TProps, TState> {
   ds: ListView.DataSource;
 
   constructor(props: TProps) {
@@ -54,7 +54,7 @@ export default class SerpList extends Component<TProps, TState> {
   }
 
   componentWillReceiveProps(nextProps: TProps) {
-    if (!isEqual(this.props.points, nextProps.points)) {
+    if (this.props.points !== nextProps.points) {
       this.updateDataSourceWithPoints(nextProps.points);
     }
   }
@@ -69,8 +69,9 @@ export default class SerpList extends Component<TProps, TState> {
         userLocation.latitude,
         userLocation.longitude,
       ).toFixed(2);
+
       return { ...item, distance };
-    }), (point) => (Number(point.distance)));
+    }), (point) => Number(point.distance));
 
     this.setState({
       dataSource: this.ds.cloneWithRows(sortedPoints),

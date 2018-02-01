@@ -86,7 +86,7 @@ export default class MapCard extends Component<TProps, void> {
             <Text style={styles.addressText} numberOfLines={1}>{address}</Text>
             {type !== 'favorites' && (
               <Text style={styles.distanceText}>
-                {distance === null ? '' : `${i18n.fromYou.toLowerCase()} ${distance} ${i18n.km}`}
+                {isEmpty(distance) ? '' : `${i18n.fromYou.toLowerCase()} ${distance} ${i18n.km}`}
               </Text>
             )}
           </View>
