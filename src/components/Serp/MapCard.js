@@ -101,7 +101,7 @@ export default class MapCard extends Component<TProps, void> {
               <Image style={styles.icon} source={icons.ticket} />
               <View style={styles.services}>
                 {services.map(service => (
-                  <Text key={service.id} style={styles.text}>{service.title} – {service.price} р</Text>
+                  <Text key={service.id} style={styles.text}>{service.title} – {service.price} {`\u20BD`}</Text>
                 ))}
               </View>
             </View>
