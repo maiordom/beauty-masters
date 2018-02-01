@@ -17,11 +17,11 @@ import vars from '../vars';
 
 const icons = Platform.select({
   ios: {
-    photoEmpty: require('../icons/ios/empty-avatar.png'),
+    avatarEmpty: require('../icons/ios/empty-avatar.png'),
     logout: require('../icons/logout-icon.png'),
   },
   android: {
-    photoEmpty: require('../icons/photo-empty-white.png'),
+    avatarEmpty: require('../icons/photo-empty-white.png'),
     logout: require('../icons/logout-icon.png'),
   },
 });
@@ -128,7 +128,7 @@ export default class Sidebar extends Component<TProps, TState> {
     } = this.props;
 
     const { currentScene } = this.state;
-    const avatarSource = avatar ? { uri: avatar } : icons.photoEmpty;
+    const avatarSource = avatar ? { uri: avatar } : icons.avatarEmpty;
 
     return (
       <View style={styles.sidebar}>

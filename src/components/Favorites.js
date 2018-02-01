@@ -63,7 +63,15 @@ export default class Favorites extends Component<TProps, TState> {
     }
   }
 
-  onCardPress = (card : TMapCard) => Actions.card(card);
+  onCardPress = (card: TMapCard) => {
+    Actions.card({
+      from: 'serp',
+      id: card.id,
+      photo: card.photo,
+      snippet: card,
+      username: card.username,
+    });
+  }
 
   renderEmptyScreen = () => (
     <View style={styles.emptyScreen}>

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
 
 import Radio from '../Radio';
@@ -46,22 +46,29 @@ export default class MasterProfileSelectProfile extends Component<TProps, void> 
     return (
       <View style={styles.container}>
         <ScrollView style={styles.inner}>
-          {items.map((item, index) => (
-            <TouchableWithoutFeedback key={index} onPress={() => this.onSelectMaster(index)}>
-              <View style={styles.item}>
-                <View style={styles.userInfo}>
-                  <Image style={styles.avatar} source={item.avatar || avatarEmpty} />
-                  <View>
-                    <Text style={styles.username}>{item.username}</Text>
-                    {item.isMain && (
-                      <Text style={styles.masterActive}>{i18n.activeMaster}</Text>
-                    )}
+          {items.map((item, index) => {
+            const { avatar } = item;
+            const avatarSource = avatar ? { uri: avatar } : avatarEmpty;
+
+            return (
+              <TouchableOpacity key={index} onPress={() => this.onSelectMaster(index)}>
+                <View style={styles.item}>
+                  <View style={styles.userInfo}>
+                    <View style={styles.avatarWrapper}>
+                      <Image style={styles.avatar} source={avatarSource} />
+                    </View>
+                    <View>
+                      <Text style={styles.username}>{item.username}</Text>
+                      {item.isMain && (
+                        <Text style={styles.masterActive}>{i18n.activeMaster}</Text>
+                      )}
+                    </View>
                   </View>
+                  <Radio checked={item.isMain} />
                 </View>
-                <Radio checked={item.isMain} />
-              </View>
-            </TouchableWithoutFeedback>
-          ))}
+              </TouchableOpacity>
+            );
+          })}
         </ScrollView>
         <ButtonControl
           onPress={this.onAddMasterCardPress}
@@ -82,8 +89,22 @@ const styles = StyleSheet.create({
   avatar: {
     width: 28,
     height: 28,
+    ...Platform.select({
+      android: {
+        borderRadius: 50,
+      },
+    }),
+  },
+  avatarWrapper: {
+    width: 28,
+    height: 28,
     marginRight: 16,
-    marginLeft: 16,
+    ...Platform.select({
+      ios: {
+        borderRadius: 50,
+        overflow: 'hidden',
+      },
+    }),
   },
   username: {
     fontSize: 16,
@@ -98,6 +119,7 @@ const styles = StyleSheet.create({
     color: vars.color.red,
   },
   item: {
+    paddingLeft: 14,
     paddingRight: 14,
     justifyContent: 'space-between',
     flexDirection: 'row',
