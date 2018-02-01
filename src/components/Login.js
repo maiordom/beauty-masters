@@ -16,10 +16,16 @@ import i18n from '../i18n';
 import vars from '../vars';
 import { trackEvent } from '../utils/Tracker';
 
-const i18nEnter = Platform.select({
-  ios: i18n.enterTo,
-  android: i18n.enterTo.toUpperCase(),
-});
+const localization = {
+  enter: Platform.select({
+    ios: i18n.enterTo,
+    android: i18n.enterTo.toUpperCase(),
+  }),
+  recovery: Platform.select({
+    ios: i18n.forgotPassword.question,
+    android: i18n.forgotPassword.question.toUpperCase(),
+  }),
+};
 
 const icons = {
   ...Platform.select({
@@ -33,13 +39,13 @@ const icons = {
 
 type TProps = {
   actions: Object,
-  onAuthSuccess: () => void,
+  onAuthSuccess: () => void
 };
 
 type TState = {
   hasError: boolean,
   responseError: null | Object,
-  validationStatus: null | string,
+  validationStatus: null | string
 };
 
 const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
@@ -54,8 +60,12 @@ export default class Login extends Component<TProps, TState> {
   usernameRef: Object;
   passwordRef: Object;
 
-  setUsernameRef = (ref: Object) => this.usernameRef = ref;
-  setPasswordRef = (ref: Object) => this.passwordRef = ref;
+  setUsernameRef = (ref: Object) => {
+    this.usernameRef = ref;
+  }
+  setPasswordRef = (ref: Object) => {
+    this.passwordRef = ref;
+  }
 
   componentDidMount() {
     trackEvent('viewAuth');
@@ -75,7 +85,6 @@ export default class Login extends Component<TProps, TState> {
       this.setState({ validationStatus: ALL_FIELDS_REQUIRED, hasError: true });
       return false;
     }
-
     this.setState({ validationStatus: null, hasError: false });
     return true;
   }
@@ -89,9 +98,7 @@ export default class Login extends Component<TProps, TState> {
   error = (text: string, withImage: boolean = true) => (
     <View style={styles.error}>
       <Text style={styles.errorText}>{text}</Text>
-      {withImage && (
-        <Image source={icons.warning} />
-      )}
+      {withImage && <Image source={icons.warning} />}
     </View>
   );
 
@@ -109,6 +116,7 @@ export default class Login extends Component<TProps, TState> {
   };
 
   render() {
+    const { routeToRecoverPassword } = this.props.actions;
     const { validationStatus, responseError } = this.state;
 
     return (
@@ -133,20 +141,25 @@ export default class Login extends Component<TProps, TState> {
             secureTextEntry
             style={styles.input}
           />
-          {validationStatus === ALL_FIELDS_REQUIRED && (
+          {validationStatus === ALL_FIELDS_REQUIRED &&
             this.error(i18n.errors.allFieldsRequired)
-          )}
-          {responseError && (
-            this.error(responseError.detail, false)
-          )}
+          }
+          {responseError && this.error(responseError.detail, false)}
         </View>
+        <TouchableHighlight
+          activeOpacity={1}
+          onPress={routeToRecoverPassword}
+          style={styles.recoveryButton}
+        >
+          <Text style={styles.recoveryButtonText}>{localization.recovery}</Text>
+        </TouchableHighlight>
         <TouchableHighlight
           activeOpacity={1}
           onPress={this.onLoginUserPress}
           style={styles.enterButton}
           underlayColor={vars.color.red}
         >
-          <Text style={styles.enterButtonText}>{i18nEnter}</Text>
+          <Text style={styles.enterButtonText}>{localization.enter}</Text>
         </TouchableHighlight>
       </View>
     );
@@ -165,7 +178,7 @@ const styles = StyleSheet.create({
   input: {
     ...Platform.select({
       android: {
-        marginLeft: 16,
+        marginLeft: 15,
       },
     }),
   },
@@ -203,6 +216,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   errorText: {
+    color: vars.color.red,
+  },
+  recoveryButton: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  recoveryButtonText: {
     color: vars.color.red,
   },
 });

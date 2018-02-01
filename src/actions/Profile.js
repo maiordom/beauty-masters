@@ -68,3 +68,22 @@ export const selectProfileSection = (sectionKey: string) => ({
   type: actions.PROFILE_SECTION_SET,
   payload: { sectionKey },
 });
+
+export const recoverPassword = (email) => dispatch => {
+  dispatch(setActivityIndicator(true));
+
+  const params = {
+    data: {
+      attributes: {
+        email,
+      },
+    },
+  };
+
+  return ProfileService.sendResetPasswordLink(params)
+    .then(res => {
+      dispatch(setActivityIndicator(false));
+
+      return res;
+    });
+};

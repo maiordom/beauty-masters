@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 
 import Presentation from '../screen/Presentation/Presentation';
 import MasterAuthorization from '../screen/MasterAuthorization/MasterAuthorization';
+import MasterRecoverPassword from '../screen/MasterAuthorization/MasterRecoverPassword';
 import MasterEditorGeneral from '../screen/MasterEditor/MasterEditorGeneral';
 import MasterEditorService from '../screen/MasterEditor/MasterEditorService';
 import MasterEditorHandlingTools from '../screen/MasterEditor/MasterEditorHandlingTools';
@@ -82,6 +83,11 @@ export default () => (
         <Scene
           key="masterAuthorization"
           component={MasterAuthorization}
+        />
+        <Scene
+          key="masterRecoverPassword"
+          component={MasterRecoverPassword}
+          title={i18n.forgotPassword.title}
         />
         <Scene
           key="masterEditorGeneral"
