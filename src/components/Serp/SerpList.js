@@ -125,7 +125,7 @@ export default class SerpList extends Component<TProps, TState> {
             const shouldShowLoadMoreButton = dataSource.getRowCount() > 0 && !isExtendedSetLoaded;
             return shouldShowLoadMoreButton ? (
               <TouchableOpacity
-                style={styles.loadMoreTouchable}
+                style={styles.loadMoreButton}
                 onPress={() => {
                   this.searchMasters(EXTENDED_LIST_SEARCH_RADIUS);
                   this.setState({ ...this.state, isExtendedSetLoaded: true });
@@ -145,14 +145,16 @@ export const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: vars.color.darkGrey,
   },
-  loadMoreTouchable: {
+  loadMoreButton: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 16,
     paddingBottom: 16,
+    marginBottom: 10,
   },
   loadMoreTitle: {
     color: vars.color.red,
+    fontSize: 16,
   },
   separator: {
     height: 8,
