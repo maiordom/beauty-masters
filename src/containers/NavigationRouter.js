@@ -125,7 +125,6 @@ export default () => (
           component={MasterEditorInfo}
         />
         <Scene
-          initial
           key="createMasterSuccess"
           title={i18n.registrationComplete.sceneTitle}
           component={MasterEditorCreateSuccess}
