@@ -17,10 +17,7 @@ export const createMasterServices = (params, headers) =>
   post(routes.createMasterServices, params, headers);
 
 export const createAddress = (params, headers) =>
-  post(routes.createAddress, params, headers)
-    .then((res) => (res.error ? res : {
-      addressId: res.data.id,
-    }));
+  post(routes.createAddress, params, headers);
 
 export const updateAddress = (addressId, params, headers) =>
   patch(routes.updateAddress, params, headers, { id: addressId });
