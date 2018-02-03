@@ -1,12 +1,10 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, TextInput, StyleSheet, View, Platform, Image } from 'react-native';
 import debounce from 'lodash/debounce';
 
 import vars from '../vars';
-
-import { shouldComponentUpdate } from '../utils';
 
 type TProps = {
   autoCorrect?: boolean,
@@ -35,7 +33,7 @@ type TState = {
   value: string,
 };
 
-class InputBase extends Component<TProps, TState> {
+class InputBase extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
     super(props);
   }
@@ -44,8 +42,6 @@ class InputBase extends Component<TProps, TState> {
     value: this.props.value && this.props.value.toString() || '',
     isFocused: false,
   };
-
-  shouldComponentUpdate = shouldComponentUpdate();
 
   debounceOnChange = () => debounce(() => {
     const value = this.clearValue(this.state.value);

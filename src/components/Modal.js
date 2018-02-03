@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -19,7 +19,7 @@ type TProps = {
   onRequestClose?: () => void
 };
 
-export default class ModalComponent extends Component<TProps, void> {
+export default class ModalComponent extends PureComponent<TProps, void> {
   render() {
     const {
       children,

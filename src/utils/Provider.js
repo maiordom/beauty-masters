@@ -1,6 +1,7 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 import { stringify } from 'qs';
 import { Crashlytics } from 'react-native-fabric';
+import axios from 'axios';
 
 import config from '../config';
 import { log } from './Log';
@@ -8,48 +9,54 @@ import { log } from './Log';
 const { host, googlePlacesHost } = config;
 const getBody = (params: Object) => decodeURIComponent(stringify(params));
 
-const handleFetchResponse = (
+const handleResolveResponse = (
   res: Object,
   path: string,
   method: string,
 ) => {
-  if (__DEV__ && method !== 'GET') {
-    log(`${path}::${method}::response`);
-    log(res);
-  }
-
-  if (__DEV__ && method === 'GET') {
+  if (__DEV__) {
     log(`${path}::${method}::response`);
 
-    if (res.errors) {
-      log(res.errors);
+    if (method !== 'GET') {
+      log(res.data);
     }
   }
 
-  if (res.errors) {
-    const { code, title, detail } = res.errors[0];
+  return {
+    ...res.data,
+    status: 'success',
+  };
+};
+
+const handleRejectResponse = (res: object, path: string, method: string) => {
+  if (__DEV__) {
+    log(`${path}::${method}::exx`, res.data);
+  }
+
+  if (res.data.errors) {
+    const { code, title, detail } = res.data.errors[0];
 
     try {
-      Crashlytics.logException(JSON.stringify(res.errors));
+      Crashlytics.logException(JSON.stringify(res.data.errors));
     } catch (exx) {
       log(`Crashlytics::exx::${exx}`);
     }
 
-    return {
+    return Promise.resolve({
       status: 'error',
       error: {
         code,
         detail,
         title,
       },
-    };
+    });
   }
 
-  return {
-    ...res,
-    status: 'success',
-  };
-};
+  return Promise.resolve({
+    status: 'error',
+    error: {},
+  });
+}
 
 const baseFetch = (fetchMethod: string) => (
   method: Object,
@@ -68,30 +75,19 @@ const baseFetch = (fetchMethod: string) => (
     log(params);
   }
 
-  return fetch(url, {
+  return axios({
+    url,
+    timeout: 10000,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       ...headers,
     },
+    responseType: 'json',
     method: fetchMethod,
-    body,
+    data: body,
   })
-    .then((res: Object) => {
-    /* eslint-disable no-underscore-dangle */
-      if (!res._bodyText) {
-        return {};
-      }
-
-      return res.json();
-    })
-    .then((res: Object) => handleFetchResponse(res, path, method.method))
-    .catch((res: Object) => {
-      if (__DEV__) {
-        log(`${path}::${method.method}::exx`, res);
-      }
-
-      return Promise.reject(res);
-    });
+    .then((res: Object) => handleResolveResponse(res, path, method.method))
+    .catch((exx: Object) => handleRejectResponse(exx.response, path, method.method));
 };
 
 export const post = baseFetch('POST');
@@ -118,16 +114,15 @@ export const get = (
     'pathParams::', pathParams,
   );
 
-  return RNFetchBlob.fetch('GET', url, {
-    'Content-Type': 'application/json',
-    ...headers,
+  return axios.get(url, {
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json',
+      ...headers,
+    },
   })
-    .then((res: Object) => res.json())
-    .then((res: Object) => handleFetchResponse(res, path, method.method))
-    .catch((res: Object) => {
-      log(`${location}::GET::exx`, res);
-      return Promise.reject(res);
-    });
+    .then((res: Object) => handleResolveResponse(res, path, method.method))
+    .catch((exx: Object) => handleRejectResponse(exx.response, path, method.method));
 };
 
 export const geo = (method: string, params: Object) => {

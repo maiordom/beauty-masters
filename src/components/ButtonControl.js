@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, StyleSheet, TouchableWithoutFeedback, Platform, View } from 'react-native';
 
 import i18n from '../i18n';
 import vars from '../vars';
 
-import { shouldComponentUpdate } from '../utils';
-
-export default class ButtonControl extends Component {
-  shouldComponentUpdate = shouldComponentUpdate();
-
+export default class ButtonControl extends PureComponent {
   render() {
     const {
       customStyles = {},

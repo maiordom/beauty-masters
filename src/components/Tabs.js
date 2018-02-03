@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 
 import vars from '../vars';
 
-export default class Tabs extends Component {
+export default class Tabs extends PureComponent {
   constructor(props) {
     super();
 

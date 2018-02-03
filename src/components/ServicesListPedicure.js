@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 
 import { FilterLabel } from './FilterLabel';
@@ -30,7 +30,7 @@ type TState = {
   withdrawal?: boolean,
 };
 
-export default class ServicesListPedicure extends Component<TProps, TState> {
+export default class ServicesListPedicure extends PureComponent<TProps, TState> {
   state = {
     automate: [
       'nailProcessingMethod',

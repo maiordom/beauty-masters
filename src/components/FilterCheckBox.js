@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform, Image } from 'react-native';
 
 import { formatNumber, shouldComponentUpdate } from '../utils';
@@ -42,7 +42,7 @@ const icons = {
 };
 
 // $FlowFixMe
-export default class FilterCheckBox extends Component<TProps, void> {
+export default class FilterCheckBox extends PureComponent<TProps, void> {
   durationRef: any;
   priceRef: any;
 

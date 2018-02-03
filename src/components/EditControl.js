@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, StyleSheet, TouchableWithoutFeedback, Platform, View } from 'react-native';
 
 import i18n from '../i18n';
@@ -24,7 +24,7 @@ type TProps = {
   onSavePress: () => void;
 };
 
-export default class EditControl extends Component<TProps, void> {
+export default class EditControl extends PureComponent<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   render() {

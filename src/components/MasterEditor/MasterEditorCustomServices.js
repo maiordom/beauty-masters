@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 import FilterCheckBox from '../FilterCheckBox';
@@ -20,7 +20,7 @@ type TProps = {
   sectionName: string,
 };
 
-export default class MasterEditorCustomServices extends Component<TProps, void> {
+export default class MasterEditorCustomServices extends PureComponent<TProps, void> {
   addCustomService = () => {
     if (this.props.items.length > 2) {
       return;

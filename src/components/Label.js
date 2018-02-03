@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import vars from '../vars';
 
-export default class Label extends Component {
+export default class Label extends PureComponent {
   render() {
     const {
       text, subText, spacing, customStyle,
