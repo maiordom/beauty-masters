@@ -3,6 +3,7 @@ import { stringify } from 'qs';
 import { Crashlytics } from 'react-native-fabric';
 
 import config from '../config';
+import { log } from './Log';
 
 const { host, googlePlacesHost } = config;
 const getBody = (params: Object) => decodeURIComponent(stringify(params));
@@ -13,15 +14,15 @@ const handleFetchResponse = (
   method: string,
 ) => {
   if (__DEV__ && method !== 'GET') {
-    console.log(`${path}::${method}::response`);
-    console.log(res);
+    log(`${path}::${method}::response`);
+    log(res);
   }
 
   if (__DEV__ && method === 'GET') {
-    console.log(`${path}::${method}::response`);
+    log(`${path}::${method}::response`);
 
     if (res.errors) {
-      console.log(res.errors);
+      log(res.errors);
     }
   }
 
@@ -31,7 +32,7 @@ const handleFetchResponse = (
     try {
       Crashlytics.logException(JSON.stringify(res.errors));
     } catch (exx) {
-      console.log(`Crashlytics::exx::${exx}`);
+      log(`Crashlytics::exx::${exx}`);
     }
 
     return {
@@ -63,8 +64,8 @@ const baseFetch = (fetchMethod: string) => (
   const url = `${host}${path}`;
 
   if (__DEV__) {
-    console.log(`${path}::${method.method}::params`);
-    console.log(params);
+    log(`${path}::${method.method}::params`);
+    log(params);
   }
 
   return fetch(url, {
@@ -86,7 +87,7 @@ const baseFetch = (fetchMethod: string) => (
     .then((res: Object) => handleFetchResponse(res, path, method.method))
     .catch((res: Object) => {
       if (__DEV__) {
-        console.log(`${path}::${method.method}::exx`, res);
+        log(`${path}::${method.method}::exx`, res);
       }
 
       return Promise.reject(res);
@@ -111,7 +112,7 @@ export const get = (
   const location = `${path}?${serializedParams}`;
   const url = `${host}${location}`;
 
-  console.log(
+  log(
     `${location}::GET::request`,
     'params::', params,
     'pathParams::', pathParams,
@@ -124,7 +125,7 @@ export const get = (
     .then((res: Object) => res.json())
     .then((res: Object) => handleFetchResponse(res, path, method.method))
     .catch((res: Object) => {
-      console.log(`${location}::GET::exx`, res);
+      log(`${location}::GET::exx`, res);
       return Promise.reject(res);
     });
 };
@@ -133,17 +134,17 @@ export const geo = (method: string, params: Object) => {
   const decodedParams = stringify(params);
   const url = `${googlePlacesHost}${method}?${decodedParams}`;
 
-  console.log('googlePlaces::params');
-  console.log(params);
+  log('googlePlaces::params');
+  log(params);
 
   return RNFetchBlob.fetch('GET', url, {
     'Content-Type': 'application/json',
   })
     .then((res: Object) => res.json())
-    .then((res: Object) => {
+    .then((res: Object = {}) => {
       if (__DEV__) {
-        console.log('googlePlaces::response');
-        console.log(res);
+        log('googlePlaces::response');
+        log(res);
       }
 
       if (res.status !== 'OK') {
@@ -159,7 +160,7 @@ export const geo = (method: string, params: Object) => {
       };
     })
     .catch((exx) => {
-      console.log('googlePlaces::exx', exx);
+      log('googlePlaces::exx', exx);
 
       return {
         error: {},

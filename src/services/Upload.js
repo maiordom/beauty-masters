@@ -2,14 +2,15 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 import config from '../config';
 import routes from '../routes';
+import { log } from '../utils/Log';
 
 export const uploadFile = ({ uri, type }, headers, mediaType) => {
   const path = config.host + routes.upload.path(mediaType);
   const fileType = type.split('/')[1];
 
-  console.log(`[UploadFile]::path::${path}`);
-  console.log(`[UploadFile]::params::${uri}`);
-  console.log(`[UploadFile]::type::${fileType}`);
+  log(`[UploadFile]::path::${path}`);
+  log(`[UploadFile]::params::${uri}`);
+  log(`[UploadFile]::type::${fileType}`);
 
   return RNFetchBlob.fetch('POST', path, {
     'Content-Type': 'multipart/form-data',
@@ -24,6 +25,8 @@ export const uploadFile = ({ uri, type }, headers, mediaType) => {
   ])
     .then(res => res.json())
     .then((res) => {
+      log('[UploadFile::response]', res);
+
       if (res.errors) {
         const { code, title, detail } = res.errors[0];
 

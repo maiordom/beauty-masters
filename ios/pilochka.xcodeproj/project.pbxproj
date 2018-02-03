@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -58,6 +57,13 @@
 			remoteGlobalIDString = D8D9DB831C6D03DB009FBC0E;
 			remoteInfo = SMXCrashlytics;
 		};
+		1D97CBFE2025F5F10098BF98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9E328EE228442ACA6FAE1E0 /* RNSentry.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNSentry;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -75,14 +81,17 @@
 		3B51D562BAFB41C9FE0BF6E5 /* Pods-pilochkaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pilochkaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55A41E48ACDD4BD19B0816A7 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		57EE60A4B755495591A35264 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		61DCAD32F9AEA23478DAE846 /* Pods-pilochka.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.debug.xcconfig"; sourceTree = "<group>"; };
 		7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		884A0F661FB73CDF005B134C /* ReactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReactViewController.h; path = pilochka/ReactViewController.h; sourceTree = "<group>"; };
 		884A0F671FB73CDF005B134C /* ReactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ReactViewController.m; path = pilochka/ReactViewController.m; sourceTree = "<group>"; };
 		8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		A399E79DB1F04EBAA2924D8B /* libRNSentry.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSentry.a; sourceTree = "<group>"; };
 		AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochkaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochkaTests/Pods-pilochkaTests.release.xcconfig"; sourceTree = "<group>"; };
+		B9E328EE228442ACA6FAE1E0 /* RNSentry.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		C3CDEC9087B74E039D12A3B5 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		C6C3DB6EE73A4855949C9282 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		CE52678CC8A778B618A6FB4C /* Pods-pilochka.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pilochka.release.xcconfig"; path = "Pods/Target Support Files/Pods-pilochka/Pods-pilochka.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +153,7 @@
 				57EE60A4B755495591A35264 /* libRNImagePicker.a */,
 				7509807B67794DCD8FBFA9DA /* libBVLinearGradient.a */,
 				20836BF3E9594F128E0F4415 /* libAirMaps.a */,
+				A399E79DB1F04EBAA2924D8B /* libRNSentry.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -189,11 +199,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1D97CBFB2025F5F10098BF98 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D97CBFF2025F5F10098BF98 /* libRNSentry.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		31312C652E57F0C211FB820C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED55F481F8C4DE00BF91B3F6 /* libPods-pilochka.a */,
 				43E118B23BD3392209DAF880 /* libPods-pilochkaTests.a */,
+				55A41E48ACDD4BD19B0816A7 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -229,6 +248,7 @@
 				8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */,
 				439B29C0F3B04BFAB66847C4 /* BVLinearGradient.xcodeproj */,
 				AA643373C29749E08E0D5038 /* AirMaps.xcodeproj */,
+				B9E328EE228442ACA6FAE1E0 /* RNSentry.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -242,6 +262,14 @@
 				B9D082F508E29575DB91EAE1 /* Pods-pilochkaTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FDE2BA5FE4E8474797A12FF3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +287,7 @@
 				92034472C4F29368595C29D2 /* [CP] Embed Pods Frameworks */,
 				D3186E43B1FBD7ECA8469F05 /* [CP] Copy Pods Resources */,
 				1D1517451FEAC90A00187D42 /* ShellScript */,
+				FDEEFA5D2B9B478FB4E886F9 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -310,6 +339,10 @@
 				{
 					ProductGroup = 1D52277F1FA5FAD500C67B82 /* Products */;
 					ProjectRef = 8F972859BAA24D2F9BE0242A /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D97CBFB2025F5F10098BF98 /* Products */;
+					ProjectRef = B9E328EE228442ACA6FAE1E0 /* RNSentry.xcodeproj */;
 				},
 				{
 					ProductGroup = 1D5227811FA5FAD500C67B82 /* Products */;
@@ -366,6 +399,13 @@
 			remoteRef = 1D5227871FA5FAD500C67B82 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1D97CBFF2025F5F10098BF98 /* libRNSentry.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSentry.a;
+			remoteRef = 1D97CBFE2025F5F10098BF98 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -393,7 +433,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/packager/react-native-xcode.sh";
 		};
 		1D1517451FEAC90A00187D42 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -459,6 +499,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pilochka/Pods-pilochka-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FDEEFA5D2B9B478FB4E886F9 /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Debug Symbols to Sentry";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -497,6 +551,10 @@
 				DEVELOPMENT_TEAM = NT2NCF68YC;
 				INFOPLIST_FILE = pilochka/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/pilochka\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -517,6 +575,10 @@
 				DEVELOPMENT_TEAM = NT2NCF68YC;
 				INFOPLIST_FILE = pilochka/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/pilochka\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

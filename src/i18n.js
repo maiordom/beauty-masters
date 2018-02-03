@@ -79,7 +79,7 @@ export default {
     applyingNailPolish: 'Нанесение лака',
     applyingOfAnotherNailGel: 'Нанесение другого геля-лака',
     applyingShellac: 'Нанесение шеллака',
-    artDesign: 'Хужожественный дизайн',
+    artDesign: 'Художественный дизайн',
     availableDays: 'Дни приема',
     bioGel: {
       nom: 'Биогель',
