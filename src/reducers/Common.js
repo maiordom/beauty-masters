@@ -27,6 +27,10 @@ export default makeReducer((state, action) => ({
   }),
 
   [a.DICTIONARIES_CATEGORY_SERVICES_SET]: (state, { payload: { categoryServices = [] } }) => {
+    if (!categoryServices.length) {
+      return state;
+    }
+
     const categoryServiceById = {};
     const categoryServiceByKey = {};
 
@@ -44,6 +48,10 @@ export default makeReducer((state, action) => ({
   },
 
   [a.DICTIONARIES_SERVICES_SET]: (state, { payload: { services = [] } }) => {
+    if (!services.length) {
+      return state;
+    }
+
     const serviceById = {};
     const serviceByKey = {};
 
