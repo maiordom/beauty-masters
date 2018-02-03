@@ -1,5 +1,6 @@
 import find from 'lodash/find';
 import omitBy from 'lodash/omitBy';
+import isEmpty from 'lodash/isEmpty';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -146,21 +147,23 @@ export default makeReducer(() => ({
         setCreateQueryParam(payload, state, 'createAddressQuery');
       });
 
-      [
-        createPayload(sectionName, 'timeStartField', address.timeTable.timeStart, 'value'),
-        createPayload(sectionName, 'timeEndField', address.timeTable.timeEnd, 'value'),
-        createPayload(sectionName, 'startDateField', address.timeTable.dateStart, 'value'),
-      ].forEach((payload) => {
-        setParam(payload, state);
-        setCreateQueryParam(payload, state, 'createTimeTableQuery');
-      });
+      if (!isEmpty(address.timeTable)) {
+        [
+          createPayload(sectionName, 'timeStartField', address.timeTable.timeStart, 'value'),
+          createPayload(sectionName, 'timeEndField', address.timeTable.timeEnd, 'value'),
+          createPayload(sectionName, 'startDateField', address.timeTable.dateStart, 'value'),
+        ].forEach((payload) => {
+          setParam(payload, state);
+          setCreateQueryParam(payload, state, 'createTimeTableQuery');
+        });
 
-      [
-        createPayload(sectionName, 'customDates', address.timeTable.timeStart, 'timeStartDefault'),
-        createPayload(sectionName, 'customDates', address.timeTable.timeEnd, 'timeEndDefault'),
-      ].forEach((payload) => {
-        setParam(payload, state);
-      });
+        [
+          createPayload(sectionName, 'customDates', address.timeTable.timeStart, 'timeStartDefault'),
+          createPayload(sectionName, 'customDates', address.timeTable.timeEnd, 'timeEndDefault'),
+        ].forEach((payload) => {
+          setParam(payload, state);
+        });
+      }
 
       state.masterEditor[sectionName].customDates.items = address.schedules.map((schedule) => {
         const scheduleObject = {

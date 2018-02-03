@@ -99,7 +99,9 @@ export default makeReducer(() => ({
       addresses.forEach((address: TMasterAddress) => {
         const interval = find(intervalModel.items, { id: address.timeTable.intervalType });
 
-        address.timeTable.intervalKey = interval.key;
+        if (interval) {
+          address.timeTable.intervalKey = interval.key;
+        }
       });
     }
 

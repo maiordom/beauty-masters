@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import moment from 'moment';
 
 import Calendar from './Calendar';
 
 import i18n from '../i18n';
 import vars from '../vars';
 
-export default class IntervalStartDate extends Component {
-  state = {};
+export default class IntervalStartDate extends PureComponent {
+  state = {
+    selectedDate: moment().format('YYYY-MM-DD'),
+  };
 
   onApplyPress = () => {
     this.props.actions.applyDate(this.state.selectedDate, this.props.sectionName);
