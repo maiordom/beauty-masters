@@ -2,6 +2,7 @@ import find from 'lodash/find';
 
 import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
+import * as CityService from '../services/City';
 
 import { getMasterServices, getAddresses } from './Profile';
 import { refreshEditor } from './Master';
@@ -90,3 +91,18 @@ export const getCalendars = () => (dispatch: Function, getState: Function) => {
     });
   }
 };
+
+export const getCities = () => (dispatch: Function) => {
+  CityService.getCities().then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.MASTER_EDIT_CITY_MODEL_SET,
+        payload: { cities: res },
+      });
+    }
+  });
+};
+
+export const searchCity = (text: string) => ({ type: actions.MASTER_EDIT_CITY_FIND, payload: { text } });
+
+export const selectCity = (id: number) => ({ type: actions.MASTER_EDIT_CITY_SET, id });

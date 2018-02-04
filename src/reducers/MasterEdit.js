@@ -334,4 +334,14 @@ export default makeReducer(() => ({
     deepUpdate(state, 'masterEditor.editStatus', { photos: 'uploaded' });
     return state;
   },
+
+  [actions.MASTER_EDIT_CITY_MODEL_SET]: (state, { payload: { cities } }) => {
+    ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string) => {
+      deepUpdate(state, `state.masterEditor.${key}.cities`, {
+        items: cities,
+        filtered: null,
+      });
+    });
+  },
+
 }));

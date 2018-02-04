@@ -73,6 +73,7 @@ each({
   object.addressId = null;
   object.cityField.value = cities.selected.name;
   object.startDateField.value = moment().format('YYYY-MM-DD');
+  object.cities = cities;
 
   object.createAddressQuery.city = cities.selected.name;
   object.createAddressQuery.lat = cities.selected.lat;
