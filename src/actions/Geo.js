@@ -1,5 +1,6 @@
 import * as GeoServices from '../services/Geo';
 import * as CityService from '../services/City';
+import * as SubwayStationService from '../services/SubwayStation';
 import config from '../config';
 
 import actions from '../constants/Common';
@@ -59,6 +60,17 @@ export const fetchCities = () => (dispatch: Function) => (
       dispatch({
         type: actions.GEO_CITIES_SET,
         payload: { cities: res.cities },
+      });
+    }
+  })
+);
+
+export const fetchSubwayStations = () => (dispatch: Function) => (
+  SubwayStationService.getSubwayStations().then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.GEO_SUBWAY_STATIONS_SET,
+        payload: { subwayStations: res.subwayStations },
       });
     }
   })
