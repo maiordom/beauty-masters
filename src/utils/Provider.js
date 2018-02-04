@@ -10,7 +10,7 @@ const { host, googlePlacesHost } = config;
 const getBody = (params: Object) => decodeURIComponent(stringify(params));
 
 const handleResolveResponse = (
-  res: Object,
+  res: Object = { data: {} },
   path: string,
   method: string,
 ) => {
@@ -28,7 +28,7 @@ const handleResolveResponse = (
   };
 };
 
-const handleRejectResponse = (res: object, path: string, method: string) => {
+const handleRejectResponse = (res: Object = { data: {} }, path: string, method: string) => {
   if (__DEV__) {
     log(`${path}::${method}::exx`, res.data);
   }

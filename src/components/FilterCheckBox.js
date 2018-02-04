@@ -46,8 +46,6 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
   durationRef: any;
   priceRef: any;
 
-  shouldComponentUpdate = shouldComponentUpdate();
-
   onPress = () => {
     if (this.props.required) {
       return;

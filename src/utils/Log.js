@@ -5,5 +5,9 @@ export function log() {
 }
 
 export function sendLog(message: string) {
-  Crashlytics.log(message);
+  try {
+    Crashlytics.log(message);
+  } catch (exx) {
+    log(`Crashlytics::exx::${exx}`);
+  }
 }
