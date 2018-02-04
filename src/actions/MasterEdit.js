@@ -1,9 +1,10 @@
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 
 import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
-import * as CityService from '../services/City';
 
+import { fetchCities } from './Geo';
 import { getMasterServices, getAddresses } from './Profile';
 import { refreshEditor } from './Master';
 
@@ -92,15 +93,25 @@ export const getCalendars = () => (dispatch: Function, getState: Function) => {
   }
 };
 
-export const getCities = () => (dispatch: Function) => {
-  CityService.getCities().then((res: Object) => {
-    if (!res.error) {
-      dispatch({
-        type: actions.MASTER_EDIT_CITY_MODEL_SET,
-        payload: { cities: res.cities },
-      });
-    }
+const masterEditCityModelSet = (cities: Array<Object>) => (dispatch: Function) => {
+  dispatch({
+    type: actions.MASTER_EDIT_CITY_MODEL_SET,
+    payload: { cities },
   });
+};
+
+export const getCities = () => (dispatch: Function, getState: Function) => {
+  const state = getState();
+
+  if (!isEmpty(state.geo.cities)) {
+    dispatch(masterEditCityModelSet(state.geo.cities));
+  } else {
+    dispatch(fetchCities()).then(() => {
+      const state = getState();
+
+      dispatch(masterEditCityModelSet(state.geo.cities));
+    });
+  }
 };
 
 export const searchCity = (text: string, modelName: string) => ({

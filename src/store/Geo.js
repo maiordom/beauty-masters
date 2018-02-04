@@ -7,4 +7,6 @@ export default {
     lat: null,
     lon: null,
   },
+  cities: [],
+  subwayStations: [],
 };

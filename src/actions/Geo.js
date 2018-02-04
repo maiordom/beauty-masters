@@ -1,4 +1,5 @@
 import * as GeoServices from '../services/Geo';
+import * as CityService from '../services/City';
 import config from '../config';
 
 import actions from '../constants/Common';
@@ -51,5 +52,16 @@ export const getPlaceDetails = (place) => {
 
   return GeoServices.getPlaceDetails(params);
 };
+
+export const fetchCities = () => (dispatch: Function) => (
+  CityService.getCities().then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.GEO_CITIES_SET,
+        payload: { cities: res.cities },
+      });
+    }
+  })
+);
 
 export default null;
