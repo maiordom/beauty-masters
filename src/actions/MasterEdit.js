@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
+import type { TCity } from '../types/City';
 
 import { fetchCities } from './Geo';
 import { getMasterServices, getAddresses } from './Profile';
@@ -93,7 +94,7 @@ export const getCalendars = () => (dispatch: Function, getState: Function) => {
   }
 };
 
-const masterEditCityModelSet = (cities: Array<Object>) => (dispatch: Function) => {
+const masterEditCityModelSet = (cities: Array<TCity>) => (dispatch: Function) => {
   dispatch({
     type: actions.MASTER_EDIT_CITY_MODEL_SET,
     payload: { cities },

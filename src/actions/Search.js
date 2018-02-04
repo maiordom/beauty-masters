@@ -9,6 +9,7 @@ import * as SearchService from '../services/Search';
 import { fetchCities } from './Geo';
 
 import type { TSearchQuery } from '../types/CreateSearchQuery';
+import type { TCity } from '../types/City';
 
 export const setDay = (day: string) => ({
   type: actions.SEARCH_SET_DAY,
@@ -115,7 +116,7 @@ export const setSearchLocationName = (label: string) => ({
 
 export const searchCitySelect = (id: number) => ({ type: actions.SEARCH_CITY_SET, id });
 
-const searchCityReset = (cities: Array<Object>) => (dispatch: Function) => {
+const searchCityReset = (cities: Array<TCity>) => (dispatch: Function) => {
   dispatch({
     type: actions.SEARCH_CITY_RESET,
     payload: { cities },
