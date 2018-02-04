@@ -59,7 +59,7 @@ export default () => (
         <Scene
           key="searchCity"
           title="Город"
-          component={SearchCity}
+          component={props => <SearchCity {...props} placeholder={i18n.enterCity} />}
         />
         <Scene
           key="searchAddress"

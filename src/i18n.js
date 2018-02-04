@@ -42,6 +42,7 @@ export default {
   editProfile: 'Редактировать данные профиля',
   email: 'Почта',
   enter: 'Вход',
+  enterCity: 'Введите город',
   enterTo: 'Войти',
   enterAddress: 'Введите адрес',
   errors: {

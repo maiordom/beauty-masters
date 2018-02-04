@@ -30,6 +30,7 @@ type TProps = {
   },
   items: Array<TPlace>,
   selected: TPlace,
+  placeholder: string,
 };
 
 type TState = {
@@ -40,6 +41,7 @@ type TState = {
 export default class AutocompleteList extends Component<TProps, TState> {
   static defaultProps = {
     items: [],
+    placeholder: i18n.enterAddress,
   };
 
   onChange = (value: string) => this.searchItem(value);
@@ -95,7 +97,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
   };
 
   render() {
-    const { items } = this.props;
+    const { items, placeholder } = this.props;
     const { selected } = this.state;
 
     return (
@@ -105,7 +107,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
             debounce
             debounceTimer={1000}
             onChange={this.onChange}
-            placeholder={i18n.enterAddress}
+            placeholder={placeholder}
             value={selected && selected.label}
           />
           {items.length > 0 && (
