@@ -13,7 +13,6 @@ const mapStateToProps = (state, ownProps) => {
   const { cities } = state.masterEditor[ownProps.modelName];
   const source = cities.filtered !== null ? cities.filtered : cities.items;
 
-  console.log(`>>>> SRC: ${JSON.stringify(source)}`);
   return {
     items: map(source, (city) => ({
       ...city,

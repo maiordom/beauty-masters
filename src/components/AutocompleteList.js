@@ -105,6 +105,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
         <View style={styles.inner}>
           <Input
             debounce
+            style={styles.searchField}
             debounceTimer={1000}
             onChange={this.onChange}
             placeholder={placeholder}
@@ -143,13 +144,16 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     paddingTop: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
+  },
+  searchField: {
+    marginLeft: 16,
+    marginRight: 16,
   },
   tab: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
     justifyContent: 'center',
   },
   label: {
