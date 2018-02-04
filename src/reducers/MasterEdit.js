@@ -1,6 +1,9 @@
 import find from 'lodash/find';
 import omitBy from 'lodash/omitBy';
 import isEmpty from 'lodash/isEmpty';
+import startsWith from 'lodash/startsWith';
+import lowerCase from 'lodash/lowerCase';
+import filter from 'lodash/filter';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -337,11 +340,20 @@ export default makeReducer(() => ({
 
   [actions.MASTER_EDIT_CITY_MODEL_SET]: (state, { payload: { cities } }) => {
     ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string) => {
-      deepUpdate(state, `state.masterEditor.${key}.cities`, {
+      deepUpdate(state, `masterEditor.${key}.cities`, {
         items: cities,
         filtered: null,
       });
     });
+    return state;
+  },
+
+  [actions.MASTER_EDIT_CITY_FIND]: (state, { payload: { text, modelName } }) => {
+    const { cities } = state.masterEditor[modelName];
+    const filtered = filter(cities.items, (city) => (
+      startsWith(lowerCase(city.name), lowerCase(text))));
+
+    return deepUpdate(state, `masterEditor.${modelName}.cities`, { filtered });
   },
 
 }));

@@ -97,12 +97,15 @@ export const getCities = () => (dispatch: Function) => {
     if (!res.error) {
       dispatch({
         type: actions.MASTER_EDIT_CITY_MODEL_SET,
-        payload: { cities: res },
+        payload: { cities: res.cities },
       });
     }
   });
 };
 
-export const searchCity = (text: string) => ({ type: actions.MASTER_EDIT_CITY_FIND, payload: { text } });
+export const searchCity = (text: string, modelName: string) => ({
+  type: actions.MASTER_EDIT_CITY_FIND,
+  payload: { text, modelName },
+});
 
 export const selectCity = (id: number) => ({ type: actions.MASTER_EDIT_CITY_SET, id });

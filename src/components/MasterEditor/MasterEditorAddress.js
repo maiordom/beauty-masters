@@ -12,6 +12,7 @@ import vars from '../../vars';
 type TProps = {
   models: Object,
   onAddressChange: () => void,
+  onCityChange: () => void,
   onChange: (value: string, modelName: string) => void,
 };
 
@@ -28,7 +29,7 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
       subwayStationField,
     } = this.props.models;
 
-    const { onAddressChange } = this.props;
+    const { onAddressChange, onCityChange } = this.props;
 
     return (
       <View style={styles.container}>
@@ -40,7 +41,7 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
           placeholder={i18n.specifyAddressName}
           required
         />
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={onCityChange}>
           <View style={[styles.label, styles.labelCity]}>
             <Text style={styles.labelText}>{cityField.label}</Text>
             <Text style={styles.labelValue}>{cityField.value || i18n.specify}</Text>

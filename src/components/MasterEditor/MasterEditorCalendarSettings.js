@@ -131,6 +131,10 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
     this.props.actions.selectAddress(this.props.sectionName);
   };
 
+  onCityChange = () => {
+    this.props.actions.selectCity(this.props.sectionName);
+  }
+
   toggleWorkTimeSpecificationModal = () => {
     this.setState({
       workTimeSpecificationVisibile: false,
@@ -187,6 +191,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
               <MasterEditorAddress
                 models={addressModels}
                 onAddressChange={this.onAddressChange}
+                onCityChange={this.onCityChange}
                 onChange={this.onAddressFieldChange}
               />
             </View>
