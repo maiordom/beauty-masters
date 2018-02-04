@@ -81,10 +81,6 @@ export default class AutocompleteList extends Component<TProps, TState> {
     this.props.actions.resetItems();
   }
 
-  componentWillUnmount() {
-    this.props.actions.resetItems();
-  }
-
   onItemSelect = (item: Object) => {
     const { selected } = this.state;
 
