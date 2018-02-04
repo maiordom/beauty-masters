@@ -108,4 +108,10 @@ export const searchCity = (text: string, modelName: string) => ({
   payload: { text, modelName },
 });
 
-export const selectCity = (id: number) => ({ type: actions.MASTER_EDIT_CITY_SET, id });
+export const selectCity = (id: number, modelName: string) => ({
+  type: actions.MASTER_EDIT_CITY_SET,
+  payload: {
+    id,
+    modelName,
+  },
+});

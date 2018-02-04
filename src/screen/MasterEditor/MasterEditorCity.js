@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: bindActionCreators({
     selectItem: (city) => () => {
-      dispatch(selectCity(city.id));
+      dispatch(selectCity(city.id, ownProps.modelName));
       Actions.pop();
     },
     searchItemsForText: (value) => searchCity(value, ownProps.modelName),

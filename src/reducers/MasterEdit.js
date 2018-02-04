@@ -15,6 +15,7 @@ import {
   setParam,
   setScheduleQuery,
 } from './MasterEditorHelpers';
+import { selectCity } from '../actions/MasterEdit';
 
 const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
 
@@ -356,4 +357,17 @@ export default makeReducer(() => ({
     return deepUpdate(state, `masterEditor.${modelName}.cities`, { filtered });
   },
 
+  [actions.MASTER_EDIT_CITY_SET]: (state, { payload: { id, modelName } }) => {
+    const { cities } = state.masterEditor[modelName];
+    const selected = cities.items.find((city) => city.id === id);
+
+    deepUpdate(state, `masterEditor.${modelName}.cities`, { selected });
+    deepUpdate(state, `masterEditor.${modelName}.cityField`, { value: selected.name });
+    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
+      city: selected.name,
+      lat: selected.lat,
+      lon: selected.lon,
+    });
+    return state;
+  },
 }));
