@@ -134,7 +134,6 @@ params.pedicureSearchFormSections = pedicureSearchFormSections;
 const searchQuery: TSearchQuery = {
   category_service_ids: [],
   dates: [moment().format('YYYY-MM-DD')],
-  is_salon: 0,
   lat: 55.76,
   lon: 37.64,
   radius: 2000,

@@ -15,11 +15,20 @@ const getPhotos = (included, type) =>
   }));
 
 const getServices = (included) =>
-  included.filter(item => item.type === 'master-service').map(service => ({
-    duration: Number(service.attributes.duration),
-    price: Number(service.attributes.price),
-    serviceId: service.attributes.service_id,
-  }));
+  included.filter(item => item.type === 'master-service').map((service) => {
+    const masterService = {
+      categoryId: service.attributes.category_service_id,
+      duration: Number(service.attributes.duration),
+      price: Number(service.attributes.price),
+      serviceId: service.attributes.service_id,
+    };
+
+    if (masterService.serviceId === null) {
+      masterService.title = service.attributes.title;
+    }
+
+    return masterService;
+  });
 
 export const getMasterById = (id: number) =>
   get(routes.getMasterById, {
