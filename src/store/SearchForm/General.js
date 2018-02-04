@@ -9,6 +9,12 @@ const masterType = () => ({
   ],
 });
 
+const homeDeparture = () => ({
+  active: false,
+  dictionaryKey: 'AtHome',
+  placeholder: i18n.filters.homeDeparture,
+});
+
 const cities = () => ({
   selected: {
     id: 1,
@@ -26,6 +32,7 @@ const place = () => ({
 
 export default {
   cities,
+  homeDeparture,
   masterType,
   place,
 };

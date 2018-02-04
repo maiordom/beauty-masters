@@ -11,6 +11,7 @@ export default {
   ],
   addMasterCard: 'Добавить еще карточку мастера',
   addressName: 'Название адреса (видно только вам)',
+  anyDay: 'Любой день',
   authAsMaster: 'Авторизоваться как мастер услуг',
   calendar: 'Календарь',
   call: 'Позвонить',
@@ -100,7 +101,7 @@ export default {
     gradientManicure: 'Градиентный маникюр',
     gradientPedicure: 'Градиентный педикюр',
     hardware: 'Аппаратный',
-    homeAllowance: 'Надбавка за выезд на дом, \u20BD',
+    homeDeparture: 'Надбавка за выезд на дом, \u20BD',
     hot: 'Горячий маникюр',
     masterType: {
       all: 'Все',
