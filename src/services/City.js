@@ -1,5 +1,7 @@
 
 // @flow
+import isEmpty from 'lodash/isEmpty';
+
 import routes from '../routes';
 import { get } from '../utils/Provider';
 
@@ -10,6 +12,7 @@ const mapResponse = (data): Array<TCity> => data.map(city => ({
   name: city.attributes.name,
   lat: city.attributes.lat,
   lon: city.attributes.lon,
+  hasSubway: !isEmpty(city.relationships.subway_stations.data),
 }: TCity));
 
 export function getCities() {

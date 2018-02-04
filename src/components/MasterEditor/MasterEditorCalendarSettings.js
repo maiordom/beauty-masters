@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 
+import isEmpty from 'lodash/isEmpty';
+
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
@@ -168,7 +170,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
       addressField: calendarSettings.addressField,
       cityField: calendarSettings.cityField,
       salonTitleField: calendarSettings.salonTitleField,
-      subwayStationField: calendarSettings.subwayStationField,
+      subwayStationField: calendarSettings.cities.selected.hasSubway ? calendarSettings.subwayStationField : undefined,
     };
 
     return (

@@ -60,13 +60,13 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
             )}
           </View>
         </TouchableWithoutFeedback>
-        <InputWithLabel
+        {subwayStationField && <InputWithLabel
           {...subwayStationField}
           debounce
           debounceTimer={200}
           onChange={this.onChange}
           placeholder={i18n.specify}
-        />
+        />}
       </View>
     );
   }

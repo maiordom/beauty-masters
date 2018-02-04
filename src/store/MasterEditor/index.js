@@ -22,6 +22,7 @@ const citiesModel = () => ({
     name: 'Москва',
     lat: 55.753994,
     lon: 37.622093,
+    hasSubway: true,
   },
   items: [],
   filtered: null,
