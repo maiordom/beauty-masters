@@ -28,6 +28,12 @@ const citiesModel = () => ({
   filtered: null,
 });
 
+const subwayStations = () => ({
+  selected: null,
+  items: [],
+  filtered: null,
+});
+
 const params = {
   cardType: 'create',
   editStatus: {
@@ -75,6 +81,7 @@ each({
   object.cityField.value = cities.selected.name;
   object.startDateField.value = moment().format('YYYY-MM-DD');
   object.cities = cities;
+  object.subwayStations = subwayStations();
 
   object.createAddressQuery.city = cities.selected.name;
   object.createAddressQuery.lat = cities.selected.lat;

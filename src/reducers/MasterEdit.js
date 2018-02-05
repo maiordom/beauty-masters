@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import startsWith from 'lodash/startsWith';
 import lowerCase from 'lodash/lowerCase';
 import filter from 'lodash/filter';
+import sortBy from 'lodash/sortBy';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -15,7 +16,6 @@ import {
   setParam,
   setScheduleQuery,
 } from './MasterEditorHelpers';
-import { selectCity } from '../actions/MasterEdit';
 
 const filterNullable = (object) => omitBy(object, (value) => value === null || value === undefined);
 
@@ -368,6 +368,35 @@ export default makeReducer(() => ({
       lat: selected.lat,
       lon: selected.lon,
     });
+    return state;
+  },
+
+  [actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET]: (state, { payload: { subwayStations } }) => {
+    ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string) => {
+      const cityId = state.masterEditor[key].cities.selected.id;
+      deepUpdate(state, `masterEditor.${key}.subwayStations`, {
+        items: sortBy(filter(subwayStations, { cityId }), 'name'),
+        filtered: null,
+      });
+    });
+    return state;
+  },
+
+  [actions.MASTER_EDIT_SUBWAY_STATION_FIND]: (state, { payload: { text, modelName } }) => {
+    const { subwayStations } = state.masterEditor[modelName];
+    const filtered = filter(subwayStations.items, (station) => (
+      startsWith(lowerCase(station.name), lowerCase(text))));
+
+    return deepUpdate(state, `masterEditor.${modelName}.subwayStations`, { filtered });
+  },
+
+  [actions.MASTER_EDIT_SUBWAY_STATION_SET]: (state, { payload: { id, modelName } }) => {
+    const { subwayStations } = state.masterEditor[modelName];
+    const selected = subwayStations.items.find((station) => station.id === id);
+
+    deepUpdate(state, `masterEditor.${modelName}.subwayStations`, { selected });
+    deepUpdate(state, `masterEditor.${modelName}.subwayStationField`, { value: selected.name });
+
     return state;
   },
 }));

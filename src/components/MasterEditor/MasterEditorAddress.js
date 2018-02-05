@@ -13,6 +13,7 @@ type TProps = {
   models: Object,
   onAddressChange: () => void,
   onCityChange: () => void,
+  onSubwayStationChange: () => void,
   onChange: (value: string, modelName: string) => void,
 };
 
@@ -29,7 +30,11 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
       subwayStationField,
     } = this.props.models;
 
-    const { onAddressChange, onCityChange } = this.props;
+    const {
+      onAddressChange,
+      onCityChange,
+      onSubwayStationChange,
+    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -60,13 +65,14 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
             )}
           </View>
         </TouchableWithoutFeedback>
-        {subwayStationField && <InputWithLabel
-          {...subwayStationField}
-          debounce
-          debounceTimer={200}
-          onChange={this.onChange}
-          placeholder={i18n.specify}
-        />}
+        {subwayStationField && (
+          <TouchableWithoutFeedback onPress={onSubwayStationChange}>
+            <View style={[styles.label]}>
+              <Text style={styles.labelText}>{subwayStationField.label}</Text>
+              <Text style={styles.labelValue}>{subwayStationField.value || i18n.specify}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        )}
       </View>
     );
   }
@@ -81,10 +87,10 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   labelAddress: {
-    marginBottom: 10,
+    marginBottom: 16,
   },
   labelCity: {
-    marginBottom: 15,
+    marginBottom: 16,
   },
   label: {
     paddingLeft: 4,

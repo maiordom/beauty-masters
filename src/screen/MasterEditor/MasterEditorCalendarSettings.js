@@ -57,6 +57,9 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
       selectCity(modelName) {
         Actions.masterEditorCity({ modelName });
       },
+      selectSubwayStation(modelName) {
+        Actions.masterEditorSubwayStation({ modelName });
+      },
     },
   };
 };

@@ -43,6 +43,7 @@ export default {
   email: 'Почта',
   enter: 'Вход',
   enterCity: 'Введите город',
+  enterSubwayStation: 'Введите название станции',
   enterTo: 'Войти',
   enterAddress: 'Введите адрес',
   errors: {
@@ -188,6 +189,7 @@ export default {
     services: 'Шаг 2/5: Услуги',
   },
   masterWorks: 'Работы мастера',
+  metroLine: 'линия',
   metroShort: 'м',
   monthNames: [
     'Январь',
