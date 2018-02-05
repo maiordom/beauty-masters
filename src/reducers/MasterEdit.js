@@ -396,6 +396,9 @@ export default makeReducer(() => ({
 
     deepUpdate(state, `masterEditor.${modelName}.subwayStations`, { selected });
     deepUpdate(state, `masterEditor.${modelName}.subwayStationField`, { value: selected.name });
+    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
+      subway_station: selected.id.toString(),
+    });
 
     return state;
   },

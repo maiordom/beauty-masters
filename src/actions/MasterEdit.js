@@ -1,6 +1,5 @@
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import filter from 'lodash/filter';
 
 import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
