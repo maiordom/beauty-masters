@@ -8,5 +8,5 @@ export default {
     lon: null,
   },
   cities: [],
-  subwayStations: [],
+  subwayStations: {},
 };

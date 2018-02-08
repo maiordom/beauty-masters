@@ -129,23 +129,23 @@ export const selectCity = (id: number, modelName: string) => ({
   },
 });
 
-const masterEditSubwayStationModelSet = (subwayStations: Array<TSubwayStation>) => (dispatch: Function) => {
+const masterEditSubwayStationModelSet = (modelName: string, subwayStations: Array<TSubwayStation>) => (dispatch: Function) => {
   dispatch({
     type: actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET,
-    payload: { subwayStations },
+    payload: { subwayStations, modelName },
   });
 };
 
-export const getSubwayStations = () => (dispatch: Function, getState: Function) => {
+export const getSubwayStations = (modelName: string, cityId: number) => (dispatch: Function, getState: Function) => {
   const state = getState();
 
-  if (!isEmpty(state.geo.subwayStations)) {
-    dispatch(masterEditSubwayStationModelSet(state.geo.subwayStations));
+  if (!isEmpty(state.geo.subwayStations[cityId])) {
+    dispatch(masterEditSubwayStationModelSet(modelName, state.geo.subwayStations[cityId]));
   } else {
-    dispatch(fetchSubwayStations()).then(() => {
+    dispatch(fetchSubwayStations(cityId)).then(() => {
       const state = getState();
 
-      dispatch(masterEditSubwayStationModelSet(state.geo.subwayStations));
+      dispatch(masterEditSubwayStationModelSet(modelName, state.geo.subwayStations[cityId]));
     });
   }
 };

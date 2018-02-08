@@ -65,12 +65,12 @@ export const fetchCities = () => (dispatch: Function) => (
   })
 );
 
-export const fetchSubwayStations = () => (dispatch: Function) => (
-  SubwayStationService.getSubwayStations().then((res: Object) => {
+export const fetchSubwayStations = (cityId: number) => (dispatch: Function) => (
+  SubwayStationService.getSubwayStations(cityId).then((res: Object) => {
     if (!res.error) {
       dispatch({
         type: actions.GEO_SUBWAY_STATIONS_SET,
-        payload: { subwayStations: res.subwayStations },
+        payload: { subwayStations: res.subwayStations, cityId },
       });
     }
   })

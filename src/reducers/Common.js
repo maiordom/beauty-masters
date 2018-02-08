@@ -30,9 +30,10 @@ export default makeReducer((state, action) => ({
     selected: place,
   }),
 
-  [a.GEO_SUBWAY_STATIONS_SET]: () => deepUpdate(state, 'geo', {
-    subwayStations: action.payload.subwayStations,
-  }),
+  [a.GEO_SUBWAY_STATIONS_SET]: (state, { payload: { cityId, subwayStations } }) => {
+    state.geo.subwayStations[cityId] = subwayStations;
+    return state;
+  },
 
   [a.DICTIONARIES_CATEGORY_SERVICES_SET]: (state, { payload: { categoryServices = [] } }) => {
     if (!categoryServices.length) {

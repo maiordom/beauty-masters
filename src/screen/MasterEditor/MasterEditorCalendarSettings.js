@@ -57,11 +57,28 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
       selectCity(modelName) {
         Actions.masterEditorCity({ modelName });
       },
-      selectSubwayStation(modelName) {
-        Actions.masterEditorSubwayStation({ modelName });
-      },
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar(MasterEditorCalendarSettings));
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const { calendarSettings } = stateProps;
+  const { actions } = dispatchProps;
+
+  const selectSubwayStation = (modelName) => {
+    Actions.masterEditorSubwayStation({ modelName, cityId: calendarSettings.cities.selected.id });
+  };
+
+  dispatchProps.actions = {
+    ...actions,
+    selectSubwayStation,
+  };
+
+  return {
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(NavBar(MasterEditorCalendarSettings));

@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   const source = subwayStations.filtered !== null ? subwayStations.filtered : subwayStations.items;
 
   return {
+    ...ownProps,
     items: map(source, (station) => ({
       ...station,
       label: station.name,
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       Actions.pop();
     },
     searchItemsForText: (value) => searchSubwayStation(value, ownProps.modelName),
-    resetItems: getSubwayStations,
+    resetItems: () => getSubwayStations(ownProps.modelName, ownProps.cityId),
   }, dispatch),
 });
 

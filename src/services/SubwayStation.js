@@ -12,8 +12,9 @@ const mapResponse = (data): Array<TSubwayStation> => data.map(station => ({
   color: station.attributes.color,
 }: TSubwayStation));
 
-export function getSubwayStations() {
-  return get(routes.getSubwayStations)
+export function getSubwayStations(cityId: number) {
+  const params = { filters: `[{"operator": "=", "attribute": "city_id", "value": ${cityId}}]` };
+  return get(routes.getSubwayStations, params)
     .then(res => {
       if (res.data) {
         return { subwayStations: mapResponse(res.data) };

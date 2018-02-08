@@ -371,16 +371,13 @@ export default makeReducer(() => ({
     return state;
   },
 
-  [actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET]: (state, { payload: { subwayStations } }) => {
-    ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string) => {
-      const cityId = state.masterEditor[key].cities.selected.id;
-      deepUpdate(state, `masterEditor.${key}.subwayStations`, {
-        items: sortBy(filter(subwayStations, { cityId }), 'name'),
-        filtered: null,
-      });
-    });
-    return state;
-  },
+  [actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET]: (state, { payload: { modelName, subwayStations } }) => (  
+    deepUpdate(state, `masterEditor.${modelName}.subwayStations`, {
+      items: sortBy(subwayStations, 'name'),
+      filtered: null,
+    })
+  ),
+
 
   [actions.MASTER_EDIT_SUBWAY_STATION_FIND]: (state, { payload: { text, modelName } }) => {
     const { subwayStations } = state.masterEditor[modelName];
