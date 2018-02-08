@@ -44,7 +44,7 @@ export default makeReducer((state, action) => ({
 
     AsyncStorage.setItem('categoryServices', JSON.stringify(categoryServices));
 
-    categoryServices.forEach(categoryService => {
+    categoryServices.forEach((categoryService) => {
       categoryServiceById[categoryService.id] = categoryService;
       categoryServiceByKey[categoryService.key] = categoryService;
     });
@@ -65,13 +65,20 @@ export default makeReducer((state, action) => ({
 
     AsyncStorage.setItem('services', JSON.stringify(services));
 
-    services.forEach(service => {
+    const homeDepartureServices = [];
+
+    services.forEach((service) => {
+      if (service.key === 'AtHome') {
+        homeDepartureServices.push(service);
+      }
+
       serviceById[service.id] = service;
       serviceByKey[service.key] = service;
     });
 
     state.dictionaries.serviceById = serviceById;
     state.dictionaries.serviceByKey = serviceByKey;
+    state.dictionaries.homeDepartureServices = homeDepartureServices;
 
     return state;
   },

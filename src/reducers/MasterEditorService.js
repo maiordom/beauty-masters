@@ -1,6 +1,9 @@
 import find from 'lodash/find';
 import assign from 'lodash/assign';
 import reject from 'lodash/reject';
+import isEmpty from 'lodash/isEmpty';
+
+import { sendLog } from '../utils/Log';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -47,6 +50,12 @@ export default makeReducer((state, action) => ({
     const { masterServicesQuery } = state.masterEditor;
     const model = state.masterEditor[sectionName][modelName];
     const modelInfo = state.dictionaries.serviceByKey[model.dictionaryKey];
+
+    if (isEmpty(modelInfo)) {
+      sendLog(JSON.stringify({ action }));
+      return state;
+    }
+
     let service = find(masterServicesQuery, (item) => (
       item.attributes.service_id === modelInfo.id
     ));

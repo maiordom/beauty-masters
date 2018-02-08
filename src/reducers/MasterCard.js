@@ -23,7 +23,9 @@ export default makeReducer(() => ({
     state.masterCards[card.id] = card;
 
     card.services.forEach((service) => {
-      service.categoryId = state.dictionaries.serviceById[service.serviceId].categoryId;
+      if (service.serviceId) {
+        service.categoryId = state.dictionaries.serviceById[service.serviceId].categoryId;
+      }
     });
 
     // Filter out home departure services: manicure home departure extracted and passed as separate field to state.

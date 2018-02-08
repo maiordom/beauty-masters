@@ -44,6 +44,7 @@ const mapStateToProps = (state, ownProps) => {
     categorySelectionFlags,
     hasAddressLocation,
     hasUserLocation,
+    homeDeparture: state.searchForm.general.homeDeparture,
     leftButtonMenu: true,
     manicureSearchFormSections,
     pedicureSearchFormSections,

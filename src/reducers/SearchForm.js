@@ -12,6 +12,26 @@ import { makeReducer, deepUpdate } from '../utils';
 
 import actions from '../constants/Search';
 
+const setDepartureServices = (state) => {
+  const { homeDeparture } = state.searchForm.general;
+  const { homeDepartureServices } = state.dictionaries;
+  let queryServices = state.searchForm.searchQuery.service_ids;
+
+  if (homeDeparture.active) {
+    homeDepartureServices.forEach((service) => {
+      queryServices.push(service.id);
+    });
+  } else {
+    homeDepartureServices.forEach((service) => {
+      queryServices = filter(queryServices, (serviceId) => serviceId !== service.id);
+    });
+  }
+
+  state.searchForm.searchQuery.service_ids = queryServices;
+
+  return state;
+}
+
 const setParam = (action, state) => {
   const {
     sectionName, modelName, paramValue, paramName,
@@ -72,6 +92,8 @@ const updateSearchQueryWithServicesCategoriesIds = (state) => {
 
   searchQuery.service_ids = serviceIds;
   searchQuery.category_service_ids = categoryIds;
+
+  setDepartureServices(state);
 };
 
 export default makeReducer((state, action) => ({
@@ -221,11 +243,18 @@ export default makeReducer((state, action) => ({
       label,
     }),
 
-  [actions.SEARCH_DEPARTURE_TOGGLE]: () => deepUpdate(
-    state,
-    'searchForm.searchQuery',
-    { isDeparture: !state.searchForm.searchQuery.isDeparture },
-  ),
+  [actions.SEARCH_DEPARTURE_TOGGLE]: () => {
+    const { homeDeparture } = state.searchForm.general;
+    const isActive = homeDeparture.active;
+
+    homeDeparture.active = !isActive;
+
+    setDepartureServices(state);
+
+    return deepUpdate(state, 'searchForm.general.homeDeparture', {
+      active: !isActive
+    });
+  },
 
   [actions.SEARCH_CITY_SET]: () => {
     const { cities } = state.searchForm.general;

@@ -68,7 +68,15 @@ export default makeReducer(() => ({
       }
     });
 
-    const mainCard: TMasterCard = find(masterCards, { isMain: true });
+    let currentMainCard = find(state.profile.masterCards, { isMain: true });
+    let mainCard: TMasterCard = find(masterCards, { isMain: true });
+
+    if (currentMainCard) {
+      mainCard = find(masterCards, { id: currentMainCard.id });
+      masterCards.forEach((card: TMasterCard) => {
+        card.isMain = card.id === mainCard.id;
+      });
+    }
 
     state.masterEditor.masterCardId = mainCard && mainCard.id || null;
     state.profile = profile;

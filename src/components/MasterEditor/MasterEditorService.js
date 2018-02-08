@@ -294,7 +294,7 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
           <View style={styles.sectionPadding} />
           <Input
             {...homeDepartureField}
-            inputWrapperStyle={styles.homeAllowance}
+            inputWrapperStyle={styles.homeDeparture}
             keyboardType="numeric"
             onBlur={this.onChangeAtHome}
           />
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
   },
-  homeAllowance: {
+  homeDeparture: {
     paddingLeft: 11,
     ...Platform.select({
       android: {

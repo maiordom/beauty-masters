@@ -47,6 +47,7 @@ type TProps = {
   general: Object,
   hasAddressLocation: boolean,
   hasUserLocation: boolean,
+  homeDeparture: Object,
   manicureSearchFormSections: Array<TSearchFormCategorySection>,
   pedicureSearchFormSections: Array<TSearchFormCategorySection>,
   searchQuery: Object,
@@ -145,14 +146,20 @@ export default class SearchFormShort extends Component<TProps, TState> {
     this.props.actions.setDay(selectedDate);
   };
 
-  getSelectedDateTitle = () => this.state.selectedDates.map((date: string) =>
-    capitalizeFirstLetter(moment(date).calendar(null, {
-      sameDay: `[${i18n.days.sameDay}]`,
-      nextDay: `[${i18n.days.nextDay}]`,
-      lastWeek: '[last] dddd',
-      nextWeek: 'dddd',
-      sameElse: 'L',
-    }))).join(', ');
+  getSelectedDateTitle = () => {
+    if (!this.state.selectedDates.length) {
+      return i18n.anyDay;
+    }
+
+    return this.state.selectedDates.map((date: string) =>
+      capitalizeFirstLetter(moment(date).calendar(null, {
+        sameDay: `[${i18n.days.sameDay}]`,
+        nextDay: `[${i18n.days.nextDay}]`,
+        lastWeek: '[last] dddd',
+        nextWeek: 'dddd',
+        sameElse: 'L',
+      }))).join(', ');
+  }
 
   onSerpPress = () => {
     if (this.props.hasAddressLocation) {
@@ -170,6 +177,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
     const {
       categorySelectionFlags,
       general,
+      homeDeparture,
       manicureSearchFormSections,
       pedicureSearchFormSections,
       searchQuery,
@@ -220,7 +228,7 @@ export default class SearchFormShort extends Component<TProps, TState> {
           />
           <FilterCheckBox
             title={i18n.search.masterToHome}
-            active={searchQuery.isDeparture}
+            active={homeDeparture.active}
             onChange={this.onDepartureToggle}
             withInput={false}
             shouldShowSeparator={false}
