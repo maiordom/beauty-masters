@@ -58,6 +58,7 @@ export default class PagedCardContainer extends Component<TProps, TState> {
 
     return (
       <MapCard
+        style={styles.card}
         {...card}
         key={card.id}
         onPress={() => onMapCardPress(card)}
@@ -93,12 +94,11 @@ export default class PagedCardContainer extends Component<TProps, TState> {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    width: Dimensions.get('window').width,
+  },
   container: {
-    ...Platform.select({
-      android: {
-        width: Dimensions.get('window').width,
-      },
-    }),
+    width: Dimensions.get('window').width,
     backgroundColor: vars.color.white,
   },
   dots: {
