@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-picker';
 import i18n from '../i18n';
 import vars from '../vars';
 import { hexToRgba } from '../utils';
+import { log } from '../utils/Log';
 
 const icons = {
   close: require('../icons/close.png'),
@@ -26,11 +27,13 @@ const icons = {
 
 export default class PhotoSelect extends Component {
   onClosePress = () => {
-    this.props.actions.drawerClose();
+    this.props.onRequestClose();
   };
 
   onPhotoTakePress = () => {
     ImagePicker.launchCamera({
+      maxWidth: 1000,
+      maxHeight: 1000,
       noData: true,
       storageOptions: {
         cameraRoll: true,
@@ -40,12 +43,12 @@ export default class PhotoSelect extends Component {
       uri, type, didCancel, error,
     }) => {
       if (didCancel) {
-        console.log('ImagePicker::launchCamera cancel');
+        log('ImagePicker::launchCamera cancel');
         return;
       }
 
       if (error) {
-        console.log('ImagePicker::launchCamera::error', error);
+        log('ImagePicker::launchCamera::error', error);
         return;
       }
 
@@ -55,22 +58,28 @@ export default class PhotoSelect extends Component {
 
   onPhotoSelectPress = () => {
     ImagePicker.launchImageLibrary({
+      maxWidth: 1000,
+      maxHeight: 1000,
       noData: true,
       storageOptions: {
         waitUntilSaved: true,
       },
     }, ({
-      uri, type, didCancel, error,
+      uri, type, didCancel, error, width, height, fileSize
     }) => {
       if (didCancel) {
-        console.log('ImagePicker::launchImageLibrary cancel');
+        log('ImagePicker::launchImageLibrary cancel');
         return;
       }
 
       if (error) {
-        console.log('ImagePicker::launchImageLibrary::error', error);
+        log('ImagePicker::launchImageLibrary::error', error);
         return;
       }
+
+      log('ImagePicker::image::width', width);
+      log('ImagePicker::image::height', height);
+      log('ImagePicker::image::fileSize', fileSize);
 
       this.props.actions.uploadMasterPhoto({ uri, type }, this.props.name);
     });
@@ -106,6 +115,7 @@ export default class PhotoSelect extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignSelf: 'stretch',
     justifyContent: 'flex-end',
   },
   inner: {

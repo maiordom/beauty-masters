@@ -8,7 +8,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
-const onPress = () => drawerOpen({ contentKey: 'SideBar' });
+const onPress = () => drawerOpen();
 
 const menuIcon = require('../../icons/menu.png');
 

@@ -1,7 +1,14 @@
 // @flow
 
-import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
+import React, { PureComponent } from 'react';
+import {
+  Dimensions,
+  Modal,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -10,9 +17,12 @@ import Input from '../Input';
 import Label from '../Label';
 import MasterPhotoList from '../MasterEditor/MasterPhotoList';
 import Switch from '../Switch';
+import PhotoMaster from '../../containers/PhotoMaster';
 
 import i18n from '../../i18n';
+import vars from '../../vars';
 import { trackEvent } from '../../utils/Tracker';
+import { hexToRgba } from '../../utils';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
@@ -43,10 +53,14 @@ type TProps = {
 
 type TState = {
   certificatesShow: boolean,
+  photoMasterModalVisible: boolean,
 };
 
-export default class MasterEditorInfo extends Component<TProps, TState> {
-  state = { certificatesShow: false };
+export default class MasterEditorInfo extends PureComponent<TProps, TState> {
+  state = {
+    certificatesShow: false,
+    photoMasterModalVisible: false,
+  };
 
   componentDidMount() {
     if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
@@ -55,12 +69,9 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 
   onPhotoSelectPress = (modelName: string) => {
-    this.props.actions.drawerOpen({
-      contentKey: 'PhotoMaster',
-      drawerParams: {
-        panCloseMask: 0,
-      },
-      name: modelName,
+    this.setState({
+      photoMasterModalParams: { name: modelName },
+      photoMasterModalVisible: true,
     });
   };
 
@@ -126,6 +137,10 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
     });
   };
 
+  togglePhotoMasterVisibility = () => {
+    this.setState({ photoMasterModalVisible: false });
+  };
+
   render() {
     const {
       aboutField,
@@ -135,11 +150,20 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
       workPhotos,
     } = this.props;
 
-    const { certificatesShow } = this.state;
+    const {
+      certificatesShow,
+      photoMasterModalParams,
+      photoMasterModalVisible,
+    } = this.state;
 
     return (
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
+        <PhotoMasterModal
+          onRequestClose={this.togglePhotoMasterVisibility}
+          props={photoMasterModalParams}
+          visible={photoMasterModalVisible}
+        />
         <ScrollView style={styles.inner}>
           <View style={styles.scrollViewInner}>
             <Label
@@ -208,7 +232,33 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 }
 
+const PhotoMasterModal = ({
+  onRequestClose,
+  props,
+  visible
+}) => (
+  <Modal
+    animationType="slide"
+    onRequestClose={onRequestClose}
+    transparent
+    visible={visible}
+  >
+    <View style={styles.modalContainer}>
+      <PhotoMaster
+        {...props}
+        onRequestClose={onRequestClose}
+      />
+    </View>
+  </Modal>
+);
+
 const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: hexToRgba(vars.color.black, 40),
+  },
   photosLabel: {
     marginBottom: 8,
   },

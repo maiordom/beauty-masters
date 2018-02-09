@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import RNDrawer from 'react-native-drawer';
 import { DefaultRenderer } from 'react-native-router-flux';
 
-import PhotoMaster from '../containers/PhotoMaster';
 import Sidebar from '../containers/Sidebar';
 
 import { drawerClose } from '../actions/Drawer';
@@ -16,29 +15,15 @@ export default class Drawer extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    const {
-      contentKey,
-      openDrawerOffset,
-      drawerParams = {},
-    } = this.props;
-
-    const { panCloseMask = 0.2 } = drawerParams;
-
-    let content;
-
-    switch (contentKey) {
-      case 'PhotoMaster': content = <PhotoMaster {...this.props} />; break;
-      default: content = <Sidebar {...this.props} />;
-    }
 
     return (
       <RNDrawer
         type="overlay"
         captureGestures="open"
         open={state.open}
-        content={content}
-        openDrawerOffset={openDrawerOffset || 0}
-        panCloseMask={panCloseMask}
+        content={<Sidebar {...this.props} />}
+        openDrawerOffset={0.125}
+        panCloseMask={0.2}
         negotiatePan
         tweenDuration={200}
         onClose={this.onClose}
