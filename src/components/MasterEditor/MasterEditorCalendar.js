@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 import ButtonControl from '../ButtonControl';
 import EditControl from '../EditControl';
@@ -57,27 +57,29 @@ export default class MasterEditorCalendar extends Component<TProps, void> {
     return (
       <View style={styles.container}>
         <View style={styles.selectCalendar}>
-          <TouchableWithoutFeedback onPress={() => this.onCalendarPress('calendarSettingsOne')}>
-            <View style={styles.openCalendar}>
-              <Text style={styles.openCalendarText}>
-                {addressValues[0] || i18n.addAddress[0]}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => this.onCalendarPress('calendarSettingsTwo')}>
-            <View style={styles.openCalendar}>
-              <Text style={styles.openCalendarText}>
-                {addressValues[1] || i18n.addAddress[1]}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => this.onCalendarPress('calendarSettingsThree')}>
-            <View style={styles.openCalendar}>
-              <Text style={styles.openCalendarText}>
-                {addressValues[2] || i18n.addAddress[2]}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
+          <View style={styles.itemsContainer}>
+            <TouchableWithoutFeedback onPress={() => this.onCalendarPress('calendarSettingsOne')}>
+              <View style={[styles.openCalendar, styles.itemSeparator]}>
+                <Text style={styles.openCalendarText}>
+                  {addressValues[0] || i18n.addAddress[0]}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => this.onCalendarPress('calendarSettingsTwo')}>
+              <View style={[styles.openCalendar, styles.itemSeparator]}>
+                <Text style={styles.openCalendarText}>
+                  {addressValues[1] || i18n.addAddress[1]}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => this.onCalendarPress('calendarSettingsThree')}>
+              <View style={styles.openCalendar}>
+                <Text style={styles.openCalendarText}>
+                  {addressValues[2] || i18n.addAddress[2]}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
         </View>
         {cardType === 'create'
           ? <ButtonControl onPress={this.onNextPress} />
@@ -94,14 +96,41 @@ export default class MasterEditorCalendar extends Component<TProps, void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    ...Platform.select({
+      ios: {
+        backgroundColor: vars.color.lightGrey,
+      },
+    }),
+  },
+  itemsContainer: {
+    ...Platform.select({
+      ios: {
+        paddingLeft: 16,
+        backgroundColor: vars.color.white,
+        borderBottomWidth: 1,
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
+  },
+  itemSeparator: {
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 1,
+        borderBottomColor: vars.color.cellSeparatorColorIOS,
+      },
+    }),
   },
   selectCalendar: {
     flex: 1,
   },
   openCalendar: {
     height: 48,
-    paddingLeft: 16,
     justifyContent: 'center',
+    ...Platform.select({
+      android: {
+        paddingLeft: 16,
+      },
+    }),
   },
   openCalendarText: {
     fontSize: 16,
