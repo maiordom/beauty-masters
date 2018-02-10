@@ -7,7 +7,7 @@ import map from 'lodash/map';
 import AutocompleteList from '../../components/AutocompleteList';
 import NavBar from '../../components/NavBar';
 
-import { getCities, searchCity, selectCity } from '../../actions/MasterEdit';
+import { getCities, searchCity, selectCity } from '../../actions/Master';
 
 const mapStateToProps = (state, ownProps) => {
   const { cities } = state.masterEditor[ownProps.modelName];

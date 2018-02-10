@@ -7,7 +7,7 @@ import map from 'lodash/map';
 import AutocompleteList from '../../components/AutocompleteList';
 import NavBar from '../../components/NavBar';
 
-import { getSubwayStations, searchSubwayStation, selectSubwayStation } from '../../actions/MasterEdit';
+import { getSubwayStations, searchSubwayStation, selectSubwayStation } from '../../actions/Master';
 import i18n from '../../i18n';
 
 const mapStateToProps = (state, ownProps) => {

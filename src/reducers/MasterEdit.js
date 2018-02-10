@@ -1,10 +1,6 @@
 import find from 'lodash/find';
-import omitBy from 'lodash/omitBy';
 import isEmpty from 'lodash/isEmpty';
-import startsWith from 'lodash/startsWith';
-import lowerCase from 'lodash/lowerCase';
-import filter from 'lodash/filter';
-import sortBy from 'lodash/sortBy';
+import omitBy from 'lodash/omitBy';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -336,70 +332,6 @@ export default makeReducer(() => ({
     setPhotos({ model: state.masterEditor.info.workPhotos, data: workPhotos });
 
     deepUpdate(state, 'masterEditor.editStatus', { photos: 'uploaded' });
-    return state;
-  },
-
-  [actions.MASTER_EDIT_CITY_MODEL_SET]: (state, { payload: { cities } }) => {
-    ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string) => {
-      deepUpdate(state, `masterEditor.${key}.cities`, {
-        items: cities,
-        filtered: null,
-      });
-    });
-    return state;
-  },
-
-  [actions.MASTER_EDIT_CITY_FIND]: (state, { payload: { text, modelName } }) => {
-    const { cities } = state.masterEditor[modelName];
-    const filtered = filter(cities.items, (city) => (
-      startsWith(lowerCase(city.name), lowerCase(text))));
-
-    return deepUpdate(state, `masterEditor.${modelName}.cities`, { filtered });
-  },
-
-  [actions.MASTER_EDIT_CITY_SET]: (state, { payload: { id, modelName } }) => {
-    const { cities } = state.masterEditor[modelName];
-    const selected = cities.items.find((city) => city.id === id);
-
-    if (!state.masterEditor[modelName].addressField.value) {
-      deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
-        lat: selected.lat,
-        lon: selected.lon,
-      });
-    }
-
-    deepUpdate(state, `masterEditor.${modelName}.cities`, { selected });
-    deepUpdate(state, `masterEditor.${modelName}.cityField`, { value: selected.name });
-    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, { city: selected.name });
-
-    return state;
-  },
-
-  [actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET]: (state, { payload: { modelName, subwayStations } }) => (
-    deepUpdate(state, `masterEditor.${modelName}.subwayStations`, {
-      items: sortBy(subwayStations, 'name'),
-      filtered: null,
-    })
-  ),
-
-  [actions.MASTER_EDIT_SUBWAY_STATION_FIND]: (state, { payload: { text, modelName } }) => {
-    const { subwayStations } = state.masterEditor[modelName];
-    const filtered = filter(subwayStations.items, (station) => (
-      startsWith(lowerCase(station.name), lowerCase(text))));
-
-    return deepUpdate(state, `masterEditor.${modelName}.subwayStations`, { filtered });
-  },
-
-  [actions.MASTER_EDIT_SUBWAY_STATION_SET]: (state, { payload: { id, modelName } }) => {
-    const { subwayStations } = state.masterEditor[modelName];
-    const selected = subwayStations.items.find((station) => station.id === id);
-
-    deepUpdate(state, `masterEditor.${modelName}.subwayStations`, { selected });
-    deepUpdate(state, `masterEditor.${modelName}.subwayStationField`, { value: selected.name });
-    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
-      subway_station: selected.name,
-    });
-
     return state;
   },
 }));

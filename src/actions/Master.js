@@ -1,10 +1,15 @@
+import isEmpty from 'lodash/isEmpty';
+
 import { TCreateMaster } from '../types/CreateMaster';
+import type { TCity } from '../types/City';
+import type { TSubwayStation } from '../types/SubwayStation';
 
 import * as MasterService from '../services/Master';
 import * as PhotoService from '../services/Photo';
 
 import actions from '../constants/Master';
 
+import { fetchCities, fetchSubwayStations } from './Geo';
 import { setActivityIndicator } from './Common';
 
 export const createMaster = (customCreateMasterQuery?: TCreateMaster) => (dispatch, getState) => {
@@ -225,6 +230,80 @@ export const setCustomDatesField = (modelName, paramName, paramValue, sectionNam
 
 export const refreshEditor = () => ({
   type: actions.MASTER_EDITOR_REFRESH,
+});
+
+const masterEditCityModelSet = (cities: Array<TCity>) => (dispatch: Function) => {
+  dispatch({
+    type: actions.MASTER_CITY_MODEL_SET,
+    payload: { cities },
+  });
+};
+
+export const getCities = () => (dispatch: Function, getState: Function) => {
+  const state = getState();
+
+  if (!isEmpty(state.geo.cities)) {
+    dispatch(masterEditCityModelSet(state.geo.cities));
+  } else {
+    dispatch(fetchCities()).then(() => {
+      const state = getState();
+
+      dispatch(masterEditCityModelSet(state.geo.cities));
+    });
+  }
+};
+
+export const searchCity = (text: string, modelName: string) => ({
+  type: actions.MASTER_CITY_FIND,
+  payload: { text, modelName },
+});
+
+export const selectCity = (id: number, modelName: string) => ({
+  type: actions.MASTER_CITY_SET,
+  payload: {
+    id,
+    modelName,
+  },
+});
+
+const masterEditSubwayStationModelSet = (
+  modelName: string,
+  subwayStations: Array<TSubwayStation>
+) => (dispatch: Function) => {
+  dispatch({
+    type: actions.MASTER_SUBWAY_STATION_MODEL_SET,
+    payload: { subwayStations, modelName },
+  });
+};
+
+export const getSubwayStations = (
+  modelName: string,
+  cityId: number
+) => (dispatch: Function, getState: Function) => {
+  const state = getState();
+
+  if (!isEmpty(state.geo.subwayStations[cityId])) {
+    dispatch(masterEditSubwayStationModelSet(modelName, state.geo.subwayStations[cityId]));
+  } else {
+    dispatch(fetchSubwayStations(cityId)).then(() => {
+      const state = getState();
+
+      dispatch(masterEditSubwayStationModelSet(modelName, state.geo.subwayStations[cityId]));
+    });
+  }
+};
+
+export const searchSubwayStation = (text: string, modelName: string) => ({
+  type: actions.MASTER_SUBWAY_STATION_FIND,
+  payload: { text, modelName },
+});
+
+export const selectSubwayStation = (id: number, modelName: string) => ({
+  type: actions.MASTER_SUBWAY_STATION_SET,
+  payload: {
+    id,
+    modelName,
+  },
 });
 
 export {
