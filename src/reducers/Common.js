@@ -13,8 +13,8 @@ export default makeReducer((state, action) => ({
       lat,
     }),
 
-  [a.GEO_CITIES_SET]: () => deepUpdate(state, 'geo', {
-    cities: action.payload.cities,
+  [a.GEO_CITIES_SET]: (state, { payload: { cities } }) => deepUpdate(state, 'geo', {
+    cities,
   }),
 
   [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo.places', {

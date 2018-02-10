@@ -223,7 +223,13 @@ export default makeReducer((state, action) => ({
 
     deepUpdate(state, `masterEditor.${modelName}.cities`, { selected });
     deepUpdate(state, `masterEditor.${modelName}.cityField`, { value: selected.name });
-    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, { city: selected.name });
+    deepUpdate(state, `masterEditor.${modelName}.subwayStationField`, { value: null });
+    deepUpdate(state, `masterEditor.${modelName}.subwayStations`, {
+      selected: null,
+      items: [],
+      filtered: null,
+    });
+    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, { city: selected.name, subway_station: undefined });
 
     return state;
   },
