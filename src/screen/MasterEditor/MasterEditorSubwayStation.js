@@ -21,6 +21,7 @@ const mapStateToProps = (state, ownProps) => {
       label: station.name,
       description: `${station.line} ${i18n.metroLine}`,
     })),
+    searchType: 'press',
   };
 };
 

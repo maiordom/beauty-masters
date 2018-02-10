@@ -29,6 +29,7 @@ type TProps = {
     selectItem: (item: { label: string }) => void,
   },
   items: Array<TPlace>,
+  searchType: 'press' | 'specify',
   selected: TPlace,
   placeholder: string,
 };
@@ -42,6 +43,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
   static defaultProps = {
     items: [],
     placeholder: i18n.enterAddress,
+    searchType: 'specify',
   };
 
   onChange = (value: string) => this.searchItem(value);
@@ -84,6 +86,11 @@ export default class AutocompleteList extends Component<TProps, TState> {
   onItemSelect = (item: Object) => {
     const { selected } = this.state;
 
+    if (this.props.searchType === 'press') {
+      this.props.actions.selectItem(item);
+      return;
+    }
+
     if (selected && selected.label === item.label) {
       this.props.actions.selectItem(item);
     } else {
@@ -101,10 +108,10 @@ export default class AutocompleteList extends Component<TProps, TState> {
         <View style={styles.inner}>
           <Input
             debounce
-            style={styles.searchField}
             debounceTimer={1000}
             onChange={this.onChange}
             placeholder={placeholder}
+            style={styles.searchField}
             value={selected && selected.label}
           />
           {items.length > 0 && (

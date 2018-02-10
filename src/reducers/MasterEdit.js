@@ -371,13 +371,12 @@ export default makeReducer(() => ({
     return state;
   },
 
-  [actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET]: (state, { payload: { modelName, subwayStations } }) => (  
+  [actions.MASTER_EDIT_SUBWAY_STATION_MODEL_SET]: (state, { payload: { modelName, subwayStations } }) => (
     deepUpdate(state, `masterEditor.${modelName}.subwayStations`, {
       items: sortBy(subwayStations, 'name'),
       filtered: null,
     })
   ),
-
 
   [actions.MASTER_EDIT_SUBWAY_STATION_FIND]: (state, { payload: { text, modelName } }) => {
     const { subwayStations } = state.masterEditor[modelName];
@@ -394,7 +393,7 @@ export default makeReducer(() => ({
     deepUpdate(state, `masterEditor.${modelName}.subwayStations`, { selected });
     deepUpdate(state, `masterEditor.${modelName}.subwayStationField`, { value: selected.name });
     deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
-      subway_station: selected.id.toString(),
+      subway_station: selected.name,
     });
 
     return state;
