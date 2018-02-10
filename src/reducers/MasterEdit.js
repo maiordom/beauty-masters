@@ -361,13 +361,17 @@ export default makeReducer(() => ({
     const { cities } = state.masterEditor[modelName];
     const selected = cities.items.find((city) => city.id === id);
 
+    if (!state.masterEditor[modelName].addressField.value) {
+      deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
+        lat: selected.lat,
+        lon: selected.lon,
+      });
+    }
+
     deepUpdate(state, `masterEditor.${modelName}.cities`, { selected });
     deepUpdate(state, `masterEditor.${modelName}.cityField`, { value: selected.name });
-    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, {
-      city: selected.name,
-      lat: selected.lat,
-      lon: selected.lon,
-    });
+    deepUpdate(state, `masterEditor.${modelName}.createAddressQuery`, { city: selected.name });
+
     return state;
   },
 
