@@ -131,8 +131,10 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
               )}
               {titleType === 'input' && (
                 <Input
+                  debounce
+                  debounceTimer={500}
                   inputWrapperStyle={styles.titleInput}
-                  onBlur={this.onChangeTitle}
+                  onChange={this.onChangeTitle}
                   placeholder={titlePlaceholder}
                   value={title}
                 />
@@ -146,10 +148,12 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
           <View style={styles.fields}>
             <View style={[styles.inputWrapper, styles.rightBar]}>
               <Input
+                debounce
+                debounceTimer={500}
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onBlur={this.onChangePrice}
+                onChange={this.onChangePrice}
                 placeholder={i18n.filters.price}
                 ref={this.setPriceRef}
                 replaceReg={/[^0-9.]/g}
@@ -161,10 +165,12 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
             </View>
             <View style={styles.inputWrapper}>
               <Input
+                debounce
+                debounceTimer={500}
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onBlur={this.onChangeDuration}
+                onСhange={this.onChangeDuration}
                 placeholder={i18n.filters.duration}
                 ref={this.setDurationRef}
                 replaceReg={/[^0-9.]/g}

@@ -1,7 +1,17 @@
 import { Crashlytics } from 'react-native-fabric';
 
 export function log() {
-  console.log.apply(console, Array.prototype.slice.call(arguments));
+  const args = Array.prototype.slice.call(arguments);
+
+  if (!__DEV__) {
+    args.forEach((arg, index) => {
+      if (typeof arg === 'object') {
+        args[index] = JSON.stringify(arg);
+      }
+    });
+  }
+
+  console.log.apply(console, args);
 }
 
 export function sendLog(message: string) {

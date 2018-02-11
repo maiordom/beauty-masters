@@ -36,18 +36,18 @@ type TState = {
 class InputBase extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
     super(props);
+
+    this.debounceOnChange = debounce(() => {
+      const value = this.clearValue(this.state.value);
+
+      this.props.onChange && this.props.onChange(value, this.props.modelName);
+    }, props.debounceTimer || 1000);
   }
 
   state = {
     value: this.props.value && this.props.value.toString() || '',
     isFocused: false,
   };
-
-  debounceOnChange = () => debounce(() => {
-    const value = this.clearValue(this.state.value);
-
-    this.props.onChange && this.props.onChange(value, this.props.modelName);
-  }, this.props.debounceTimer || 1000)();
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== null

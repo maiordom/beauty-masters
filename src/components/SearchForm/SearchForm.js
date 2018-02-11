@@ -299,11 +299,11 @@ export default class SearchFormShort extends Component<TProps, TState> {
               onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />
           </StateMachine>
-          <ButtonControl
+          {false && (<ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
             customStyles={{ nextButton: styles.extendedSearch, nextText: styles.nextText }}
             onPress={this.toggleForm}
-          />
+          />)}
         </ScrollView>
         <ButtonControl
           label={i18n.findMaster}
