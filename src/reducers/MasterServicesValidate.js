@@ -8,10 +8,11 @@ export const validateGeneralServices = (state) => {
 
     service.hasValidationErrors = false;
 
-    each(service, model => {
+    each(service, (model) => {
       if (model.active) {
         activeServicesCount++;
-        if (!model.price) {
+
+        if (model.price === undefined || model.price === '') {
           model.errorFillPrice = true;
           service.hasValidationErrors = true;
         } else {
@@ -36,9 +37,9 @@ export const validateCustomServices = (state) => {
   [manicureCustomServices, pedicureCustomServices].forEach(service => {
     service.hasValidationErrors = false;
 
-    each(service.items, model => {
+    each(service.items, (model) => {
       if (model.active) {
-        if (!model.price) {
+        if (model.price === undefined || model.price === '') {
           model.errorFillPrice = true;
           service.hasValidationErrors = true;
         } else {

@@ -65,7 +65,7 @@ export default class ServicesListManicure extends PureComponent<TProps, TState> 
   };
 
   onChangePrice = (price: string, modelName: string) => {
-    this.props.onChangePrice(Number(price), modelName);
+    this.props.onChangePrice(price, modelName);
   };
 
   onChangeDuration = (duration: string, modelName: string) => {

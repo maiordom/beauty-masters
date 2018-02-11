@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform, Image } from 'react-native';
 
-import { formatNumber, shouldComponentUpdate } from '../utils';
+import { formatNumber } from '../utils';
 
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
@@ -60,7 +60,7 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
 
   onChangePrice = (price: string) => {
     this.props.onChangePrice && this.props.onChangePrice(
-      Number(price),
+      price ? Number(price) : '',
       this.props.modelName,
       this.props.index,
     );
@@ -156,7 +156,7 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
                 onChange={this.onChangePrice}
                 placeholder={i18n.filters.price}
                 ref={this.setPriceRef}
-                replaceReg={/[^0-9.]/g}
+                replaceReg={/[^0-9]/g}
                 sign={` ${i18n.currency.roubleSign}`}
                 value={price}
                 style={styles.priceInput}
@@ -173,7 +173,7 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
                 onСhange={this.onChangeDuration}
                 placeholder={i18n.filters.duration}
                 ref={this.setDurationRef}
-                replaceReg={/[^0-9.]/g}
+                replaceReg={/[^0-9]/g}
                 sign={` ${i18n.time.minuteShort}`}
                 value={duration}
                 style={styles.durationInput}
