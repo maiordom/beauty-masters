@@ -10,7 +10,6 @@ import { setLastMapLocation } from '../../actions/Map';
 
 const mapStateToProps = (state) => ({
   items: state.geo.places.items,
-  searchType: 'press',
   selected: state.geo.places.selected,
 });
 

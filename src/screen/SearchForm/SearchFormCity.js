@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
       ...city,
       label: city.name,
     })),
+    searchType: 'press',
   };
 };
 
