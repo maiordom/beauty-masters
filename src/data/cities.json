@@ -11,406 +11,106 @@
       "relationships": {
         "subway_stations": {
           "data": [
-            {
-              "type": "subway_station",
-              "id": "1"
-            },
-            {
-              "type": "subway_station",
-              "id": "2"
-            },
-            {
-              "type": "subway_station",
-              "id": "3"
-            },
-            {
-              "type": "subway_station",
-              "id": "4"
-            },
-            {
-              "type": "subway_station",
-              "id": "5"
-            },
-            {
-              "type": "subway_station",
-              "id": "6"
-            },
-            {
-              "type": "subway_station",
-              "id": "7"
-            },
-            {
-              "type": "subway_station",
-              "id": "8"
-            },
-            {
-              "type": "subway_station",
-              "id": "9"
-            },
-            {
-              "type": "subway_station",
-              "id": "10"
-            },
-            {
-              "type": "subway_station",
-              "id": "11"
-            },
-            {
-              "type": "subway_station",
-              "id": "12"
-            },
-            {
-              "type": "subway_station",
-              "id": "13"
-            },
-            {
-              "type": "subway_station",
-              "id": "14"
-            },
-            {
-              "type": "subway_station",
-              "id": "15"
-            },
-            {
-              "type": "subway_station",
-              "id": "16"
-            },
-            {
-              "type": "subway_station",
-              "id": "17"
-            },
-            {
-              "type": "subway_station",
-              "id": "18"
-            },
-            {
-              "type": "subway_station",
-              "id": "19"
-            },
-            {
-              "type": "subway_station",
-              "id": "20"
-            },
-            {
-              "type": "subway_station",
-              "id": "21"
-            },
-            {
-              "type": "subway_station",
-              "id": "22"
-            },
-            {
-              "type": "subway_station",
-              "id": "23"
-            },
-            {
-              "type": "subway_station",
-              "id": "24"
-            },
-            {
-              "type": "subway_station",
-              "id": "25"
-            },
-            {
-              "type": "subway_station",
-              "id": "26"
-            },
-            {
-              "type": "subway_station",
-              "id": "27"
-            },
-            {
-              "type": "subway_station",
-              "id": "28"
-            },
-            {
-              "type": "subway_station",
-              "id": "29"
-            },
-            {
-              "type": "subway_station",
-              "id": "30"
-            },
-            {
-              "type": "subway_station",
-              "id": "31"
-            },
-            {
-              "type": "subway_station",
-              "id": "32"
-            },
-            {
-              "type": "subway_station",
-              "id": "33"
-            },
-            {
-              "type": "subway_station",
-              "id": "34"
-            },
-            {
-              "type": "subway_station",
-              "id": "35"
-            },
-            {
-              "type": "subway_station",
-              "id": "36"
-            },
-            {
-              "type": "subway_station",
-              "id": "37"
-            },
-            {
-              "type": "subway_station",
-              "id": "38"
-            },
-            {
-              "type": "subway_station",
-              "id": "39"
-            },
-            {
-              "type": "subway_station",
-              "id": "40"
-            },
-            {
-              "type": "subway_station",
-              "id": "41"
-            },
-            {
-              "type": "subway_station",
-              "id": "42"
-            },
-            {
-              "type": "subway_station",
-              "id": "43"
-            },
-            {
-              "type": "subway_station",
-              "id": "44"
-            },
-            {
-              "type": "subway_station",
-              "id": "45"
-            },
-            {
-              "type": "subway_station",
-              "id": "46"
-            },
-            {
-              "type": "subway_station",
-              "id": "47"
-            },
-            {
-              "type": "subway_station",
-              "id": "48"
-            },
-            {
-              "type": "subway_station",
-              "id": "49"
-            },
-            {
-              "type": "subway_station",
-              "id": "50"
-            },
-            {
-              "type": "subway_station",
-              "id": "51"
-            },
-            {
-              "type": "subway_station",
-              "id": "52"
-            },
-            {
-              "type": "subway_station",
-              "id": "53"
-            },
-            {
-              "type": "subway_station",
-              "id": "54"
-            },
-            {
-              "type": "subway_station",
-              "id": "55"
-            },
-            {
-              "type": "subway_station",
-              "id": "56"
-            },
-            {
-              "type": "subway_station",
-              "id": "57"
-            },
-            {
-              "type": "subway_station",
-              "id": "58"
-            },
-            {
-              "type": "subway_station",
-              "id": "59"
-            },
-            {
-              "type": "subway_station",
-              "id": "60"
-            },
-            {
-              "type": "subway_station",
-              "id": "61"
-            },
-            {
-              "type": "subway_station",
-              "id": "62"
-            },
-            {
-              "type": "subway_station",
-              "id": "63"
-            },
-            {
-              "type": "subway_station",
-              "id": "64"
-            },
-            {
-              "type": "subway_station",
-              "id": "65"
-            },
-            {
-              "type": "subway_station",
-              "id": "66"
-            },
-            {
-              "type": "subway_station",
-              "id": "67"
-            },
-            {
-              "type": "subway_station",
-              "id": "68"
-            },
-            {
-              "type": "subway_station",
-              "id": "69"
-            },
-            {
-              "type": "subway_station",
-              "id": "70"
-            },
-            {
-              "type": "subway_station",
-              "id": "71"
-            },
-            {
-              "type": "subway_station",
-              "id": "72"
-            },
-            {
-              "type": "subway_station",
-              "id": "73"
-            },
-            {
-              "type": "subway_station",
-              "id": "74"
-            },
-            {
-              "type": "subway_station",
-              "id": "75"
-            },
-            {
-              "type": "subway_station",
-              "id": "76"
-            },
-            {
-              "type": "subway_station",
-              "id": "77"
-            },
-            {
-              "type": "subway_station",
-              "id": "78"
-            },
-            {
-              "type": "subway_station",
-              "id": "79"
-            },
-            {
-              "type": "subway_station",
-              "id": "80"
-            },
-            {
-              "type": "subway_station",
-              "id": "81"
-            },
-            {
-              "type": "subway_station",
-              "id": "82"
-            },
-            {
-              "type": "subway_station",
-              "id": "83"
-            },
-            {
-              "type": "subway_station",
-              "id": "84"
-            },
-            {
-              "type": "subway_station",
-              "id": "85"
-            },
-            {
-              "type": "subway_station",
-              "id": "86"
-            },
-            {
-              "type": "subway_station",
-              "id": "87"
-            },
-            {
-              "type": "subway_station",
-              "id": "88"
-            },
-            {
-              "type": "subway_station",
-              "id": "89"
-            },
-            {
-              "type": "subway_station",
-              "id": "90"
-            },
-            {
-              "type": "subway_station",
-              "id": "91"
-            },
-            {
-              "type": "subway_station",
-              "id": "92"
-            },
-            {
-              "type": "subway_station",
-              "id": "93"
-            },
-            {
-              "type": "subway_station",
-              "id": "94"
-            },
-            {
-              "type": "subway_station",
-              "id": "95"
-            },
-            {
-              "type": "subway_station",
-              "id": "96"
-            },
-            {
-              "type": "subway_station",
-              "id": "97"
-            },
-            {
-              "type": "subway_station",
-              "id": "98"
-            },
-            {
-              "type": "subway_station",
-              "id": "99"
-            },
-            {
-              "type": "subway_station",
-              "id": "100"
-            }
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ]
         }
       }
@@ -426,274 +126,73 @@
       "relationships": {
         "subway_stations": {
           "data": [
-            {
-              "type": "subway_station",
-              "id": "238"
-            },
-            {
-              "type": "subway_station",
-              "id": "239"
-            },
-            {
-              "type": "subway_station",
-              "id": "240"
-            },
-            {
-              "type": "subway_station",
-              "id": "241"
-            },
-            {
-              "type": "subway_station",
-              "id": "242"
-            },
-            {
-              "type": "subway_station",
-              "id": "243"
-            },
-            {
-              "type": "subway_station",
-              "id": "244"
-            },
-            {
-              "type": "subway_station",
-              "id": "245"
-            },
-            {
-              "type": "subway_station",
-              "id": "246"
-            },
-            {
-              "type": "subway_station",
-              "id": "247"
-            },
-            {
-              "type": "subway_station",
-              "id": "248"
-            },
-            {
-              "type": "subway_station",
-              "id": "249"
-            },
-            {
-              "type": "subway_station",
-              "id": "250"
-            },
-            {
-              "type": "subway_station",
-              "id": "251"
-            },
-            {
-              "type": "subway_station",
-              "id": "252"
-            },
-            {
-              "type": "subway_station",
-              "id": "253"
-            },
-            {
-              "type": "subway_station",
-              "id": "254"
-            },
-            {
-              "type": "subway_station",
-              "id": "255"
-            },
-            {
-              "type": "subway_station",
-              "id": "256"
-            },
-            {
-              "type": "subway_station",
-              "id": "257"
-            },
-            {
-              "type": "subway_station",
-              "id": "258"
-            },
-            {
-              "type": "subway_station",
-              "id": "259"
-            },
-            {
-              "type": "subway_station",
-              "id": "260"
-            },
-            {
-              "type": "subway_station",
-              "id": "261"
-            },
-            {
-              "type": "subway_station",
-              "id": "262"
-            },
-            {
-              "type": "subway_station",
-              "id": "263"
-            },
-            {
-              "type": "subway_station",
-              "id": "264"
-            },
-            {
-              "type": "subway_station",
-              "id": "265"
-            },
-            {
-              "type": "subway_station",
-              "id": "266"
-            },
-            {
-              "type": "subway_station",
-              "id": "267"
-            },
-            {
-              "type": "subway_station",
-              "id": "268"
-            },
-            {
-              "type": "subway_station",
-              "id": "269"
-            },
-            {
-              "type": "subway_station",
-              "id": "270"
-            },
-            {
-              "type": "subway_station",
-              "id": "271"
-            },
-            {
-              "type": "subway_station",
-              "id": "272"
-            },
-            {
-              "type": "subway_station",
-              "id": "273"
-            },
-            {
-              "type": "subway_station",
-              "id": "274"
-            },
-            {
-              "type": "subway_station",
-              "id": "275"
-            },
-            {
-              "type": "subway_station",
-              "id": "276"
-            },
-            {
-              "type": "subway_station",
-              "id": "277"
-            },
-            {
-              "type": "subway_station",
-              "id": "278"
-            },
-            {
-              "type": "subway_station",
-              "id": "279"
-            },
-            {
-              "type": "subway_station",
-              "id": "280"
-            },
-            {
-              "type": "subway_station",
-              "id": "281"
-            },
-            {
-              "type": "subway_station",
-              "id": "282"
-            },
-            {
-              "type": "subway_station",
-              "id": "283"
-            },
-            {
-              "type": "subway_station",
-              "id": "284"
-            },
-            {
-              "type": "subway_station",
-              "id": "285"
-            },
-            {
-              "type": "subway_station",
-              "id": "286"
-            },
-            {
-              "type": "subway_station",
-              "id": "287"
-            },
-            {
-              "type": "subway_station",
-              "id": "288"
-            },
-            {
-              "type": "subway_station",
-              "id": "289"
-            },
-            {
-              "type": "subway_station",
-              "id": "290"
-            },
-            {
-              "type": "subway_station",
-              "id": "291"
-            },
-            {
-              "type": "subway_station",
-              "id": "292"
-            },
-            {
-              "type": "subway_station",
-              "id": "293"
-            },
-            {
-              "type": "subway_station",
-              "id": "294"
-            },
-            {
-              "type": "subway_station",
-              "id": "295"
-            },
-            {
-              "type": "subway_station",
-              "id": "296"
-            },
-            {
-              "type": "subway_station",
-              "id": "297"
-            },
-            {
-              "type": "subway_station",
-              "id": "298"
-            },
-            {
-              "type": "subway_station",
-              "id": "299"
-            },
-            {
-              "type": "subway_station",
-              "id": "300"
-            },
-            {
-              "type": "subway_station",
-              "id": "301"
-            },
-            {
-              "type": "subway_station",
-              "id": "302"
-            },
-            {
-              "type": "subway_station",
-              "id": "303"
-            },
-            {
-              "type": "subway_station",
-              "id": "304"
-            }
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ]
         }
       }
