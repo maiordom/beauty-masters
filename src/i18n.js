@@ -19,6 +19,7 @@ export default {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
   },
+  clear: 'Очистить',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -16,17 +17,22 @@ import { shouldComponentUpdate } from '../utils';
 
 type TProps = {
   active?: boolean,
+  controlTitle?: string,
   customStyles?: Object,
   modelName?: string,
   onChange: (active?: boolean, modelName?: string) => void,
+  shouldShowSeparator?: boolean,
   spacing?: boolean,
   subtitle?: string,
   title: string,
-  shouldShowSeparator?: boolean,
 };
 
 export default class Filter extends PureComponent<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
+
+  onControlPress = () => {
+    this.props.onControlPress && this.props.onControlPress();
+  };
 
   onPress = () => {
     this.props.onChange(!this.props.active, this.props.modelName);
@@ -47,11 +53,12 @@ export default class Filter extends PureComponent<TProps, void> {
 
   render() {
     const {
+      controlTitle,
       customStyles = {},
+      shouldShowSeparator = true,
       spacing = true,
       subtitle,
       title,
-      shouldShowSeparator = true,
     } = this.props;
 
     return (
@@ -67,7 +74,14 @@ export default class Filter extends PureComponent<TProps, void> {
           ]}
         >
           <View style={[styles.buttonContent, this.getButtonContentHeight()]}>
-            <Text style={styles.title}>{title}</Text>
+            <View style={styles.titleWrapper}>
+              <Text style={styles.title}>{title}</Text>
+              {controlTitle && (
+                <TouchableOpacity onPress={this.onControlPress}>
+                  <Text>{controlTitle}</Text>
+                </TouchableOpacity>
+              )}
+            </View>
             {subtitle && (
               <Text style={styles.subtitle}>{subtitle}</Text>
             )}
@@ -83,6 +97,12 @@ export default class Filter extends PureComponent<TProps, void> {
 
 const styles = StyleSheet.create({
   container: {},
+  titleWrapper: {
+    alignSelf: 'stretch',
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   spacing: {
     paddingLeft: 15,
     paddingRight: 15,

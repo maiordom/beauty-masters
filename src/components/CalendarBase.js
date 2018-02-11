@@ -311,7 +311,7 @@ export default class Calendar extends Component<TProps, void> {
             ? <Image source={prevButtonImage} />
             : <Text style={styles.controlButtonText}>
               {this.props.prevButtonText}
-              </Text>
+            </Text>
           }
         </TouchableOpacity>
         <Text style={styles.title}>
@@ -322,7 +322,7 @@ export default class Calendar extends Component<TProps, void> {
             ? <Image source={nextButtonImage} />
             : <Text style={styles.controlButtonText}>
               {this.props.nextButtonText}
-              </Text>
+            </Text>
           }
         </TouchableOpacity>
       </View>

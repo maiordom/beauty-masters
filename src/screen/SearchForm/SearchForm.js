@@ -12,6 +12,7 @@ import mapValues from 'lodash/mapValues';
 import {
   setDay,
   setMasterType,
+  setSearchLocationName,
   toggleDeparture,
   toggleExtension,
   toggleManicure,
@@ -20,6 +21,9 @@ import {
   toggleServiceCategory,
   toggleWithdrawal,
 } from '../../actions/Search';
+
+import { placesReset } from '../../actions/Geo';
+import { setLastMapLocation } from '../../actions/Map';
 
 import SearchForm from '../../components/SearchForm/SearchForm';
 import NavBar from '../../components/NavBar';
@@ -52,8 +56,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
+const mapDispatchToProps = (dispatch) => {
+  const actions = bindActionCreators({
     onSearchLocation: Actions.masterLocation,
     setDay,
     setMasterType,
@@ -64,7 +68,18 @@ const mapDispatchToProps = dispatch => ({
     toggleService,
     toggleServiceCategory,
     toggleWithdrawal,
-  }, dispatch),
-});
+  }, dispatch);
+
+  return {
+    actions: {
+      ...actions,
+      clearAddress() {
+        dispatch(placesReset());
+        dispatch(setSearchLocationName(null));
+        dispatch(setLastMapLocation(null));
+      },
+    }
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(SearchForm));
