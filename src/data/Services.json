@@ -2,11 +2,74 @@
   "data": [
     {
       "type": "service",
+      "id": "13",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureReverseFrench",
+        "title": "Лунный/обратный френч"
+      }
+    },
+    {
+      "type": "service",
+      "id": "14",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicReverseMoon",
+        "title": "Обратный лунный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "15",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureStencil",
+        "title": "Трафаретный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "17",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureGradient",
+        "title": "Градиентный маникюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "22",
+      "attributes": {
+        "category_id": 9,
+        "key": "ManicureRemovingNailPolish",
+        "title": "Лак"
+      }
+    },
+    {
+      "type": "service",
       "id": "1",
       "attributes": {
         "category_id": 5,
         "key": "ClassicManicure",
         "title": "Обрезной/классический"
+      }
+    },
+    {
+      "type": "service",
+      "id": "9",
+      "attributes": {
+        "category_id": 6,
+        "key": "ManicureShellac",
+        "title": "Шеллак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "8",
+      "attributes": {
+        "category_id": 6,
+        "key": "ManicureNailPolish",
+        "title": "Лак"
       }
     },
     {
@@ -25,6 +88,15 @@
         "category_id": 5,
         "key": "EuropeanManicure",
         "title": "Европейский/необрезной"
+      }
+    },
+    {
+      "type": "service",
+      "id": "12",
+      "attributes": {
+        "category_id": 7,
+        "key": "ManicureFrench",
+        "title": "Французский"
       }
     },
     {
@@ -65,24 +137,6 @@
     },
     {
       "type": "service",
-      "id": "8",
-      "attributes": {
-        "category_id": 6,
-        "key": "ManicureNailPolish",
-        "title": "Лак"
-      }
-    },
-    {
-      "type": "service",
-      "id": "9",
-      "attributes": {
-        "category_id": 6,
-        "key": "ManicureShellac",
-        "title": "Шеллак"
-      }
-    },
-    {
-      "type": "service",
       "id": "10",
       "attributes": {
         "category_id": 6,
@@ -101,56 +155,11 @@
     },
     {
       "type": "service",
-      "id": "12",
-      "attributes": {
-        "category_id": 7,
-        "key": "ManicureFrench",
-        "title": "Французский"
-      }
-    },
-    {
-      "type": "service",
-      "id": "13",
-      "attributes": {
-        "category_id": 7,
-        "key": "ManicureReverseFrench",
-        "title": "Лунный/обратный френч"
-      }
-    },
-    {
-      "type": "service",
-      "id": "14",
-      "attributes": {
-        "category_id": 7,
-        "key": "ManicReverseMoon",
-        "title": "Обратный лунный"
-      }
-    },
-    {
-      "type": "service",
-      "id": "15",
-      "attributes": {
-        "category_id": 7,
-        "key": "ManicureStencil",
-        "title": "Трафаретный"
-      }
-    },
-    {
-      "type": "service",
       "id": "16",
       "attributes": {
         "category_id": 7,
         "key": "ManicureArtDesign",
         "title": "Художественный дизайн"
-      }
-    },
-    {
-      "type": "service",
-      "id": "17",
-      "attributes": {
-        "category_id": 7,
-        "key": "ManicureGradient",
-        "title": "Градиентный маникюр"
       }
     },
     {
@@ -191,15 +200,6 @@
     },
     {
       "type": "service",
-      "id": "22",
-      "attributes": {
-        "category_id": 9,
-        "key": "ManicureRemovingNailPolish",
-        "title": "Лак"
-      }
-    },
-    {
-      "type": "service",
       "id": "23",
       "attributes": {
         "category_id": 9,
@@ -232,105 +232,6 @@
         "category_id": 9,
         "key": "ManicureRemovingNails",
         "title": "Нарощенных ногтей"
-      }
-    },
-    {
-      "type": "service",
-      "id": "27",
-      "attributes": {
-        "category_id": 11,
-        "key": "ClassicPedicure",
-        "title": "Обрезной/классический"
-      }
-    },
-    {
-      "type": "service",
-      "id": "28",
-      "attributes": {
-        "category_id": 11,
-        "key": "HardwarePedicure",
-        "title": "Аппаратный"
-      }
-    },
-    {
-      "type": "service",
-      "id": "29",
-      "attributes": {
-        "category_id": 11,
-        "key": "EuropeanPedicure",
-        "title": "Европейский/необрезной"
-      }
-    },
-    {
-      "type": "service",
-      "id": "30",
-      "attributes": {
-        "category_id": 11,
-        "key": "CombinedPedicure",
-        "title": "Комбинированный"
-      }
-    },
-    {
-      "type": "service",
-      "id": "31",
-      "attributes": {
-        "category_id": 11,
-        "key": "ExpressPedicure",
-        "title": "Экспресс"
-      }
-    },
-    {
-      "type": "service",
-      "id": "32",
-      "attributes": {
-        "category_id": 11,
-        "key": "HotPedicure",
-        "title": "Горячий педикюр"
-      }
-    },
-    {
-      "type": "service",
-      "id": "33",
-      "attributes": {
-        "category_id": 11,
-        "key": "SPAPedicure",
-        "title": "SPA-педикюр"
-      }
-    },
-    {
-      "type": "service",
-      "id": "34",
-      "attributes": {
-        "category_id": 12,
-        "key": "PedicureNailPolish",
-        "title": "Лак"
-      }
-    },
-    {
-      "type": "service",
-      "id": "35",
-      "attributes": {
-        "category_id": 12,
-        "key": "PedicureShellac",
-        "title": "Шеллак"
-      }
-    },
-    {
-      "type": "service",
-      "id": "36",
-      "attributes": {
-        "category_id": 12,
-        "key": "PedicureBiogel",
-        "title": "Биогель"
-      }
-    },
-    {
-      "type": "service",
-      "id": "37",
-      "attributes": {
-        "category_id": 12,
-        "key": "PedicureGelNailPolish",
-        "title": "Другой гель-лак"
       }
     },
     {
@@ -556,6 +457,105 @@
         "category_id": 10,
         "key": "AtHome",
         "title": "Выезд на дом"
+      }
+    },
+    {
+      "type": "service",
+      "id": "27",
+      "attributes": {
+        "category_id": 11,
+        "key": "ClassicPedicure",
+        "title": "Обрезной/классический"
+      }
+    },
+    {
+      "type": "service",
+      "id": "28",
+      "attributes": {
+        "category_id": 11,
+        "key": "HardwarePedicure",
+        "title": "Аппаратный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "29",
+      "attributes": {
+        "category_id": 11,
+        "key": "EuropeanPedicure",
+        "title": "Европейский/необрезной"
+      }
+    },
+    {
+      "type": "service",
+      "id": "35",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureShellac",
+        "title": "Шеллак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "34",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureNailPolish",
+        "title": "Лак"
+      }
+    },
+    {
+      "type": "service",
+      "id": "30",
+      "attributes": {
+        "category_id": 11,
+        "key": "CombinedPedicure",
+        "title": "Комбинированный"
+      }
+    },
+    {
+      "type": "service",
+      "id": "31",
+      "attributes": {
+        "category_id": 11,
+        "key": "ExpressPedicure",
+        "title": "Экспресс"
+      }
+    },
+    {
+      "type": "service",
+      "id": "32",
+      "attributes": {
+        "category_id": 11,
+        "key": "HotPedicure",
+        "title": "Горячий педикюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "33",
+      "attributes": {
+        "category_id": 11,
+        "key": "SPAPedicure",
+        "title": "SPA-педикюр"
+      }
+    },
+    {
+      "type": "service",
+      "id": "36",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureBiogel",
+        "title": "Биогель"
+      }
+    },
+    {
+      "type": "service",
+      "id": "37",
+      "attributes": {
+        "category_id": 12,
+        "key": "PedicureGelNailPolish",
+        "title": "Другой гель-лак"
       }
     }
   ]

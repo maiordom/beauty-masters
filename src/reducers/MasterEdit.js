@@ -137,6 +137,20 @@ export default makeReducer(() => ({
       calendarModel.addressId = address.id;
       calendarModel.timeTableId = address.timeTable.id;
 
+      calendarModel.cities = {
+        filtered: null,
+        items: state.geo.cities,
+        selected: {},
+      };
+
+      if (address.city) {
+        const selectedCity = find(state.geo.cities, { name: address.city });
+
+        if (selectedCity) {
+          calendarModel.cities.selected = selectedCity;
+        }
+      }
+
       [
         createPayload(sectionName, 'salonTitleField', address.name, 'value'),
         createPayload(sectionName, 'addressField', address.address, 'value'),

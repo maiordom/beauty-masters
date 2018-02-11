@@ -232,7 +232,7 @@ export const refreshEditor = () => ({
   type: actions.MASTER_EDITOR_REFRESH,
 });
 
-const masterEditCityModelSet = (cities: Array<TCity>) => (dispatch: Function) => {
+export const masterEditCityModelSet = (cities: Array<TCity>) => (dispatch: Function) => {
   dispatch({
     type: actions.MASTER_CITY_MODEL_SET,
     payload: { cities },

@@ -57,13 +57,20 @@ export const getPlaceDetails = (place) => {
 export const fetchCities = () => (dispatch: Function) => (
   CityService.getCities().then((res: Object) => {
     if (!res.error) {
-      dispatch({
-        type: actions.GEO_CITIES_SET,
-        payload: { cities: res.cities },
-      });
+      dispatch(setCities(res.cities));
     }
   })
 );
+
+export const setCities = (cities) => ({
+  type: actions.GEO_CITIES_SET,
+  payload: { cities },
+});
+
+export const setRawCities = (rawCities) => ({
+  type: actions.GEO_CITIES_SET,
+  payload: { cities: CityService.mapGetCityResponse(rawCities.data) },
+});
 
 export const fetchSubwayStations = (cityId: number) => (dispatch: Function) => (
   SubwayStationService.getSubwayStations(cityId).then((res: Object) => {
