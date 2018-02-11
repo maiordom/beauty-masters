@@ -50,8 +50,12 @@ export default class MasterEditorCreateSuccess extends Component<void, TProps> {
     this.props.actions.createMaster({ status: MASTER_CARD_STATUS.MODERATION }).then(() => {
       if (this.props.isSalon) {
         trackEvent('step6SalonMore');
+        trackEvent('step6Salon');
+        trackEvent('step6SalonSuccess');
       } else {
         trackEvent('step6PrivateMore');
+        trackEvent('step6Private');
+        trackEvent('step6PrivateSuccess');
       }
 
       this.props.actions.refreshEditor();
