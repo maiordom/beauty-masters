@@ -29,7 +29,9 @@ type TProps = {
     selectItem: (item: { label: string }) => void,
   },
   items: Array<TPlace>,
+  searchType: 'press' | 'specify',
   selected: TPlace,
+  placeholder: string,
 };
 
 type TState = {
@@ -40,6 +42,8 @@ type TState = {
 export default class AutocompleteList extends Component<TProps, TState> {
   static defaultProps = {
     items: [],
+    placeholder: i18n.enterAddress,
+    searchType: 'specify',
   };
 
   onChange = (value: string) => this.searchItem(value);
@@ -79,12 +83,13 @@ export default class AutocompleteList extends Component<TProps, TState> {
     this.props.actions.resetItems();
   }
 
-  componentWillUnmount() {
-    this.props.actions.resetItems();
-  }
-
   onItemSelect = (item: Object) => {
     const { selected } = this.state;
+
+    if (this.props.searchType === 'press') {
+      this.props.actions.selectItem(item);
+      return;
+    }
 
     if (selected && selected.label === item.label) {
       this.props.actions.selectItem(item);
@@ -95,7 +100,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
   };
 
   render() {
-    const { items } = this.props;
+    const { items, placeholder } = this.props;
     const { selected } = this.state;
 
     return (
@@ -105,7 +110,8 @@ export default class AutocompleteList extends Component<TProps, TState> {
             debounce
             debounceTimer={1000}
             onChange={this.onChange}
-            placeholder={i18n.enterAddress}
+            placeholder={placeholder}
+            style={styles.searchField}
             value={selected && selected.label}
           />
           {items.length > 0 && (
@@ -141,13 +147,16 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     paddingTop: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
+  },
+  searchField: {
+    marginLeft: 16,
+    marginRight: 16,
   },
   tab: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
     justifyContent: 'center',
   },
   label: {

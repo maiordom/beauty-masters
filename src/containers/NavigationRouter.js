@@ -11,6 +11,8 @@ import MasterEditorService from '../screen/MasterEditor/MasterEditorService';
 import MasterEditorHandlingTools from '../screen/MasterEditor/MasterEditorHandlingTools';
 import MasterEditorCalendar from '../screen/MasterEditor/MasterEditorCalendar';
 import MasterEditorCalendarSettings from '../screen/MasterEditor/MasterEditorCalendarSettings';
+import MasterEditorCity from '../screen/MasterEditor/MasterEditorCity';
+import MasterEditorSubwayStation from '../screen/MasterEditor/MasterEditorSubwayStation';
 import MasterEditorInfo from '../screen/MasterEditor/MasterEditorInfo';
 import MasterEditorCreateSuccess from '../screen/MasterEditor/MasterEditorCreateSuccess';
 
@@ -59,7 +61,7 @@ export default () => (
         <Scene
           key="searchCity"
           title="Город"
-          component={SearchCity}
+          component={props => <SearchCity {...props} placeholder={i18n.enterCity} />}
         />
         <Scene
           key="searchAddress"
@@ -118,6 +120,16 @@ export default () => (
           key="calendarAddressAutocomplete"
           title={i18n.chooseAddress}
           component={props => <CalendarAddressAutocomplete {...props} />}
+        />
+        <Scene
+          key="masterEditorCity"
+          title={i18n.city}
+          component={props => <MasterEditorCity {...props} placeholder={i18n.enterCity} />}
+        />
+        <Scene
+          key="masterEditorSubwayStation"
+          title={i18n.subwayStation}
+          component={props => <MasterEditorSubwayStation {...props} placeholder={i18n.enterSubwayStation} />}
         />
         <Scene
           key="masterEditorInfo"

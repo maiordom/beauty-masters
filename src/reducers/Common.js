@@ -13,6 +13,10 @@ export default makeReducer((state, action) => ({
       lat,
     }),
 
+  [a.GEO_CITIES_SET]: (state, { payload: { cities } }) => deepUpdate(state, 'geo', {
+    cities,
+  }),
+
   [a.GEO_DATA_SET]: () => deepUpdate(state, 'geo.places', {
     items: action.places,
   }),
@@ -25,6 +29,11 @@ export default makeReducer((state, action) => ({
   [a.GEO_PLACE_SET]: (state, { payload: { place } }) => deepUpdate(state, 'geo.places', {
     selected: place,
   }),
+
+  [a.GEO_SUBWAY_STATIONS_SET]: (state, { payload: { cityId, subwayStations } }) => {
+    state.geo.subwayStations[cityId] = subwayStations;
+    return state;
+  },
 
   [a.DICTIONARIES_CATEGORY_SERVICES_SET]: (state, { payload: { categoryServices = [] } }) => {
     if (!categoryServices.length) {

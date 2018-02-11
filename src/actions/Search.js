@@ -1,12 +1,15 @@
 // @flow
 
 import pickBy from 'lodash/pickBy';
+import isEmpty from 'lodash/isEmpty';
 
 import actions from '../constants/Search';
 import * as SearchService from '../services/Search';
-import * as CitiesService from '../services/City';
+
+import { fetchCities } from './Geo';
 
 import type { TSearchQuery } from '../types/CreateSearchQuery';
+import type { TCity } from '../types/City';
 
 export const setDay = (day: string) => ({
   type: actions.SEARCH_SET_DAY,
@@ -113,15 +116,25 @@ export const setSearchLocationName = (label: string) => ({
 
 export const searchCitySelect = (id: number) => ({ type: actions.SEARCH_CITY_SET, id });
 
-export const citiesReset = () => (dispatch: Function) => {
-  CitiesService.getCities().then((res: Object) => {
-    if (!res.error) {
-      dispatch({
-        type: actions.SEARCH_CITY_RESET,
-        payload: { cities: res.cities },
-      });
-    }
+const searchCityReset = (cities: Array<TCity>) => (dispatch: Function) => {
+  dispatch({
+    type: actions.SEARCH_CITY_RESET,
+    payload: { cities },
   });
+};
+
+export const citiesReset = () => (dispatch: Function, getState: Function) => {
+  const state = getState();
+
+  if (!isEmpty(state.geo.cities)) {
+    dispatch(searchCityReset(state.geo.cities));
+  } else {
+    dispatch(fetchCities()).then(() => {
+      const state = getState();
+
+      dispatch(searchCityReset(state.geo.cities));
+    });
+  }
 };
 
 export const searchCityForText = (text: string) => ({ type: actions.SEARCH_CITY_FIND, payload: { text } });

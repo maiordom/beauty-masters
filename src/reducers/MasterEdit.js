@@ -1,6 +1,6 @@
 import find from 'lodash/find';
-import omitBy from 'lodash/omitBy';
 import isEmpty from 'lodash/isEmpty';
+import omitBy from 'lodash/omitBy';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -136,6 +136,20 @@ export default makeReducer(() => ({
 
       calendarModel.addressId = address.id;
       calendarModel.timeTableId = address.timeTable.id;
+
+      calendarModel.cities = {
+        filtered: null,
+        items: state.geo.cities,
+        selected: {},
+      };
+
+      if (address.city) {
+        const selectedCity = find(state.geo.cities, { name: address.city });
+
+        if (selectedCity) {
+          calendarModel.cities.selected = selectedCity;
+        }
+      }
 
       [
         createPayload(sectionName, 'salonTitleField', address.name, 'value'),

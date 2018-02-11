@@ -1,4 +1,6 @@
 import * as GeoServices from '../services/Geo';
+import * as CityService from '../services/City';
+import * as SubwayStationService from '../services/SubwayStation';
 import config from '../config';
 
 import actions from '../constants/Common';
@@ -51,5 +53,34 @@ export const getPlaceDetails = (place) => {
 
   return GeoServices.getPlaceDetails(params);
 };
+
+export const fetchCities = () => (dispatch: Function) => (
+  CityService.getCities().then((res: Object) => {
+    if (!res.error) {
+      dispatch(setCities(res.cities));
+    }
+  })
+);
+
+export const setCities = (cities) => ({
+  type: actions.GEO_CITIES_SET,
+  payload: { cities },
+});
+
+export const setRawCities = (rawCities) => ({
+  type: actions.GEO_CITIES_SET,
+  payload: { cities: CityService.mapGetCityResponse(rawCities.data) },
+});
+
+export const fetchSubwayStations = (cityId: number) => (dispatch: Function) => (
+  SubwayStationService.getSubwayStations(cityId).then((res: Object) => {
+    if (!res.error) {
+      dispatch({
+        type: actions.GEO_SUBWAY_STATIONS_SET,
+        payload: { subwayStations: res.subwayStations, cityId },
+      });
+    }
+  })
+);
 
 export default null;

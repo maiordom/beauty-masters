@@ -19,6 +19,7 @@ const methods = [
   { getMasterById: ({ id }) => `/master-card/${id}`, method: 'GET' },
   { getMasterServices: '/master-service', method: 'GET' },
   { getServices: '/service', method: 'GET' },
+  { getSubwayStations: '/subway-station', method: 'GET' },
   { getUserProfile: '/user/profile', method: 'GET' },
   { refreshToken: '/refresh-token', method: 'POST' },
   { searchMasters: '/search-master', method: 'GET' },

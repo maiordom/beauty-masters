@@ -22,7 +22,14 @@ const citiesModel = () => ({
     name: 'Москва',
     lat: 55.753994,
     lon: 37.622093,
+    hasSubway: true,
   },
+  items: [],
+  filtered: null,
+});
+
+const subwayStations = () => ({
+  selected: null,
   items: [],
   filtered: null,
 });
@@ -73,6 +80,8 @@ each({
   object.addressId = null;
   object.cityField.value = cities.selected.name;
   object.startDateField.value = moment().format('YYYY-MM-DD');
+  object.cities = cities;
+  object.subwayStations = subwayStations();
 
   object.createAddressQuery.city = cities.selected.name;
   object.createAddressQuery.lat = cities.selected.lat;

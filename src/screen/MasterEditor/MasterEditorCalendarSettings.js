@@ -54,6 +54,16 @@ const mapDispatchToProps = (dispatch, { modelName = 'calendarSettingsOne' }) => 
       selectAddress(modelName) {
         Actions.calendarAddressAutocomplete({ modelName });
       },
+      selectCity(modelName) {
+        Actions.masterEditorCity({ modelName });
+      },
+      selectSubwayStation(modelName) {
+        dispatch((dispatch, getState) => {
+          const state = getState();
+          const cityId = state.masterEditor[modelName].cities.selected.id;
+          Actions.masterEditorSubwayStation({ modelName, cityId });
+        });
+      },
     },
   };
 };
