@@ -36,7 +36,8 @@ export default class PhotoSelect extends Component {
       maxHeight: 1000,
       noData: true,
       storageOptions: {
-        cameraRoll: true,
+        cameraRoll: false,
+        skipBackup: true,
         waitUntilSaved: true,
       },
     }, ({
@@ -62,6 +63,8 @@ export default class PhotoSelect extends Component {
       maxHeight: 1000,
       noData: true,
       storageOptions: {
+        cameraRoll: false,
+        skipBackup: true,
         waitUntilSaved: true,
       },
     }, ({
