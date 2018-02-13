@@ -88,7 +88,9 @@ export const createMasterServices = () => (dispatch, getState) => {
         return { result: 'success' };
       }
     })
-    .catch(() => dispatch(setActivityIndicator(false)));
+    .catch(() => {
+      dispatch(setActivityIndicator(false));
+    });
 };
 
 export const validateServices = () => (dispatch, getState) => {
