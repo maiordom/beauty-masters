@@ -42,8 +42,8 @@ export default class MasterProfileServices extends Component<TProps, void> {
                   <View style={styles.serviceSubGroup}>
                     <Text>{subGroup.title}</Text>
                   </View>
-                  {subGroup.services.map((service) => (
-                    <View style={styles.service} key={service.serviceId + service.categoryId}>
+                  {subGroup.services.map((service, index) => (
+                    <View style={styles.service} key={service.serviceId + service.categoryId + index}>
                       <Text>{service.title}</Text>
                       <Text style={styles.serviceInfo}>
                         {!isEmpty(service.price) && (
