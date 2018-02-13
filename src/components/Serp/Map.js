@@ -29,7 +29,7 @@ import PagedCardContainer from './PagedCardContainer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
-import { log } from '../../utils/Log';
+import { log, sendLog } from '../../utils/Log';
 
 import type { TMapCard } from '../../types/MasterTypes';
 import type { TRegionType } from '../../types/RegionType';
@@ -215,12 +215,17 @@ export default class Map extends PureComponent<TProps, TState> {
   getClusterId(point) {
     const { supercluster } = this.state;
 
-    const leaves = take(supercluster.getLeaves(
-      point.properties.cluster_id,
-      getZoomLevel(this.state.region),
-    ), MAX_CURRENT_MAP_CARDS);
+    try {
+      const leaves = take(supercluster.getLeaves(
+        point.properties.cluster_id,
+        getZoomLevel(this.state.region),
+      ), MAX_CURRENT_MAP_CARDS);
 
-    return leaves.map((leave) => leave.properties.id).join(',');
+      return leaves.map((leave) => leave.properties.id).join(',');
+    } catch(exx) {
+      sendLog(JSON.stringify(exx));
+      return Math.floor(Math.random() * 1000);
+    }
   }
 
   onMarkerPress = (event: any) => {
