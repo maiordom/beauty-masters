@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import capitalize from 'lodash/capitalize';
 import moment from 'moment';
@@ -22,7 +22,7 @@ const icons = Platform.select({
   },
 });
 
-export default class Calendar extends Component {
+export default class Calendar extends PureComponent {
   static defaultProps = {
     format: 'YYYY-MM-DD',
     multiSelect: false,

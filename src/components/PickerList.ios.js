@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 
 import PickerListItem from './PickerListItem.ios';
@@ -14,7 +14,7 @@ type TProps = {
   onChange: (value: boolean, id: number, modelName: string) => {},
 };
 
-export default class RadioGroup extends Component<TProps, void> {
+export default class RadioGroup extends PureComponent<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPickerChange = (value: boolean, id: number) => {

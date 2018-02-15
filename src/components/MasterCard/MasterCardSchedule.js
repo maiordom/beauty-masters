@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Dimensions,
   Image,
@@ -58,7 +58,7 @@ type TState = {
   selectedDate: string,
 };
 
-export default class MasterCardShedule extends Component<TProps, TState> {
+export default class MasterCardShedule extends PureComponent<TProps, TState> {
   props: Props;
   state: State;
 

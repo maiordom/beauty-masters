@@ -3,7 +3,7 @@
 import isEmpty from 'lodash/isEmpty';
 import toUpper from 'lodash/toUpper';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -24,7 +24,7 @@ const icons = Platform.select({
   },
 });
 
-export default class MasterCardServices extends Component {
+export default class MasterCardServices extends PureComponent {
   render() {
     const { services, homeDepartureService } = this.props;
 

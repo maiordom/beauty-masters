@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 import vars from '../vars';
@@ -19,7 +19,7 @@ type TProps = {
   onAcceptButtonPress: () => void,
 };
 
-export default class PopupHeader extends Component<TProps, void> {
+export default class PopupHeader extends PureComponent<TProps, void> {
   static defaultProps = {
     title: '',
     hasCloseButton: true,

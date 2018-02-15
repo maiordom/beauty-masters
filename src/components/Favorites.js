@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, ListView, StyleSheet, Platform, Image, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import type { TMapCard } from '../types/MasterTypes';
@@ -32,7 +32,7 @@ const icons = {
   }),
 };
 
-export default class Favorites extends Component<TProps, TState> {
+export default class Favorites extends PureComponent<TProps, TState> {
   state: TState;
 
   constructor(props: TProps) {

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -33,7 +33,7 @@ type TState = {
 };
 
 // $FlowFixMe
-export default class RangeTime extends Component<TProps, TState> {
+export default class RangeTime extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
     super(props);
 

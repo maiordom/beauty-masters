@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Platform, Image } from 'react-native';
 
 import Input from '../components/Input';
@@ -37,7 +37,7 @@ type TState = {
   validationStatus: null | string,
 };
 
-export default class Registration extends Component<TProps, TState> {
+export default class Registration extends PureComponent<TProps, TState> {
   state = {
     hasError: false,
     responseError: null,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
 
 import vars from '../vars';
@@ -7,7 +7,7 @@ import { shouldComponentUpdate } from '../utils';
 const icon = require('../icons/radio.png');
 const iconChecked = require('../icons/radio-checked.png');
 
-export default class Radio extends Component {
+export default class Radio extends PureComponent {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {

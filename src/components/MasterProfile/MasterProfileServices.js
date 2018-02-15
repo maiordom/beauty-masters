@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -21,7 +21,7 @@ type TProps = {
   services: Array<any>,
 }
 
-export default class MasterProfileServices extends Component<TProps, void> {
+export default class MasterProfileServices extends PureComponent<TProps, void> {
   componentDidMount() {
     this.props.actions.getMasterServices();
   }

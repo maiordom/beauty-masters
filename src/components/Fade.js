@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Animated } from 'react-native';
 
-export default class Fade extends Component {
+export default class Fade extends PureComponent {
   state = {
     visible: this.props.visible,
   };

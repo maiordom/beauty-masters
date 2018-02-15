@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -21,7 +21,7 @@ const icons = Platform.select({
   },
 });
 
-export default class MasterLocation extends Component {
+export default class MasterLocation extends PureComponent {
   constructor(props) {
     super(props);
 

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, ScrollView, Platform } from 'react-native';
 
 import { SubLabel } from '../SubLabel';
@@ -25,7 +25,7 @@ type TProps = {
   sectionName: string,
 };
 
-export default class MasterEditorHandlingTools extends Component<TProps, void> {
+export default class MasterEditorHandlingTools extends PureComponent<TProps, void> {
   onChange = (state: boolean, modelName: string) => {
     const { modelParamName, sectionName } = this.props;
 

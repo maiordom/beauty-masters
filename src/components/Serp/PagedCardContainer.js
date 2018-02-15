@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, Dimensions, Platform, View, ListView } from 'react-native';
 
 import MapCard from './MapCard';
@@ -18,7 +18,7 @@ type TState = {
   currentCardIndex: number,
 }
 
-export default class PagedCardContainer extends Component<TProps, TState> {
+export default class PagedCardContainer extends PureComponent<TProps, TState> {
   listView: ?ListView = null;
 
   constructor(props: TProps) {

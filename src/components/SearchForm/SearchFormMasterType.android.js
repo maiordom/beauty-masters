@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
 import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
 
@@ -10,7 +10,7 @@ import vars from '../../vars';
 import i18n from '../../i18n';
 import { hexToRgba } from '../../utils';
 
-export default class SearchFormMasterType extends Component<TSearchFormMasterTypeProps, void> {
+export default class SearchFormMasterType extends PureComponent<TSearchFormMasterTypeProps, void> {
   render() {
     const {
       showMasterTypeModal,

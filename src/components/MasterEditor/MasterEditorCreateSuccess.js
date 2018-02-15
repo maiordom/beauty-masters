@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Platform, Image, TouchableOpacity } from 'react-native';
 
 import toUpper from 'lodash/toUpper';
@@ -29,7 +29,7 @@ type TProps = {
   isSalon: boolean,
 };
 
-export default class MasterEditorCreateSuccess extends Component<void, TProps> {
+export default class MasterEditorCreateSuccess extends PureComponent<void, TProps> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onCompletePress = () => {

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
 
 import vars from '../vars';
@@ -15,7 +15,7 @@ type TProps = {
   onChange: (value: boolean, id: number) => void,
 };
 
-export default class PickerListItem extends Component<TProps, void> {
+export default class PickerListItem extends PureComponent<TProps, void> {
   shouldComponentUpdate = shouldComponentUpdate();
 
   onPress = () => {

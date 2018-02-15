@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import {
@@ -39,7 +39,7 @@ type TState = {
   selected: TPlace,
 };
 
-export default class AutocompleteList extends Component<TProps, TState> {
+export default class AutocompleteList extends PureComponent<TProps, TState> {
   static defaultProps = {
     items: [],
     placeholder: i18n.enterAddress,

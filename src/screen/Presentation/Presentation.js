@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View, Image, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -32,7 +32,7 @@ const localization = {
   }),
 };
 
-export default class Presentation extends Component {
+export default class Presentation extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
