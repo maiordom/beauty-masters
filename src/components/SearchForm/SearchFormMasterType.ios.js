@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, TouchableWithoutFeedback, StyleSheet, Modal } from 'react-native';
 import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
 import PopupHeader from '../PopupHeader.ios';
@@ -12,7 +12,7 @@ import { hexToRgba } from '../../utils';
 
 type TProps = TSearchFormMasterTypeProps;
 
-export default class SearchFormMasterType extends Component<TProps, void> {
+export default class SearchFormMasterType extends PureComponent<TProps, void> {
   render() {
     const {
       showMasterTypeModal,

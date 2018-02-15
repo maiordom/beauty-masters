@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import moment from 'moment';
 
 import {
@@ -45,7 +45,7 @@ type TProps = {
   workDays: Array<string>,
 };
 
-export default class Calendar extends Component<TProps, void> {
+export default class Calendar extends PureComponent<TProps, void> {
   constructor(props: TProps) {
     super(props);
 

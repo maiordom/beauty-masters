@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   Modal,
@@ -63,7 +63,7 @@ type TState = {
   today: string,
 }
 
-export default class MasterProfileCalendar extends Component<TProps, TState> {
+export default class MasterProfileCalendar extends PureComponent<TProps, TState> {
   eventDates = [];
 
   constructor(props: TProps) {

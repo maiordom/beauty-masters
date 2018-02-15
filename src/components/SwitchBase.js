@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, TouchableHighlight, Animated } from 'react-native';
 
-export default class SwitchBase extends Component {
+export default class SwitchBase extends PureComponent {
   constructor(props) {
     super(props);
 

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   InteractionManager,
@@ -38,7 +38,7 @@ type TState = {
   currentScene: ?string,
 }
 
-export default class Sidebar extends Component<TProps, TState> {
+export default class Sidebar extends PureComponent<TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
   };

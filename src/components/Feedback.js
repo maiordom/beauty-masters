@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -37,7 +37,7 @@ type TState = {
   isSend: boolean,
 }
 
-export default class Feedback extends Component<TProps, TState, TDefaultProps> {
+export default class Feedback extends PureComponent<TProps, TState, TDefaultProps> {
   static defaultProps = {
     email: '',
   };

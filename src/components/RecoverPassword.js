@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -30,7 +30,7 @@ type TState = {
   error: boolean,
 }
 
-export default class RecoverPassword extends Component<TProps, TState> {
+export default class RecoverPassword extends PureComponent<TProps, TState> {
   state: TState = {
     email: '',
     showModal: false,

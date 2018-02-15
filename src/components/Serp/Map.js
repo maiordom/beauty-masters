@@ -212,22 +212,6 @@ export default class Map extends PureComponent<TProps, TState> {
     this.map = ref;
   };
 
-  getClusterId(point) {
-    const { supercluster } = this.state;
-
-    try {
-      const leaves = take(supercluster.getLeaves(
-        point.properties.cluster_id,
-        getZoomLevel(this.state.region),
-      ), MAX_CURRENT_MAP_CARDS);
-
-      return leaves.map((leave) => leave.properties.id).join(',');
-    } catch(exx) {
-      sendLog(JSON.stringify(exx));
-      return Math.floor(Math.random() * 1000);
-    }
-  }
-
   onMarkerPress = (event: any) => {
     const { supercluster, clusters } = this.state;
     const index = parseInt(event.nativeEvent.id, 10);
@@ -402,7 +386,7 @@ export default class Map extends PureComponent<TProps, TState> {
             if (pin.properties.cluster) {
               return (
                 <MapView.Marker
-                  key={this.getClusterId(pin) + pin.geometry.coordinates.join(',')}
+                  key={pin.geometry.coordinates.join(',')}
                   coordinate={coordinate}
                   identifier={index.toString()}
                   image={isEqual(coordinate, activePin)

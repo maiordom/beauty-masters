@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import {
   Platform,
   Image,
@@ -25,7 +25,7 @@ const icons = {
   }),
 };
 
-export default class PhotoSelect extends Component {
+export default class PhotoSelect extends PureComponent {
   onClosePress = () => {
     this.props.onRequestClose();
   };

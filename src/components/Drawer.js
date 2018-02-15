@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import RNDrawer from 'react-native-drawer';
 import { DefaultRenderer } from 'react-native-router-flux';
 
@@ -7,7 +7,7 @@ import Sidebar from '../containers/Sidebar';
 import { drawerClose } from '../actions/Drawer';
 import vars from '../vars';
 
-export default class Drawer extends Component {
+export default class Drawer extends PureComponent {
   onClose = () => {
     drawerClose();
   };

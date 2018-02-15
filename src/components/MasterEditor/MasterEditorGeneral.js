@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 import { toPattern } from 'vanilla-masker';
 import upperFirst from 'lodash/upperFirst';
@@ -37,7 +37,7 @@ type TProps = {
     usernameField: Object;
 };
 
-export default class MasterEditorGeneral extends Component<TProps, TState> {
+export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
   state = {
     errorFillPhoneNumber: false,
     errorFillSalonName: false,

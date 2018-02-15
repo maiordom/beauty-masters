@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import capitalize from 'lodash/capitalize';
 import moment from 'moment';
@@ -8,7 +8,6 @@ import NativeCalendar from './CalendarBase';
 import i18n from '../i18n';
 
 import { prepareEventDates } from '../utils/Calendar';
-import { shouldComponentUpdate } from '../utils';
 import vars from '../vars';
 
 const icons = Platform.select({
@@ -22,7 +21,7 @@ const icons = Platform.select({
   },
 });
 
-export default class Calendar extends Component {
+export default class Calendar extends PureComponent {
   static defaultProps = {
     format: 'YYYY-MM-DD',
     multiSelect: false,
@@ -49,8 +48,6 @@ export default class Calendar extends Component {
       this.eventDates = prepareEventDates(this.props.interval.key, this.state.startDate);
     }
   }
-
-  shouldComponentUpdate = shouldComponentUpdate();
 
   onDateSelect = (date) => {
     const formatedDate = moment(date).format(this.props.format);

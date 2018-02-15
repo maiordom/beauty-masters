@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   Platform,
@@ -50,7 +50,7 @@ type TState = {
 
 const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 
-export default class Login extends Component<TProps, TState> {
+export default class Login extends PureComponent<TProps, TState> {
   state = {
     hasError: false,
     responseError: null,

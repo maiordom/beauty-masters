@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -30,7 +30,7 @@ type TProps = {
   snippet: TMapCard,
 }
 
-export default class MasterCardNavBar extends Component<TProps, void> {
+export default class MasterCardNavBar extends PureComponent<TProps, void> {
   onFavPress = () => {
     const {
       actions, id, snippet, isFavorite,
