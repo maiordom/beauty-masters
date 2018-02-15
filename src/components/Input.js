@@ -174,6 +174,7 @@ export default class Input extends InputBase {
         {icon && <Image source={icon} />}
         <TextInput
           autoCorrect={autoCorrect !== undefined ? autoCorrect : true}
+          editable={editable !== undefined ? editable : true}
           keyboardType={keyboardType}
           onBlur={this.onBlur}
           onChangeText={this.onChangeText}
@@ -194,16 +195,7 @@ const inputStyle = StyleSheet.create({
   inputDisabled: {
     opacity: 0.4,
   },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    zIndex: 1,
-  },
   inputWrapper: {
-    position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
     ...Platform.select({

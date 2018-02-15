@@ -8,8 +8,6 @@ import ButtonControl from '../ButtonControl';
 import i18n from '../../i18n';
 import vars from '../../vars';
 
-import { shouldComponentUpdate } from '../../utils';
-
 import { MASTER_CARD_STATUS } from '../../constants/Master';
 import { TCreateMaster } from '../../types/CreateMaster';
 
@@ -30,8 +28,6 @@ type TProps = {
 };
 
 export default class MasterEditorCreateSuccess extends PureComponent<void, TProps> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   onCompletePress = () => {
     this.props.actions.createMaster({ status: MASTER_CARD_STATUS.MODERATION }).then(() => {
       if (this.props.isSalon) {

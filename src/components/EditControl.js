@@ -6,8 +6,6 @@ import { Text, StyleSheet, TouchableWithoutFeedback, Platform, View } from 'reac
 import i18n from '../i18n';
 import vars from '../vars';
 
-import { shouldComponentUpdate } from '../utils';
-
 const localization = {
   save: Platform.select({
     ios: i18n.save,
@@ -25,8 +23,6 @@ type TProps = {
 };
 
 export default class EditControl extends PureComponent<TProps, void> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   render() {
     const {
       onNextPress,

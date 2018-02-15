@@ -3,11 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import Radio from './Radio';
 
-import { shouldComponentUpdate } from '../utils';
-
 export default class RadioGroup extends PureComponent {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   onRadioChange = (value, id) => {
     this.props.onChange(value, id, this.props.modelName);
   };

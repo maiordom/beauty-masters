@@ -9,8 +9,6 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import { shouldComponentUpdate } from '../utils';
-
 import i18n from '../i18n';
 import vars from '../vars';
 
@@ -39,8 +37,6 @@ export default class RangeTime extends PureComponent<TProps, TState> {
 
     this.state = this.getStorage(this.props);
   }
-
-  shouldComponentUpdate = shouldComponentUpdate();
 
   getStorage = (props: TProps) => {
     const { timeStart, timeEnd } = props;

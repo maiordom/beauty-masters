@@ -5,8 +5,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import difference from 'lodash/difference';
 
-import { shouldComponentUpdate } from '../utils';
-
 import Switch from '../components/Switch';
 import RangeTime from '../components/RangeTime';
 
@@ -33,8 +31,6 @@ type TState = {
 };
 
 export default class WorkTimeSpecification extends PureComponent<TProps, TState> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   constructor(props: TProps) {
     super(props);
 

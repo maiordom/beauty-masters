@@ -6,8 +6,6 @@ import { View } from 'react-native';
 import PickerListItem from './PickerListItem.ios';
 import Separator from './Separator.ios';
 
-import { shouldComponentUpdate } from '../utils';
-
 type TProps = {
   items: Array<Object>,
   modelName: string,
@@ -15,8 +13,6 @@ type TProps = {
 };
 
 export default class RadioGroup extends PureComponent<TProps, void> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   onPickerChange = (value: boolean, id: number) => {
     this.props.onChange(value, id, this.props.modelName);
   };

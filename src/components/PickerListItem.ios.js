@@ -4,7 +4,6 @@ import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
 
 import vars from '../vars';
-import { shouldComponentUpdate } from '../utils';
 
 const checkmarkIcon = require('../icons/ios/checkmark-red.png');
 
@@ -16,8 +15,6 @@ type TProps = {
 };
 
 export default class PickerListItem extends PureComponent<TProps, void> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   onPress = () => {
     if (this.props.checked) {
       return;

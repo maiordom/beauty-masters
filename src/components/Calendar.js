@@ -8,7 +8,6 @@ import NativeCalendar from './CalendarBase';
 import i18n from '../i18n';
 
 import { prepareEventDates } from '../utils/Calendar';
-import { shouldComponentUpdate } from '../utils';
 import vars from '../vars';
 
 const icons = Platform.select({
@@ -49,8 +48,6 @@ export default class Calendar extends PureComponent {
       this.eventDates = prepareEventDates(this.props.interval.key, this.state.startDate);
     }
   }
-
-  shouldComponentUpdate = shouldComponentUpdate();
 
   onDateSelect = (date) => {
     const formatedDate = moment(date).format(this.props.format);
