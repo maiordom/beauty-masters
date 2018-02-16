@@ -73,7 +73,8 @@ export default class CustomSwitch extends PureComponent<TProps, void> {
               value={value}
               ref={this.setRef}
               onValueChange={this.onChange}
-              onTintColor={hexToRgba(vars.color.red, 50)}
+              tintColor={vars.color.switchTintColor}
+              onTintColor={vars.color.switchTintActiveColor}
               thumbTintColor={thumbTintColor}
             />),
           })}
