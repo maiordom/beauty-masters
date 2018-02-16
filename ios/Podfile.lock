@@ -1,5 +1,5 @@
 PODS:
-  - BVLinearGradient (2.3.0):
+  - BVLinearGradient (2.4.0):
     - React
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
@@ -128,7 +128,7 @@ EXTERNAL SOURCES:
     :path: ../node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
-  BVLinearGradient: e5b57d7ae2011487190ad11ed2e73edccdfc25fa
+  BVLinearGradient: 8913bd8fdc47b85abc801ae8bae007bbfb6b4ce5
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
