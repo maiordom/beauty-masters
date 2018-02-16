@@ -4,7 +4,7 @@ inhibit_all_warnings!
 
 NODE_MODULES_PATH = '../node_modules'
 
-target 'pilochka' do
+target 'relak' do
   # Pods for pilochka
 
   pod 'GoogleMaps', '~> 2.5.0'
@@ -16,6 +16,7 @@ target 'pilochka' do
   pod 'ReactNativeFabric', :path => File.join(NODE_MODULES_PATH, 'react-native-fabric')
   pod 'BVLinearGradient', :path => File.join(NODE_MODULES_PATH, 'react-native-linear-gradient')
   pod 'SentryReactNative', :path => File.join(NODE_MODULES_PATH, 'react-native-sentry')
+  pod 'yoga', :path => File.join(NODE_MODULES_PATH, 'react-native/ReactCommon/yoga')
   pod 'React', :path => File.join(NODE_MODULES_PATH, 'react-native'), :subspecs => [
     'Core',
     'RCTAnimation',

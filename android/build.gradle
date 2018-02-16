@@ -1,3 +1,5 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
 buildscript {
     repositories {
         jcenter()
@@ -30,7 +32,7 @@ allprojects {
         resolutionStrategy {
             eachDependency { DependencyResolveDetails details ->
                 if (details.requested.group == 'com.facebook.react' && details.requested.name == 'react-native') {
-                    details.useVersion "0.41.0" // Your real React Native version here
+                    details.useVersion "0.53.0" // Your real React Native version here
                 }
             }
         }

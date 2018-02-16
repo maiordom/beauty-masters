@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
-import { drawerOpen } from '../../actions/Drawer';
 import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
 import { getPhotos } from '../../actions/MasterEdit';
 
@@ -28,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
       removePhoto,
       setGeneralParam,
     }, dispatch),
-    drawerOpen,
     routeToProfile: Actions.masterProfile,
     routeToSuccess: Actions.createMasterSuccess,
   },

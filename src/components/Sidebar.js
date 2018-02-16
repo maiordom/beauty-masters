@@ -46,8 +46,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
   changeScene = (key: string) => {
     const nextScene = { currentScene: key };
 
-    this.props.actions.drawerClose();
-
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         Actions[key](nextScene);
@@ -102,8 +100,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
   }
 
   onAvatarPress = () => {
-    this.props.actions.drawerClose();
-
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         if (this.props.isAuthorized) {
@@ -116,7 +112,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
   };
 
   onLogoutPress = () => {
-    this.props.actions.drawerClose();
     this.props.actions.logout();
   };
 

@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
 
-import { drawerClose } from '../actions/Drawer';
 import { logout } from '../actions/Auth';
 
 import Sidebar from '../components/Sidebar';
@@ -26,7 +25,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    drawerClose,
     ...bindActionCreators({ logout }, dispatch),
     routeToAuthorization: Actions.masterAuthorization,
     routeToMasterProfile: Actions.masterProfile,
