@@ -20,9 +20,5 @@ export default {
 
     cellSeparatorColorIOS: '#E4E6E8',
     buttonBlue: '#298CD7',
-
-    switchThumbTintColor: '#F1F1F1',
-    switchTintColor: '#AFB5B9',
-    switchTintActiveColor: '#FAAFB6',
   },
 };
