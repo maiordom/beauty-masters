@@ -19,6 +19,7 @@ target 'relak' do
   pod 'yoga', :path => File.join(NODE_MODULES_PATH, 'react-native/ReactCommon/yoga')
   pod 'React', :path => File.join(NODE_MODULES_PATH, 'react-native'), :subspecs => [
     'Core',
+    'DevSupport',
     'RCTAnimation',
     'RCTActionSheet',
     'RCTGeolocation',

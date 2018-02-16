@@ -36,7 +36,7 @@ static NSString *const kGoogleMapsAPIKey = @"AIzaSyD7u--7uoorLS369FEIpdwjxB5fMPj
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
-  [self.window makeKeyAndVisible
+  [self.window makeKeyAndVisible];
   [Fabric with:@[[Crashlytics class]]];
   return YES;
 }
