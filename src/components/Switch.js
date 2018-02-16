@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback, Switch } fr
 
 import { hexToRgba } from '../utils';
 import vars from '../vars';
-import SwitchBase from './SwitchBase';
 
 type TProps = {
   customStyles?: {
@@ -19,40 +18,43 @@ type TProps = {
 };
 
 export default class CustomSwitch extends PureComponent<TProps, void> {
-  ref = {
-    toggle() { },
-    changeStateImmediately(value: boolean) { },
-    value: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      thumbTintColor: props.value ? vars.color.red : vars.color.switchThumbTintColor,
+    };
+  }
 
   onChange = (state: boolean) => {
     this.props.onChange && this.props.onChange(state, this.props.modelName);
+    this.setValue(state);
   };
+
+  setValue = (state: boolean) => {
+    this.setState({ thumbTintColor: state ? vars.color.red : vars.color.switchThumbTintColor });
+  }
 
   setRef = (ref: Object) => {
     this.ref = ref;
   };
 
   onPress = () => {
-    if (Platform.OS === 'android') {
-      this.ref.toggle();
-    } else {
-      this.onChange(!this.ref.value);
-    }
+    this.onChange(!this.ref.value);
   };
 
   componentWillReceiveProps(nextProps: TProps) {
-    if (typeof nextProps.value === 'boolean' && this.ref != null) {
-      if (Platform.OS === 'android') {
-        this.ref.changeStateImmediately(nextProps.value);
-      } else {
-        this.ref.value = nextProps.value;
-      }
+    const { value } = nextProps;
+
+    if (typeof value === 'boolean' && this.ref != null) {
+      this.ref.value = value;
+      this.setValue(value);
     }
   }
 
   render() {
     const { title, value, customStyles = {} } = this.props;
+    const { thumbTintColor } = this.state;
 
     return (
       <TouchableWithoutFeedback onPress={this.onPress}>
@@ -66,20 +68,13 @@ export default class CustomSwitch extends PureComponent<TProps, void> {
               onValueChange={this.onChange}
               onTintColor={vars.color.red}
             />),
-            android: (<SwitchBase
-              active={value}
-              activeBackgroundColor={hexToRgba('#F65F6E', 50)}
-              activeButtonColor={'#F65F6E'}
-              activeButtonPressedColor={'#F65F6E'}
-              borderWidth={0}
-              buttonRadius={11}
-              inactiveBackgroundColor={hexToRgba('#374650', 40)}
-              inactiveButtonColor={'#E8E8E8'}
-              inactiveButtonPressedColor={'#E8E8E8'}
-              onChangeState={this.onChange}
+            android: (<Switch
+              style={styles.switch}
+              value={value}
               ref={this.setRef}
-              switchHeight={14}
-              switchWidth={38}
+              onValueChange={this.onChange}
+              onTintColor={hexToRgba(vars.color.red, 50)}
+              thumbTintColor={thumbTintColor}
             />),
           })}
         </View>

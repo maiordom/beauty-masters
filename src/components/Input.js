@@ -50,11 +50,12 @@ class InputBase extends PureComponent<TProps, TState> {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== null
-      && nextProps.value !== undefined
-      && this.props.value !== nextProps.value
-    ) {
-      this.state.value = nextProps.value.toString();
+    const { value } = nextProps;
+
+    if ([null, undefined].includes(value)) {
+      this.state.value = '';
+    } else if (this.props.value !== nextProps.value) {
+      this.state.value = value.toString();
     }
   }
 
