@@ -5,7 +5,6 @@ inhibit_all_warnings!
 NODE_MODULES_PATH = '../node_modules'
 
 target 'relak' do
-  # Pods for pilochka
 
   pod 'GoogleMaps', '~> 2.5.0'
   pod 'react-native-google-analytics-bridge', :path => File.join(NODE_MODULES_PATH, 'react-native-google-analytics-bridge')
@@ -29,31 +28,6 @@ target 'relak' do
     'RCTNetwork',
     'RCTText',
     'RCTVibration',
-    'RCTWebSocket'
+    'BatchedBridge',
   ]
-
-end
-
-def fix_loader_bug()
-  file_name = File.join(NODE_MODULES_PATH, 'react-native', 'React', 'Base', 'RCTJavaScriptLoader.mm')
-  source = File.read(file_name)
-  fixed_source = source.gsub(/_total > 0/, '[_total integerValue] > 0')
-  File.open(file_name, 'w') do |file|
-    file.puts fixed_source
-  end
-end
-
-# https://github.com/airbnb/react-native-maps/issues/990
-def fix_react_native_maps_podspec(installer)
-    rnm = installer.pods_project.targets.find { |target| target.name == 'react-native-google-maps' }
-    rnm.build_configurations.each do |config|
-        config.build_settings['CLANG_ENABLE_MODULES'] = "NO"
-    end
-end
-
-post_install do |installer|
-  puts "Applying manual fix for a bug of RCTJavaScriptLoader.mm"
-  fix_loader_bug
-  puts "Applying manual fix for react-native-maps"
-  fix_react_native_maps_podspec installer
 end
