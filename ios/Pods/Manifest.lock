@@ -34,12 +34,20 @@ PODS:
     - React
   - react-native-maps (0.19.0):
     - React
+  - React/BatchedBridge (0.53.0):
+    - React/Core
+    - React/cxxreact_legacy
   - React/Core (0.53.0):
     - yoga (= 0.53.0.React)
+  - React/cxxreact_legacy (0.53.0):
+    - React/jschelpers_legacy
+    - React/jsinspector_legacy
   - React/DevSupport (0.53.0):
     - React/Core
     - React/RCTWebSocket
   - React/fishhook (0.53.0)
+  - React/jschelpers_legacy (0.53.0)
+  - React/jsinspector_legacy (0.53.0)
   - React/RCTActionSheet (0.53.0):
     - React/Core
   - React/RCTAnimation (0.53.0):
@@ -89,6 +97,7 @@ DEPENDENCIES:
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
@@ -100,7 +109,6 @@ DEPENDENCIES:
   - React/RCTSettings (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
-  - React/RCTWebSocket (from `../node_modules/react-native`)
   - ReactNativeFabric (from `../node_modules/react-native-fabric`)
   - SentryReactNative (from `../node_modules/react-native-sentry`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -144,6 +152,6 @@ SPEC CHECKSUMS:
   SentryReactNative: 6ff92ce58c22df7c65f2fdf180a05fcf89960047
   yoga: 36cb943786c0587f19094c593b5683074d679c46
 
-PODFILE CHECKSUM: 89fe103e264d75ef82fc7286287290172df17da8
+PODFILE CHECKSUM: b373f7fa5145fe45beef135ed378701f46b4de80
 
 COCOAPODS: 1.3.1
