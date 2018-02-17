@@ -21,7 +21,6 @@ type TProps = {
   isSalon: boolean,
   modelParamName: string,
   models: Object,
-  queryParamName: string,
   sectionName: string,
 };
 
@@ -38,11 +37,11 @@ export default class MasterEditorHandlingTools extends PureComponent<TProps, voi
   };
 
   onChangeOtherMethod = (value: string, modelName?: string) => {
-    const { queryParamName, sectionName } = this.props;
+    const { sectionName } = this.props;
 
     this.props.actions.setServiceParam(
       modelName,
-      queryParamName,
+      'description',
       value,
       sectionName,
     );
@@ -117,12 +116,13 @@ export default class MasterEditorHandlingTools extends PureComponent<TProps, voi
             <Switch {...boilingMethod} onChange={this.onChange} />
             <Switch {...sterileOtherMethod} onChange={this.onChange} />
             <Input
-              value={sterileOtherMethod.description}
-              placeholder={sterileOtherMethod.placeholder}
-              modelName={sterileOtherMethod.modelName}
+              debounce
               editable={sterileOtherMethod.value}
-              onChange={this.onChangeOtherMethod}
               inputWrapperStyle={styles.otherMethodInput}
+              modelName={sterileOtherMethod.modelName}
+              onChange={this.onChangeOtherMethod}
+              placeholder={sterileOtherMethod.placeholder}
+              value={sterileOtherMethod.description}
             />
           </View>
         </ScrollView>

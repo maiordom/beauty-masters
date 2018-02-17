@@ -37,12 +37,13 @@ export const getMasterServices = (params: Object) =>
         return res;
       }
 
-      return res.data.map(item => ({
+      return res.data.map((item) => ({
         categoryId: item.attributes.category_service_id,
+        description: item.attributes.description,
         duration: item.attributes.duration,
         price: item.attributes.price,
         serviceId: item.attributes.service_id,
-        title: item.attributes.title,
+        title: item.attributes.title
       }));
     });
 

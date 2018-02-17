@@ -76,7 +76,11 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
     let { categoryId } = service;
 
     if (!service.title) {
-      service.title = dictionaries.serviceById[service.serviceId].title;
+      if (service.description) {
+        service.title = service.description;
+      } else {
+        service.title = dictionaries.serviceById[service.serviceId].title;
+      }
     }
 
     do {

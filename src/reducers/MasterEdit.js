@@ -36,15 +36,17 @@ const setHandlingTools = ({
   servicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId }) => {
+  servicesData.forEach(({ categoryId, serviceId, description }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });
 
       serviceModel.value = true;
+      serviceModel.description = description;
       servicesQuery.push({
         attributes: {
           category_service_id: categoryId,
+          description,
           service_id: serviceId,
         },
       });
@@ -333,6 +335,7 @@ export default makeReducer(() => ({
   [actions.MASTER_EDIT_HOME_ALLOWANCE_SET]: (state, { payload: { masterCard } }) => {
     if (masterCard.homeDepartureService) {
       state.masterEditor.services.homeDepartureField.value = masterCard.homeDepartureService.price;
+      state.masterEditor.services.homeDepartureField.price = masterCard.homeDepartureService.price;
     }
 
     return state;
