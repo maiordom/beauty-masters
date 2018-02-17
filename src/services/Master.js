@@ -3,13 +3,13 @@ import { post, patch } from '../utils/Provider';
 
 export const createMaster = (params, headers) =>
   post(routes.createMaster, params, headers)
-    .then((res) => ({
+    .then((res = {}) => ({
       masterCardId: res.data.id,
     }));
 
 export const updateMaster = (masterCardId, params, headers) =>
   patch(routes.updateMaster, params, headers, { id: masterCardId })
-    .then((res) => ({
+    .then((res = {}) => ({
       masterCardId: res.data.id,
     }));
 

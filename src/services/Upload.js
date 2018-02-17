@@ -24,7 +24,7 @@ export const uploadFile = ({ uri, type }, headers, mediaType) => {
     },
   ])
     .then(res => res.json())
-    .then((res) => {
+    .then((res = {}) => {
       log('[UploadFile::response]', res);
 
       if (res.errors) {

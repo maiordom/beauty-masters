@@ -7,7 +7,7 @@ import { get, post } from '../utils/Provider';
 
 export const getUserProfile = (headers: Object, params: Object) =>
   get(routes.getUserProfile, params, headers)
-    .then((res) => (res.error ? res : {
+    .then((res = {}) => (res.error ? res : {
       email: res.data.attributes.email,
       userId: Number(res.data.id),
       masterCards: res.included ? res.included.map((card) => ({
