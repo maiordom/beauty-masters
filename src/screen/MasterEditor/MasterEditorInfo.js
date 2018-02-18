@@ -10,7 +10,7 @@ import NavBar from '../../components/NavBar';
 
 import { isSalon } from '../../utils/isSalon';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ...state.masterEditor.info,
   cardType: state.masterEditor.cardType,
   editStatus: state.masterEditor.editStatus,
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
   sectionName: 'info',
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: {
     ...bindActionCreators({
       createMaster,
