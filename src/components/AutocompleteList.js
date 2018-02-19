@@ -37,6 +37,7 @@ type TProps = {
 type TState = {
   dataSource: Object,
   selected: TPlace,
+  value?: string,
 };
 
 export default class AutocompleteList extends PureComponent<TProps, TState> {
@@ -46,7 +47,10 @@ export default class AutocompleteList extends PureComponent<TProps, TState> {
     searchType: 'specify',
   };
 
-  onChange = (value: string) => this.searchItem(value);
+  onChange = (value: string) => {
+    this.setState({ value });
+    this.searchItem(value);
+  }
 
   ds: Object;
 
@@ -101,7 +105,7 @@ export default class AutocompleteList extends PureComponent<TProps, TState> {
 
   render() {
     const { items, placeholder } = this.props;
-    const { selected } = this.state;
+    const { selected, value } = this.state;
 
     return (
       <View style={styles.container}>
@@ -112,7 +116,7 @@ export default class AutocompleteList extends PureComponent<TProps, TState> {
             onChange={this.onChange}
             placeholder={placeholder}
             style={styles.searchField}
-            value={selected && selected.label}
+            value={selected && selected.label || value}
           />
           {items.length > 0 && (
             <ListView
