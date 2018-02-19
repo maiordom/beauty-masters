@@ -38,6 +38,16 @@ type TState = {
   currentScene: ?string,
 }
 
+const userAgreement = {
+  key: 'userAgreement',
+  title: i18n.userAgreementShort,
+  icon: {
+    default: require('../icons/android/doc.png'),
+    active: require('../icons/android/doc-active.png'),
+  },
+  onPress: () => this.changeScene('userAgreement'),
+};
+
 export default class Sidebar extends PureComponent<TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
@@ -72,15 +82,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
         active: require('../icons/android/star-active.png'),
       },
       onPress: () => this.changeScene('favorite'),
-    },
-    {
-      key: 'userAgreement',
-      title: i18n.userAgreementShort,
-      icon: {
-        default: require('../icons/android/doc.png'),
-        active: require('../icons/android/doc-active.png'),
-      },
-      onPress: () => this.changeScene('userAgreement'),
     },
     {
       key: 'feedback',
