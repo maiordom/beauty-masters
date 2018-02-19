@@ -4,6 +4,7 @@ import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
 
 import { getMasterServices, getAddresses } from './Profile';
+import { setGeneralParam } from './Master';
 import { refreshEditor } from './Master';
 
 export const setGeneralInfo = (masterCard) => ({
@@ -50,7 +51,23 @@ export const getPhotos = (id: number) => (dispatch: Function) =>
           payload: { masterCard: res },
         });
       }
+
+      return res;
     });
+
+export const getMasterInfo = (id: number) => (dispatch: Function, getState: Function) =>
+  getPhotos(id)(dispatch).then((res) => {
+    if (!res.error) {
+      const state = getState();
+      const masterCard = find(state.profile.masterCards, { isMain: true });
+
+      if (masterCard && masterCard.about) {
+        dispatch(setGeneralParam('aboutField', masterCard.about, 'info'));
+      }
+    }
+
+    return res;
+  });
 
 export const getServices = () => (dispatch: Function, getState: Function) => {
   const state = getState();

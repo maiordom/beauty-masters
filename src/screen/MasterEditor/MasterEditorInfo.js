@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
 import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
-import { getPhotos } from '../../actions/MasterEdit';
+import { getMasterInfo } from '../../actions/MasterEdit';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
 import NavBar from '../../components/NavBar';
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   actions: {
     ...bindActionCreators({
       createMaster,
-      getPhotos,
+      getMasterInfo,
       removePhoto,
       setGeneralParam,
     }, dispatch),

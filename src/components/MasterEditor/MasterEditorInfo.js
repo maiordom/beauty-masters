@@ -68,7 +68,7 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
   componentDidMount() {
     if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
       this.setState({ renderLoader: true });
-      this.props.actions.getPhotos(this.props.masterCardId).then(() => {
+      this.props.actions.getMasterInfo(this.props.masterCardId).then(() => {
         this.setState({ renderLoader: false });
       }).catch(() => {
         this.setState({ renderLoader: false });
