@@ -10,12 +10,30 @@ export default class ActivityIndicatorComponent extends PureComponent {
     size: 'large',
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      animating: props.animating,
+    };
+    this.setTimeout();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ animating: Boolean(nextProps.animating) });
+    this.setTimeout();
+  }
+
+  setTimeout() {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.setState({ animating: false });
+    }, 10000);
+  }
+
   render () {
-    const {
-      animating,
-      position,
-      size,
-    } = this.props;
+    const { position, size } = this.props;
+    const { animating } = this.state;
 
     return (
       <View style={animating
