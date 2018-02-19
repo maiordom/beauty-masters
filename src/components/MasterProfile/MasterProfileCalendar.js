@@ -200,12 +200,14 @@ export default class MasterProfileCalendar extends PureComponent<TProps, TState>
                     <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
                   </View>
                 )}
-            <Switch
-              title={i18n.temporarilyDontWork}
-              customStyles={{ container: styles.switchContainer }}
-              onChange={this.onSwitchToggle}
-              value={disableCalendar}
-            />
+            {false && (
+              <Switch
+                title={i18n.temporarilyDontWork}
+                customStyles={{ container: styles.switchContainer }}
+                onChange={this.onSwitchToggle}
+                value={disableCalendar}
+              />
+            )}
           </View>
         </ScrollView>
         <Modal
