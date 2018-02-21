@@ -38,6 +38,16 @@ type TState = {
   currentScene: ?string,
 }
 
+const userAgreement = {
+  key: 'userAgreement',
+  title: i18n.userAgreementShort,
+  icon: {
+    default: require('../icons/android/doc.png'),
+    active: require('../icons/android/doc-active.png'),
+  },
+  onPress: () => this.changeScene('userAgreement'),
+};
+
 export default class Sidebar extends PureComponent<TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
@@ -45,8 +55,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
 
   changeScene = (key: string) => {
     const nextScene = { currentScene: key };
-
-    this.props.actions.drawerClose();
 
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
@@ -76,15 +84,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
       onPress: () => this.changeScene('favorite'),
     },
     {
-      key: 'userAgreement',
-      title: i18n.userAgreementShort,
-      icon: {
-        default: require('../icons/android/doc.png'),
-        active: require('../icons/android/doc-active.png'),
-      },
-      onPress: () => this.changeScene('userAgreement'),
-    },
-    {
       key: 'feedback',
       title: i18n.feedback,
       icon: {
@@ -102,8 +101,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
   }
 
   onAvatarPress = () => {
-    this.props.actions.drawerClose();
-
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         if (this.props.isAuthorized) {
@@ -116,7 +113,6 @@ export default class Sidebar extends PureComponent<TProps, TState> {
   };
 
   onLogoutPress = () => {
-    this.props.actions.drawerClose();
     this.props.actions.logout();
   };
 

@@ -8,16 +8,18 @@ import styles from './styles';
 
 const icons = Platform.select({
   ios: {
-    pin: require('./icons/ios/pin.png'),
-    list: require('./icons/ios/list.png'),
-    photo: require('./icons/ios/photo.png'),
     calendar: require('./icons/ios/calendar.png'),
+    list: require('./icons/ios/list.png'),
+    logo: require('../../icons/logo.png'),
+    photo: require('./icons/ios/photo.png'),
+    pin: require('./icons/ios/pin.png'),
   },
   android: {
-    pin: require('./icons/android/pin.png'),
-    list: require('./icons/android/list.png'),
-    photo: require('./icons/android/photo.png'),
     calendar: require('./icons/android/calendar.png'),
+    list: require('./icons/android/list.png'),
+    logo: require('../../icons/logo.png'),
+    photo: require('./icons/android/photo.png'),
+    pin: require('./icons/android/pin.png'),
   },
 });
 
@@ -37,7 +39,7 @@ export default class Presentation extends PureComponent {
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
-          <Image style={styles.logo} source={require('../../icons/logo.png')} />
+          <Image style={styles.logo} source={icons.logo} />
           <Text style={styles.title}>{i18n.presentation.title}</Text>
           <View style={styles.list}>
             <View style={styles.listItem}>

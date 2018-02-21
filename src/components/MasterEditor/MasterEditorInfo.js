@@ -55,17 +55,24 @@ type TProps = {
 type TState = {
   certificatesShow: boolean,
   photoMasterModalVisible: boolean,
+  renderLoader: boolean,
 };
 
 export default class MasterEditorInfo extends PureComponent<TProps, TState> {
   state = {
     certificatesShow: false,
     photoMasterModalVisible: false,
+    renderLoader: false,
   };
 
   componentDidMount() {
     if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
-      this.props.actions.getPhotos(this.props.masterCardId);
+      this.setState({ renderLoader: true });
+      this.props.actions.getMasterInfo(this.props.masterCardId).then(() => {
+        this.setState({ renderLoader: false });
+      }).catch(() => {
+        this.setState({ renderLoader: false });
+      });
     }
   }
 
@@ -157,11 +164,14 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
       certificatesShow,
       photoMasterModalParams,
       photoMasterModalVisible,
+      renderLoader,
     } = this.state;
 
     return (
       <View style={styles.container}>
-        <ActivityIndicator position="absolute" />
+        {renderLoader && (
+          <ActivityIndicator animating position="absolute" />
+        )}
         <PhotoMasterModal
           onRequestClose={this.togglePhotoMasterVisibility}
           props={photoMasterModalParams}

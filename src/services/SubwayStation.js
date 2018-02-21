@@ -15,7 +15,7 @@ const mapResponse = (data): Array<TSubwayStation> => data.map(station => ({
 export function getSubwayStations(cityId: number) {
   const params = { filters: `[{"operator": "=", "attribute": "city_id", "value": ${cityId}}]` };
   return get(routes.getSubwayStations, params)
-    .then(res => {
+    .then((res = {}) => {
       if (res.data) {
         return { subwayStations: mapResponse(res.data) };
       } else {

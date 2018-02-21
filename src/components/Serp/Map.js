@@ -395,6 +395,7 @@ export default class Map extends PureComponent<TProps, TState> {
                   }
                 >
                   <View style={styles.clusterMarker}>
+                    <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
                     <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
                   </View>
                 </MapView.Marker>
@@ -410,7 +411,11 @@ export default class Map extends PureComponent<TProps, TState> {
                   ? icons.pinGreen
                   : icons.pinRed
                 }
-              />
+              >
+                <View>
+                  <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
+                </View>
+              </MapView.Marker>
             );
           })}
         </MapView>
@@ -456,14 +461,10 @@ const styles = StyleSheet.create({
   clusterMarkerTitle: {
     color: vars.color.white,
     fontSize: 14,
-    flex: 1,
     marginTop: 4,
     textAlign: 'center',
   },
   clusterMarker: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     width: 24,
     height: 32,
   },

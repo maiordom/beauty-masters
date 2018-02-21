@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
 import {
@@ -23,7 +23,7 @@ const icons = {
 
 const CHUNK_SIZE = 3;
 
-export default class MasterPhotoList extends PureComponent {
+export default class MasterPhotoList extends Component {
   onPhotoSelectPress = () => {
     this.props.onPhotoSelectPress(this.props.modelName);
   };
