@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform, ScrollView, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
@@ -61,7 +61,7 @@ type TState = {
   showShortForm: boolean,
 };
 
-export default class SearchFormShort extends Component<TProps, TState> {
+export default class SearchFormShort extends PureComponent<TProps, TState> {
   state = {
     renderContent: false,
     selectedDates: this.props.searchQuery.dates.slice(),

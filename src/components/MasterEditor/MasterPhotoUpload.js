@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Image, TouchableWithoutFeedback, StyleSheet, Platform, View } from 'react-native';
 
-const uploadIcon = require('../../icons/android/photo-upload@2x.png');
+const uploadIcon = require('../../icons/android/photo-icon.png');
 
 const addIcon = Platform.select({
   android: require('../../icons/android/add.png'),

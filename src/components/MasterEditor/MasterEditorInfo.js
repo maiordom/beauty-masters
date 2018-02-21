@@ -1,6 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
+import find from 'lodash/find';
 import {
   Dimensions,
   Modal,
@@ -54,17 +55,24 @@ type TProps = {
 type TState = {
   certificatesShow: boolean,
   photoMasterModalVisible: boolean,
+  renderLoader: boolean,
 };
 
 export default class MasterEditorInfo extends PureComponent<TProps, TState> {
   state = {
     certificatesShow: false,
     photoMasterModalVisible: false,
+    renderLoader: false,
   };
 
   componentDidMount() {
     if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
-      this.props.actions.getPhotos(this.props.masterCardId);
+      this.setState({ renderLoader: true });
+      this.props.actions.getMasterInfo(this.props.masterCardId).then(() => {
+        this.setState({ renderLoader: false });
+      }).catch(() => {
+        this.setState({ renderLoader: false });
+      });
     }
   }
 
@@ -96,13 +104,14 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
       personalPhotos,
       workPhotos,
     } = this.props;
-    const customCreateMasterQuery = { avatar: '' };
+    const createMasterQuery = { avatar: '' };
+    const avatar = find(personalPhotos.items, { type: 'photo' });
 
-    if (personalPhotos.items.length) {
-      customCreateMasterQuery.avatar = personalPhotos.items[0].sizes.s;
+    if (avatar) {
+      createMasterQuery.avatar = avatar.sizes.s;
     }
 
-    this.props.actions.createMaster(customCreateMasterQuery).then((res) => {
+    this.props.actions.createMaster(createMasterQuery).then((res) => {
       if (res.result === 'success') {
         if (this.props.isSalon) {
           trackEvent('step5Salon');
@@ -123,13 +132,14 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
 
   onSavePress = () => {
     const { personalPhotos } = this.props;
-    const customCreateMasterQuery = { avatar: '' };
+    const createMasterQuery = { avatar: '' };
+    const avatar = find(personalPhotos.items, { type: 'photo' });
 
-    if (personalPhotos.items.length) {
-      customCreateMasterQuery.avatar = personalPhotos.items[0].sizes.s;
+    if (avatar) {
+      createMasterQuery.avatar = avatar.sizes.s;
     }
 
-    this.props.actions.createMaster(customCreateMasterQuery).then((res) => {
+    this.props.actions.createMaster(createMasterQuery).then((res) => {
       if (res.result === 'success') {
         trackEvent('changePhoto');
         this.props.actions.routeToProfile();
@@ -154,11 +164,14 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
       certificatesShow,
       photoMasterModalParams,
       photoMasterModalVisible,
+      renderLoader,
     } = this.state;
 
     return (
       <View style={styles.container}>
-        <ActivityIndicator position="absolute" />
+        {renderLoader && (
+          <ActivityIndicator animating position="absolute" />
+        )}
         <PhotoMasterModal
           onRequestClose={this.togglePhotoMasterVisibility}
           props={photoMasterModalParams}

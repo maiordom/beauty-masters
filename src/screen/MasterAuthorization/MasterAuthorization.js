@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -22,7 +22,7 @@ const switchArrowIcon = Platform.select({
   android: require('../../icons/android/switch-arrow.png'),
 });
 
-export default class MasterAuthorization extends Component {
+export default class MasterAuthorization extends PureComponent {
   constructor() {
     super();
 

@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import {
@@ -37,16 +37,20 @@ type TProps = {
 type TState = {
   dataSource: Object,
   selected: TPlace,
+  value?: string,
 };
 
-export default class AutocompleteList extends Component<TProps, TState> {
+export default class AutocompleteList extends PureComponent<TProps, TState> {
   static defaultProps = {
     items: [],
     placeholder: i18n.enterAddress,
     searchType: 'specify',
   };
 
-  onChange = (value: string) => this.searchItem(value);
+  onChange = (value: string) => {
+    this.setState({ value });
+    this.searchItem(value);
+  }
 
   ds: Object;
 
@@ -101,7 +105,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
 
   render() {
     const { items, placeholder } = this.props;
-    const { selected } = this.state;
+    const { selected, value } = this.state;
 
     return (
       <View style={styles.container}>
@@ -112,7 +116,7 @@ export default class AutocompleteList extends Component<TProps, TState> {
             onChange={this.onChange}
             placeholder={placeholder}
             style={styles.searchField}
-            value={selected && selected.label}
+            value={selected && selected.label || value}
           />
           {items.length > 0 && (
             <ListView

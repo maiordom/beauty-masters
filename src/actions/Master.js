@@ -88,7 +88,9 @@ export const createMasterServices = () => (dispatch, getState) => {
         return { result: 'success' };
       }
     })
-    .catch(() => dispatch(setActivityIndicator(false)));
+    .catch(() => {
+      dispatch(setActivityIndicator(false));
+    });
 };
 
 export const validateServices = () => (dispatch, getState) => {
@@ -180,11 +182,12 @@ export const setCalendarSchedule = (modelName, changes, sectionName) => ({
   payload: { modelName, changes, sectionName },
 });
 
-export const toogleCustomService = (modelName, sectionName, active) => ({
+export const toogleCustomService = (modelName, sectionName, active, index = 0) => ({
   type: actions.MASTER_CUSTOM_SERVICE_TOGGLE,
   modelName,
   sectionName,
   active,
+  index,
 });
 
 export const setCustomServiceParam = (modelName, changes, index, sectionName) => ({

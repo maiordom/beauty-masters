@@ -29,7 +29,7 @@ import PagedCardContainer from './PagedCardContainer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
-import { log } from '../../utils/Log';
+import { log, sendLog } from '../../utils/Log';
 
 import type { TMapCard } from '../../types/MasterTypes';
 import type { TRegionType } from '../../types/RegionType';
@@ -212,17 +212,6 @@ export default class Map extends PureComponent<TProps, TState> {
     this.map = ref;
   };
 
-  getClusterId(point) {
-    const { supercluster } = this.state;
-
-    const leaves = take(supercluster.getLeaves(
-      point.properties.cluster_id,
-      getZoomLevel(this.state.region),
-    ), MAX_CURRENT_MAP_CARDS);
-
-    return leaves.map((leave) => leave.properties.id).join(',');
-  }
-
   onMarkerPress = (event: any) => {
     const { supercluster, clusters } = this.state;
     const index = parseInt(event.nativeEvent.id, 10);
@@ -397,7 +386,7 @@ export default class Map extends PureComponent<TProps, TState> {
             if (pin.properties.cluster) {
               return (
                 <MapView.Marker
-                  key={this.getClusterId(pin) + pin.geometry.coordinates.join(',')}
+                  key={pin.geometry.coordinates.join(',')}
                   coordinate={coordinate}
                   identifier={index.toString()}
                   image={isEqual(coordinate, activePin)
@@ -406,6 +395,7 @@ export default class Map extends PureComponent<TProps, TState> {
                   }
                 >
                   <View style={styles.clusterMarker}>
+                    <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
                     <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
                   </View>
                 </MapView.Marker>
@@ -421,7 +411,11 @@ export default class Map extends PureComponent<TProps, TState> {
                   ? icons.pinGreen
                   : icons.pinRed
                 }
-              />
+              >
+                <View>
+                  <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
+                </View>
+              </MapView.Marker>
             );
           })}
         </MapView>
@@ -467,14 +461,10 @@ const styles = StyleSheet.create({
   clusterMarkerTitle: {
     color: vars.color.white,
     fontSize: 14,
-    flex: 1,
     marginTop: 4,
     textAlign: 'center',
   },
   clusterMarker: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     width: 24,
     height: 32,
   },

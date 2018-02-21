@@ -13,7 +13,7 @@ import {
   View,
   Linking,
 } from 'react-native';
-import Gallery from 'react-native-gallery';
+import Gallery from 'react-native-image-gallery';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -236,7 +236,9 @@ export default class MasterCard extends PureComponent<TProps, TState> {
           <View style={styles.gallery}>
             <Gallery
               initialPage={showWorksIndex}
-              images={workPhotos.map((photo) => photo.sizes.m)}
+              images={workPhotos.map((photo) => (
+                { source: { uri: photo.sizes.m } }
+              ))}
             />
             <TouchableOpacity
               activeOpacity={1}

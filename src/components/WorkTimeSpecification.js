@@ -1,11 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import difference from 'lodash/difference';
-
-import { shouldComponentUpdate } from '../utils';
 
 import Switch from '../components/Switch';
 import RangeTime from '../components/RangeTime';
@@ -32,9 +30,7 @@ type TState = {
   workInThisDay: boolean,
 };
 
-export default class WorkTimeSpecification extends Component<TProps, TState> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
+export default class WorkTimeSpecification extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
     super(props);
 

@@ -17,7 +17,7 @@ export const mapGetCityResponse = (data): Array<TCity> => data.map(city => ({
 
 export function getCities() {
   return get(routes.getCities)
-    .then(res => (res.data && {
+    .then((res = {}) => (res.data && {
       cities: mapGetCityResponse(res.data),
     } || {
       cities: [],

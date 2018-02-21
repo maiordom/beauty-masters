@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   InteractionManager,
   ScrollView,
@@ -49,7 +49,7 @@ type TState = {
   },
 };
 
-export default class MasterEditorCalendarSettings extends Component<TProps, TState> {
+export default class MasterEditorCalendarSettings extends PureComponent<TProps, TState> {
   state = {
     automate: [
       'address',

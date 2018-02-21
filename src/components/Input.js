@@ -8,6 +8,7 @@ import vars from '../vars';
 
 type TProps = {
   autoCorrect?: boolean,
+  blurOnSubmit?: boolean,
   debounce?: boolean,
   editable?: boolean,
   formatValue?: (value: any) => string,
@@ -16,11 +17,14 @@ type TProps = {
   keyboardType?: string,
   label?: string,
   modelName?: string,
+  multiline?: boolean,
+  numberOfLines?: number,
   onBlur?: (value: string, modelName?: string) => void,
   onChange?: (value: string, modelName?: string) => void,
   placeholder?: string,
   placeholderTextColor?: string,
   replaceReg?: Object,
+  returnKeyType?: string,
   secureTextEntry?: boolean,
   sign?: string,
   style?: Object,
@@ -50,11 +54,16 @@ class InputBase extends PureComponent<TProps, TState> {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== null
-      && nextProps.value !== undefined
-      && this.props.value !== nextProps.value
-    ) {
-      this.state.value = nextProps.value.toString();
+    if (!('value' in nextProps)) {
+      return;
+    }
+
+    const { value } = nextProps;
+
+    if (null === value) {
+      this.state.value = '';
+    } else if (this.props.value !== nextProps.value) {
+      this.state.value = String(value).toString();
     }
   }
 
@@ -66,7 +75,11 @@ class InputBase extends PureComponent<TProps, TState> {
     this.setState(
       { value: formatValue ? formatValue(value) : value },
       () => {
-        this.props.debounce && this.debounceOnChange();
+        if (this.props.debounce) {
+          this.debounceOnChange();
+        } else {
+          this.props.onChange && this.props.onChange(value, this.props.modelName);
+        }
       },
     );
   };
@@ -151,12 +164,16 @@ export default class Input extends InputBase {
   render() {
     const {
       autoCorrect,
+      blurOnSubmit,
       editable,
       icon,
       inputWrapperStyle,
       keyboardType = 'default',
+      multiline,
+      numberOfLines,
       placeholder,
       placeholderTextColor,
+      returnKeyType,
       secureTextEntry,
       style: customInputStyle,
       underlineColorAndroid,
@@ -174,15 +191,19 @@ export default class Input extends InputBase {
         {icon && <Image source={icon} />}
         <TextInput
           autoCorrect={autoCorrect !== undefined ? autoCorrect : true}
+          blurOnSubmit={blurOnSubmit}
           editable={editable !== undefined ? editable : true}
           keyboardType={keyboardType}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
           onBlur={this.onBlur}
           onChangeText={this.onChangeText}
           onFocus={this.onFocus}
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor || vars.color.placeholderColor}
+          returnKeyType={returnKeyType}
           secureTextEntry={secureTextEntry}
-          style={[customInputStyle, inputStyle.input]}
+          style={[inputStyle.input, customInputStyle]}
           underlineColorAndroid={underlineColorAndroid || vars.color.underlineColorAndroid}
           value={value}
         />

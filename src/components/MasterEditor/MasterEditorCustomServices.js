@@ -25,13 +25,15 @@ export default class MasterEditorCustomServices extends PureComponent<TProps, vo
     this.toogleCustomService(true);
   };
 
-  onChange = (active: boolean) => this.toogleCustomService(active);
+  onChange = (active: boolean, modelName: string, index: number) =>
+    this.toogleCustomService(active, index);
 
-  toogleCustomService = (active: boolean) => {
+  toogleCustomService = (active: boolean, index: number) => {
     this.props.actions.toogleCustomService(
       this.props.modelName,
       this.props.sectionName,
       active,
+      index,
     );
   };
 

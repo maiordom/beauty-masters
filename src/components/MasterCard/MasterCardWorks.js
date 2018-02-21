@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   ListView,
@@ -12,7 +12,7 @@ import {
 import vars from '../../vars';
 import i18n from '../../i18n';
 
-export default class MasterCardWorks extends Component {
+export default class MasterCardWorks extends PureComponent {
   state = { showGallery: false };
 
   constructor(props) {

@@ -23,6 +23,7 @@ const methods = [
   { getUserProfile: '/user/profile', method: 'GET' },
   { refreshToken: '/refresh-token', method: 'POST' },
   { searchMasters: '/search-master', method: 'GET' },
+  { sendFeedback: '/feedback', method: 'POST' },
   { sendResetPasswordLink: '/user/request-password-reset', method: 'POST' },
   { updateAddress: ({ id }) => `/address/${id}`, method: 'PATCH' },
   { updateMaster: ({ id }) => `/master-card/${id}`, method: 'PATCH' },

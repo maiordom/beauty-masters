@@ -1,11 +1,11 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Animated, View } from 'react-native';
 
 import vars from '../vars';
 
-export default class ImagePlaceholder extends Component {
+export default class ImagePlaceholder extends PureComponent {
   props: {
     style: Object,
     source: Object,

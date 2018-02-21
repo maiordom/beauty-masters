@@ -1,27 +1,57 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import vars from '../vars';
 
-const ActivityIndicatorComponent = ({
-  animating = false,
-  position = 'relative',
-  size = 'large',
-}) => (
-  <View style={animating
-    ? position === 'absolute'
-      ? styles.positionAbsolute
-      : null
-    : styles.hidden
+export default class ActivityIndicatorComponent extends PureComponent {
+  static defaultProps = {
+    animating: false,
+    position: 'relative',
+    size: 'large',
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      animating: props.animating,
+    };
+    this.setTimeout();
   }
-  >
-    <ActivityIndicator
-      animating={animating}
-      size={size}
-      color={vars.color.red}
-    />
-  </View>
-);
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ animating: Boolean(nextProps.animating) });
+    this.setTimeout();
+  }
+
+  setTimeout() {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.setState({ animating: false });
+    }, 10000);
+  }
+
+  render () {
+    const { position, size } = this.props;
+    const { animating } = this.state;
+
+    return (
+      <View style={animating
+        ? position === 'absolute'
+          ? styles.positionAbsolute
+          : null
+        : styles.hidden
+      }
+      >
+        <ActivityIndicator
+          animating={animating}
+          size={size}
+          color={vars.color.red}
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   hidden: {
@@ -40,5 +70,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
-
-export default ActivityIndicatorComponent;

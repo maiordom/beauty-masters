@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -66,7 +66,7 @@ const getTabBorderOffset = (sectionKey: string) => {
   return (Dimensions.get('window').width / 3) * tabIndex;
 };
 
-export default class MasterProfile extends Component<TProps, TState> {
+export default class MasterProfile extends PureComponent<TProps, TState> {
   state = {
     tabBorderOffset: new Animated.Value(getTabBorderOffset(this.props.sectionKey)),
     tabCurrentKey: this.props.sectionKey,

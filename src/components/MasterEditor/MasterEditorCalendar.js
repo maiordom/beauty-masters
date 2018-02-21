@@ -1,6 +1,5 @@
 /* @flow */
-
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 import ButtonControl from '../ButtonControl';
@@ -17,7 +16,7 @@ type TProps = {
   isSalon: boolean,
 };
 
-export default class MasterEditorCalendar extends Component<TProps, void> {
+export default class MasterEditorCalendar extends PureComponent<TProps, void> {
   componentDidMount() {
     if (this.props.cardType === 'edit') {
       this.props.actions.getCalendars();

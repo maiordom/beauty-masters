@@ -304,6 +304,7 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
             onChange={this.onAtHomeChange}
             replaceReg={/[^0-9]/g}
             sign={` ${i18n.currency.roubleSign}`}
+            value={homeDepartureField.price}
           />
           <View style={styles.sectionPadding} />
           <FilterLabel text={i18n.filters.otherServices} style={styles.sectionTitle} />

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, ScrollView, Platform } from 'react-native';
 
 import { SubLabel } from '../SubLabel';
@@ -21,11 +21,10 @@ type TProps = {
   isSalon: boolean,
   modelParamName: string,
   models: Object,
-  queryParamName: string,
   sectionName: string,
 };
 
-export default class MasterEditorHandlingTools extends Component<TProps, void> {
+export default class MasterEditorHandlingTools extends PureComponent<TProps, void> {
   onChange = (state: boolean, modelName: string) => {
     const { modelParamName, sectionName } = this.props;
 
@@ -38,11 +37,11 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
   };
 
   onChangeOtherMethod = (value: string, modelName?: string) => {
-    const { queryParamName, sectionName } = this.props;
+    const { sectionName } = this.props;
 
     this.props.actions.setServiceParam(
       modelName,
-      queryParamName,
+      'description',
       value,
       sectionName,
     );
@@ -117,12 +116,13 @@ export default class MasterEditorHandlingTools extends Component<TProps, void> {
             <Switch {...boilingMethod} onChange={this.onChange} />
             <Switch {...sterileOtherMethod} onChange={this.onChange} />
             <Input
-              value={sterileOtherMethod.description}
-              placeholder={sterileOtherMethod.placeholder}
-              modelName={sterileOtherMethod.modelName}
+              debounce
               editable={sterileOtherMethod.value}
-              onChange={this.onChangeOtherMethod}
               inputWrapperStyle={styles.otherMethodInput}
+              modelName={sterileOtherMethod.modelName}
+              onChange={this.onChangeOtherMethod}
+              placeholder={sterileOtherMethod.placeholder}
+              value={sterileOtherMethod.description}
             />
           </View>
         </ScrollView>

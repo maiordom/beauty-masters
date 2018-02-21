@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   TouchableOpacity,
   Image,
@@ -33,7 +33,7 @@ const getBackButtonImage = (leftButtonMenu) => {
   return icons.backArrow;
 };
 
-class NavBar extends Component {
+class NavBar extends PureComponent {
   render() {
     const {
       backButtonImage,
@@ -96,7 +96,7 @@ class NavBar extends Component {
 
 // Declare only one React component per file
 // eslint-disable-next-line
-const Scene = (component) => class SceneComponent extends Component {
+const Scene = (component) => class SceneComponent extends PureComponent {
   onLeftButtonPress = () => {
     const {
       leftButtonMenu,

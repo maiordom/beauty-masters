@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform } from 'react-native';
 import Separator from './Separator.ios';
 
@@ -11,7 +11,7 @@ type TProps = {
   shouldShowSeparator: boolean,
 };
 
-export default class FilterSubLabel extends Component<TProps, void> {
+export default class FilterSubLabel extends PureComponent<TProps, void> {
   static defaultProps = {
     title: '',
     shouldShowSeparator: true,

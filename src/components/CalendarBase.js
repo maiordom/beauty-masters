@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
 import moment from 'moment';
 
 import {
@@ -45,7 +45,7 @@ type TProps = {
   workDays: Array<string>,
 };
 
-export default class Calendar extends Component<TProps, void> {
+export default class Calendar extends PureComponent<TProps, void> {
   constructor(props: TProps) {
     super(props);
 
@@ -449,18 +449,6 @@ Day.dayTextStyle = (isWeekend, isSelected, isToday, event, isDisable) => {
     dayTextStyle.push(styles.isDisable);
   }
   return dayTextStyle;
-};
-
-Day.propTypes = {
-  caption: PropTypes.any,
-  dayStyles: PropTypes.object,
-  event: PropTypes.object,
-  filler: PropTypes.bool,
-  isSelected: PropTypes.bool,
-  isToday: PropTypes.bool,
-  isWeekend: PropTypes.bool,
-  onPress: PropTypes.func,
-  showEventIndicators: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

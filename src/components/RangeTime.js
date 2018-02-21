@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,6 @@ import {
   TimePickerAndroid,
   TouchableHighlight,
 } from 'react-native';
-
-import { shouldComponentUpdate } from '../utils';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -33,14 +31,12 @@ type TState = {
 };
 
 // $FlowFixMe
-export default class RangeTime extends Component<TProps, TState> {
+export default class RangeTime extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
     super(props);
 
     this.state = this.getStorage(this.props);
   }
-
-  shouldComponentUpdate = shouldComponentUpdate();
 
   getStorage = (props: TProps) => {
     const { timeStart, timeEnd } = props;

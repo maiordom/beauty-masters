@@ -43,9 +43,6 @@ const icons = {
 
 // $FlowFixMe
 export default class FilterCheckBox extends PureComponent<TProps, void> {
-  durationRef: any;
-  priceRef: any;
-
   onPress = () => {
     if (this.props.required) {
       return;
@@ -88,14 +85,6 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
       <Image source={icons.warning} />
     </View>
   );
-
-  setPriceRef = (ref: any) => {
-    this.priceRef = ref;
-  };
-
-  setDurationRef = (ref: any) => {
-    this.durationRef = ref;
-  };
 
   render() {
     const {
@@ -155,7 +144,6 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
                 keyboardType="numeric"
                 onChange={this.onChangePrice}
                 placeholder={i18n.filters.price}
-                ref={this.setPriceRef}
                 replaceReg={/[^0-9]/g}
                 sign={` ${i18n.currency.roubleSign}`}
                 value={price}
@@ -170,9 +158,8 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onСhange={this.onChangeDuration}
+                onChange={this.onChangeDuration}
                 placeholder={i18n.filters.duration}
-                ref={this.setDurationRef}
                 replaceReg={/[^0-9]/g}
                 sign={` ${i18n.time.minuteShort}`}
                 value={duration}

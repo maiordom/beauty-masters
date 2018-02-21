@@ -7,7 +7,7 @@ import { get, post } from '../utils/Provider';
 
 export const getUserProfile = (headers: Object, params: Object) =>
   get(routes.getUserProfile, params, headers)
-    .then((res) => (res.error ? res : {
+    .then((res = {}) => (res.error ? res : {
       email: res.data.attributes.email,
       userId: Number(res.data.id),
       masterCards: res.included ? res.included.map((card) => ({
@@ -37,12 +37,13 @@ export const getMasterServices = (params: Object) =>
         return res;
       }
 
-      return res.data.map(item => ({
+      return res.data.map((item) => ({
         categoryId: item.attributes.category_service_id,
+        description: item.attributes.description,
         duration: item.attributes.duration,
         price: item.attributes.price,
         serviceId: item.attributes.service_id,
-        title: item.attributes.title,
+        title: item.attributes.title
       }));
     });
 

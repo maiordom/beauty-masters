@@ -20,6 +20,7 @@ export default class ButtonControl extends PureComponent {
 
     return (
       <TouchableOpacity
+        activeOpacity={0.7}
         onPress={onPress}
         style={[
           styles.container,

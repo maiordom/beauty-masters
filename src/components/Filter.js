@@ -13,7 +13,6 @@ import {
 import Separator from './Separator.ios';
 
 import vars from '../vars';
-import { shouldComponentUpdate } from '../utils';
 
 type TProps = {
   active?: boolean,
@@ -28,8 +27,6 @@ type TProps = {
 };
 
 export default class Filter extends PureComponent<TProps, void> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
   onControlPress = () => {
     this.props.onControlPress && this.props.onControlPress();
   };

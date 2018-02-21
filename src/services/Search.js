@@ -9,7 +9,7 @@ export function geoAutoComplete(params: Object) {
 
 export function searchMasters(params: { query: string }) {
   return get(routes.searchMasters, params)
-    .then((res: Object) => (res.error ? res : res.data.map(master => ({
+    .then((res: Object = {}) => (res.error ? res : (res.data || []).map(master => ({
       address: master.attributes.address,
       closestDate: master.attributes.closest_date,
       coordinates: {

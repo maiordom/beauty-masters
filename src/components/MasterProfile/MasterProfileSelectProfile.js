@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Image,
@@ -28,7 +28,7 @@ type TProps = {
 
 const avatarEmpty = require('../../icons/photo-empty.png');
 
-export default class MasterProfileSelectProfile extends Component<TProps, void> {
+export default class MasterProfileSelectProfile extends PureComponent<TProps, void> {
   onSelectMaster = (index: number) => {
     if (!this.props.items[index].isMain) {
       this.props.actions.selectMainMaster(index);
