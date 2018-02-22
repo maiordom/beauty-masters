@@ -13,10 +13,8 @@ import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
 import Calendar from '../Calendar';
-import Label from '../Label';
 import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
-import RadioGroup from '../RadioGroup';
-import RangeTime from '../RangeTime';
+import MasterEditorSchedule from '../MasterEditor/MasterEditorSchedule';
 import WorkTimeSpecification from '../../containers/WorkTimeSpecification';
 import IntervalStartDate from '../../containers/IntervalStartDate';
 
@@ -202,18 +200,14 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
             </View>
           )}
           {show.schedule && (
-            <View>
-              <Label text={i18n.yourSchedule} subText={i18n.selectYoutSchedule} spacing />
-              <RadioGroup {...intervalGroup} onChange={this.onIntervalChange} />
-              <RangeTime
-                onTimeStartChange={this.onTimeStartChange}
-                onTimeEndChange={this.onTimeEndChange}
-                timeStart={timeStartField.value}
-                timeEnd={timeEndField.value}
-                timeStartModelName={timeStartField.modelName}
-                timeEndModelName={timeEndField.modelName}
-              />
-            </View>
+            <MasterEditorSchedule
+              timeStartField={timeStartField}
+              timeEndField={timeEndField}
+              intervalGroup={intervalGroup}
+              onIntervalChange={this.onIntervalChange}
+              onTimeStartChange={this.onTimeStartChange}
+              onTimeEndChange={this.onTimeEndChange}
+            />
           )}
           {show.calendar && (
             <View>
@@ -259,7 +253,7 @@ const WorkTimeSpecificationModal = ({
 const IntervalStartDateModal = ({
   onRequestClose,
   props,
-  visible
+  visible,
 }) => (
   <Modal
     animationType="fade"

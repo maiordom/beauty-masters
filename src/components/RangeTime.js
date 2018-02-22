@@ -54,7 +54,7 @@ export default class RangeTime extends PureComponent<TProps, TState> {
   };
 
   componentWillReceiveProps(nextProps: TProps) {
-    this.state = this.getStorage(nextProps);
+    this.setState(this.getStorage(nextProps));
   }
 
   formatTime = (hour: number, minute: number) => `${hour}:${minute < 10 ? `0${minute}` : minute}`;
