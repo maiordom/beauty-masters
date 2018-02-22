@@ -27,7 +27,7 @@ export default class MasterEditorSchedule extends PureComponent<TProps, void> {
 
     return (
       <View>
-        <MasterEditorSectionTitle title={i18n.selectYoutSchedule} />
+        <MasterEditorSectionTitle title={i18n.selectYourSchedule} />
         <View style={styles.container}>
           <PickerList {...intervalGroup} onChange={onIntervalChange} />
         </View>

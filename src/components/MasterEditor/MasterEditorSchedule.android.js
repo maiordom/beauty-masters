@@ -26,7 +26,7 @@ export default class MasterEditorSchedule extends PureComponent<TProps, void> {
 
     return (
       <View>
-        <Label text={i18n.yourSchedule} subText={i18n.selectYoutSchedule} spacing />
+        <Label text={i18n.yourSchedule} subText={i18n.selectYourSchedule} spacing />
         <RadioGroup {...intervalGroup} onChange={onIntervalChange} />
         <RangeTime
           onTimeStartChange={onTimeStartChange}

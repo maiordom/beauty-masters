@@ -272,7 +272,7 @@ export default {
     onMap: 'На карте',
   },
   services: 'Услуги',
-  selectYoutSchedule: 'Выберите график и укажите время работы',
+  selectYourSchedule: 'Выберите график и укажите время работы',
   showMore: 'Показать больше',
   signUp: 'Зарегистрироваться',
   specify: 'Указать',
