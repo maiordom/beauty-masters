@@ -1,8 +1,9 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
+import MasterEditorSectionTitle from './MasterEditorSectionTitle';
 import PickerList from '../PickerList.ios';
 import RangeTime from '../RangeTime';
 
@@ -26,9 +27,7 @@ export default class MasterEditorSchedule extends PureComponent<TProps, void> {
 
     return (
       <View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{i18n.selectYoutSchedule}</Text>
-        </View>
+        <MasterEditorSectionTitle title={i18n.selectYoutSchedule} />
         <View style={styles.container}>
           <PickerList {...intervalGroup} onChange={onIntervalChange} />
         </View>
@@ -51,15 +50,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderTopColor: vars.color.cellSeparatorColorIOS,
     borderBottomColor: vars.color.cellSeparatorColorIOS,
-  },
-  title: {
-    fontSize: 14,
-    color: vars.color.grey,
-  },
-  titleContainer: {
-    height: 44,
-    backgroundColor: vars.color.lightGrey,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

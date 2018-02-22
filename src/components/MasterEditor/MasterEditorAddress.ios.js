@@ -7,6 +7,7 @@ import upperFirst from 'lodash/upperFirst';
 import type { TMasterEditorAddress } from '../../types/MasterEditorAddress';
 
 import { InputWithLabel } from '../Input';
+import MasterEditorSectionTitle from './MasterEditorSectionTitle';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
@@ -45,9 +46,7 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
 
     return (
       <View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{`${i18n.configureAddress} ${addressNumber.toString()}`}</Text>
-        </View>
+        <MasterEditorSectionTitle title={`${i18n.configureAddress} ${addressNumber.toString()}`} />
         <View style={styles.container}>
           <View style={styles.formItem}>
             <InputWithLabel
@@ -109,15 +108,5 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     color: vars.color.grey,
-  },
-  title: {
-    fontSize: 14,
-    color: vars.color.grey,
-  },
-  titleContainer: {
-    height: 44,
-    backgroundColor: vars.color.lightGrey,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
