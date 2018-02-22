@@ -129,14 +129,15 @@ export class InputWithLabel extends InputBase {
       placeholder,
       placeholderTextColor,
       required,
-      style: customInputStyle,
+      style: customContainerStyle,
+      customInputStyle,
       underlineColorAndroid,
     } = this.props;
 
     const value = this.getValue();
 
     return (
-      <View style={[inputWithLabelStyle.container, customInputStyle]}>
+      <View style={[inputWithLabelStyle.container, customContainerStyle]}>
         <Text style={inputWithLabelStyle.label}>
           {label}
           {required && (
@@ -151,7 +152,7 @@ export class InputWithLabel extends InputBase {
           onFocus={this.onFocus}
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor || vars.color.placeholderColor}
-          style={inputWithLabelStyle.input}
+          style={[inputWithLabelStyle.input, customInputStyle]}
           underlineColorAndroid={underlineColorAndroid || vars.color.underlineColorAndroid}
           value={value}
         />

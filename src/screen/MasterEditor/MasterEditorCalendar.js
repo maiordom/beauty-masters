@@ -26,7 +26,7 @@ const selectorGetCreatedCalendarsCount = () => (dispatch, getState) => {
   [
     state.masterEditor.calendarSettingsOne,
     state.masterEditor.calendarSettingsTwo,
-    state.masterEditor.calendarSettingsThree
+    state.masterEditor.calendarSettingsThree,
   ].forEach((calendar) => {
     const { schedulesCreated, timeTableId, addressId } = calendar;
 
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   actions: {
     ...bindActionCreators({
       getCalendars,
-      selectorGetCreatedCalendarsCount
+      selectorGetCreatedCalendarsCount,
     }, dispatch),
     routeToInfo: Actions.masterEditorInfo,
     routeToProfile: Actions.masterProfile,

@@ -22,6 +22,7 @@ export default {
   clear: 'Очистить',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
+  configureAddress: 'Настройте адрес',
   city: 'Город',
   chooseAddress: 'Выберите адрес',
   closestDate: 'Ближайшая дата приема',

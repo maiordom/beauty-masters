@@ -9,8 +9,6 @@ import {
   View,
 } from 'react-native';
 
-import isEmpty from 'lodash/isEmpty';
-
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
@@ -193,8 +191,8 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
           />
           {show.address && (
             <View>
-              <Label text={i18n.configureCalendar} subText={i18n.workAddress} spacing />
               <MasterEditorAddress
+                addressNumber={calendarSettings.index + 1}
                 models={addressModels}
                 onAddressChange={this.onAddressChange}
                 onCityChange={this.onCityChange}
