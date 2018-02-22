@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import {
   View,
   Text,
+  Platform,
   StyleSheet,
   TimePickerAndroid,
   TouchableHighlight,
@@ -11,6 +12,7 @@ import {
 
 import i18n from '../i18n';
 import vars from '../vars';
+import Separator from './Separator.ios';
 
 type TProps = {
   onTimeEndChange: (timeEnd: string, modelName: string) => void,
@@ -118,10 +120,11 @@ export default class RangeTime extends PureComponent<TProps, TState> {
           onPress={this.onTimeStartPress}
         >
           <View style={styles.timeWrapper}>
-            <Text style={styles.time}>{i18n.from}</Text>
-            <Text style={styles.time}>{timeStart}</Text>
+            <Text style={styles.timeTitle}>{i18n.from}</Text>
+            <Text style={styles.timeValue}>{timeStart}</Text>
           </View>
         </TouchableHighlight>
+        {Platform.OS === 'ios' && <Separator />}
         <TouchableHighlight
           activeOpacity={1}
           underlayColor="transparent"
@@ -129,8 +132,8 @@ export default class RangeTime extends PureComponent<TProps, TState> {
           onPress={this.onTimeEndPress}
         >
           <View style={styles.timeWrapper}>
-            <Text style={styles.time}>{i18n.to}</Text>
-            <Text style={styles.time}>{timeEnd}</Text>
+            <Text style={styles.timeTitle}>{i18n.to}</Text>
+            <Text style={styles.timeValue}>{timeEnd}</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -140,16 +143,50 @@ export default class RangeTime extends PureComponent<TProps, TState> {
 
 const styles = StyleSheet.create({
   container: {
-    height: 48,
-    flexDirection: 'row',
+    ...Platform.select({
+      android: {
+        height: 48,
+        flexDirection: 'row',
+      },
+      ios: {
+      },
+    }),
   },
   timeWrapper: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
+    flexDirection: 'row',
+    ...Platform.select({
+      android: {
+      },
+      ios: {
+        height: 44,
+        alignItems: 'center',
+      },
+    }),
   },
-  time: {
-    fontSize: 16,
-    color: vars.color.black,
+  timeTitle: {
+    ...Platform.select({
+      android: {
+        fontSize: 16,
+        color: vars.color.black,
+      },
+      ios: {
+        fontSize: 17,
+        color: vars.color.grey,
+      },
+    }),
+  },
+  timeValue: {
+    ...Platform.select({
+      android: {
+        fontSize: 16,
+        color: vars.color.black,
+      },
+      ios: {
+        fontSize: 17,
+        color: vars.color.black,
+      },
+    }),
   },
   button: {
     paddingLeft: 16,

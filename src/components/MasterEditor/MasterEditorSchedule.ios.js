@@ -28,27 +28,33 @@ export default class MasterEditorSchedule extends PureComponent<TProps, void> {
     return (
       <View>
         <MasterEditorSectionTitle title={i18n.selectYourSchedule} />
-        <View style={styles.container}>
+        <View style={styles.pickerContainer}>
           <PickerList {...intervalGroup} onChange={onIntervalChange} />
         </View>
-        <RangeTime
-          onTimeStartChange={onTimeStartChange}
-          onTimeEndChange={onTimeEndChange}
-          timeStart={timeStartField.value}
-          timeEnd={timeEndField.value}
-          timeStartModelName={timeStartField.modelName}
-          timeEndModelName={timeEndField.modelName}
-        />
+        <View style={styles.rangeTimeContainer}>
+          <RangeTime
+            onTimeStartChange={onTimeStartChange}
+            onTimeEndChange={onTimeEndChange}
+            timeStart={timeStartField.value}
+            timeEnd={timeEndField.value}
+            timeStartModelName={timeStartField.modelName}
+            timeEndModelName={timeEndField.modelName}
+          />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  pickerContainer: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderTopColor: vars.color.cellSeparatorColorIOS,
+    borderBottomColor: vars.color.cellSeparatorColorIOS,
+  },
+  rangeTimeContainer: {
+    borderBottomWidth: 1,
     borderBottomColor: vars.color.cellSeparatorColorIOS,
   },
 });
