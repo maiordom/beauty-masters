@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import {
+  DatePickerIOS,
   View,
   Text,
   Platform,
@@ -30,6 +31,8 @@ type TState = {
   timeStartMinute: number,
   timeEndHour: number,
   timeEndMinute: number,
+  showTimeStartPicker: boolean,
+  showTimeEndPicker: boolean,
 };
 
 // $FlowFixMe
@@ -52,6 +55,8 @@ export default class RangeTime extends PureComponent<TProps, TState> {
       timeStartMinute: Number(timeStartMinute),
       timeEndHour: Number(timeEndHour),
       timeEndMinute: Number(timeEndMinute),
+      showTimeStartPicker: false,
+      showTimeEndPicker: false,
     };
   };
 
@@ -64,52 +69,102 @@ export default class RangeTime extends PureComponent<TProps, TState> {
   onTimeStartPress = () => {
     const { timeStartHour, timeStartMinute } = this.state;
 
-    TimePickerAndroid.open({
-      hour: timeStartHour,
-      minute: timeStartMinute,
-      is24Hour: true,
-    }).then(({ action, minute, hour }) => {
-      if (action === TimePickerAndroid.timeSetAction) {
-        const timeStart = this.formatTime(hour, minute);
+    if (Platform.OS === 'android') {
+      TimePickerAndroid.open({
+        hour: timeStartHour,
+        minute: timeStartMinute,
+        is24Hour: true,
+      }).then(({ action, minute, hour }) => {
+        if (action === TimePickerAndroid.timeSetAction) {
+          const timeStart = this.formatTime(hour, minute);
 
-        this.setState({
-          timeStartHour: hour,
-          timeStartMinute: minute,
-          timeStart,
-        });
+          this.setState({
+            timeStartHour: hour,
+            timeStartMinute: minute,
+            timeStart,
+          });
 
-        this.props.onTimeStartChange(timeStart, this.props.timeStartModelName);
-      }
-    });
+          this.props.onTimeStartChange(timeStart, this.props.timeStartModelName);
+        }
+      });
+    } else {
+      this.setState({
+        showTimeStartPicker: !this.state.showTimeStartPicker,
+        showTimeEndPicker: false,
+      });
+    }
   };
 
   onTimeEndPress = () => {
     const { timeEndHour, timeEndMinute } = this.state;
 
-    TimePickerAndroid.open({
-      hour: timeEndHour,
-      minute: timeEndMinute,
-      is24Hour: true,
-    }).then(({ action, minute, hour }) => {
-      if (action === TimePickerAndroid.timeSetAction) {
-        const timeEnd = this.formatTime(hour, minute);
+    if (Platform.OS === 'android') {
+      TimePickerAndroid.open({
+        hour: timeEndHour,
+        minute: timeEndMinute,
+        is24Hour: true,
+      }).then(({ action, minute, hour }) => {
+        if (action === TimePickerAndroid.timeSetAction) {
+          const timeEnd = this.formatTime(hour, minute);
 
-        this.setState({
-          timeEndHour: hour,
-          timeEndMinute: minute,
-          timeEnd,
-        });
+          this.setState({
+            timeEndHour: hour,
+            timeEndMinute: minute,
+            timeEnd,
+          });
 
-        this.props.onTimeEndChange(timeEnd, this.props.timeEndModelName);
-      }
+          this.props.onTimeEndChange(timeEnd, this.props.timeEndModelName);
+        }
+      });
+    } else {
+      this.setState({
+        showTimeStartPicker: false,
+        showTimeEndPicker: !this.state.showTimeEndPicker,
+      });
+    }
+  };
+
+  onStartTimeChange = (startDate: Date) => {
+    const hour = startDate.getHours();
+    const minute = startDate.getMinutes();
+    const timeStart = this.formatTime(hour, minute);
+
+    this.setState({
+      timeStartHour: hour,
+      timeStartMinute: minute,
+      timeStart,
+    });
+  };
+
+  onEndTimeChange = (endDate: Date) => {
+    const hour = endDate.getHours();
+    const minute = endDate.getMinutes();
+    const timeEnd = this.formatTime(hour, minute);
+
+    this.setState({
+      timeEndHour: hour,
+      timeEndMinute: minute,
+      timeEnd,
     });
   };
 
   render() {
     const {
       timeStart,
+      timeStartHour,
+      timeStartMinute,
       timeEnd,
+      timeEndHour,
+      timeEndMinute,
+      showTimeStartPicker,
+      showTimeEndPicker,
     } = this.state;
+
+    const getDateWithTime = (hours: number, minutes: number) => {
+      const date = new Date();
+      date.setHours(hours, minutes);
+      return date;
+    };
 
     return (
       <View style={styles.container}>
@@ -125,6 +180,17 @@ export default class RangeTime extends PureComponent<TProps, TState> {
           </View>
         </TouchableHighlight>
         {Platform.OS === 'ios' && <Separator />}
+        {showTimeStartPicker &&
+          <View>
+            <DatePickerIOS
+              mode="time"
+              minuteInterval={1}
+              date={getDateWithTime(timeStartHour, timeStartMinute)}
+              onDateChange={this.onStartTimeChange}
+            />
+            <Separator />
+          </View>
+        }
         <TouchableHighlight
           activeOpacity={1}
           underlayColor="transparent"
@@ -136,6 +202,17 @@ export default class RangeTime extends PureComponent<TProps, TState> {
             <Text style={styles.timeValue}>{timeEnd}</Text>
           </View>
         </TouchableHighlight>
+        {showTimeEndPicker &&
+          <View>
+            <Separator />
+            <DatePickerIOS
+              mode="time"
+              minuteInterval={1}
+              date={getDateWithTime(timeEndHour, timeEndMinute)}
+              onDateChange={this.onEndTimeChange}
+            />
+          </View>
+        }
       </View>
     );
   }
