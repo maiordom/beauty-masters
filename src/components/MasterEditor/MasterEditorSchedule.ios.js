@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import MasterEditorSectionTitle from './MasterEditorSectionTitle';
+import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
 import PickerList from '../PickerList.ios';
 import RangeTime from '../RangeTime';
 

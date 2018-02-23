@@ -7,7 +7,7 @@ import upperFirst from 'lodash/upperFirst';
 import type { TMasterEditorAddress } from '../../types/MasterEditorAddress';
 
 import { InputWithLabel } from '../Input';
-import MasterEditorSectionTitle from './MasterEditorSectionTitle';
+import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
 
 import i18n from '../../i18n';
 import vars from '../../vars';

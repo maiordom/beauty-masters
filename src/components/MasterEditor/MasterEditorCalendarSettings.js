@@ -5,11 +5,13 @@ import {
   InteractionManager,
   ScrollView,
   Modal,
+  Platform,
   StyleSheet,
   View,
 } from 'react-native';
 
 import { SubLabel } from '../SubLabel';
+import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
 import Calendar from '../Calendar';
@@ -211,7 +213,10 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
           )}
           {show.calendar && (
             <View>
-              <SubLabel label={i18n.youCanEditTheDaysApart} spacing />
+              {Platform.OS === 'android' ?
+                <SubLabel label={i18n.youCanEditTheDaysApart} spacing /> :
+                <MasterEditorSectionTitle title={i18n.youCanEditTheDaysApart} />
+              }
               <Calendar
                 disableSelectDate
                 events={customDates.items}
