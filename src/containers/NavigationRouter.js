@@ -29,8 +29,10 @@ import MasterProfileCalendar from '../screen/MasterProfile/MasterProfileCalendar
 import MasterProfileSelectProfile from '../screen/MasterProfile/MasterProfileSelectProfile';
 
 import Favorites from '../screen/Favorites/Favorites';
-import UserAgreement from '../screen/UserAgreement/UserAgreement';
+import UserAgreement from '../screen/UserAgreement';
+import Privacy from '../screen/Privacy';
 import Feedback from '../screen/Feedback/Feedback';
+import CardPlacementConditions from '../screen/CardPlacementConditions';
 
 import Sidebar from '../containers/Sidebar';
 
@@ -161,8 +163,19 @@ export default () => (
         title={i18n.favorites}
       />
       <Scene
-        key="userAgreement"
         component={UserAgreement}
+        key="userAgreement"
+        title={i18n.userAgreementShort}
+      />
+      <Scene
+        component={CardPlacementConditions}
+        key="cardPlacementConditions"
+        title={i18n.placementConditions}
+      />
+      <Scene
+        component={Privacy}
+        key="privacy"
+        title={i18n.privacy}
       />
       <Scene
         key="feedback"
