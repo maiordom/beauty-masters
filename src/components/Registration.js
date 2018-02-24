@@ -1,7 +1,14 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Platform, Image } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import Input from '../components/Input';
 
@@ -88,6 +95,10 @@ export default class Registration extends PureComponent<TProps, TState> {
     }
   };
 
+  onUserAgreementPress = () => {
+    this.props.actions.routeToUserAgreement();
+  };
+
   error = (text: string, withImage: boolean = true) => (
     <View style={styles.error}>
       <Text style={styles.errorText}>{text}</Text>
@@ -131,14 +142,18 @@ export default class Registration extends PureComponent<TProps, TState> {
                 <Text style={[styles.registrationText, styles.manifestText]}>
                   {i18n.pressOnRegistration[0]} {i18n.pressOnRegistration[1]}
                 </Text>
-                <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+                <TouchableOpacity activeOpacity={0.7} onPress={this.onUserAgreementPress}>
+                  <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+                </TouchableOpacity>
               </View>
             )
             : (
               <View style={styles.manifest}>
                 <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[0]}</Text>
                 <Text style={[styles.registrationText, styles.manifestText]}>{i18n.pressOnRegistration[1]}</Text>
-                <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+                <TouchableOpacity activeOpacity={0.7} onPress={this.onUserAgreementPress}>
+                  <Text style={[styles.agreementText, styles.manifestText]}>{i18n.userAgreement}</Text>
+                </TouchableOpacity>
               </View>
             )
           }
@@ -149,14 +164,13 @@ export default class Registration extends PureComponent<TProps, TState> {
             this.error(responseError.detail, false)
           )}
         </View>
-        <TouchableHighlight
-          activeOpacity={1}
+        <TouchableOpacity
+          activeOpacity={0.7}
           onPress={this.onUserCreatePress}
           style={styles.enterButton}
-          underlayColor={vars.color.red}
         >
           <Text style={styles.registrationButtonText}>{i18nSignUp}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }
