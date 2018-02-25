@@ -229,16 +229,12 @@ const styles = StyleSheet.create({
         height: 48,
         flexDirection: 'row',
       },
-      ios: {
-      },
     }),
   },
   timeWrapper: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     ...Platform.select({
-      android: {
-      },
       ios: {
         height: 44,
         alignItems: 'center',
@@ -270,9 +266,13 @@ const styles = StyleSheet.create({
     }),
   },
   button: {
+    ...Platform.select({
+      android: {
+        flex: 1,
+      },
+    }),
+    justifyContent: 'center',
     paddingLeft: 16,
     paddingRight: 16,
-    flex: 1,
-    justifyContent: 'center',
   },
 });
