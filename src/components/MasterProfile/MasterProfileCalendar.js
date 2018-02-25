@@ -58,7 +58,12 @@ type TState = {
     timeStart: string,
     timeEnd: string,
   },
-  schedules?: Array<TSchedule>,
+  schedules?: Array<{
+    date: string,
+    timeStart: string,
+    timeEnd: string,
+    workInThisDay: boolean,
+  }>,
   showDeactivateModal: boolean,
   today: string,
 }
@@ -77,7 +82,12 @@ export default class MasterProfileCalendar extends PureComponent<TProps, TState>
       today: moment().format('YYYY-MM-DD'),
     };
 
-    this.state.schedules = this.props.schedules.filter(item => !item.isNotWork);
+    this.state.schedules = props.schedules.map((schedule) => ({
+      date: schedule.date,
+      timeStart: schedule.timeStart,
+      timeEnd: schedule.timeEnd,
+      workInThisDay: !schedule.isNotWork,
+    }));
 
     if (props.timeTable) {
       this.eventDates = prepareEventDates(
