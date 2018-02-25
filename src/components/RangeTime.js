@@ -55,8 +55,8 @@ export default class RangeTime extends PureComponent<TProps, TState> {
       timeStartMinute: Number(timeStartMinute),
       timeEndHour: Number(timeEndHour),
       timeEndMinute: Number(timeEndMinute),
-      showTimeStartPicker: false,
-      showTimeEndPicker: false,
+      showTimeStartPicker: this.state != null ? this.state.showTimeStartPicker : false,
+      showTimeEndPicker: this.state != null ? this.state.showTimeEndPicker : false,
     };
   };
 
@@ -134,6 +134,8 @@ export default class RangeTime extends PureComponent<TProps, TState> {
       timeStartMinute: minute,
       timeStart,
     });
+
+    this.props.onTimeStartChange(timeStart, this.props.timeStartModelName);
   };
 
   onEndTimeChange = (endDate: Date) => {
@@ -146,6 +148,8 @@ export default class RangeTime extends PureComponent<TProps, TState> {
       timeEndMinute: minute,
       timeEnd,
     });
+
+    this.props.onTimeEndChange(timeEnd, this.props.timeEndModelName);
   };
 
   render() {
