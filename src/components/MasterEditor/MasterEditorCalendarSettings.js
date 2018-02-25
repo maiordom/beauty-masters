@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   InteractionManager,
   ScrollView,
@@ -8,6 +8,8 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+
+import isEmpty from 'lodash/isEmpty';
 
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -47,7 +49,7 @@ type TState = {
   },
 };
 
-export default class MasterEditorCalendarSettings extends Component<TProps, TState> {
+export default class MasterEditorCalendarSettings extends PureComponent<TProps, TState> {
   state = {
     automate: [
       'address',
@@ -131,6 +133,14 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
     this.props.actions.selectAddress(this.props.sectionName);
   };
 
+  onCityChange = () => {
+    this.props.actions.selectCity(this.props.sectionName);
+  }
+
+  onSubwayStationChange = () => {
+    this.props.actions.selectSubwayStation(this.props.sectionName);
+  }
+
   toggleWorkTimeSpecificationModal = () => {
     this.setState({
       workTimeSpecificationVisibile: false,
@@ -164,7 +174,7 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
       addressField: calendarSettings.addressField,
       cityField: calendarSettings.cityField,
       salonTitleField: calendarSettings.salonTitleField,
-      subwayStationField: calendarSettings.subwayStationField,
+      subwayStationField: calendarSettings.cities.selected.hasSubway ? calendarSettings.subwayStationField : undefined,
     };
 
     return (
@@ -187,6 +197,8 @@ export default class MasterEditorCalendarSettings extends Component<TProps, TSta
               <MasterEditorAddress
                 models={addressModels}
                 onAddressChange={this.onAddressChange}
+                onCityChange={this.onCityChange}
+                onSubwayStationChange={this.onSubwayStationChange}
                 onChange={this.onAddressFieldChange}
               />
             </View>

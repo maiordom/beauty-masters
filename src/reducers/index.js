@@ -26,7 +26,7 @@ export default function rootReducer(state, action = {}) {
   state = SearchForm(state, action);
 
   if (__DEV__) {
-    console.log('action::', action.type);
+    console.log('action::', JSON.stringify(action).substr(0, 200));
   }
 
   return state;

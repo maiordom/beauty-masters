@@ -19,6 +19,8 @@ export default {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
   },
+  cardPlacementConditions: 'Условия размещения карточек',
+  clear: 'Очистить',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
   city: 'Город',
@@ -43,6 +45,8 @@ export default {
   editProfile: 'Редактировать данные профиля',
   email: 'Почта',
   enter: 'Вход',
+  enterCity: 'Введите город',
+  enterSubwayStation: 'Введите название станции',
   enterTo: 'Войти',
   enterAddress: 'Введите адрес',
   errors: {
@@ -188,6 +192,7 @@ export default {
     services: 'Шаг 2/5: Услуги',
   },
   masterWorks: 'Работы мастера',
+  metroLine: 'линия',
   metroShort: 'м',
   monthNames: [
     'Январь',
@@ -218,6 +223,8 @@ export default {
     select: 'Выбрать фото',
     take: 'Сделать снимок',
   },
+  placementConditions: 'Условия размещения',
+  privacy: 'Соглашение о конфиденциальности',
   presentation: {
     calendar: 'Запишитесь на прием',
     list: 'Смотрите список услуг и цен',

@@ -1,7 +1,15 @@
 // @flow
 
-import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
+import React, { PureComponent } from 'react';
+import find from 'lodash/find';
+import {
+  Dimensions,
+  Modal,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -10,9 +18,12 @@ import Input from '../Input';
 import Label from '../Label';
 import MasterPhotoList from '../MasterEditor/MasterPhotoList';
 import Switch from '../Switch';
+import PhotoMaster from '../../containers/PhotoMaster';
 
 import i18n from '../../i18n';
+import vars from '../../vars';
 import { trackEvent } from '../../utils/Tracker';
+import { hexToRgba } from '../../utils';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
@@ -43,24 +54,32 @@ type TProps = {
 
 type TState = {
   certificatesShow: boolean,
+  photoMasterModalVisible: boolean,
+  renderLoader: boolean,
 };
 
-export default class MasterEditorInfo extends Component<TProps, TState> {
-  state = { certificatesShow: false };
+export default class MasterEditorInfo extends PureComponent<TProps, TState> {
+  state = {
+    certificatesShow: false,
+    photoMasterModalVisible: false,
+    renderLoader: false,
+  };
 
   componentDidMount() {
     if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
-      this.props.actions.getPhotos(this.props.masterCardId);
+      this.setState({ renderLoader: true });
+      this.props.actions.getMasterInfo(this.props.masterCardId).then(() => {
+        this.setState({ renderLoader: false });
+      }).catch(() => {
+        this.setState({ renderLoader: false });
+      });
     }
   }
 
   onPhotoSelectPress = (modelName: string) => {
-    this.props.actions.drawerOpen({
-      contentKey: 'PhotoMaster',
-      drawerParams: {
-        panCloseMask: 0,
-      },
-      name: modelName,
+    this.setState({
+      photoMasterModalParams: { name: modelName },
+      photoMasterModalVisible: true,
     });
   };
 
@@ -85,13 +104,14 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
       personalPhotos,
       workPhotos,
     } = this.props;
-    const customCreateMasterQuery = { avatar: '' };
+    const createMasterQuery = { avatar: '' };
+    const avatar = find(personalPhotos.items, { type: 'photo' });
 
-    if (personalPhotos.items.length) {
-      customCreateMasterQuery.avatar = personalPhotos.items[0].sizes.s;
+    if (avatar) {
+      createMasterQuery.avatar = avatar.sizes.s;
     }
 
-    this.props.actions.createMaster(customCreateMasterQuery).then((res) => {
+    this.props.actions.createMaster(createMasterQuery).then((res) => {
       if (res.result === 'success') {
         if (this.props.isSalon) {
           trackEvent('step5Salon');
@@ -112,18 +132,23 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
 
   onSavePress = () => {
     const { personalPhotos } = this.props;
-    const customCreateMasterQuery = { avatar: '' };
+    const createMasterQuery = { avatar: '' };
+    const avatar = find(personalPhotos.items, { type: 'photo' });
 
-    if (personalPhotos.items.length) {
-      customCreateMasterQuery.avatar = personalPhotos.items[0].sizes.s;
+    if (avatar) {
+      createMasterQuery.avatar = avatar.sizes.s;
     }
 
-    this.props.actions.createMaster(customCreateMasterQuery).then((res) => {
+    this.props.actions.createMaster(createMasterQuery).then((res) => {
       if (res.result === 'success') {
         trackEvent('changePhoto');
         this.props.actions.routeToProfile();
       }
     });
+  };
+
+  togglePhotoMasterVisibility = () => {
+    this.setState({ photoMasterModalVisible: false });
   };
 
   render() {
@@ -135,11 +160,23 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
       workPhotos,
     } = this.props;
 
-    const { certificatesShow } = this.state;
+    const {
+      certificatesShow,
+      photoMasterModalParams,
+      photoMasterModalVisible,
+      renderLoader,
+    } = this.state;
 
     return (
       <View style={styles.container}>
-        <ActivityIndicator position="absolute" />
+        {renderLoader && (
+          <ActivityIndicator animating position="absolute" />
+        )}
+        <PhotoMasterModal
+          onRequestClose={this.togglePhotoMasterVisibility}
+          props={photoMasterModalParams}
+          visible={photoMasterModalVisible}
+        />
         <ScrollView style={styles.inner}>
           <View style={styles.scrollViewInner}>
             <Label
@@ -208,7 +245,33 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 }
 
+const PhotoMasterModal = ({
+  onRequestClose,
+  props,
+  visible
+}) => (
+  <Modal
+    animationType="slide"
+    onRequestClose={onRequestClose}
+    transparent
+    visible={visible}
+  >
+    <View style={styles.modalContainer}>
+      <PhotoMaster
+        {...props}
+        onRequestClose={onRequestClose}
+      />
+    </View>
+  </Modal>
+);
+
 const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: hexToRgba(vars.color.black, 40),
+  },
   photosLabel: {
     marginBottom: 8,
   },

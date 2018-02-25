@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Platform, Image, TouchableOpacity } from 'react-native';
 
 import toUpper from 'lodash/toUpper';
@@ -7,8 +7,6 @@ import ButtonControl from '../ButtonControl';
 
 import i18n from '../../i18n';
 import vars from '../../vars';
-
-import { shouldComponentUpdate } from '../../utils';
 
 import { MASTER_CARD_STATUS } from '../../constants/Master';
 import { TCreateMaster } from '../../types/CreateMaster';
@@ -29,9 +27,7 @@ type TProps = {
   isSalon: boolean,
 };
 
-export default class MasterEditorCreateSuccess extends Component<void, TProps> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
+export default class MasterEditorCreateSuccess extends PureComponent<void, TProps> {
   onCompletePress = () => {
     this.props.actions.createMaster({ status: MASTER_CARD_STATUS.MODERATION }).then(() => {
       if (this.props.isSalon) {
@@ -50,8 +46,12 @@ export default class MasterEditorCreateSuccess extends Component<void, TProps> {
     this.props.actions.createMaster({ status: MASTER_CARD_STATUS.MODERATION }).then(() => {
       if (this.props.isSalon) {
         trackEvent('step6SalonMore');
+        trackEvent('step6Salon');
+        trackEvent('step6SalonSuccess');
       } else {
         trackEvent('step6PrivateMore');
+        trackEvent('step6Private');
+        trackEvent('step6PrivateSuccess');
       }
 
       this.props.actions.refreshEditor();

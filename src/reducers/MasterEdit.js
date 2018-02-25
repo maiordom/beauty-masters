@@ -1,6 +1,6 @@
 import find from 'lodash/find';
-import omitBy from 'lodash/omitBy';
 import isEmpty from 'lodash/isEmpty';
+import omitBy from 'lodash/omitBy';
 
 import { makeReducer, deepUpdate } from '../utils';
 
@@ -36,15 +36,17 @@ const setHandlingTools = ({
   servicesQuery,
   state,
 }) => {
-  servicesData.forEach(({ categoryId, serviceId }) => {
+  servicesData.forEach(({ categoryId, serviceId, description }) => {
     if (serviceId) {
       const serviceKey = state.dictionaries.serviceById[serviceId].key;
       const serviceModel = find(servicesModels, { dictionaryKey: serviceKey });
 
       serviceModel.value = true;
+      serviceModel.description = description;
       servicesQuery.push({
         attributes: {
           category_service_id: categoryId,
+          description,
           service_id: serviceId,
         },
       });
@@ -136,6 +138,20 @@ export default makeReducer(() => ({
 
       calendarModel.addressId = address.id;
       calendarModel.timeTableId = address.timeTable.id;
+
+      calendarModel.cities = {
+        filtered: null,
+        items: state.geo.cities,
+        selected: {},
+      };
+
+      if (address.city) {
+        const selectedCity = find(state.geo.cities, { name: address.city });
+
+        if (selectedCity) {
+          calendarModel.cities.selected = selectedCity;
+        }
+      }
 
       [
         createPayload(sectionName, 'salonTitleField', address.name, 'value'),
@@ -319,6 +335,7 @@ export default makeReducer(() => ({
   [actions.MASTER_EDIT_HOME_ALLOWANCE_SET]: (state, { payload: { masterCard } }) => {
     if (masterCard.homeDepartureService) {
       state.masterEditor.services.homeDepartureField.value = masterCard.homeDepartureService.price;
+      state.masterEditor.services.homeDepartureField.price = masterCard.homeDepartureService.price;
     }
 
     return state;

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   Modal,
@@ -63,7 +63,7 @@ type TState = {
   today: string,
 }
 
-export default class MasterProfileCalendar extends Component<TProps, TState> {
+export default class MasterProfileCalendar extends PureComponent<TProps, TState> {
   eventDates = [];
 
   constructor(props: TProps) {
@@ -200,12 +200,14 @@ export default class MasterProfileCalendar extends Component<TProps, TState> {
                     <Text style={styles.scheduleText}>{i18n.acceptNot}</Text>
                   </View>
                 )}
-            <Switch
-              title={i18n.temporarilyDontWork}
-              customStyles={{ container: styles.switchContainer }}
-              onChange={this.onSwitchToggle}
-              value={disableCalendar}
-            />
+            {false && (
+              <Switch
+                title={i18n.temporarilyDontWork}
+                customStyles={{ container: styles.switchContainer }}
+                onChange={this.onSwitchToggle}
+                value={disableCalendar}
+              />
+            )}
           </View>
         </ScrollView>
         <Modal

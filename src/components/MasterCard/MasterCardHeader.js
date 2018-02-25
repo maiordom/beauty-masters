@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Image, Platform, TouchableOpacity } from 'react-native';
 
 import vars from '../../vars';
@@ -20,7 +20,7 @@ type TProps = {
   onSocialIconTap?: (url: String) => void,
 }
 
-export default class MasterCardHeader extends Component<TProps, void> {
+export default class MasterCardHeader extends PureComponent<TProps, void> {
   onSocialIconTap = (url?: string) => {
     const callback = this.props.onSocialIconTap;
     if (url !== undefined && callback) {

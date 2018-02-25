@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import {
@@ -29,20 +29,28 @@ type TProps = {
     selectItem: (item: { label: string }) => void,
   },
   items: Array<TPlace>,
+  searchType: 'press' | 'specify',
   selected: TPlace,
+  placeholder: string,
 };
 
 type TState = {
   dataSource: Object,
   selected: TPlace,
+  value?: string,
 };
 
-export default class AutocompleteList extends Component<TProps, TState> {
+export default class AutocompleteList extends PureComponent<TProps, TState> {
   static defaultProps = {
     items: [],
+    placeholder: i18n.enterAddress,
+    searchType: 'specify',
   };
 
-  onChange = (value: string) => this.searchItem(value);
+  onChange = (value: string) => {
+    this.setState({ value });
+    this.searchItem(value);
+  }
 
   ds: Object;
 
@@ -79,12 +87,13 @@ export default class AutocompleteList extends Component<TProps, TState> {
     this.props.actions.resetItems();
   }
 
-  componentWillUnmount() {
-    this.props.actions.resetItems();
-  }
-
   onItemSelect = (item: Object) => {
     const { selected } = this.state;
+
+    if (this.props.searchType === 'press') {
+      this.props.actions.selectItem(item);
+      return;
+    }
 
     if (selected && selected.label === item.label) {
       this.props.actions.selectItem(item);
@@ -95,8 +104,8 @@ export default class AutocompleteList extends Component<TProps, TState> {
   };
 
   render() {
-    const { items } = this.props;
-    const { selected } = this.state;
+    const { items, placeholder } = this.props;
+    const { selected, value } = this.state;
 
     return (
       <View style={styles.container}>
@@ -105,8 +114,9 @@ export default class AutocompleteList extends Component<TProps, TState> {
             debounce
             debounceTimer={1000}
             onChange={this.onChange}
-            placeholder={i18n.enterAddress}
-            value={selected && selected.label}
+            placeholder={placeholder}
+            style={styles.searchField}
+            value={selected && selected.label || value}
           />
           {items.length > 0 && (
             <ListView
@@ -141,13 +151,16 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     paddingTop: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
+  },
+  searchField: {
+    marginLeft: 16,
+    marginRight: 16,
   },
   tab: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
     justifyContent: 'center',
   },
   label: {

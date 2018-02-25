@@ -18,8 +18,12 @@ import {
   setServicesFromSources,
 } from '../actions/Dictionaries';
 
+import { masterEditCityModelSet } from '../actions/Master';
+import { setRawCities } from '../actions/Geo';
+
 import categoriesData from '../data/Categories.json';
 import servicesData from '../data/Services.json';
+import citiesData from '../data/Cities.json';
 
 const store = configureStore();
 
@@ -72,6 +76,8 @@ export default class App extends Component {
     this.readCategoryServices();
     getServices()(store.dispatch);
     getCategoryServices()(store.dispatch);
+    setRawCities(citiesData);
+    masterEditCityModelSet(store.getState().geo.cities);
 
     setTimeout(() => {
       getLocation(true)(store.dispatch).catch((err) => {

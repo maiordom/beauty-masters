@@ -15,6 +15,8 @@ import {
 import findIndex from 'lodash/findIndex';
 import each from 'lodash/each';
 
+import { formatNumber } from '../../utils';
+
 import { FilterLabel } from '../FilterLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
@@ -126,10 +128,10 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
   };
 
   onChangePrice = (price: number, modelName: string) => {
-    this.props.actions.setServiceParam(modelName, 'price', Number(price), this.state.tabActiveKey);
+    this.props.actions.setServiceParam(modelName, 'price', price, this.state.tabActiveKey);
   };
 
-  onChangeAtHome = (price: string, modelName: string) => {
+  onAtHomeChange = (price: string, modelName: string) => {
     this.props.actions.setServiceParam(modelName, 'price', Number(price), 'services');
   };
 
@@ -294,9 +296,15 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
           <View style={styles.sectionPadding} />
           <Input
             {...homeDepartureField}
+            debounce
+            debounceTimer={500}
+            formatValue={formatNumber}
             inputWrapperStyle={styles.homeDeparture}
             keyboardType="numeric"
-            onBlur={this.onChangeAtHome}
+            onChange={this.onAtHomeChange}
+            replaceReg={/[^0-9]/g}
+            sign={` ${i18n.currency.roubleSign}`}
+            value={homeDepartureField.price}
           />
           <View style={styles.sectionPadding} />
           <FilterLabel text={i18n.filters.otherServices} style={styles.sectionTitle} />

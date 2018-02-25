@@ -66,10 +66,12 @@ export default makeReducer(() => ({
 
     masterCard.addresses = addresses;
 
-    addresses.forEach(address => {
+    addresses.forEach((address) => {
       const interval = find(intervalModel.items, { id: address.timeTable.intervalType });
 
-      address.timeTable.intervalKey = interval.key;
+      if (interval) {
+        address.timeTable.intervalKey = interval.key;
+      }
     });
 
     return state;

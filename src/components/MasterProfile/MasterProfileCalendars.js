@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -24,7 +24,7 @@ type TProps = {
   uploaded: boolean,
 }
 
-export default class MasterProfileCalendars extends Component<TProps, void> {
+export default class MasterProfileCalendars extends PureComponent<TProps, void> {
   componentDidMount() {
     this.props.actions.getAddresses();
   }

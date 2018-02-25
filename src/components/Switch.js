@@ -1,9 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback, Switch } from 'react-native';
 
-import { hexToRgba, shouldComponentUpdate } from '../utils';
+import { hexToRgba } from '../utils';
 import vars from '../vars';
 import SwitchBase from './SwitchBase';
 
@@ -18,9 +18,7 @@ type TProps = {
   value?: boolean,
 };
 
-export default class CustomSwitch extends Component<TProps, void> {
-  shouldComponentUpdate = shouldComponentUpdate();
-
+export default class CustomSwitch extends PureComponent<TProps, void> {
   ref = {
     toggle() { },
     changeStateImmediately(value: boolean) { },

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
@@ -36,7 +36,7 @@ type TMapCardView = {
 
 type TProps = TMapCard & TMapCardView;
 
-export default class MapCard extends Component<TProps, void> {
+export default class MapCard extends PureComponent<TProps, void> {
   getDate = () => {
     const { closestDate } = this.props;
 

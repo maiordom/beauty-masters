@@ -14,6 +14,10 @@ const handleResolveResponse = (
   path: string,
   method: string,
 ) => {
+  if (res.data === '') {
+    res.data = {};
+  }
+
   if (__DEV__) {
     log(`${path}::${method}::response`);
 
@@ -82,7 +86,7 @@ const baseFetch = (fetchMethod: string) => (
       'Content-Type': 'application/x-www-form-urlencoded',
       ...headers,
     },
-    responseType: 'json',
+    responseType: 'text',
     method: fetchMethod,
     data: body,
   })
@@ -120,6 +124,7 @@ export const get = (
       'Content-Type': 'application/json',
       ...headers,
     },
+    responseType: 'text',
   })
     .then((res: Object) => handleResolveResponse(res, path, method.method))
     .catch((exx: Object) => handleRejectResponse(exx.response, path, method.method));

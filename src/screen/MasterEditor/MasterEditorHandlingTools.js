@@ -18,7 +18,6 @@ const mapStateToProps = (state) => ({
   isSalon: isSalon(state),
   modelParamName: 'value',
   models: state.masterEditor.handlingTools,
-  queryParamName: 'price',
   sectionName: 'handlingTools',
 });
 

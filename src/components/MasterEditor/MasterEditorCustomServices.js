@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import FilterCheckBox from '../FilterCheckBox';
 
@@ -22,20 +22,18 @@ type TProps = {
 
 export default class MasterEditorCustomServices extends PureComponent<TProps, void> {
   addCustomService = () => {
-    if (this.props.items.length > 2) {
-      return;
-    }
-
     this.toogleCustomService(true);
   };
 
-  onChange = (active: boolean) => this.toogleCustomService(active);
+  onChange = (active: boolean, modelName: string, index: number) =>
+    this.toogleCustomService(active, index);
 
-  toogleCustomService = (active: boolean) => {
+  toogleCustomService = (active: boolean, index: number) => {
     this.props.actions.toogleCustomService(
       this.props.modelName,
       this.props.sectionName,
       active,
+      index,
     );
   };
 
@@ -89,11 +87,11 @@ export default class MasterEditorCustomServices extends PureComponent<TProps, vo
             titlePlaceholder={i18n.customService.name}
             titleType="input"
           />))}
-        <TouchableWithoutFeedback onPress={this.addCustomService}>
+        <TouchableOpacity onPress={this.addCustomService}>
           <View style={styles.addService}>
             <Text style={styles.addServiceText}>{i18nAddService}</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </View>
     );
   }

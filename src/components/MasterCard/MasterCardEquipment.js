@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   View,
@@ -25,7 +25,7 @@ const icons = {
   check: require('../../icons/check.png'),
 };
 
-export default class MasterCardEquipment extends Component {
+export default class MasterCardEquipment extends PureComponent {
   state = {
     showInfo: false,
   };

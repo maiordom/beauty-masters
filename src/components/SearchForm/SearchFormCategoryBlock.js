@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, TouchableOpacity, Text, Animated, Easing, Platform } from 'react-native';
 
 import FilterSubLabel from '../../components/FilterSubLabel';
@@ -21,7 +21,7 @@ type TState = {
   spinValue: Animated,
 }
 
-export default class SearchFormCategoryBlock extends Component<TProps, TState> {
+export default class SearchFormCategoryBlock extends PureComponent<TProps, TState> {
   state = {
     showBlock: true,
     spinValue: new Animated.Value(0),

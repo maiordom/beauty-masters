@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform, ScrollView, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
@@ -28,6 +28,7 @@ import type { TSearchFormCategorySection } from '../../types/SearchFormCategorie
 
 type TProps = {
   actions: {
+    clearAddress: Function,
     setDay: Function,
     setMasterType: Function,
     toggleDeparture: Function,
@@ -60,7 +61,7 @@ type TState = {
   showShortForm: boolean,
 };
 
-export default class SearchFormShort extends Component<TProps, TState> {
+export default class SearchFormShort extends PureComponent<TProps, TState> {
   state = {
     renderContent: false,
     selectedDates: this.props.searchQuery.dates.slice(),
@@ -173,6 +174,10 @@ export default class SearchFormShort extends Component<TProps, TState> {
     Actions.serp();
   };
 
+  onAddressClearPress = () => {
+    this.props.actions.clearAddress();
+  };
+
   render() {
     const {
       categorySelectionFlags,
@@ -222,9 +227,11 @@ export default class SearchFormShort extends Component<TProps, TState> {
             subtitle={general.cities.selected != null ? general.cities.selected.name : undefined}
           />
           <FilterTab
+            controlTitle={i18n.clear}
+            onControlPress={this.onAddressClearPress}
             onChange={Actions.searchAddress}
-            title={i18n.search.nearWith}
             subtitle={place.label || i18n.location.here}
+            title={i18n.search.nearWith}
           />
           <FilterCheckBox
             title={i18n.search.masterToHome}
@@ -292,13 +299,16 @@ export default class SearchFormShort extends Component<TProps, TState> {
               onCategoryChange={this.onCategoryToggle('servicePedicure')}
             />
           </StateMachine>
-          <ButtonControl
+          {false && (<ButtonControl
             label={showShortForm ? i18n.search.full : i18n.search.short}
-            customStyles={{ nextButton: styles.nextButton, nextText: styles.nextText }}
+            customStyles={{ nextButton: styles.extendedSearch, nextText: styles.nextText }}
             onPress={this.toggleForm}
-          />
-          <ButtonControl label={i18n.findMaster} onPress={this.onSerpPress} />
+          />)}
         </ScrollView>
+        <ButtonControl
+          label={i18n.findMaster}
+          onPress={this.onSerpPress}
+        />
       </View>
     );
   }
@@ -342,7 +352,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     left: 16,
   },
-  nextButton: {
+  extendedSearch: {
     backgroundColor: vars.color.lightGrey,
     ...Platform.select({
       ios: {

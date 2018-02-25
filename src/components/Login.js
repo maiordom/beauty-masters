@@ -1,12 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   Platform,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -50,7 +50,7 @@ type TState = {
 
 const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 
-export default class Login extends Component<TProps, TState> {
+export default class Login extends PureComponent<TProps, TState> {
   state = {
     hasError: false,
     responseError: null,
@@ -146,21 +146,20 @@ export default class Login extends Component<TProps, TState> {
           }
           {responseError && this.error(responseError.detail, false)}
         </View>
-        <TouchableHighlight
-          activeOpacity={1}
+        <TouchableOpacity
+          activeOpacity={0.7}
           onPress={routeToRecoverPassword}
           style={styles.recoveryButton}
         >
           <Text style={styles.recoveryButtonText}>{localization.recovery}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          activeOpacity={1}
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
           onPress={this.onLoginUserPress}
           style={styles.enterButton}
-          underlayColor={vars.color.red}
         >
           <Text style={styles.enterButtonText}>{localization.enter}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }

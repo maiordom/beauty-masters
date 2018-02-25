@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { TouchableHighlight, View, Text, StyleSheet, Platform, Image } from 'react-native';
 
-import { formatNumber, shouldComponentUpdate } from '../utils';
+import { formatNumber } from '../utils';
 
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
@@ -43,9 +43,6 @@ const icons = {
 
 // $FlowFixMe
 export default class FilterCheckBox extends PureComponent<TProps, void> {
-  durationRef: any;
-  priceRef: any;
-
   onPress = () => {
     if (this.props.required) {
       return;
@@ -60,7 +57,7 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
 
   onChangePrice = (price: string) => {
     this.props.onChangePrice && this.props.onChangePrice(
-      Number(price),
+      price ? Number(price) : '',
       this.props.modelName,
       this.props.index,
     );
@@ -88,14 +85,6 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
       <Image source={icons.warning} />
     </View>
   );
-
-  setPriceRef = (ref: any) => {
-    this.priceRef = ref;
-  };
-
-  setDurationRef = (ref: any) => {
-    this.durationRef = ref;
-  };
 
   render() {
     const {
@@ -131,8 +120,10 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
               )}
               {titleType === 'input' && (
                 <Input
+                  debounce
+                  debounceTimer={500}
                   inputWrapperStyle={styles.titleInput}
-                  onBlur={this.onChangeTitle}
+                  onChange={this.onChangeTitle}
                   placeholder={titlePlaceholder}
                   value={title}
                 />
@@ -146,13 +137,14 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
           <View style={styles.fields}>
             <View style={[styles.inputWrapper, styles.rightBar]}>
               <Input
+                debounce
+                debounceTimer={500}
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onBlur={this.onChangePrice}
+                onChange={this.onChangePrice}
                 placeholder={i18n.filters.price}
-                ref={this.setPriceRef}
-                replaceReg={/[^0-9.]/g}
+                replaceReg={/[^0-9]/g}
                 sign={` ${i18n.currency.roubleSign}`}
                 value={price}
                 style={styles.priceInput}
@@ -161,13 +153,14 @@ export default class FilterCheckBox extends PureComponent<TProps, void> {
             </View>
             <View style={styles.inputWrapper}>
               <Input
+                debounce
+                debounceTimer={500}
                 formatValue={formatNumber}
                 inputWrapperStyle={styles.input}
                 keyboardType="numeric"
-                onBlur={this.onChangeDuration}
+                onChange={this.onChangeDuration}
                 placeholder={i18n.filters.duration}
-                ref={this.setDurationRef}
-                replaceReg={/[^0-9.]/g}
+                replaceReg={/[^0-9]/g}
                 sign={` ${i18n.time.minuteShort}`}
                 value={duration}
                 style={styles.durationInput}

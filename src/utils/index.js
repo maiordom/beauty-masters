@@ -43,57 +43,6 @@ export function formatNumber(number: number) {
   return String(number).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 }
 
-// $FlowFixMe
-export function shouldComponentUpdate(ignoreProps?: Array<string>, ignoreState?: Array<string>) {
-  // $FlowFixMe
-  return (nextProps: Object, nextState: Object): boolean => {
-    const shallowEqualProps = shallowEqual(this.props, nextProps, ignoreProps);
-    const shallowEqualState = shallowEqual(this.state, nextState, ignoreState);
-
-    return !shallowEqualProps.result || !shallowEqualState.result;
-  };
-}
-
-export function shallowEqual(objA: Object, objB: Object, ignoreKeys?: Array<string>) {
-  if (objA === objB) {
-    return { result: true };
-  }
-
-  if (typeof objA !== 'object'
-    || objA === null
-    || typeof objB !== 'object'
-    || objB === null) {
-    return { result: false };
-  }
-
-  const keysA = Object.keys(objA).filter(key => (ignoreKeys || []).indexOf(key) === -1);
-  const keysB = Object.keys(objB).filter(key => (ignoreKeys || []).indexOf(key) === -1);
-
-  if (keysA.length !== keysB.length) {
-    return { result: false };
-  }
-
-  const bHasOwnProperty = hasOwnProperty.bind(objB);
-
-  for (let i = 0; i < keysA.length; i++) {
-    const key = keysA[i];
-    const objAProp = objA[key];
-    const objBProp = objB[key];
-
-    if (!bHasOwnProperty(keysA[i]) || objAProp !== objBProp) {
-      return {
-        result: false,
-        obj: objA,
-        objAProp,
-        objBProp,
-        key,
-      };
-    }
-  }
-
-  return { result: true };
-}
-
 export const capitalizeFirstLetter = (word: string) =>
   `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
 
@@ -127,7 +76,11 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
     let { categoryId } = service;
 
     if (!service.title) {
-      service.title = dictionaries.serviceById[service.serviceId].title;
+      if (service.description) {
+        service.title = service.description;
+      } else {
+        service.title = dictionaries.serviceById[service.serviceId].title;
+      }
     }
 
     do {

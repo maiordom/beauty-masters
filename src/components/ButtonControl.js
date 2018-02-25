@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, StyleSheet, TouchableWithoutFeedback, Platform, View } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Platform, View } from 'react-native';
 
 import i18n from '../i18n';
 import vars from '../vars';
@@ -19,18 +19,17 @@ export default class ButtonControl extends PureComponent {
     });
 
     return (
-      <TouchableWithoutFeedback
+      <TouchableOpacity
+        activeOpacity={0.7}
         onPress={onPress}
-      >
-        <View style={[
+        style={[
           styles.container,
           customStyles.nextButton,
           styles[type],
         ]}
-        >
-          <Text style={[styles.title, customStyles.nextText]}>{title}</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      >
+        <Text style={[styles.title, customStyles.nextText]}>{title}</Text>
+      </TouchableOpacity>
     );
   }
 }

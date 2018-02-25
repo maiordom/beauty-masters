@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { TouchableHighlight, Image, Platform, StyleSheet } from 'react-native';
 
 const checkboxIcon = Platform.select({
@@ -11,7 +11,7 @@ const checkboxCheckedIcon = Platform.select({
   android: require('../icons/android/checkbox-checked.png'),
 });
 
-export default class Checkbox extends Component {
+export default class Checkbox extends PureComponent {
   onPress = () => {
     this.props.onPress && this.props.onPress(!this.props.checked);
   };
