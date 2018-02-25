@@ -271,7 +271,7 @@ export const selectCity = (id: number, modelName: string) => ({
 
 const masterEditSubwayStationModelSet = (
   modelName: string,
-  subwayStations: Array<TSubwayStation>
+  subwayStations: Array<TSubwayStation>,
 ) => (dispatch: Function) => {
   dispatch({
     type: actions.MASTER_SUBWAY_STATION_MODEL_SET,
@@ -281,7 +281,7 @@ const masterEditSubwayStationModelSet = (
 
 export const getSubwayStations = (
   modelName: string,
-  cityId: number
+  cityId: number,
 ) => (dispatch: Function, getState: Function) => {
   const state = getState();
 

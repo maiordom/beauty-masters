@@ -261,7 +261,7 @@ const WorkTimeSpecificationModal = ({
 const IntervalStartDateModal = ({
   onRequestClose,
   props,
-  visible
+  visible,
 }) => (
   <Modal
     animationType="fade"

@@ -30,7 +30,7 @@ const setDepartureServices = (state) => {
   state.searchForm.searchQuery.service_ids = queryServices;
 
   return state;
-}
+};
 
 const setParam = (action, state) => {
   const {
@@ -200,9 +200,7 @@ export default makeReducer((state, action) => ({
     const { items } = action;
 
     items.forEach((item) => {
-      item.services = reject(item.services, (service) => {
-        return service.id === null || service.id === undefined;
-      });
+      item.services = reject(item.services, (service) => service.id === null || service.id === undefined);
 
       item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;
@@ -218,9 +216,7 @@ export default makeReducer((state, action) => ({
     const { items } = action;
 
     items.forEach((item) => {
-      item.services = reject(item.services, (service) => {
-        return service.id === null || service.id === undefined;
-      });
+      item.services = reject(item.services, (service) => service.id === null || service.id === undefined);
 
       item.services.forEach((service) => {
         service.title = state.dictionaries.serviceById[service.id].title;
@@ -252,7 +248,7 @@ export default makeReducer((state, action) => ({
     setDepartureServices(state);
 
     return deepUpdate(state, 'searchForm.general.homeDeparture', {
-      active: !isActive
+      active: !isActive,
     });
   },
 

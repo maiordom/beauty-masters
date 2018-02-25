@@ -68,7 +68,7 @@ export default class PhotoSelect extends PureComponent {
         waitUntilSaved: true,
       },
     }, ({
-      uri, type, didCancel, error, width, height, fileSize
+      uri, type, didCancel, error, width, height, fileSize,
     }) => {
       if (didCancel) {
         log('ImagePicker::launchImageLibrary cancel');

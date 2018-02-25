@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(setSearchLocationName(null));
         dispatch(setLastMapLocation(null));
       },
-    }
+    },
   };
 };
 

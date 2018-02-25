@@ -5,7 +5,6 @@ export const isSalon = (state) => {
 
   if (cardType === 'create') {
     return state.masterEditor.generalSection.isSalonField.value;
-  } else {
-    return (find(state.profile.masterCards, { isMain: true }) || {}).isSalon;
   }
+  return (find(state.profile.masterCards, { isMain: true }) || {}).isSalon;
 };

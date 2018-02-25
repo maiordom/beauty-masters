@@ -16,16 +16,15 @@ export function getSubwayStations(cityId: number) {
   const params = {
     page: {
       number: 1,
-      size: 250
+      size: 250,
     },
-    filters: `[{"operator": "=", "attribute": "city_id", "value": ${cityId}}]`
+    filters: `[{"operator": "=", "attribute": "city_id", "value": ${cityId}}]`,
   };
   return get(routes.getSubwayStations, params)
     .then((res = {}) => {
       if (res.data) {
         return { subwayStations: mapResponse(res.data) };
-      } else {
-        return { subwayStations: [] };
       }
+      return { subwayStations: [] };
     });
 }

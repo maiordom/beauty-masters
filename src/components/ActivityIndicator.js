@@ -31,7 +31,7 @@ export default class ActivityIndicatorComponent extends PureComponent {
     }, 10000);
   }
 
-  render () {
+  render() {
     const { position, size } = this.props;
     const { animating } = this.state;
 

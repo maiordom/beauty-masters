@@ -104,7 +104,7 @@ export default class Login extends PureComponent<TProps, TState> {
 
   onLoginUserPress = () => {
     const username = this.usernameRef.getValue().trim().toLowerCase();
-    const password = this.passwordRef.getValue().trim()
+    const password = this.passwordRef.getValue().trim();
 
     if (this.validate()) {
       this.props.actions.userLogin({ username, password }).then((res) => {

@@ -395,7 +395,7 @@ export default class Map extends PureComponent<TProps, TState> {
                   }
                 >
                   <View style={styles.clusterMarker}>
-                    <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
+                    <Text style={{ width: 0, height: 0 }}>{Math.random()}</Text>
                     <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
                   </View>
                 </MapView.Marker>
@@ -413,7 +413,7 @@ export default class Map extends PureComponent<TProps, TState> {
                 }
               >
                 <View>
-                  <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
+                  <Text style={{ width: 0, height: 0 }}>{Math.random()}</Text>
                 </View>
               </MapView.Marker>
             );

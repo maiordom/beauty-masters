@@ -12,9 +12,11 @@ export default class Doc extends PureComponent {
       <WebView
         style={styles.container}
         startInLoadingState
-        renderLoading={() => <View style={styles.container}>
-          <ActivityIndicator animating position="absolute" />
-        </View>}
+        renderLoading={() => (
+          <View style={styles.container}>
+            <ActivityIndicator animating position="absolute" />
+          </View>
+        )}
         source={{ uri }}
       />
     );

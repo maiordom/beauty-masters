@@ -96,7 +96,7 @@ export default class Feedback extends PureComponent<TProps, TState> {
               numberOfLines={4}
               onChange={this.onMessageChange}
               placeholder={i18n.feedbackForm.message}
-              returnKeyType={'default'}
+              returnKeyType="default"
               style={styles.messageInput}
             />
           </View>

@@ -248,7 +248,7 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
 const PhotoMasterModal = ({
   onRequestClose,
   props,
-  visible
+  visible,
 }) => (
   <Modal
     animationType="slide"

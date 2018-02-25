@@ -74,7 +74,7 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
   };
 
   formatPhone = (value: string) => {
-    let rawValue = value.replace(/[^0-9]+/g, '');
+    const rawValue = value.replace(/[^0-9]+/g, '');
 
     return toPattern(rawValue, {
       pattern: '(999) 999 99 99',

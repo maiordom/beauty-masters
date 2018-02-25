@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
   actions: {
     ...bindActionCreators({ sendFeedback }, dispatch),
     routeToSerp: Actions.serp,
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar(Feedback));
