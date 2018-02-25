@@ -101,8 +101,6 @@ export default class Calendar extends PureComponent {
       containerWidth,
       disableSelectDate,
       events = [],
-      eventTimeEndDefault,
-      eventTimeStartDefault,
       multiSelect,
       selectedDate,
       selectedDates,

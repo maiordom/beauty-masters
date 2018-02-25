@@ -69,14 +69,6 @@ export const toggleWithdrawal = (paramValue: boolean) => ({
 
 export const toggleDeparture = () => ({ type: actions.SEARCH_DEPARTURE_TOGGLE });
 
-type ActionSetItems = {
-  type: string,
-  items: Array<{
-    label: string,
-    id: number
-  }>
-};
-
 const searchMastersWithAction = (action: string) => (params: TSearchQuery = {}) => (dispatch: Function, getState: Function) => {
   const { searchQuery } = getState().searchForm;
 

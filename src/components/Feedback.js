@@ -4,12 +4,10 @@ import React, { PureComponent } from 'react';
 import {
   View,
   Text,
-  TextInput,
   Image,
   StyleSheet,
   Platform,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 import Input from './Input';
 import ButtonControl from './ButtonControl';

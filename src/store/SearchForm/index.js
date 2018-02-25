@@ -1,6 +1,5 @@
 // @flow
 import each from 'lodash/each';
-import moment from 'moment';
 
 import type { TSearchQuery } from '../../types/CreateSearchQuery';
 import type { TSearchFormCategorySection } from '../../types/SearchFormCategories';

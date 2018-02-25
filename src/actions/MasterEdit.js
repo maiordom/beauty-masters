@@ -4,8 +4,7 @@ import actions from '../constants/MasterEdit';
 import * as MasterCardService from '../services/MasterCard';
 
 import { getMasterServices, getAddresses } from './Profile';
-import { setGeneralParam } from './Master';
-import { refreshEditor } from './Master';
+import { setGeneralParam, refreshEditor } from './Master';
 
 export const setGeneralInfo = (masterCard) => ({
   type: actions.MASTER_EDIT_GENERAL_INFO_SET,

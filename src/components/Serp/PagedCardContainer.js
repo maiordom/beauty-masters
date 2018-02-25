@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-import { StyleSheet, Dimensions, Platform, View, ListView } from 'react-native';
+import { StyleSheet, Dimensions, View, ListView } from 'react-native';
 
 import MapCard from './MapCard';
 
@@ -68,28 +68,30 @@ export default class PagedCardContainer extends PureComponent<TProps, TState> {
   };
 
   render() {
-    return (<View style={styles.container}>
-      <ListView
-        dataSource={this.state.items}
-        horizontal
-        onScroll={this.onCardSwipe}
-        pagingEnabled
-        ref={(component) => { this.listView = component; }}
-        renderRow={(card) => this.renderCard(card)}
-        scrollEventThrottle={200}
-        showsHorizontalScrollIndicator={false}
-      />
-      {this.props.items.length > 1 && (
-        <View style={styles.dots}>
-          {this.props.items.map((card, index) => (
-            <View
-              key={card.id}
-              style={[styles.dot, this.state.currentCardIndex === index ? styles.dotActive : {}]}
-            />
-          ))}
-        </View>
-      )}
-    </View>);
+    return (
+      <View style={styles.container}>
+        <ListView
+          dataSource={this.state.items}
+          horizontal
+          onScroll={this.onCardSwipe}
+          pagingEnabled
+          ref={(component) => { this.listView = component; }}
+          renderRow={(card) => this.renderCard(card)}
+          scrollEventThrottle={200}
+          showsHorizontalScrollIndicator={false}
+        />
+        {this.props.items.length > 1 && (
+          <View style={styles.dots}>
+            {this.props.items.map((card, index) => (
+              <View
+                key={card.id}
+                style={[styles.dot, this.state.currentCardIndex === index ? styles.dotActive : {}]}
+              />
+            ))}
+          </View>
+        )}
+      </View>
+    );
   }
 }
 

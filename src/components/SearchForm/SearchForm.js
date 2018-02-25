@@ -4,7 +4,6 @@ import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform, ScrollView, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
-import each from 'lodash/each';
 import moment from 'moment';
 import 'moment/locale/ru';
 import snakeCase from 'lodash/snakeCase';
@@ -185,7 +184,6 @@ export default class SearchFormShort extends PureComponent<TProps, TState> {
       homeDeparture,
       manicureSearchFormSections,
       pedicureSearchFormSections,
-      searchQuery,
     } = this.props;
 
     const { place } = this.props.general;

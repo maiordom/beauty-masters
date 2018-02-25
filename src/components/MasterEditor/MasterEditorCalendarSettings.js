@@ -9,8 +9,6 @@ import {
   View,
 } from 'react-native';
 
-import isEmpty from 'lodash/isEmpty';
-
 import { SubLabel } from '../SubLabel';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';

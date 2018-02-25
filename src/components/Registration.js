@@ -35,7 +35,6 @@ const ALL_FIELDS_REQUIRED = 'ALL_FIELDS_REQUIRED';
 
 type TProps = {
   actions: Object,
-  onAuthSuccess: () => void,
 };
 
 type TState = {

@@ -18,7 +18,7 @@ const userLocationSelector = (state) => {
     : { latitude: city.lat, longitude: city.lon };
 };
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   initialRegion: (() => {
     if (state.searchForm.general.place.label) {
       return {

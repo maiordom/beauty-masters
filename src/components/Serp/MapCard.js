@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, Text, Dimensions, Image, TouchableWithoutFeedback, Platform } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 
@@ -28,7 +28,6 @@ const icons = {
 
 type TMapCardView = {
   type?: string,
-  location: string,
   onPress: Function,
   onLayout: Function,
   style: Object,
@@ -59,7 +58,6 @@ export default class MapCard extends PureComponent<TProps, void> {
       closestDate,
       distance,
       isSalon,
-      location,
       photo: uri,
       services,
       type,

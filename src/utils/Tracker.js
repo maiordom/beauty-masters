@@ -97,7 +97,8 @@ const eventsMapping = {
 };
 
 export const trackEvent = (eventName, option = {}) => {
-  let { category, action, label } = eventsMapping[eventName];
+  const { category, action } = eventsMapping[eventName];
+  let { label } = eventsMapping[eventName];
 
   if (typeof label === 'function') {
     label = label(option.labelValue);

@@ -59,10 +59,7 @@ type TState = {
 };
 
 export default class MasterCardShedule extends PureComponent<TProps, TState> {
-  props: Props;
-  state: State;
-
-  constructor(props: Props) {
+  constructor(props: TProps) {
     super(props);
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });

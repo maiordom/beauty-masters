@@ -6,7 +6,7 @@ import actions from '../constants/Profile';
 import { setActivityIndicator } from './Common';
 
 export const getUserProfile = () => (dispatch: Function, getState: Function) => {
-  const auth = getState().auth;
+  const { auth } = getState();
 
   dispatch(setActivityIndicator(true));
 
