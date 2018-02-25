@@ -26,6 +26,7 @@ const mapDispatchToProps = dispatch => {
           return res;
         });
       },
+      routeToUserAgreement: Actions.userAgreement,
     },
   };
 };

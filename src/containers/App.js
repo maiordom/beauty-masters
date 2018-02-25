@@ -82,7 +82,7 @@ export default class App extends Component {
     setTimeout(() => {
       getLocation(true)(store.dispatch).catch((err) => {
         console.log('geo::location::', err);
-      })
+      });
     }, 50);
   }
 

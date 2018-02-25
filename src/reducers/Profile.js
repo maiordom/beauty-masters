@@ -24,19 +24,17 @@ const HOME_DEPARTURE_SERVICE_IDS = [
 
 const filterHomeDepartureService = (masterServices) => {
   const filteredMasterServices = reject(masterServices, (service) =>
-    includes(HOME_DEPARTURE_SERVICE_IDS, service.serviceId)
-  );
+    includes(HOME_DEPARTURE_SERVICE_IDS, service.serviceId));
 
   const homeDepartureService = find(masterServices, (service) =>
     service.serviceId === HOME_DEPARTURE_MANICURE_SERVICE_ID ||
-    service.serviceId === HOME_DEPARTURE_PEDICURE_SERVICE_ID
-  );
+    service.serviceId === HOME_DEPARTURE_PEDICURE_SERVICE_ID);
 
   return {
     filteredMasterServices,
     homeDepartureService,
   };
-}
+};
 
 export default makeReducer(() => ({
   [c.PROFILE_SECTION_SET]: (state, { payload: { sectionKey } }) =>
@@ -68,7 +66,7 @@ export default makeReducer(() => ({
       }
     });
 
-    let currentMainCard = find(state.profile.masterCards, { isMain: true });
+    const currentMainCard = find(state.profile.masterCards, { isMain: true });
     let mainCard: TMasterCard = find(masterCards, { isMain: true });
 
     if (currentMainCard) {

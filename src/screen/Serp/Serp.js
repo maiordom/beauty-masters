@@ -9,21 +9,11 @@ import SerpNavBar from '../../components/Serp/SerpNavBar';
 import Map from '../../containers/Map';
 import SerpList from '../../containers/SerpList';
 
-const mapStateToProps = state => ({
-  sceneKey: get(state, 'scene.sceneKey'),
-});
-
-type TProps = {
-  sceneKey: string,
-};
-
 type TState = {
   activeView: 'map' | 'list',
 };
 
-class Serp extends PureComponent<TProps, TState> {
-  props: TProps;
-
+export default class Serp extends PureComponent<any, TState> {
   state = {
     activeView: 'map',
   };
@@ -68,5 +58,3 @@ const styles = StyleSheet.create({
     }),
   },
 });
-
-export default connect(mapStateToProps, null)(Serp);

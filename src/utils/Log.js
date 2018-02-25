@@ -11,7 +11,7 @@ export function log() {
     });
   }
 
-  console.log.apply(console, args);
+  console.log(...args);
 }
 
 export function sendLog(message: string) {

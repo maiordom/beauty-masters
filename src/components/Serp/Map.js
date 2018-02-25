@@ -29,7 +29,7 @@ import PagedCardContainer from './PagedCardContainer';
 
 import vars from '../../vars';
 import i18n from '../../i18n';
-import { log, sendLog } from '../../utils/Log';
+import { log } from '../../utils/Log';
 
 import type { TMapCard } from '../../types/MasterTypes';
 import type { TRegionType } from '../../types/RegionType';
@@ -395,7 +395,7 @@ export default class Map extends PureComponent<TProps, TState> {
                   }
                 >
                   <View style={styles.clusterMarker}>
-                    <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
+                    <Text style={{ width: 0, height: 0 }}>{Math.random()}</Text>
                     <Text style={styles.clusterMarkerTitle}>{pin.properties.point_count}</Text>
                   </View>
                 </MapView.Marker>
@@ -413,7 +413,7 @@ export default class Map extends PureComponent<TProps, TState> {
                 }
               >
                 <View>
-                  <Text style={{ width: 0, height: 0}}>{Math.random()}</Text>
+                  <Text style={{ width: 0, height: 0 }}>{Math.random()}</Text>
                 </View>
               </MapView.Marker>
             );

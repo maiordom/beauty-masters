@@ -46,7 +46,7 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
   };
 
   onChange = (value: string, modelName: string) => {
-    const sectionName = this.props[modelName].sectionName;
+    const { sectionName } = this.props[modelName];
 
     this.props.actions.setGeneralParam(modelName, value, sectionName);
 
@@ -56,13 +56,13 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
   };
 
   onUsernameBlur = (value: string, modelName: string) => {
-    const sectionName = this.props[modelName].sectionName;
+    const { sectionName } = this.props[modelName];
 
     this.props.actions.setGeneralParam(modelName, upperFirst(value), sectionName);
   };
 
   onPhoneChange = (value: string, modelName: string) => {
-    const sectionName = this.props[modelName].sectionName;
+    const { sectionName } = this.props[modelName];
 
     value = value.replace(/[^0-9]+/g, '');
 
@@ -74,7 +74,7 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
   };
 
   formatPhone = (value: string) => {
-    let rawValue = value.replace(/[^0-9]+/g, '');
+    const rawValue = value.replace(/[^0-9]+/g, '');
 
     return toPattern(rawValue, {
       pattern: '(999) 999 99 99',

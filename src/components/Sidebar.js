@@ -38,16 +38,6 @@ type TState = {
   currentScene: ?string,
 }
 
-const userAgreement = {
-  key: 'userAgreement',
-  title: i18n.userAgreementShort,
-  icon: {
-    default: require('../icons/android/doc.png'),
-    active: require('../icons/android/doc-active.png'),
-  },
-  onPress: () => this.changeScene('userAgreement'),
-};
-
 export default class Sidebar extends PureComponent<TProps, TState> {
   state = {
     currentScene: this.props.currentScene,
@@ -69,8 +59,8 @@ export default class Sidebar extends PureComponent<TProps, TState> {
       key: 'searchForm',
       title: i18n.search.search,
       icon: {
-        default: require('../icons/android/search.png'),
         active: require('../icons/android/search-active.png'),
+        default: require('../icons/android/search.png'),
       },
       onPress: () => this.changeScene('searchForm'),
     },
@@ -78,8 +68,8 @@ export default class Sidebar extends PureComponent<TProps, TState> {
       key: 'favorite',
       title: i18n.favorites,
       icon: {
-        default: require('../icons/android/star.png'),
         active: require('../icons/android/star-active.png'),
+        default: require('../icons/android/star.png'),
       },
       onPress: () => this.changeScene('favorite'),
     },
@@ -87,10 +77,37 @@ export default class Sidebar extends PureComponent<TProps, TState> {
       key: 'feedback',
       title: i18n.feedback,
       icon: {
-        default: require('../icons/android/chat.png'),
         active: require('../icons/android/chat-active.png'),
+        default: require('../icons/android/chat.png'),
       },
       onPress: () => this.changeScene('feedback'),
+    },
+    {
+      key: 'userAgreement',
+      title: i18n.userAgreementShort,
+      icon: {
+        active: require('../icons/android/doc-active.png'),
+        default: require('../icons/android/doc.png'),
+      },
+      onPress: () => this.changeScene('userAgreement'),
+    },
+    {
+      key: 'privacy',
+      title: i18n.privacy,
+      icon: {
+        active: require('../icons/android/doc-active.png'),
+        default: require('../icons/android/doc.png'),
+      },
+      onPress: () => this.changeScene('privacy'),
+    },
+    {
+      key: 'cardPlacementConditions',
+      title: i18n.cardPlacementConditions,
+      icon: {
+        active: require('../icons/android/doc-active.png'),
+        default: require('../icons/android/doc.png'),
+      },
+      onPress: () => this.changeScene('cardPlacementConditions'),
     },
   ];
 

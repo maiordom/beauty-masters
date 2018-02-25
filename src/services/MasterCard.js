@@ -41,7 +41,7 @@ export const getMasterById = (id: number) =>
     isSalon: Boolean(res.data.attributes.is_salon),
     masterPhotos: res.included ? getPhotos(res.included, 'master-photo') : [],
     phone: /\d/.test(res.data.attributes.phone[0])
-      ? '+' + res.data.attributes.phone
+      ? `+${res.data.attributes.phone}`
       : res.data.attributes.phone,
     salonName: res.data.attributes.salon_name,
     services: res.included ? getServices(res.included) : [],

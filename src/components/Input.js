@@ -60,7 +60,7 @@ class InputBase extends PureComponent<TProps, TState> {
 
     const { value } = nextProps;
 
-    if (null === value) {
+    if (value === null) {
       this.state.value = '';
     } else if (this.props.value !== nextProps.value) {
       this.state.value = String(value).toString();

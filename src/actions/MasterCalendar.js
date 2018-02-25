@@ -22,12 +22,12 @@ export const createSchedules = (sectionName) => (dispatch, getState) => {
     if (res.status === 'success') {
       dispatch({
         type: actions.MASTER_CALENDAR_SCHEDULE_STATUS_SET,
-        payload: { sectionName, status: true }
+        payload: { sectionName, status: true },
       });
     }
 
     return res;
-  })
+  });
 };
 
 export const handleTimeTable = (sectionName) => (dispatch, getState) => {

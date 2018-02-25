@@ -30,13 +30,11 @@ export default makeReducer(() => ({
 
     // Filter out home departure services: manicure home departure extracted and passed as separate field to state.
     const commonServices = reject(card.services, (service) =>
-      includes(HOME_DEPARTURE_SERVICE_IDS, service.serviceId)
-    );
+      includes(HOME_DEPARTURE_SERVICE_IDS, service.serviceId));
 
     card.homeDepartureService = find(card.services, (service) =>
       service.serviceId === HOME_DEPARTURE_MANICURE_SERVICE_ID ||
-      service.serviceId === HOME_DEPARTURE_PEDICURE_SERVICE_ID
-    );
+      service.serviceId === HOME_DEPARTURE_PEDICURE_SERVICE_ID);
 
     let {
       groupedServicesByCategories,

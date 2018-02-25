@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -104,7 +104,7 @@ export default class Login extends PureComponent<TProps, TState> {
 
   onLoginUserPress = () => {
     const username = this.usernameRef.getValue().trim().toLowerCase();
-    const password = this.passwordRef.getValue().trim()
+    const password = this.passwordRef.getValue().trim();
 
     if (this.validate()) {
       this.props.actions.userLogin({ username, password }).then((res) => {
@@ -146,21 +146,20 @@ export default class Login extends PureComponent<TProps, TState> {
           }
           {responseError && this.error(responseError.detail, false)}
         </View>
-        <TouchableHighlight
-          activeOpacity={1}
+        <TouchableOpacity
+          activeOpacity={0.7}
           onPress={routeToRecoverPassword}
           style={styles.recoveryButton}
         >
           <Text style={styles.recoveryButtonText}>{localization.recovery}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          activeOpacity={1}
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
           onPress={this.onLoginUserPress}
           style={styles.enterButton}
-          underlayColor={vars.color.red}
         >
           <Text style={styles.enterButtonText}>{localization.enter}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }

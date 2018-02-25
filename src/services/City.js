@@ -20,6 +20,6 @@ export function getCities() {
     .then((res = {}) => (res.data && {
       cities: mapGetCityResponse(res.data),
     } || {
-      cities: [],
-    }));
+        cities: [],
+      }));
 }

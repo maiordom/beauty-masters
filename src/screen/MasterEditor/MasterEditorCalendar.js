@@ -36,7 +36,7 @@ const selectorGetCreatedCalendarsCount = () => (dispatch, getState) => {
   });
 
   return createdCalendarsCount;
-}
+};
 
 const mapDispatchToProps = (dispatch: Function) => ({
   actions: {

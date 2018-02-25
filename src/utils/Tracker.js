@@ -12,7 +12,7 @@ const searchEvents = each({
   navigateFromSerpToCard: { label: '_serp_card' },
   notAvailableUserLocation: { label: '_users_address_not_identified' },
   viewMap: { label: '_map' },
-  viewSerp: { label: '_serp' }
+  viewSerp: { label: '_serp' },
 }, (event) => {
   event.category = 'users';
   event.action = 'search';
@@ -23,14 +23,14 @@ const filterEvents = each({
   selectFilterManicure: { label: '_filters_main_manicure' },
   selectFilterPedicure: { label: '_filters_main_pedicure' },
   selectFilterRemove: { label: '_filters_main_remove' },
-  selectService: { label: (serviceName) => `_filters_minor_${serviceName}` }
+  selectService: { label: (serviceName) => `_filters_minor_${serviceName}` },
 }, (event) => {
   event.category = 'users';
   event.action = 'filters';
 });
 
 const favoriteEvents = each({
-  addToFavorites: { label: '_favorite_user' }
+  addToFavorites: { label: '_favorite_user' },
 }, (event) => {
   event.category = 'users';
   event.action = 'favorite';
@@ -44,7 +44,7 @@ const accountsEvents = each({
   step2PrivateSelectPedicure: { label: 'step_2_private_pedicure_visit' },
   step2PrivateManicureServicesCount: { label: (count) => `step_2_private_manicure_services_${count}` },
   step2PrivatePedicureServicesCount: { label: (count) => `step_2_private_pedicure_services_${count}` },
-  step2PrivateManicureCustomServicesCount: { label: (count) => `step_2_private_manicure_custom_services_${count}`, },
+  step2PrivateManicureCustomServicesCount: { label: (count) => `step_2_private_manicure_custom_services_${count}` },
   step2PrivatePedicureCustomServicesCount: { label: (count) => `step_2_private_pedicure_custom_services_${count}` },
   step2Salon: { label: 'step_2_salon' },
   step2SalonSelectPedicure: { label: 'step_2_salon_pedicure_visit' },
@@ -80,7 +80,7 @@ const accountsEvents = each({
   changePhoto: { label: 'change_photo', action: 'account' },
   authByEmail: { action: 'auth_by_email' },
   viewAuth: { action: 'auth_view' },
-  viewReg: { action: 'reg_view' }
+  viewReg: { action: 'reg_view' },
 }, (event) => {
   event.category = 'accounts';
 
@@ -93,11 +93,12 @@ const eventsMapping = {
   ...accountsEvents,
   ...favoriteEvents,
   ...filterEvents,
-  ...searchEvents
+  ...searchEvents,
 };
 
 export const trackEvent = (eventName, option = {}) => {
-  let { category, action, label } = eventsMapping[eventName];
+  const { category, action } = eventsMapping[eventName];
+  let { label } = eventsMapping[eventName];
 
   if (typeof label === 'function') {
     label = label(option.labelValue);

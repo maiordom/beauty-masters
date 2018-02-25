@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
       ios: {
         marginLeft: 15,
         marginRight: 15,
-      }
-    })
+      },
+    }),
   },
   addCardTitle: {
     color: vars.color.red,

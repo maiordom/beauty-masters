@@ -19,6 +19,7 @@ export default {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
   },
+  cardPlacementConditions: 'Условия размещения карточек',
   clear: 'Очистить',
   continue: 'Продолжить',
   configureCalendar: 'Настройте календарь',
@@ -223,6 +224,8 @@ export default {
     select: 'Выбрать фото',
     take: 'Сделать снимок',
   },
+  placementConditions: 'Условия размещения',
+  privacy: 'Соглашение о конфиденциальности',
   presentation: {
     calendar: 'Запишитесь на прием',
     list: 'Смотрите список услуг и цен',

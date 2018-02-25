@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, Text, Dimensions, Image, TouchableWithoutFeedback, Platform } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 
@@ -28,9 +28,9 @@ const icons = {
 
 type TMapCardView = {
   type?: string,
-  location: string,
   onPress: Function,
   onLayout: Function,
+  style: Object,
 };
 
 type TProps = TMapCard & TMapCardView;
@@ -58,18 +58,18 @@ export default class MapCard extends PureComponent<TProps, void> {
       closestDate,
       distance,
       isSalon,
-      location,
       photo: uri,
       services,
       type,
       username,
+      style,
     } = this.props;
 
     const subtitle = isSalon ? i18n.card.salon : i18n.card.privateMaster;
 
     return (
       <TouchableWithoutFeedback onPress={this.onPress} onLayout={this.props.onLayout}>
-        <View elevation={5} style={[styles.container, location === 'map' && styles.modMap]}>
+        <View elevation={5} style={[styles.container, style]}>
           <View style={styles.header}>
             <View style={styles.photoWrapper}>
               {uri
@@ -101,7 +101,7 @@ export default class MapCard extends PureComponent<TProps, void> {
               <Image style={styles.icon} source={icons.ticket} />
               <View style={styles.services}>
                 {services.map(service => (
-                  <Text key={service.id} style={styles.text}>{service.title} – {service.price} {`\u20BD`}</Text>
+                  <Text key={service.id} style={styles.text}>{service.title} – {service.price} {'\u20BD'}</Text>
                 ))}
               </View>
             </View>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   container: {
-    width: Dimensions.get('window').width,
+    flex: 1,
     backgroundColor: vars.color.white,
     padding: 16,
     ...Platform.select({
@@ -135,20 +135,30 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  modMap: {
-    paddingRight: 0,
-  },
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
+  distanceText: {
+    textAlign: 'right',
+    ...Platform.select({
+      ios: {
+        color: vars.color.grey,
+      },
+    }),
   },
   header: {
     marginBottom: 16,
     flexDirection: 'row',
   },
-  photoWrapper: {
-    marginRight: 15,
+  icon: {
+    ...Platform.select({
+      ios: {
+        marginRight: 10,
+      },
+      android: {
+        marginRight: 8,
+      },
+    }),
+  },
+  metroWrapper: {
+    flexDirection: 'row',
   },
   photo: {
     ...Platform.select({
@@ -164,26 +174,20 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  rowTitle: {
-    paddingRight: 16,
+  photoWrapper: {
+    marginRight: 15,
   },
-  titlesContainer: {
-    ...Platform.select({
-      ios: {
-        justifyContent: 'space-between',
-      },
-    }),
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 10,
   },
-  title: {
-    color: vars.color.black,
-    ...Platform.select({
-      ios: {
-        fontSize: 17,
-      },
-      android: {
-        fontSize: 16,
-      },
-    }),
+  servicesRow: {
+    alignItems: 'flex-start',
+    marginBottom: 0,
+  },
+  services: {
+    marginTop: -3,
   },
   subtitle: {
     color: vars.color.grey,
@@ -196,36 +200,26 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  icon: {
-    ...Platform.select({
-      ios: {
-        marginRight: 10,
-      },
-      android: {
-        marginRight: 8,
-      },
-    }),
-  },
   text: {
     fontSize: 14,
     color: vars.color.black,
   },
-  distanceText: {
-    textAlign: 'right',
+  title: {
+    color: vars.color.black,
     ...Platform.select({
       ios: {
-        color: vars.color.grey,
+        fontSize: 17,
+      },
+      android: {
+        fontSize: 16,
       },
     }),
   },
-  metroWrapper: {
-    flexDirection: 'row',
-  },
-  servicesRow: {
-    alignItems: 'flex-start',
-    marginBottom: 0,
-  },
-  services: {
-    marginTop: -3,
+  titlesContainer: {
+    ...Platform.select({
+      ios: {
+        justifyContent: 'space-between',
+      },
+    }),
   },
 });

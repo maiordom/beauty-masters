@@ -4,12 +4,10 @@ import React, { PureComponent } from 'react';
 import {
   View,
   Text,
-  TextInput,
   Image,
   StyleSheet,
   Platform,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 import Input from './Input';
 import ButtonControl from './ButtonControl';
@@ -96,7 +94,7 @@ export default class Feedback extends PureComponent<TProps, TState> {
               numberOfLines={4}
               onChange={this.onMessageChange}
               placeholder={i18n.feedbackForm.message}
-              returnKeyType={'default'}
+              returnKeyType="default"
               style={styles.messageInput}
             />
           </View>

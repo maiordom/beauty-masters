@@ -54,12 +54,14 @@ export default class WorkTimeSpecification extends PureComponent<TProps, TState>
   };
 
   onApplyPress = () => {
-    const { timeStart, timeEnd, workInThisDay, date } = this.state;
+    const {
+      timeStart, timeEnd, workInThisDay, date,
+    } = this.state;
 
     const {
       timeEndDefault,
       timeStartDefault,
-      workInThisDay: workInThisDayDefault
+      workInThisDay: workInThisDayDefault,
     } = this.props;
 
     const diffWithDefaultParams = difference(
@@ -71,10 +73,14 @@ export default class WorkTimeSpecification extends PureComponent<TProps, TState>
       ],
     );
 
-    const diffWithParams = difference(
-      [timeStart, timeEnd],
-      [this.props.timeStart, this.props.timeEnd]
-    );
+    let diffWithParams = [];
+
+    if (this.props.timeStart && this.props.timeEnd) {
+      diffWithParams = difference(
+        [timeStart, timeEnd],
+        [this.props.timeStart, this.props.timeEnd],
+      );
+    }
 
     const changes = {
       date,

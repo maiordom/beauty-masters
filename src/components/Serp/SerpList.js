@@ -5,7 +5,6 @@ import { View, ListView, StyleSheet, TouchableOpacity, Text } from 'react-native
 import { Actions } from 'react-native-router-flux';
 
 import sortBy from 'lodash/sortBy';
-import isEqual from 'lodash/isEqual';
 
 import MapCard from './MapCard';
 

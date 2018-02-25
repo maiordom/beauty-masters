@@ -60,7 +60,7 @@ const handleRejectResponse = (res: Object = { data: {} }, path: string, method: 
     status: 'error',
     error: {},
   });
-}
+};
 
 const baseFetch = (fetchMethod: string) => (
   method: Object,

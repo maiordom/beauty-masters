@@ -78,7 +78,9 @@ export default class RecoverPassword extends PureComponent<TProps, TState> {
   };
 
   render() {
-    const { email, showModal, error, errorText } = this.state;
+    const {
+      email, showModal, error, errorText,
+    } = this.state;
 
     return (
       <View style={styles.container}>

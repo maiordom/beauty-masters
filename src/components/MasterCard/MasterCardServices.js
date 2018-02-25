@@ -1,6 +1,5 @@
 // @flow
 
-import isEmpty from 'lodash/isEmpty';
 import toUpper from 'lodash/toUpper';
 
 import React, { PureComponent } from 'react';
