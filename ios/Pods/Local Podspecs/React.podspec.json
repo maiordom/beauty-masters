@@ -321,7 +321,7 @@
 
         ]
       },
-      "source_files": "Libraries/Text/*.{h,m}"
+      "source_files": "Libraries/Text/**/*.{h,m}"
     },
     {
       "name": "RCTVibration",
