@@ -114,14 +114,7 @@ export default class Calendar extends PureComponent {
       let backgroundColor = vars.color.white;
 
       if (event.workInThisDay) {
-        if (
-          event.timeEnd === eventTimeEndDefault &&
-          event.timeStart === eventTimeStartDefault
-        ) {
-          backgroundColor = vars.color.black;
-        } else {
-          backgroundColor = vars.color.blue;
-        }
+        backgroundColor = vars.color.blue;
       }
 
       return {
