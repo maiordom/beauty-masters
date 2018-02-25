@@ -13,7 +13,13 @@ const mapResponse = (data): Array<TSubwayStation> => data.map(station => ({
 }: TSubwayStation));
 
 export function getSubwayStations(cityId: number) {
-  const params = { filters: `[{"operator": "=", "attribute": "city_id", "value": ${cityId}}]` };
+  const params = {
+    page: {
+      number: 1,
+      size: 250
+    },
+    filters: `[{"operator": "=", "attribute": "city_id", "value": ${cityId}}]`
+  };
   return get(routes.getSubwayStations, params)
     .then((res = {}) => {
       if (res.data) {

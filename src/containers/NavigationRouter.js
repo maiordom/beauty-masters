@@ -113,6 +113,7 @@ export default () => (
         component={MasterEditorCalendar}
       />
       <Scene
+        initial
         key="masterEditorCalendarSetting"
         title={i18n.masterEditor.calendarSettings}
         component={props => <MasterEditorCalendarSettings {...props} />}
