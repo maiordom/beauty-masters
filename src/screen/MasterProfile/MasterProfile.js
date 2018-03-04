@@ -16,7 +16,7 @@ import {
   setPedicureServices,
   setStatus,
 } from '../../actions/MasterEdit';
-import { refreshEditor } from '../../actions/Master';
+import { refreshEditor, getCities } from '../../actions/Master';
 
 const rightButtonImage = require('../../icons/edit.png');
 
@@ -45,7 +45,11 @@ const mapDispatchToProps = (dispatch) => ({
       case 'calendars': {
         dispatch(refreshEditor());
         dispatch(setStatus(masterCard.id));
-        dispatch(setCalendars(masterCard));
+        dispatch(getCities()).then((res) => {
+          if (!res.error) {
+            dispatch(setCalendars(masterCard));
+          }
+        });
         Actions.masterEditorCalendar();
       } break;
       case 'services': {

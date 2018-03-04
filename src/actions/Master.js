@@ -246,12 +246,18 @@ export const getCities = () => (dispatch: Function, getState: Function) => {
   const state = getState();
 
   if (!isEmpty(state.geo.cities)) {
-    dispatch(masterEditCityModelSet(state.geo.cities));
-  } else {
-    dispatch(fetchCities()).then(() => {
-      const state = getState();
-
+    return new Promise((resolve) => {
       dispatch(masterEditCityModelSet(state.geo.cities));
+      resolve(state.geo.cities);
+    });
+  } else {
+    return dispatch(fetchCities()).then((res) => {
+      if (!res.error) {
+        const state = getState();
+        dispatch(masterEditCityModelSet(state.geo.cities));
+      } else {
+        dispatch(masterEditCityModelSet([]));
+      }
     });
   }
 };
