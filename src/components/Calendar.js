@@ -33,8 +33,16 @@ export default class Calendar extends PureComponent {
   constructor(props) {
     super(props);
 
+    let { startDate } = props;
+
+    if (startDate) {
+      if (moment(startDate).get('month') !== moment().get('month')) {
+        startDate = moment().format(this.props.format);
+      }
+    }
+
     this.state = {
-      startDate: props.startDate || null,
+      startDate: startDate || null,
     };
 
     this.state.originStartDate = this.state.startDate;
