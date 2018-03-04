@@ -12,7 +12,7 @@ type TProps = {
   onChange: (value: boolean, id: number, modelName: string) => {},
 };
 
-export default class RadioGroup extends PureComponent<TProps, void> {
+export default class PickerList extends PureComponent<TProps, void> {
   onPickerChange = (value: boolean, id: number) => {
     this.props.onChange(value, id, this.props.modelName);
   };
