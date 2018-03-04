@@ -14,23 +14,23 @@ const icons = {
   photoEmpty: require('../../icons/photo-empty.png'),
   ...Platform.select({
     android: {
-      pin: require('../../icons/android/pin-small.png'),
       calendar: require('../../icons/android/calendar.png'),
+      pin: require('../../icons/android/pin-small.png'),
       ticket: require('../../icons/android/ticket.png'),
     },
     ios: {
-      pin: require('../../icons/ios/pin-small.png'),
       calendar: require('../../icons/ios/calendar-small.png'),
+      pin: require('../../icons/ios/pin-small.png'),
       ticket: require('../../icons/ios/ticket-small.png'),
     },
   }),
 };
 
 type TMapCardView = {
-  type?: string,
-  onPress: Function,
   onLayout: Function,
+  onPress: Function,
   style: Object,
+  type?: string,
 };
 
 type TProps = TMapCard & TMapCardView;
@@ -49,7 +49,7 @@ export default class MapCard extends PureComponent<TProps, void> {
   };
 
   onPress = () => {
-    this.props.onPress(this.props);
+    this.props.onPress && this.props.onPress(this.props);
   };
 
   render() {

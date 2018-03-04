@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import {
+  Dimensions,
   Platform,
   StyleSheet,
   View,
@@ -42,8 +43,8 @@ export default class MasterLocation extends PureComponent {
       address,
       isSalon,
       location: { lat, lng },
+      name: sceneKey,
       photo,
-      sceneKey,
       username,
     } = this.props;
 
@@ -68,19 +69,29 @@ export default class MasterLocation extends PureComponent {
             />
           </MapView>
         )}
-        <MapCard
-          address={address}
-          distance={distance}
-          isSalon={isSalon}
-          photo={photo}
-          username={username}
-        />
+        <View style={styles.cardWrapper}>
+          <MapCard
+            address={address}
+            distance={distance}
+            isSalon={isSalon}
+            photo={photo}
+            style={styles.card}
+            username={username}
+          />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  card: {
+    width: Dimensions.get('window').width,
+  },
+  cardWrapper: {
+    position: 'absolute',
+    bottom: 0,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-end',
