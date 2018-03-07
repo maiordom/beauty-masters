@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import MasterEditorCalendar from '../../components/MasterEditor/MasterEditorCalendar';
 import NavBar from '../../components/NavBar';
 
+import { getCities } from '../../actions/Master';
 import { getCalendars } from '../../actions/MasterEdit';
 
 import { isSalon } from '../../utils/isSalon';
@@ -41,6 +42,7 @@ const selectorGetCreatedCalendarsCount = () => (dispatch, getState) => {
 const mapDispatchToProps = (dispatch: Function) => ({
   actions: {
     ...bindActionCreators({
+      getCities,
       getCalendars,
       selectorGetCreatedCalendarsCount,
     }, dispatch),
