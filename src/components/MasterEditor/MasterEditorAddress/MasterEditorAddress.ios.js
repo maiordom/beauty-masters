@@ -4,13 +4,13 @@ import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import upperFirst from 'lodash/upperFirst';
 
-import type { TMasterEditorAddress } from '../../types/MasterEditorAddress';
+import type { TMasterEditorAddress } from './MasterEditorAddress.types';
 
-import { InputWithLabel } from '../Input';
-import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
+import { InputWithLabel } from '../../Input';
+import MasterEditorSectionTitle from '../MasterEditorSectionTitle.ios';
 
-import i18n from '../../i18n';
-import vars from '../../vars';
+import i18n from '../../../i18n';
+import vars from '../../../vars';
 
 type TProps = TMasterEditorAddress;
 

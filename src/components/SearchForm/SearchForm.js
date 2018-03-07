@@ -8,8 +8,8 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import snakeCase from 'lodash/snakeCase';
 
-import SearchFormCalendar from './SearchFormCalendar';
-import SearchFormMasterType from './SearchFormMasterType';
+import SearchFormCalendar from './SearchFormCalendar/SearchFormCalendar';
+import SearchFormMasterType from './SearchFormMasterType/SearchFormMasterType';
 import SearchFormCategoryBlock from './SearchFormCategoryBlock';
 
 import StateMachine from '../../components/StateMachine';

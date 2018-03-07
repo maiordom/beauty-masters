@@ -15,8 +15,8 @@ import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import ButtonControl from '../ButtonControl';
 import Calendar from '../Calendar';
-import MasterEditorAddress from '../MasterEditor/MasterEditorAddress';
-import MasterEditorSchedule from '../MasterEditor/MasterEditorSchedule';
+import MasterEditorAddress from '../MasterEditor/MasterEditorAddress/MasterEditorAddress';
+import MasterEditorSchedule from '../MasterEditor/MasterEditorSchedule/MasterEditorSchedule';
 import WorkTimeSpecification from '../../containers/WorkTimeSpecification';
 import IntervalStartDate from '../../containers/IntervalStartDate';
 

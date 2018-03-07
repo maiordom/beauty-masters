@@ -3,14 +3,14 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
-import PickerList from '../PickerList.ios';
-import RangeTime from '../RangeTime';
+import MasterEditorSectionTitle from '../MasterEditorSectionTitle.ios';
+import PickerList from '../../PickerList.ios';
+import RangeTime from '../../RangeTime';
 
-import i18n from '../../i18n';
-import vars from '../../vars';
+import i18n from '../../../i18n';
+import vars from '../../../vars';
 
-import type { TMasterEditorSchedule } from '../../types/MasterEditorSchedule';
+import type { TMasterEditorSchedule } from './MasterEditorSchedule.types';
 
 type TProps = TMasterEditorSchedule;
 

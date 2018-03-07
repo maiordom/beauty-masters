@@ -2,13 +2,13 @@
 
 import React, { PureComponent } from 'react';
 import { View, TouchableWithoutFeedback, StyleSheet, Modal } from 'react-native';
-import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
-import PopupHeader from '../PopupHeader.ios';
-import PickerList from '../PickerList.ios';
+import type { TSearchFormMasterTypeProps } from './SearchFormMasterType.types';
+import PopupHeader from '../../PopupHeader.ios';
+import PickerList from '../../PickerList.ios';
 
-import vars from '../../vars';
-import i18n from '../../i18n';
-import { hexToRgba } from '../../utils';
+import vars from '../../../vars';
+import i18n from '../../../i18n';
+import { hexToRgba } from '../../../utils';
 
 type TProps = TSearchFormMasterTypeProps;
 
