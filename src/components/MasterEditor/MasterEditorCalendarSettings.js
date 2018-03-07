@@ -10,6 +10,8 @@ import {
   View,
 } from 'react-native';
 
+import find from 'lodash/find';
+
 import { SubLabel } from '../SubLabel';
 import MasterEditorSectionTitle from './MasterEditorSectionTitle.ios';
 import ActivityIndicator from '../../containers/ActivityIndicator';
@@ -89,11 +91,13 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
   }
 
   onIntervalChange = (value: string, id: number, modelName: string) => {
+    const intervalGroup = find(this.props.calendarSettings.intervalGroup.items, { id });
     this.props.actions.setCalendarInterval(modelName, id, this.props.sectionName);
     this.setState({
       intervalStartDateVisible: true,
       intervalStartDateParams: {
         sectionName: this.props.sectionName,
+        modeName: intervalGroup.label,
       },
     });
   };
