@@ -19,6 +19,7 @@ type TProps = {
 export default class MasterEditorCalendar extends PureComponent<TProps, void> {
   componentDidMount() {
     if (this.props.cardType === 'edit') {
+      this.props.actions.getCities();
       this.props.actions.getCalendars();
     }
   }

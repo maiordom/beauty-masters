@@ -192,10 +192,17 @@ export default makeReducer((state, action) => ({
     deepUpdate(state, `masterEditor.${sectionName}`, { schedulesCreated: status }),
 
   [actions.MASTER_CITY_MODEL_SET]: (state, { payload: { cities } }) => {
-    ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string) => {
+    ['calendarSettingsOne', 'calendarSettingsTwo', 'calendarSettingsThree'].forEach((key: string, index: number) => {
+      const cityName = state.masterEditor[key].cityField.value;
+      let selectedCity = null;
+      if (cityName) {
+        selectedCity = find(state.geo.cities, { name: cityName });
+      }
+
       deepUpdate(state, `masterEditor.${key}.cities`, {
         items: cities,
         filtered: null,
+        selected: selectedCity,
       });
     });
 
