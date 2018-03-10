@@ -3,13 +3,13 @@
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 
-import Label from '../Label';
-import RadioGroup from '../RadioGroup';
-import RangeTime from '../RangeTime';
+import Label from '../../Label';
+import RadioGroup from '../../RadioGroup';
+import RangeTime from '../../RangeTime';
 
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 
-import type { TMasterEditorSchedule } from '../../types/MasterEditorSchedule';
+import type { TMasterEditorSchedule } from './MasterEditorSchedule.types';
 
 type TProps = TMasterEditorSchedule;
 

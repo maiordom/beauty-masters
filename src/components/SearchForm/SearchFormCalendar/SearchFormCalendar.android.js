@@ -3,13 +3,13 @@
 import React from 'react';
 import { Text, View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 
-import type { TSearchFormCalendar } from '../../types/SearchFormCalendar';
+import type { TSearchFormCalendar } from './SearchFormCalendar.types';
 
-import Calendar from '../Calendar';
+import Calendar from '../../Calendar';
 
-import vars from '../../vars';
-import i18n from '../../i18n';
-import { hexToRgba } from '../../utils';
+import vars from '../../../vars';
+import i18n from '../../../i18n';
+import { hexToRgba } from '../../../utils';
 
 type TProps = TSearchFormCalendar;
 

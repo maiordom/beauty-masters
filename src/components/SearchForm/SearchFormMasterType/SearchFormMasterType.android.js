@@ -2,13 +2,13 @@
 
 import React, { PureComponent } from 'react';
 import { Text, View, StyleSheet, Modal } from 'react-native';
-import type { TSearchFormMasterTypeProps } from '../../types/SearchFormMasterType';
+import type { TSearchFormMasterTypeProps } from './SearchFormMasterType.types';
 
-import RadioGroup from '../RadioGroup';
+import RadioGroup from '../../RadioGroup';
 
-import vars from '../../vars';
-import i18n from '../../i18n';
-import { hexToRgba } from '../../utils';
+import vars from '../../../vars';
+import i18n from '../../../i18n';
+import { hexToRgba } from '../../../utils';
 
 export default class SearchFormMasterType extends PureComponent<TSearchFormMasterTypeProps, void> {
   render() {
