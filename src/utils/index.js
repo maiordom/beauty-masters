@@ -83,6 +83,11 @@ export function groupServices(services: Array<any>, dictionaries: Object) {
       }
     }
 
+    if (!categoryId) {
+      categoryId = dictionaries.serviceById[service.serviceId].categoryId;
+      service.categoryId = categoryId;
+    }
+
     do {
       parentCategory = dictionaries.categoryServiceById[categoryId];
       categoryId = parentCategory.parentId;
