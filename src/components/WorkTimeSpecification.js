@@ -1,12 +1,20 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import moment from 'moment';
 import difference from 'lodash/difference';
 
-import Switch from '../components/Switch';
-import RangeTime from '../components/RangeTime';
+import Switch from './Switch';
+import RangeTime from './RangeTime';
+import PopupHeader from './PopupHeader.ios';
 
 import vars from '../vars';
 import i18n from '../i18n';
@@ -98,8 +106,14 @@ export default class WorkTimeSpecification extends PureComponent<TProps, TState>
     this.props.onRequestClose();
   };
 
+  onCancel = () => {
+    this.props.onRequestClose();
+  };
+
   onStatusChange = (workInThisDay: boolean) => {
-    this.state.workInThisDay = workInThisDay;
+    this.setState({
+      workInThisDay,
+    });
   };
 
   componentWillReceiveProps(nextProps: TProps) {
@@ -113,8 +127,24 @@ export default class WorkTimeSpecification extends PureComponent<TProps, TState>
 
     return (
       <View style={styles.wrapper}>
+        <TouchableWithoutFeedback onPress={this.onCancel}>
+          <View style={styles.dismissButton} />
+        </TouchableWithoutFeedback>
         <View style={styles.container}>
-          <Text style={styles.title}>{dateFormatted}</Text>
+          {Platform.select({
+            android: (
+              <Text style={styles.title}>{dateFormatted}</Text>
+            ),
+            ios: (
+              <PopupHeader
+                title={dateFormatted}
+                hasAcceptButton
+                hasCloseButton
+                onAcceptButtonPress={this.onApplyPress}
+                onCloseButtonPress={this.onCancel}
+              />
+            ),
+          })}
           <Switch
             title={i18n.workInThisDay}
             value={workInThisDay}
@@ -127,12 +157,14 @@ export default class WorkTimeSpecification extends PureComponent<TProps, TState>
             onTimeStartChange={this.onTimeStartChange}
             onTimeEndChange={this.onTimeEndChange}
           />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.onApplyPress}
-          >
-            <Text style={styles.buttonText}>OK</Text>
-          </TouchableOpacity>
+          {Platform.OS === 'android' && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.onApplyPress}
+            >
+              <Text style={styles.buttonText}>OK</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );
@@ -140,25 +172,6 @@ export default class WorkTimeSpecification extends PureComponent<TProps, TState>
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
-    margin: 40,
-  },
-  switch: {
-    paddingLeft: 16,
-    paddingRight: 14,
-  },
-  title: {
-    paddingLeft: 16,
-    fontSize: 20,
-    color: vars.color.black,
-  },
-  container: {
-    paddingTop: 25,
-    backgroundColor: vars.color.white,
-  },
   button: {
     marginTop: 12,
     height: 52,
@@ -168,5 +181,49 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: vars.color.red,
+  },
+  container: {
+    backgroundColor: vars.color.white,
+    ...Platform.select({
+      android: {
+        paddingTop: 25,
+      },
+    }),
+  },
+  dismissButton: {
+    ...Platform.select({
+      ios: {
+        flex: 1,
+      },
+    }),
+  },
+  switch: {
+    ...Platform.select({
+      android: {
+        paddingLeft: 16,
+        paddingRight: 14,
+      },
+      ios: {
+        paddingLeft: 16,
+      },
+    }),
+  },
+  title: {
+    paddingLeft: 16,
+    fontSize: 20,
+    color: vars.color.black,
+  },
+  wrapper: {
+    flex: 1,
+    alignSelf: 'stretch',
+    ...Platform.select({
+      android: {
+        justifyContent: 'center',
+        margin: 40,
+      },
+      ios: {
+        justifyContent: 'flex-start',
+      },
+    }),
   },
 });
