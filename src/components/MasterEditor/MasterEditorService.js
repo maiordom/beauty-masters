@@ -57,9 +57,9 @@ type TProps = {
 };
 
 type TState = {
+  allFieldsRequired: boolean,
+  fillPedicureSection: boolean,
   renderLoader: boolean,
-  showAllFieldsRequiredModal: boolean,
-  showFillPedicureSectionModal: boolean,
   tabActiveKey: string,
   tabs: Array<{ title: string, key: string, }>,
 };
@@ -71,15 +71,21 @@ const sections = {
 
 export default class MasterEditorService extends PureComponent<TProps, TState> {
   state = {
+    allFieldsRequired: false,
+    fillPedicureSection: false,
     renderLoader: true,
-    showAllFieldsRequiredModal: false,
-    showFillPedicureSectionModal: false,
     tabActiveKey: 'serviceManicure',
     tabs: [
       { title: i18n.manicure, key: sections.serviceManicure },
       { title: i18n.pedicure, key: sections.servicePedicure },
     ],
   };
+
+  constructor(props) {
+    super(props);
+
+    this.actionPressedName = 'unknown';
+  }
 
   scrollViewRef: any;
 
@@ -141,21 +147,15 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
 
   onValidationError = ({ type }) => {
     if (type === 'VALIDATION_ERRORS') {
-      this.setState({ showAllFieldsRequiredModal: true });
+      this.setState({ allFieldsRequired: true });
     }
 
     if (type === 'FILL_PEDICURE_SECTION') {
-      this.setState({ showFillPedicureSectionModal: true });
+      this.setState({ fillPedicureSection: true });
     }
   };
 
-  onNextPress = () => {
-    this.props.actions.validateServices()
-      .then(this.props.actions.routeToHandlingTools)
-      .catch(this.onValidationError);
-  };
-
-  createServices = () => {
+  createServices = () =>
     this.props.actions.createMasterServices().then((res) => {
       if (res.result === 'success') {
         if (this.props.cardType === 'create') {
@@ -172,33 +172,59 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
             trackEvent('step2PrivateManicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.manicureCustomServices.items) });
             trackEvent('step2PrivatePedicureCustomServicesCount', { labelValue: this.getActiveModelsCount(this.props.pedicureCustomServices.items) });
           }
-          this.props.actions.routeToHandlingTools();
         } else {
-          this.props.actions.routeToProfile();
           trackEvent('changeServices');
         }
       }
+
+      return res;
     });
-  }
+
+  onNextPress = () => {
+    this.actionPressedName = 'next';
+    this.props.actions.validateServices()
+      .then(this.props.actions.routeToHandlingTools)
+      .catch(this.onValidationError);
+  };
 
   onSavePress = () => {
+    this.actionPressedName = 'save';
     this.props.actions.validateServices()
       .then(this.createServices)
+      .then((res) => {
+        if (res.result === 'success') {
+          if (this.props.cardType === 'create') {
+            this.props.actions.routeToHandlingTools();
+          } else {
+            this.props.actions.routeToProfile();
+          }
+        }
+      })
       .catch(this.onValidationError);
   };
 
   onValidationModalClose = () => {
-    this.setState({ showAllFieldsRequiredModal: false });
+    this.setState({ allFieldsRequired: false });
   };
 
   onPedicureAttentionContinue = () => {
-    this.setState({ showFillPedicureSectionModal: false });
-    this.createServices();
+    this.setState({ fillPedicureSection: false });
+    this.createServices().then((res) => {
+      if (this.props.cardType === 'create') {
+        this.props.actions.routeToHandlingTools();
+      } else {
+        if (this.actionPressedName === 'next') {
+          this.props.actions.routeToHandlingTools();
+        } else {
+          this.props.actions.routeToProfile();
+        }
+      }
+    });
   };
 
   onPedicureAttentionFill = () => {
     this.setState({
-      showFillPedicureSectionModal: false,
+      fillPedicureSection: false,
       tabActiveKey: sections.servicePedicure,
     }, () => {
       this.scrollViewRef.scrollTo({ y: 0, animated: false });
@@ -210,8 +236,8 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
   render() {
     const {
       renderLoader,
-      showAllFieldsRequiredModal,
-      showFillPedicureSectionModal,
+      allFieldsRequired,
+      fillPedicureSection,
       tabActiveKey,
       tabs,
     } = this.state;
@@ -246,7 +272,7 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
     return (
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
-        <Modal isVisible={showAllFieldsRequiredModal}>
+        <Modal isVisible={allFieldsRequired}>
           <Text style={validationStyles.alertText}>{i18n.fillAllRequiredFields}</Text>
           <TouchableWithoutFeedback onPress={this.onValidationModalClose}>
             <View style={validationStyles.button}>
@@ -254,7 +280,7 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-        <Modal isVisible={showFillPedicureSectionModal}>
+        <Modal isVisible={fillPedicureSection}>
           <Text style={pedicureModalStyles.title}>{i18n.fillPedicureSection}</Text>
           <View style={pedicureModalStyles.buttonsContainer}>
             <TouchableWithoutFeedback onPress={this.onPedicureAttentionContinue}>

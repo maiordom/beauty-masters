@@ -25,6 +25,8 @@ import vars from '../../vars';
 import { trackEvent } from '../../utils/Tracker';
 import { hexToRgba } from '../../utils';
 
+import { MASTER_CARD_STATUS } from '../../constants/Master';
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
 const PHOTO_SPACE = 8;
@@ -107,6 +109,10 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
     const createMasterQuery = { avatar: '' };
     const avatar = find(personalPhotos.items, { type: 'photo' });
 
+    if (this.props.cardType === 'edit') {
+      createMasterQuery.status = MASTER_CARD_STATUS.MODERATION;
+    }
+
     if (avatar) {
       createMasterQuery.avatar = avatar.sizes.s;
     }
@@ -134,6 +140,10 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
     const { personalPhotos } = this.props;
     const createMasterQuery = { avatar: '' };
     const avatar = find(personalPhotos.items, { type: 'photo' });
+
+    if (this.props.cardType === 'edit') {
+      createMasterQuery.status = MASTER_CARD_STATUS.MODERATION;
+    }
 
     if (avatar) {
       createMasterQuery.avatar = avatar.sizes.s;

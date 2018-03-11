@@ -15,6 +15,8 @@ import i18n from '../../i18n';
 import vars from '../../vars';
 import { trackEvent } from '../../utils/Tracker';
 
+import { MASTER_CARD_STATUS } from '../../constants/Master';
+
 const icons = Platform.select({
   android: {
     warning: require('../../icons/android/warning.png'),
@@ -83,7 +85,13 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
 
   onNextPress = () => {
     if (this.validate()) {
-      this.props.actions.createMaster().then((res) => {
+      const createMasterQuery = {};
+
+      if (this.props.cardType === 'edit') {
+        createMasterQuery.status = MASTER_CARD_STATUS.MODERATION;
+      }
+
+      this.props.actions.createMaster(createMasterQuery).then((res) => {
         if (res.result === 'success') {
           const isSalon = this.props.isSalonField.value;
 
@@ -105,7 +113,13 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
 
   onSavePress = () => {
     if (this.validate()) {
-      this.props.actions.createMaster().then((res) => {
+      const createMasterQuery = {};
+
+      if (this.props.cardType === 'edit') {
+        createMasterQuery.status = MASTER_CARD_STATUS.MODERATION;
+      }
+
+      this.props.actions.createMaster(createMasterQuery).then((res) => {
         if (res.result === 'success') {
           if (this.props.cardType === 'edit') {
             trackEvent('changeProfile');

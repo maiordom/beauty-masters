@@ -23,11 +23,14 @@ export const createMaster = (customCreateMasterQuery?: TCreateMaster) => (dispat
     data: {
       attributes: {
         ...createMasterQuery,
-        status: 0,
         user_id: state.profile.userId,
       },
     },
   };
+
+  if (!createMasterQuery.hasOwnProperty('status')) {
+    params.data.attributes.status = 0;
+  }
 
   Object.assign(params.data.attributes, customCreateMasterQuery);
 
