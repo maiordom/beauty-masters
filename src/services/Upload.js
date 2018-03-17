@@ -13,6 +13,7 @@ export const uploadFile = ({ uri, type }, headers, mediaType) => {
   const fileType = (type !== undefined) ? type.split('/')[1] : 'jpg';
   const uploadType = type !== undefined ? type : 'image/jpeg';
 
+  // Issue with iOS file URLs in RNFetchBlob https://github.com/wkh237/react-native-fetch-blob/issues/437
   if (Platform.OS === 'ios') {
     uri = trimStart(uri, 'file://');
   }
