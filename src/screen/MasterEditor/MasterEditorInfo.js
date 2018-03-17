@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
-import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
+import { removePhoto, createMaster, setGeneralParam, uploadMasterPhoto } from '../../actions/Master';
 import { getMasterInfo } from '../../actions/MasterEdit';
 
 import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo/MasterEditorInfo';
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
       getMasterInfo,
       removePhoto,
       setGeneralParam,
+      uploadMasterPhoto,
     }, dispatch),
     routeToProfile: Actions.masterProfile,
     routeToSuccess: Actions.createMasterSuccess,

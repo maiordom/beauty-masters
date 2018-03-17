@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {
+  ActionSheetIOS,
   Dimensions,
-  Modal,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
 import find from 'lodash/find';
 import toUpper from 'lodash/toUpper';
@@ -16,15 +17,14 @@ import ButtonControl from '../../ButtonControl';
 import Input from '../../Input';
 import MasterPhotoList from '../../MasterEditor/MasterPhotoList';
 import Switch from '../../Switch';
-import PhotoMaster from '../../../containers/PhotoMaster';
 import MasterEditorSectionTitle from '../MasterEditorSectionTitle.ios';
 import Separator from '../../Separator.ios';
 
 import type { TMasterEditorInfoProps, TMasterEditorInfoState } from './MasterEditorInfo.types';
 
+import { log } from '../../../utils/Log';
 import i18n from '../../../i18n';
 import vars from '../../../vars';
-import { hexToRgba } from '../../../utils';
 import { trackEvent } from '../../../utils/Tracker';
 
 import { MASTER_CARD_STATUS } from '../../../constants/Master';
@@ -42,7 +42,6 @@ const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_S
 export default class MasterEditorInfo extends Component<TProps, TState> {
   state = {
     certificatesShow: false,
-    photoMasterModalVisible: false,
     renderLoader: true,
   };
 
@@ -57,9 +56,65 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 
   onPhotoSelectPress = (modelName: string) => {
-    this.setState({
-      photoMasterModalParams: { name: modelName },
-      photoMasterModalVisible: true,
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: [i18n.photo.take, i18n.photo.select, i18n.cancel],
+      cancelButtonIndex: 2,
+    }, (buttonIndex: number) => {
+      if (buttonIndex === 0) {
+        ImagePicker.launchCamera({
+          maxWidth: 1000,
+          maxHeight: 1000,
+          noData: true,
+          storageOptions: {
+            cameraRoll: false,
+            skipBackup: true,
+            waitUntilSaved: true,
+          },
+        }, ({
+          uri, type, didCancel, error,
+        }) => {
+          if (didCancel) {
+            log('ImagePicker::launchCamera cancel');
+            return;
+          }
+
+          if (error) {
+            log('ImagePicker::launchCamera::error', error);
+            return;
+          }
+
+          this.props.actions.uploadMasterPhoto({ uri, type }, modelName);
+        });
+      } else if (buttonIndex === 1) {
+        ImagePicker.launchImageLibrary({
+          maxWidth: 1000,
+          maxHeight: 1000,
+          noData: true,
+          storageOptions: {
+            cameraRoll: false,
+            skipBackup: true,
+            waitUntilSaved: true,
+          },
+        }, ({
+          uri, type, didCancel, error, width, height, fileSize,
+        }) => {
+          if (didCancel) {
+            log('ImagePicker::launchImageLibrary cancel');
+            return;
+          }
+
+          if (error) {
+            log('ImagePicker::launchImageLibrary::error', error);
+            return;
+          }
+
+          log('ImagePicker::image::width', width);
+          log('ImagePicker::image::height', height);
+          log('ImagePicker::image::fileSize', fileSize);
+
+          this.props.actions.uploadMasterPhoto({ uri, type }, modelName);
+        });
+      }
     });
   };
 
@@ -135,10 +190,6 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
     });
   };
 
-  togglePhotoMasterVisibility = () => {
-    this.setState({ photoMasterModalVisible: false });
-  };
-
   render() {
     const {
       aboutField,
@@ -150,8 +201,6 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
 
     const {
       certificatesShow,
-      photoMasterModalParams,
-      photoMasterModalVisible,
       renderLoader,
     } = this.state;
 
@@ -160,11 +209,6 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
         {renderLoader && (
           <ActivityIndicator animating position="absolute" />
         )}
-        <PhotoMasterModal
-          onRequestClose={this.togglePhotoMasterVisibility}
-          props={photoMasterModalParams}
-          visible={photoMasterModalVisible}
-        />
         <ScrollView style={styles.inner}>
           <View>
             <MasterEditorSectionTitle title={i18n.masterEditor.aboutDescription} />
@@ -233,26 +277,6 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
   }
 }
 
-const PhotoMasterModal = ({
-  onRequestClose,
-  props,
-  visible,
-}) => (
-  <Modal
-    animationType="slide"
-    onRequestClose={onRequestClose}
-    transparent
-    visible={visible}
-  >
-    <View style={styles.modalContainer}>
-      <PhotoMaster
-        {...props}
-        onRequestClose={onRequestClose}
-      />
-    </View>
-  </Modal>
-);
-
 const styles = StyleSheet.create({
   aboutField: {
     height: 84,
@@ -271,12 +295,6 @@ const styles = StyleSheet.create({
     borderBottomColor: vars.color.cellSeparatorColorIOS,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: hexToRgba(vars.color.black, 40),
   },
   photosLabel: {
     marginBottom: 8,
