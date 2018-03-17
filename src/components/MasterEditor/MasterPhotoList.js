@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import chunk from 'lodash/chunk';
 import compact from 'lodash/compact';
 import {
+  ActivityIndicator,
   Image,
   Platform,
   StyleSheet,
@@ -14,6 +15,7 @@ import { MasterPhotoUpload } from './MasterPhotoUpload';
 
 import vars from '../../vars';
 import constants from '../../constants/Master';
+import { hexToRgba } from '../../utils';
 
 const icons = {
   remove: Platform.select({
@@ -73,12 +75,22 @@ export default class MasterPhotoList extends Component {
                       { width: photoSize, height: photoSize },
                     ]}
                   >
-                    {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                      <Text>Загружается</Text>
-                    )}
-                    {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
-                      <Text>В очереди</Text>
-                    )}
+                    {item.status === constants.UPLOAD_STATUS.IN_PROCESS && Platform.select({
+                      android: (<Text>Загружается</Text>),
+                      ios: (
+                        <View style={styles.spinnerContainer}>
+                          <ActivityIndicator animating color={vars.color.white} size="large" />
+                        </View>
+                      ),
+                    })}
+                    {item.status === constants.UPLOAD_STATUS.IN_QUEUE && Platform.select({
+                      android: (<Text>В очереди</Text>),
+                      ios: (
+                        <View style={styles.spinnerContainer}>
+                          <ActivityIndicator animating color={vars.color.white} size="large" />
+                        </View>
+                      ),
+                    })}
                     {item.status === constants.UPLOAD_STATUS.ERROR && (
                       <Text>Ошибка</Text>
                     )}
@@ -121,9 +133,13 @@ const styles = StyleSheet.create({
     }),
   },
   mock: {
-    backgroundColor: vars.color.grey,
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...Platform.select({
+      android: {
+        backgroundColor: vars.color.grey,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+    }),
   },
   photos: {
     flexDirection: 'row',
@@ -134,6 +150,13 @@ const styles = StyleSheet.create({
   },
   photoLast: {
     marginRight: 0,
+  },
+  spinnerContainer: {
+    flex: 1,
+    borderRadius: 4,
+    backgroundColor: hexToRgba(vars.color.black, 60),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
     position: 'absolute',

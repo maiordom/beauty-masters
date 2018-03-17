@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderColor: vars.color.grayBlue,
         borderWidth: 1,
-        backgroundColor: hexToRgba(vars.color.grayBlue, 0.1),
+        backgroundColor: hexToRgba(vars.color.grayBlue, 10),
       },
     }),
   },
