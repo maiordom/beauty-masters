@@ -16,6 +16,11 @@ import PopupHeader from './PopupHeader.ios';
 import i18n from '../i18n';
 import vars from '../vars';
 
+const CONTAINER_WIDTH = Platform.select({
+  android: Dimensions.get('window').width - 16 * 2,
+  ios: Dimensions.get('window').width,
+});
+
 export default class IntervalStartDate extends PureComponent {
   state = {
     selectedDate: moment().format('YYYY-MM-DD'),
@@ -35,9 +40,6 @@ export default class IntervalStartDate extends PureComponent {
   };
 
   render() {
-    const containerWidth = Platform.OS === 'android' ?
-      Dimensions.get('window').width - 16 * 2 :
-      Dimensions.get('window').width;
     const { selectedDate } = this.state;
 
     return (
@@ -51,7 +53,7 @@ export default class IntervalStartDate extends PureComponent {
           </View>
           {Platform.OS === 'ios' && (
             <PopupHeader
-              title={this.props.modeName}
+              title={this.props.masterRegime}
               hasAcceptButton
               hasCloseButton={false}
               onAcceptButtonPress={this.onApplyPress}
@@ -60,7 +62,7 @@ export default class IntervalStartDate extends PureComponent {
           <Calendar
             selectedDate={selectedDate}
             onDateSelect={this.onDateSelect}
-            containerWidth={containerWidth}
+            containerWidth={CONTAINER_WIDTH}
           />
           {Platform.OS === 'android' && (
             <TouchableOpacity

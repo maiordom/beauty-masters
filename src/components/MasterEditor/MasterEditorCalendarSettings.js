@@ -39,6 +39,7 @@ type TState = {
   intervalStartDateVisible: boolean,
   intervalStartDateParams: {
     sectionName: string,
+    masterRegime: string,
   },
   show: Object,
   workTimeSpecificationVisibile: boolean,
@@ -59,6 +60,7 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
     intervalStartDateVisible: false,
     intervalStartDateParams: {
       sectionName: this.props.sectionName,
+      masterRegime: '',
     },
     show: {},
     workTimeSpecificationVisibile: false,
@@ -97,7 +99,7 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
       intervalStartDateVisible: true,
       intervalStartDateParams: {
         sectionName: this.props.sectionName,
-        modeName: intervalGroup.label,
+        masterRegime: intervalGroup.label,
       },
     });
   };
