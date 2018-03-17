@@ -296,21 +296,25 @@ export default class MasterEditorService extends PureComponent<TProps, TState> {
           </View>
         </Modal>
         {Platform.select({
-          android: (<View>
-            <Label text={i18n.yourServices} spacing />
-            <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
-          </View>),
-          ios: (<View style={styles.segmentContainer}>
-            <SegmentedControlIOS
-              values={tabs.map(tab => tab.title)}
-              selectedIndex={findIndex(tabs, tab => tab.key === tabActiveKey)}
-              onChange={(event) => {
-                const activeTab = this.state.tabs[event.nativeEvent.selectedSegmentIndex];
-                this.setState({ tabActiveKey: activeTab.key });
-              }}
-              tintColor={vars.color.red}
-            />
-          </View>),
+          android: (
+            <View>
+              <Label text={i18n.yourServices} spacing />
+              <Tabs tabs={tabs} tabActiveKey={tabActiveKey} onPress={this.onServicesPress} />
+            </View>
+          ),
+          ios: (
+            <View style={styles.segmentContainer}>
+              <SegmentedControlIOS
+                values={tabs.map(tab => tab.title)}
+                selectedIndex={findIndex(tabs, tab => tab.key === tabActiveKey)}
+                onChange={(event) => {
+                  const activeTab = this.state.tabs[event.nativeEvent.selectedSegmentIndex];
+                  this.setState({ tabActiveKey: activeTab.key });
+                }}
+                tintColor={vars.color.red}
+              />
+            </View>
+          ),
         })}
         <ScrollView ref={this.setScrollViewRef} style={styles.inner}>
           <StateMachine visible={tabActiveKey === sections.servicePedicure}>
