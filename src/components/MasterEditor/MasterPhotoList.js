@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-import MasterPhotoUpload from './MasterPhotoUpload';
+import { MasterPhotoUpload } from './MasterPhotoUpload';
 
 import vars from '../../vars';
 import constants from '../../constants/Master';
@@ -39,6 +39,7 @@ export default class MasterPhotoList extends Component {
       photoSize,
       type,
       wrapperPhotoSize,
+      placeholderIconType,
     } = this.props;
 
     const photoUploadSelect = items.length < limit ? { type: 'select' } : null;
@@ -56,6 +57,7 @@ export default class MasterPhotoList extends Component {
                   onPress={this.onPhotoSelectPress}
                   photoSize={photoSize}
                   wrapperPhotoSize={wrapperPhotoSize}
+                  placeholderIconType={placeholderIconType}
                 />);
               }
 
@@ -94,7 +96,7 @@ export default class MasterPhotoList extends Component {
                 >
                   <Image
                     source={{ uri: item.sizes.s }}
-                    style={{ width: photoSize, height: photoSize }}
+                    style={[{ width: photoSize, height: photoSize }, styles.image]}
                   />
                   <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id, type)}>
                     <Image source={icons.remove} style={styles.icon} />
@@ -110,6 +112,13 @@ export default class MasterPhotoList extends Component {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    ...Platform.select({
+      ios: {
+        borderRadius: 4,
+      },
+    }),
+  },
   mock: {
     backgroundColor: vars.color.grey,
     justifyContent: 'center',

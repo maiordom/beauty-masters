@@ -19,6 +19,7 @@ import MasterPhotoList from '../../MasterEditor/MasterPhotoList';
 import Switch from '../../Switch';
 import MasterEditorSectionTitle from '../MasterEditorSectionTitle.ios';
 import Separator from '../../Separator.ios';
+import { PLACEHOLDER_ICON_TYPE } from '../MasterPhotoUpload';
 
 import type { TMasterEditorInfoProps, TMasterEditorInfoState } from './MasterEditorInfo.types';
 
@@ -35,9 +36,7 @@ type TState = TMasterEditorInfoState;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
 const PHOTO_SPACE = 10;
-const PHOTO_INNER_SPACE = 6;
-const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3;
-const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
+const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3;
 
 export default class MasterEditorInfo extends Component<TProps, TState> {
   state = {
@@ -218,7 +217,8 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
                 onPhotoRemovePress={this.onPhotoRemovePress}
                 onPhotoSelectPress={this.onPhotoSelectPress}
                 photoSize={PHOTO_SIZE}
-                wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+                wrapperPhotoSize={PHOTO_SIZE}
+                placeholderIconType={PLACEHOLDER_ICON_TYPE.PLACEHOLDER_ICON_TYPE_USER}
               />
             </View>
             <View style={styles.aboutWrapper}>
@@ -250,7 +250,8 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
                   onPhotoRemovePress={this.onPhotoRemovePress}
                   onPhotoSelectPress={this.onPhotoSelectPress}
                   photoSize={PHOTO_SIZE}
-                  wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+                  wrapperPhotoSize={PHOTO_SIZE}
+                  placeholderIconType={PLACEHOLDER_ICON_TYPE.PLACEHOLDER_ICON_TYPE_ITEM}
                 />
               </View>
             )}
@@ -261,7 +262,8 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
                 onPhotoRemovePress={this.onPhotoRemovePress}
                 onPhotoSelectPress={this.onPhotoSelectPress}
                 photoSize={PHOTO_SIZE}
-                wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+                wrapperPhotoSize={PHOTO_SIZE}
+                placeholderIconType={PLACEHOLDER_ICON_TYPE.PLACEHOLDER_ICON_TYPE_ITEM}
               />
             </View>
           </View>
