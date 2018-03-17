@@ -53,7 +53,7 @@ export default class IntervalStartDate extends PureComponent {
           </View>
           {Platform.OS === 'ios' && (
             <PopupHeader
-              title={this.props.masterRegime}
+              title={this.props.intervalTitle}
               hasAcceptButton
               hasCloseButton={false}
               onAcceptButtonPress={this.onApplyPress}
