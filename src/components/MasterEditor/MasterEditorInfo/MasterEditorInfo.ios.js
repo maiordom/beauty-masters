@@ -237,6 +237,7 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
             </View>
             <View style={styles.separator} />
             <Switch
+              value={certificatesShow}
               customStyles={{ container: styles.switchContainer }}
               title={i18n.masterEditor.certificates}
               onChange={this.onCertificatesChange}
