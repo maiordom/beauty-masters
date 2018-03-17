@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { removePhoto, createMaster, setGeneralParam } from '../../actions/Master';
 import { getMasterInfo } from '../../actions/MasterEdit';
 
-import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo';
+import MasterEditorInfo from '../../components/MasterEditor/MasterEditorInfo/MasterEditorInfo';
 import NavBar from '../../components/NavBar';
 
 import { isSalon } from '../../utils/isSalon';

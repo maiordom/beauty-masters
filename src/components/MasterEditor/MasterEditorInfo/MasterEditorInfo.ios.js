@@ -1,75 +1,53 @@
-// @flow
-
-import React, { PureComponent } from 'react';
-import find from 'lodash/find';
+import React, { Component } from 'react';
 import {
   Dimensions,
   Modal,
-  Platform,
   ScrollView,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 
-import { SubLabel } from '../SubLabel';
-import ActivityIndicator from '../../containers/ActivityIndicator';
-import ButtonControl from '../ButtonControl';
-import Input from '../Input';
-import Label from '../Label';
-import MasterPhotoList from '../MasterEditor/MasterPhotoList';
-import Switch from '../Switch';
-import PhotoMaster from '../../containers/PhotoMaster';
+import find from 'lodash/find';
+import toUpper from 'lodash/toUpper';
 
-import i18n from '../../i18n';
-import vars from '../../vars';
-import { trackEvent } from '../../utils/Tracker';
-import { hexToRgba } from '../../utils';
+import ActivityIndicator from '../../../containers/ActivityIndicator';
+import ButtonControl from '../../ButtonControl';
+import Input from '../../Input';
+import MasterPhotoList from '../../MasterEditor/MasterPhotoList';
+import Switch from '../../Switch';
+import PhotoMaster from '../../../containers/PhotoMaster';
+import MasterEditorSectionTitle from '../MasterEditorSectionTitle.ios';
+import Separator from '../../Separator.ios';
 
-import { MASTER_CARD_STATUS } from '../../constants/Master';
+import type { TMasterEditorInfoProps, TMasterEditorInfoState } from './MasterEditorInfo.types';
+
+import i18n from '../../../i18n';
+import vars from '../../../vars';
+import { hexToRgba } from '../../../utils';
+import { trackEvent } from '../../../utils/Tracker';
+
+import { MASTER_CARD_STATUS } from '../../../constants/Master';
+
+type TProps = TMasterEditorInfoProps;
+type TState = TMasterEditorInfoState;
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
-const PHOTO_SPACE = 8;
+const PHOTO_SPACE = 10;
 const PHOTO_INNER_SPACE = 6;
 const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3;
 const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
-const localization = {
-  save: Platform.select({
-    ios: i18n.save,
-    android: i18n.save.toUpperCase(),
-  }),
-};
-
-type TProps = {
-  aboutField: Object,
-  actions: Object,
-  cardType: string,
-  certificatePhotos: Object,
-  editStatus: Object,
-  isSalon: boolean,
-  masterCardId: number | null,
-  personalPhotos: Object,
-  sectionName: string,
-  workPhotos: Object,
-};
-
-type TState = {
-  certificatesShow: boolean,
-  photoMasterModalVisible: boolean,
-  renderLoader: boolean,
-};
-
-export default class MasterEditorInfo extends PureComponent<TProps, TState> {
+export default class MasterEditorInfo extends Component<TProps, TState> {
   state = {
     certificatesShow: false,
     photoMasterModalVisible: false,
-    renderLoader: false,
+    renderLoader: true,
   };
 
   componentDidMount() {
     if (this.props.cardType === 'edit' && this.props.editStatus.photos === 'required') {
-      this.setState({ renderLoader: true });
       this.props.actions.getMasterInfo(this.props.masterCardId).then(() => {
         this.setState({ renderLoader: false });
       }).catch(() => {
@@ -188,37 +166,40 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
           visible={photoMasterModalVisible}
         />
         <ScrollView style={styles.inner}>
-          <View style={styles.scrollViewInner}>
-            <Label
-              text={i18n.masterEditor.informationAboutYou}
-              subText={i18n.masterEditor.aboutDescription}
-            />
-            <MasterPhotoList
-              {...personalPhotos}
-              onPhotoRemovePress={this.onPhotoRemovePress}
-              onPhotoSelectPress={this.onPhotoSelectPress}
-              photoSize={PHOTO_SIZE}
-              wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
-            />
-            <Label
-              text={i18n.masterEditor.fewWordsAboutYouToClients}
-              customStyle={{ paddingBottom: 0 }}
-            />
-            <Input
-              {...aboutField}
-              debounce
-              onChange={this.onChangeAbout}
-            />
+          <View>
+            <MasterEditorSectionTitle title={i18n.masterEditor.aboutDescription} />
+            <View style={styles.photosWrapper}>
+              <MasterPhotoList
+                {...personalPhotos}
+                onPhotoRemovePress={this.onPhotoRemovePress}
+                onPhotoSelectPress={this.onPhotoSelectPress}
+                photoSize={PHOTO_SIZE}
+                wrapperPhotoSize={WRAPPER_PHOTO_SIZE}
+              />
+            </View>
+            <View style={styles.aboutWrapper}>
+              <Text style={styles.aboutTitle}>
+                {toUpper(i18n.masterEditor.fewWordsAboutYouToClients)}
+              </Text>
+              <Separator />
+              <Input
+                {...aboutField}
+                debounce
+                numberOfLines={3}
+                inputWrapperStyle={styles.aboutFieldWrapper}
+                customInputStyle={styles.aboutField}
+                onChange={this.onChangeAbout}
+              />
+            </View>
+            <View style={styles.separator} />
             <Switch
+              customStyles={{ container: styles.switchContainer }}
               title={i18n.masterEditor.certificates}
               onChange={this.onCertificatesChange}
             />
             {certificatesShow && (
               <View style={styles.photosWrapper}>
-                <SubLabel
-                  customStyle={styles.photosLabel}
-                  label={i18n.masterEditor.attachPhotosToConfirmCertificates}
-                />
+                <MasterEditorSectionTitle title={i18n.masterEditor.attachPhotosToConfirmCertificates} />
                 <MasterPhotoList
                   {...certificatePhotos}
                   onPhotoRemovePress={this.onPhotoRemovePress}
@@ -229,10 +210,7 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
               </View>
             )}
             <View style={styles.photosWrapper}>
-              <SubLabel
-                customStyle={styles.photosLabel}
-                label={i18n.masterEditor.attachPhotosOfYourWork}
-              />
+              <MasterEditorSectionTitle title={i18n.masterEditor.attachPhotosOfYourWork} />
               <MasterPhotoList
                 {...workPhotos}
                 onPhotoRemovePress={this.onPhotoRemovePress}
@@ -246,7 +224,7 @@ export default class MasterEditorInfo extends PureComponent<TProps, TState> {
         {cardType === 'create'
           ? <ButtonControl onPress={this.onNextPress} />
           : <ButtonControl
-            label={localization.save}
+            label={i18n.save}
             onPress={this.onSavePress}
           />
         }
@@ -276,6 +254,24 @@ const PhotoMasterModal = ({
 );
 
 const styles = StyleSheet.create({
+  aboutField: {
+    height: 84,
+  },
+  aboutFieldWrapper: {
+    borderBottomWidth: 0,
+    paddingLeft: 12,
+  },
+  aboutTitle: {
+    fontSize: 12,
+    color: vars.color.grey,
+    padding: 16,
+  },
+  aboutWrapper: {
+    borderTopColor: vars.color.cellSeparatorColorIOS,
+    borderBottomColor: vars.color.cellSeparatorColorIOS,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -286,11 +282,21 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   photosWrapper: {
-    marginBottom: 26,
-  },
-  scrollViewInner: {
     paddingLeft: 16,
     paddingRight: 16,
+    paddingBottom: 16,
+    backgroundColor: vars.color.lightGrey,
+  },
+  separator: {
+    backgroundColor: vars.color.lightGrey,
+    height: 10,
+  },
+  switchContainer: {
+    borderTopColor: vars.color.cellSeparatorColorIOS,
+    borderBottomColor: vars.color.cellSeparatorColorIOS,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    paddingLeft: 16,
   },
   container: {
     flex: 1,

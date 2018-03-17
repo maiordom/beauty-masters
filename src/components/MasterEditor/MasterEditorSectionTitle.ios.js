@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     color: vars.color.grey,
+    textAlign: 'center',
+    padding: 16,
   },
   titleContainer: {
-    height: 44,
     backgroundColor: vars.color.lightGrey,
     justifyContent: 'center',
     alignItems: 'center',

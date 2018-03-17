@@ -60,43 +60,47 @@ export default class MasterPhotoList extends Component {
               }
 
               if (item.type === 'mock') {
-                return (<View
-                  key={index}
-                  style={[
-                    styles.mock,
-                    styles.photo,
-                    index === CHUNK_SIZE - 1 && styles.photoLast,
-                    { width: photoSize, height: photoSize },
-                  ]}
-                >
-                  {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
-                    <Text>Загружается</Text>
-                  )}
-                  {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
-                    <Text>В очереди</Text>
-                  )}
-                  {item.status === constants.UPLOAD_STATUS.ERROR && (
-                    <Text>Ошибка</Text>
-                  )}
-                </View>);
+                return (
+                  <View
+                    key={index}
+                    style={[
+                      styles.mock,
+                      styles.photo,
+                      index === CHUNK_SIZE - 1 && styles.photoLast,
+                      { width: photoSize, height: photoSize },
+                    ]}
+                  >
+                    {item.status === constants.UPLOAD_STATUS.IN_PROCESS && (
+                      <Text>Загружается</Text>
+                    )}
+                    {item.status === constants.UPLOAD_STATUS.IN_QUEUE && (
+                      <Text>В очереди</Text>
+                    )}
+                    {item.status === constants.UPLOAD_STATUS.ERROR && (
+                      <Text>Ошибка</Text>
+                    )}
+                  </View>
+                );
               }
 
-              return (<View
-                key={index}
-                style={[
-                  styles.photo,
-                  index === CHUNK_SIZE - 1 && styles.photoLast,
-                  { width: wrapperPhotoSize, height: wrapperPhotoSize },
-                ]}
-              >
-                <Image
-                  source={{ uri: item.sizes.s }}
-                  style={{ width: photoSize, height: photoSize }}
-                />
-                <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id, type)}>
-                  <Image source={icons.remove} style={styles.icon} />
-                </TouchableWithoutFeedback>
-              </View>);
+              return (
+                <View
+                  key={index}
+                  style={[
+                    styles.photo,
+                    index === CHUNK_SIZE - 1 && styles.photoLast,
+                    { width: wrapperPhotoSize, height: wrapperPhotoSize },
+                  ]}
+                >
+                  <Image
+                    source={{ uri: item.sizes.s }}
+                    style={{ width: photoSize, height: photoSize }}
+                  />
+                  <TouchableWithoutFeedback onPress={() => this.onPhotoRemovePress(item.id, type)}>
+                    <Image source={icons.remove} style={styles.icon} />
+                  </TouchableWithoutFeedback>
+                </View>
+              );
             })}
           </View>
         ))}
