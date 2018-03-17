@@ -1,4 +1,7 @@
 import RNFetchBlob from 'react-native-fetch-blob';
+import { Platform } from 'react-native';
+
+import trimStart from 'lodash/trimStart';
 
 import config from '../config';
 import routes from '../routes';
@@ -6,7 +9,14 @@ import { log } from '../utils/Log';
 
 export const uploadFile = ({ uri, type }, headers, mediaType) => {
   const path = config.host + routes.upload.path(mediaType);
-  const fileType = type.split('/')[1];
+
+  const fileType = (type !== undefined) ? type.split('/')[1] : 'jpg';
+  const uploadType = type !== undefined ? type : 'image/jpeg';
+
+  // Issue with iOS file URLs in RNFetchBlob https://github.com/wkh237/react-native-fetch-blob/issues/437
+  if (Platform.OS === 'ios') {
+    uri = trimStart(uri, 'file://');
+  }
 
   log(`[UploadFile]::path::${path}`);
   log(`[UploadFile]::params::${uri}`);
@@ -20,7 +30,7 @@ export const uploadFile = ({ uri, type }, headers, mediaType) => {
       data: RNFetchBlob.wrap(uri),
       filename: `filename.${fileType}`,
       name: 'image',
-      type,
+      type: uploadType,
     },
   ])
     .then(res => res.json())
