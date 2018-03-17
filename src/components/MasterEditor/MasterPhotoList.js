@@ -78,7 +78,7 @@ export default class MasterPhotoList extends Component {
                     {item.status === constants.UPLOAD_STATUS.IN_PROCESS && Platform.select({
                       android: (<Text>Загружается</Text>),
                       ios: (
-                        <View style={styles.spinnerContainer}>
+                        <View style={styles.mockContainer}>
                           <ActivityIndicator animating color={vars.color.white} size="large" />
                         </View>
                       ),
@@ -86,14 +86,19 @@ export default class MasterPhotoList extends Component {
                     {item.status === constants.UPLOAD_STATUS.IN_QUEUE && Platform.select({
                       android: (<Text>В очереди</Text>),
                       ios: (
-                        <View style={styles.spinnerContainer}>
+                        <View style={styles.mockContainer}>
                           <ActivityIndicator animating color={vars.color.white} size="large" />
                         </View>
                       ),
                     })}
-                    {item.status === constants.UPLOAD_STATUS.ERROR && (
-                      <Text>Ошибка</Text>
-                    )}
+                    {item.status === constants.UPLOAD_STATUS.ERROR && Platform.select({
+                      android: (<Text>Ошибка</Text>),
+                      ios: (
+                        <View style={styles.mockContainer}>
+                          <Text style={styles.errorTitle}>Ошибка</Text>
+                        </View>
+                      ),
+                    })}
                   </View>
                 );
               }
@@ -125,6 +130,9 @@ export default class MasterPhotoList extends Component {
 }
 
 const styles = StyleSheet.create({
+  errorTitle: {
+    color: vars.color.lightGrey,
+  },
   image: {
     ...Platform.select({
       ios: {
@@ -151,7 +159,7 @@ const styles = StyleSheet.create({
   photoLast: {
     marginRight: 0,
   },
-  spinnerContainer: {
+  mockContainer: {
     flex: 1,
     borderRadius: 4,
     backgroundColor: hexToRgba(vars.color.black, 60),
