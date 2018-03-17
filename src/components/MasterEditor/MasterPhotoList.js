@@ -18,6 +18,7 @@ import constants from '../../constants/Master';
 const icons = {
   remove: Platform.select({
     android: require('../../icons/android/remove.png'),
+    ios: require('../../icons/ios/remove.png'),
   }),
 };
 
@@ -136,7 +137,15 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    ...Platform.select({
+      android: {
+        bottom: 0,
+        right: 0,
+      },
+      ios: {
+        bottom: -6,
+        right: -6,
+      },
+    }),
   },
 });
