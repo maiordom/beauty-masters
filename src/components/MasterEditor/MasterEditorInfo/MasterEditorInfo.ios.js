@@ -229,9 +229,9 @@ export default class MasterEditorInfo extends Component<TProps, TState> {
               <Input
                 {...aboutField}
                 debounce
-                numberOfLines={3}
+                style={styles.aboutField}
                 inputWrapperStyle={styles.aboutFieldWrapper}
-                customInputStyle={styles.aboutField}
+                multiline
                 onChange={this.onChangeAbout}
               />
             </View>
