@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
 
@@ -18,7 +19,10 @@ import {
 } from '../../actions/MasterEdit';
 import { refreshEditor } from '../../actions/Master';
 
-const rightButtonImage = require('../../icons/edit.png');
+const rightButtonImage = Platform.select({
+  android: require('../../icons/android/edit.png'),
+  ios: require('../../icons/ios/edit.png'),
+});
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
