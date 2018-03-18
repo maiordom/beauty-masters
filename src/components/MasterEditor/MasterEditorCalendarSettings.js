@@ -174,11 +174,12 @@ export default class MasterEditorCalendarSettings extends PureComponent<TProps, 
       customDates,
     } = calendarSettings;
 
+    const selectedCity = calendarSettings.cities.selected;
     const addressModels = {
       addressField: calendarSettings.addressField,
       cityField: calendarSettings.cityField,
       salonTitleField: calendarSettings.salonTitleField,
-      subwayStationField: calendarSettings.cities.selected.hasSubway ? calendarSettings.subwayStationField : undefined,
+      subwayStationField: selectedCity && selectedCity.hasSubway ? calendarSettings.subwayStationField : undefined,
     };
 
     return (
