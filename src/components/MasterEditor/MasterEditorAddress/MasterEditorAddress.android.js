@@ -52,7 +52,7 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={onAddressChange}>
-            <View style={[styles.label, styles.labelAddress]}>
+            <View style={styles.label}>
               <Text style={styles.labelText}>
                 {addressField.label}
                 <Text style={styles.required}> *</Text>
@@ -66,7 +66,7 @@ export default class MasterEditorAddress extends PureComponent<TProps, void> {
           </TouchableWithoutFeedback>
           {subwayStationField && (
             <TouchableWithoutFeedback onPress={onSubwayStationChange}>
-              <View style={[styles.label]}>
+              <View style={[styles.label, styles.subwayStationField]}>
                 <Text style={styles.labelText}>{subwayStationField.label}</Text>
                 <Text style={styles.labelValue}>{subwayStationField.value || i18n.specify}</Text>
               </View>
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
   filter: {
     paddingLeft: 4,
   },
-  labelAddress: {
-    marginBottom: 16,
+  subwayStationField: {
+    marginTop: 16,
   },
   labelCity: {
     marginBottom: 16,
