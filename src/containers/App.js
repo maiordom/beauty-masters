@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
+import axios from 'axios';
 
 import configureStore from '../store/configureStore';
 import NavigationRouter from './NavigationRouter';
@@ -18,6 +19,8 @@ import {
   setServicesFromSources,
 } from '../actions/Dictionaries';
 
+import { log } from '../utils/Log';
+
 import { masterEditCityModelSet } from '../actions/Master';
 import { setRawCities } from '../actions/Geo';
 
@@ -25,7 +28,39 @@ import categoriesData from '../data/Categories.json';
 import servicesData from '../data/Services.json';
 import citiesData from '../data/Cities.json';
 
+import { handleResolveResponse, handleRejectResponse } from '../utils/Provider';
+
 const store = configureStore();
+
+axios.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    const state = store.getState();
+    if (error.response.status ===  401) {
+      const { config } = error.response;
+
+      log(`${config.url}::${config.method.toUpperCase()}::401::response`);
+
+      return refreshToken(state.auth.refreshToken)(store.dispatch).then((res) => {
+        if (!res.error) {
+          const { auth } = store.getState();
+
+          config.headers.Authorization = `${auth.tokenType} ${auth.accessToken}`;
+
+          log(`${config.url}::${config.method.toUpperCase()}::request::interception`);
+
+          return axios.request(config)
+            .then((res: Object) => handleResolveResponse(res, config.url, config.method))
+            .catch((exx: Object) => handleRejectResponse(exx.response, config.path, config.method));
+        } else {
+          return Promise.resolve(error);
+        }
+      });
+    }
+
+    return Promise.resolve(error.response);
+  }
+);
 
 export default class App extends Component {
   readServices() {
@@ -64,8 +99,10 @@ export default class App extends Component {
         return;
       }
 
-      refreshToken(result.refreshToken)(store.dispatch).then(() => {
-        getUserProfile()(store.dispatch, store.getState);
+      refreshToken(result.refreshToken)(store.dispatch).then((res) => {
+        if (!res.error) {
+          getUserProfile()(store.dispatch, store.getState);
+        }
       });
     });
   }

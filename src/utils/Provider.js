@@ -9,7 +9,7 @@ import { log } from './Log';
 const { host, googlePlacesHost } = config;
 const getBody = (params: Object) => decodeURIComponent(stringify(params));
 
-const handleResolveResponse = (
+export const handleResolveResponse = (
   res: Object = { data: {} },
   path: string,
   method: string,
@@ -19,11 +19,35 @@ const handleResolveResponse = (
   }
 
   if (__DEV__) {
-    log(`${path}::${method}::response`);
+    log(`${path}::${method.toUpperCase()}::${res.status}::response`);
 
     if (method !== 'GET') {
       log(res.data);
     }
+  }
+
+  if (res.data.errors) {
+    const { code, title, detail } = res.data.errors[0];
+
+    return Promise.resolve({
+      error: {
+        code,
+        detail,
+        title,
+      },
+      status: 'error',
+    });
+  }
+
+  if (res.status >= 400) {
+    return {
+      error: {
+        code: res.status,
+        detail: 'error',
+        title: 'error'
+      },
+      status: 'error',
+    };
   }
 
   return {
@@ -32,7 +56,7 @@ const handleResolveResponse = (
   };
 };
 
-const handleRejectResponse = (res: Object = { data: {} }, path: string, method: string) => {
+export const handleRejectResponse = (res: Object = { data: {} }, path: string, method: string) => {
   if (__DEV__) {
     log(`${path}::${method}::exx`, res.data);
   }
@@ -47,18 +71,18 @@ const handleRejectResponse = (res: Object = { data: {} }, path: string, method: 
     }
 
     return Promise.resolve({
-      status: 'error',
       error: {
         code,
         detail,
         title,
       },
+      status: 'error',
     });
   }
 
   return Promise.resolve({
-    status: 'error',
     error: {},
+    status: 'error',
   });
 };
 
@@ -75,7 +99,7 @@ const baseFetch = (fetchMethod: string) => (
   const url = `${host}${path}`;
 
   if (__DEV__) {
-    log(`${path}::${method.method}::params`);
+    log(`${path}::${method.method}::request`);
     log(params);
   }
 

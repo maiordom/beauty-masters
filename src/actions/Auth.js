@@ -80,10 +80,16 @@ export const refreshToken = (token) => (dispatch) => {
     },
   };
 
-  return AuthService.refreshToken(params).then(res => {
+  return AuthService.refreshToken(params).then((res) => {
+    if (!res.accessToken) {
+      return res;
+    }
+
     dispatch({
       type: actions.AUTH_SET_DATA,
       ...res,
     });
+
+    return res;
   });
 };
