@@ -5,27 +5,28 @@ import find from 'lodash/find';
 import {
   Dimensions,
   Modal,
-  Platform,
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
 
-import { SubLabel } from '../SubLabel';
-import ActivityIndicator from '../../containers/ActivityIndicator';
-import ButtonControl from '../ButtonControl';
-import Input from '../Input';
-import Label from '../Label';
-import MasterPhotoList from '../MasterEditor/MasterPhotoList';
-import Switch from '../Switch';
-import PhotoMaster from '../../containers/PhotoMaster';
+import { SubLabel } from '../../SubLabel';
+import ActivityIndicator from '../../../containers/ActivityIndicator';
+import ButtonControl from '../../ButtonControl';
+import Input from '../../Input';
+import Label from '../../Label';
+import MasterPhotoList from '../../MasterEditor/MasterPhotoList';
+import Switch from '../../Switch';
+import PhotoMaster from '../../../containers/PhotoMaster';
 
-import i18n from '../../i18n';
-import vars from '../../vars';
-import { trackEvent } from '../../utils/Tracker';
-import { hexToRgba } from '../../utils';
+import type { TMasterEditorInfoProps, TMasterEditorInfoState } from './MasterEditorInfo.types';
 
-import { MASTER_CARD_STATUS } from '../../constants/Master';
+import i18n from '../../../i18n';
+import vars from '../../../vars';
+import { trackEvent } from '../../../utils/Tracker';
+import { hexToRgba } from '../../../utils';
+
+import { MASTER_CARD_STATUS } from '../../../constants/Master';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const PAGE_SPACE = 16;
@@ -35,30 +36,11 @@ const WRAPPER_PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - PHOTO_SPACE * 2) / 3
 const PHOTO_SIZE = (DEVICE_WIDTH - PAGE_SPACE * 2 - (PHOTO_SPACE + PHOTO_INNER_SPACE) * 2) / 3;
 
 const localization = {
-  save: Platform.select({
-    ios: i18n.save,
-    android: i18n.save.toUpperCase(),
-  }),
+  save: i18n.save.toUpperCase(),
 };
 
-type TProps = {
-  aboutField: Object,
-  actions: Object,
-  cardType: string,
-  certificatePhotos: Object,
-  editStatus: Object,
-  isSalon: boolean,
-  masterCardId: number | null,
-  personalPhotos: Object,
-  sectionName: string,
-  workPhotos: Object,
-};
-
-type TState = {
-  certificatesShow: boolean,
-  photoMasterModalVisible: boolean,
-  renderLoader: boolean,
-};
+type TProps = TMasterEditorInfoProps;
+type TState = TMasterEditorInfoState;
 
 export default class MasterEditorInfo extends PureComponent<TProps, TState> {
   state = {

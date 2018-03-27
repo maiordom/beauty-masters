@@ -15,6 +15,7 @@ export default {
   authAsMaster: 'Авторизоваться как мастер услуг',
   calendar: 'Календарь',
   call: 'Позвонить',
+  cancel: 'Отмена',
   card: {
     privateMaster: 'Частный мастер',
     salon: 'Салон',
