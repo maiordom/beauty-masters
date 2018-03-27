@@ -79,6 +79,9 @@ class NavBar extends PureComponent {
           numberOfLines={1}
         >{title}
         </Text>
+        {rightButtonImage && Platform.OS === 'ios' && (
+          <View style={styles.spacing} />
+        )}
         {rightButtonImage && (
           <TouchableOpacity
             style={styles.rightButton}
@@ -162,6 +165,7 @@ const styles = StyleSheet.create({
       ios: {
         height: 64,
         paddingTop: 20,
+        alignItems: 'center',
       },
       android: {
         height: 54,
@@ -174,6 +178,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  spacing: {
+    ...Platform.select({
+      ios: {
+        flex: 1
+      },
+    }),
   },
   title: {
     backgroundColor: 'transparent',

@@ -5,11 +5,15 @@ import {
   View,
   Text,
   Platform,
+  SegmentedControlIOS,
   StyleSheet,
   TouchableOpacity,
   Animated,
   Dimensions,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+
+import findIndex from 'lodash/findIndex';
 
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import MasterProfileInfo from '../../containers/MasterProfile/MasterProfileInfo';
@@ -102,18 +106,42 @@ export default class MasterProfile extends PureComponent<TProps, TState> {
     return (
       <View style={styles.container}>
         <ActivityIndicator position="absolute" />
-        <View style={styles.tabsWrapper}>
-          {tabs.map((tab, index) => (
-            <TouchableOpacity style={styles.tab} key={tab.title} onPress={this.onTabPress(tab.key, index)}>
-              <Text style={[styles.tabsText, tabCurrentKey === tab.key ? styles.tabsTextActive : null]}>
-                {tab.title}
-              </Text>
-            </TouchableOpacity>
-          ))}
-          <Animated.View
-            style={[styles.tabBorder, { left: tabBorderOffset }]}
-          />
-        </View>
+        {Platform.select({
+          android: (
+            <View style={styles.tabsWrapper}>
+              {tabs.map((tab, index) => (
+                <TouchableOpacity style={styles.tab} key={tab.title} onPress={this.onTabPress(tab.key, index)}>
+                  <Text style={[styles.tabsText, tabCurrentKey === tab.key ? styles.tabsTextActive : null]}>
+                    {tab.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+              <Animated.View
+                style={[styles.tabBorder, { left: tabBorderOffset }]}
+              />
+            </View>
+          ),
+          ios: (
+            <View style={styles.segmentContainer}>
+              <LinearGradient
+                style={styles.gradient}
+                colors={[vars.color.red, vars.color.orange]}
+                start={{ x: 0.0, y: 0.0 }}
+                end={{ x: 1.0, y: 0.0 }}
+              />
+              <SegmentedControlIOS
+                values={tabs.map(tab => tab.title)}
+                selectedIndex={findIndex(tabs, tab => tab.key === tabCurrentKey)}
+                onChange={(event) => {
+                  const activeTab = tabs[event.nativeEvent.selectedSegmentIndex];
+                  this.setState({ tabCurrentKey: activeTab.key });
+                }}
+                tintColor={vars.color.white}
+              />
+            </View>
+          ),
+        })}
+
         <View style={styles.content}>
           {tabCurrentKey === 'info' && <MasterProfileInfo />}
           {tabCurrentKey === 'calendars' && <MasterProfileCalendars />}
@@ -127,12 +155,32 @@ export default class MasterProfile extends PureComponent<TProps, TState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    ...Platform.select({
+      android: {
+        alignItems: 'center',
+      },
+      ios: {
+        alignItems: 'stretch',
+      },
+    }),
   },
   content: {
     flex: 1,
     alignSelf: 'stretch',
     backgroundColor: vars.color.lightGrey,
+  },
+  gradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  segmentContainer: {
+    paddingTop: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 8,
   },
   tabsWrapper: {
     alignSelf: 'stretch',

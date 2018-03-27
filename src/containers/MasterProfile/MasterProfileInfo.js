@@ -7,7 +7,7 @@ import {
   setStatus,
 } from '../../actions/MasterEdit';
 
-import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo';
+import MasterProfileInfo from '../../components/MasterProfile/MasterProfileInfo/MasterProfileInfo';
 
 const mapStateToProps = (state) => ({
   ...find(state.profile.masterCards, { isMain: true }) || {

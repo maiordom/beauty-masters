@@ -10,20 +10,14 @@ import {
 } from 'react-native';
 import { toPattern } from 'vanilla-masker';
 
-import i18n from '../../i18n';
-import vars from '../../vars';
+import i18n from '../../../i18n';
+import vars from '../../../vars';
 
-import { ButtonPanel } from '../ButtonPanel';
+import { TMasterProfileInfoProps } from './MasterProfileInfo.types';
 
-const photoEmpty = require('../../icons/photo-empty.png');
+const photoEmpty = require('../../../icons/photo-empty.png');
 
-type TProps = {
-  actions: Object,
-  avatar: string,
-  email: string,
-  phone: string,
-  username: string,
-}
+type TProps = TMasterProfileInfoProps;
 
 export default class MasterProfileInfo extends PureComponent<TProps, void> {
   onSelectAnotherMaster = () => {
@@ -52,45 +46,50 @@ export default class MasterProfileInfo extends PureComponent<TProps, void> {
       <View style={styles.container}>
         <View style={styles.content}>
           <Image style={styles.photo} source={avatarSource} />
-          <TouchableOpacity onPress={this.onEditPress}>
-            <View>
-              <Text style={styles.edit}>{i18n.editProfile}</Text>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.inputs}>
+          <View style={styles.sectionContainer}>
             <View style={styles.row}>
               <View style={styles.label}>
-                <Text style={styles.labelText}>{i18n.username}</Text>
                 <Text style={styles.labelValue}>{username}</Text>
               </View>
             </View>
             <View style={styles.row}>
               <View style={styles.label}>
-                <Text style={styles.labelText}>{i18n.phoneShort}</Text>
                 <Text style={styles.labelValue}>{toPattern(phone, { pattern: '+9 (999) 999 99 99' })}</Text>
               </View>
+            </View>
+            <View style={styles.row}>
               <View style={styles.label}>
-                <Text style={styles.labelText}>{i18n.email}</Text>
                 <Text style={styles.labelValue}>{email}</Text>
               </View>
             </View>
             <TouchableOpacity onPress={this.onResetPasswordPress}>
-              <View>
-                <Text style={styles.resetPassword}>{i18n.resetPassword}</Text>
+              <View style={styles.buttonContainerRow}>
+                <Text style={styles.actionLabel}>{i18n.resetPassword}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.sectionContainer}>
+            <TouchableOpacity onPress={this.onSelectAnotherMaster}>
+              <View style={styles.buttonContainerRow}>
+                <Text style={styles.actionLabel}>{i18n.selectAnotherMaster}</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
-        <ButtonPanel
-          onPress={this.onSelectAnotherMaster}
-          title={i18n.selectAnotherMaster}
-        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  actionLabel: {
+    color: vars.color.red,
+    fontSize: 17,
+  },
+  buttonContainerRow: {
+    justifyContent: 'center',
+    height: 44,
+  },
   container: {
     flex: 1,
   },
@@ -101,44 +100,30 @@ const styles = StyleSheet.create({
   photo: {
     alignSelf: 'center',
     marginTop: 16,
-    marginBottom: 16,
     width: 80,
     height: 80,
-    borderRadius: 50,
-  },
-  edit: {
-    marginLeft: 16,
-    marginBottom: 16,
-  },
-  inputs: {
-    borderTopColor: vars.color.borderColorAndroid,
-    borderTopWidth: 1,
-    borderBottomColor: vars.color.borderColorAndroid,
-    borderBottomWidth: 1,
-    backgroundColor: vars.color.white,
-    padding: 12,
+    borderRadius: 40,
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    height: 44,
+    borderBottomColor: vars.color.cellSeparatorColorIOS,
+    borderBottomWidth: 1,
   },
-  resetPassword: {
-    marginLeft: 4,
-    color: vars.color.black,
-    fontSize: 16,
+  sectionContainer: {
+    marginTop: 16,
+    borderTopColor: vars.color.cellSeparatorColorIOS,
+    borderTopWidth: 1,
+    borderBottomColor: vars.color.cellSeparatorColorIOS,
+    borderBottomWidth: 1,
+    backgroundColor: vars.color.white,
+    paddingLeft: 16,
   },
   label: {
-    paddingLeft: 4,
-    paddingRight: 4,
-  },
-  labelText: {
-    fontSize: 12,
-    color: vars.color.grey,
-    marginBottom: 5,
+    flex: 1,
+    justifyContent: 'center',
   },
   labelValue: {
-    fontSize: 16,
+    fontSize: 17,
     color: vars.color.black,
   },
 });
