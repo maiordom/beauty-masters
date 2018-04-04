@@ -145,6 +145,9 @@ const getClusters = (cluster: ClusterInterface, region: TRegionType) => {
 const MAX_CURRENT_MAP_CARDS = 10;
 const DEFAULT_LATITUDE_DELTA = 0.05;
 const DEFAULT_LONGITUDE_DELTA = 0.05;
+const DEFAULT_PIN_Z_INDEX = 0;
+const ACTIVE_PIN_Z_INDEX = 1;
+const USER_LOCATION_Z_INDEX = 777;
 
 export default class Map extends PureComponent<TProps, TState> {
   constructor(props: TProps) {
@@ -216,7 +219,7 @@ export default class Map extends PureComponent<TProps, TState> {
     const { supercluster, clusters } = this.state;
     const index = parseInt(event.nativeEvent.id, 10);
 
-    if (isNaN(index)) {
+    if (Number.isNaN(index)) {
       return;
     }
 
@@ -362,7 +365,7 @@ export default class Map extends PureComponent<TProps, TState> {
     return (
       <View style={styles.container}>
         <MapView
-          initialRegion={region}
+          region={region}
           loadingBackgroundColor={hexToRgba(vars.color.black, 0)}
           loadingEnabled
           loadingIndicatorColor={vars.color.red}
@@ -379,6 +382,7 @@ export default class Map extends PureComponent<TProps, TState> {
             image={icons.userLocation}
             coordinate={userLocation}
             identifier="me"
+            zIndex={USER_LOCATION_Z_INDEX}
           /> }
           {clusters.map((pin, index) => {
             const coordinate = getLatLng(pin);
@@ -393,6 +397,7 @@ export default class Map extends PureComponent<TProps, TState> {
                     ? icons.clusterPinGreen
                     : icons.clusterPinRed
                   }
+                  zIndex={isEqual(coordinate, activePin) ? ACTIVE_PIN_Z_INDEX : DEFAULT_PIN_Z_INDEX}
                 >
                   <View style={styles.clusterMarker}>
                     <Text style={{ width: 0, height: 0 }}>{Math.random()}</Text>
@@ -411,6 +416,7 @@ export default class Map extends PureComponent<TProps, TState> {
                   ? icons.pinGreen
                   : icons.pinRed
                 }
+                zIndex={isEqual(coordinate, activePin) ? ACTIVE_PIN_Z_INDEX : DEFAULT_PIN_Z_INDEX}
               >
                 <View>
                   <Text style={{ width: 0, height: 0 }}>{Math.random()}</Text>
