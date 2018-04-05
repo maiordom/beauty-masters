@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         margin: 16,
       },
       ios: {
-        paddingTop: 34,
+        paddingTop: 14,
         paddingLeft: 16,
         paddingRight: 16,
         paddingBottom: 16,

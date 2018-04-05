@@ -258,6 +258,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: 20,
+      },
+    }),
   },
   content: {
     alignSelf: 'stretch',
