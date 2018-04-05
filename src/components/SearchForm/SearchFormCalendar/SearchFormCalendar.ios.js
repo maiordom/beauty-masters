@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import {
-  Button,
   Dimensions,
   View,
   TouchableWithoutFeedback,
@@ -37,20 +36,15 @@ const SearchFormCalendar = ({
         <View style={styles.modalContainer}>
           <PopupHeader
             title={i18n.filters.availableDays}
-            hasCloseButton
-            onCloseButtonPress={toggleCalendarModal}
+            hasAcceptButton
+            hasCloseButton={false}
+            onAcceptButtonPress={toggleCalendarModal}
           />
           <Calendar
             containerWidth={Dimensions.get('window').width}
             multiSelect
             onDateSelect={onDateSelect}
             selectedDates={selectedDates}
-          />
-          <Button
-            color={vars.color.buttonBlue}
-            onPress={toggleCalendarModal}
-            style={styles.closeButton}
-            title={i18n.masterCard.ok}
           />
         </View>
       </View>

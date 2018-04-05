@@ -1,15 +1,10 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import vars from '../vars';
-import { hexToRgba } from '../utils';
-
-const icons = {
-  close: require('../icons/ios/close.png'),
-  accept: require('../icons/ios/accept.png'),
-};
+import i18n from '../i18n';
 
 type TProps = {
   title: string,
@@ -41,7 +36,7 @@ export default class PopupHeader extends PureComponent<TProps, void> {
       <View style={styles.container}>
         {hasCloseButton && (
           <TouchableOpacity style={styles.button} onPress={onCloseButtonPress}>
-            <Image source={icons.close} />
+            <Text style={styles.buttonTitle}>{i18n.cancel}</Text>
           </TouchableOpacity>
         )}
         <View style={styles.flexStub} />
@@ -52,7 +47,7 @@ export default class PopupHeader extends PureComponent<TProps, void> {
         </View>
         {hasAcceptButton && (
           <TouchableOpacity style={styles.button} onPress={onAcceptButtonPress}>
-            <Image source={icons.accept} />
+            <Text style={styles.buttonTitle}>{i18n.done}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -61,19 +56,28 @@ export default class PopupHeader extends PureComponent<TProps, void> {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 2,
+  },
+  buttonTitle: {
+    color: vars.color.buttonBlue,
+    fontWeight: '600',
+    fontSize: 15,
+  },
   container: {
     height: 44,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: hexToRgba('#1E232D'),
+    borderTopWidth: 1,
+    borderTopColor: vars.color.cellSeparatorColorIOS,
+    borderBottomWidth: 1,
+    borderBottomColor: vars.color.cellSeparatorColorIOS,
   },
   flexStub: {
     flexGrow: 1,
-  },
-  button: {
-    paddingLeft: 16,
-    paddingRight: 16,
   },
   titleContainer: {
     position: 'absolute',
@@ -89,6 +93,5 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600',
     textAlign: 'center',
-    color: vars.color.white,
   },
 });
