@@ -213,6 +213,7 @@ export default class MasterEditorGeneral extends PureComponent<TProps, TState> {
               inputWrapperStyle={styles.phoneInputWrapper}
               keyboardType="phone-pad"
               onChange={this.onPhoneChange}
+              returnKeyType="done"
             />
           </View>
           {errorFillPhoneNumber && (
