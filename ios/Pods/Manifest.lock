@@ -4,6 +4,22 @@ PODS:
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
   - GoogleMaps (2.5.0):
     - GoogleMaps/Maps (= 2.5.0)
   - GoogleMaps/Base (2.5.0)
@@ -27,12 +43,13 @@ PODS:
     - react-native-google-analytics-bridge/Core (= 5.4.1)
   - react-native-google-analytics-bridge/Core (5.4.1):
     - React
-  - react-native-google-maps (0.19.0):
+  - react-native-google-maps (0.21.0):
+    - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
     - React
   - react-native-image-picker (0.14.3):
     - React
-  - react-native-maps (0.19.0):
+  - react-native-maps (0.21.0):
     - React
   - React/BatchedBridge (0.53.0):
     - React/Core
@@ -139,14 +156,15 @@ SPEC CHECKSUMS:
   BVLinearGradient: 8913bd8fdc47b85abc801ae8bae007bbfb6b4ce5
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   KSCrash: e4cda5c8612c5f9478defcf43418f24870d313f4
   React: c0d0a6492702a3f39b99d28cc4ae2293d6a7f5a9
   react-native-fetch-blob: 2bef9be702de8726f4d7bf58d2345579aaaee60d
   react-native-google-analytics-bridge: a4eb5c6e9e0702dda2ef1d25d7be7bdfc5a22f3b
-  react-native-google-maps: dc6d7644b0517e6e232644d2b66004714b91e152
+  react-native-google-maps: 68a831730110823d3dadfea0e133f0f4426cd213
   react-native-image-picker: 3693786b3d5958c8f71deed66ec068b323565e0d
-  react-native-maps: d3b689927722398a12a4b3007fd9a0c60e1c48cd
+  react-native-maps: fb06a43ce6884256097eec1dd69d23957b71df88
   ReactNativeFabric: 681ea672581869b08108ad6eb7ab3dda67f6f63d
   Sentry: 546079394a729c35ba8c10332942c25f96cac921
   SentryReactNative: 6ff92ce58c22df7c65f2fdf180a05fcf89960047
