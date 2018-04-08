@@ -365,7 +365,7 @@ export default class Map extends PureComponent<TProps, TState> {
     return (
       <View style={styles.container}>
         <MapView
-          region={region}
+          initialRegion={region}
           loadingBackgroundColor={hexToRgba(vars.color.black, 0)}
           loadingEnabled
           loadingIndicatorColor={vars.color.red}
