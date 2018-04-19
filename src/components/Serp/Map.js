@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import supercluster from 'supercluster';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Actions } from 'react-native-router-flux';
 import isEqual from 'lodash/isEqual';
 import debounce from 'lodash/debounce';
 import take from 'lodash/take';
@@ -76,9 +75,12 @@ type TProps = {
     getLocation: () => Promise<TRegionType>,
     searchMasters: Function,
     setLastMapLocation: Function,
+    onFilterPress: Function,
+    onMapCardPress: Function,
   },
   initialRegion: TRegionType,
   points: Array<TMapCard>,
+  requiresReload: boolean,
   userLocation: TRegionType,
 };
 
@@ -328,17 +330,11 @@ export default class Map extends PureComponent<TProps, TState> {
 
       trackEvent('navigateFromMapToCard');
 
-      Actions.card({
-        from: 'map',
-        id,
-        photo,
-        snippet: card,
-        username,
-      });
+      this.props.actions.onMapCardPress(id, photo, card, username);
     }
   };
 
-  componentWillReceiveProps({ points }: TProps) {
+  componentWillReceiveProps({ requiresReload, points }: TProps) {
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);
@@ -346,6 +342,10 @@ export default class Map extends PureComponent<TProps, TState> {
     const clusters = getClusters(supercluster, region);
 
     this.setState({ supercluster, clusters });
+
+    if (requiresReload) {
+      this.searchMasters();
+    }
   }
 
   render() {
@@ -356,7 +356,10 @@ export default class Map extends PureComponent<TProps, TState> {
       region,
       renderContent,
     } = this.state;
-    const { userLocation } = this.props;
+    const {
+      actions,
+      userLocation,
+    } = this.props;
 
     if (!renderContent) {
       return null;
@@ -427,7 +430,7 @@ export default class Map extends PureComponent<TProps, TState> {
         </MapView>
         <TouchableOpacity
           style={styles.filterButtonWrapper}
-          onPress={Actions.searchForm}
+          onPress={actions.onFilterPress}
         >
           <View style={styles.filterButton}>
             <Image source={icons.filter} />

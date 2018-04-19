@@ -56,7 +56,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   const actions = bindActionCreators({
     onSearchLocation: Actions.masterLocation,
     setDay,
@@ -77,6 +77,18 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(placesReset());
         dispatch(setSearchLocationName(null));
         dispatch(setLastMapLocation(null));
+      },
+      onCitySearch() {
+        Actions.searchCity();
+      },
+      onAddressSearch() {
+        Actions.searchAddress();
+      },
+      onApplySearch() {
+        Actions.popTo('serp');
+        // Has to 'refresh' instead of passing props to 'popTo'
+        // https://github.com/aksonov/react-native-router-flux/issues/2621
+        Actions.refresh({ requiresReload: true });
       },
     },
   };

@@ -2,6 +2,7 @@
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import { searchMasters } from '../actions/Search';
 import { setLastMapLocation } from '../actions/Map';
@@ -38,11 +39,21 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({
-    getLocation,
-    searchMasters,
-    setLastMapLocation,
-  }, dispatch),
+  actions: {
+    ...bindActionCreators({
+      getLocation,
+      searchMasters,
+      setLastMapLocation,
+    }, dispatch),
+    onFilterPress: () => Actions.searchForm(),
+    onMapCardPress: (id, photo, snippet, username) => Actions.card({
+      from: 'map',
+      id,
+      photo,
+      snippet,
+      username,
+    }),
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

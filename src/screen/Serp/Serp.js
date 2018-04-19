@@ -1,9 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { View, StyleSheet, Platform } from 'react-native';
-import get from 'lodash/get';
 
 import SerpNavBar from '../../components/Serp/SerpNavBar';
 import Map from '../../containers/Map';
@@ -28,6 +26,7 @@ export default class Serp extends PureComponent<any, TState> {
 
   render() {
     const { activeView } = this.state;
+    const { requiresReload } = this.props;
 
     return (
       <View style={styles.scene}>
@@ -37,7 +36,7 @@ export default class Serp extends PureComponent<any, TState> {
           onListPress={this.onListPress}
         />
         {activeView === 'map'
-          ? <Map />
+          ? <Map requiresReload={requiresReload} />
           : <SerpList />
         }
       </View>

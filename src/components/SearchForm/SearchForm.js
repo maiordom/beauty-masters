@@ -2,7 +2,6 @@
 
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, Platform, ScrollView, InteractionManager } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import find from 'lodash/find';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -37,6 +36,9 @@ type TProps = {
     toggleService: Function,
     toggleServiceCategory: Function,
     toggleWithdrawal: Function,
+    onApplySearch: Function,
+    onCitySearch: Function,
+    onAddressSearch: Function,
   },
   categorySelectionFlags: {
     extension: boolean,
@@ -170,7 +172,7 @@ export default class SearchFormShort extends PureComponent<TProps, TState> {
       trackEvent('notAvailableUserLocation');
     }
 
-    Actions.serp();
+    this.props.actions.onApplySearch();
   };
 
   onAddressClearPress = () => {
@@ -179,6 +181,7 @@ export default class SearchFormShort extends PureComponent<TProps, TState> {
 
   render() {
     const {
+      actions,
       categorySelectionFlags,
       general,
       homeDeparture,
@@ -220,14 +223,14 @@ export default class SearchFormShort extends PureComponent<TProps, TState> {
           />
           <FilterLabel text={i18n.search.masterPlace} />
           <FilterTab
-            onChange={Actions.searchCity}
+            onChange={actions.onCitySearch}
             title={i18n.city}
             subtitle={general.cities.selected != null ? general.cities.selected.name : undefined}
           />
           <FilterTab
             controlTitle={i18n.clear}
             onControlPress={this.onAddressClearPress}
-            onChange={Actions.searchAddress}
+            onChange={actions.onAddressSearch}
             subtitle={place.label || i18n.location.here}
             title={i18n.search.nearWith}
           />
