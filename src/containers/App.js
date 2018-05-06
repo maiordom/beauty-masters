@@ -9,7 +9,7 @@ import NavigationRouter from './NavigationRouter';
 
 import { refreshToken } from '../actions/Auth';
 import { getUserProfile } from '../actions/Profile';
-import { getLocation } from '../actions/Common';
+import { requestGeoAuthorization } from '../actions/Common';
 import {
   getCategoryServices,
   getServices,
@@ -116,11 +116,7 @@ export default class App extends Component {
     setRawCities(citiesData);
     masterEditCityModelSet(store.getState().geo.cities);
 
-    setTimeout(() => {
-      getLocation(true)(store.dispatch).catch((err) => {
-        console.log('geo::location::', err);
-      });
-    }, 50);
+    requestGeoAuthorization();
   }
 
   render() {

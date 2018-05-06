@@ -74,7 +74,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Приложению нужен доступ к камере, чтобы вы могли разместить фотографии в вашем профиле.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Приложению нужен доступ в вашей геолокации, чтобы подобрать мастеров поблизости.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Приложению нужен доступ к фотографиям, чтобы вы могли разместить примеры ваших работ.</string>
 	<key>UILaunchStoryboardName</key>

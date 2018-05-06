@@ -206,6 +206,7 @@ export default class Map extends PureComponent<TProps, TState> {
   }
 
   componentDidMount() {
+    this.props.actions.getLocation();
     trackEvent('viewMap');
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderContent: true });
@@ -334,7 +335,16 @@ export default class Map extends PureComponent<TProps, TState> {
     }
   };
 
-  componentWillReceiveProps({ requiresReload, points }: TProps) {
+  componentWillReceiveProps({ requiresReload, points, initialRegion }: TProps) {
+    if (!isEqual(initialRegion, this.props.initialRegion)) {
+      const region = {
+        ...initialRegion,
+        latitudeDelta: initialRegion.latitudeDelta || DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: initialRegion.longitudeDelta || DEFAULT_LONGITUDE_DELTA,
+      };
+      this.setState({ region });
+    }
+    
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);

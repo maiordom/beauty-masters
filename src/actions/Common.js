@@ -11,6 +11,10 @@ export const setActivityIndicator = (animating: boolean) => ({
   animating,
 });
 
+export const requestGeoAuthorization = () => {
+  navigator.geolocation.requestAuthorization();
+};
+
 export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) => {
   const deferred = defer();
 
@@ -39,7 +43,7 @@ export const getLocation = (updateSearchQuery: boolean) => (dispatch: Function) 
     log('geo::location::exx', exx);
     deferred.reject(exx);
   }, {
-    timeout: 1000,
+    timeout: 2000,
   });
 
   return deferred.promise;
