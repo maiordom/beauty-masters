@@ -335,16 +335,16 @@ export default class Map extends PureComponent<TProps, TState> {
     }
   };
 
-  componentWillReceiveProps({ requiresReload, points, initialRegion }: TProps) {
-    if (!isEqual(initialRegion, this.props.initialRegion)) {
+  componentWillReceiveProps({ requiresReload, points, userLocation }: TProps) {
+    if (!isEqual(userLocation, this.props.userLocation)) {
       const region = {
-        ...initialRegion,
-        latitudeDelta: initialRegion.latitudeDelta || DEFAULT_LATITUDE_DELTA,
-        longitudeDelta: initialRegion.longitudeDelta || DEFAULT_LONGITUDE_DELTA,
+        ...userLocation,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
       };
       this.setState({ region });
     }
-    
+
     const { region } = this.state;
 
     const geoPoints = convertToGeoPoints(points);
