@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Text, TextInput } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import axios from 'axios';
 
@@ -36,7 +36,7 @@ axios.interceptors.response.use(
   (res) => res,
   (error) => {
     const state = store.getState();
-    if (error.response.status ===  401) {
+    if (error.response.status === 401) {
       const { config } = error.response;
 
       log(`${config.url}::${config.method.toUpperCase()}::401::response`);
@@ -59,10 +59,17 @@ axios.interceptors.response.use(
     }
 
     return Promise.resolve(error.response);
-  }
+  },
 );
 
 export default class App extends Component {
+  constructor() {
+    super();
+
+    Text.defaultProps.allowFontScaling = false;
+    TextInput.defaultProps.allowFontScaling = false;
+  }
+
   readServices() {
     AsyncStorage.getItem('services').then((res) => {
       const result = JSON.parse(res);
