@@ -203,6 +203,12 @@ const styles = StyleSheet.create({
   agreementText: {
     color: vars.color.red,
     textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: 10,
+        marginBottom: 10,
+      },
+    }),
   },
   manifestText: {
     ...Platform.select({

@@ -39,7 +39,6 @@ const icons = {
 
 type TProps = {
   actions: Object,
-  onAuthSuccess: () => void
 };
 
 type TState = {
@@ -222,6 +221,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     marginBottom: 16,
+    ...Platform.select({
+      ios: {
+        marginTop: 12,
+      },
+    }),
   },
   recoveryButtonText: {
     color: vars.color.red,

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { View, Text, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import Registration from '../../containers/Registration';
@@ -80,28 +81,30 @@ export default class MasterAuthorization extends PureComponent {
           </TouchableHighlight>
           <Text style={styles.navTitle}>{i18n.masterAuthorization}</Text>
         </View>
-        <Image style={styles.logo} source={logoIcon} />
-        <View style={styles.tabs}>
-          {_.map(tabs, (tab, index) => (
-            <TouchableHighlight
-              key={index}
-              style={styles.tabItem}
-              onPress={tab.action}
-              activeOpacity={1}
-              underlayColor="transparent"
-            >
-              <View>
-                <Text style={tab.style}>{tab.title}</Text>
-                <View style={styles.switchArrow}>
-                  {tab.active && (<Image source={switchArrowIcon} />)}
+        <KeyboardAwareScrollView style={styles.content}>
+          <Image style={styles.logo} source={logoIcon} />
+          <View style={styles.tabs}>
+            {_.map(tabs, (tab, index) => (
+              <TouchableHighlight
+                key={index}
+                style={styles.tabItem}
+                onPress={tab.action}
+                activeOpacity={1}
+                underlayColor="transparent"
+              >
+                <View>
+                  <Text style={tab.style}>{tab.title}</Text>
+                  <View style={styles.switchArrow}>
+                    {tab.active && (<Image source={switchArrowIcon} />)}
+                  </View>
                 </View>
-              </View>
-            </TouchableHighlight>
-          ))}
-        </View>
-        <View style={styles.tabContent}>
-          {TabItem}
-        </View>
+              </TouchableHighlight>
+            ))}
+          </View>
+          <View style={styles.tabContent}>
+            {TabItem}
+          </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
@@ -111,7 +114,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: vars.bodyColor,
-    alignItems: 'center',
+  },
+  content: {
+    flex: 1,
   },
   navBar: {
     height: 40,
@@ -158,6 +163,9 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         marginTop: 40,
+      },
+      ios: {
+        alignSelf: 'center',
       },
     }),
   },
